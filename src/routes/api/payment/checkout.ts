@@ -1,9 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { getAuth } from '@/core/auth';
+import { PaymentType } from '@/core/payment/types';
 import { envConfigs } from '@/config';
 import { getPricingProduct } from '@/config/pricing';
 import { getAllConfigs } from '@/modules/config/service';
+import { getCredentialByCode } from '@/modules/credentials/service';
+import {
+  findPartnerByBusinessId,
+  isPartnerCurrentlyActive,
+  partnerBusinessId,
+} from '@/modules/partners/service';
 import { createCheckout } from '@/modules/payment/service';
 import { enforceMinIntervalRateLimit } from '@/lib/rate-limit';
 import { respData, respErr } from '@/lib/resp';
@@ -39,7 +46,16 @@ async function POST({ request }: { request: Request }) {
     }
 
     const body = await request.json().catch(() => ({}));
-    const { product_id, payment_provider, redirect } = body;
+    const {
+      product_id,
+      payment_provider,
+      redirect,
+      metadata,
+      partner_id,
+      channel_code,
+      credential_code,
+      seats,
+    } = body;
 
     if (!product_id || typeof product_id !== 'string') {
       return respErr('Missing product_id');
@@ -52,6 +68,69 @@ async function POST({ request }: { request: Request }) {
       return respErr('Unknown product');
     }
 
+    const credentialCode =
+      typeof credential_code === 'string'
+        ? credential_code.trim().toUpperCase()
+        : '';
+    const fulfillment = product.fulfillment || 'generic';
+
+    const parsedSeats = Math.floor(Number(seats || 1));
+    const seatCount = Number.isFinite(parsedSeats)
+      ? Math.max(1, parsedSeats)
+      : 1;
+    if (seatCount > 500) {
+      return respErr('seat count exceeds partner checkout limit');
+    }
+
+    const requestedPartnerId = String(partner_id || channel_code || '').trim();
+    const partnerRow = requestedPartnerId
+      ? await findPartnerByBusinessId(requestedPartnerId)
+      : null;
+    if (requestedPartnerId && !partnerRow) {
+      return respErr('partner not found or not bound to current user');
+    }
+    if (partnerRow && !isPartnerCurrentlyActive(partnerRow)) {
+      return respErr('partner is not active for new purchases');
+    }
+    if (
+      partnerRow &&
+      partner_id &&
+      partnerRow.ownerUserId !== session.user.id
+    ) {
+      return respErr('partner not found or not bound to current user');
+    }
+    if (partnerRow && fulfillment !== 'credential') {
+      return respErr('partner checkout only supports credential products');
+    }
+    if (partnerRow && credentialCode) {
+      return respErr('partner checkout does not support credential recharge');
+    }
+
+    if (fulfillment === 'credits_only' && !credentialCode) {
+      return respErr('credential_code is required for credits-only products');
+    }
+
+    if (credentialCode) {
+      const selectedCredential = await getCredentialByCode(credentialCode);
+      if (
+        !selectedCredential ||
+        selectedCredential.ownerUserId !== session.user.id
+      ) {
+        return respErr('credential not found or not owned by current user');
+      }
+      if (selectedCredential.status !== 'active') {
+        return respErr(`credential is ${selectedCredential.status}`);
+      }
+      if (
+        fulfillment === 'credits_only' &&
+        String(selectedCredential.planCode || '').toLowerCase() === 'trial'
+      ) {
+        return respErr(
+          'trial activation codes cannot buy credit packs; upgrade to a paid plan first'
+        );
+      }
+    }
+
     // Optional per-provider "test amount" override (admin-configured).
     // Only the charged amount is overridden — credits granted and order
     // amount stored both come from the authoritative catalog.
@@ -61,31 +140,80 @@ async function POST({ request }: { request: Request }) {
       ? configs[`${providerKey}_test_amount`]
       : undefined;
     const testAmount = testAmountRaw ? parseInt(testAmountRaw) : 0;
-    const chargeAmount = testAmount > 0 ? testAmount : product.priceInCents;
+    const baseAmount = partnerRow
+      ? product.priceInCents * seatCount
+      : product.priceInCents;
+    const chargeAmount = testAmount > 0 ? testAmount : baseAmount;
+    const defaultRedirectPath =
+      product.type === PaymentType.SUBSCRIPTION
+        ? '/settings/billing'
+        : '/settings/payments';
 
     // Build success/cancel URLs — only accept same-origin redirects.
     const baseUrl = envConfigs.app_url || 'http://localhost:3000';
-    const safeRedirectPath = safeSameOriginPath(redirect, '/settings/billing');
-    const finalRedirect = redirect
+    const safeRedirectPath = safeSameOriginPath(redirect, defaultRedirectPath);
+    const successRedirect = redirect
       ? `${baseUrl}/auth-callback?redirect=${encodeURIComponent(`${baseUrl}${safeRedirectPath}`)}`
-      : `${baseUrl}/settings/billing`;
-    const successUrl = `${baseUrl}/api/payment/callback?redirect=${encodeURIComponent(finalRedirect)}`;
+      : `${baseUrl}${defaultRedirectPath}`;
     const cancelUrl = `${baseUrl}/pricing`;
+
+    const partnerId = partnerRow ? partnerBusinessId(partnerRow) : null;
+    const partnerVariantId = partnerRow?.variantId || 'official';
+    const partnerPath = channel_code
+      ? `/partner/${encodeURIComponent(String(channel_code).trim())}/buy`
+      : '/partner';
+    const partnerSuccessUrl = partnerRow
+      ? `${baseUrl}${partnerPath}`
+      : successRedirect;
+    const partnerCancelUrl = partnerRow
+      ? `${baseUrl}${partnerPath}`
+      : cancelUrl;
+    const partnerPriceRuleSnapshot = partnerRow
+      ? JSON.stringify({
+          partnerId,
+          variantId: partnerVariantId,
+          seats: seatCount,
+          unitAmount: product.priceInCents,
+          baseTotalAmount: product.priceInCents * seatCount,
+          finalAmount: chargeAmount,
+          creditsPerSeat: product.credits,
+          maxBindings: product.maxBindings || 1,
+          currency: product.currency,
+        })
+      : null;
+    const credentialAction =
+      fulfillment === 'credential'
+        ? credentialCode
+          ? 'recharge'
+          : 'issue'
+        : fulfillment === 'credits_only'
+          ? 'recharge'
+          : undefined;
 
     const checkout = await createCheckout({
       userId: session.user.id,
       userEmail: session.user.email,
       productName: product.productName,
       planName: product.planName,
-      credits: product.credits,
+      credits: partnerRow ? 0 : product.credits,
       creditsValidDays: product.creditsValidDays,
       paymentOrder: {
         productId: product.productId,
         price: { amount: chargeAmount, currency: product.currency },
         type: product.type,
         description: product.description,
-        successUrl,
-        cancelUrl,
+        successUrl: partnerSuccessUrl,
+        cancelUrl: partnerCancelUrl,
+        metadata: {
+          ...(metadata && typeof metadata === 'object' ? metadata : {}),
+          ...(partnerRow
+            ? {
+                partner_id: partnerId,
+                variant_id: partnerVariantId,
+                seats: seatCount,
+              }
+            : {}),
+        },
         customer: {
           email: session.user.email,
           name: session.user.name,
@@ -99,9 +227,16 @@ async function POST({ request }: { request: Request }) {
           : undefined,
       },
       provider: payment_provider,
+      credentialAction: partnerRow ? 'issue' : credentialAction,
+      credentialCode: credentialCode || null,
+      partnerId,
+      variantId: partnerRow ? partnerVariantId : null,
+      seatCount: partnerRow ? seatCount : 1,
+      priceRuleSnapshot: partnerPriceRuleSnapshot,
     });
 
-    return respData({ checkout_url: checkout.checkoutInfo.checkoutUrl });
+    const checkoutUrl = checkout.checkoutInfo.checkoutUrl;
+    return respData({ checkoutUrl, checkout_url: checkoutUrl });
   } catch (error: any) {
     console.error('checkout error:', error);
     return respErr(error.message || 'Checkout failed');

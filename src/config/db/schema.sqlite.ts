@@ -6,7 +6,13 @@
  */
 
 import { sql } from 'drizzle-orm';
-import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import {
+  index,
+  integer,
+  sqliteTable,
+  text,
+  uniqueIndex,
+} from 'drizzle-orm/sqlite-core';
 
 const table = sqliteTable;
 
@@ -124,6 +130,253 @@ export const config = table('config', {
   value: text('value'),
 });
 
+export const benefitTask = table(
+  'benefit_task',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    taskType: text('task_type').notNull(),
+    status: text('status').notNull().default('pending'),
+    surveySource: text('survey_source').notNull().default(''),
+    surveyRole: text('survey_role').notNull().default(''),
+    surveyUseCase: text('survey_use_case').notNull().default(''),
+    surveyDetail: text('survey_detail').notNull().default(''),
+    entryPoint: text('entry_point').notNull().default(''),
+    browserInstallHash: text('browser_install_hash').notNull().default(''),
+    rewardType: text('reward_type').notNull().default(''),
+    rewardCredentialId: text('reward_credential_id'),
+    rewardCredentialCode: text('reward_credential_code'),
+    rewardGrantedAt: integer('reward_granted_at', { mode: 'timestamp_ms' }),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    uniqueIndex('uq_benefit_task_user_task').on(table.userId, table.taskType),
+    uniqueIndex('uq_benefit_task_browser_trial')
+      .on(table.browserInstallHash, table.taskType)
+      .where(
+        sql`${table.browserInstallHash} <> '' and ${table.rewardType} = 'trial_code'`
+      ),
+    index('idx_benefit_task_user_status').on(table.userId, table.status),
+    index('idx_benefit_task_browser_hash').on(table.browserInstallHash),
+    index('idx_benefit_task_type_status').on(table.taskType, table.status),
+  ]
+);
+
+export const channelSurveyResponse = table(
+  'channel_survey_response',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    source: text('source').notNull().default(''),
+    role: text('role').notNull().default(''),
+    useCase: text('use_case').notNull().default(''),
+    detail: text('detail').notNull().default(''),
+    answersJson: text('answers_json').notNull().default('{}'),
+    schemaVersion: text('schema_version')
+      .notNull()
+      .default('channel-survey-v1'),
+    rewardLedgerId: text('reward_ledger_id'),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index('idx_channel_survey_response_user_created').on(
+      table.userId,
+      table.createdAt
+    ),
+    index('idx_channel_survey_response_source_created').on(
+      table.source,
+      table.createdAt
+    ),
+    index('idx_channel_survey_response_reward_ledger').on(table.rewardLedgerId),
+  ]
+);
+
+export const experienceFeedbackResponse = table(
+  'experience_feedback_response',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    rating: integer('rating').notNull(),
+    comment: text('comment').notNull().default(''),
+    expectedFeature: text('expected_feature').notNull().default(''),
+    answersJson: text('answers_json').notNull().default('{}'),
+    schemaVersion: text('schema_version')
+      .notNull()
+      .default('experience-feedback-v1'),
+    rewardLedgerId: text('reward_ledger_id'),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index('idx_experience_feedback_user_created').on(
+      table.userId,
+      table.createdAt
+    ),
+    index('idx_experience_feedback_rating_created').on(
+      table.rating,
+      table.createdAt
+    ),
+    index('idx_experience_feedback_reward_ledger').on(table.rewardLedgerId),
+  ]
+);
+
+export const benefitRewardLedger = table(
+  'benefit_reward_ledger',
+  {
+    id: text('id').primaryKey(),
+    taskType: text('task_type').notNull(),
+    sourceResponseId: text('source_response_id').notNull().default(''),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    rewardAction: text('reward_action').notNull(),
+    credentialId: text('credential_id'),
+    credentialCode: text('credential_code'),
+    durationDays: integer('duration_days').notNull().default(0),
+    credits: integer('credits').notNull().default(0),
+    configSnapshotJson: text('config_snapshot_json').notNull().default('{}'),
+    status: text('status').notNull().default('pending'),
+    errorMessage: text('error_message').notNull().default(''),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index('idx_benefit_reward_user_created').on(table.userId, table.createdAt),
+    index('idx_benefit_reward_task_created').on(
+      table.taskType,
+      table.createdAt
+    ),
+    index('idx_benefit_reward_credential').on(table.credentialCode),
+    index('idx_benefit_reward_status_created').on(
+      table.status,
+      table.createdAt
+    ),
+  ]
+);
+
+export const welfareUsageSummary = table(
+  'welfare_usage_summary',
+  {
+    id: text('id').primaryKey(),
+    credentialId: text('credential_id').references(() => credential.id),
+    credentialCode: text('credential_code').notNull(),
+    userId: text('user_id').references(() => user.id),
+    clientUuid: text('client_uuid').notNull().default(''),
+    coreCaptureSuccessCount: integer('core_capture_success_count')
+      .notNull()
+      .default(0),
+    exportOrCopySuccessCount: integer('export_or_copy_success_count')
+      .notNull()
+      .default(0),
+    syncSuccessCount: integer('sync_success_count').notNull().default(0),
+    highValueClickCount: integer('high_value_click_count').notNull().default(0),
+    failureSignalCount: integer('failure_signal_count').notNull().default(0),
+    failureStreak: integer('failure_streak').notNull().default(0),
+    totalEventCount: integer('total_event_count').notNull().default(0),
+    latestEventType: text('latest_event_type').notNull().default(''),
+    metadataJson: text('metadata_json'),
+    firstSeenAt: integer('first_seen_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    lastEventAt: integer('last_event_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    uniqueIndex('welfare_usage_credential_code_key').on(table.credentialCode),
+    uniqueIndex('welfare_usage_user_id_key').on(table.userId),
+    index('idx_welfare_usage_user_updated_at').on(
+      table.userId,
+      table.updatedAt
+    ),
+  ]
+);
+
+export const welfareFeedbackTask = table(
+  'welfare_feedback_task',
+  {
+    id: text('id').primaryKey(),
+    taskType: text('task_type').notNull().default('usage_feedback'),
+    credentialId: text('credential_id').references(() => credential.id),
+    credentialCode: text('credential_code').notNull(),
+    userId: text('user_id').references(() => user.id),
+    clientUuid: text('client_uuid').notNull().default(''),
+    rating: integer('rating').notNull().default(0),
+    feedbackText: text('feedback_text').notNull().default(''),
+    feedbackTextHash: text('feedback_text_hash').notNull().default(''),
+    sentiment: text('sentiment').notNull().default('neutral'),
+    intent: text('intent').notNull().default('neutral'),
+    storeReviewPromptEligible: integer('store_review_prompt_eligible', {
+      mode: 'boolean',
+    })
+      .notNull()
+      .default(false),
+    rewardType: text('reward_type').notNull().default('credential_extension'),
+    rewardDays: integer('reward_days').notNull().default(3),
+    rewardCredentialId: text('reward_credential_id'),
+    rewardCredentialCode: text('reward_credential_code'),
+    rewardGrantedAt: integer('reward_granted_at', { mode: 'timestamp_ms' }),
+    status: text('status').notNull().default('completed'),
+    metadataJson: text('metadata_json'),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    uniqueIndex('welfare_feedback_credential_task_key').on(
+      table.credentialCode,
+      table.taskType
+    ),
+    uniqueIndex('welfare_feedback_user_task_key').on(
+      table.userId,
+      table.taskType
+    ),
+    index('idx_welfare_feedback_user_created_at').on(
+      table.userId,
+      table.createdAt
+    ),
+  ]
+);
+
 export const taxonomy = table(
   'taxonomy',
   {
@@ -237,6 +490,19 @@ export const order = table(
     transactionId: text('transaction_id'),
     paymentUserName: text('payment_user_name'),
     paymentUserId: text('payment_user_id'),
+    credentialAction: text('credential_action').notNull().default('none'),
+    credentialSyncStatus: text('credential_sync_status')
+      .notNull()
+      .default('pending'),
+    credentialProcessedAt: integer('credential_processed_at', {
+      mode: 'timestamp_ms',
+    }),
+    credentialSyncError: text('credential_sync_error'),
+    credentialCode: text('credential_code'),
+    partnerId: text('partner_id'),
+    variantId: text('variant_id'),
+    seatCount: integer('seat_count').notNull().default(1),
+    priceRuleSnapshot: text('price_rule_snapshot'),
   },
   (table) => [
     index('idx_order_user_status_payment_type').on(
@@ -338,6 +604,7 @@ export const credit = table(
     deletedAt: integer('deleted_at', { mode: 'timestamp_ms' }),
     consumedDetail: text('consumed_detail'),
     metadata: text('metadata'),
+    credentialCode: text('credential_code'),
   },
   (table) => [
     index('idx_credit_consume_fifo').on(
@@ -349,6 +616,247 @@ export const credit = table(
     ),
     index('idx_credit_order_no').on(table.orderNo),
     index('idx_credit_subscription_no').on(table.subscriptionNo),
+  ]
+);
+
+export const credential = table(
+  'credential',
+  {
+    id: text('id').primaryKey(),
+    code: text('code').unique().notNull(),
+    ownerUserId: text('owner_user_id').references(() => user.id, {
+      onDelete: 'set null',
+    }),
+    sourceOrderNo: text('source_order_no'),
+    planCode: text('plan_code'),
+    durationPreset: text('duration_preset'),
+    maxBindings: integer('max_bindings').notNull().default(1),
+    expiresAt: integer('expires_at', { mode: 'timestamp_ms' }),
+    status: text('status').notNull().default('active'),
+    partnerId: text('partner_id'),
+    variantId: text('variant_id'),
+    notes: text('notes'),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+    deletedAt: integer('deleted_at', { mode: 'timestamp_ms' }),
+  },
+  (table) => [
+    index('idx_credential_owner_status').on(table.ownerUserId, table.status),
+    index('idx_credential_source_order').on(table.sourceOrderNo),
+    index('idx_credential_partner').on(table.partnerId, table.variantId),
+  ]
+);
+
+export const credentialCredit = table(
+  'credential_credit',
+  {
+    id: text('id').primaryKey(),
+    credentialId: text('credential_id'),
+    credentialCode: text('credential_code').notNull(),
+    userId: text('user_id').references(() => user.id, {
+      onDelete: 'set null',
+    }),
+    orderNo: text('order_no'),
+    totalCredits: integer('total_credits').notNull().default(0),
+    usedCredits: integer('used_credits').notNull().default(0),
+    expiresAt: integer('expires_at', { mode: 'timestamp_ms' }),
+    status: text('status').notNull().default('active'),
+    activatedAt: integer('activated_at', { mode: 'timestamp_ms' }),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index('idx_credential_credit_code').on(table.credentialCode),
+    index('idx_credential_credit_user_status').on(table.userId, table.status),
+  ]
+);
+
+export const referralAccount = table(
+  'referral_account',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .unique()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    inviteCode: text('invite_code').unique().notNull(),
+    status: text('status').notNull().default('active'),
+    totalInvitees: integer('total_invitees').notNull().default(0),
+    totalCommission: integer('total_commission').notNull().default(0),
+    availableCommission: integer('available_commission').notNull().default(0),
+    pendingCommission: integer('pending_commission').notNull().default(0),
+    withdrawnCommission: integer('withdrawn_commission').notNull().default(0),
+    currency: text('currency').notNull().default('usd'),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index('idx_referral_account_user').on(table.userId),
+    index('idx_referral_account_code').on(table.inviteCode),
+  ]
+);
+
+export const referralRelation = table(
+  'referral_relation',
+  {
+    id: text('id').primaryKey(),
+    referrerId: text('referrer_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    refereeId: text('referee_id')
+      .notNull()
+      .unique()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    referralCode: text('referral_code').notNull(),
+    hasFirstOrder: integer('has_first_order', { mode: 'boolean' })
+      .notNull()
+      .default(false),
+    firstOrderNo: text('first_order_no'),
+    firstOrderAt: integer('first_order_at', { mode: 'timestamp_ms' }),
+    status: text('status').notNull().default('active'),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index('idx_referral_relation_referrer').on(table.referrerId),
+    index('idx_referral_relation_referee').on(table.refereeId),
+    index('idx_referral_relation_code').on(table.referralCode),
+  ]
+);
+
+export const referralCommission = table(
+  'referral_commission',
+  {
+    id: text('id').primaryKey(),
+    referrerUserId: text('referrer_user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    inviteeUserId: text('invitee_user_id').references(() => user.id, {
+      onDelete: 'set null',
+    }),
+    orderNo: text('order_no'),
+    amount: integer('amount').notNull().default(0),
+    currency: text('currency').notNull().default('usd'),
+    rate: integer('rate').notNull().default(0),
+    status: text('status').notNull().default('pending'),
+    reason: text('reason'),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index('idx_referral_commission_referrer').on(
+      table.referrerUserId,
+      table.status
+    ),
+    index('idx_referral_commission_order').on(table.orderNo),
+  ]
+);
+
+export const referralWithdrawal = table(
+  'referral_withdrawal',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    amount: integer('amount').notNull(),
+    currency: text('currency').notNull().default('usd'),
+    status: text('status').notNull().default('pending'),
+    accountInfo: text('account_info'),
+    reviewerUserId: text('reviewer_user_id'),
+    reviewedAt: integer('reviewed_at', { mode: 'timestamp_ms' }),
+    reason: text('reason'),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index('idx_referral_withdrawal_user_status').on(table.userId, table.status),
+    index('idx_referral_withdrawal_status').on(table.status),
+  ]
+);
+
+export const referralRiskLog = table(
+  'referral_risk_log',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    riskType: text('risk_type').notNull(),
+    riskLevel: text('risk_level').notNull().default('low'),
+    details: text('details'),
+    action: text('action'),
+    resolvedAt: integer('resolved_at', { mode: 'timestamp_ms' }),
+    resolvedBy: text('resolved_by'),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+  },
+  (table) => [
+    index('idx_referral_risk_log_user').on(table.userId),
+    index('idx_referral_risk_log_type').on(table.riskType, table.createdAt),
+  ]
+);
+
+export const partner = table(
+  'partner',
+  {
+    id: text('id').primaryKey(),
+    partnerCode: text('partner_code').unique().notNull(),
+    name: text('name').notNull(),
+    type: text('type').notNull().default('supplier'),
+    status: text('status').notNull().default('active'),
+    ownerUserId: text('owner_user_id').references(() => user.id, {
+      onDelete: 'set null',
+    }),
+    ownerEmail: text('owner_email'),
+    variantId: text('variant_id'),
+    contractStatus: text('contract_status').notNull().default('draft'),
+    seatLimit: integer('seat_limit').notNull().default(0),
+    usedSeats: integer('used_seats').notNull().default(0),
+    notes: text('notes'),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index('idx_partner_code').on(table.partnerCode),
+    index('idx_partner_owner').on(table.ownerUserId),
+    index('idx_partner_status').on(table.status),
   ]
 );
 
@@ -574,6 +1082,13 @@ export type Account = typeof account.$inferSelect;
 export type NewAccount = typeof account.$inferInsert;
 export type Verification = typeof verification.$inferSelect;
 export type Config = typeof config.$inferSelect;
+export type BenefitTask = typeof benefitTask.$inferSelect;
+export type ChannelSurveyResponse = typeof channelSurveyResponse.$inferSelect;
+export type ExperienceFeedbackResponse =
+  typeof experienceFeedbackResponse.$inferSelect;
+export type BenefitRewardLedger = typeof benefitRewardLedger.$inferSelect;
+export type WelfareUsageSummary = typeof welfareUsageSummary.$inferSelect;
+export type WelfareFeedbackTask = typeof welfareFeedbackTask.$inferSelect;
 export type Taxonomy = typeof taxonomy.$inferSelect;
 export type NewTaxonomy = typeof taxonomy.$inferInsert;
 export type Post = typeof post.$inferSelect;
@@ -597,6 +1112,15 @@ export type Chat = typeof chat.$inferSelect;
 export type NewChat = typeof chat.$inferInsert;
 export type ChatMessage = typeof chatMessage.$inferSelect;
 export type NewChatMessage = typeof chatMessage.$inferInsert;
+export type ReferralAccount = typeof referralAccount.$inferSelect;
+export type NewReferralAccount = typeof referralAccount.$inferInsert;
+export type ReferralRelation = typeof referralRelation.$inferSelect;
+export type NewReferralRelation = typeof referralRelation.$inferInsert;
+export type ReferralCommission = typeof referralCommission.$inferSelect;
+export type NewReferralCommission = typeof referralCommission.$inferInsert;
+export type ReferralWithdrawal = typeof referralWithdrawal.$inferSelect;
+export type NewReferralWithdrawal = typeof referralWithdrawal.$inferInsert;
+export type ReferralRiskLog = typeof referralRiskLog.$inferSelect;
 
 // ─── Tickets (support) ───────────────────────────────────────────────────────
 

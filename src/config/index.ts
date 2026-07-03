@@ -16,9 +16,11 @@ const publicEnv = (key: string) => metaEnv[key] ?? procEnv[key];
 export const envConfigs: Record<string, string> = {
   // App (public)
   app_url: publicEnv('VITE_APP_URL') ?? 'http://localhost:3000',
-  app_name: publicEnv('VITE_APP_NAME') ?? 'ShipAny',
-  app_description: publicEnv('VITE_APP_DESCRIPTION') ?? 'Ship your SaaS faster',
-  app_logo: publicEnv('VITE_APP_LOGO') ?? '/logo.svg',
+  app_name: publicEnv('VITE_APP_NAME') ?? 'MediaClaw',
+  app_description:
+    publicEnv('VITE_APP_DESCRIPTION') ??
+    'MediaClaw helps teams capture, monitor, and operationalize social media intelligence.',
+  app_logo: publicEnv('VITE_APP_LOGO') ?? '/logo.png',
 
   // Database
   database_url: procEnv.DATABASE_URL ?? '',
@@ -31,6 +33,9 @@ export const envConfigs: Record<string, string> = {
   // Auth
   auth_url: procEnv.AUTH_URL ?? publicEnv('VITE_APP_URL') ?? '',
   auth_secret: procEnv.AUTH_SECRET ?? '',
+  license_internal_token: procEnv.LICENSE_INTERNAL_TOKEN ?? '',
+  referral_cron_token: procEnv.REFERRAL_CRON_TOKEN ?? '',
+  credit_cron_token: procEnv.CREDIT_CRON_TOKEN ?? '',
 
   // Payment - Stripe
   stripe_secret_key: procEnv.STRIPE_SECRET_KEY ?? '',
@@ -42,6 +47,10 @@ export const envConfigs: Record<string, string> = {
   paypal_client_secret: procEnv.PAYPAL_CLIENT_SECRET ?? '',
   paypal_webhook_id: procEnv.PAYPAL_WEBHOOK_ID ?? '',
   paypal_environment: procEnv.PAYPAL_ENVIRONMENT ?? 'production',
+
+  // Payment - Zpay / Epay clone
+  zpay_pid: procEnv.ZPAY_PID ?? '',
+  zpay_pkey: procEnv.ZPAY_PKEY ?? '',
 
   // Payment - Alipay
   alipay_app_id: procEnv.ALIPAY_APP_ID ?? '',
@@ -77,7 +86,29 @@ export const envConfigs: Record<string, string> = {
   // OPENAI_API_KEY / ANTHROPIC_API_KEY are common ambient vars, and falling back
   // to them would let the admin "Test" silently pass on the machine's own key.
   replicate_api_token: procEnv.REPLICATE_API_TOKEN ?? '',
+  chat_ai_provider: procEnv.CHAT_AI_PROVIDER ?? 'openrouter',
+  chat_ai_fallback_providers: procEnv.CHAT_AI_FALLBACK_PROVIDERS ?? '',
+  kimi_api_key: procEnv.KIMI_API_KEY ?? '',
+  kimi_base_url:
+    procEnv.KIMI_BASE_URL ??
+    procEnv.KIMI_API_BASE_URL ??
+    'https://api.moonshot.cn/v1',
+  kimi_model: procEnv.KIMI_MODEL ?? 'kimi-k2.5',
+  deepseek_api_key: procEnv.DEEPSEEK_API_KEY ?? '',
+  deepseek_base_url:
+    procEnv.DEEPSEEK_BASE_URL ??
+    procEnv.DEEPSEEK_API_BASE_URL ??
+    'https://api.deepseek.com/v1',
+  deepseek_model: procEnv.DEEPSEEK_MODEL ?? 'deepseek-chat',
+  openrouter_api_key: procEnv.OPENROUTER_API_KEY ?? '',
+  openrouter_base_url:
+    procEnv.OPENROUTER_BASE_URL ??
+    procEnv.OPENROUTER_API_BASE_URL ??
+    'https://openrouter.ai/api/v1',
+  openrouter_model: procEnv.OPENROUTER_MODEL ?? 'deepseek/deepseek-chat',
+  openrouter_http_referer: procEnv.OPENROUTER_HTTP_REFERER ?? '',
+  openrouter_x_title: procEnv.OPENROUTER_X_TITLE ?? '',
 
   // Locale (public)
-  locale: publicEnv('VITE_DEFAULT_LOCALE') ?? 'en',
+  locale: publicEnv('VITE_DEFAULT_LOCALE') ?? 'zh',
 };

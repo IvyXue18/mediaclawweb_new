@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { ExternalLink } from 'lucide-react';
+import { CheckCircle2, ExternalLink, Info, TriangleAlert } from 'lucide-react';
 
 import { tDynamic } from '@/core/i18n/dynamic';
 import { apiGet, type PageResult } from '@/lib/api-client';
@@ -22,6 +22,10 @@ type Order = {
   productName?: string | null;
   planName?: string | null;
   invoiceUrl?: string | null;
+  credentialAction?: string | null;
+  credentialSyncStatus?: string | null;
+  credentialSyncError?: string | null;
+  credentialCode?: string | null;
   paidAt?: string | null;
   createdAt: string;
 };
@@ -48,7 +52,68 @@ function statusVariant(
   return 'secondary';
 }
 
+function fulfillmentVariant(
+  status?: string | null
+): 'default' | 'secondary' | 'destructive' | 'outline' {
+  if (status === 'done') return 'default';
+  if (status === 'failed') return 'destructive';
+  return 'secondary';
+}
+
+function fulfillmentLabel(status?: string | null) {
+  if (status === 'done') return m['settings.payments.fulfillment_done']();
+  if (status === 'failed') return m['settings.payments.fulfillment_failed']();
+  if (status === 'processing') {
+    return m['settings.payments.fulfillment_processing']();
+  }
+  return m['settings.payments.fulfillment_pending']();
+}
+
+function paymentCallbackMessage(params: {
+  callbackError?: boolean;
+  status?: string;
+  credentialSyncStatus?: string;
+}) {
+  if (params.callbackError) {
+    return {
+      icon: <TriangleAlert className="size-4" />,
+      title: m['settings.payments.callback_error_title'](),
+      description: m['settings.payments.callback_error_description'](),
+      className: 'border-destructive/30 bg-destructive/10 text-destructive',
+    };
+  }
+
+  if (params.status === 'paid') {
+    if (params.credentialSyncStatus === 'failed') {
+      return {
+        icon: <TriangleAlert className="size-4" />,
+        title: m['settings.payments.callback_paid_sync_failed_title'](),
+        description:
+          m['settings.payments.callback_paid_sync_failed_description'](),
+        className:
+          'border-amber-500/30 bg-amber-500/10 text-amber-800 dark:text-amber-300',
+      };
+    }
+
+    return {
+      icon: <CheckCircle2 className="size-4" />,
+      title: m['settings.payments.callback_paid_title'](),
+      description: m['settings.payments.callback_paid_description'](),
+      className:
+        'border-emerald-500/30 bg-emerald-500/10 text-emerald-800 dark:text-emerald-300',
+    };
+  }
+
+  return {
+    icon: <Info className="size-4" />,
+    title: m['settings.payments.callback_pending_title'](),
+    description: m['settings.payments.callback_pending_description'](),
+    className: 'border-border bg-muted/40 text-foreground',
+  };
+}
+
 function PaymentsPage() {
+  const routeSearch = Route.useSearch();
   const [tab, setTab] = useState<Tab>('all');
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
@@ -62,6 +127,13 @@ function PaymentsPage() {
   useEffect(() => {
     setPage(1);
   }, [tab, debouncedSearch]);
+
+  useEffect(() => {
+    if (routeSearch.order_no) {
+      setSearch(routeSearch.order_no);
+      setTab('all');
+    }
+  }, [routeSearch.order_no]);
 
   const query = useQuery({
     queryKey: ['user-payments', page, tab, debouncedSearch],
@@ -99,6 +171,30 @@ function PaymentsPage() {
     {
       header: m['settings.payments.status'](),
       cell: (o) => <Badge variant={statusVariant(o.status)}>{o.status}</Badge>,
+    },
+    {
+      header: m['settings.payments.fulfillment'](),
+      cell: (o) => {
+        if (!o.credentialAction || o.credentialAction === 'none') {
+          return <span className="text-muted-foreground">—</span>;
+        }
+
+        return (
+          <div className="space-y-1">
+            <Badge variant={fulfillmentVariant(o.credentialSyncStatus)}>
+              {fulfillmentLabel(o.credentialSyncStatus)}
+            </Badge>
+            {o.credentialCode ? (
+              <p className="font-mono text-xs">{o.credentialCode}</p>
+            ) : null}
+            {o.credentialSyncError ? (
+              <p className="text-destructive max-w-[18rem] text-xs">
+                {o.credentialSyncError}
+              </p>
+            ) : null}
+          </div>
+        );
+      },
     },
     {
       header: m['settings.payments.type'](),
@@ -145,6 +241,55 @@ function PaymentsPage() {
         </p>
       </div>
 
+      {routeSearch.payment_callback === '1' ? (
+        <div
+          className={cn(
+            'flex items-start gap-3 rounded-lg border p-4 text-sm',
+            paymentCallbackMessage({
+              callbackError: routeSearch.payment_callback_error === '1',
+              status: routeSearch.payment_status,
+              credentialSyncStatus: routeSearch.credential_sync_status,
+            }).className
+          )}
+          data-payment-callback-status
+        >
+          <div className="mt-0.5 shrink-0">
+            {
+              paymentCallbackMessage({
+                callbackError: routeSearch.payment_callback_error === '1',
+                status: routeSearch.payment_status,
+                credentialSyncStatus: routeSearch.credential_sync_status,
+              }).icon
+            }
+          </div>
+          <div className="space-y-1">
+            <p className="font-medium">
+              {
+                paymentCallbackMessage({
+                  callbackError: routeSearch.payment_callback_error === '1',
+                  status: routeSearch.payment_status,
+                  credentialSyncStatus: routeSearch.credential_sync_status,
+                }).title
+              }
+            </p>
+            <p>
+              {
+                paymentCallbackMessage({
+                  callbackError: routeSearch.payment_callback_error === '1',
+                  status: routeSearch.payment_status,
+                  credentialSyncStatus: routeSearch.credential_sync_status,
+                }).description
+              }
+            </p>
+            {routeSearch.order_no ? (
+              <p className="font-mono text-xs" data-payment-callback-order>
+                {routeSearch.order_no}
+              </p>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
+
       <div className="border-border flex gap-1 overflow-x-auto overflow-y-hidden border-b">
         {TABS.map((tb) => (
           <button
@@ -185,5 +330,32 @@ function PaymentsPage() {
 }
 
 export const Route = createFileRoute('/settings/payments')({
+  validateSearch: (search: Record<string, unknown>) => ({
+    payment_callback:
+      typeof search.payment_callback === 'string'
+        ? search.payment_callback
+        : undefined,
+    payment_callback_error:
+      typeof search.payment_callback_error === 'string'
+        ? search.payment_callback_error
+        : undefined,
+    order_no: typeof search.order_no === 'string' ? search.order_no : undefined,
+    payment_status:
+      typeof search.payment_status === 'string'
+        ? search.payment_status
+        : undefined,
+    payment_provider:
+      typeof search.payment_provider === 'string'
+        ? search.payment_provider
+        : undefined,
+    credential_action:
+      typeof search.credential_action === 'string'
+        ? search.credential_action
+        : undefined,
+    credential_sync_status:
+      typeof search.credential_sync_status === 'string'
+        ? search.credential_sync_status
+        : undefined,
+  }),
   component: PaymentsPage,
 });

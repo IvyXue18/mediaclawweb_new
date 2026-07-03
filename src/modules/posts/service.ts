@@ -27,6 +27,8 @@ export type PublishedArticleItem = Pick<
   | 'title'
   | 'description'
   | 'image'
+  | 'categories'
+  | 'tags'
   | 'authorName'
   | 'authorImage'
   | 'createdAt'
@@ -92,6 +94,8 @@ export async function listPublishedArticles(
       title: post.title,
       description: post.description,
       image: post.image,
+      categories: post.categories,
+      tags: post.tags,
       authorName: post.authorName,
       authorImage: post.authorImage,
       createdAt: post.createdAt,

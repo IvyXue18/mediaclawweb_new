@@ -14,6 +14,7 @@ import {
   mysqlTable,
   text,
   timestamp,
+  uniqueIndex,
   varchar,
 } from 'drizzle-orm/mysql-core';
 
@@ -106,6 +107,224 @@ export const config = table('config', {
   name: varchar191('name').unique().notNull(),
   value: text('value'),
 });
+
+export const benefitTask = table(
+  'benefit_task',
+  {
+    id: varchar191('id').primaryKey(),
+    userId: varchar191('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    taskType: varchar('task_type', { length: 80 }).notNull(),
+    status: varchar('status', { length: 50 }).notNull().default('pending'),
+    surveySource: text('survey_source').notNull().default(''),
+    surveyRole: text('survey_role').notNull().default(''),
+    surveyUseCase: text('survey_use_case').notNull().default(''),
+    surveyDetail: text('survey_detail').notNull().default(''),
+    entryPoint: text('entry_point').notNull().default(''),
+    browserInstallHash: varchar191('browser_install_hash')
+      .notNull()
+      .default(''),
+    rewardType: varchar('reward_type', { length: 50 }).notNull().default(''),
+    rewardCredentialId: varchar191('reward_credential_id'),
+    rewardCredentialCode: varchar191('reward_credential_code'),
+    rewardGrantedAt: timestamp('reward_granted_at'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex('uq_benefit_task_user_task').on(table.userId, table.taskType),
+    index('idx_benefit_task_user_status').on(table.userId, table.status),
+    index('idx_benefit_task_browser_hash').on(table.browserInstallHash),
+    index('idx_benefit_task_type_status').on(table.taskType, table.status),
+  ]
+);
+
+export const channelSurveyResponse = table(
+  'channel_survey_response',
+  {
+    id: varchar191('id').primaryKey(),
+    userId: varchar191('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    source: text('source').notNull().default(''),
+    role: text('role').notNull().default(''),
+    useCase: text('use_case').notNull().default(''),
+    detail: text('detail').notNull().default(''),
+    answersJson: longtext('answers_json').notNull().default('{}'),
+    schemaVersion: varchar('schema_version', { length: 80 })
+      .notNull()
+      .default('channel-survey-v1'),
+    rewardLedgerId: varchar191('reward_ledger_id'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    index('idx_channel_survey_response_user_created').on(
+      table.userId,
+      table.createdAt
+    ),
+    index('idx_channel_survey_response_source_created').on(
+      table.source,
+      table.createdAt
+    ),
+    index('idx_channel_survey_response_reward_ledger').on(table.rewardLedgerId),
+  ]
+);
+
+export const experienceFeedbackResponse = table(
+  'experience_feedback_response',
+  {
+    id: varchar191('id').primaryKey(),
+    userId: varchar191('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    rating: int('rating').notNull(),
+    comment: text('comment').notNull().default(''),
+    expectedFeature: text('expected_feature').notNull().default(''),
+    answersJson: longtext('answers_json').notNull().default('{}'),
+    schemaVersion: varchar('schema_version', { length: 80 })
+      .notNull()
+      .default('experience-feedback-v1'),
+    rewardLedgerId: varchar191('reward_ledger_id'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    index('idx_experience_feedback_user_created').on(
+      table.userId,
+      table.createdAt
+    ),
+    index('idx_experience_feedback_rating_created').on(
+      table.rating,
+      table.createdAt
+    ),
+    index('idx_experience_feedback_reward_ledger').on(table.rewardLedgerId),
+  ]
+);
+
+export const benefitRewardLedger = table(
+  'benefit_reward_ledger',
+  {
+    id: varchar191('id').primaryKey(),
+    taskType: varchar('task_type', { length: 80 }).notNull(),
+    sourceResponseId: varchar191('source_response_id').notNull().default(''),
+    userId: varchar191('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    rewardAction: varchar('reward_action', { length: 80 }).notNull(),
+    credentialId: varchar191('credential_id'),
+    credentialCode: varchar191('credential_code'),
+    durationDays: int('duration_days').notNull().default(0),
+    credits: int('credits').notNull().default(0),
+    configSnapshotJson: longtext('config_snapshot_json')
+      .notNull()
+      .default('{}'),
+    status: varchar('status', { length: 50 }).notNull().default('pending'),
+    errorMessage: text('error_message').notNull().default(''),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    index('idx_benefit_reward_user_created').on(table.userId, table.createdAt),
+    index('idx_benefit_reward_task_created').on(
+      table.taskType,
+      table.createdAt
+    ),
+    index('idx_benefit_reward_credential').on(table.credentialCode),
+    index('idx_benefit_reward_status_created').on(
+      table.status,
+      table.createdAt
+    ),
+  ]
+);
+
+export const welfareUsageSummary = table(
+  'welfare_usage_summary',
+  {
+    id: varchar191('id').primaryKey(),
+    credentialId: varchar191('credential_id').references(() => credential.id),
+    credentialCode: varchar191('credential_code').notNull(),
+    userId: varchar191('user_id').references(() => user.id),
+    clientUuid: varchar191('client_uuid').notNull().default(''),
+    coreCaptureSuccessCount: int('core_capture_success_count')
+      .notNull()
+      .default(0),
+    exportOrCopySuccessCount: int('export_or_copy_success_count')
+      .notNull()
+      .default(0),
+    syncSuccessCount: int('sync_success_count').notNull().default(0),
+    highValueClickCount: int('high_value_click_count').notNull().default(0),
+    failureSignalCount: int('failure_signal_count').notNull().default(0),
+    failureStreak: int('failure_streak').notNull().default(0),
+    totalEventCount: int('total_event_count').notNull().default(0),
+    latestEventType: varchar('latest_event_type', { length: 120 })
+      .notNull()
+      .default(''),
+    metadataJson: longtext('metadata_json'),
+    firstSeenAt: timestamp('first_seen_at').defaultNow().notNull(),
+    lastEventAt: timestamp('last_event_at').defaultNow().notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex('welfare_usage_credential_code_key').on(table.credentialCode),
+    uniqueIndex('welfare_usage_user_id_key').on(table.userId),
+    index('idx_welfare_usage_user_updated_at').on(
+      table.userId,
+      table.updatedAt
+    ),
+  ]
+);
+
+export const welfareFeedbackTask = table(
+  'welfare_feedback_task',
+  {
+    id: varchar191('id').primaryKey(),
+    taskType: varchar('task_type', { length: 80 })
+      .notNull()
+      .default('usage_feedback'),
+    credentialId: varchar191('credential_id').references(() => credential.id),
+    credentialCode: varchar191('credential_code').notNull(),
+    userId: varchar191('user_id').references(() => user.id),
+    clientUuid: varchar191('client_uuid').notNull().default(''),
+    rating: int('rating').notNull().default(0),
+    feedbackText: text('feedback_text').notNull().default(''),
+    feedbackTextHash: varchar191('feedback_text_hash').notNull().default(''),
+    sentiment: varchar('sentiment', { length: 80 })
+      .notNull()
+      .default('neutral'),
+    intent: varchar('intent', { length: 80 }).notNull().default('neutral'),
+    storeReviewPromptEligible: boolean('store_review_prompt_eligible')
+      .notNull()
+      .default(false),
+    rewardType: varchar('reward_type', { length: 80 })
+      .notNull()
+      .default('credential_extension'),
+    rewardDays: int('reward_days').notNull().default(3),
+    rewardCredentialId: varchar191('reward_credential_id'),
+    rewardCredentialCode: varchar191('reward_credential_code'),
+    rewardGrantedAt: timestamp('reward_granted_at'),
+    status: varchar('status', { length: 50 }).notNull().default('completed'),
+    metadataJson: longtext('metadata_json'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex('welfare_feedback_credential_task_key').on(
+      table.credentialCode,
+      table.taskType
+    ),
+    uniqueIndex('welfare_feedback_user_task_key').on(
+      table.userId,
+      table.taskType
+    ),
+    index('idx_welfare_feedback_user_created_at').on(
+      table.userId,
+      table.createdAt
+    ),
+  ]
+);
 
 export const taxonomy = table(
   'taxonomy',
@@ -205,6 +424,19 @@ export const order = table(
     transactionId: varchar191('transaction_id'),
     paymentUserName: varchar191('payment_user_name'),
     paymentUserId: varchar191('payment_user_id'),
+    credentialAction: varchar('credential_action', { length: 50 })
+      .notNull()
+      .default('none'),
+    credentialSyncStatus: varchar('credential_sync_status', { length: 50 })
+      .notNull()
+      .default('pending'),
+    credentialProcessedAt: timestamp('credential_processed_at'),
+    credentialSyncError: text('credential_sync_error'),
+    credentialCode: varchar191('credential_code'),
+    partnerId: varchar191('partner_id'),
+    variantId: varchar191('variant_id'),
+    seatCount: int('seat_count').notNull().default(1),
+    priceRuleSnapshot: text('price_rule_snapshot'),
   },
   (table) => [
     index('idx_order_user_status_payment_type').on(
@@ -294,6 +526,7 @@ export const credit = table(
     deletedAt: timestamp('deleted_at'),
     consumedDetail: text('consumed_detail'),
     metadata: text('metadata'),
+    credentialCode: varchar191('credential_code'),
   },
   (table) => [
     index('idx_credit_consume_fifo').on(
@@ -305,6 +538,210 @@ export const credit = table(
     ),
     index('idx_credit_order_no').on(table.orderNo),
     index('idx_credit_subscription_no').on(table.subscriptionNo),
+  ]
+);
+
+export const credential = table(
+  'credential',
+  {
+    id: varchar191('id').primaryKey(),
+    code: varchar191('code').unique().notNull(),
+    ownerUserId: varchar191('owner_user_id').references(() => user.id, {
+      onDelete: 'set null',
+    }),
+    sourceOrderNo: varchar191('source_order_no'),
+    planCode: varchar191('plan_code'),
+    durationPreset: varchar('duration_preset', { length: 50 }),
+    maxBindings: int('max_bindings').notNull().default(1),
+    expiresAt: timestamp('expires_at'),
+    status: varchar('status', { length: 50 }).notNull().default('active'),
+    partnerId: varchar191('partner_id'),
+    variantId: varchar191('variant_id'),
+    notes: text('notes'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+    deletedAt: timestamp('deleted_at'),
+  },
+  (table) => [
+    index('idx_credential_owner_status').on(table.ownerUserId, table.status),
+    index('idx_credential_source_order').on(table.sourceOrderNo),
+    index('idx_credential_partner').on(table.partnerId, table.variantId),
+  ]
+);
+
+export const credentialCredit = table(
+  'credential_credit',
+  {
+    id: varchar191('id').primaryKey(),
+    credentialId: varchar191('credential_id'),
+    credentialCode: varchar191('credential_code').notNull(),
+    userId: varchar191('user_id').references(() => user.id, {
+      onDelete: 'set null',
+    }),
+    orderNo: varchar191('order_no'),
+    totalCredits: int('total_credits').notNull().default(0),
+    usedCredits: int('used_credits').notNull().default(0),
+    expiresAt: timestamp('expires_at'),
+    status: varchar('status', { length: 50 }).notNull().default('active'),
+    activatedAt: timestamp('activated_at'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    index('idx_credential_credit_code').on(table.credentialCode),
+    index('idx_credential_credit_user_status').on(table.userId, table.status),
+  ]
+);
+
+export const referralAccount = table(
+  'referral_account',
+  {
+    id: varchar191('id').primaryKey(),
+    userId: varchar191('user_id')
+      .notNull()
+      .unique()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    inviteCode: varchar191('invite_code').unique().notNull(),
+    status: varchar('status', { length: 50 }).notNull().default('active'),
+    totalInvitees: int('total_invitees').notNull().default(0),
+    totalCommission: int('total_commission').notNull().default(0),
+    availableCommission: int('available_commission').notNull().default(0),
+    pendingCommission: int('pending_commission').notNull().default(0),
+    withdrawnCommission: int('withdrawn_commission').notNull().default(0),
+    currency: varchar('currency', { length: 10 }).notNull().default('usd'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    index('idx_referral_account_user').on(table.userId),
+    index('idx_referral_account_code').on(table.inviteCode),
+  ]
+);
+
+export const referralRelation = table(
+  'referral_relation',
+  {
+    id: varchar191('id').primaryKey(),
+    referrerId: varchar191('referrer_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    refereeId: varchar191('referee_id')
+      .notNull()
+      .unique()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    referralCode: varchar191('referral_code').notNull(),
+    hasFirstOrder: boolean('has_first_order').notNull().default(false),
+    firstOrderNo: varchar191('first_order_no'),
+    firstOrderAt: timestamp('first_order_at'),
+    status: varchar('status', { length: 50 }).notNull().default('active'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    index('idx_referral_relation_referrer').on(table.referrerId),
+    index('idx_referral_relation_referee').on(table.refereeId),
+    index('idx_referral_relation_code').on(table.referralCode),
+  ]
+);
+
+export const referralCommission = table(
+  'referral_commission',
+  {
+    id: varchar191('id').primaryKey(),
+    referrerUserId: varchar191('referrer_user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    inviteeUserId: varchar191('invitee_user_id').references(() => user.id, {
+      onDelete: 'set null',
+    }),
+    orderNo: varchar191('order_no'),
+    amount: int('amount').notNull().default(0),
+    currency: varchar('currency', { length: 10 }).notNull().default('usd'),
+    rate: int('rate').notNull().default(0),
+    status: varchar('status', { length: 50 }).notNull().default('pending'),
+    reason: text('reason'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    index('idx_referral_commission_referrer').on(
+      table.referrerUserId,
+      table.status
+    ),
+    index('idx_referral_commission_order').on(table.orderNo),
+  ]
+);
+
+export const referralWithdrawal = table(
+  'referral_withdrawal',
+  {
+    id: varchar191('id').primaryKey(),
+    userId: varchar191('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    amount: int('amount').notNull(),
+    currency: varchar('currency', { length: 10 }).notNull().default('usd'),
+    status: varchar('status', { length: 50 }).notNull().default('pending'),
+    accountInfo: text('account_info'),
+    reviewerUserId: varchar191('reviewer_user_id'),
+    reviewedAt: timestamp('reviewed_at'),
+    reason: text('reason'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    index('idx_referral_withdrawal_user_status').on(table.userId, table.status),
+    index('idx_referral_withdrawal_status').on(table.status),
+  ]
+);
+
+export const referralRiskLog = table(
+  'referral_risk_log',
+  {
+    id: varchar191('id').primaryKey(),
+    userId: varchar191('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    riskType: varchar('risk_type', { length: 80 }).notNull(),
+    riskLevel: varchar('risk_level', { length: 50 }).notNull().default('low'),
+    details: text('details'),
+    action: varchar('action', { length: 50 }),
+    resolvedAt: timestamp('resolved_at'),
+    resolvedBy: varchar191('resolved_by'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+  },
+  (table) => [
+    index('idx_referral_risk_log_user').on(table.userId),
+    index('idx_referral_risk_log_type').on(table.riskType, table.createdAt),
+  ]
+);
+
+export const partner = table(
+  'partner',
+  {
+    id: varchar191('id').primaryKey(),
+    partnerCode: varchar191('partner_code').unique().notNull(),
+    name: varchar191('name').notNull(),
+    type: varchar('type', { length: 50 }).notNull().default('supplier'),
+    status: varchar('status', { length: 50 }).notNull().default('active'),
+    ownerUserId: varchar191('owner_user_id').references(() => user.id, {
+      onDelete: 'set null',
+    }),
+    ownerEmail: varchar191('owner_email'),
+    variantId: varchar191('variant_id'),
+    contractStatus: varchar('contract_status', { length: 50 })
+      .notNull()
+      .default('draft'),
+    seatLimit: int('seat_limit').notNull().default(0),
+    usedSeats: int('used_seats').notNull().default(0),
+    notes: text('notes'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    index('idx_partner_code').on(table.partnerCode),
+    index('idx_partner_owner').on(table.ownerUserId),
+    index('idx_partner_status').on(table.status),
   ]
 );
 
@@ -490,6 +927,13 @@ export type Account = typeof account.$inferSelect;
 export type NewAccount = typeof account.$inferInsert;
 export type Verification = typeof verification.$inferSelect;
 export type Config = typeof config.$inferSelect;
+export type BenefitTask = typeof benefitTask.$inferSelect;
+export type ChannelSurveyResponse = typeof channelSurveyResponse.$inferSelect;
+export type ExperienceFeedbackResponse =
+  typeof experienceFeedbackResponse.$inferSelect;
+export type BenefitRewardLedger = typeof benefitRewardLedger.$inferSelect;
+export type WelfareUsageSummary = typeof welfareUsageSummary.$inferSelect;
+export type WelfareFeedbackTask = typeof welfareFeedbackTask.$inferSelect;
 export type Taxonomy = typeof taxonomy.$inferSelect;
 export type NewTaxonomy = typeof taxonomy.$inferInsert;
 export type Post = typeof post.$inferSelect;
@@ -513,6 +957,15 @@ export type Chat = typeof chat.$inferSelect;
 export type NewChat = typeof chat.$inferInsert;
 export type ChatMessage = typeof chatMessage.$inferSelect;
 export type NewChatMessage = typeof chatMessage.$inferInsert;
+export type ReferralAccount = typeof referralAccount.$inferSelect;
+export type NewReferralAccount = typeof referralAccount.$inferInsert;
+export type ReferralRelation = typeof referralRelation.$inferSelect;
+export type NewReferralRelation = typeof referralRelation.$inferInsert;
+export type ReferralCommission = typeof referralCommission.$inferSelect;
+export type NewReferralCommission = typeof referralCommission.$inferInsert;
+export type ReferralWithdrawal = typeof referralWithdrawal.$inferSelect;
+export type NewReferralWithdrawal = typeof referralWithdrawal.$inferInsert;
+export type ReferralRiskLog = typeof referralRiskLog.$inferSelect;
 
 // ─── Tickets (support) ───────────────────────────────────────────────────────
 

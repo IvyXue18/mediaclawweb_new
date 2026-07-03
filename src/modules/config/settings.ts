@@ -153,6 +153,30 @@ export function getSettingGroups(): SettingGroup[] {
 
     // AI
     {
+      name: 'chat_ai',
+      title: 'Chat AI Routing',
+      description: 'Chat provider selection and fallback order',
+      tab: 'ai',
+    },
+    {
+      name: 'openrouter',
+      title: 'OpenRouter',
+      description: 'OpenRouter chat completions',
+      tab: 'ai',
+    },
+    {
+      name: 'kimi',
+      title: 'Kimi',
+      description: 'Moonshot/Kimi OpenAI-compatible chat completions',
+      tab: 'ai',
+    },
+    {
+      name: 'deepseek',
+      title: 'DeepSeek',
+      description: 'DeepSeek OpenAI-compatible chat completions',
+      tab: 'ai',
+    },
+    {
       name: 'openai',
       title: 'OpenAI',
       description: 'OpenAI (or compatible) API',
@@ -804,6 +828,124 @@ export function getSettings(): Setting[] {
       type: 'password',
       placeholder: 'xxx',
       group: 'fal',
+      tab: 'ai',
+    },
+
+    // ─── AI / Chat Routing ───────────────────────────────────────────
+    {
+      name: 'chat_ai_provider',
+      title: 'Default Chat Provider',
+      type: 'select',
+      options: [
+        { label: 'OpenRouter', value: 'openrouter' },
+        { label: 'Kimi', value: 'kimi' },
+        { label: 'DeepSeek', value: 'deepseek' },
+      ],
+      group: 'chat_ai',
+      tab: 'ai',
+      defaultValue: 'openrouter',
+    },
+    {
+      name: 'chat_ai_fallback_providers',
+      title: 'Fallback Providers',
+      type: 'text',
+      placeholder: 'kimi,deepseek,openrouter',
+      tip: 'Comma-separated provider fallback order used when the primary chat provider fails.',
+      group: 'chat_ai',
+      tab: 'ai',
+    },
+
+    // ─── AI / OpenRouter ─────────────────────────────────────────────
+    {
+      name: 'openrouter_api_key',
+      title: 'API Key',
+      type: 'password',
+      placeholder: 'sk-or-xxx',
+      group: 'openrouter',
+      tab: 'ai',
+    },
+    {
+      name: 'openrouter_base_url',
+      title: 'Base URL',
+      type: 'text',
+      placeholder: 'https://openrouter.ai/api/v1',
+      group: 'openrouter',
+      tab: 'ai',
+    },
+    {
+      name: 'openrouter_model',
+      title: 'Default Model',
+      type: 'text',
+      placeholder: 'deepseek/deepseek-chat',
+      group: 'openrouter',
+      tab: 'ai',
+    },
+    {
+      name: 'openrouter_http_referer',
+      title: 'HTTP Referer',
+      type: 'text',
+      placeholder: 'https://mediaclaw.com',
+      group: 'openrouter',
+      tab: 'ai',
+    },
+    {
+      name: 'openrouter_x_title',
+      title: 'X-Title',
+      type: 'text',
+      placeholder: 'MediaClaw',
+      group: 'openrouter',
+      tab: 'ai',
+    },
+
+    // ─── AI / Kimi ───────────────────────────────────────────────────
+    {
+      name: 'kimi_api_key',
+      title: 'API Key',
+      type: 'password',
+      placeholder: 'sk-xxx',
+      group: 'kimi',
+      tab: 'ai',
+    },
+    {
+      name: 'kimi_base_url',
+      title: 'Base URL',
+      type: 'text',
+      placeholder: 'https://api.moonshot.cn/v1',
+      group: 'kimi',
+      tab: 'ai',
+    },
+    {
+      name: 'kimi_model',
+      title: 'Default Model',
+      type: 'text',
+      placeholder: 'kimi-k2.5',
+      group: 'kimi',
+      tab: 'ai',
+    },
+
+    // ─── AI / DeepSeek ───────────────────────────────────────────────
+    {
+      name: 'deepseek_api_key',
+      title: 'API Key',
+      type: 'password',
+      placeholder: 'sk-xxx',
+      group: 'deepseek',
+      tab: 'ai',
+    },
+    {
+      name: 'deepseek_base_url',
+      title: 'Base URL',
+      type: 'text',
+      placeholder: 'https://api.deepseek.com/v1',
+      group: 'deepseek',
+      tab: 'ai',
+    },
+    {
+      name: 'deepseek_model',
+      title: 'Default Model',
+      type: 'text',
+      placeholder: 'deepseek-chat',
+      group: 'deepseek',
       tab: 'ai',
     },
 

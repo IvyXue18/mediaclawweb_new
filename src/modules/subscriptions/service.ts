@@ -44,6 +44,16 @@ export async function findBySubscriptionNo(subscriptionNo: string) {
   return result;
 }
 
+export async function getUserSubscriptionByNo(params: {
+  userId: string;
+  subscriptionNo: string;
+}) {
+  const sub = await findBySubscriptionNo(params.subscriptionNo);
+  if (!sub) throw new Error('Subscription not found');
+  if (sub.userId !== params.userId) throw new Error('Forbidden');
+  return sub;
+}
+
 export async function findByProviderSubscriptionId(params: {
   provider: string;
   subscriptionId: string;

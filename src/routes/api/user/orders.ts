@@ -56,6 +56,10 @@ async function GET({ request }: { request: Request }) {
         productName: order.productName,
         planName: order.planName,
         invoiceUrl: order.invoiceUrl,
+        credentialAction: order.credentialAction,
+        credentialSyncStatus: order.credentialSyncStatus,
+        credentialSyncError: order.credentialSyncError,
+        credentialCode: order.credentialCode,
         paidAt: order.paidAt,
         createdAt: order.createdAt,
       })

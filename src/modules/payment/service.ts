@@ -7,6 +7,7 @@ import {
   PaymentManager,
   StripeProvider,
   WechatPayProvider,
+  ZpayProvider,
 } from '@/core/payment';
 import {
   PaymentStatus,
@@ -16,9 +17,18 @@ import {
   type PaymentOrder,
 } from '@/core/payment/types';
 import { envConfigs } from '@/config';
-import { credit, order, subscription } from '@/config/db/schema';
+import { credential, credit, order, subscription } from '@/config/db/schema';
 import { getAllConfigs } from '@/modules/config/service';
+import {
+  createCredential,
+  getCredentialByCode,
+  rechargeCredential,
+} from '@/modules/credentials/service';
 import { calculateCreditExpirationTime } from '@/modules/credits/service';
+import {
+  cancelReferralCommissionForOrder,
+  processReferralCommissionForPaidOrder,
+} from '@/modules/referral/service';
 import {
   findByProviderSubscriptionId,
   findBySubscriptionNo,
@@ -38,6 +48,254 @@ enum OrderStatus {
   FAILED = 'failed',
 }
 
+function parsePriceRuleSnapshot(value?: string | null): Record<string, any> {
+  try {
+    return value ? JSON.parse(value) : {};
+  } catch {
+    return {};
+  }
+}
+
+function getCredentialDurationPreset(row: typeof order.$inferSelect) {
+  const days = Number(row.creditsValidDays || 0);
+  if (days >= 365) return '1y';
+  if (days >= 90) return '3m';
+  if (days >= 30) return 'monthly';
+
+  const interval = String(row.paymentInterval || '').toLowerCase();
+  if (interval === 'year') return '1y';
+  if (interval === 'month') return '3m';
+  if (String(row.productId || '').includes('year')) return '1y';
+  if (String(row.productId || '').includes('month')) return '3m';
+  return 'monthly';
+}
+
+function getCredentialExpiresAt(durationPreset: string, durationDays?: number) {
+  const now = new Date();
+  const expiresAt = new Date(now);
+  if (durationDays && durationDays > 0) {
+    expiresAt.setDate(expiresAt.getDate() + durationDays);
+  } else if (durationPreset === '1y' || durationPreset === 'yearly') {
+    expiresAt.setFullYear(expiresAt.getFullYear() + 1);
+  } else if (durationPreset === '3m' || durationPreset === 'quarterly') {
+    expiresAt.setMonth(expiresAt.getMonth() + 3);
+  } else {
+    expiresAt.setMonth(expiresAt.getMonth() + 1);
+  }
+  expiresAt.setHours(23, 59, 59, 999);
+  return expiresAt;
+}
+
+async function getCredentialBySourceOrderNo(sourceOrderNo: string) {
+  const [row] = await db()
+    .select()
+    .from(credential)
+    .where(
+      and(
+        eq(credential.sourceOrderNo, sourceOrderNo),
+        isNull(credential.deletedAt)
+      )
+    )
+    .limit(1);
+  return row ?? null;
+}
+
+function getCredentialMaxBindings(row: typeof order.$inferSelect) {
+  const snapshot = parsePriceRuleSnapshot(row.priceRuleSnapshot);
+  const snapshotBindings = Math.floor(Number(snapshot.maxBindings || 0));
+  if (snapshotBindings > 0) return snapshotBindings;
+  return String(row.productId || '').includes('team') ? 3 : 1;
+}
+
+async function issuePartnerCredentialsForPaidOrder(
+  paidOrder: typeof order.$inferSelect
+) {
+  if (!paidOrder.partnerId) return [];
+
+  const seats = Math.min(
+    500,
+    Math.max(1, Math.floor(Number(paidOrder.seatCount || 1)))
+  );
+  const durationPreset = getCredentialDurationPreset(paidOrder);
+  const expiresAt = getCredentialExpiresAt(
+    durationPreset,
+    Number(paidOrder.creditsValidDays || 0)
+  );
+  const snapshot = parsePriceRuleSnapshot(paidOrder.priceRuleSnapshot);
+  const totalCredits = Math.max(
+    0,
+    Number(snapshot.creditsPerSeat || paidOrder.creditsAmount || 0)
+  );
+  const maxBindings = getCredentialMaxBindings(paidOrder);
+  const codes: string[] = [];
+
+  for (let index = 1; index <= seats; index += 1) {
+    const sourceOrderNo =
+      index === 1 ? paidOrder.orderNo : `${paidOrder.orderNo}#${index}`;
+    const existing = await getCredentialBySourceOrderNo(sourceOrderNo);
+    if (existing?.code) {
+      codes.push(existing.code);
+      continue;
+    }
+
+    const created = await createCredential({
+      ownerEmail: paidOrder.userEmail,
+      sourceOrderNo,
+      planCode: paidOrder.productId || 'unknown',
+      durationPreset,
+      maxBindings,
+      expiresAt,
+      partnerId: paidOrder.partnerId,
+      variantId: paidOrder.variantId || 'official',
+      notes: `partner ${paidOrder.partnerId} batch issue from order ${paidOrder.orderNo}`,
+      totalCredits: totalCredits > 0 ? totalCredits : null,
+    });
+    codes.push(created.code);
+  }
+
+  return codes;
+}
+
+async function issueCredentialForPaidOrder(
+  paidOrder: typeof order.$inferSelect
+) {
+  const existing = await getCredentialBySourceOrderNo(paidOrder.orderNo);
+  if (existing?.code) return existing.code;
+
+  const durationPreset = getCredentialDurationPreset(paidOrder);
+  const expiresAt = getCredentialExpiresAt(
+    durationPreset,
+    Number(paidOrder.creditsValidDays || 0)
+  );
+  const created = await createCredential({
+    ownerEmail: paidOrder.userEmail,
+    sourceOrderNo: paidOrder.orderNo,
+    planCode: paidOrder.productId || 'unknown',
+    durationPreset,
+    maxBindings: getCredentialMaxBindings(paidOrder),
+    expiresAt,
+    notes: `paid issue from order ${paidOrder.orderNo}`,
+    totalCredits:
+      paidOrder.creditsAmount && paidOrder.creditsAmount > 0
+        ? paidOrder.creditsAmount
+        : null,
+  });
+
+  return created.code;
+}
+
+async function rechargeCredentialForPaidOrder(
+  paidOrder: typeof order.$inferSelect
+) {
+  const code = String(paidOrder.credentialCode || '').trim();
+  if (!code) throw new Error('credential code is required for recharge');
+
+  const existing = await getCredentialByCode(code);
+  if (!existing) throw new Error('Activation code not found');
+
+  const durationPreset = getCredentialDurationPreset(paidOrder);
+  await rechargeCredential({
+    id: existing.id,
+    credits: paidOrder.creditsAmount || 0,
+    durationDays: paidOrder.creditsValidDays || 0,
+    maxBindings: getCredentialMaxBindings(paidOrder),
+    planCode:
+      paidOrder.productId && paidOrder.productId.startsWith('credits-')
+        ? existing.planCode
+        : paidOrder.productId,
+    durationPreset:
+      paidOrder.productId && paidOrder.productId.startsWith('credits-')
+        ? existing.durationPreset
+        : durationPreset,
+    status: 'active',
+    notes: `paid recharge from order ${paidOrder.orderNo}`,
+  });
+
+  return existing.code;
+}
+
+async function processPaidOrderCredentialSync(
+  paidOrder: typeof order.$inferSelect
+) {
+  const action = String(paidOrder.credentialAction || 'none');
+  if (action === 'none') return;
+
+  try {
+    let credentialCode = paidOrder.credentialCode || null;
+
+    if (action === 'recharge') {
+      credentialCode = await rechargeCredentialForPaidOrder(paidOrder);
+    } else if (paidOrder.partnerId) {
+      const codes = await issuePartnerCredentialsForPaidOrder(paidOrder);
+      credentialCode = codes[0] || credentialCode;
+    } else {
+      credentialCode = await issueCredentialForPaidOrder(paidOrder);
+    }
+
+    await db()
+      .update(order)
+      .set({
+        credentialCode,
+        credentialSyncStatus: 'done',
+        credentialSyncError: null,
+        credentialProcessedAt: new Date(),
+      })
+      .where(eq(order.id, paidOrder.id));
+  } catch (error: any) {
+    await db()
+      .update(order)
+      .set({
+        credentialSyncStatus: 'failed',
+        credentialSyncError: error?.message || 'credential sync failed',
+      })
+      .where(eq(order.id, paidOrder.id));
+  }
+}
+
+async function processPaidOrderReferralCommission(
+  paidOrder: typeof order.$inferSelect,
+  orderUpdate: Record<string, any>
+) {
+  if (paidOrder.partnerId) return;
+
+  try {
+    await processReferralCommissionForPaidOrder({
+      order: paidOrder,
+      paymentAmount: orderUpdate.paymentAmount || paidOrder.amount,
+      paymentCurrency: orderUpdate.paymentCurrency || paidOrder.currency,
+    });
+  } catch (error) {
+    console.error('[payment] referral commission failed:', error);
+  }
+}
+
+function getOrderNoFromPaymentEvent(event: PaymentEvent) {
+  const session = event.paymentSession || {};
+  const result =
+    session.paymentResult ||
+    event.eventResult?.resource ||
+    event.eventResult ||
+    {};
+  const metadata = session.metadata || result.metadata || {};
+
+  return (
+    metadata.order_no ||
+    metadata.orderNo ||
+    result.order_no ||
+    result.orderNo ||
+    result.out_trade_no ||
+    result.outTradeNo ||
+    result.invoice_id ||
+    ''
+  );
+}
+
+async function handlePaymentRefunded(event: PaymentEvent) {
+  const orderNo = getOrderNoFromPaymentEvent(event);
+  if (!orderNo) return;
+  await cancelReferralCommissionForOrder(orderNo, 'payment_refunded');
+}
+
 // --- Payment Manager ---
 
 let manager: PaymentManager | null = null;
@@ -54,6 +312,9 @@ async function getPaymentManager(): Promise<PaymentManager> {
     c('creem_api_key'),
     c('alipay_app_id'),
     c('wechat_mch_id'),
+    c('zpay_enabled'),
+    c('zpay_pid'),
+    c('zpay_pkey'),
     c('default_payment_provider'),
   ]);
   if (manager && hash === managerConfigHash) return manager;
@@ -121,6 +382,22 @@ async function getPaymentManager(): Promise<PaymentManager> {
     );
   }
 
+  const zpayEnabled =
+    c('zpay_enabled') === 'true' || c('default_payment_provider') === 'zpay';
+  const zpayPid = c('zpay_pid') || envConfigs.zpay_pid;
+  const zpayPkey = c('zpay_pkey') || envConfigs.zpay_pkey;
+  if (zpayEnabled && zpayPid && zpayPkey) {
+    const isDefault = c('default_payment_provider') === 'zpay';
+    manager.addProvider(
+      new ZpayProvider({
+        pid: zpayPid,
+        pkey: zpayPkey,
+        appUrl: c('app_url') || envConfigs.app_url,
+      }),
+      isDefault
+    );
+  }
+
   return manager;
 }
 
@@ -135,6 +412,12 @@ export async function createCheckout(params: {
   planName?: string;
   credits?: number;
   creditsValidDays?: number;
+  credentialAction?: string;
+  credentialCode?: string | null;
+  partnerId?: string | null;
+  variantId?: string | null;
+  seatCount?: number;
+  priceRuleSnapshot?: string | null;
 }): Promise<CheckoutSession> {
   const {
     userId,
@@ -145,6 +428,12 @@ export async function createCheckout(params: {
     planName,
     credits,
     creditsValidDays,
+    credentialAction,
+    credentialCode,
+    partnerId,
+    variantId,
+    seatCount,
+    priceRuleSnapshot,
   } = params;
   const pm = await getPaymentManager();
   const orderNo = getUniSeq('ORD');
@@ -172,16 +461,23 @@ export async function createCheckout(params: {
     `${envConfigs.app_url}/settings/billing?success=1`;
   const callbackSuccessUrl = `${envConfigs.app_url}/api/payment/callback?order_no=${orderNo}&redirect=${encodeURIComponent(finalSuccessUrl)}`;
 
-  const session = await pm.createPayment({
-    order: {
-      ...paymentOrder,
-      productId: resolvedProductId,
-      orderNo,
-      successUrl: callbackSuccessUrl,
-      cancelUrl:
-        paymentOrder.cancelUrl ||
-        `${envConfigs.app_url}/settings/billing?canceled=1`,
+  const providerOrder: PaymentOrder = {
+    ...paymentOrder,
+    productId: resolvedProductId,
+    orderNo,
+    metadata: {
+      order_no: orderNo,
+      user_id: userId,
+      ...(paymentOrder.metadata || {}),
     },
+    successUrl: callbackSuccessUrl,
+    cancelUrl:
+      paymentOrder.cancelUrl ||
+      `${envConfigs.app_url}/settings/billing?canceled=1`,
+  };
+
+  const session = await pm.createPayment({
+    order: providerOrder,
     provider,
   });
 
@@ -200,6 +496,13 @@ export async function createCheckout(params: {
       planName: planName || null,
       creditsAmount: credits ?? null,
       creditsValidDays: creditsValidDays ?? null,
+      credentialAction: credentialAction || 'none',
+      credentialSyncStatus: 'pending',
+      credentialCode: credentialCode || null,
+      partnerId: partnerId || null,
+      variantId: variantId || null,
+      seatCount: Math.max(1, Math.floor(Number(seatCount || 1))),
+      priceRuleSnapshot: priceRuleSnapshot || null,
       paymentType: paymentOrder.type || 'one-time',
       paymentProvider: session.provider,
       paymentSessionId: session.checkoutInfo.sessionId,
@@ -263,6 +566,8 @@ export async function handleWebhook(params: {
     await handleSubscriptionUpdated(session, params.provider);
   } else if (eventType === 'subscribe.canceled') {
     await handleSubscriptionCanceled(session, params.provider);
+  } else if (eventType === 'payment.refunded') {
+    await handlePaymentRefunded(event);
   }
 
   return event;
@@ -270,11 +575,12 @@ export async function handleWebhook(params: {
 
 // --- Checkout Success: update order + create subscription + grant credits ---
 
-async function handleCheckoutSuccess(session: any, provider: string) {
+export async function handleCheckoutSuccess(session: any, provider: string) {
   // Different providers expose the session identifier under different keys.
   // We try the common shapes; for Alipay the natural key is out_trade_no
   // (which equals our orderNo and the value we stored in paymentSessionId).
   const result = session.paymentResult || {};
+  const metadata = session.metadata || result.metadata || {};
   const sessionId: string =
     result.id ||
     result.object?.id ||
@@ -284,11 +590,28 @@ async function handleCheckoutSuccess(session: any, provider: string) {
   if (!sessionId) return;
 
   // Find order by session ID
-  const [existingOrder] = await db()
+  let [existingOrder] = await db()
     .select()
     .from(order)
     .where(and(eq(order.paymentSessionId, sessionId), isNull(order.deletedAt)))
     .limit(1);
+
+  if (!existingOrder && (result.out_trade_no || result.outTradeNo)) {
+    const orderNo = result.out_trade_no || result.outTradeNo;
+    [existingOrder] = await db()
+      .select()
+      .from(order)
+      .where(and(eq(order.orderNo, orderNo), isNull(order.deletedAt)))
+      .limit(1);
+  }
+
+  if (!existingOrder && metadata.order_no) {
+    [existingOrder] = await db()
+      .select()
+      .from(order)
+      .where(and(eq(order.orderNo, metadata.order_no), isNull(order.deletedAt)))
+      .limit(1);
+  }
 
   if (!existingOrder) return;
 
@@ -362,7 +685,12 @@ async function handleCheckoutSuccess(session: any, provider: string) {
       }
 
       // 2. Grant credits if applicable
-      if (existingOrder.creditsAmount && existingOrder.creditsAmount > 0) {
+      if (
+        !existingOrder.partnerId &&
+        String(existingOrder.credentialAction || 'none') === 'none' &&
+        existingOrder.creditsAmount &&
+        existingOrder.creditsAmount > 0
+      ) {
         const credits = existingOrder.creditsAmount;
         const expiresAt = calculateCreditExpirationTime({
           creditsValidDays: existingOrder.creditsValidDays || 0,
@@ -395,6 +723,9 @@ async function handleCheckoutSuccess(session: any, provider: string) {
         .set(orderUpdate)
         .where(eq(order.id, existingOrder.id));
     });
+
+    await processPaidOrderCredentialSync(existingOrder);
+    await processPaidOrderReferralCommission(existingOrder, orderUpdate);
   } else if (
     session.paymentStatus === PaymentStatus.FAILED ||
     session.paymentStatus === PaymentStatus.CANCELED
@@ -607,6 +938,45 @@ export async function cancelUserSubscription(params: {
   return updated;
 }
 
+export async function getUserSubscriptionBillingPortal(params: {
+  userId: string;
+  subscriptionNo: string;
+  returnUrl?: string;
+}) {
+  const { userId, subscriptionNo } = params;
+
+  const sub = await findBySubscriptionNo(subscriptionNo);
+  if (!sub) throw new Error('Subscription not found');
+  if (sub.userId !== userId) throw new Error('Forbidden');
+  if (!sub.paymentProvider || !sub.paymentUserId) {
+    throw new Error('Subscription with no payment user id');
+  }
+
+  const pm = await getPaymentManager();
+  const provider = pm.getProvider(sub.paymentProvider);
+  if (!provider || !provider.getPaymentBilling) {
+    throw new Error('Billing portal not supported for this provider');
+  }
+
+  const billing = await provider.getPaymentBilling({
+    customerId: sub.paymentUserId,
+    returnUrl: params.returnUrl || `${envConfigs.app_url}/settings/billing`,
+  });
+  if (!billing?.billingUrl) {
+    throw new Error('Billing url not found');
+  }
+
+  await updateBySubscriptionNo(sub.subscriptionNo, {
+    billingUrl: billing.billingUrl,
+  });
+
+  return {
+    billingUrl: billing.billingUrl,
+    subscriptionNo: sub.subscriptionNo,
+    paymentProvider: sub.paymentProvider,
+  };
+}
+
 // --- Query helpers ---
 
 export async function getUserOrders(userId: string) {
@@ -615,4 +985,35 @@ export async function getUserOrders(userId: string) {
     .from(order)
     .where(and(eq(order.userId, userId), isNull(order.deletedAt)))
     .orderBy(desc(order.createdAt));
+}
+
+export async function findOrderByOrderNo(orderNo: string) {
+  const [row] = await db()
+    .select()
+    .from(order)
+    .where(and(eq(order.orderNo, orderNo), isNull(order.deletedAt)))
+    .limit(1);
+
+  return row ?? null;
+}
+
+export async function repairOrderPayment(
+  existingOrder: typeof order.$inferSelect
+) {
+  if (!existingOrder.orderNo) {
+    throw new Error('invalid order');
+  }
+
+  await handlePaymentCallback(existingOrder.orderNo);
+  const refreshed = await findOrderByOrderNo(existingOrder.orderNo);
+  const paymentStatus = refreshed?.status || existingOrder.status || null;
+
+  return {
+    orderNo: existingOrder.orderNo,
+    paymentStatus,
+    repaired:
+      existingOrder.status !== OrderStatus.PAID &&
+      refreshed?.status === OrderStatus.PAID,
+    order: refreshed,
+  };
 }

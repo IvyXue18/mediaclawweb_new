@@ -1,7 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
-import { handlePaymentCallback } from '@/modules/payment/service';
+import {
+  findOrderByOrderNo,
+  handlePaymentCallback,
+} from '@/modules/payment/service';
 
 /**
  * GET /api/payment/callback?order_no=xxx&redirect=xxx
@@ -26,23 +29,74 @@ function resolveSameOriginRedirect(
   }
 }
 
-async function GET({ request }: { request: Request }) {
+function withOrderStateParams({
+  redirect,
+  order,
+  orderNo,
+  callbackError,
+}: {
+  redirect: string;
+  order?: Awaited<ReturnType<typeof findOrderByOrderNo>>;
+  orderNo?: string | null;
+  callbackError?: boolean;
+}) {
+  const url = new URL(redirect);
+  url.searchParams.set('payment_callback', '1');
+
+  if (orderNo) {
+    url.searchParams.set('order_no', orderNo);
+  }
+
+  if (callbackError) {
+    url.searchParams.set('payment_callback_error', '1');
+  }
+
+  if (order) {
+    url.searchParams.set('payment_status', order.status || '');
+    url.searchParams.set('payment_provider', order.paymentProvider || '');
+    url.searchParams.set('credential_action', order.credentialAction || 'none');
+    if (order.credentialSyncStatus) {
+      url.searchParams.set(
+        'credential_sync_status',
+        order.credentialSyncStatus
+      );
+    }
+  }
+
+  return url.toString();
+}
+
+export async function GET({ request }: { request: Request }) {
   const url = new URL(request.url);
   const orderNo = url.searchParams.get('order_no');
   const redirect = url.searchParams.get('redirect');
   const fallback = `${envConfigs.app_url}/settings/billing`;
+  let callbackError = false;
 
   try {
     if (orderNo) {
       await handlePaymentCallback(orderNo);
     }
   } catch (error: any) {
+    callbackError = true;
     console.error('payment callback error:', error);
   }
 
+  const resolvedRedirect = resolveSameOriginRedirect(redirect, fallback);
+  const order = orderNo
+    ? await findOrderByOrderNo(orderNo).catch(() => null)
+    : null;
+
   return new Response(null, {
     status: 302,
-    headers: { Location: resolveSameOriginRedirect(redirect, fallback) },
+    headers: {
+      Location: withOrderStateParams({
+        redirect: resolvedRedirect,
+        order,
+        orderNo,
+        callbackError,
+      }),
+    },
   });
 }
 

@@ -2,8 +2,10 @@ import { createFileRoute, Outlet } from '@tanstack/react-router';
 import {
   Coins,
   CreditCard,
+  Gift,
   Home,
   Key,
+  KeyRound,
   LayoutDashboard,
   LifeBuoy,
   Receipt,
@@ -44,6 +46,18 @@ function SettingsLayout() {
       href: '/settings/credits',
       label: m['settings.nav.credits'](),
       icon: Coins,
+      group,
+    },
+    {
+      href: '/settings/credentials',
+      label: 'Activation Codes',
+      icon: KeyRound,
+      group,
+    },
+    {
+      href: '/settings/referral',
+      label: 'Referral',
+      icon: Gift,
       group,
     },
     {

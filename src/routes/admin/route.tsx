@@ -2,7 +2,9 @@ import { createFileRoute, Outlet } from '@tanstack/react-router';
 import {
   CreditCard,
   FolderOpen,
+  Handshake,
   Home,
+  KeyRound,
   LayoutDashboard,
   LifeBuoy,
   Settings,
@@ -57,7 +59,30 @@ function AdminLayout() {
         { href: '/admin/payments', label: m['admin.nav.payments']() },
         { href: '/admin/subscriptions', label: m['admin.nav.subscriptions']() },
         { href: '/admin/credits', label: m['admin.nav.credits']() },
+        { href: '/admin/credentials', label: 'Activation Codes' },
       ],
+    },
+    {
+      href: '/admin/referral',
+      label: 'Growth',
+      icon: Handshake,
+      group,
+      items: [
+        { href: '/admin/referral', label: 'Referral' },
+        { href: '/admin/partners', label: 'Partners' },
+        { href: '/admin/rewards/channel-survey', label: 'Channel Survey' },
+        {
+          href: '/admin/rewards/experience-feedback',
+          label: 'Experience Feedback',
+        },
+        { href: '/admin/rewards/ledger', label: 'Reward Ledger' },
+      ],
+    },
+    {
+      href: '/admin/credentials',
+      label: 'Codes',
+      icon: KeyRound,
+      group,
     },
     {
       href: '/admin/tickets',

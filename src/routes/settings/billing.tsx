@@ -6,7 +6,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { Eye, MoreHorizontal, Pencil, XCircle } from 'lucide-react';
+import { Eye, MoreHorizontal, Pencil, Settings, XCircle } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { tDynamic } from '@/core/i18n/dynamic';
@@ -38,6 +38,7 @@ type Subscription = {
   subscriptionNo: string;
   status: string;
   paymentProvider: string;
+  paymentUserId?: string | null;
   planName?: string | null;
   productName?: string | null;
   interval?: string | null;
@@ -267,18 +268,32 @@ function BillingPage() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle>{m['settings.billing.subscription']()}</CardTitle>
-            <Link
-              href="/pricing"
-              className={cn(
-                buttonVariants({ variant: 'outline', size: 'sm' }),
-                'gap-2'
-              )}
-            >
-              <Pencil className="size-4" />
-              {current
-                ? m['settings.billing.adjust']()
-                : m['settings.billing.subscribe']()}
-            </Link>
+            <div className="flex items-center gap-2">
+              {current?.paymentUserId ? (
+                <Link
+                  href={`/settings/billing/retrieve?subscription_no=${encodeURIComponent(current.subscriptionNo)}`}
+                  className={cn(
+                    buttonVariants({ variant: 'outline', size: 'sm' }),
+                    'gap-2'
+                  )}
+                >
+                  <Settings className="size-4" />
+                  {m['settings.billing.manage']()}
+                </Link>
+              ) : null}
+              <Link
+                href="/pricing"
+                className={cn(
+                  buttonVariants({ variant: 'outline', size: 'sm' }),
+                  'gap-2'
+                )}
+              >
+                <Pencil className="size-4" />
+                {current
+                  ? m['settings.billing.adjust']()
+                  : m['settings.billing.subscribe']()}
+              </Link>
+            </div>
           </div>
         </CardHeader>
         <CardContent>

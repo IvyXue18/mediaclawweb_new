@@ -10,6 +10,7 @@ import { VerifyEmail } from '@/core/email/templates/verify-email';
 import { AUTH_SECRET_PLACEHOLDER, envConfigs } from '@/config';
 import * as schema from '@/config/db/schema';
 import { getAllConfigs } from '@/modules/config/service';
+import { getCookieFromCtx, getHeaderValue } from '@/lib/cookie';
 import { getUuid } from '@/lib/hash';
 
 function assertProductionAuthSecret() {
@@ -142,6 +143,35 @@ function getAuthPlugins(configs: Record<string, string> | undefined) {
   return plugins;
 }
 
+function normalizeAuthReferralCode(value?: string | null) {
+  const raw = String(value || '');
+  let decoded = raw;
+  try {
+    decoded = decodeURIComponent(raw);
+  } catch {}
+  return decoded
+    .trim()
+    .replace(/[^A-Za-z0-9]/g, '')
+    .toUpperCase()
+    .slice(0, 64);
+}
+
+function getReferralCodeFromAuthContext(ctx: any) {
+  return normalizeAuthReferralCode(
+    getCookieFromCtx(ctx, 'ref_code') ||
+      getCookieFromCtx(ctx, 'referral_code') ||
+      getCookieFromCtx(ctx, 'ref')
+  );
+}
+
+function getClientIpFromAuthContext(ctx: any) {
+  const header =
+    getHeaderValue(ctx, 'cf-connecting-ip') ||
+    getHeaderValue(ctx, 'x-forwarded-for') ||
+    getHeaderValue(ctx, 'x-real-ip');
+  return header?.split(',')[0]?.trim() || '';
+}
+
 export function getAuth(configs?: Record<string, string>) {
   assertProductionAuthSecret();
   // Rebuild if any social provider credential changed
@@ -202,6 +232,33 @@ export function getAuth(configs?: Record<string, string>) {
       provider: getDatabaseProvider(envConfigs.database_provider),
       schema,
     }),
+    databaseHooks: {
+      user: {
+        create: {
+          after: async (createdUser: any, context: any) => {
+            try {
+              if (!createdUser?.id) return;
+              const { createReferralRelation, getOrCreateReferralAccount } =
+                await import('@/modules/referral/service');
+
+              await getOrCreateReferralAccount(createdUser.id);
+
+              const referralCode = getReferralCodeFromAuthContext(context);
+              if (!referralCode) return;
+
+              await createReferralRelation({
+                referralCode,
+                refereeId: createdUser.id,
+                refereeEmail: createdUser.email,
+                refereeIp: getClientIpFromAuthContext(context),
+              });
+            } catch (error) {
+              console.error('[auth] referral hook failed:', error);
+            }
+          },
+        },
+      },
+    },
     socialProviders,
     plugins: getAuthPlugins(configs),
     user: {

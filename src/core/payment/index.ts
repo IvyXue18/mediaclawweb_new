@@ -24,13 +24,7 @@ export class PaymentManager {
 
   // get provider by name
   getProvider(name: string): PaymentProvider | undefined {
-    const provider = this.providers.find((p) => p.name === name);
-
-    if (!provider && this.defaultProvider) {
-      return this.defaultProvider;
-    }
-
-    return provider;
+    return this.providers.find((p) => p.name === name);
   }
 
   // get all provider names
@@ -129,3 +123,4 @@ export * from './creem';
 export * from './paypal';
 export * from './alipay';
 export * from './wechat';
+export * from './zpay';

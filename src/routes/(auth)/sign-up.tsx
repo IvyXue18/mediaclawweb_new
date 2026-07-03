@@ -33,6 +33,19 @@ const signUpSchema = z
     message: m['common.sign.password_mismatch'](),
   });
 
+function normalizeReferralCode(value?: string | null) {
+  const raw = String(value || '');
+  let decoded = raw;
+  try {
+    decoded = decodeURIComponent(raw);
+  } catch {}
+  return decoded
+    .trim()
+    .replace(/[^A-Za-z0-9]/g, '')
+    .toUpperCase()
+    .slice(0, 64);
+}
+
 function SignUpPage() {
   const router = useRouter();
   const { data: session, isPending: sessionPending } = useSession();
@@ -42,11 +55,19 @@ function SignUpPage() {
 
   const [redirectParam, setRedirectParam] = useState<string | null>(null);
   const [callbackUrl, setCallbackUrl] = useState<string | null>(null);
+  const [referralCode, setReferralCode] = useState<string | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setRedirectParam(params.get('redirect'));
     setCallbackUrl(params.get('callbackUrl'));
+    setReferralCode(
+      normalizeReferralCode(
+        params.get('ref') ||
+          params.get('ref_code') ||
+          params.get('referral_code')
+      ) || null
+    );
   }, []);
 
   // Already signed in (visited /sign-up directly, or a stale callbackUrl looped
@@ -140,6 +161,11 @@ function SignUpPage() {
         if (inviteCodeRequired && trimmedInvite) {
           try {
             await apiPost('/api/invite-codes/redeem', { code: trimmedInvite });
+          } catch {}
+        }
+        if (referralCode) {
+          try {
+            await apiPost('/api/referral/relations', { referralCode });
           } catch {}
         }
 
