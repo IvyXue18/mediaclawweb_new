@@ -1,6 +1,11 @@
 import type { ComponentType } from 'react';
 
 import { baseLocale } from '@/paraglide/runtime.js';
+import {
+  frontmatterList,
+  frontmatterString,
+  parseFrontmatter,
+} from '@/content/frontmatter';
 
 /**
  * Local blog posts written as MDX files in this directory.
@@ -12,8 +17,29 @@ import { baseLocale } from '@/paraglide/runtime.js';
  * local posts via the pure helpers below.
  */
 export const BLOG_POST_SLUGS = [
-  'what-is-shipany',
-  'blocks-vs-components',
+  'how-to-copy-viral-short-videos',
+  'local-business-xiaohongshu-marketing',
+  'low-follower-viral-content',
+  'media-capture-workflow',
+  'partners-without-forks',
+  'short-video-transcript-extraction',
+  'video-transcript-timestamps',
+  'xiaohongshu-brand-sentiment-monitoring',
+  'xiaohongshu-comment-analysis',
+  'xiaohongshu-comment-batch-export-campaign-review',
+  'xiaohongshu-comment-topic-mining',
+  'xiaohongshu-competitor-monitoring',
+  'xiaohongshu-download-own-posts',
+  'xiaohongshu-download-remove-watermark',
+  'xiaohongshu-find-benchmark-accounts',
+  'xiaohongshu-image-text-extraction',
+  'xiaohongshu-keyword-placement',
+  'xiaohongshu-keyword-research',
+  'xiaohongshu-professional-content-search-traffic',
+  'xiaohongshu-research-data-collection',
+  'xiaohongshu-search-vs-recommendation-traffic',
+  'xiaohongshu-topic-analysis',
+  'xiaohongshu-topic-library-build',
 ] as const;
 
 export type BlogPostMeta = {
@@ -23,12 +49,15 @@ export type BlogPostMeta = {
   author_name?: string;
   author_image?: string;
   image?: string;
+  categories?: string[] | string | null;
+  tags?: string[] | string | null;
 };
 
 type PostModule = {
   default: ComponentType;
-  meta: BlogPostMeta;
+  meta?: BlogPostMeta;
 };
+type LoadedPostModule = Omit<PostModule, 'meta'> & { meta: BlogPostMeta };
 
 export type BlogPost = {
   slug: string;
@@ -39,6 +68,8 @@ export type BlogPost = {
   createdAt: string;
   authorName?: string;
   authorImage?: string;
+  categories?: string[];
+  tags?: string[];
   source: 'local' | 'db';
 };
 
@@ -52,19 +83,107 @@ export type BlogPostDetail = BlogPost & {
 const postModules = import.meta.glob<PostModule>('/src/content/posts/*.mdx', {
   eager: true,
 });
+const postRawModules = import.meta.glob<string>('/src/content/posts/*.mdx', {
+  eager: true,
+  query: '?raw',
+  import: 'default',
+});
 
-export function loadLocalPost(slug: string, locale: string): PostModule | null {
+function resolvePostMeta(path: string, meta?: BlogPostMeta): BlogPostMeta {
+  const frontmatter = parseFrontmatter(
+    postRawModules[path] ?? postRawModules[`${path}?raw`]
+  );
+  const tags = frontmatterList(frontmatter, 'tags');
+  const categories = frontmatterList(frontmatter, 'categories');
+
+  return {
+    title:
+      meta?.title ??
+      frontmatterString(frontmatter, 'title') ??
+      path
+        .split('/')
+        .pop()
+        ?.replace(/\.[^.]+\.mdx$/, '') ??
+      'Untitled',
+    description:
+      meta?.description ?? frontmatterString(frontmatter, 'description') ?? '',
+    created_at:
+      meta?.created_at ??
+      frontmatterString(frontmatter, 'created_at') ??
+      frontmatterString(frontmatter, 'date') ??
+      '1970-01-01',
+    author_name:
+      meta?.author_name ?? frontmatterString(frontmatter, 'author_name'),
+    author_image:
+      meta?.author_image ?? frontmatterString(frontmatter, 'author_image'),
+    image: meta?.image ?? frontmatterString(frontmatter, 'image'),
+    categories: meta?.categories ?? categories,
+    tags: meta?.tags ?? tags,
+  };
+}
+
+export function normalizePostLabels(value: unknown): string[] | undefined {
+  const normalize = (items: unknown[]) =>
+    items.map((label) => String(label).trim()).filter(Boolean);
+
+  if (Array.isArray(value)) {
+    const labels = normalize(value);
+    return labels.length ? labels : undefined;
+  }
+
+  if (typeof value !== 'string') {
+    return undefined;
+  }
+
+  const raw = value.trim();
+  if (!raw) {
+    return undefined;
+  }
+
+  if (raw.startsWith('[')) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        const labels = normalize(parsed);
+        return labels.length ? labels : undefined;
+      }
+    } catch {
+      // Fall through to delimiter parsing.
+    }
+  }
+
+  const labels = raw
+    .split(/[,，|]/)
+    .map((label) => label.trim())
+    .filter(Boolean);
+  return labels.length ? labels : undefined;
+}
+
+export function loadLocalPost(
+  slug: string,
+  locale: string
+): LoadedPostModule | null {
   if (!BLOG_POST_SLUGS.includes(slug as (typeof BLOG_POST_SLUGS)[number])) {
     return null;
   }
-  return (
-    postModules[`/src/content/posts/${slug}.${locale}.mdx`] ??
-    postModules[`/src/content/posts/${slug}.${baseLocale}.mdx`] ??
-    null
-  );
+
+  const postPath =
+    `/src/content/posts/${slug}.${locale}.mdx` in postModules
+      ? `/src/content/posts/${slug}.${locale}.mdx`
+      : `/src/content/posts/${slug}.${baseLocale}.mdx`;
+  const mod = postModules[postPath];
+  if (!mod) return null;
+
+  return {
+    ...mod,
+    meta: resolvePostMeta(postPath, mod.meta),
+  };
 }
 
 function localPostToItem(slug: string, meta: BlogPostMeta): BlogPost {
+  const tags = normalizePostLabels(meta.tags);
+  const categories = normalizePostLabels(meta.categories) ?? tags;
+
   return {
     slug,
     title: meta.title,
@@ -73,6 +192,8 @@ function localPostToItem(slug: string, meta: BlogPostMeta): BlogPost {
     createdAt: new Date(meta.created_at).toISOString(),
     authorName: meta.author_name,
     authorImage: meta.author_image,
+    categories,
+    tags: tags ?? categories,
     source: 'local',
   };
 }
@@ -82,23 +203,23 @@ export function getLocalPosts(locale: string): BlogPost[] {
     slug: slug as string,
     mod: loadLocalPost(slug, locale),
   }))
-    .filter((m): m is { slug: string; mod: PostModule } => m.mod !== null)
+    .filter((m): m is { slug: string; mod: LoadedPostModule } => m.mod !== null)
     .map(({ slug, mod }) => localPostToItem(slug, mod.meta));
 }
 
 /**
  * Merge database posts with local MDX posts, deduped by slug
- * (database wins), newest first.
+ * (local MDX wins), newest first.
  */
 export function mergePosts(
   dbPosts: BlogPost[],
   localPosts: BlogPost[],
   options: { limit?: number } = {}
 ): BlogPost[] {
-  const dbSlugs = new Set(dbPosts.map((p) => p.slug));
+  const localSlugs = new Set(localPosts.map((p) => p.slug));
   const merged = [
-    ...dbPosts,
-    ...localPosts.filter((p) => !dbSlugs.has(p.slug)),
+    ...localPosts,
+    ...dbPosts.filter((p) => !localSlugs.has(p.slug)),
   ].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );

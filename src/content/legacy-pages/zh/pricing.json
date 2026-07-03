@@ -1,0 +1,445 @@
+{
+  "metadata": {
+    "title": "MediaClaw 价格方案 — 小红书抖音数据采集与 AI 运营提效套餐",
+    "description": "选择适合你的 MediaClaw 方案。核心采集功能永久免费，升级解锁高级监控、飞书同步与 AI 内容分析工作流。",
+    "keywords": "MediaClaw价格, 插件订阅, 小红书采集付费, 抖音数据工具价格, AI分析套餐, 企业协作版"
+  },
+  "page": {
+    "title": "MediaClaw 定价",
+    "sections": {
+      "pricing": {
+        "id": "pricing",
+        "block": "pricing",
+        "title": "选择适合你的方案",
+        "description": "核心采集功能永久免费，按需升级解锁高级采集功能、团队协作数据同步、飞书 AI 分析模板和更多内容运营技巧",
+        "groups": [
+          {
+            "name": "month",
+            "title": "月付",
+            "label": "灵活"
+          },
+          {
+            "name": "monthly",
+            "title": "季付"
+          },
+          {
+            "name": "yearly",
+            "title": "年付",
+            "is_featured": true,
+            "label": "立省30%"
+          },
+          {
+            "name": "credits",
+            "title": "积分包"
+          }
+        ],
+        "items": [
+          {
+            "title": "免费版",
+            "description": "适合个人用户，偶尔使用",
+            "features": [
+              "单篇笔记/视频深度采集，适合逐条保存高价值内容",
+              "支持搜索页、账号页基础列表采集",
+              "本地数据池保存，支持 CSV，Markdown导出",
+              "支持无水印图片、视频、音频下载",
+              "单浏览器设备使用"
+            ],
+            "interval": "one-time",
+            "amount": 0,
+            "currency": "CNY",
+            "credits": 0,
+            "valid_days": 0,
+            "price": "¥0",
+            "unit": "",
+            "is_featured": false,
+            "button": {
+              "title": "免费安装插件",
+              "url": "/download",
+              "target": "_blank",
+              "icon": "Download"
+            },
+            "product_id": "free",
+            "product_name": "MediaClaw 免费版",
+            "group": "month"
+          },
+          {
+            "title": "个人版",
+            "description": "适合持续做选题、采集、筛选和复盘",
+            "label": "最受欢迎",
+            "features_title": "包含免费版全部能力",
+            "features": [
+              "解锁采集增强：批量补全正文、标签、互动、附件媒体等详情数据内容",
+              "支持评论、博主指标、低粉爆款和客资线索筛选",
+              "数据同步飞书多维表格，沉淀选题和内容库",
+              "含 180 AI 积分，用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "单浏览器设备使用"
+            ],
+            "interval": "one-time",
+            "amount": 4900,
+            "currency": "CNY",
+            "credits": 180,
+            "valid_days": 30,
+            "price": "¥49",
+            "unit": "/ 月",
+            "is_featured": true,
+            "is_popular": true,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "选择购买",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "pro-1m",
+            "product_name": "MediaClaw 个人版月付",
+            "group": "month"
+          },
+          {
+            "title": "团队版",
+            "description": "适合团队共用数据、多人协作和持续监控",
+            "features_title": "包含个人版全部能力",
+            "features": [
+              "含 700 AI 积分，适合持续监控对标，选题和团队 AI 分析",
+              "支持多人数据同步一个飞书多维表格",
+              "适合内容团队、MCN、品牌投放和运营小组共用",
+              "支持 3 个浏览器设备同时使用"
+            ],
+            "interval": "one-time",
+            "amount": 12900,
+            "currency": "CNY",
+            "credits": 700,
+            "valid_days": 30,
+            "price": "¥129",
+            "unit": "/ 月",
+            "is_featured": false,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "选择购买",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "team-1m",
+            "product_name": "MediaClaw 团队版月付",
+            "group": "month"
+          },
+          {
+            "title": "免费版",
+            "description": "适合个人用户，偶尔使用",
+            "features": [
+              "单篇笔记/视频深度采集，适合逐条保存高价值内容",
+              "支持搜索页、账号页基础列表采集",
+              "本地数据池保存，支持 CSV，Markdown导出",
+              "支持无水印图片、视频、音频下载",
+              "单浏览器设备使用"
+            ],
+            "interval": "one-time",
+            "amount": 0,
+            "currency": "CNY",
+            "credits": 0,
+            "valid_days": 0,
+            "price": "¥0",
+            "unit": "",
+            "is_featured": false,
+            "button": {
+              "title": "免费安装插件",
+              "url": "/download",
+              "target": "_blank",
+              "icon": "Download"
+            },
+            "product_id": "free",
+            "product_name": "MediaClaw 免费版",
+            "group": "monthly"
+          },
+          {
+            "title": "个人版",
+            "description": "适合持续做选题、采集、筛选和复盘",
+            "label": "推荐",
+            "features_title": "包含免费版全部能力",
+            "features": [
+              "解锁采集增强：批量补全正文、标签、互动、附件媒体等详情数据内容",
+              "支持评论、博主指标、低粉爆款和客资线索筛选",
+              "数据同步飞书多维表格，沉淀选题和内容库",
+              "含 600 AI 积分，用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "单浏览器设备使用"
+            ],
+            "interval": "one-time",
+            "amount": 11800,
+            "currency": "CNY",
+            "credits": 600,
+            "valid_days": 90,
+            "price": "¥118",
+            "unit": "/ 季",
+            "is_featured": true,
+            "is_popular": true,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "选择购买",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "pro-monthly",
+            "product_name": "MediaClaw 个人版季付",
+            "group": "monthly"
+          },
+          {
+            "title": "团队版",
+            "description": "适合团队共用数据、多人协作和持续监控",
+            "features_title": "包含个人版全部能力",
+            "features": [
+              "含 2000 AI 积分，适合持续监控对标，选题和团队 AI 分析",
+              "支持多人数据同步一个飞书多维表格",
+              "适合内容团队、MCN、品牌投放和运营小组共用",
+              "支持 3 个浏览器设备同时使用"
+            ],
+            "interval": "one-time",
+            "amount": 31800,
+            "currency": "CNY",
+            "credits": 2000,
+            "valid_days": 90,
+            "price": "¥318",
+            "unit": "/ 季",
+            "is_featured": false,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "选择购买",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "team-monthly",
+            "product_name": "MediaClaw 团队版季付",
+            "group": "monthly"
+          },
+          {
+            "title": "免费版",
+            "description": "适合个人用户，偶尔使用",
+            "features": [
+              "单篇笔记/视频深度采集，适合逐条保存高价值内容",
+              "支持搜索页、账号页基础列表采集",
+              "本地数据池保存，支持 CSV，Markdown导出",
+              "支持无水印图片、视频、音频下载",
+              "单浏览器设备使用"
+            ],
+            "interval": "one-time",
+            "amount": 0,
+            "currency": "CNY",
+            "credits": 0,
+            "valid_days": 0,
+            "price": "¥0",
+            "unit": "",
+            "is_featured": false,
+            "button": {
+              "title": "免费安装插件",
+              "url": "/download",
+              "target": "_blank",
+              "icon": "Download"
+            },
+            "product_id": "free",
+            "product_name": "MediaClaw 免费版",
+            "group": "yearly"
+          },
+          {
+            "title": "个人版",
+            "description": "适合持续做选题、采集、筛选和复盘",
+            "label": "推荐",
+            "features_title": "包含免费版全部能力",
+            "features": [
+              "解锁采集增强：批量补全正文、标签、互动、附件媒体等详情数据内容",
+              "支持评论、博主指标、低粉爆款和客资线索筛选",
+              "数据同步飞书多维表格，沉淀选题和内容库",
+              "含 2500 AI 积分，用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "单浏览器设备使用"
+            ],
+            "interval": "one-time",
+            "amount": 39900,
+            "currency": "CNY",
+            "credits": 2500,
+            "valid_days": 365,
+            "price": "¥399",
+            "original_price": "¥588",
+            "unit": "/ 年",
+            "is_featured": true,
+            "is_popular": true,
+            "tip": "年付立省 ¥189",
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "选择购买",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "pro-yearly",
+            "product_name": "MediaClaw 个人版年付",
+            "group": "yearly"
+          },
+          {
+            "title": "团队版",
+            "description": "适合团队共用数据、多人协作和持续监控",
+            "features_title": "包含个人版全部能力",
+            "features": [
+              "含 9000 AI 积分，适合持续监控对标，选题和团队 AI 分析",
+              "支持多人数据同步一个飞书多维表格",
+              "适合内容团队、MCN、品牌投放和运营小组共用",
+              "支持 3 个浏览器设备同时使用"
+            ],
+            "interval": "one-time",
+            "amount": 108800,
+            "currency": "CNY",
+            "credits": 9000,
+            "valid_days": 365,
+            "price": "¥1088",
+            "original_price": "¥1548",
+            "unit": "/ 年",
+            "is_featured": false,
+            "tip": "年付立省 ¥460",
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "选择购买",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "team-yearly",
+            "product_name": "MediaClaw 团队版年付",
+            "group": "yearly"
+          },
+          {
+            "title": "紧急补量积分包",
+            "description": "适合临时增加 AI 分析和监控额度",
+            "label": "最受欢迎",
+            "features": [
+              "1000 AI 积分",
+              "用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "适合短期活动、临时多跑几次分析或监控任务",
+              "仅用于已有正式会员补充积分，不单独解锁会员功能",
+              "不延长插件使用期；会员过期后积分冻结不清零，续费后可继续使用"
+            ],
+            "interval": "one-time",
+            "amount": 2900,
+            "currency": "CNY",
+            "credits": 1000,
+            "valid_days": 0,
+            "price": "¥29",
+            "unit": "",
+            "is_featured": true,
+            "is_popular": true,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "购买积分",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Coins"
+            },
+            "product_id": "credits-emergency-150",
+            "product_name": "MediaClaw 紧急补量积分包",
+            "group": "credits"
+          },
+          {
+            "title": "创作者常用包",
+            "description": "适合个人持续做选题、逐字稿和二创分析",
+            "features": [
+              "3000 AI 积分",
+              "用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "适合个人账号持续复盘内容、分析选题和处理素材",
+              "仅用于已有正式会员补充积分，不单独解锁会员功能",
+              "不延长插件使用期；会员过期后积分冻结不清零，续费后可继续使用"
+            ],
+            "interval": "one-time",
+            "amount": 7900,
+            "currency": "CNY",
+            "credits": 3000,
+            "valid_days": 0,
+            "price": "¥79",
+            "unit": "",
+            "is_featured": false,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "购买积分",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Coins"
+            },
+            "product_id": "credits-creator-600",
+            "product_name": "MediaClaw 创作者常用包",
+            "group": "credits"
+          },
+          {
+            "title": "多内容线团队包",
+            "description": "适合团队高频监控、批量分析和多项目复盘",
+            "label": "高容量",
+            "features": [
+              "15000 AI 积分",
+              "用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "适合多账号、多项目、多成员持续消耗积分的团队场景",
+              "仅用于已有正式会员补充积分，不单独解锁会员功能",
+              "不延长插件使用期；会员过期后积分冻结不清零，续费后可继续使用"
+            ],
+            "interval": "one-time",
+            "amount": 36000,
+            "currency": "CNY",
+            "credits": 15000,
+            "valid_days": 0,
+            "price": "¥360",
+            "unit": "",
+            "is_featured": false,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "购买积分",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Coins"
+            },
+            "product_id": "credits-team-3000",
+            "product_name": "MediaClaw 多内容线团队包",
+            "group": "credits"
+          }
+        ]
+      }
+    }
+  },
+  "messages": {
+    "current_plan": "当前方案",
+    "processing": "处理中",
+    "purchase_mode_new": "新购激活码",
+    "purchase_mode_renew": "续费已有激活码",
+    "select_credential": "选择激活码",
+    "select_credential_placeholder": "请选择要续费的激活码",
+    "custom_input": "我有激活码，自己填写",
+    "custom_credential_placeholder": "输入激活码，如 ACT-XXXX-XXXX-XXXX",
+    "credential_expires": "到期",
+    "credential_credits_remaining": "剩余积分",
+    "credential_bindings": "已绑定设备",
+    "credential_required": "请选择或输入一个激活码",
+    "credential_type": "激活码类型",
+    "credential_kind_trial": "试用码",
+    "credential_kind_paid": "正式码",
+    "credential_status_active": "有效",
+    "credential_status_expired": "已过期",
+    "credential_status_frozen": "已冻结",
+    "no_credentials": "暂未找到与您账户关联的激活码",
+    "no_formal_credentials": "暂未找到正式会员激活码，请先升级套餐",
+    "credits_require_credential": "积分包需要绑定一个正式会员激活码，用于账号监控和插件内 AI 能力。试用码不能直接购买积分，请先升级为正式套餐。",
+    "credits_trial_option_hint": "需先升级套餐",
+    "credits_trial_not_allowed": "试用码不能直接购买积分，请先升级为正式套餐",
+    "checkout_modal_title": "确认购买方式",
+    "checkout_modal_description": "请先选择新购激活码或续费已有激活码，再继续支付",
+    "checkout_modal_title_plan": "选择套餐生效方式",
+    "checkout_modal_description_plan": "你可以新购一个正式激活码，也可以将已有试用码原地升级为正式套餐。升级后无需换码，回到插件重新验证即可刷新会员权益。",
+    "checkout_modal_title_credits": "选择积分充值对象",
+    "checkout_modal_description_credits": "积分包需要绑定一个正式会员激活码，用于账号监控和插件内 AI 能力。试用码不能直接购买积分，请先升级为正式套餐。",
+    "checkout_modal_cancel": "取消",
+    "checkout_modal_confirm": "继续支付",
+    "checkout_confirm_upgrade_trial": "升级为正式套餐",
+    "checkout_confirm_renew": "续费此激活码",
+    "checkout_confirm_new": "购买新激活码",
+    "checkout_confirm_credits": "购买积分",
+    "checkout_creating_title": "正在创建支付订单",
+    "checkout_creating_description": "系统正在生成订单、连接支付宝/微信支付通道，并准备跳转到扫码支付页面。",
+    "checkout_step_order": "订单信息已提交",
+    "checkout_step_provider": "正在连接支付通道",
+    "checkout_step_redirect": "即将打开扫码支付页面",
+    "checkout_keep_open": "通常需要几秒钟，请不要关闭当前窗口"
+  }
+}

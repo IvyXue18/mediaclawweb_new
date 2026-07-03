@@ -1,0 +1,239 @@
+{
+  "metadata": {
+    "title": "小红书去水印 - 免费批量下载无水印视频、图片、Live图 | MediaClaw",
+    "description": "免费小红书去水印工具，一键批量下载小红书无水印视频和高清原图，支持图文配图、视频笔记、Live实况图、封面保存。",
+    "keywords": "小红书去水印, 小红书无水印下载, 小红书视频下载, 小红书图片下载, 小红书Live图下载, 小红书高清原图"
+  },
+  "page": {
+    "title": "免费批量下载小红书图片和视频素材",
+    "show_sections": [
+      "hero",
+      "modes",
+      "batch",
+      "outputs",
+      "scenarios",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "免费小红书图片视频批量下载工具",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "小红书"
+          },
+          {
+            "title": "去水印下载"
+          }
+        ],
+        "title": "免费批量下载小红书图片/视频素材",
+        "description": "一键批量下载小红书图文图片和视频笔记，高清无水印保存原画质；下载后可直接进入内容分析与二次创作流程。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=232,244"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "图文图片一键批量下载",
+            "description": "进入笔记详情页后一键批量保存全部配图，支持原始分辨率导出，免费替代逐张截图和手工保存。",
+            "icon": "ImageDown",
+            "image": {
+              "src": "/imgs/features/13-v20260424.webp",
+              "alt": "MediaClaw 小红书图文笔记配图一键批量无水印下载"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "视频素材批量去水印下载",
+            "description": "支持批量提取视频直链并下载原始格式文件，快速沉淀小红书视频素材库。",
+            "icon": "Video",
+            "image": {
+              "src": "/imgs/features/11-v20260425.webp",
+              "alt": "MediaClaw 小红书视频笔记无水印下载并保留原始格式"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "下载后快速整理素材库",
+            "description": "下载内容可按赛道、主题、风格归档，并与结构化笔记数据联动管理，后续检索复用更高效。",
+            "icon": "FolderKanban",
+            "image": {
+              "src": "/imgs/features/9-v20260424.webp",
+              "alt": "MediaClaw 将小红书素材下载与笔记采集结合沉淀内容资产"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "batch": {
+        "id": "batch",
+        "block": "features",
+        "subtitle": "Batch Workflow",
+        "title": "批量下载工作流：筛选后集中保存",
+        "description": "把零散下载动作升级为稳定可复用的批量任务流。",
+        "items": [
+          {
+            "title": "批量任务连续执行",
+            "description": "在同一流程里连续处理多个笔记的图片和视频素材下载任务。",
+            "icon": "ListChecks"
+          },
+          {
+            "title": "先筛选，再精准下载",
+            "description": "先用关键词或采集结果筛出高价值内容，再定向批量下载对应图文和视频素材。",
+            "icon": "Filter"
+          },
+          {
+            "title": "统一归档分类管理",
+            "description": "下载后按赛道、主题、风格分类管理，做选题和视觉参考时调用更快。",
+            "icon": "FolderKanban"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "免费批量下载的典型使用场景",
+        "columns": [
+          {
+            "key": "role",
+            "title": "人群"
+          },
+          {
+            "key": "scene",
+            "title": "场景"
+          },
+          {
+            "key": "effect",
+            "title": "效果"
+          }
+        ],
+        "rows": [
+          {
+            "role": "内容创作者",
+            "scene": "建立竞品视觉参考素材库",
+            "effect": "系统收集同行视觉风格，降低内容起稿试错"
+          },
+          {
+            "role": "设计团队",
+            "scene": "批量收集同行配图风格样本",
+            "effect": "更快完成版式和视觉方向研判"
+          },
+          {
+            "role": "电商运营",
+            "scene": "沉淀竞品素材用于商品内容策划",
+            "effect": "快速验证详情页和短内容视觉策略"
+          },
+          {
+            "role": "品牌团队",
+            "scene": "长期存档赛道视觉素材变化",
+            "effect": "形成可复用的视觉情报资产"
+          },
+          {
+            "role": "内容运营",
+            "scene": "做系列选题前建立视觉参考基线",
+            "effect": "封面和图文表达风格更统一"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "免费版支持批量下载小红书图片和视频素材吗？",
+            "answer": "支持。安装后即可在笔记详情页执行批量下载，快速保存图文图片和视频素材。"
+          },
+          {
+            "question": "去水印下载会压缩画质吗？",
+            "answer": "不会。默认以原始质量下载，尽量保留素材清晰度和细节，适合做二次分析与创作参考。"
+          },
+          {
+            "question": "能一键批量下载整篇图文和视频吗？",
+            "answer": "可以。进入笔记详情页后可批量导出整篇图文配图，并支持视频笔记去水印下载，减少手工整理成本。"
+          },
+          {
+            "question": "小红书视频笔记支持无水印原格式下载吗？",
+            "answer": "支持。可下载视频素材并保留原始格式，便于本地存档、内容复盘和二次分析。"
+          },
+          {
+            "question": "下载素材后建议怎么使用更稳妥？",
+            "answer": "不建议直接原样搬运发布，尊重别人的创意。建议用于视觉参考、复盘和二次创作，可以更好兼顾内容质量和平台规范。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "继续完善你的小红书内容创作工作流",
+        "links": [
+          {
+            "title": "小红书笔记采集",
+            "description": "先采集结构化数据，再批量下载对应素材文件。",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "小红书评论采集",
+            "description": "结合评论反馈筛选更有价值的素材样本。",
+            "url": "/xiaohongshu/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "小红书关键词洞察",
+            "description": "围绕关键词方向构建素材专题库。",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "小红书竞品监控",
+            "description": "监控命中后第一时间下载新内容素材。",
+            "url": "/xiaohongshu/monitoring",
+            "icon": "Radar"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "把小红书图片视频素材批量沉淀下来",
+        "description": "免费安装 MediaClaw，把小红书图片和视频素材下载接入你的采集、分析与创作流程。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

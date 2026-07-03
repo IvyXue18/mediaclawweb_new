@@ -1,0 +1,269 @@
+{
+  "metadata": {
+    "title": "抖音赛道策略工具_判断机会、找对标账号、长尾词洞察 | MediaClaw",
+    "description": "输入一个种子词，先判断抖音赛道机会，再自动找对标账号、扩展搜索联想长尾词并聚类需求方向，帮助内容团队完成选题判断、账号研究、样本采集和发布节奏设计。",
+    "keywords": "抖音关键词挖掘, 抖音赛道机会判断, 抖音对标账号, 抖音搜索词分析, 抖音长尾词挖掘, 抖音选题洞察, 搜索联想词, 流量机会"
+  },
+  "page": {
+    "title": "抖音赛道策略",
+    "show_sections": [
+      "hero",
+      "expand",
+      "workflow",
+      "outputs",
+      "scenes",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "抖音赛道策略与关键词工具",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "抖音"
+          },
+          {
+            "title": "赛道策略"
+          }
+        ],
+        "title": "抖音赛道策略：先判断机会，再找对标账号",
+        "description": "从一个主词出发，先判断这个方向值不值得做，再自动筛出值得学习和监控的对标账号，继续扩展长尾需求词并触发视频样本采集。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "下载分析结果图",
+            "icon": "ImageDown",
+            "url": "/downloads/samples/douyin-keyword-insights.png",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=45,87"
+      },
+      "expand": {
+        "id": "expand",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "主词机会判断",
+            "description": "自动采样当前搜索词下高互动视频，补采代表作品详情，判断热度分布、竞争强度和优先切入方向。",
+            "icon": "Gauge",
+            "image": {
+              "src": "/imgs/features/17-v20260425.webp",
+              "alt": "MediaClaw 抖音赛道机会判断功能基于搜索样本分析关键词是否值得做"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "找对标账号",
+            "description": "从搜索样本中聚合反复出现的高表现账号，补采粉丝、简介和赞藏数据，生成推荐理由，并可复制结果或纳入监控。",
+            "icon": "UserSearch",
+            "image": {
+              "src": "/imgs/features/platform-douyin.webp",
+              "alt": "MediaClaw 抖音找对标账号功能从搜索结果中筛选候选标杆账号"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "搜索联想词批量采集",
+            "description": "输入种子词后自动触发联想输入流程，批量抓取抖音搜索建议词，快速建立赛道关键词全景。",
+            "icon": "SpellCheck2",
+            "image": {
+              "src": "/imgs/features/17-v20260425.webp",
+              "alt": "MediaClaw 抖音关键词裂变扩词功能自动抓取搜索联想词"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "长尾词去重与需求聚类",
+            "description": "自动清洗重复词和低价值词，并按人群、场景、问题类型聚类输出，便于直接转成选题清单。",
+            "icon": "FilterX",
+            "image": {
+              "src": "/imgs/features/11-v20260424.webp",
+              "alt": "MediaClaw 自动去重清洗抖音长尾关键词并输出可执行关键词清单"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "扩词结果直连采集",
+            "description": "在关键词列表中一键触发采集任务，快速拉取对应视频样本，验证词路是否真有内容机会。",
+            "icon": "Play",
+            "image": {
+              "src": "/imgs/features/5-v20260425.webp",
+              "alt": "MediaClaw 抖音关键词扩词结果可一键触发内容采集任务"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "scenes": {
+        "id": "scenes",
+        "block": "data-table",
+        "title": "关键词洞察在抖音团队中的落地方式",
+        "columns": [
+          {
+            "key": "role",
+            "title": "人群"
+          },
+          {
+            "key": "scene",
+            "title": "典型场景"
+          },
+          {
+            "key": "result",
+            "title": "结果"
+          }
+        ],
+        "rows": [
+          {
+            "role": "短视频账号操盘手",
+            "scene": "账号冷启动，不确定主词还能不能打",
+            "result": "先判断赛道机会，再用长尾词地图建立前30条内容选题池"
+          },
+          {
+            "role": "直播带货运营",
+            "scene": "需要提前捕捉商品相关搜索需求",
+            "result": "围绕高意向词布局引流视频和直播话术"
+          },
+          {
+            "role": "本地生活商家",
+            "scene": "想放大同城搜索带来的自然流量",
+            "result": "识别“城市+服务+场景”高转化关键词组合"
+          },
+          {
+            "role": "品牌内容团队",
+            "scene": "希望降低选题试错和拍摄浪费",
+            "result": "按赛道机会、需求强度和对标账号样本排优先级"
+          },
+          {
+            "role": "MCN / 投放团队",
+            "scene": "想从搜索结果中发现潜力账号",
+            "result": "自动生成候选对标账号清单，快速复核并纳入监控"
+          },
+          {
+            "role": "知识类创作者",
+            "scene": "用户问题分散，难整理成系列内容",
+            "result": "将关键词按问题层级组织成连续更新栏目"
+          },
+          {
+            "role": "投放与增长团队",
+            "scene": "需要统一自然流量和投放素材选题",
+            "result": "沉淀可复用关键词库，提升内容与流量匹配度"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "抖音关键词怎么筛出“有流量也有转化”的方向？",
+            "answer": "建议优先看“场景词+需求词+动作词”的组合，再用采集样本验证互动质量，避免只看热度不看转化信号。"
+          },
+          {
+            "question": "怎么判断一个抖音主词还值不值得做？",
+            "answer": "可以先在搜索页运行“判断赛道机会”。MediaClaw 会采样高互动搜索结果和代表作品，结合热度分布、互动断层和内容角度给出切入建议。"
+          },
+          {
+            "question": "不知道该对标哪些抖音账号怎么办？",
+            "answer": "使用“找对标账号”即可从当前搜索词样本中自动筛出反复出现、表现较好的候选账号，并补充粉丝量级、代表作品和推荐理由。"
+          },
+          {
+            "question": "为什么只靠手动搜词不够？",
+            "answer": "手动方式覆盖面小、容易漏掉边缘高价值词。批量扩词能更完整地拿到用户真实搜索表达，再做系统化筛选。"
+          },
+          {
+            "question": "除了下拉词，还可以结合哪些信号优化词库？",
+            "answer": "可结合视频标题、话题标签、评论高频问句和竞品账号高互动内容进行二次扩词，词库会更接近真实用户语言。"
+          },
+          {
+            "question": "扩词结果怎样接到周更计划里？",
+            "answer": "建议按需求类型拆成固定栏目，每周优先执行高需求、高可拍词组，并用采集数据持续回写词库。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "继续完善你的抖音选题、采集与复盘工作流",
+        "links": [
+          {
+            "title": "抖音视频采集",
+            "description": "围绕高价值关键词批量采集视频样本，做内容拆解与验证。",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "抖音评论采集",
+            "description": "从评论反馈反向判断关键词的真实需求强度。",
+            "url": "/douyin/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "抖音竞品监控",
+            "description": "追踪对标账号策略变化，快速发现新增关键词方向。",
+            "url": "/douyin/monitoring",
+            "icon": "Radar"
+          },
+          {
+            "title": "飞书自动化联动",
+            "description": "关键词、采集与评论数据统一入表，方便团队协同执行。",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "先判断机会，再找账号和选题",
+        "description": "免费安装 MediaClaw，把抖音赛道策略接入你的选题、对标和发布节奏。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "下载分析结果图",
+            "icon": "ImageDown",
+            "url": "/downloads/samples/douyin-keyword-insights.png",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

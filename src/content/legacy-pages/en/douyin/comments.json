@@ -1,0 +1,363 @@
+{
+  "metadata": {
+    "title": "Free Douyin Comment Scraper Chrome Extension",
+    "description": "Scrape Douyin video comments with a free no-code Chrome extension. Capture text, time, likes, and users, then export comments to Excel/CSV or Lark Base.",
+    "keywords": "Douyin comment scraper, export Douyin comments to Excel, Douyin comment scraper Chrome extension, Douyin comment analysis, TikTok China comments, no-code scraper"
+  },
+  "page": {
+    "title": "Douyin Comment Scraper",
+    "show_sections": [
+      "hero",
+      "howto",
+      "modes",
+      "outputs",
+      "scenarios",
+      "compare",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Douyin Comment Scraping Tool",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Douyin"
+          },
+          {
+            "title": "Comment Scraper"
+          }
+        ],
+        "title": "Free Douyin Comment Scraper: Export Comments to Excel",
+        "description": "Collect public Douyin video comments from your browser. Capture text, timestamps, likes, and user fields, then export to Excel/CSV or Lark Base for sentiment analysis, lead research, and competitor monitoring.",
+        "buttons": [
+          {
+            "title": "Install Free Extension",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Download Douyin Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=137,173"
+      },
+      "howto": {
+        "id": "howto",
+        "block": "workflow-steps",
+        "label": "How It Works",
+        "title": "Scrape Douyin Comments in 4 Steps",
+        "description": "Turn a video's comment section into a clean Excel dataset in minutes — no code.",
+        "items": [
+          {
+            "title": "Install the Free Extension",
+            "description": "Add MediaClaw to Chrome. No code, API keys, or sign-up needed to start scraping.",
+            "icon": "Download"
+          },
+          {
+            "title": "Open a Douyin Video",
+            "description": "Go to any public Douyin video page in your desktop browser and open the MediaClaw sidebar.",
+            "icon": "Chrome"
+          },
+          {
+            "title": "Start Comment Capture",
+            "description": "MediaClaw auto-scrolls the thread and collects comment text, timestamps, likes, and user fields into structured rows.",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "Export to Excel or Lark",
+            "description": "Export the structured comment dataset to Excel in one click, or sync to Lark Base for sentiment and lead analysis.",
+            "icon": "FileSpreadsheet"
+          }
+        ]
+      },
+      "outputs": {
+        "id": "outputs",
+        "block": "data-table",
+        "title": "Douyin Comment Data You Can Export",
+        "description": "Capture structured comment datasets instead of copying scattered replies by hand.",
+        "columns": [
+          {
+            "key": "group",
+            "title": "Field Group"
+          },
+          {
+            "key": "included",
+            "title": "Included Data"
+          },
+          {
+            "key": "use",
+            "title": "Why It Matters"
+          }
+        ],
+        "rows": [
+          {
+            "group": "Comment content",
+            "included": "Comment text, reply context, timestamps, and visible engagement signals",
+            "use": "Run sentiment analysis and identify recurring audience language"
+          },
+          {
+            "group": "User profile fields",
+            "included": "Public user identifiers and profile context available on the page",
+            "use": "Separate casual reactions from high-intent or repeat commenters"
+          },
+          {
+            "group": "Video context",
+            "included": "Source video information and comment thread structure",
+            "use": "Compare what different hooks, creators, or topics make viewers say"
+          },
+          {
+            "group": "Export options",
+            "included": "Excel-ready CSV files and Lark Base sync for team workflows",
+            "use": "Move comment data into reporting, research, and follow-up pipelines"
+          }
+        ]
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "Automated Video Comment Capture",
+            "description": "Collect large volumes of Douyin comments with text, engagement metrics, timestamps, and user fields in a single scraping run.",
+            "icon": "MessageCircle",
+            "image": {
+              "src": "/imgs/features/15-v20260425.webp",
+              "alt": "MediaClaw capturing Douyin video comments and engagement fields automatically"
+            },
+            "button": {
+              "title": "Install Free Extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "One-Click Export to Excel/CSV",
+            "description": "Export structured comment data for social listening, creator research, and competitor analysis. You can also sync to Lark Base for team collaboration.",
+            "icon": "FileSpreadsheet",
+            "image": {
+              "src": "/imgs/features/1-v20260513.png",
+              "alt": "MediaClaw exporting Douyin comment datasets to Excel and Lark Base"
+            },
+            "button": {
+              "title": "Install Free Extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "AI Insight for Viral Comment Patterns",
+            "description": "Use AI to surface recurring audience needs, high-response hooks, and script opportunities based on what users actually discuss.",
+            "icon": "Brain",
+            "image": {
+              "src": "/imgs/features/15-v20260425.webp",
+              "alt": "MediaClaw AI summarizing demand signals and content hooks from Douyin comments"
+            },
+            "button": {
+              "title": "Install Free Extension",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "feature-matrix",
+        "label": "Workflow Fit",
+        "title": "Why Use a Douyin Comment Scraper",
+        "description": "MediaClaw is built for repeatable audience research, not one-off manual copying.",
+        "columns": 3,
+        "items": [
+          {
+            "title": "Faster Than Manual Copying",
+            "description": "Auto-scroll comment threads and collect structured rows in one run instead of pasting comments into a spreadsheet.",
+            "icon": "Timer"
+          },
+          {
+            "title": "Ready for Analysis",
+            "description": "Export consistent fields for sentiment analysis, keyword clustering, objection mining, and creator research.",
+            "icon": "ChartColumn"
+          },
+          {
+            "title": "Built for Teams",
+            "description": "Send datasets to CSV, Excel workflows, or Lark Base so marketers, analysts, and operators can work from the same source.",
+            "icon": "Users"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "Top Use Cases for Douyin Comment Scraping",
+        "columns": [
+          {
+            "key": "role",
+            "title": "Role"
+          },
+          {
+            "key": "scene",
+            "title": "Typical Use Case"
+          },
+          {
+            "key": "effect",
+            "title": "Business Outcome"
+          }
+        ],
+        "rows": [
+          {
+            "role": "Content Team",
+            "scene": "Analyze reactions on viral videos",
+            "effect": "Plan follow-up content with better hit rate"
+          },
+          {
+            "role": "Data Analyst",
+            "scene": "Run sentiment and phrase-frequency studies",
+            "effect": "Build data-backed audience insight dashboards"
+          },
+          {
+            "role": "Brand Team",
+            "scene": "Track your video comments and competitor feedback",
+            "effect": "Catch product concerns and sentiment shifts early"
+          },
+          {
+            "role": "Market Research",
+            "scene": "Sample comments across trending niche videos",
+            "effect": "Understand audience language and buying triggers"
+          },
+          {
+            "role": "Creators",
+            "scene": "Review comment quality and engagement signals",
+            "effect": "Improve retention and channel stickiness"
+          },
+          {
+            "role": "PR / Reputation",
+            "scene": "Monitor sensitive brand mentions continuously",
+            "effect": "Respond before negative narratives spread"
+          }
+        ]
+      },
+      "safety": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "Safety",
+        "title": "Controlled Douyin Comment Collection",
+        "description": "Collect public comments at a practical pace while keeping research workflows organized and reviewable.",
+        "items": [
+          {
+            "title": "Browser-Based Capture",
+            "description": "Run collection from your desktop browser on public Douyin pages without custom API setup.",
+            "icon": "Chrome"
+          },
+          {
+            "title": "Human-Like Scrolling",
+            "description": "Use measured scrolling and wait intervals so comment loading behaves closer to normal browsing.",
+            "icon": "Mouse"
+          },
+          {
+            "title": "Review Before Export",
+            "description": "Check captured rows locally before moving datasets into CSV, Excel, or Lark Base.",
+            "icon": "ClipboardCheck"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "Why extract Douyin comments for analysis?",
+            "answer": "Comments often reveal clearer intent than video views alone. Scraped datasets help you identify pain points, objections, and content hooks faster."
+          },
+          {
+            "question": "How do I scrape Douyin comments in batch?",
+            "answer": "Install MediaClaw, open a Douyin video page in desktop browser, and start scraping. The tool auto-scrolls and exports all captured fields to Excel/CSV."
+          },
+          {
+            "question": "Is the Douyin comment scraper free to use?",
+            "answer": "Yes. Core scraping and export capabilities are free, which is enough for most day-to-day competitor research and content validation tasks."
+          },
+          {
+            "question": "How many comments should I collect per video?",
+            "answer": "A focused sample of 300-500 recent or high-engagement comments is usually enough to detect strong patterns without creating unnecessary noise."
+          },
+          {
+            "question": "How can exported comments support revenue growth?",
+            "answer": "Teams use comment data to improve offers, refine sales messaging, find recurring objections, and discover high-intent audience questions for conversion funnels."
+          },
+          {
+            "question": "Can I export Douyin comments to Excel or CSV?",
+            "answer": "Yes. MediaClaw captures Douyin comment fields in a structured dataset and exports them as Excel-ready CSV, so you can analyze comments in spreadsheets, BI tools, or AI workflows."
+          },
+          {
+            "question": "Can MediaClaw scrape TikTok China comments?",
+            "answer": "Yes. Douyin is commonly described as TikTok China in English search results. MediaClaw focuses on public Douyin video comment threads and exports the captured data for research and analysis."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "Related Tools",
+        "description": "Expand your Douyin content and audience intelligence workflow",
+        "links": [
+          {
+            "title": "Douyin Lead Scraper",
+            "description": "Filter intent-rich comments and export lead-ready prospect lists.",
+            "url": "/douyin/leads",
+            "icon": "UserCheck"
+          },
+          {
+            "title": "Douyin Video Scraper",
+            "description": "Collect video datasets by account and keyword for deeper analysis.",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Douyin Keyword Insights",
+            "description": "Expand search terms and validate demand before production.",
+            "url": "/douyin/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "Douyin Competitor Monitor",
+            "description": "Track competitor updates and spot trend changes in real time.",
+            "url": "/douyin/monitoring",
+            "icon": "Radar"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Install the Free Douyin Comment Scraper",
+        "description": "Use MediaClaw to export Douyin video comments into clean CSV/Excel datasets for audience research.",
+        "buttons": [
+          {
+            "title": "Install Free Extension",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "Download Douyin Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

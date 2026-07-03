@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "title": "Update Logs — Product Features & Improvements | MediaClaw",
+    "description": "View product update logs, including latest features, bug fixes, and performance improvements.",
+    "keywords": "MediaClaw update logs, what's new, feature updates, version changes, product roadmap"
+  },
+  "page": {
+    "sections": {
+      "updates": {
+        "id": "updates",
+        "title": "Update Logs",
+        "description": "View product update logs, including latest features and improvements."
+      }
+    }
+  }
+}

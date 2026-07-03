@@ -1,0 +1,234 @@
+{
+  "metadata": {
+    "title": "抖音评论采集工具_批量采集评论数据并一键导出Excel | MediaClaw",
+    "description": "免费的抖音评论采集工具，支持一键批量采集短视频评论数据、用户互动数据及昵称，快速导出 Excel/CSV。搭载 AI 评论挖掘功能，帮你分析真实痛点与爆款脚本灵感。",
+    "keywords": "抖音评论采集, 抖音评论数据采集, 提取抖音评论, 抖音评论导出Excel, 评论挖掘, 抖音数据分析, 免费抖音插件"
+  },
+  "page": {
+    "title": "抖音评论采集",
+    "show_sections": [
+      "hero",
+      "modes",
+      "outputs",
+      "scenarios",
+      "compare",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "抖音评论采集与评论挖掘工具",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "抖音"
+          },
+          {
+            "title": "评论采集"
+          }
+        ],
+        "title": "批量采集抖音评论数据并导出 Excel",
+        "description": "无需懂代码，一键自动向下滚动采集抖音视频评论数据，支持导出为 Excel / CSV 表格，并利用 AI 做评论挖掘和受众需求分析",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "下载抖音样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=137,173"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "视频评论自动化采集",
+            "description": "安装浏览器插件后，在抖音网页版即可一键自动滚动抓取视频下方的所有评论。精准获取评论文本、点赞互动数、发布时间及用户基础信息，彻底解放双手，轻松应对百万播放量的爆款视频。",
+            "icon": "MessageCircle",
+            "image": {
+              "src": "/imgs/features/15-v20260425.webp",
+              "alt": "MediaClaw 抖音评论采集面板自动化提取评论数据"
+            },
+            "button": {
+              "title": "免费安装插件",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "评论数据免费一键导出 Excel",
+            "description": "将提取到的海量评论数据一键打包下载为 Excel 或 CSV 格式。字段结构清晰，完美契合你的舆情监测、用户画像分析和竞品调研工作流；同时支持一键同步至飞书多维表格进行团队协作和 AI 洞察分析。",
+            "icon": "FileSpreadsheet",
+            "image": {
+              "src": "/imgs/features/1-v20260513.png",
+              "alt": "MediaClaw 抖音评论全量数据导出为 Excel 并支持飞书同步"
+            },
+            "button": {
+              "title": "免费安装插件",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "AI 深度挖掘视频热评价值",
+            "description": "让大模型为你解读海量反馈，一键产出三大深度洞察：① 需求结构化解析（从调侃与神回复中提炼真实痛点）；② 短视频脚本灵感挖掘（反推自带流量视角的下一条视频主题）；③ 原声金句溯源（提取引发高频点赞的原始评论）。",
+            "icon": "Brain",
+            "image": {
+              "src": "/imgs/features/15-v20260425.webp",
+              "alt": "MediaClaw AI 从抖音热评中提炼爆款脚本灵感与痛点"
+            },
+            "button": {
+              "title": "免费安装插件",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "评论采集的高频实战场景",
+        "columns": [
+          {
+            "key": "role",
+            "title": "人群"
+          },
+          {
+            "key": "scene",
+            "title": "典型场景"
+          },
+          {
+            "key": "effect",
+            "title": "效果"
+          }
+        ],
+        "rows": [
+          {
+            "role": "内容运营",
+            "scene": "分析爆款评论反馈并反推下一条内容方向",
+            "effect": "降低试错成本，提高内容命中率"
+          },
+          {
+            "role": "数据分析师",
+            "scene": "基于评论语料做情感与需求词频分析",
+            "effect": "形成可视化需求地图与优先级建议"
+          },
+          {
+            "role": "品牌运营",
+            "scene": "监测自家和竞品视频的用户反馈与口碑",
+            "effect": "及时发现产品问题和用户关注点"
+          },
+          {
+            "role": "市场调研",
+            "scene": "批量采集行业热门视频评论做用户画像",
+            "effect": "快速了解目标人群的真实需求与偏好"
+          },
+          {
+            "role": "个人创作者",
+            "scene": "分析自己视频评论区的互动质量",
+            "effect": "优化内容策略，提升粉丝粘性"
+          },
+          {
+            "role": "公关 / 舆情",
+            "scene": "持续监测品牌相关视频的评论舆论走向",
+            "effect": "第一时间发现负面评论并做出响应"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "为什么要提取抖音视频评论？能带来什么价值？",
+            "answer": "抖音评论区（尤其是“神回复”和热评）往往比视频本身更有信息量。通过采集分析评论，你能迅速捕捉受众的真实情绪、痛点疑问和流行梗，不仅能反推下一个爆款短视频的脚本和切入点，更是监测同行口碑、挖掘潜在交易线索的绝佳渠道。"
+          },
+          {
+            "question": "如何操作才能批量采集抖音评论？",
+            "answer": "整个过程无需任何编程基础。免费安装 MediaClaw 插件后，在电脑浏览器打开抖音网页版并进入任意视频播放页，点击“采集评论”，工具就会自动向下滚动并提取所有评论及点赞互动数据，完成后即可一键下载 Excel/CSV 表格。"
+          },
+          {
+            "question": "这款抖音评论提取插件是免费的吗？",
+            "answer": "是的，基础的评论提取与导出功能完全免费提供！免费版支持无限制抓取单条视频的评论，并可以完整导出数据表，绝大多数的日常竞品调研和爆款视频拆解需求，都能在免费额度内轻松搞定。"
+          },
+          {
+            "question": "抖音视频评论动辄上万，一次可以采集多少？是越多越好吗？",
+            "answer": "MediaClaw 支持一次性抓取数千条评论。但对于数据分析而言，并不建议执着于“采完全部”。一般来说，随机提取前 300-500 条高赞热评和最新评论，其样本的代表性已完全足够支持 AI 进行需求提炼和情感画像。高质量的样本永远比杂乱的海量数据更有效率。"
+          },
+          {
+            "question": "提取下来的评论数据一般怎么用于商业变现？",
+            "answer": "用户评论是极具商业价值的直接反馈资产。你可以将其应用于：① 同行视频监控（了解粉丝都在吐槽竞品什么）；② 精准截流引流（高频提问往往是高意向线索）；③ 卖点优化（根据用户痛点提炼直播带货话术）；④ 爆款脚本建设（把痛点转化为后续视频的吸睛钩子）。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "继续完善你的抖音内容分析与运营工作流",
+        "links": [
+          {
+            "title": "抖音客资采集",
+            "description": "用意向关键词模板自动过滤高意向评论，导出可跟进客资名单。",
+            "url": "/douyin/leads",
+            "icon": "UserCheck"
+          },
+          {
+            "title": "抖音视频采集",
+            "description": "围绕账号和关键词批量采集视频样本，补齐内容分析底座。",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "抖音关键词洞察",
+            "description": "先做关键词扩展，再回看评论验证需求强度。",
+            "url": "/douyin/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "抖音竞品监控",
+            "description": "订阅对标账号动态，第一时间追踪高热内容变化。",
+            "url": "/douyin/monitoring",
+            "icon": "Radar"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "评论区数据，一键采集",
+        "description": "免费安装 MediaClaw，轻松抓取抖音评论区全量数据，为内容分析和运营决策提供数据支撑。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "下载抖音样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

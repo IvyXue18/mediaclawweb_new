@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "title": "MediaClaw Blog — Guides, Playbooks & Case Studies",
+    "description": "Explore expert guides on Xiaohongshu and Douyin content operations, data extraction case studies, and best practices for team collaboration.",
+    "keywords": "MediaClaw blog, Xiaohongshu marketing, Douyin content strategy, data scraper tutorials, social media growth, case studies"
+  },
+  "page": {
+    "title": "MediaClaw Blog",
+    "sections": {
+      "blog": {
+        "id": "blog",
+        "title": "Blog",
+        "description": "Read latest product features, solutions, and updates."
+      }
+    }
+  },
+  "messages": {
+    "all": "All",
+    "no_content": "No Content",
+    "crumb": "Blog",
+    "toc": "Table of Contents",
+    "related_posts": "Related Articles"
+  }
+}

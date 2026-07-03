@@ -1,0 +1,234 @@
+{
+  "metadata": {
+    "title": "小红书视频逐字稿一键提取，带时间戳分句节奏稿 | MediaClaw 社媒虾",
+    "description": "小红书视频逐字稿一键提取，插件内直接把口播转成文字，不依赖飞书。输出完整逐字稿和带时间戳的分句稿，方便拆口播节奏、AI 改写仿写、沉淀文案素材。",
+    "keywords": "小红书视频逐字稿, 小红书逐字稿提取, 视频转文字, 口播文案提取, 带时间戳逐字稿, 视频节奏分析, 短视频口播拆解, 小红书视频文案, 视频脚本提取"
+  },
+  "page": {
+    "title": "小红书视频逐字稿提取",
+    "show_sections": [
+      "hero",
+      "modes",
+      "compare",
+      "uses",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "小红书视频逐字稿提取工具",
+        "breadcrumbs": [
+          { "title": "首页", "url": "/" },
+          { "title": "小红书" },
+          { "title": "视频逐字稿" }
+        ],
+        "title": "小红书视频逐字稿，一键提取",
+        "description": "一条视频口播逐字稿直接提取，一次给两份：完整逐字稿方以及带时间戳的分句稿，拆解视频角度更完整。前三秒，中间结构，结尾召唤，节奏信息一目了然。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "下载小红书样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/demo/xiaohongshu-transcript-26ec58d2c880.mp4",
+        "video_poster": "https://media.mediaclaw.app/blog-covers/7c94d2a48528fa38a6c364e498fdb4b5.png"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "插件内一键提取",
+            "description": "从数据采集到提取口播逐字稿，一气呵成。结果回填到这条采集记录，照常复制、导出 CSV/Markdown 或同步飞书。",
+            "icon": "AudioLines",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/7c94d2a48528fa38a6c364e498fdb4b5.png",
+              "alt": "MediaClaw 插件侧边栏提取小红书视频逐字稿，右侧展示带时间戳的分句节奏稿"
+            },
+            "button": { "title": "免费下载使用", "url": "/download" }
+          },
+          {
+            "title": "带时间戳分句稿，拿来拆节奏",
+            "description": "一整段平铺的文字只能告诉你说了什么，带时间戳的分句稿能告诉你什么时候说的、每句占多久。钩子、铺垫、转折、结尾召唤这些节奏信息，全靠时间轴才看得出来。",
+            "icon": "Timer",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/b76b2e8d56b648002b9b73f0c7d50dc2.png",
+              "alt": "用带时间戳的逐字稿分析并优化视频脚本节奏"
+            },
+            "button": { "title": "免费下载使用", "url": "/download" }
+          },
+          {
+            "title": "逐字稿直接进 AI 改写仿写",
+            "description": "提完的文字稿和视频信息在同一条记录里，可以逐句分析对标视频的口播结构，再用 AI 解构、改写、仿写整条笔记，积累可复用的文案素材。",
+            "icon": "Wand2",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/19711c105b2577936fd23022ee7614c4.png",
+              "alt": "在飞书多维表格中用 AI 解构原笔记结构并生成改写版本"
+            },
+            "button": { "title": "免费下载使用", "url": "/download" }
+          },
+          {
+            "title": "量大就同步飞书批量提取",
+            "description": "一批待拆的视频不想一条条提，可以同步到飞书多维表格，走音视频转文字字段捷径配阿里百炼。原始链接填进表格自动逐条提取，每月 10 小时免费额度，按一条两分钟算够跑三百条。",
+            "icon": "Table2",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/23959730eb58ef0d6a1ee53bd0271338.png",
+              "alt": "飞书多维表格音视频转文字字段捷径批量提取小红书视频逐字稿"
+            },
+            "button": { "title": "免费下载使用", "url": "/download" }
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "title": "两条提取路径，按你的场景选",
+        "description": "做了插件内提取，不代表飞书那条免费路就该被废，它俩解决同一需求的不同侧面。",
+        "columns": [
+          { "key": "dim", "title": "维度" },
+          { "key": "plugin", "title": "插件内提取" },
+          { "key": "feishu", "title": "飞书字段捷径 + 阿里百炼" }
+        ],
+        "rows": [
+          {
+            "dim": "费用",
+            "plugin": "按视频时长扣积分",
+            "feishu": "每月 10 小时免费额度"
+          },
+          {
+            "dim": "模型精度",
+            "plugin": "更新更准，语速快/方言/杂音也能扛",
+            "feishu": "偏旧，杂音方言容易掉字错字"
+          },
+          {
+            "dim": "时间戳",
+            "plugin": "有，分句带时间轴",
+            "feishu": "无，整段平铺文字"
+          },
+          {
+            "dim": "路径",
+            "plugin": "采集记录上直接提，不依赖飞书",
+            "feishu": "需先把原始链接同步到飞书表格"
+          },
+          {
+            "dim": "适合谁",
+            "plugin": "认真拆节奏、素材识别难度高、错字成本大",
+            "feishu": "量大、预算敏感、只想拿个大概文字稿"
+          }
+        ]
+      },
+      "uses": {
+        "id": "uses",
+        "block": "features",
+        "subtitle": "What's next",
+        "title": "拿到逐字稿之后，能做什么",
+        "description": "逐字稿不只是把口播变成字，它进了采集记录之后才真正有用。",
+        "items": [
+          {
+            "title": "拆口播结构与节奏",
+            "description": "对比多条对标视频的开场钩子、铺垫长度和转折落点，找出能复用的脚本模板。",
+            "icon": "Gauge"
+          },
+          {
+            "title": "AI 改写与仿写",
+            "description": "把逐字稿喂给 AI 做解构和改写，连同标题、正文一起生成你自己的版本。",
+            "icon": "Bot"
+          },
+          {
+            "title": "沉淀可复用文案素材",
+            "description": "逐字稿随采集记录一起导出 CSV/Markdown 或同步飞书，长期积累成可检索的文案库。",
+            "icon": "FolderKanban"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "插件里提逐字稿，一定要配飞书吗？",
+            "answer": "不用。原数据建在插件本体里，采集记录上可以直接触发提取，结果回填记录，照常复制、导出 CSV 或 Markdown。飞书只是可选的下游同步去处之一。"
+          },
+          {
+            "question": "为什么逐字稿要带时间戳？没有不行吗？",
+            "answer": "平铺的文字只能告诉你说了什么，带时间戳的分句稿能告诉你什么时候说的、每句占多久。拆短视频时，钩子卡在第几秒、铺垫多长、转折落点全靠时间轴才看得出来。只想存文字没有时间戳也行，想拆节奏时间戳是关键。"
+          },
+          {
+            "question": "飞书那条免费路和插件里这条，到底选哪个？",
+            "answer": "量不大、只想拿个大概文字稿又想省钱，用飞书加阿里百炼那条，每月有十小时免费额度。要认真拆节奏、或者素材识别难度高错字成本大，用插件里这条，它调用更准的付费模型还输出带时间戳分句稿。两条路我们都保留着。"
+          },
+          {
+            "question": "需要先下载视频才能提逐字稿吗？",
+            "answer": "不需要。在采集记录上直接触发提取即可，不用下载视频、不用看广告、不用在多个工具之间来回切换。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "把小红书图文和视频两类笔记的原数据一并补齐",
+        "links": [
+          {
+            "title": "小红书图文文案提取",
+            "description": "对封面和每张配图做 OCR，把图片里的步骤、书单、价格提成文字。",
+            "url": "/xiaohongshu/image-text",
+            "icon": "ScanText"
+          },
+          {
+            "title": "小红书笔记采集",
+            "description": "先采集结构化数据拿到视频原始链接，再触发逐字稿提取。",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "抖音视频逐字稿",
+            "description": "同一套流程，抖音视频也能提带时间戳的分句节奏稿。",
+            "url": "/douyin/transcript",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "飞书自动化联动",
+            "description": "逐字稿随采集记录自动入表，便于团队共享与周期复盘。",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "挑一条爆款，先提一次逐字稿",
+        "description": "免费安装 MediaClaw，采下最近想拆的视频，对它提一次带时间戳的逐字稿，看看它的钩子到底卡在第几秒。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "下载小红书样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

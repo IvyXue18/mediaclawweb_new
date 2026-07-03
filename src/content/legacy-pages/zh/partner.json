@@ -1,0 +1,64 @@
+{
+  "title": "伙伴后台",
+  "purchase": {
+    "title": "批量购买",
+    "description": "选择官网套餐和席位数，系统会按当前 partnerId 的价格规则计算订单。",
+    "product": "套餐",
+    "seats": "席位数",
+    "submit": "创建支付订单"
+  },
+  "channel_buy": {
+    "title": "渠道购买",
+    "description": "该订单会按当前渠道合作价格结算，支付成功后生成归属该渠道的激活码。"
+  },
+  "stats": {
+    "total": "全部激活码",
+    "unused": "未使用",
+    "activated": "已激活",
+    "expired": "已过期",
+    "disabled": "已禁用"
+  },
+  "tabs": {
+    "all": "全部",
+    "unused": "未使用",
+    "activated": "已激活",
+    "expired": "已过期",
+    "disabled": "已禁用"
+  },
+  "orders": {
+    "title": "最近订单",
+    "description": "只展示当前供应商名下的最近 10 笔订单。"
+  },
+  "credentials": {
+    "title": "激活码池",
+    "description": "激活码已绑定当前 partnerId 和默认 variantId，可复制、导出，并记录分配备注。"
+  },
+  "fields": {
+    "code": "激活码",
+    "plan": "套餐 / Variant",
+    "status": "状态",
+    "expires_at": "到期时间",
+    "activated_at": "激活时间",
+    "assignment_note": "分配备注",
+    "assignment_note_placeholder": "客户名 / 使用人 / 项目",
+    "created_at": "创建时间",
+    "order_no": "订单号",
+    "product": "商品",
+    "amount": "金额",
+    "seats": "席"
+  },
+  "status": {
+    "unused": "未使用",
+    "activated": "已激活",
+    "expired": "已过期",
+    "disabled": "已禁用"
+  },
+  "actions": {
+    "save": "保存",
+    "export": "导出 CSV"
+  },
+  "empty": {
+    "credentials": "暂无激活码",
+    "orders": "暂无订单"
+  }
+}

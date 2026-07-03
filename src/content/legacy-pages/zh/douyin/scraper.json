@@ -1,0 +1,226 @@
+{
+  "metadata": {
+    "title": "抖音数据采集工具：批量采集视频、主页、搜索结果并导出Excel/Markdown | MediaClaw 社媒虾",
+    "description": "免费抖音数据采集插件，支持批量采集视频数据、主页数据与搜索结果数据，一键导出 Excel/CSV/Markdown。采集后可提取视频逐字稿，适合做内容分析、评论挖掘前的数据沉淀、对标分析与竞品监控。",
+    "keywords": "抖音数据采集, 抖音采集工具, 抖音视频数据采集, 抖音主页数据采集, 抖音搜索结果采集, 免费抖音插件, 导出Excel, Markdown导出, 抖音视频逐字稿, 抖音视频采集"
+  },
+  "page": {
+    "title": "抖音数据采集",
+    "show_sections": [
+      "hero",
+      "modes",
+      "batch",
+      "outputs",
+      "scenarios",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "抖音数据采集工具",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "抖音"
+          },
+          {
+            "title": "视频采集"
+          }
+        ],
+        "title": "抖音数据采集工具：批量采集视频、主页与搜索结果",
+        "description": "免费抖音数据采集插件，覆盖单视频深度采集、账号主页批量采集与关键词搜索结果采集，支持 CSV/Markdown 导出，采集后可提取视频逐字稿，帮助团队持续沉淀可复用样本，减少选题靠感觉、复盘靠记忆。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "下载抖音样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=222,258"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "单视频深度采集",
+            "description": "进入视频详情页后一键提取标题、话题标签、发布时间及互动数据；采集后可按需提取视频逐字稿，快速拆解封面切入、脚本结构与评论反馈，形成统一复盘样本。",
+            "icon": "FileSearch",
+            "image": {
+              "src": "/imgs/features/12-v20260425.webp",
+              "alt": "MediaClaw 抖音单篇视频深度采集界面"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "账号主页批量拉取",
+            "description": "自动翻页抓取达人历史视频，按时间和互动表现对比内容节奏，适合做对标账号策略跟踪和账号诊断。",
+            "icon": "Users",
+            "image": {
+              "src": "/imgs/features/13-v20260425.webp",
+              "alt": "MediaClaw 抖音博主主页批量采集模式，自动翻页抓取历史视频并按互动指标筛选"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "关键词结果批量采集",
+            "description": "围绕核心业务词批量抓取搜索结果视频，可按点赞和发布时间过滤样本，快速定位高相关、高互动的内容方向。",
+            "icon": "Search",
+            "image": {
+              "src": "/imgs/features/14-v20260425.webp",
+              "alt": "MediaClaw 抖音关键词搜索采集模式，批量汇总赛道内容并设置点赞、收藏、评论等门槛过滤低质样本"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "outputs": {
+        "id": "outputs",
+        "block": "data-table",
+        "title": "采集结果可直接进入分析和协作",
+        "description": "从个人复盘到团队流程都能无缝接入。",
+        "columns": [
+          {
+            "key": "mode",
+            "title": "输出方式"
+          },
+          {
+            "key": "desc",
+            "title": "说明"
+          },
+          {
+            "key": "scene",
+            "title": "典型场景"
+          }
+        ],
+        "rows": [
+          {
+            "mode": "本地数据池",
+            "desc": "采集结果本地可查、可筛选、可删除",
+            "scene": "热点跟踪与快速复盘"
+          },
+          {
+            "mode": "飞书多维表格同步",
+            "desc": "一键入表，支持协作与报表流转",
+            "scene": "团队选题会与任务流转"
+          },
+          {
+            "mode": "CSV / Markdown 导出",
+            "desc": "标准化字段可进入 Excel/BI/Python，Markdown 可直接进入 Obsidian 或 AI 整理流程",
+            "scene": "数据建模与深度分析"
+          },
+          {
+            "mode": "视频逐字稿提取",
+            "desc": "单条视频记录可按需补齐口播逐字稿",
+            "scene": "脚本拆解、内容复盘与选题沉淀"
+          },
+          {
+            "mode": "媒体文件下载",
+            "desc": "批量下载配图和视频用于素材管理",
+            "scene": "视频素材归档与拆解"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "抖音视频采集支持哪些页面场景？",
+            "answer": "支持视频详情页、账号主页和关键词搜索结果页。你可以按“单条拆解、账号对标、赛道扫描”三种路径建立样本库。"
+          },
+          {
+            "question": "做对标分析时，先采账号还是先采关键词？",
+            "answer": "建议先采关键词拿到赛道全景，再选头部和腰部账号做主页批量拉取。这样既能看到大盘趋势，也能看清具体账号打法。"
+          },
+          {
+            "question": "采集节奏怎么设置更稳妥？",
+            "answer": "建议按任务目标分档：日常巡检用中速，临时热点追踪用快速。配合分批执行和间隔等待，能兼顾效率与稳定性。"
+          },
+          {
+            "question": "能直接输出视频口播逐字稿吗？",
+            "answer": "可以。采集抖音视频后，可在采集记录卡片里按需提取视频逐字稿。成功后逐字稿会回填到本地记录，并可随 CSV/Markdown 导出或飞书同步一起使用。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "继续完善你的抖音数据采集与复盘闭环",
+        "links": [
+          {
+            "title": "抖音评论采集",
+            "description": "批量抓取视频评论内容与用户数据，为内容分析提供数据底座。",
+            "url": "/douyin/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "抖音关键词洞察",
+            "description": "围绕赛道关键词扩展更多可执行的内容方向。",
+            "url": "/douyin/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "抖音对标账号监控",
+            "description": "持续追踪对标账号更新，减少手动盯盘成本。",
+            "url": "/douyin/monitoring",
+            "icon": "Radar"
+          },
+          {
+            "title": "飞书自动化联动",
+            "description": "采集结果自动入表，便于团队共享、分工与周期复盘。",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "先沉淀样本，再放大增长",
+        "description": "免费安装 MediaClaw，把抖音视频采集接入你的日常选题和复盘流程。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "下载抖音样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

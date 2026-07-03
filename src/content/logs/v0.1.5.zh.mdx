@@ -1,0 +1,57 @@
+export const meta = {
+  title: '搜索页新增「找对标账号」，诊断信息与采集稳定性升级',
+  description:
+    '搜索页新增「找对标账号」与「复制诊断信息」，并修复小红书联想词、抖音主页点赞筛选、搜索标题和评论采集问题，提升采集稳定性与问题定位能力。',
+  date: '2026-06-04',
+  tags: ['找对标账号', '诊断信息', '小红书', '抖音', '采集稳定性'],
+  version: '0.1.5',
+};
+
+搜索页新增「找对标账号」与「复制诊断信息」，并修复小红书联想词、抖音主页点赞筛选、搜索标题和评论采集问题，提升采集稳定性与问题定位能力。
+
+<div className="not-prose space-y-4">
+    <div className="inline-flex rounded-full border border-amber-400/70 bg-amber-400/10 px-3 py-1 text-sm font-semibold text-amber-300">新增</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">搜索页新增「找对标账号」</h3>
+            <p className="text-muted-foreground">在赛道策略中，支持从当前搜索词自动筛选反复出现的高表现账号，补充账号主页信息，并生成推荐理由，帮助你快速找到值得学习、复核或纳入监控的同赛道账号。</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">新增「复制诊断信息」</h3>
+            <p className="text-muted-foreground">执行明细中新增诊断信息复制入口。遇到采集失败、采集数量不足或同步异常时，可以一键复制脱敏后的操作记录和错误信息，反馈问题时不再只靠截图和口头描述。</p>
+        </div>
+    </div>
+
+    <div className="inline-flex rounded-full border border-rose-400/70 bg-rose-400/10 px-3 py-1 text-sm font-semibold text-rose-300">修复</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">修复小红书下拉联想词采集不稳定的问题</h3>
+            <p className="text-muted-foreground">适配新版搜索页和 AI 搜索页，减少联想词采不到、采集为空，或误把搜索结果、AI 问答入口当成联想词的情况。</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">修复抖音博主主页点赞筛选异常</h3>
+            <p className="text-muted-foreground">修复部分高赞作品被识别为 0 赞的问题，避免按点赞阈值筛选时出现结果为空或明显偏少的情况。</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">修复抖音搜索结果标题识别不准</h3>
+            <p className="text-muted-foreground">减少“相关搜索”等页面推荐内容混入作品标题，让导出的搜索结果标题更干净。</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">修复抖音评论采集漏采问题</h3>
+            <p className="text-muted-foreground">适配新版内容流和图文页评论结构，提升评论内容、用户名、发布时间和 IP 属地的识别成功率。</p>
+        </div>
+    </div>
+
+    <div className="inline-flex rounded-full border border-emerald-400/70 bg-emerald-400/10 px-3 py-1 text-sm font-semibold text-emerald-300">优化</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">提升采集数量不足时的问题定位能力</h3>
+            <p className="text-muted-foreground">当搜索、博主或评论采集提前停止时，诊断信息会记录目标数量、实际数量、停止原因和筛选结果，方便判断是页面没加载出来、筛选条件太高，还是平台页面结构变化。</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">批量同步增加失败保护</h3>
+            <p className="text-muted-foreground">批量同步到飞书时，如果中途出错，会记录失败详情到同步历史，方便排查和重试。</p>
+        </div>
+    </div>
+
+</div>

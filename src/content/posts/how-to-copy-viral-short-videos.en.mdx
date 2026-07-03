@@ -1,0 +1,139 @@
+export const meta = {
+  title:
+    'How to Reverse Engineer Viral Short Videos: 5 Steps from Finding References to Filming Your Own Version',
+  description:
+    "You don't need scriptwriting skills to replicate viral videos. This 5-step framework walks you through finding low-follower high-engagement videos, extracting transcripts, using AI to break down structure, rewriting your own version, and getting camera-ready.",
+  created_at: '2026-05-26',
+  author_name: 'MediaClaw Team',
+  author_image: '/logo.png',
+  image:
+    'https://media.mediaclaw.app/blog-covers/083b1971121eb0baa8a7d4c554b15363.webp',
+  tags: [
+    'reverse engineer viral videos',
+    'replicate viral short videos',
+    'AI rewrite video script',
+    'video transcript extraction',
+    'short form video strategy',
+  ],
+};
+
+> You scroll past a viral video and think, "I could totally make something like this." But the moment you open a blank doc to write the script, you freeze — no idea where to start or what actually made that video work. The good news: there's a clear, repeatable process you can follow to reverse engineer viral short videos and turn them into your own content.
+
+Here's the bottom line: the core skill behind replicating viral videos isn't writing — it's **breaking down** and **rewriting**.
+
+Most new creators get stuck at step one, convinced they can't start because they don't know how to write a script. But if you look at small accounts that consistently get high engagement on their talking-head videos, the content structure is rarely complex: open with a question, deliver the solution in the middle, wrap it up at the end. The real difference lies in information density and the angle of delivery — and both of those can be learned by studying what's already working.
+
+Here's the full 5-step framework:
+
+1. Find a video worth studying (prioritize low followers, high engagement)
+2. Extract the full transcript (word for word)
+3. Use AI to understand why it worked (structural analysis)
+4. Have AI rewrite it as your own version (deconstruct + rewrite)
+5. Polish the draft before you hit record (final refinements)
+
+Let's walk through each step.
+
+## Find a video worth studying
+
+Not every viral video is worth reverse engineering. A creator with 500K followers can post a casual daily vlog and still rack up tens of thousands of likes — but those numbers come from audience loyalty, not from the video itself. That's not something a new account can replicate.
+
+What you're looking for are **low-follower, high-engagement** videos — accounts with a relatively small following, but a single video that dramatically outperforms their average. This signals that the topic and structure of the video itself are doing the heavy lifting, not the creator's existing fanbase.
+
+How to find them: search for keywords in your niche on Xiaohongshu (RedNote) or Douyin, sort by likes, then tap into each creator's profile to check their follower count. If an account with 3,000 followers has a video with 5,000 likes, that's a sample worth studying.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/9cfde8c3405105d93b76b68758b5fa9d.png"
+  alt="Sorting Xiaohongshu search results by most likes and using MediaClaw to filter low-follower high-engagement posts"
+/>
+
+## Extract the full transcript
+
+Once you've found a reference video, the next step is turning the spoken content into text. You need the complete word-for-word transcript, not a summary or paraphrase.
+
+There are a few ways to extract transcripts:
+
+- Copy the video link and use an online transcription tool or mini-app one by one;
+- Run a local transcription script using tools like Claude Code or Codex on your machine;
+
+For batch processing, the most cost-effective approach is syncing to Lark Base (Feishu Bitable) and connecting Alibaba Bailian's speech recognition model. Paste the original video URLs into the spreadsheet, and the transcript field populates automatically. Bailian offers 10 free hours per month — at roughly 3 minutes per video, that covers about 200 videos, more than enough for regular content analysis. A ready-to-use template is available here: https://my.feishu.cn/base/H9fAb5QYtagaLDsjgdPcaliGnyf?from=from_copylink
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/25d62b4a0aa7f5cb235fb09f6d70fc1e.png"
+  alt="Transcript extraction fields displayed in a Lark Base spreadsheet"
+/>
+
+For a full setup guide on this step, check out: [Short Video Transcript Extraction: Lark Base + Alibaba Bailian, 10 Free Hours per Month](/blog/short-video-transcript-extraction).
+
+One important note: Bailian requires the **original video file URL**, not a platform share link. When MediaClaw scrapes video data, it automatically captures the original video URL field. Once synced to Lark Base, you can feed it directly into the speech recognition model — no need to hunt for direct links manually.
+
+## Use AI to understand why the video worked
+
+After getting the transcript, many people jump straight into writing their own version. But if you don't understand **what specifically** made the original video effective, your version will likely be a surface-level imitation at best.
+
+Feed the transcript to AI for structural analysis, and you can quickly identify several dimensions: how the opening is designed (what hook was used in the first 3 seconds), whether the information density is right (is every sentence pushing the narrative forward), how conversational the tone is (does it feel like someone talking to you), and audience alignment (does the content match the title's target demographic).
+
+You can write your own prompt for ChatGPT, DeepSeek, or similar tools. Alternatively, you can set up AI fields in Lark Base for batch analysis. The advantage of the latter: when you're breaking down 5 videos at once, the analysis results sit side by side in the same spreadsheet, making patterns immediately visible — for example, you might discover that all 5 low-follower viral videos open with the same type of hook: "Have you ever run into this problem…"
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/b76b2e8d56b648002b9b73f0c7d50dc2.png"
+  alt="AI analyzing and optimizing a video script"
+/>
+
+The key deliverable from this step: you should be able to say in one sentence, "This video worked because **\_\_**." If you can't articulate it, your analysis isn't specific enough — go back and re-read the transcript's opening and structural turning points.
+
+## Have AI rewrite it as your own version
+
+Once you understand the structure, it's time for the rewrite. AI script rewriting has three stages: deconstruct, same-topic rewrite, and topic expansion.
+
+**Deconstruction** means extracting the title formula and content skeleton from the original video. For example, if a video is titled "3 Tips to Look Expensive on a $500/Month Budget," the deconstructed formula is "[Constraint] + can still [Desired Outcome] + N [Method Type]." The content skeleton would be: "Pain point opening → Tip 1 (counterintuitive) → Tip 2 (specific scenario) → Tip 3 (low-cost solution) → Summary close."
+
+**Same-topic rewrite** means using that skeleton to write two versions from different angles. Say the original was about fashion — if your niche is skincare, you'd write "3 Habits to Get Great Skin on a $500/Month Budget" using the exact same skeleton. AI can generate two versions with different angles in under 30 seconds.
+
+**Topic expansion** means branching out from the original viral video into 2-3 related but non-overlapping topic directions. This is incredibly useful for content planning in the early growth phase — one viral video can generate a full week's worth of topics.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/19711c105b2577936fd23022ee7614c4.png"
+  alt="AI deconstructing and rewriting a reference post"
+/>
+
+If you use Lark Base to manage your reference video library, all three stages can be configured as AI fields that run automatically. Scrape → transcript extraction → structural analysis → rewrite, the entire pipeline completes in a single spreadsheet without switching between tools. To learn how to build this workflow, try [downloading MediaClaw](https://mediaclaw.app/download) and using the scraping + Lark sync combo.
+
+## Polish the draft before you hit record
+
+The AI-generated rewrite is a semi-finished product. Reading it straight to camera will have an obvious "AI flavor." Before filming, you need to do three things to turn it into something you can actually deliver on screen.
+
+**Swap the voice.** Replace formal phrasing with your own speaking style. The simplest test: read it out loud — if there's a sentence you'd never say in real life, rewrite it to how you'd actually say it. For example, AI might write "The advantage of this method lies in its extremely low cost." You'd probably just say "It barely costs anything."
+
+**Add real details.** AI rewrites tend to be thin on specifics. You need to inject your own real experiences, actual numbers, or a vivid mini-scenario. Something like "I tried this last week — spent $15 on a scarf, paired it with my $60 blazer, and when I posted the photo, my friends thought I was wearing something that cost ten times more." This kind of detail is something AI can't fabricate, and it's where audience trust comes from.
+
+**Cut the filler.** Every second of a talking-head video burns through viewer patience. Strip out all transition words like "actually," "and then," "next up" from the rewrite. Break any sentence longer than 20 words into two shorter ones. The goal: every sentence should push information forward, with zero "empty" lines.
+
+After these three steps, you've got a script you can deliver straight to camera.
+
+## Where modeling ends and copying begins
+
+Let's address the unavoidable question: when does reverse engineering a viral video cross the line into plagiarism?
+
+Here's a practical rule of thumb: **structure can be shared, expression must be different, and examples must be your own.** Using someone else's title formula is fine. Using their content skeleton is fine. But your transcript can't contain sentences that closely resemble the original, and every example you cite must come from your own experience or perspective.
+
+Think of it this way: all talking-head video skeletons boil down to a handful of types — problem-solution, listicle, story-driven, comparison. Using a "problem-solution" structure isn't plagiarism, because that's common knowledge. But if you copy the opening metaphor, the middle examples, and the closing punchline verbatim, you've crossed the line.
+
+As long as your rewrite follows "same skeleton, different angle, your own details," you're in safe territory.
+
+## FAQ
+
+**Will reverse engineering viral videos get flagged as reposted content by the platform?**
+
+It depends on how you do it. The real thing to watch out for is your script — it can't contain large chunks of text lifted directly from the original.
+
+**What if I can't find any low-follower, high-engagement reference videos?**
+
+Loosen your criteria. Accounts under 10K followers with a single video that gets likes exceeding 50% of their follower count are also worth studying. Also try different search terms — long-tail keywords tend to surface small-account viral hits more easily than broad terms.
+
+**The AI rewrite always sounds stiff and robotic. How do I fix that?**
+
+The problem is usually that the prompt is too simple. Include your speaking style in the prompt (e.g., "use short sentences, keep it conversational, like chatting with a friend"), and attach a sample of something you've previously written as a style reference. The AI output will be much closer to your voice. And always read it out loud — if something sounds off, change it.
+
+**How long should I spend breaking down a single viral video?**
+
+Keep the full breakdown-plus-rewrite under 30 minutes per video. If you're spending more time than that, you're overthinking details instead of executing. In the early growth phase, volume matters most — aim for 3-5 posts per week. Efficiency in analysis beats depth of analysis.

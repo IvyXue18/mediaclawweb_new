@@ -1,0 +1,84 @@
+{
+  "metadata": {
+    "title": "加入 MediaClaw 伙伴计划 — 赚取 30% 推广返佣",
+    "description": "分享 MediaClaw，助力创作者与团队提效，同时赚取丰厚返佣。立即加入我们的推广伙伴计划，实现流量变现。",
+    "keywords": "MediaClaw伙伴计划, 推广返佣, 联盟营销, 流量变现, 推荐奖励, 创作者工具分享"
+  },
+  "page": {
+    "title": "加入 MediaClaw 伙伴计划",
+    "description": "分享 MediaClaw，助力创作者提效，同时赚取丰厚返佣。",
+    "show_sections": ["hero", "mechanism", "rules", "cta"],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "hero",
+        "title": "加入 MediaClaw 伙伴计划",
+        "highlight_text": "伙伴计划",
+        "description": "邀请好友使用 MediaClaw，我们将把每一笔交易的收益分享给您。不仅能帮助他人提升数据采集效率，更能为您带来长久、可观的项目收入。",
+        "image": {
+          "src": "/imgs/features/V20260623.png",
+          "alt": "MediaClaw 伙伴计划返佣面板预览",
+          "width": 2654,
+          "height": 1738
+        },
+        "image_invert": {
+          "src": "/imgs/features/V20260623.png",
+          "alt": "MediaClaw 伙伴计划返佣面板预览",
+          "width": 2654,
+          "height": 1738
+        },
+        "buttons": [
+          {
+            "title": "立即参与并分享",
+            "url": "/settings/referral",
+            "icon": "UserPlus"
+          }
+        ],
+        "tip": "无需门槛，注册登录即可获得专属链接"
+      },
+      "mechanism": {
+        "id": "mechanism",
+        "block": "features",
+        "title": "邀请机制说明",
+        "description": "简单三步，开启被动收入之旅",
+        "items": [
+          {
+            "title": "1. 获取专属链接",
+            "description": "前往「设置 - 伙伴计划」页面生成您的推广短链。",
+            "icon": "Link"
+          },
+          {
+            "title": "2. 社交媒体推广",
+            "description": "在社群、博客或社交平台分享您的使用心得及链接。",
+            "icon": "Share"
+          },
+          {
+            "title": "3. 坐享现金分成",
+            "description": "受邀者付费后，佣金将立即计入您的账户，满额即可提现。",
+            "icon": "PiggyBank"
+          }
+        ]
+      },
+      "rules": {
+        "id": "rules",
+        "block": "faq",
+        "title": "返佣规则",
+        "description": "透明的返佣机制，确保每一份推广收益都能准确到账",
+        "items": []
+      },
+      "cta": {
+        "id": "cta",
+        "block": "cta",
+        "title": "准备好开始了吗？",
+        "description": "已经有 100+ 网红创作者和运营专家加入了我们的伙伴计划。",
+        "buttons": [
+          {
+            "title": "我要参与",
+            "url": "/settings/referral",
+            "icon": "CheckCircle"
+          }
+        ]
+      }
+    }
+  }
+}

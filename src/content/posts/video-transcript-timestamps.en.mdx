@@ -1,0 +1,89 @@
+export const meta = {
+  title:
+    'Extract Video Transcripts with Timestamps from Xiaohongshu & Douyin: Read the Pacing, Not Just the Words',
+  description:
+    "A transcript isn't just turning speech into text. Here's why we built a second extraction path inside the plugin—skipping the free Lark + Alibaba Cloud route to call a more accurate model and output a timestamped, line-by-line transcript you can actually read the pacing from.",
+  created_at: '2026-06-25',
+  author_name: 'MediaClaw Team',
+  author_image: '/logo.png',
+  image:
+    'https://media.mediaclaw.app/blog-covers/af29cc54385eef5fb9f8bde13ef28b79.webp',
+  tags: [
+    'video transcript with timestamps',
+    'extract video transcript',
+    'timestamped transcript',
+    'video to text',
+    'analyze video pacing',
+    'short video hook breakdown',
+  ],
+};
+
+We thought we were done with transcripts—[the post on short video transcript extraction](/blog/short-video-transcript-extraction) covered the Lark Base + Alibaba Cloud route: free, batchable, logically sound.
+
+But what pushed us to build a second version was the walls we kept hitting ourselves, using it every single day.
+
+## The old route works, but it takes the long way around
+
+To be clear: the Lark Base + Alibaba Cloud path still works today, and we have no plans to retire it. Its upside is real—Alibaba Cloud gives you 10 free hours every month, which is about 300 videos at two minutes each. For people who are budget-sensitive and don't run huge volume, that's a genuinely smart choice.
+
+The problem is the path itself. That setup runs speech-to-text inside a Lark Base field shortcut, which means to pull a single transcript, you first have to sync the video's **raw file link** into a Lark table before the field can read it. And a lot of users hit unexpected snags just configuring Lark in the first place.
+
+On top of that, the Bailian model that route relies on is on the older side (it's free, after all). On videos with fast talking, dialects, or noisy backgrounds, it drops words and gets characters wrong.
+
+The second issue: it hands you one flat wall of text—**content only, no time**.
+
+Without the pacing, that transcript is half useless.
+
+Most transcript tools assume what you want is "the text": copy down every word of the voiceover, task complete. But when we break down videos ourselves, we found that plain text answers "what did they say," while reverse-engineering a viral video is really about a different question—"how did they say it, and how did they hit the beats?"
+
+Whether a short video holds people comes down to pacing: which second the hook drops, how long the setup drags, where the turn lands, whether the closing CTA snaps shut or fades out slowly. The same sentence at second 2 versus second 8 lands completely differently. A flat text transcript shows none of this.
+
+So what we wanted was never a "text version of the voiceover," but the voiceover put back on the timeline. A transcript should be split by sentence, with each line tagged to the moment it appears in the video. Only then can you see at a glance: where the talking gets dense, where they leave a beat of silence, which line is parked on that one critical second.
+
+## So this version brings extraction back into the plugin
+
+Starting in V0.1.8, transcript extraction is built into the plugin itself. You trigger extraction directly on a video in your collected records—no syncing to Lark first. The raw data already lives in the plugin, so this step happens right there, and the result writes straight back into the record.
+
+You get two outputs: a full transcript, handy for copying the whole thing, archiving, or feeding to AI for a rewrite; and a **timestamped, line-by-line transcript** built specifically for reading the pacing.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/7c94d2a48528fa38a6c364e498fdb4b5.png"
+  alt="The MediaClaw plugin side panel extracting a transcript from a Xiaohongshu video, with the timestamped line-by-line transcript shown on the right"
+/>
+
+## We're keeping both routes—pick by your use case
+
+Building the second route doesn't mean the first should be scrapped. They solve different sides of the same need, and the trade-off is clear:
+
+|                | Lark field shortcut + Alibaba Cloud  | In-plugin extraction                        |
+| -------------- | ------------------------------------ | ------------------------------------------- |
+| Cost           | 10 free hours/month                  | Credits by video length                     |
+| Model accuracy | Older, drops words on noise/dialects | Newer, more accurate                        |
+| Timestamps     | None, one flat block                 | Yes, line-by-line on the timeline           |
+| Path           | Sync to Lark first                   | Extract right on the record, no Lark needed |
+
+The call is actually simple: if you just want a rough text transcript, run high volume, and want to save money, the free Lark route is plenty. If you're seriously breaking down pacing, or the source itself is hard to transcribe and getting characters wrong is costly, take the in-plugin route.
+
+One more thing worth stressing: this raw data is built into the plugin itself, **independent of Lark**. Lark is just one of many downstream sync destinations—you can extract and export to CSV or Markdown without ever opening Lark. This is the same thinking as when we did [image text extraction (OCR)](/blog/xiaohongshu-image-text-extraction)—image text and video transcripts round out the raw data for both image-based and video notes, and both get done in place inside the plugin instead of forcing you to move things elsewhere first.
+
+## Final thoughts
+
+Back to the question we opened with: if there's already a working solution, why build it again?
+
+Because the gap between "works" and "works well" is often one design decision that looks unremarkable. With transcripts, in certain scenarios that gap is exactly accuracy and timestamps—with them, the transcript is a reliable tool for breaking down pacing; without them, it's just a block of text you'll probably never read twice.
+
+If you're serious about reverse-engineering videos too, [install the MediaClaw plugin](/download), pick a recent viral video you want to break down, collect it, then run a timestamped transcript on it—and see exactly which second its hook is parked on.
+
+## FAQ
+
+**Video transcript extraction: the free Lark route or the in-plugin one—which should I pick?**
+Low volume, just want a rough text transcript, want to save money: use Lark + Alibaba Cloud, with 10 free hours a month. Serious about breaking down pacing, or the source is hard to transcribe and wrong characters are costly: use the in-plugin route—it calls a more accurate paid model and outputs a timestamped, line-by-line transcript. We keep both routes available.
+
+**Why should a transcript have timestamps? Is it not fine without them?**
+Flat text only tells you "what was said." A timestamped, line-by-line transcript tells you "when it was said and how long each line runs." When breaking down a short video, all the pacing signals—which second the hook drops, how long the setup runs, where the turn lands—only show up on the timeline. If you just want to store the text, no timestamps is fine; if you want to break down pacing, timestamps are the key.
+
+**Do I have to set up Lark to extract transcripts in the plugin?**
+No. The raw data is built into the plugin itself. You can trigger extraction right on a collected record, the result writes back into the record, and you copy or export to CSV or Markdown as usual. Lark is just one optional downstream sync destination.
+
+**Can I extract timestamped transcripts from Douyin videos too?**
+Yes. Xiaohongshu and Douyin use the same flow—video notes on both platforms support extracting transcripts right on the collected record and outputting a timestamped, line-by-line transcript.

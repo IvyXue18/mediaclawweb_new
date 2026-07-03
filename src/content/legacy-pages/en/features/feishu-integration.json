@@ -1,0 +1,257 @@
+{
+  "metadata": {
+    "title": "Lark Base Integration - Sync Social Data | MediaClaw",
+    "description": "Automatically sync Xiaohongshu and Douyin scraped data, comment leads, and monitoring reports to Lark Base. No code — free Chrome extension.",
+    "keywords": "Lark Base integration, data sync, social media automation, sync with Lark, content operations, productivity tool"
+  },
+  "page": {
+    "title": "Lark Base Integration",
+    "description": "Automatically sync scraped data into Lark Base for team collaboration and AI-powered content analysis.",
+    "show_sections": [
+      "hero",
+      "matrix",
+      "workflow",
+      "table",
+      "scenarios",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Lark Base Integration",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Integrations"
+          },
+          {
+            "title": "Lark Base Integration"
+          }
+        ],
+        "title": "MediaClaw × Lark Base",
+        "description": "Auto-sync scraped content, comment leads, and monitoring alerts into Lark Base. Build a reusable operations asset your whole team can search, filter, and act on — no manual copy-paste.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Get Lark Base Template",
+            "icon": "ExternalLink",
+            "url": "https://my.feishu.cn/base/H9fAb5QYtagaLDsjgdPcaliGnyf?from=from_copylink",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=8,37"
+      },
+      "matrix": {
+        "id": "matrix",
+        "block": "features-scroll",
+        "title": "Lark Base Capabilities at a Glance",
+        "description": "From scraping to team collaboration — see how data flows into Lark.",
+        "items": [
+          {
+            "title": "One-Click Sync to Lark Base",
+            "description": "After scraping Xiaohongshu or Douyin content, push structured fields — titles, engagement, hashtags, comments, and account data — directly into Lark Base tables. No manual data entry.",
+            "icon": "Table2",
+            "image": {
+              "src": "/imgs/features/14-v20260424.webp",
+              "alt": "MediaClaw one-click syncing scraped Xiaohongshu and Douyin data to Lark Base tables"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Multi-Table Schema for Every Workflow",
+            "description": "Organize content, comment leads, and keyword trends into separate linked tables. Each workflow gets its own clean structure — no data mix-ups across use cases.",
+            "icon": "Columns3",
+            "image": {
+              "src": "/imgs/features/10-v20260424.webp",
+              "alt": "Lark Base multi-table schema organizing content comments and keyword data with linked fields"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Monitoring Reports Auto-Pushed to Lark",
+            "description": "Daily monitoring scans auto-generate reports pushed to Lark Bot. Matched content details sync to Lark Base tables for team review and retrospective analysis.",
+            "icon": "BellRing",
+            "image": {
+              "src": "/imgs/features/10-v20260425.webp",
+              "alt": "MediaClaw auto-pushing daily competitor monitoring reports to Lark Bot and syncing details to Lark Base"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "Who Uses Lark Base Integration?",
+        "columns": [
+          {
+            "key": "role",
+            "title": "Role"
+          },
+          {
+            "key": "scene",
+            "title": "Use Case"
+          },
+          {
+            "key": "effect",
+            "title": "Outcome"
+          }
+        ],
+        "rows": [
+          {
+            "role": "Content Ops Team",
+            "scene": "Centralize scraped content from multiple platforms for topic meetings",
+            "effect": "Shared dataset replaces scattered screenshots and spreadsheets"
+          },
+          {
+            "role": "Sales / Private Traffic",
+            "scene": "Auto-route filtered comment leads to follow-up assignees",
+            "effect": "Faster lead response with trackable Lark Base records"
+          },
+          {
+            "role": "Brand Strategist",
+            "scene": "Build long-term competitor content archives for quarterly reviews",
+            "effect": "Evidence-based strategy reports backed by continuous data"
+          },
+          {
+            "role": "MCN Agency",
+            "scene": "Unified data hub across multiple client accounts and platforms",
+            "effect": "One Lark Base workspace per client replaces per-platform silos"
+          },
+          {
+            "role": "Founder / Team Lead",
+            "scene": "Morning standup with auto-generated monitoring summaries",
+            "effect": "Stay informed on competitor moves without manual checks"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "Is the sync automatic or manually triggered?",
+            "answer": "After scraping, you can one-click sync results to Lark Base. Fields are mapped automatically — content, comments, keywords, and account data flow into the right tables without copy-paste."
+          },
+          {
+            "question": "How do monitoring reports reach Lark?",
+            "answer": "Configure your Lark webhook in the extension. The system scans monitored accounts daily, generates a summary report pushed to Lark Bot, and writes matched content details into your Lark Base tables for team review."
+          },
+          {
+            "question": "Can multiple team members sync to the same Lark Base?",
+            "answer": "Yes. The template organizes data by platform, account, and content type. Each team member uses the extension independently, and all data flows into a shared Lark Base with unified structure."
+          },
+          {
+            "question": "Do I need technical skills to set up the integration?",
+            "answer": "No. Install the extension, authorize your Lark account, select a target table, and map fields — the entire setup is guided and requires no coding."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "Explore Related Tools",
+        "description": "Build an end-to-end workflow from scraping to team-wide analysis.",
+        "links": [
+          {
+            "title": "Xiaohongshu Post Scraper",
+            "description": "Batch-scrape posts and sync structured data to Lark Base.",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Xiaohongshu Lead Scraper",
+            "description": "Filter high-intent comment leads and push lists to Lark.",
+            "url": "/xiaohongshu/leads",
+            "icon": "UserCheck"
+          },
+          {
+            "title": "Xiaohongshu Keyword Research",
+            "description": "Expand keywords and sync clusters to Lark for topic planning.",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "Xiaohongshu Competitor Monitoring",
+            "description": "Auto-track accounts with daily reports pushed to Lark.",
+            "url": "/xiaohongshu/monitoring",
+            "icon": "Radar"
+          },
+          {
+            "title": "Xiaohongshu Downloader",
+            "description": "Download media assets for visual reference libraries.",
+            "url": "/xiaohongshu/downloader",
+            "icon": "Download"
+          },
+          {
+            "title": "Douyin Video Scraper",
+            "description": "Scrape Douyin videos by keyword, account, or search result.",
+            "url": "/douyin/scraper",
+            "icon": "Clapperboard"
+          },
+          {
+            "title": "Douyin Lead Scraper",
+            "description": "Filter high-intent Douyin comments for sales follow-up.",
+            "url": "/douyin/leads",
+            "icon": "UserCheck"
+          },
+          {
+            "title": "Douyin Keyword Research",
+            "description": "Track keyword trends and expand content opportunities.",
+            "url": "/douyin/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "Douyin Competitor Monitoring",
+            "description": "Subscribe to competitor updates with Lark alert delivery.",
+            "url": "/douyin/monitoring",
+            "icon": "Radar"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Turn Scraped Data into Team Intelligence",
+        "description": "Install MediaClaw for free and start syncing Xiaohongshu and Douyin data to Lark Base today.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "Get Lark Base Template",
+            "icon": "ExternalLink",
+            "url": "https://my.feishu.cn/base/H9fAb5QYtagaLDsjgdPcaliGnyf?from=from_copylink",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

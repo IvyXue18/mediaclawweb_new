@@ -1,0 +1,226 @@
+{
+  "metadata": {
+    "title": "小红书竞品监控工具_自动监控对标账号内容更新并推送飞书 | MediaClaw",
+    "description": "24 小时自动监控小红书对标账号内容更新、互动数据变化和爆款动态，命中点赞、粉丝和时间窗口条件后自动 AI 总结并推送飞书，快速建立稳定的竞品监控预警机制。",
+    "keywords": "小红书竞品监控, 小红书对标账号监控, 小红书内容监控, 小红书爆款监控, 竞品分析, 飞书同步, 账号追踪, 自动化预警"
+  },
+  "page": {
+    "title": "小红书竞品监控",
+    "show_sections": [
+      "hero",
+      "modes",
+      "batch",
+      "outputs",
+      "scenarios",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "小红书竞品监控与内容预警工具",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "小红书"
+          },
+          {
+            "title": "竞品监控"
+          }
+        ],
+        "title": "小红书竞品监控：自动追踪对标账号内容更新",
+        "description": "设一次规则，系统自动监控小红书对标账号发文、互动数据和爆款变化，结合 AI 洞察输出飞书日报，让团队第一时间发现竞品内容变化。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=8,37"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "创建订阅，自动监控对标账号内容更新",
+            "description": "在对标主页点击监控，系统在指定时间自动轮询追踪账号新内容、互动数据和爆款变化，不再依赖人工刷 Feed。",
+            "icon": "Radar",
+            "image": {
+              "src": "/imgs/features/8-v20260425.webp",
+              "alt": "MediaClaw 小红书竞品监控功能自动追踪对标账号更新并触发预警"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "命中后 AI 洞察并推送飞书日报",
+            "description": "命中内容自动生成摘要和洞察标签，结构化监控结果同步飞书多维表格，方便团队分发、复盘与周报输出。",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/features/10-v20260425.webp",
+              "alt": "MediaClaw 小红书竞品内容命中后自动AI分析并推送飞书日报"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "outputs": {
+        "id": "outputs",
+        "block": "features",
+        "title": "监控结果可直接投入团队协作",
+        "description": "从预警到复盘，结果输出结构化可追踪。",
+        "items": [
+          {
+            "title": "飞书日报",
+            "description": "命中内容自动入表，含标题、链接、时间、点赞和 AI 摘要。<br/>适用：团队晨会同步与日常盯盘",
+            "icon": "Table2"
+          },
+          {
+            "title": "AI 洞察摘要",
+            "description": "自动提炼内容亮点、选题方向和可跟进动作。<br/>适用：内容策略复盘和选题优化",
+            "icon": "Sparkles"
+          },
+          {
+            "title": "历史记录留存",
+            "description": "持续沉淀监控历史，支持周期性对比分析。<br/>适用：周报、月报与趋势研判",
+            "icon": "History"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "竞品监控的典型应用场景",
+        "columns": [
+          {
+            "key": "role",
+            "title": "人群"
+          },
+          {
+            "key": "scene",
+            "title": "典型场景"
+          },
+          {
+            "key": "effect",
+            "title": "效果"
+          }
+        ],
+        "rows": [
+          {
+            "role": "品牌运营",
+            "scene": "竞品发爆款后第一时间跟进",
+            "effect": "减少信息滞后，及时跟进热点策略"
+          },
+          {
+            "role": "品牌运营",
+            "scene": "建立系统化竞品内容预警机制",
+            "effect": "从手动盯盘升级为自动化告警流程"
+          },
+          {
+            "role": "个人创作者",
+            "scene": "追踪对标号热门选题与更新节奏",
+            "effect": "更快发现可复用方向，提升跟进效率"
+          },
+          {
+            "role": "MCN 团队",
+            "scene": "多达人内容动态集中监控",
+            "effect": "减少人工巡检成本"
+          },
+          {
+            "role": "投资 / 达人经纪",
+            "scene": "长期追踪潜力创作者增长表现",
+            "effect": "更早识别投放黑马和合作机会"
+          },
+          {
+            "role": "内容团队负责人",
+            "scene": "团队关注行业变化但人手有限",
+            "effect": "以飞书日报聚合情报，决策更连续"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "怎样高频监控对标账号并获取最新笔记表现？",
+            "answer": "把重点账号建立为监控订阅后，系统会按设定频率自动扫描并输出命中结果。你可以按点赞阈值和时间窗口聚焦真正重要的更新，避免被低价值内容干扰。"
+          },
+          {
+            "question": "老笔记二次爆发也能识别吗？",
+            "answer": "可以。通过持续扫描和历史结果对比，系统能识别互动数据异常增长的内容，帮助你快速发现老内容回流带来的新机会。"
+          },
+          {
+            "question": "自己的账号也能用这个功能做复盘吗？",
+            "answer": "可以。把自有账号加入监控后，能持续观察发布后的互动变化和选题表现，用同一套指标做内容复盘和策略调整。"
+          },
+          {
+            "question": "如何只接收高价值内容更新提醒？",
+            "answer": "你可以设置点赞阈值和时间窗口，只接收互动数据超过预设的笔记更新。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "继续完善你的小红书内容创作工作流",
+        "links": [
+          {
+            "title": "小红书笔记采集",
+            "description": "把监控命中内容回流到样本库，持续做竞品内容分析。",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "小红书评论采集",
+            "description": "从命中内容评论区继续挖掘用户需求与反馈。",
+            "url": "/xiaohongshu/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "小红书关键词洞察",
+            "description": "追踪竞品策略背后的关键词趋势和选题变化。",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "小红书去水印下载",
+            "description": "快速沉淀竞品内容视觉素材，完善复盘资料库。",
+            "url": "/xiaohongshu/downloader",
+            "icon": "Download"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "对标更新日报，明天开始发给你",
+        "description": "免费安装 MediaClaw，把小红书竞品监控接入你的日常内容情报流程。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

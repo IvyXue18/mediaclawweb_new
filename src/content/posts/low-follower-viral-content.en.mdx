@@ -1,0 +1,85 @@
+export const meta = {
+  title:
+    'How to Find Viral Content From Small Accounts on Xiaohongshu & Douyin',
+  description:
+    'Viral posts from low-follower accounts reveal the best topic ideas for new creators. Learn how to filter high-engagement content from small accounts on Xiaohongshu (RedNote) and Douyin.',
+  created_at: '2026-06-06',
+  author_name: 'MediaClaw Team',
+  author_image: '/logo.png',
+  image:
+    'https://media.mediaclaw.app/blog-covers/47bf58eed41876648717b4e636769cf1.webp',
+  tags: [
+    'viral content small accounts',
+    'Xiaohongshu viral posts',
+    'Douyin viral content',
+    'low follower high engagement',
+    'content research',
+    'new creator strategy',
+  ],
+};
+
+When a post from a big account goes viral, you can't tell how much of that performance came from the content itself and how much came from the account's existing audience. A creator with 500K followers posting a product review that gets 30K likes tells you very little — was it the topic, or was it the built-in traffic?
+
+This creates a real problem: if you only study viral content from big accounts, you're learning the wrong lessons. You might copy a top creator's exact format, get 200 views on your new account, and conclude the topic doesn't work — when the real issue was that you don't have their follower base to begin with.
+
+The algorithm doesn't discriminate against new accounts. Both Xiaohongshu (RedNote) and Douyin use a recommendation system that first exposes content to a small audience, then decides whether to push it further based on engagement rate. Follower count affects the initial exposure pool, but once content enters the recommendation loop, continued distribution depends entirely on how well it performs at each stage. A post from a small account with high likes means it beat the average engagement rate at every round — and the algorithm kept feeding it more traffic.
+
+For new creators, the most useful reference material meets one condition: the account is roughly your size, but a single post far outperforms that account's average. That's evidence the topic itself is doing the heavy lifting, not the follower base.
+
+## How to Find Viral Posts From Small Accounts in Bulk
+
+You can do this manually, but it's painfully slow. You need both the like count of each post and the creator's follower count side by side to cross-filter. Platform search results don't show follower counts by default — you'd have to click into each profile one by one. A single page of search results could eat an hour.
+
+A more efficient approach is to automate the search-and-filter workflow:
+
+1. Search your niche keywords on Xiaohongshu or Douyin
+2. Sort results by likes and scrape them in bulk
+3. Enable the low-follower viral content filter during scraping, setting a follower cap (e.g., your own follower count as the upper limit)
+4. Export and do a secondary filter by follower count to isolate low-follower, high-engagement samples
+
+[MediaClaw](/download) supports filtering for viral content from small accounts directly in search result scraping:
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/9cfde8c3405105d93b76b68758b5fa9d.png"
+  alt="Filtering low-follower viral posts from Xiaohongshu search results sorted by most likes using MediaClaw"
+/>
+
+Here's an example. A new account focused on solo cooking content spent weeks studying million-follower food bloggers, producing polished cooking videos with mediocre results. After switching strategies and using search scraping to filter for viral content from small accounts on Douyin and Xiaohongshu, they discovered that posts under 500 followers with 1,000+ likes were almost all built around hyper-specific scenarios: tiny rental kitchens, no-stove meals, microwave-only recipes.
+
+These posts had zero production value — no fancy setups or lighting — but their titles and content precisely matched what office workers were searching for: what can I eat 10 minutes after getting home from work? The account pivoted to "microwave dinners for office workers," published 5 posts in a row, and hit their first viral piece.
+
+## What to Look for After Finding These Posts
+
+Filtering is not the finish line — you need to extract patterns. Look at three things:
+
+**What problem does the title address?** Line up the titles of these low-follower viral posts and you'll likely see them clustering around a few specific sub-topics. These are areas with strong demand but weak supply.
+
+**What makes the content compelling?** Some posts win through raw authenticity (real mistakes, actual costs), others through information gaps (angles nobody else has covered). Understanding the source of their appeal tells you where to focus your own effort.
+
+**What are people asking in the comments?** When you see repeated requests like "drop the link," "how did you do that," or "same situation here," it confirms the demand is real. You can also use [comment scraping](/xiaohongshu/comments) to export comments in bulk for analysis.
+
+## Which Viral Small-Account Posts Can't Be Replicated
+
+Three types to exclude: posts that rode a breaking news cycle or platform meme — once the window closes, you can't recreate the conditions; posts that went viral because of the creator's personal story (a 25-year-old building a factory in Africa, a top-university dropout selling street food) — the hook is the person, not the topic; and posts from near-zero-follower accounts with thousands of likes but a dead comment section — likely anomalous data, discard them.
+
+## Takeaway
+
+Viral content from small accounts isn't luck. It signals a topic where search demand is strong, content supply is weak, and the algorithm is willing to distribute to new accounts that answer the question well. Find these samples, extract the patterns, and create similar content in your own voice — that's the most efficient strategy for new creators choosing what to post.
+
+[Install MediaClaw](/download), search your niche keywords, and auto-filter for high-engagement posts from small accounts.
+
+---
+
+## FAQ
+
+### Can you really go viral with very few followers? How do I find examples?
+
+Yes. Both Xiaohongshu and Douyin algorithms don't weigh follower count as the sole factor — engagement rate is what matters. To find examples: search your niche keywords → sort by likes → scrape with creator follower counts included → export and filter for low-follower, high-like posts.
+
+### Is the method the same for Xiaohongshu and Douyin?
+
+Yes. While the two platforms have minor differences in search logic and recommendation mechanics, the core method — search keywords, filter for high-engagement posts from small accounts — works the same way. MediaClaw handles search result scraping identically for both platforms.
+
+### Is there a tool that can filter posts with few followers but strong engagement?
+
+MediaClaw's search result scraping includes an option to attach creator follower and engagement counts. After scraping, export to CSV and cross-filter by follower count and likes in Excel. This is a free feature with unlimited use. You can also sync to Lark for further analysis like extracting video transcripts and AI-powered script breakdowns.

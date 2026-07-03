@@ -1,0 +1,257 @@
+{
+  "metadata": {
+    "title": "飞书多维表格集成 - 社媒数据自动同步 | MediaClaw",
+    "description": "将小红书与抖音采集数据、评论客资和竞品监控报告自动同步到飞书多维表格，团队实时共享。无需代码，安装插件即可使用。",
+    "keywords": "飞书多维表格, 数据同步, Lark Base, 自动化运营, 飞书机器人, 效率办公"
+  },
+  "page": {
+    "title": "飞书多维表格集成",
+    "description": "将采集数据自动沉淀到飞书多维表格，支持团队协作与 AI 内容分析。",
+    "show_sections": [
+      "hero",
+      "matrix",
+      "workflow",
+      "table",
+      "scenarios",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "飞书多维表格集成",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "集成能力"
+          },
+          {
+            "title": "飞书多维表格集成"
+          }
+        ],
+        "title": "MediaClaw × 飞书多维表格：你的团队数据中台",
+        "description": "把采集内容、评论客资与监控提醒自动同步到飞书多维表格，形成全员可检索、可筛选、可协作的增长资产，告别手工复制粘贴。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "获取飞书模板",
+            "icon": "ExternalLink",
+            "url": "https://my.feishu.cn/base/H9fAb5QYtagaLDsjgdPcaliGnyf?from=from_copylink",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=8,37"
+      },
+      "matrix": {
+        "id": "matrix",
+        "block": "features-scroll",
+        "title": "飞书协作能力一屏看懂",
+        "description": "从采集到协作分析，数据如何流入飞书，一目了然。",
+        "items": [
+          {
+            "title": "采集结果一键同步飞书",
+            "description": "完成小红书或抖音采集后，可将标题、互动数据、话题、评论、账号信息等结构化字段直接写入飞书多维表格，无需手动录入。",
+            "icon": "Table2",
+            "image": {
+              "src": "/imgs/features/14-v20260424.webp",
+              "alt": "MediaClaw 将小红书与抖音采集数据一键同步到飞书多维表格"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "多表分层适配不同业务",
+            "description": "将内容主表、评论客资、关键词趋势等拆分为关联多表，不同场景各有清晰结构，避免数据混杂。",
+            "icon": "Columns3",
+            "image": {
+              "src": "/imgs/features/10-v20260424.webp",
+              "alt": "飞书多维表格通过多表结构管理内容评论与关键词数据"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "监控日报自动推送飞书",
+            "description": "每日监控扫描自动生成摘要并推送飞书机器人，命中内容同步写入飞书多维表格，便于团队复盘与跟进。",
+            "icon": "BellRing",
+            "image": {
+              "src": "/imgs/features/10-v20260425.webp",
+              "alt": "MediaClaw 将竞品监控日报推送到飞书并同步命中明细"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "哪些团队在用飞书集成？",
+        "columns": [
+          {
+            "key": "role",
+            "title": "角色"
+          },
+          {
+            "key": "scene",
+            "title": "使用场景"
+          },
+          {
+            "key": "effect",
+            "title": "效果"
+          }
+        ],
+        "rows": [
+          {
+            "role": "内容运营团队",
+            "scene": "统一沉淀多平台采集内容，用于周会选题与复盘",
+            "effect": "共享数据替代截图与零散表格"
+          },
+          {
+            "role": "销售 / 私域团队",
+            "scene": "将筛选后的评论客资自动分发给跟进人",
+            "effect": "线索响应更快，跟进过程可追踪"
+          },
+          {
+            "role": "品牌策略团队",
+            "scene": "构建长期竞品内容档案用于季度策略评估",
+            "effect": "策略报告有持续数据支撑"
+          },
+          {
+            "role": "MCN 机构",
+            "scene": "多客户、多平台数据统一汇总到同一工作空间",
+            "effect": "按客户建立数据中台，摆脱平台孤岛"
+          },
+          {
+            "role": "创始人 / 团队负责人",
+            "scene": "晨会查看自动生成的监控摘要与风险提醒",
+            "effect": "不做手动巡检也能及时掌握竞品动态"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "飞书同步是自动还是手动触发？",
+            "answer": "完成采集后可一键同步到飞书多维表格。字段会自动映射，内容、评论、关键词和账号数据可按结构写入，无需复制粘贴。"
+          },
+          {
+            "question": "监控日报如何推送到飞书？",
+            "answer": "在插件中配置飞书 webhook 后，系统会按天扫描监控账号，自动生成摘要并推送到飞书机器人，同时把命中内容写入飞书多维表格供团队复盘。"
+          },
+          {
+            "question": "团队成员可以共用同一份飞书表吗？",
+            "answer": "可以。模板已按平台、账号、内容类型分层设计。每位成员都可独立使用插件，数据会统一流入同一个飞书多维表格结构中。"
+          },
+          {
+            "question": "没有技术背景也能完成接入吗？",
+            "answer": "可以。安装插件后按引导授权飞书账号、选择目标数据表并完成字段映射即可，全程无需写代码。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "继续探索相关能力",
+        "description": "从采集到协作分析，搭建完整增长工作流。",
+        "links": [
+          {
+            "title": "小红书笔记采集",
+            "description": "批量采集笔记并同步结构化数据到飞书。",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "小红书客资采集",
+            "description": "筛选高意向评论线索并推送到飞书。",
+            "url": "/xiaohongshu/leads",
+            "icon": "UserCheck"
+          },
+          {
+            "title": "小红书关键词洞察",
+            "description": "扩展关键词并将词簇同步到飞书做选题规划。",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "小红书竞品监控",
+            "description": "自动追踪账号动态并每日推送飞书报告。",
+            "url": "/xiaohongshu/monitoring",
+            "icon": "Radar"
+          },
+          {
+            "title": "小红书去水印下载",
+            "description": "下载素材资产用于视觉参考库沉淀。",
+            "url": "/xiaohongshu/downloader",
+            "icon": "Download"
+          },
+          {
+            "title": "抖音视频采集",
+            "description": "按关键词、账号或搜索结果采集抖音内容。",
+            "url": "/douyin/scraper",
+            "icon": "Clapperboard"
+          },
+          {
+            "title": "抖音客资采集",
+            "description": "筛选高意向评论，支持销售跟进。",
+            "url": "/douyin/leads",
+            "icon": "UserCheck"
+          },
+          {
+            "title": "抖音关键词洞察",
+            "description": "追踪关键词趋势并拓展内容机会。",
+            "url": "/douyin/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "抖音竞品监控",
+            "description": "订阅竞品账号更新并在飞书接收提醒。",
+            "url": "/douyin/monitoring",
+            "icon": "Radar"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "把采集数据变成团队可执行情报",
+        "description": "免费安装 MediaClaw，今天就开始把小红书和抖音数据同步到飞书多维表格。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "获取飞书模板",
+            "icon": "ExternalLink",
+            "url": "https://my.feishu.cn/base/H9fAb5QYtagaLDsjgdPcaliGnyf?from=from_copylink",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

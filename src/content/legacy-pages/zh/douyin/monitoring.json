@@ -1,0 +1,226 @@
+{
+  "metadata": {
+    "title": "抖音竞品监控工具_自动监控对标账号内容更新并推送飞书 | MediaClaw",
+    "description": "MediaClaw 支持 24 小时抖音竞品监控，自动监控对标账号内容更新、互动数据变化和高互动视频，生成 AI 摘要并同步飞书，帮助团队建立持续情报机制。",
+    "keywords": "抖音竞品监控, 抖音对标账号监控, 抖音内容监控, 抖音爆款监控, 竞品分析, 飞书同步, 账号预警, 自动化情报"
+  },
+  "page": {
+    "title": "抖音竞品监控",
+    "show_sections": [
+      "hero",
+      "modes",
+      "batch",
+      "outputs",
+      "scenarios",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "抖音竞品监控与内容预警工具",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "抖音"
+          },
+          {
+            "title": "竞品监控"
+          }
+        ],
+        "title": "抖音竞品监控：自动追踪对标账号内容更新",
+        "description": "设置一次监控规则，系统持续监控对标账号发布动态、互动数据变化和高互动视频，命中后自动推送飞书，帮助团队更快响应内容趋势。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=8,37"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "订阅账号，持续监控内容更新",
+            "description": "把重点账号加入监控列表后，系统按周期自动巡检新发布、互动变化和高互动视频，不再依赖人工逐个刷号。",
+            "icon": "Radar",
+            "image": {
+              "src": "/imgs/features/8-v20260425.webp",
+              "alt": "MediaClaw 抖音竞品监控功能自动追踪对标账号更新并触发预警"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "命中后自动洞察并推送飞书日报",
+            "description": "命中规则后自动生成摘要、标签和建议动作，并同步到飞书多维表，便于团队快速分工执行。",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/features/10-v20260425.webp",
+              "alt": "MediaClaw 抖音竞品内容命中后自动AI分析并推送飞书日报"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "outputs": {
+        "id": "outputs",
+        "block": "features",
+        "title": "监控结果直接用于日常决策",
+        "description": "从预警、研判到复盘，保持同一套数据链路。",
+        "items": [
+          {
+            "title": "飞书日报",
+            "description": "命中内容自动入表，含标题、链接、时间、互动和摘要。<br/>适用：晨会同步与热点巡检",
+            "icon": "Table2"
+          },
+          {
+            "title": "AI 洞察摘要",
+            "description": "自动提炼内容切角、表达框架和可跟进动作。<br/>适用：选题复盘与策略共识",
+            "icon": "Sparkles"
+          },
+          {
+            "title": "历史记录留存",
+            "description": "持续留存监控历史，支持周期对比和趋势判断。<br/>适用：周报、月报与阶段复盘",
+            "icon": "History"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "竞品监控在抖音团队中的典型应用",
+        "columns": [
+          {
+            "key": "role",
+            "title": "人群"
+          },
+          {
+            "key": "scene",
+            "title": "典型场景"
+          },
+          {
+            "key": "effect",
+            "title": "效果"
+          }
+        ],
+        "rows": [
+          {
+            "role": "品牌内容团队",
+            "scene": "需要持续追踪头部账号爆款主题变化",
+            "effect": "更快判断哪些内容方向值得跟进和加码"
+          },
+          {
+            "role": "直播运营团队",
+            "scene": "监控竞品引流视频与直播前预热动作",
+            "effect": "提前调整直播排期和货盘表达策略"
+          },
+          {
+            "role": "达人投放团队",
+            "scene": "观察合作达人近期内容稳定性和热度波动",
+            "effect": "投放决策更及时，降低试错成本"
+          },
+          {
+            "role": "MCN 机构",
+            "scene": "同时跟踪多赛道达人更新节奏",
+            "effect": "减少人工巡检，统一输出机构级情报日报"
+          },
+          {
+            "role": "创始人/负责人",
+            "scene": "希望快速掌握竞品动作而不被信息淹没",
+            "effect": "通过规则化预警只关注高价值变化"
+          },
+          {
+            "role": "策略分析师",
+            "scene": "复盘季度内容策略并验证判断",
+            "effect": "有连续历史数据支撑，更容易形成可执行结论"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "如何设置监控规则，避免每天收到太多噪音？",
+            "answer": "建议先按账号分层，再设置点赞阈值、发布时间窗口和关键词条件。先控量再扩量，能显著提升提醒质量。"
+          },
+          {
+            "question": "老视频突然二次起量，能被识别出来吗？",
+            "answer": "可以。系统会结合历史记录识别互动异常增长内容，帮助你发现“旧内容回流”带来的新机会。"
+          },
+          {
+            "question": "监控结果如何接入团队协作？",
+            "answer": "命中内容可自动同步到飞书多维表格，运营、内容和投放团队可在同一条数据上做标注、分工和复盘。"
+          },
+          {
+            "question": "自己的账号也适合用监控功能吗？",
+            "answer": "适合。把自有账号纳入同一套监控规则后，可以与竞品数据并排比较，更快发现策略偏差和优化方向。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "继续完善你的抖音竞品情报与执行闭环",
+        "links": [
+          {
+            "title": "抖音视频采集",
+            "description": "将命中内容回流到样本库，持续做结构化拆解分析。",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "抖音评论采集",
+            "description": "从命中内容评论区继续挖掘用户需求与反馈。",
+            "url": "/douyin/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "抖音关键词洞察",
+            "description": "追踪竞品策略背后的关键词变化，提前发现机会点。",
+            "url": "/douyin/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "飞书自动化联动",
+            "description": "监控结果自动入表，形成可追踪、可复盘的团队工作流。",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "把竞品监控做成日常基础设施",
+        "description": "免费安装 MediaClaw，把抖音对标账号监控接入你的内容情报系统。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

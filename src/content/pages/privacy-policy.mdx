@@ -1,0 +1,201 @@
+export const meta = {
+  title: 'Privacy Policy',
+  description: 'Mediaclaw Extension Privacy Policy',
+  created_at: '2026-03-07',
+};
+
+# MediaClaw Privacy Policy
+
+Updated: March 7, 2026
+Effective: March 7, 2026
+
+Thank you for using **MediaClaw** (hereinafter referred to as "the Extension"). This policy explains how we collect, use, store, and protect your information when you use the Extension.
+
+If you do not agree with this policy, please stop using and uninstall the Extension.
+
+---
+
+## 1. Information We Collect
+
+### 1.1 Activation and Authorization Information
+
+When you enter an activation code or order number in the Extension for authorization, we collect the following information and send it to the MediaClaw backend server:
+
+- **Activation code / order number** (`code`): The authorization credential you enter, formatted locally before transmission
+- **Device identifier** (`clientUuid`): A unique UUID randomly generated locally upon first installation, used to identify the current browser environment
+- **Environment label** (`clientLabel`): Automatically detected from the browser User-Agent, e.g., `Chrome on macOS`
+- **Extension version** (`appVersion`): The currently installed version of the Extension
+
+This information is used to complete license verification and manage device binding (each activation code supports up to 2 independent browser environments by default).
+
+### 1.2 Lark Base Target Configuration (sent when sync is triggered)
+
+When you configure and initiate a Lark Base sync, the following configuration is sent with the sync request to the MediaClaw backend server:
+
+- Lark Base App Token (`feishuAppToken`)
+- Target table name or table ID (`tableId`, `bloggerProfileTableName`, `bloggerNotesTableName`, `keywordNotesTableName`)
+
+This configuration is **used solely to write collected data into the Lark Base table you specify** and will not be stored in MediaClaw's server-side database.
+
+> **Note**: Configuration is stored in your local browser (`chrome.storage.local`) by default. We do not offer cloud configuration sync; configuration data is not automatically uploaded to our servers.
+
+### 1.3 Collected Data (Browser Local Storage)
+
+When you actively trigger a collection on the Xiaohongshu web app, the Extension stores the results in your local browser (`chrome.storage.local`), which may include:
+
+- **Note information**: Title, link, author nickname, content, hashtags, likes/saves/comments count, publish time, image links, video links, cover image, etc.
+- **Creator information**: Nickname, Xiaohongshu ID, profile link, avatar link, follower count, bio, and other public information
+- **Search / keyword results**: Keywords, search result lists (including note links, cover images, titles, authors, and like counts)
+- **Comment information**: Commenter nickname, commenter profile link, comment content, comment like count
+
+**Important notes:**
+
+- The Extension **does not read the `chrome.cookies` API** and does not actively capture cookies from any platform.
+- Collected data is stored only on your local device before you initiate a sync and **is not automatically uploaded to our servers**.
+
+### 1.4 Sync History and Runtime State (Browser Local Storage)
+
+The Extension stores the following runtime data locally:
+
+- **Sync history**: Historical sync records including sync time, sync type, success/failure status, debug links, etc. (up to approximately 200 entries retained)
+- **Runtime state**: Current page type, collection progress, recently active tab ID, etc.
+- **Authorization state**: Local verification status of the activation code, most recent verification time (the activation code is not stored in plain text; only the verification result and encrypted digest are stored)
+
+### 1.5 Download and Export Actions
+
+When you click "Export CSV" or "Download attachments," the Extension generates files locally using the browser's download capability. This action is explicitly triggered by you; files are saved to your local device and do not pass through our servers.
+
+### 1.6 Information We Do Not Collect
+
+- **No collection** of bank card numbers, payment passwords, or other financially sensitive information
+- **No collection** of login passwords for any platform
+- **No capture** of browser cookies (the `chrome.cookies` API is not called)
+- **No anonymous analytics** or behavioral data reporting of any kind
+- **No collection** of any personal information unrelated to the Extension's functionality
+
+---
+
+## 2. How We Use Your Information
+
+Information we collect is used only for the following purposes:
+
+- **License verification and device management**: Verifying activation code validity and managing the number of bound devices per activation code
+- **Data sync relay**: Forwarding collected data from syncs you initiate to the Lark Base table you specify
+- **Collection feature support**: Executing collection logic in your currently active Xiaohongshu tab and caching results locally
+- **Export and download**: Responding to your explicit actions to generate CSV files or download attachments locally
+- **Troubleshooting**: Using local sync history to help you diagnose sync failures
+
+---
+
+## 3. Storage and Security
+
+### 3.1 Local Storage (Browser Side)
+
+The following data is stored in your browser extension's local storage (`chrome.storage.local`):
+
+| Data Type           | Storage Location | How to Clear                             |
+| ------------------- | ---------------- | ---------------------------------------- |
+| Runtime state       | Local            | In-extension cleanup / Uninstall         |
+| Authorization state | Local            | In-extension cleanup / Uninstall         |
+| Lark Base config    | Local            | In-extension cleanup / Uninstall         |
+| Collected data pool | Local            | One-click clear in extension / Uninstall |
+| Sync history        | Local            | One-click clear in extension / Uninstall |
+
+You can delete all local data via the extension's built-in cleanup function, browser extension data clearing, or by directly uninstalling the Extension.
+
+### 3.2 Server-Side Storage
+
+We store only the minimum necessary information on our backend servers:
+
+- Activation code / order number status (valid / expired / frozen)
+- Device UUID binding associations and most recent verification time
+
+**Sync relay data (Lark Base configuration + collected payload) is handled on a "process and forward" basis and is not retained long-term in our server-side database.**
+
+### 3.3 Security Measures
+
+- Activation codes are stored locally as a non-plaintext digest; they are never stored in plain text
+- All API communication in production environments uses HTTPS encryption
+- The server employs access control and data minimization principles
+- We have made reasonable efforts to protect data security, but cannot guarantee 100% security in all circumstances. Data breaches resulting from user-side causes (e.g., device infected with malware, weak passwords, account compromise) are outside the scope of this policy
+
+---
+
+## 4. Information Sharing and Third-Party Disclosure
+
+We do not sell, rent, or provide your personal information to advertisers or data brokers unrelated to the Extension.
+
+We share necessary information with the following third parties only to the extent required to deliver the Extension's core functionality:
+
+| Third Party                                           | Information Shared                                           | Purpose                            |
+| ----------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------- |
+| **MediaClaw Backend Service**                         | Activation code, device info, collected payload, Lark config | License verification, sync relay   |
+| **Coze Workflow Service**                             | Collected payload, Lark config                               | Execute automated sync workflows   |
+| **Lark Base Service**                                 | Collected data you choose to sync                            | Write to the table you specify     |
+| **Infrastructure Providers** (e.g., Cloudflare, Neon) | Request logs, database data                                  | Host API and database capabilities |
+
+Information received by these third parties is used solely to fulfill the corresponding function; we require them to handle such data in a manner consistent with this policy.
+
+We will not disclose your information to any other party except in the following legally required circumstances:
+
+- With your explicit consent
+- As required by law, judicial authority, or administrative authority
+- In the event of a business reorganization (merger, acquisition, etc.), we will require the successor to continue being bound by this policy
+
+---
+
+## 5. Chrome Permission Usage
+
+The browser permissions requested by the Extension and their purposes are as follows:
+
+| Permission                              | Purpose                                                                            |
+| --------------------------------------- | ---------------------------------------------------------------------------------- |
+| `activeTab`                             | Inject collection scripts into the current active tab to read Xiaohongshu pages    |
+| `scripting`                             | Execute JavaScript collection logic on Xiaohongshu pages                           |
+| `storage`                               | Store configuration, collected data, authorization state, and sync history locally |
+| `downloads`                             | Invoke browser download capability when you actively click "Download attachments"  |
+| `sidePanel`                             | Display the Extension's operation interface in the browser sidebar                 |
+| `host_permissions` (Xiaohongshu domain) | Content collection and page communication on Xiaohongshu pages                     |
+| `host_permissions` (backend domain)     | License verification and sync communication with the MediaClaw backend API         |
+
+---
+
+## 6. Your Rights
+
+In accordance with applicable laws and regulations, you have the following rights:
+
+- **Right to be informed**: The right to know how we process your information (i.e., this policy)
+- **Right of access**: You may view locally cached collected data, configuration, and sync history in the Extension at any time
+- **Right to rectification and deletion**: You may modify Lark Base configuration or clear collected data and sync history in the Extension at any time
+- **Right to restrict processing**: You may stop the sync function and use collected results locally only; data will not leave your device
+- **Authorization release request**: If device binding slots are exhausted due to a device change or browser reinstallation, you may contact us to manually release a slot
+- **Right to withdraw consent**: You may uninstall the Extension and clear extension data at any time to withdraw your consent to this policy
+
+---
+
+## 7. Protection of Minors
+
+The Extension is intended for adult users with the appropriate legal capacity, primarily serving content creators, KOL operators, and similar professionals. It is not directed at users under the age of 18.
+
+If a minor needs to use the Extension, they should do so under the knowledge and guidance of a guardian. If we discover that a minor is using the Extension without guardian consent, we will take necessary measures (including restricting use).
+
+---
+
+## 8. Policy Updates
+
+We may update this policy when product features, legal requirements, or data processing practices change.
+
+- Updated policies will be published on the official website / extension release page, and the "Updated" date at the top of this document will be revised
+- For significant changes, we will provide advance notice via in-extension pop-ups or release notes
+- If you do not agree with the updated content, you may stop using and uninstall the Extension; if you continue to use it, you are deemed to have accepted the updated content
+
+---
+
+## 9. Contact Us
+
+If you have any questions, suggestions, or data deletion requests regarding this policy, please contact us via:
+
+- **Email**: support@mediaclaw.app
+- **Tutorial / Documentation**: The "Tutorial" link in the Extension sidebar
+
+We will respond within **15 business days** of receiving your request.

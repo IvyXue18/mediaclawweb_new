@@ -1,0 +1,234 @@
+{
+  "metadata": {
+    "title": "抖音视频逐字稿提取 - 一键提取、带时间戳、可批量 | MediaClaw 社媒虾",
+    "description": "抖音视频逐字稿一键提取，插件内把口播转成文字，输出带时间戳的分句稿，看清钩子、铺垫、转折的节奏。量大可走飞书 + 阿里百炼批量提取，每月 10 小时免费。",
+    "keywords": "抖音视频逐字稿, 抖音口播逐字稿, 抖音视频转文字, 抖音口播文案提取, 短视频脚本提取, 带时间戳逐字稿, 抖音对标拆解, 抖音视频节奏分析, 批量提取逐字稿"
+  },
+  "page": {
+    "title": "抖音视频逐字稿提取",
+    "show_sections": [
+      "hero",
+      "modes",
+      "compare",
+      "uses",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "抖音视频逐字稿提取工具",
+        "breadcrumbs": [
+          { "title": "首页", "url": "/" },
+          { "title": "抖音" },
+          { "title": "视频逐字稿" }
+        ],
+        "title": "抖音视频口播逐字稿，一键提取",
+        "description": "抖音视频逐字稿直接提取，不用看广告小程序。一次给两份：完整逐字稿整和带时间戳的分句稿，方便更细致拆解爆款，看清钩子怎么抛、转折落在哪一秒、结尾怎么收。量大还能走飞书批量。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "下载抖音样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/demo/douyin-transcript-b847d1a5cd6c.mp4",
+        "video_poster": "https://media.mediaclaw.app/blog-covers/7c94d2a48528fa38a6c364e498fdb4b5.png"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "一键提取视频完整逐字稿",
+            "description": "刷到值得拆的抖音视频，采集后在记录上一键触发，口播内容原地转成文字回填记录，不用下载视频、不用看广告小程序、不用在多个工具之间来回切换。",
+            "icon": "AudioLines",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/7c94d2a48528fa38a6c364e498fdb4b5.png",
+              "alt": "MediaClaw 插件侧边栏一键提取抖音视频口播逐字稿，右侧展示带时间戳的分句稿"
+            },
+            "button": { "title": "免费下载使用", "url": "/download" }
+          },
+          {
+            "title": "带时间戳，看清节奏和逻辑",
+            "description": "一整段平铺的文字只能告诉你说了什么，带时间戳的分句稿能告诉你什么时候说的、每句占多久。钩子抛在第几秒、铺垫拖了多久、转折落在哪一秒、结尾怎么收，这套节奏和逻辑只有时间轴才看得出来。",
+            "icon": "Timer",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/b76b2e8d56b648002b9b73f0c7d50dc2.png",
+              "alt": "用带时间戳的逐字稿分析抖音视频的节奏和脚本逻辑"
+            },
+            "button": { "title": "免费下载使用", "url": "/download" }
+          },
+          {
+            "title": "逐字稿直接进 AI 拆解仿写",
+            "description": "提完的文字稿和视频信息在同一条记录里，可以逐句拆解对标视频的口播结构和转化句式，再用 AI 解构、改写、仿写成你自己的短视频脚本，攒成可复用的文案素材。",
+            "icon": "Wand2",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/19711c105b2577936fd23022ee7614c4.png",
+              "alt": "在飞书多维表格中用 AI 拆解抖音口播结构并生成仿写脚本"
+            },
+            "button": { "title": "免费下载使用", "url": "/download" }
+          },
+          {
+            "title": "批量提取，飞书 + 阿里百炼免费跑",
+            "description": "一批待拆视频不想一条条提，可以走飞书多维表格的音视频转文字字段捷径配阿里百炼。原始链接填进表格自动逐条提取，每月 10 小时免费额度，按一条两分钟算够跑三百条。",
+            "icon": "Table2",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/23959730eb58ef0d6a1ee53bd0271338.png",
+              "alt": "飞书多维表格音视频转文字字段捷径批量提取抖音视频逐字稿"
+            },
+            "button": { "title": "免费下载使用", "url": "/download" }
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "title": "两条提取路径，按你的量和场景选",
+        "description": "插件内提取和飞书批量是同一需求的不同侧面，都保留着。",
+        "columns": [
+          { "key": "dim", "title": "维度" },
+          { "key": "plugin", "title": "插件内提取" },
+          { "key": "feishu", "title": "飞书字段捷径 + 阿里百炼" }
+        ],
+        "rows": [
+          {
+            "dim": "费用",
+            "plugin": "按视频时长扣积分",
+            "feishu": "每月 10 小时免费额度"
+          },
+          {
+            "dim": "模型精度",
+            "plugin": "更新更准，语速快/配乐杂也能扛",
+            "feishu": "偏旧，配乐和快语速容易掉字错字"
+          },
+          {
+            "dim": "时间戳",
+            "plugin": "有，分句带时间轴，看节奏逻辑必备",
+            "feishu": "无，整段平铺文字"
+          },
+          {
+            "dim": "批量",
+            "plugin": "采集记录上逐条提，不依赖飞书",
+            "feishu": "链接填进表格自动逐条批量提"
+          },
+          {
+            "dim": "适合谁",
+            "plugin": "精拆某条对标、口播识别难、错字成本大",
+            "feishu": "一批视频先攒文字、预算敏感、量大"
+          }
+        ]
+      },
+      "uses": {
+        "id": "uses",
+        "block": "features",
+        "subtitle": "What's next",
+        "title": "拿到逐字稿之后，能做什么",
+        "description": "逐字稿不只是把口播变成字，它进了采集记录之后才真正帮你做内容。",
+        "items": [
+          {
+            "title": "拆脚本的节奏与逻辑",
+            "description": "对照时间戳看对标视频的开场钩子、铺垫长度和转折落点，把它的节奏和结构编排还原成可复用的脚本模板。",
+            "icon": "Gauge"
+          },
+          {
+            "title": "扒口播话术、AI 仿写",
+            "description": "把对标账号的口播话术和转化句式提成文字，逐句研究后用 AI 仿写成你自己的短视频脚本，批量起号和测款时省力。",
+            "icon": "Bot"
+          },
+          {
+            "title": "沉淀可复用脚本库",
+            "description": "逐字稿随采集记录导出 CSV/Markdown 或同步飞书，长期攒成可检索的口播脚本库。",
+            "icon": "FolderKanban"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "抖音视频逐字稿怎么一键提取？",
+            "answer": "用 MediaClaw 采集这条抖音视频后，在采集记录上直接触发逐字稿提取即可，口播内容会原地转成文字回填记录。不用下载视频、不用看广告小程序、不用在多个工具之间来回切换。"
+          },
+          {
+            "question": "逐字稿的时间戳有什么用？",
+            "answer": "时间戳让你看清视频的节奏和逻辑。平铺文字只告诉你说了什么，带时间戳的分句稿能告诉你钩子抛在第几秒、铺垫拖了多久、转折落在哪、结尾怎么收，对照着拆对标脚本的结构编排才看得清。"
+          },
+          {
+            "question": "一批抖音视频能批量提取逐字稿吗？",
+            "answer": "能。量大时走飞书多维表格的音视频转文字字段捷径配阿里百炼，把视频原始链接填进表格就会自动逐条提取，每月 10 小时免费额度，按一条两分钟算够跑三百条左右。插件内也支持采集记录上逐条提。"
+          },
+          {
+            "question": "插件里提逐字稿，一定要配飞书吗？",
+            "answer": "不用。原数据建在插件本体里，采集记录上可以直接触发提取，结果回填记录，照常复制、导出 CSV 或 Markdown。飞书只是量大时可选的批量与同步去处。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "把抖音图文和视频两类内容的原数据一并补齐",
+        "links": [
+          {
+            "title": "抖音图文文案提取",
+            "description": "对封面和合集图做 OCR，把图片里的商品信息和清单提成文字。",
+            "url": "/douyin/image-text",
+            "icon": "ScanText"
+          },
+          {
+            "title": "抖音视频采集",
+            "description": "先采集结构化数据拿到视频原始链接，再触发逐字稿提取。",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "小红书视频逐字稿",
+            "description": "换个平台，小红书视频笔记口播也能提带时间戳的分句稿。",
+            "url": "/xiaohongshu/transcript",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "飞书自动化联动",
+            "description": "逐字稿随采集记录自动入表，便于团队共享与周期复盘。",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "挑一条对标，先提一次逐字稿",
+        "description": "免费安装 MediaClaw，采下最近想拆的抖音视频，对它提一次带时间戳的逐字稿，看看它的钩子抛在第几秒、又是怎么一步步把人带到结尾的。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "下载抖音样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

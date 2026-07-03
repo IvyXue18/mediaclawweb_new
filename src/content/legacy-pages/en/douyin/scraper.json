@@ -1,0 +1,324 @@
+{
+  "metadata": {
+    "title": "Free No-Code Douyin Scraper Chrome Extension",
+    "description": "Scrape Douyin videos, profiles, and search results with a free no-code Chrome extension. Export to Excel/CSV or Markdown and backfill video transcripts.",
+    "keywords": "Douyin scraper, Douyin scraper Chrome extension, no-code Douyin scraper, export Douyin to Excel, Douyin video scraper, Douyin video transcript, Markdown export"
+  },
+  "page": {
+    "title": "Douyin Video Scraper",
+    "show_sections": [
+      "hero",
+      "howto",
+      "modes",
+      "outputs",
+      "scenarios",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Douyin Data Extraction Tool",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Douyin"
+          },
+          {
+            "title": "Video Scraper"
+          }
+        ],
+        "title": "Free Douyin Scraper: 1-Click Batch Export Videos to Excel",
+        "description": "Use a no-code Douyin scraper Chrome extension to batch extract videos, creator profiles, and search results. Export to Excel/CSV or Markdown, backfill video transcripts, and spot competitor trends.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Download Douyin Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=222,258"
+      },
+      "howto": {
+        "id": "howto",
+        "block": "workflow-steps",
+        "label": "How It Works",
+        "title": "Scrape Douyin Videos in 4 Steps — No Code",
+        "description": "Batch export Douyin videos and creator data to Excel without writing code.",
+        "items": [
+          {
+            "title": "Install the Free Extension",
+            "description": "Add MediaClaw to Chrome in one click. No account, API key, or proxy setup required to start.",
+            "icon": "Download"
+          },
+          {
+            "title": "Open a Video, Profile, or Search",
+            "description": "Visit any Douyin video, creator profile, or keyword search result and open the MediaClaw sidebar.",
+            "icon": "Chrome"
+          },
+          {
+            "title": "Click Start to Batch Scrape",
+            "description": "MediaClaw auto-scrolls and captures titles, hashtags, publish time, and engagement metrics into structured rows.",
+            "icon": "Play"
+          },
+          {
+            "title": "Export to Excel or Markdown",
+            "description": "Download Excel-ready data or Markdown, backfill video transcripts after scraping, or sync to Lark Base.",
+            "icon": "FileSpreadsheet"
+          }
+        ]
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "Single Video Deep Extraction",
+            "description": "Open any Douyin video and one-click extract the title, hashtags, publish time, and engagement metrics. After scraping, backfill the video transcript to dissect hooks, script structure, and comment feedback.",
+            "icon": "FileSearch",
+            "image": {
+              "src": "/imgs/features/12-v20260425.webp",
+              "alt": "MediaClaw extracting structured metadata from a single Douyin video including title, hashtags, and engagement data"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Creator Profile Batch Scraping",
+            "description": "Auto-scroll through any creator's profile to scrape their full video history with engagement data. Compare content rhythm and performance over time for account-level benchmarking.",
+            "icon": "Users",
+            "image": {
+              "src": "/imgs/features/13-v20260425.webp",
+              "alt": "MediaClaw auto-scrolling a Douyin creator profile to batch-scrape historical videos with engagement metrics"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Keyword Search Scraping",
+            "description": "Enter a keyword and batch-scrape matching search results. Filter by likes and publish date to focus on high-relevance, high-engagement content directions.",
+            "icon": "Search",
+            "image": {
+              "src": "/imgs/features/14-v20260425.webp",
+              "alt": "MediaClaw keyword search scraper collecting Douyin videos by search term with engagement threshold filters"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "outputs": {
+        "id": "outputs",
+        "block": "data-table",
+        "title": "Scraped Data Goes Straight to Work",
+        "description": "From personal review to team collaboration — choose your output.",
+        "columns": [
+          {
+            "key": "mode",
+            "title": "Output"
+          },
+          {
+            "key": "desc",
+            "title": "Description"
+          },
+          {
+            "key": "scene",
+            "title": "Best For"
+          }
+        ],
+        "rows": [
+          {
+            "mode": "Local Data Pool",
+            "desc": "View, search, and filter scraped results in the extension",
+            "scene": "Quick trend checks and review"
+          },
+          {
+            "mode": "Lark Base Sync",
+            "desc": "One-click push to Lark Base for team collaboration",
+            "scene": "Team topic meetings and task handoff"
+          },
+          {
+            "mode": "CSV / Markdown Export",
+            "desc": "Standard fields ready for Excel, BI tools, Python, Obsidian, or AI-assisted organization",
+            "scene": "Data modeling and deep analysis"
+          },
+          {
+            "mode": "Video Transcript Extraction",
+            "desc": "Backfill transcripts on individual video records after scraping",
+            "scene": "Script breakdowns and content research"
+          },
+          {
+            "mode": "Media Download",
+            "desc": "Batch-download videos for asset management",
+            "scene": "Video archive and content breakdown"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "Who Uses Douyin Video Scraping?",
+        "columns": [
+          {
+            "key": "role",
+            "title": "Role"
+          },
+          {
+            "key": "scene",
+            "title": "Use Case"
+          },
+          {
+            "key": "effect",
+            "title": "Outcome"
+          }
+        ],
+        "rows": [
+          {
+            "role": "Short-Video Account Operator",
+            "scene": "Need to benchmark top and mid-tier competitor strategies",
+            "effect": "Side-by-side comparison of content rhythm and engagement patterns"
+          },
+          {
+            "role": "Brand Content Team",
+            "scene": "Research trending formats before production",
+            "effect": "Reduce production waste by validating ideas with data"
+          },
+          {
+            "role": "MCN Agency",
+            "scene": "Evaluate creator portfolios for partnership decisions",
+            "effect": "Data-backed creator vetting at scale"
+          },
+          {
+            "role": "E-commerce / Livestream Ops",
+            "scene": "Analyze pre-stream traffic-driving videos",
+            "effect": "Optimize hook strategies for conversion-focused content"
+          }
+        ]
+      },
+      "safety": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "Safety",
+        "title": "Built-In Account Protection",
+        "description": "Efficient scraping without compromising account safety.",
+        "items": [
+          {
+            "title": "Randomized Scroll Simulation",
+            "description": "Mimics natural human browsing patterns to reduce detection risk.",
+            "icon": "Mouse"
+          },
+          {
+            "title": "Custom Wait Intervals",
+            "description": "Configure scraping speed per task to balance throughput and safety.",
+            "icon": "Timer"
+          },
+          {
+            "title": "Stall Detection & Auto-Pause",
+            "description": "Automatically stops when pages fail to load or behave abnormally.",
+            "icon": "TriangleAlert"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "Which Douyin page types can MediaClaw scrape?",
+            "answer": "Video detail pages, creator profile pages, and keyword search result pages. You can build your sample library through three paths: single-video deep dives, account-level benchmarking, and niche-wide scanning."
+          },
+          {
+            "question": "Should I scrape by account or by keyword first?",
+            "answer": "Start with keywords to get the niche-wide landscape, then drill into top accounts for profile-level batch scraping. This gives you both macro trends and micro-level creator strategies."
+          },
+          {
+            "question": "How do I keep scraping speeds safe?",
+            "answer": "Use medium speed for routine research and fast speed for urgent trend tracking. Combine with batch intervals and the built-in stall detection for a good balance of throughput and stability."
+          },
+          {
+            "question": "Can MediaClaw extract video transcripts?",
+            "answer": "Yes. After scraping a Douyin video, you can extract a transcript from the collected record. The transcript is saved back to the local record and included in CSV/Markdown export or Lark sync."
+          },
+          {
+            "question": "How to scrape Douyin videos without coding?",
+            "answer": "Use the free MediaClaw Chrome extension. It's a 100% no-code Douyin scraper that lets you batch extract video links, hashtags, and engagement metrics directly to an Excel-ready file with just one click."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "Related Tools",
+        "description": "Complete your Douyin data and content operations workflow.",
+        "links": [
+          {
+            "title": "Comment Scraper",
+            "description": "Batch-scrape comment data and user profiles for content analysis.",
+            "url": "/douyin/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "Keyword Research Tool",
+            "description": "Expand keywords into actionable content directions.",
+            "url": "/douyin/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "Competitor Monitoring",
+            "description": "Auto-track competitor accounts and get daily Lark alerts.",
+            "url": "/douyin/monitoring",
+            "icon": "Radar"
+          },
+          {
+            "title": "Lark Base Integration",
+            "description": "Sync scraped data to Lark Base for team collaboration.",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Start Scraping Douyin in Minutes",
+        "description": "Install MediaClaw for free and build your first Douyin data workflow today.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "Download Douyin Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

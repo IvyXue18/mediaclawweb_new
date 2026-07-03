@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "title": "更新日志 — 功能发布与性能改进通告 | MediaClaw",
+    "description": "查看 MediaClaw 产品更新日志，追踪每一次功能迭代、性能优化与体验改进。",
+    "keywords": "MediaClaw更新, 功能发布, 性能改进, 产品动态, 版本历史"
+  },
+  "page": {
+    "sections": {
+      "updates": {
+        "id": "updates",
+        "title": "更新日志",
+        "description": "查看产品更新日志，了解产品最新功能和改进。"
+      }
+    }
+  }
+}

@@ -1,0 +1,363 @@
+{
+  "metadata": {
+    "title": "Free RedNote & Xiaohongshu Scraper Chrome Extension",
+    "description": "Scrape RedNote/Xiaohongshu posts, profiles, and search results in your browser. Export to Excel or Markdown, backfill media text, or sync to Lark Base.",
+    "keywords": "RedNote scraper, red note scraper, Xiaohongshu scraper, RedNote scraper Chrome extension, export Xiaohongshu to Excel, no-code scraper, RedNote data export"
+  },
+  "page": {
+    "title": "Xiaohongshu Post Scraper",
+    "show_sections": [
+      "hero",
+      "howto",
+      "modes",
+      "batch",
+      "outputs",
+      "scenarios",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Free Rednote Scraper Chrome Extension",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Xiaohongshu"
+          },
+          {
+            "title": "Post Scraper"
+          }
+        ],
+        "title": "Free RedNote & Xiaohongshu Scraper Chrome Extension",
+        "description": "Scrape public RedNote (Xiaohongshu) posts, creator profiles, and keyword search results from your browser. Export to Excel/Markdown, backfill image text or video transcripts, and sync to Lark Base for competitor research and content planning.",
+        "buttons": [
+          {
+            "title": "Install Free Extension",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Download RedNote Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=222,258"
+      },
+      "howto": {
+        "id": "howto",
+        "block": "workflow-steps",
+        "label": "How It Works",
+        "title": "Scrape Xiaohongshu in 4 Steps — No Code",
+        "description": "From install to Excel export in under 5 minutes, no API keys or proxies.",
+        "items": [
+          {
+            "title": "Install the Free Extension",
+            "description": "Add MediaClaw to Chrome in one click. No account, API key, or proxy setup required to start.",
+            "icon": "Download"
+          },
+          {
+            "title": "Open Any Xiaohongshu Page",
+            "description": "Visit a RedNote post, creator profile, or keyword search result. The MediaClaw sidebar appears automatically.",
+            "icon": "Chrome"
+          },
+          {
+            "title": "Click Start to Scrape",
+            "description": "MediaClaw auto-scrolls and captures titles, body text, hashtags, engagement counts, and media URLs into structured rows.",
+            "icon": "Play"
+          },
+          {
+            "title": "Export to Excel or Lark",
+            "description": "Download Excel-ready data or Markdown in one click, backfill image text or transcripts, or sync to Lark Base for your team.",
+            "icon": "FileSpreadsheet"
+          }
+        ]
+      },
+      "batch": {
+        "id": "batch",
+        "block": "feature-matrix",
+        "label": "Data Coverage",
+        "title": "Scrape the Rednote Data Teams Actually Need",
+        "description": "MediaClaw focuses on structured Xiaohongshu datasets that can move directly into analysis, reporting, and content planning workflows.",
+        "columns": 3,
+        "items": [
+          {
+            "title": "Post Fields",
+            "description": "Extract note titles, body text, hashtags, engagement counts, publish context, media URLs, and optional image text or video transcripts for repeatable post analysis.",
+            "icon": "FileText"
+          },
+          {
+            "title": "Creator Profile Data",
+            "description": "Collect creator profile and post-history signals so teams can compare KOL candidates and benchmark competitor accounts.",
+            "icon": "Users"
+          },
+          {
+            "title": "Keyword Search Results",
+            "description": "Batch collect Xiaohongshu search results by keyword, then filter by engagement thresholds to find useful content samples faster.",
+            "icon": "Search"
+          }
+        ]
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "Single Post Deep Extraction",
+            "description": "Open any Xiaohongshu note and one-click extract the title, body text, hashtags, engagement counts, and image/video URLs. After scraping, backfill image text or video transcripts for cleaner analysis records.",
+            "icon": "FileSearch",
+            "image": {
+              "src": "/imgs/features/16-v20260424.webp",
+              "alt": "MediaClaw extracting full structured data from a single Xiaohongshu post including title, engagement metrics, and media URLs"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Creator Profile Batch Scraping",
+            "description": "Auto-scroll through any creator's profile page to scrape their complete post history with engagement data. Filter by like count to quickly build a benchmark library of top-performing content.",
+            "icon": "Users",
+            "image": {
+              "src": "/imgs/features/2-v20260309.webp",
+              "alt": "MediaClaw auto-scrolling a Xiaohongshu creator profile to batch-scrape historical posts filtered by engagement"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Keyword Search Scraping",
+            "description": "Enter a keyword and batch-scrape all matching search results. Set thresholds for likes, saves, and comments to filter out low-quality samples. Supports finding low-follower viral posts to uncover hidden content opportunities.",
+            "icon": "Search",
+            "image": {
+              "src": "/imgs/features/1-v20260424.webp",
+              "alt": "MediaClaw keyword search scraper collecting Xiaohongshu posts by search term with engagement threshold filters"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "Common Xiaohongshu Scraper Workflows",
+        "description": "Use exported Rednote data to turn search impressions, creator pages, and viral posts into practical decisions.",
+        "columns": [
+          {
+            "key": "workflow",
+            "title": "Workflow"
+          },
+          {
+            "key": "data",
+            "title": "What You Scrape"
+          },
+          {
+            "key": "outcome",
+            "title": "Outcome"
+          }
+        ],
+        "rows": [
+          {
+            "workflow": "Competitor research",
+            "data": "Top posts, engagement metrics, hashtags, and media URLs from competing accounts",
+            "outcome": "Find content angles, hook patterns, and topic gaps before planning your next campaign"
+          },
+          {
+            "workflow": "KOL screening",
+            "data": "Creator profiles, post histories, and high-performing notes",
+            "outcome": "Shortlist creators with stronger fit instead of relying on follower count alone"
+          },
+          {
+            "workflow": "Keyword research",
+            "data": "Search-result posts for product, category, and audience-intent keywords",
+            "outcome": "Validate demand and build a data-backed topic library"
+          },
+          {
+            "workflow": "Content library building",
+            "data": "Saved posts, visual references, captions, and engagement fields",
+            "outcome": "Create reusable examples for briefs, reporting, and team reviews"
+          }
+        ]
+      },
+      "outputs": {
+        "id": "outputs",
+        "block": "data-table",
+        "title": "Scraped Data Goes Straight to Work",
+        "description": "Choose the output format that fits your workflow.",
+        "columns": [
+          {
+            "key": "mode",
+            "title": "Output"
+          },
+          {
+            "key": "desc",
+            "title": "Description"
+          },
+          {
+            "key": "scene",
+            "title": "Best For"
+          }
+        ],
+        "rows": [
+          {
+            "mode": "Local Data Pool",
+            "desc": "View, search, and filter scraped results directly in the extension",
+            "scene": "Quick personal research and review"
+          },
+          {
+            "mode": "Lark Base Sync",
+            "desc": "One-click push to Lark Base for team collaboration and reporting",
+            "scene": "Shared datasets and task distribution"
+          },
+          {
+            "mode": "CSV / Markdown Export",
+            "desc": "Excel-ready fields for spreadsheets, BI tools, or Python; Markdown for Obsidian and AI-assisted organization",
+            "scene": "Deep data analysis and custom reporting"
+          },
+          {
+            "mode": "Source Data Backfill",
+            "desc": "Backfill image text or video transcripts on individual collected records",
+            "scene": "Viral post breakdowns and script research"
+          },
+          {
+            "mode": "Media Download",
+            "desc": "Batch-download images and videos for asset management",
+            "scene": "Building visual reference libraries"
+          }
+        ]
+      },
+      "safety": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "Safety",
+        "title": "Built-In Account Protection",
+        "description": "Efficient scraping without compromising account safety.",
+        "items": [
+          {
+            "title": "Randomized Scroll Simulation",
+            "description": "Mimics natural human browsing patterns to reduce detection risk.",
+            "icon": "Mouse"
+          },
+          {
+            "title": "Custom Wait Intervals",
+            "description": "Configure scraping speed per task to balance throughput and safety.",
+            "icon": "Timer"
+          },
+          {
+            "title": "Stall Detection & Auto-Pause",
+            "description": "Automatically stops when pages fail to load or behave abnormally.",
+            "icon": "TriangleAlert"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "Can MediaClaw scrape Xiaohongshu on a schedule?",
+            "answer": "The extension requires an open browser tab to run. For ongoing automated tracking, use the Competitor Monitoring feature — it scans accounts daily and pushes results to Lark with no manual intervention."
+          },
+          {
+            "question": "Will scraping trigger platform risk controls?",
+            "answer": "MediaClaw uses randomized delays and human-like browsing patterns to minimize detection risk. It accesses only publicly visible content. Use reasonable scraping speeds and your account stays safe."
+          },
+          {
+            "question": "Do I need technical skills to use this?",
+            "answer": "No. Install the Chrome extension, open any Xiaohongshu page, and the sidebar appears with context-aware controls. Click 'Start' and wait — no code, no API keys, no configuration. First scrape takes under 5 minutes."
+          },
+          {
+            "question": "Can I extract video transcripts and spoken scripts?",
+            "answer": "Video post metadata (title, hashtags, engagement) is extracted directly. For spoken-word script extraction, sync the data to Lark Base where AI templates can process the video content and output transcripts automatically."
+          },
+          {
+            "question": "What is the best free Rednote scraper?",
+            "answer": "MediaClaw is the best free Rednote scraper. As a no-code Chrome extension, it securely extracts Xiaohongshu posts, creator profiles, and comments directly to Excel or Lark Base without needing API keys."
+          },
+          {
+            "question": "How to export Xiaohongshu data to Excel?",
+            "answer": "Simply install the free MediaClaw Chrome extension, open any Xiaohongshu search or profile page, and click \"Start\". You can batch export all Rednote posts and engagement metrics straight to an Excel-ready file in 1-click."
+          },
+          {
+            "question": "What is the difference between Rednote and Xiaohongshu scraping?",
+            "answer": "Rednote is the common English name for Xiaohongshu. MediaClaw helps you scrape publicly visible Xiaohongshu/Rednote posts, creator pages, and keyword search results from a desktop browser."
+          },
+          {
+            "question": "Can I export Rednote data without coding or API access?",
+            "answer": "Yes. MediaClaw runs as a Chrome extension, so you do not need code, API keys, proxy setup, or a custom scraper. Install it, open a public Xiaohongshu page, and export the captured dataset."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "Related Tools",
+        "description": "Complete your Xiaohongshu content operations workflow.",
+        "links": [
+          {
+            "title": "Comment Scraper",
+            "description": "Batch-scrape comment data and user profiles for content analysis.",
+            "url": "/xiaohongshu/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "Keyword Research Tool",
+            "description": "Expand one keyword into 200+ search suggestions with AI topic clustering.",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "Competitor Monitoring",
+            "description": "Auto-track competitor accounts and get daily alerts pushed to Lark.",
+            "url": "/xiaohongshu/monitoring",
+            "icon": "Radar"
+          },
+          {
+            "title": "Watermark-Free Downloader",
+            "description": "Batch-download images and videos in original quality without watermarks.",
+            "url": "/xiaohongshu/downloader",
+            "icon": "Download"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Install the Free Xiaohongshu Scraper",
+        "description": "Use MediaClaw to export Rednote posts, creator profiles, and search results into Excel-ready datasets.",
+        "buttons": [
+          {
+            "title": "Install Free Extension",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "Download RedNote Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

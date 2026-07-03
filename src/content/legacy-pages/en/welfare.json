@@ -1,0 +1,324 @@
+{
+  "metadata": {
+    "title": "MediaClaw Welfare Center - Claim Trial and Usage Rewards",
+    "description": "Use the MediaClaw welfare center to claim channel rewards and track extension-only experience feedback milestones.",
+    "keywords": "MediaClaw welfare center, trial activation code, activation code, channel survey, experience feedback"
+  },
+  "hero": {
+    "eyebrow": "Welfare Center",
+    "title": "Claim MediaClaw welfare rewards",
+    "description": "Complete the channel survey to claim its reward. Experience feedback must be unlocked through real usage milestones in the extension.",
+    "primary_action": "Claim Reward",
+    "sign_in_action": "Sign In to Claim",
+    "secondary_action": "View My Codes"
+  },
+  "partner_promo": {
+    "eyebrow": "Partner Program",
+    "title": "Invite friends, earn commission",
+    "you": "You: first-order + renewal commission",
+    "friend": "Friend: discount on first purchase",
+    "action": "Invite Now",
+    "banner_title": "Partner Program · You earn commission, friends get a discount",
+    "banner_action": "Invite Now"
+  },
+  "reward_flow": {
+    "title": "Claim in 3 Steps",
+    "step": "Step {index}",
+    "signed_in": "Signed in",
+    "credentials_action": "View My Codes",
+    "download_action": "Download Extension",
+    "sample_code": "ACT-XXXX-XXXX",
+    "items": [
+      {
+        "title": "Sign in and confirm your account",
+        "description": "Rewards are bound to your current account. Each account can claim each welfare task once.",
+        "icon": "LogIn"
+      },
+      {
+        "title": "Complete the channel survey",
+        "description": "Tell us where you heard about MediaClaw and the first problem you want to solve. The reward is issued automatically after submission.",
+        "icon": "ClipboardCheck"
+      },
+      {
+        "title": "Share experience feedback",
+        "description": "Complete scraping, export or sync, and high-value feature milestones in the extension, then return to the extension to submit real feedback.",
+        "icon": "MessageSquareText"
+      }
+    ],
+    "success_modal": {
+      "title": "Reward Claimed",
+      "extension_title": "Access Extended",
+      "subtitle": "Enter the activation code in extension preferences to verify and bind it",
+      "code_label": "Activation Code",
+      "action": "View My Codes"
+    },
+    "guide": {
+      "title": "Activation Setup Guide",
+      "steps": [
+        "Open the MediaClaw extension and enter Preferences from the top-right menu.",
+        "Paste the activation code into Product Authorization Status.",
+        "Click Verify and Bind to finish setup."
+      ],
+      "image_alt": "MediaClaw activation code and preferences guide"
+    }
+  },
+  "channel_survey": {
+    "title": "Channel Survey Task",
+    "description": "Rewards are issued automatically. New users receive a trial activation code; users with activation codes choose which code to extend after submitting.",
+    "sign_in_required": "Please sign in or create an account first. You will return to the welfare center after signing in.",
+    "sign_in_action": "Sign In / Sign Up",
+    "unavailable": "The welfare center table is not initialized yet. Run the website database migration first.",
+    "status": {
+      "available": "Available",
+      "completed": "Claimed"
+    },
+    "fields": {
+      "source": "Where did you hear about MediaClaw?",
+      "source_ai": "Which AI?",
+      "source_question": "What did you ask?",
+      "search_engine": "Which search engine?",
+      "search_question": "What did you search?",
+      "source_other": "Please specify the source",
+      "role": "What best describes you?",
+      "role_other": "Please specify your role",
+      "platform": "Core operating platform",
+      "use_case": "What do you want to use MediaClaw for first?"
+    },
+    "placeholders": {
+      "source_ai": "e.g. ChatGPT, Doubao, Kimi, Perplexity",
+      "source_question": "e.g. how to bulk export Xiaohongshu comments",
+      "search_engine": "e.g. Google, Baidu, Bing",
+      "search_question": "e.g. Xiaohongshu data scraping tool",
+      "source_other": "e.g. WeChat group, course",
+      "role_other": "e.g. content consultant, ecommerce ops, course creator"
+    },
+    "source_options": [
+      {
+        "label": "AI recommendation",
+        "value": "ai"
+      },
+      {
+        "label": "Search engine",
+        "value": "search"
+      },
+      {
+        "label": "WeChat official account",
+        "value": "official_account"
+      },
+      {
+        "label": "Zhihu",
+        "value": "zhihu"
+      },
+      {
+        "label": "WeChat Channels",
+        "value": "wechat_channels"
+      },
+      {
+        "label": "Douyin",
+        "value": "douyin"
+      },
+      {
+        "label": "Xiaohongshu",
+        "value": "xiaohongshu"
+      },
+      {
+        "label": "Friend referral",
+        "value": "friend_referral"
+      },
+      {
+        "label": "Other",
+        "value": "other"
+      }
+    ],
+    "role_options": [
+      {
+        "label": "Individual blogger",
+        "value": "personal_blogger"
+      },
+      {
+        "label": "MCN / creator ops",
+        "value": "mcn"
+      },
+      {
+        "label": "Brand team member",
+        "value": "brand_team"
+      },
+      {
+        "label": "Ops / growth team member",
+        "value": "growth_team"
+      },
+      {
+        "label": "OPC / one-person company",
+        "value": "opc"
+      },
+      {
+        "label": "Other",
+        "value": "other"
+      }
+    ],
+    "platform_options": [
+      {
+        "label": "Xiaohongshu",
+        "value": "xiaohongshu"
+      },
+      {
+        "label": "Douyin",
+        "value": "douyin"
+      },
+      {
+        "label": "Both",
+        "value": "both"
+      }
+    ],
+    "use_case_options": [
+      {
+        "label": "Find topics / decide content direction",
+        "value": "topic_direction",
+        "capabilities": [
+          "Keyword content opportunity judgment",
+          "Search suggestion long-tail mining",
+          "Keyword search scraping for low-follower viral posts"
+        ]
+      },
+      {
+        "label": "Analyze benchmark accounts",
+        "value": "benchmark_accounts",
+        "capabilities": [
+          "Auto-discover benchmark accounts",
+          "Bulk collect creator profile post data and content",
+          "Benchmark account monitoring and Feishu daily reports"
+        ]
+      },
+      {
+        "label": "Collect viral content samples",
+        "value": "viral_samples",
+        "capabilities": [
+          "Keyword search result scraping",
+          "Single-post deep collection",
+          "Low-follower viral content filtering"
+        ]
+      },
+      {
+        "label": "Download and manage creative assets",
+        "value": "asset_library",
+        "capabilities": [
+          "Download watermark-free images and videos",
+          "Extract video transcripts",
+          "Batch save creative assets"
+        ]
+      },
+      {
+        "label": "Research influencers / seeding / campaigns",
+        "value": "influencer_research",
+        "capabilities": [
+          "Bulk pull creator profile content",
+          "Bulk collect comments",
+          "Evaluate creator performance and comment sentiment"
+        ]
+      },
+      {
+        "label": "Private traffic leads / lead mining",
+        "value": "private_leads",
+        "capabilities": [
+          "Bulk collect comments",
+          "Filter high-intent leads",
+          "Export leads to Excel / sync to Feishu"
+        ]
+      }
+    ],
+    "use_case_hint": "Multiple choices allowed. Choices record your intent; hover the question mark to see the plugin capabilities involved.",
+    "capability_title": "Capabilities",
+    "submit": "Submit and Claim",
+    "submit_extend": "Confirm Extension and Claim",
+    "reward_credential": {
+      "title": "Choose the activation code to extend",
+      "description": "Your account already has activation codes. Choose which code should receive this reward. If you do not have a code, the system will generate a new trial code automatically.",
+      "permanent": "No expiry",
+      "bindings": "devices",
+      "cancel": "Cancel"
+    },
+    "footnote": "Each account can claim the channel survey reward once; trial access is also limited to one claim per browser installation.",
+    "trial_done": "A trial activation code has been generated. Copy it and enter it in the extension settings page.",
+    "paid_extension_done": "The selected activation code has received the welfare reward. Check the latest expiry date and credits on the activation code page.",
+    "view_reward": "View Reward",
+    "copy": "Copy",
+    "copy_success": "Activation code copied",
+    "return_to_plugin": "Return to Extension",
+    "success": "Reward issued",
+    "errors": {
+      "required": "Please complete the required choices and any expanded fields first",
+      "reward_credential_required": "Please choose the activation code to extend",
+      "reward_credential_not_found": "Could not find an extendable activation code. Please refresh and try again.",
+      "browser_claimed": "This browser has already claimed a trial. Please use the existing activation code or choose a paid plan.",
+      "submit_failed": "Submit failed. Please try again later"
+    }
+  },
+  "experience_feedback": {
+    "title": "Experience Feedback",
+    "description": "Experience feedback must be unlocked through real usage milestones in the extension. The website only shows progress.",
+    "sign_in_required": "Please sign in or create an account first. You will return to the welfare center after signing in.",
+    "sign_in_action": "Sign In / Sign Up",
+    "unavailable": "The welfare center table is not initialized yet. Run the website database migration first.",
+    "status": {
+      "available": "Complete in Extension",
+      "ready": "Ready in Extension",
+      "plugin_required": "Complete in Extension",
+      "completed": "Claimed"
+    },
+    "open_plugin": "Return to Extension",
+    "download_plugin": "Download Extension",
+    "plugin_completed": "Claimed {days} membership days in the extension",
+    "plugin_completed_description": "This reward was verified and issued in the extension. The website only syncs the final claimed state.",
+    "plugin_ready_title": "Extension milestone reached",
+    "plugin_ready_description": "Return to the MediaClaw extension welfare center to submit real feedback. The extension will verify the activation code and issue the reward.",
+    "plugin_required_title": "Complete real usage in the extension",
+    "plugin_required_description": "Experience feedback must be based on real usage: finish scraping, export or sync, and try high-value keyword, public-opinion, or monitoring features before submitting inside the extension. Real-time progress is shown in the extension.",
+    "progress": {
+      "core": "Scraping Experience",
+      "core_description": "Successful core scraping tasks",
+      "output": "Export / Sync Experience",
+      "output_description": "Successful data export, copy, or sync actions",
+      "high_value": "Keyword / Public Opinion / Monitoring",
+      "high_value_description": "High-value analysis or monitoring usage"
+    },
+    "failure_blocked": "There have been several recent failures. Complete one successful action before claiming in the extension.",
+    "reward_label": "Reward",
+    "reward_value": "+3 membership days",
+    "ready_action": "Return to Extension Feedback",
+    "view_plugin_progress": "View Progress in Extension",
+    "pending_action": "Claim after completing conditions",
+    "claimed_action": "Claimed",
+    "fields": {
+      "rating": "Experience rating",
+      "comment": "Usage feedback",
+      "expected_feature": "Expected features"
+    },
+    "placeholders": {
+      "comment": "What felt smooth, what blocked you, and whether the experience matched your expectation",
+      "expected_feature": "Which scraping, analysis, sync, or automation features should we prioritize?"
+    },
+    "submit": "Submit Feedback and Claim",
+    "submit_extend": "Confirm Extension and Claim",
+    "success_title": "Feedback Submitted",
+    "extension_title": "Access Extended",
+    "trial_done": "A trial activation code has been generated. Copy it and enter it in the extension settings page.",
+    "paid_extension_done": "The selected activation code has received the welfare reward. Check the latest expiry date and credits on the activation code page.",
+    "view_reward": "View Reward",
+    "copy_success": "Activation code copied",
+    "success": "Reward issued",
+    "reward_credential": {
+      "title": "Choose the activation code to extend",
+      "description": "Your account already has activation codes. Choose which code should receive this reward. If you do not have a code, the system will generate a new trial code automatically.",
+      "permanent": "No expiry",
+      "bindings": "devices"
+    },
+    "footnote": "Each account can claim the experience feedback reward once.",
+    "plugin_only_footnote": "Experience feedback can only be submitted in the extension. The website does not show real-time progress or issue this reward.",
+    "errors": {
+      "required": "Please provide a rating, usage feedback, and expected features",
+      "reward_credential_required": "Please choose the activation code to extend",
+      "reward_credential_not_found": "Could not find an extendable activation code. Please refresh and try again.",
+      "submit_failed": "Submit failed. Please try again later"
+    }
+  }
+}

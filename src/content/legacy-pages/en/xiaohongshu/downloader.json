@@ -1,0 +1,258 @@
+{
+  "metadata": {
+    "title": "Xiaohongshu Downloader - No Watermarks | MediaClaw",
+    "description": "Batch-download Xiaohongshu (RedNote) images and videos in original quality without watermarks. Build a visual reference library. Free Chrome extension.",
+    "keywords": "Xiaohongshu downloader, no watermark, batch download, RedNote images, save video, content assets"
+  },
+  "page": {
+    "title": "Xiaohongshu Watermark-Free Downloader",
+    "show_sections": [
+      "hero",
+      "modes",
+      "batch",
+      "scenarios",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Xiaohongshu Media Download Tool",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Xiaohongshu"
+          },
+          {
+            "title": "Downloader"
+          }
+        ],
+        "title": "Download Xiaohongshu Images & Videos Without Watermarks",
+        "description": "Batch-save post images and videos in original quality — no watermarks, no quality loss. Build visual reference libraries for content analysis and creative planning.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=232,244"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "Batch Image Download",
+            "description": "Open any Xiaohongshu post and one-click save all images in original resolution. No more right-click-save-as one by one — download entire image sets instantly.",
+            "icon": "ImageDown",
+            "image": {
+              "src": "/imgs/features/13-v20260424.webp",
+              "alt": "MediaClaw batch-downloading all images from a Xiaohongshu post in original HD quality without watermarks"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Video Download Without Watermarks",
+            "description": "Extract direct video URLs and download in original format. Perfect for content breakdown, competitor analysis, and building reusable video asset archives.",
+            "icon": "Video",
+            "image": {
+              "src": "/imgs/features/11-v20260425.webp",
+              "alt": "MediaClaw downloading Xiaohongshu video content without watermarks in original format and resolution"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Download + Scraping Combined",
+            "description": "Pair media downloads with structured post data to build categorized asset libraries by niche, content style, and visual format.",
+            "icon": "FolderKanban",
+            "image": {
+              "src": "/imgs/features/9-v20260424.webp",
+              "alt": "MediaClaw combining Xiaohongshu media download with post data scraping for organized content asset libraries"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "batch": {
+        "id": "batch",
+        "block": "features",
+        "subtitle": "Batch Workflow",
+        "title": "Streamlined Batch Downloads",
+        "description": "Turn individual saves into continuous download workflows.",
+        "items": [
+          {
+            "title": "Batch Queue Processing",
+            "description": "Queue multiple download tasks and process them consecutively in one session.",
+            "icon": "ListChecks"
+          },
+          {
+            "title": "Scraping-First, Then Download",
+            "description": "Filter high-value content first, then selectively download matching media assets.",
+            "icon": "Filter"
+          },
+          {
+            "title": "Organized Archive Management",
+            "description": "Categorize downloads by niche, topic, and visual style for easy retrieval.",
+            "icon": "FolderKanban"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "Who Uses Watermark-Free Downloads?",
+        "columns": [
+          {
+            "key": "role",
+            "title": "Role"
+          },
+          {
+            "key": "scene",
+            "title": "Use Case"
+          },
+          {
+            "key": "effect",
+            "title": "Outcome"
+          }
+        ],
+        "rows": [
+          {
+            "role": "Content Creator",
+            "scene": "Build a competitor visual reference library",
+            "effect": "Systematically collect peer visual styles to reduce creative guesswork"
+          },
+          {
+            "role": "Design Team",
+            "scene": "Batch-collect layout and styling samples from peers",
+            "effect": "Faster visual direction decisions with concrete references"
+          },
+          {
+            "role": "E-commerce Ops",
+            "scene": "Archive competitor product images for content planning",
+            "effect": "Quickly validate product page and short-form visual strategies"
+          },
+          {
+            "role": "Brand Team",
+            "scene": "Long-term archival of niche visual trend evolution",
+            "effect": "Build a reusable visual intelligence asset over time"
+          },
+          {
+            "role": "Content Ops",
+            "scene": "Establish visual baselines before launching content series",
+            "effect": "More consistent cover art and image styling across posts"
+          }
+        ]
+      },
+      "safety": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "Safety",
+        "title": "Built-In Account Protection",
+        "description": "Efficient downloading without compromising account safety.",
+        "items": [
+          {
+            "title": "Randomized Request Timing",
+            "description": "Downloads use natural-looking request patterns to minimize detection.",
+            "icon": "Mouse"
+          },
+          {
+            "title": "Original Quality Preservation",
+            "description": "Files are saved at source resolution — no compression or re-encoding.",
+            "icon": "ImageUp"
+          },
+          {
+            "title": "Stall Detection & Auto-Pause",
+            "description": "Automatically stops when downloads fail or connections drop.",
+            "icon": "TriangleAlert"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "Does watermark removal reduce image quality?",
+            "answer": "No — MediaClaw accesses the original source files, not screenshots. Images and videos are downloaded at their native resolution with full detail preserved."
+          },
+          {
+            "question": "Can I batch-download all images from a single post?",
+            "answer": "Yes. Open any post detail page and download all images in one click — no need to save each one individually."
+          },
+          {
+            "question": "Are video downloads also watermark-free?",
+            "answer": "Yes. Video files are downloaded in their original format and quality, ready for local archiving and content analysis."
+          },
+          {
+            "question": "What's the recommended use for downloaded assets?",
+            "answer": "Use for visual reference, competitive analysis, content breakdowns, and creative inspiration. We don't recommend republishing others' content as-is — respect original creators' work."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "Related Tools",
+        "description": "Complete your Xiaohongshu content operations workflow.",
+        "links": [
+          {
+            "title": "Post Scraper",
+            "description": "Scrape structured post data first, then download matching media assets.",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Comment Scraper",
+            "description": "Combine comment insights with visual analysis for deeper content research.",
+            "url": "/xiaohongshu/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "Keyword Research Tool",
+            "description": "Build keyword-themed visual collections for niche reference libraries.",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "Competitor Monitoring",
+            "description": "Download flagged competitor content assets the moment they're detected.",
+            "url": "/xiaohongshu/monitoring",
+            "icon": "Radar"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Build Your Visual Asset Library",
+        "description": "Install MediaClaw for free and start downloading Xiaohongshu images and videos in original quality.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

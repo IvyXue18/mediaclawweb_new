@@ -1,0 +1,172 @@
+export const meta = {
+  title: 'How to Export Xiaohongshu Comments for AI Topic Mining',
+  description:
+    'The best viral topics are hidden in the comment section. This guide shows you how to export Xiaohongshu (RedNote) comments and use AI to uncover user needs, so your content strategy becomes completely data-driven.',
+  created_at: '2026-05-16',
+  author_name: 'MediaClaw Team',
+  author_image: '/logo.png',
+  image:
+    'https://media.mediaclaw.app/blog-covers/1c77f656e4968474411f49ee37b920f5.webp',
+  tags: [
+    'Xiaohongshu operations',
+    'Xiaohongshu comment export',
+    'Xiaohongshu comment scraper',
+    'viral topics',
+    'content strategy',
+    'AI analysis',
+  ],
+};
+
+> The most reliable source for your next topic isn't guessing what users want to read—it's looking at what they are already asking. In this post, we'll break down a complete workflow: from scraping comments in bulk, to automatically analyzing user needs with AI, and finally generating a data-driven list of content topics.
+
+## Why Teams Keep Guessing Content Topics
+
+Most content teams don't lack inspiration; they lack an anchor. During brainstorming sessions, it's common to browse competitors' viral posts or check the trending calendar. But when it actually comes time to write, you're still not sure _exactly_ what to focus on.
+
+The truth is, users have already given you the answers—right in the comments section. Every follow-up question, doubt, and scenario-based query represents an unmet content need.
+
+The old way was to scroll through comments manually and categorize them by feel. After scrolling through hundreds of comments for half an hour, you'd close the page and forget almost everything. Now, there is a much more efficient path:
+
+- **Batch export comments → Sync to Feishu (Lark) Base → Let AI handle 3D analysis (need categorization + topic deduction + comment tracing)**
+
+{/* 产品演示：评论采集、客资筛选与获客全流程 */}
+
+<Video src="https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=134" />
+
+You no longer have to constantly switch tabs between Xiaohongshu (RedNote) and your AI chatbot. You get the final results in one streamlined flow, and you can process multiple posts simultaneously. Your content topics shift from blind guessing to being entirely data-driven—and you'll never run out of ideas.
+
+## 4 Types of Signals in the Comments Best Suited for Topic Mining
+
+Not every comment is useful for generating topics—for instance, those generic "looks great" compliments. What you need are questions that appear repeatedly, point to specific needs, and relate directly to your business direction.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/93f57fc5401439db3673acadfed3f966.png"
+  alt="Scraped comments synced in Feishu Base"
+/>
+
+Here are the four categories you should pay the most attention to:
+
+### High-Frequency Questions: Users Telling You What They Lack
+
+For example, under a perfume review post, a comment with 141 likes asks, "Can you recommend a refreshing perfume for summer? Something that instantly cools you down." Another asks, "Any affordable perfumes around $15 for a woman in her 40s? I want to buy one for my mom." Someone else asks, "Any recommendations for perfumes with an aquatic, watery feel?" — When similar questions keep popping up, it means your existing content hasn't fully addressed these niche demands.
+
+Every high-frequency question is a ready-made tutorial topic. The user has already articulated the need; if you write about it, you will hit the target precisely.
+
+### Recurring Doubts: Your Content Opportunities
+
+Under the same post, one person says, "This anti-aging serum is surprisingly good," while another comments, "It smells like an old lady." A third says, "I loved the top notes, but the base notes smell like ammonia." — The same product is being discussed repeatedly with polar opposite opinions. Another comment with 103 likes bluntly asks, "Is it possible that because you think it's expensive, you've convinced yourself it smells expensive?"
+
+These aren't malicious comments; they represent a trust gap. There is only discussion when there are opposing views. This is the perfect opportunity to write myth-busting content, such as "A few pitfalls you might encounter with Product X," or an honest, balanced comparison highlighting its limitations. When done right, these types of posts often yield much higher conversion rates than purely promotional ones.
+
+### Scenario-Based Queries: Your Content Granularity Isn't Fine Enough
+
+"Is No. 3 suitable for guys?" "What's a good scent for someone with a sweet, cute style?" "Is there a perfume that smells like the baby oil or body wash we used as kids?" — These questions are telling you: your content's granularity is not fine enough. Users are projecting their own identities and scenarios onto the product, but your content hasn't covered them.
+
+Every scenario-based query can be spun into a dedicated post targeting a specific audience or use case. "Niche perfumes guys can wear," "Affordable perfume gift guide for moms," "Refreshing summer scents" — the topics practically write themselves.
+
+### Near-Decision Questions: High Commercial Value Topics
+
+"Where did you buy this, sis?" "How do I buy Clinique? Through a proxy shopper?" "I can't find the Supreme Edition anywhere." "I'm sold on the first one, gonna buy a sample to try it out." "How much per bottle?" — These comments are both conversion signals and high-value commercial topics.
+
+If many people are asking the exact same pre-purchase question, it means your current content is failing to assist them at the decision-making stage. Turning these questions into posts like "The most reliable places to buy these perfumes" or "How to buy starter samples without getting scammed" can directly shorten the user's decision path.
+
+## The Complete Workflow: From Comments to Topic List in 4 Steps
+
+### Step 1: Pick the Right Comment Samples
+
+Not all comment sections are worth analyzing. You need to select posts that fit these criteria:
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/23d0bcf3291bf2cf71a6e62e2123e6f0.png"
+  alt="Filtering posts by comment count"
+/>
+
+- **Posts with high volume and genuine discussion.** A comment section with over 100 replies usually reveals clear patterns. If the section is just filled with "Great post" or "Saved," there's little analytical value.
+- **Competitors' high-engagement content.** You don't only have to look at your own account. User questions in your competitors' comment sections are just as valuable for your own topic mining.
+- **Content published within the last 3 months.** For older comment sections, users' focal points may have already shifted.
+
+Selecting 3 to 5 posts is enough to get started. If you pick the wrong samples, the subsequent analysis will be a waste of time.
+
+### Step 2: Batch Export Comments and Sync to Feishu (Lark)
+
+Manually scrolling through the comment section has three major flaws: it's slow, you easily miss things, and it's impossible to review later. Copying and pasting 300 comments by hand takes at least half an hour, and by the end of it, you've forgotten what you saw at the beginning.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/3de41d7d7b1a2e2b3ecb04b9e0531b03.png"
+  alt="Scraping Xiaohongshu comments"
+/>
+
+Using MediaClaw's [Comment Scraper](/xiaohongshu/comments) will automatically gather a specified number of comments and export them.
+
+Core data fields include:
+
+- **Comment Content**: The user's exact phrasing.
+- **Username & Profile Link**: Making it easy to trace back to the commenter's identity.
+- **Likes**: Highly-liked comments usually indicate that many others share the exact same question.
+
+You can export this as a local CSV file, or sync it directly to a Feishu (Lark) Base. We highly recommend syncing to Feishu—the subsequent AI analysis and team collaboration happen directly inside the spreadsheet, so you don't have to juggle data between Xiaohongshu and ChatGPT.
+
+### Step 3: 3D AI Analysis for Automated Topic Discovery
+
+This step delivers the biggest efficiency boost in the entire workflow. Once the comment data enters the Feishu Base, the built-in AI capabilities will automatically process it across three dimensions:
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/b84c0689a81917be33e38ae73423d6f8.png"
+  alt="AI analysis of comments in Feishu"
+/>
+
+**Dimension 1: User Need Analysis**
+
+The AI extracts genuine user needs from the comments. Each identified need includes:
+
+- **Need Category** — Are they asking for a how-to method, expressing distrust, describing a specific scenario, or trying to make a purchase decision?
+- **Specific Details** — What exactly is the user asking, caring about, struggling with, or joking about?
+- **Frequency** — Is this need appearing at high frequency, medium frequency, or is it a rare but strong sentiment?
+
+You no longer need to manually review hundreds of comments and categorize them by feel. The AI scans them once, and a full map of user needs is generated instantly.
+
+**Dimension 2: Scalable Topic Discovery**
+
+Based on the categorized needs, the AI automatically deduces 3 to 5 independent topic directions. Each entry includes:
+
+- **Topic Title** — Can be used directly as your post's headline.
+- **Content Angle** — Which perspective should this topic take?
+- **Target Audience** — Whose exact problem is this topic solving?
+
+You jump straight from "I have a bunch of comments and don't know what to write" to "These 5 topics can be scheduled for next week."
+
+**Dimension 3: Topic Tracing**
+
+For every deduced topic, the AI will tag which specific comment or cluster of comments inspired it, quoting key phrases from the original text.
+
+This step solves the issue of "topic explainability"—you don't just know _what_ to write, but _why_ you are writing it. If someone in a meeting asks, "Where did this topic come from?", you can point directly to the user's exact words.
+
+### Step 4: Prioritize and Schedule
+
+Not every AI-generated topic needs to be written. The final prioritization is up to you. To judge whether a topic is worth prioritizing, check these three conditions:
+
+**Highest Priority: High Frequency + Specific + Highly Relevant to Business.** For example, "How to batch export Xiaohongshu comments"—if you are building social media tools, this is high-frequency, specific, and directly related to your product. You must write it first.
+
+**Secondary Priority: Clearly Matches a Real Use Case.** The user isn't asking abstract questions; they are describing their situation. "I run an education business, can I use this method for student enrollment?"—Content written for this type of question naturally possesses a strong sense of context, making it easy for readers to project themselves into it.
+
+**Normal Priority: Valuable but Broad.** "Is there an easier way?" "Can you explain this in more detail?"—This feedback indicates that the granularity of your current explanations needs adjustment, but it doesn't necessarily warrant a standalone post. Use these to optimize existing content.
+
+After filtering, slot the confirmed topics into your Feishu content calendar. AI solves the efficiency problem of moving "from comments to topics," but human judgment is still required for prioritization—don't let 10 great topic candidates sit in a spreadsheet and never get written.
+
+## Keep the Flywheel Spinning, Don't Let It Gather Dust
+
+A one-time analysis of 3 to 5 posts' comment sections can yield over a dozen candidate topics, which is enough to last two to three weeks. However, the value of the comments section is continuous—users' focal points shift, and new posts generate fresh discussions.
+
+A sustainable minimum viable loop:
+
+1. **Run the comment scraper once every week or two**, covering recently published high-engagement content (both yours and your competitors').
+2. **Once new comments enter the Feishu Base, trigger the AI analysis** so that new needs and topics are automatically generated.
+3. **Always pick from the topic pool before scheduling content**, instead of starting a new brainstorm. The topic pool is a consumable resource—cross off topics as you write them, and let new comments continuously replenish the pool.
+
+If you want to further optimize your titles and body text using search keywords, you can refer to the keyword expansion section in [How to Build a Xiaohongshu Topic Library](/blog/xiaohongshu-topic-library-build).
+
+## Try It Out Now
+
+Pick a post with the highest number of comments, use MediaClaw's [Comment Scraper](/xiaohongshu/comments) to export them, sync them to your Feishu Base, and run the AI analysis once. You'll likely discover that your content topics for next week are already waiting for you in those comments.
+
+The comment scraping and lead filtering features are completely free and unlimited to use, making this the most lightweight starting point for building your data-driven topic workflow.

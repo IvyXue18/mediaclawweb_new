@@ -1,0 +1,249 @@
+{
+  "metadata": {
+    "title": "Douyin Monitoring - Auto-Track Lark Alerts | MediaClaw",
+    "description": "Auto-track Douyin competitor accounts. Get AI-summarized reports pushed to Lark when content matches your rules. Free Chrome extension.",
+    "keywords": "Douyin monitoring, competitor tracking, TikTok China alerts, Lark Base sync, automated alerts, content monitoring"
+  },
+  "page": {
+    "title": "Douyin Competitor Monitoring",
+    "show_sections": [
+      "hero",
+      "modes",
+      "outputs",
+      "scenarios",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Douyin Account Tracker",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Douyin"
+          },
+          {
+            "title": "Competitor Monitoring"
+          }
+        ],
+        "title": "Auto-Monitor Douyin Competitor Accounts",
+        "description": "Set monitoring rules once — the system continuously tracks competitor publishing and engagement changes, then pushes AI-summarized reports to Lark. Respond to trends faster.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=8,37"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "Subscribe & Auto-Track Updates",
+            "description": "Add key accounts to your watchlist. The system checks for new videos and engagement shifts on your schedule — no daily manual feed patrol required.",
+            "icon": "Radar",
+            "image": {
+              "src": "/imgs/features/8-v20260425.webp",
+              "alt": "MediaClaw Douyin competitor monitoring subscription panel with automated account tracking"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "AI Insights Pushed to Lark",
+            "description": "When content matches your rules, AI generates summaries, tags, and suggested actions. Structured results sync to Lark Base for team review and strategic planning.",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/features/10-v20260425.webp",
+              "alt": "MediaClaw auto-generating AI-summarized Douyin competitor insights and pushing daily reports to Lark"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "outputs": {
+        "id": "outputs",
+        "block": "features",
+        "title": "Monitoring Results Ready for Team Action",
+        "description": "From alerts to retrospectives — structured outputs across the workflow.",
+        "items": [
+          {
+            "title": "Lark Daily Report",
+            "description": "Matched content auto-pushed to Lark Base with title, link, timestamp, engagement, and AI summary.<br/>Best for: Morning standups and daily intel",
+            "icon": "Table2"
+          },
+          {
+            "title": "AI Insight Summary",
+            "description": "Auto-extracted content angles, format cues, and follow-up recommendations.<br/>Best for: Content strategy and topic alignment",
+            "icon": "Sparkles"
+          },
+          {
+            "title": "Historical Record Archive",
+            "description": "Continuous history for period-over-period comparison.<br/>Best for: Weekly reports, monthly reviews, and trend analysis",
+            "icon": "History"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "Who Uses Douyin Competitor Monitoring?",
+        "columns": [
+          {
+            "key": "role",
+            "title": "Role"
+          },
+          {
+            "key": "scene",
+            "title": "Use Case"
+          },
+          {
+            "key": "effect",
+            "title": "Outcome"
+          }
+        ],
+        "rows": [
+          {
+            "role": "Brand Content Team",
+            "scene": "Track top accounts for trending topic shifts",
+            "effect": "Faster judgment on which content directions to double down on"
+          },
+          {
+            "role": "Livestream Ops",
+            "scene": "Monitor competitor pre-stream traffic-driving videos",
+            "effect": "Adjust stream schedule and product mix proactively"
+          },
+          {
+            "role": "Influencer Investment",
+            "scene": "Track creator engagement stability before deals",
+            "effect": "More timely and data-backed partnership decisions"
+          },
+          {
+            "role": "MCN Agency",
+            "scene": "Centralized tracking across multiple niche creators",
+            "effect": "Cut manual patrol time with unified daily Lark reports"
+          },
+          {
+            "role": "Founder / Team Lead",
+            "scene": "Stay informed on competitor moves without information overload",
+            "effect": "Rule-based alerts surface only high-value changes"
+          },
+          {
+            "role": "Strategy Analyst",
+            "scene": "Quarterly content strategy review with historical data",
+            "effect": "Continuous data record supports evidence-based retrospectives"
+          }
+        ]
+      },
+      "safety": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "Safety",
+        "title": "Built-In Account Protection",
+        "description": "Efficient monitoring without compromising account safety.",
+        "items": [
+          {
+            "title": "Scheduled Scanning",
+            "description": "Configurable scan frequency to stay within safe request patterns.",
+            "icon": "Timer"
+          },
+          {
+            "title": "Rule-Based Filtering",
+            "description": "Set engagement thresholds and time windows for high-value alerts only.",
+            "icon": "Filter"
+          },
+          {
+            "title": "Stall Detection & Auto-Pause",
+            "description": "Automatically stops when pages fail to load or behave abnormally.",
+            "icon": "TriangleAlert"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "How do I set up monitoring to avoid alert fatigue?",
+            "answer": "Tier your accounts by priority, set like thresholds and time windows per tier, and start narrow. Expand conditions only after validating alert quality."
+          },
+          {
+            "question": "Can it detect old videos that suddenly go viral?",
+            "answer": "Yes. The system flags abnormal engagement growth against historical baselines, catching 'second-wave' viral content you'd miss in a daily feed check."
+          },
+          {
+            "question": "How do monitoring results flow into team workflows?",
+            "answer": "Matched content syncs to Lark Base automatically. Ops, content, and strategy teams annotate, assign, and review on the same shared dataset."
+          },
+          {
+            "question": "Can I also monitor my own account?",
+            "answer": "Yes. Add your own account to the same watchlist and compare your metrics against competitors using identical rules — one unified view."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "Related Tools",
+        "description": "Complete your Douyin competitive intelligence workflow.",
+        "links": [
+          {
+            "title": "Video Scraper",
+            "description": "Deep-dive into flagged competitor content with full data extraction.",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Comment Scraper",
+            "description": "Analyze comments on competitor videos for demand signals.",
+            "url": "/douyin/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "Keyword Research Tool",
+            "description": "Track the keywords driving competitor content strategy.",
+            "url": "/douyin/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "Lark Base Integration",
+            "description": "Monitoring data auto-synced to Lark for team-wide access.",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Douyin Competitor Intel on Autopilot",
+        "description": "Install MediaClaw for free and start receiving daily Douyin competitor reports in Lark.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "metadata": {
+    "title": "抖音客资采集工具_从评论区挖掘高意向客户并导出Excel | MediaClaw",
+    "description": "MediaClaw 支持先采集抖音评论数据，再从评论区做客资挖掘，通过关键词和 IP 属地自动筛选高意向客户线索。单条视频支持免费导出 Excel，并一键同步飞书协作跟进。",
+    "keywords": "抖音客资采集, 抖音评论区获客, 评论区客资挖掘, 评论客资采集, 高意向客户筛选, 免费导出Excel, 飞书客资同步, 私域转化"
+  },
+  "page": {
+    "title": "抖音客资采集",
+    "show_sections": [
+      "hero",
+      "modes",
+      "scenarios",
+      "compare",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "抖音客资采集与评论挖掘工具",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "抖音"
+          },
+          {
+            "title": "客资采集"
+          }
+        ],
+        "title": "抖音评论区客资采集：挖掘高意向客户线索",
+        "description": "先批量采集评论数据，再通过关键词与 IP 自动过滤高意向客资，单条视频免费导出 Excel，无缝同步飞书团队协作",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "下载客资样例",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-leads-sample.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=180,216"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "关键词与IP自动过滤高意向客资",
+            "description": "支持自定义行业需求词模板（如“求链接 / 哪里买 / 怎么买”），结合用户 IP 属地，自动从评论区海量数据中精准过滤出极具商业价值的潜在客资。告别大海捞针，减少无效私信与低质量跟进。",
+            "icon": "Filter",
+            "image": {
+              "src": "/imgs/features/1-v20260425.webp",
+              "alt": "MediaClaw 评论关键词过滤界面自动标记命中评论并筛选高意向用户线索"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "单条视频免费导出 Excel",
+            "description": "单条视频支持免费一键导出高意向客资名单至 Excel / CSV，字段包含昵称、主页链接、评论原文、命中词及IP属地。不仅能直接用于本地销售分配，更支持一键同步至飞书多维表格，实现团队跟进与协作闭环。",
+            "icon": "FileSpreadsheet",
+            "image": {
+              "src": "/imgs/features/10-v20260424.webp",
+              "alt": "MediaClaw 抖音客资名单导出结果，支持飞书同步协作"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "客资挖掘的高频实战场景",
+        "columns": [
+          {
+            "key": "role",
+            "title": "人群"
+          },
+          {
+            "key": "scene",
+            "title": "典型场景"
+          },
+          {
+            "key": "effect",
+            "title": "效果"
+          }
+        ],
+        "rows": [
+          {
+            "role": "直播电商团队",
+            "scene": "从引流短视频评论区识别下单意向用户",
+            "effect": "优先触达“问价格、问链接、问库存”的高价值人群"
+          },
+          {
+            "role": "品牌运营",
+            "scene": "监测竞品视频评论中的购买诉求和抱怨点",
+            "effect": "更早发现用户流失信号并优化商品表达"
+          },
+          {
+            "role": "本地生活商家",
+            "scene": "筛选同城用户的预约、到店、团购咨询评论",
+            "effect": "减少无效私信，提升门店线索转化效率"
+          },
+          {
+            "role": "知识付费创作者",
+            "scene": "从评论区提取课程咨询与痛点问题",
+            "effect": "把高频问题直接转成选题和成交话术"
+          },
+          {
+            "role": "销售 / 私域团队",
+            "scene": "将客资名单同步入表并分配给跟进同事",
+            "effect": "线索流转更快、跟进动作可追踪"
+          },
+          {
+            "role": "MCN / 服务商",
+            "scene": "批量监测多个账号评论区的获客线索",
+            "effect": "统一管理多品牌客资池，提升人效"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "如何从海量评论中高效精准地找出潜在客户（客资）？",
+            "answer": "只需打开目标短视频并启动 MediaClaw，配置您的行业高意向关键词模板（如“怎么买”、“求链接”）。系统会自动扫描评论区，通过关键词和IP属地双重过滤，为您自动筛选出极具商业价值的高意向潜在客资。"
+          },
+          {
+            "question": "抓取出来的客资名单需要付费导出吗？",
+            "answer": "不需要！单条视频的评论客资支持免费一键导出为 Excel 或 CSV 格式。你可以随心所欲地提取包含昵称、主页链接、评论原文、IP属地和命中关键词的完整名单，直接分发给销售团队。"
+          },
+          {
+            "question": "客户在评论里用 VX、v、卫星等变体留联系方式，会漏抓吗？",
+            "answer": "只要是页面可见文本都会按原文采集。你可以把常见变体加入关键词模板，系统会自动标记。导出 Excel 后，还可以进一步通过表格筛选快速定位线索。"
+          },
+          {
+            "question": "为什么客资导出一定要包含主页链接和IP属地？",
+            "answer": "抖音昵称经常重名且难以精准检索，主页链接是唯一稳定的身份索引，确保你可以100%精准回访。而IP属地则对本地生活服务、线下门店等地域性极强的商家尤为重要，能帮你一眼过滤出同城的高价值客户。"
+          },
+          {
+            "question": "导出的客资如何进行高效的团队分配和跟进？",
+            "answer": "导出后的客资名单不仅支持本地 Excel 管理，更支持一键同步到飞书多维表格。销售团队可以在飞书中直接给线索打标签、分配跟进人、记录沟通进度，真正实现从“发现线索”到“成交转化”的团队协作闭环。"
+          },
+          {
+            "question": "一次采集多少条评论的客资比较合适？",
+            "answer": "对于爆款视频，虽然可以抓取成百上千条，但我们建议优先关注近期（如近1-2周）和高赞的 200-500 条评论。这些时效性强、活跃度高的用户往往具备更高的即时购买意向和商业转化价值。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "继续完善你的抖音获客与私域工作流",
+        "links": [
+          {
+            "title": "抖音评论采集",
+            "description": "批量提取视频评论内容、用户信息与互动数据，为客资筛选提供数据底座。",
+            "url": "/douyin/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "抖音视频采集",
+            "description": "围绕账号和关键词批量采集视频样本，补齐内容分析底座。",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "抖音竞品监控",
+            "description": "订阅对标账号动态，第一时间追踪高热内容变化。",
+            "url": "/douyin/monitoring",
+            "icon": "Radar"
+          },
+          {
+            "title": "飞书自动化联动",
+            "description": "客资名单自动入表，支持团队协作和销售跟进闭环。",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "评论区里，藏着最真实的成交信号",
+        "description": "免费安装 MediaClaw，把抖音评论区变成可持续转化的客资入口。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "下载客资样例",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-leads-sample.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

@@ -1,0 +1,64 @@
+export const meta = {
+  title:
+    'Competitor Account Finder, Diagnostics Copy, and Scraping Stability Updates',
+  description:
+    'Added competitor account discovery and diagnostics copying, while improving Xiaohongshu suggestions, Douyin like filtering, search titles, comment collection, and failure traceability.',
+  date: '2026-06-04',
+  tags: [
+    'Competitor Accounts',
+    'Diagnostics',
+    'Xiaohongshu',
+    'Douyin',
+    'Scraping Stability',
+  ],
+  version: '0.1.5',
+};
+
+Added competitor account discovery and diagnostics copying, while improving Xiaohongshu suggestions, Douyin like filtering, search titles, comment collection, and failure traceability.
+
+<div className="not-prose space-y-4">
+    <div className="inline-flex rounded-full border border-amber-400/70 bg-amber-400/10 px-3 py-1 text-sm font-semibold text-amber-300">Added</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Find competitor accounts on search pages</h3>
+            <p className="text-muted-foreground">In niche strategy workflows, MediaClaw can now identify high-performing accounts that repeatedly appear for the current search term, enrich creator profile information, and generate recommendation reasons so you can quickly find accounts worth studying, reviewing, or monitoring.</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Copy diagnostics</h3>
+            <p className="text-muted-foreground">Execution details now include a diagnostics copy entry. When scraping fails, collects too few records, or sync behaves unexpectedly, you can copy sanitized operation logs and error details in one click instead of relying only on screenshots or verbal descriptions.</p>
+        </div>
+    </div>
+
+    <div className="inline-flex rounded-full border border-rose-400/70 bg-rose-400/10 px-3 py-1 text-sm font-semibold text-rose-300">Fixed</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Unstable Xiaohongshu suggestion collection</h3>
+            <p className="text-muted-foreground">Adapted to the new search page and AI search page to reduce missing, empty, or incorrectly parsed suggestions, including cases where search results or AI Q&amp;A entries were mistaken for suggestion terms.</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Douyin creator profile like filtering</h3>
+            <p className="text-muted-foreground">Fixed cases where some high-like posts were recognized as having 0 likes, preventing empty or obviously incomplete results when filtering by like thresholds.</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Douyin search result title recognition</h3>
+            <p className="text-muted-foreground">Reduced cases where page recommendations such as related searches were mixed into work titles, making exported search result titles cleaner.</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Douyin comment collection gaps</h3>
+            <p className="text-muted-foreground">Adapted to the new content feed and image-post comment structures, improving recognition success for comment text, usernames, publish time, and IP location.</p>
+        </div>
+    </div>
+
+    <div className="inline-flex rounded-full border border-emerald-400/70 bg-emerald-400/10 px-3 py-1 text-sm font-semibold text-emerald-300">Improved</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Better investigation when collection counts are low</h3>
+            <p className="text-muted-foreground">When search, creator, or comment collection stops early, diagnostics now record the target count, actual count, stop reason, and filtering results, making it easier to tell whether the page failed to load, filters were too strict, or the platform page structure changed.</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Failure protection for batch sync</h3>
+            <p className="text-muted-foreground">When batch sync to Lark fails midway, failure details are now recorded in sync history so the issue is easier to investigate and retry.</p>
+        </div>
+    </div>
+
+</div>

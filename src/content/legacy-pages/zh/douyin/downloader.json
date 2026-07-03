@@ -1,0 +1,215 @@
+{
+  "metadata": {
+    "title": "抖音去水印下载 - 免费批量保存无水印视频 MP4、图文素材 | MediaClaw 社媒虾",
+    "description": "免费抖音去水印工具，浏览器插件直接提取原始 MP4 直链，一键批量下载抖音无水印视频，适合混剪二创和卡点素材；图文配图、封面也能一并打包。完全免费、不限次数、无需注册登录。",
+    "keywords": "抖音去水印, 抖音无水印视频下载, 抖音MP4直链, 抖音视频素材下载, 抖音混剪素材, 抖音图片下载, 抖音封面下载, 抖音去水印批量"
+  },
+  "page": {
+    "title": "免费批量下载抖音无水印视频与图文素材",
+    "show_sections": [
+      "hero",
+      "modes",
+      "advantage",
+      "scenarios",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "免费抖音无水印视频批量下载工具",
+        "breadcrumbs": [
+          { "title": "首页", "url": "/" },
+          { "title": "抖音" },
+          { "title": "去水印下载" }
+        ],
+        "title": "免费批量下载抖音无水印视频素材",
+        "description": "一键批量下载抖音视频和图文内容，无水印保存原画质；下载后可直接进入内容分析与二次创作流程。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=232,244"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features",
+        "subtitle": "Download types",
+        "title": "覆盖抖音作品里几乎所有素材",
+        "description": "进入作品详情页，点击导出附件，插件自动识别页面中的视频、图片、封面资源。",
+        "items": [
+          {
+            "title": "无水印视频 MP4 直链",
+            "description": "插件提取原始的 MP4 流媒体链接，下载到本地的就是平台存储的源视频文件，没有水印覆盖，也没有二次编码导致的损失，拿去混剪、卡点、镜像翻转都不掉清晰度。",
+            "icon": "Video"
+          },
+          {
+            "title": "图文配图批量保存",
+            "description": "遇到图文作品时，一键批量保存全部配图，不管 3 张还是 18 张，全部原始分辨率、无水印，免费替代逐张右键保存。",
+            "icon": "ImageDown"
+          },
+          {
+            "title": "封面图打包下载",
+            "description": "封面是被参考最多的素材，导出附件会直接打包下载封面图加视频或配图，做封面参考和钩子拆解很方便。",
+            "icon": "Image"
+          }
+        ]
+      },
+      "advantage": {
+        "id": "advantage",
+        "block": "data-table",
+        "title": "为什么浏览器插件提取是最优解",
+        "description": "在线网站和 App 各有短板，浏览器插件提取兼顾画质、效率和批量能力。",
+        "columns": [
+          { "key": "dim", "title": "对比维度" },
+          { "key": "web", "title": "在线网站 / App" },
+          { "key": "plugin", "title": "浏览器插件提取" }
+        ],
+        "rows": [
+          {
+            "dim": "价格",
+            "web": "免费额度有限，需付费",
+            "plugin": "完全免费，无限次使用"
+          },
+          {
+            "dim": "视频画质",
+            "web": "通常被压缩、二次编码",
+            "plugin": "原始视频直链，无水印"
+          },
+          {
+            "dim": "水印处理",
+            "web": "涂抹或覆盖去除",
+            "plugin": "直接获取无水印源文件"
+          },
+          {
+            "dim": "批量能力",
+            "web": "一次一条",
+            "plugin": "一键导出整篇视频加配图"
+          },
+          {
+            "dim": "操作场景",
+            "web": "手机/网页来回切换",
+            "plugin": "电脑浏览器内一站完成"
+          },
+          {
+            "dim": "广告弹窗",
+            "web": "弹窗密集，接口常失效",
+            "plugin": "无广告，跟随浏览随时下载"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "免费批量下载的典型使用场景",
+        "columns": [
+          { "key": "role", "title": "人群" },
+          { "key": "scene", "title": "场景" },
+          { "key": "effect", "title": "效果" }
+        ],
+        "rows": [
+          {
+            "role": "视频剪辑",
+            "scene": "下载对标视频做混剪和卡点素材",
+            "effect": "无损源文件直接进剪辑，省去转码"
+          },
+          {
+            "role": "短视频创作者",
+            "scene": "建立对标视频参考素材库",
+            "effect": "系统收集同行手法，降低起稿试错"
+          },
+          {
+            "role": "投手 / 带货",
+            "scene": "扒同行素材拆镜头和钩子",
+            "effect": "更快研判视频节奏和转化结构"
+          },
+          {
+            "role": "品牌团队",
+            "scene": "长期存档赛道视频素材变化",
+            "effect": "形成可复用的视觉情报资产"
+          },
+          {
+            "role": "内容运营",
+            "scene": "做系列选题前建立封面参考基线",
+            "effect": "封面表达更统一，钩子对照更清晰"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "免费版支持批量下载抖音无水印视频吗？",
+            "answer": "支持。安装后即可在作品详情页执行批量下载，插件提取原始 MP4 直链，快速保存无水印视频，完全免费、不限次数、无需注册登录。"
+          },
+          {
+            "question": "下载的抖音视频会被压缩画质吗？",
+            "answer": "不会。插件直接提取平台服务器上的原始 MP4 直链，没有二次编码导致的损失，拿去混剪、卡点、镜像翻转都不掉清晰度。"
+          },
+          {
+            "question": "图文配图和封面也能一起下载吗？",
+            "answer": "能。遇到图文作品可一键批量保存全部配图，原始分辨率无水印；导出附件还会把封面图打包带上，视频、配图、封面一站搞定。"
+          },
+          {
+            "question": "下载的抖音素材怎么用更稳妥？",
+            "answer": "抖音的搬运检测比较严，不建议直接原样搬运发布，既有侵权风险也容易被限流甚至封号。建议用于二次创作，比如调色、镜像翻转、重新混剪配音，或仅作内部分析，更好兼顾内容质量和平台规范。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "把抖音的采集、下载、分析串成一套素材库工作流",
+        "links": [
+          {
+            "title": "抖音视频采集",
+            "description": "先采集结构化数据，再批量下载对应素材文件。",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "抖音视频逐字稿",
+            "description": "下载的视频再提逐字稿，对照时间戳拆节奏和逻辑。",
+            "url": "/douyin/transcript",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "抖音图文文案提取",
+            "description": "下载的合集图再做 OCR，把图片里的信息提成文本。",
+            "url": "/douyin/image-text",
+            "icon": "ScanText"
+          },
+          {
+            "title": "小红书去水印下载",
+            "description": "换个平台，小红书图片、Live 图、封面也能无水印保存。",
+            "url": "/xiaohongshu/downloader",
+            "icon": "Download"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "把抖音视频素材批量沉淀下来",
+        "description": "免费安装 MediaClaw，把抖音无水印视频和图文素材下载接入你的采集、分析与创作流程，省下来的时间用在真正的内容创作上。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

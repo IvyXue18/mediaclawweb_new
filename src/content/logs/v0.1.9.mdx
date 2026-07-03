@@ -1,0 +1,41 @@
+export const meta = {
+  title: 'Onboarding Guide and Cleaner, More Stable Douyin Collection',
+  description:
+    'Added a lightweight onboarding guide on first launch, improved Douyin search, image, video, and comment detection, added page-load checks before collecting, and fixed collection issues on some Douyin detail pages.',
+  date: '2026-06-29',
+  tags: ['Onboarding', 'Douyin Collection', 'Load Checks', 'Collection Fixes'],
+  version: '0.1.9',
+};
+
+Added a lightweight onboarding guide on first launch, improved Douyin search, image, video, and comment detection, added page-load checks before collecting, and fixed collection issues on some Douyin detail pages.
+
+<div className="not-prose space-y-4">
+    <div className="inline-flex rounded-full border border-amber-400/70 bg-amber-400/10 px-3 py-1 text-sm font-semibold text-amber-300">Added</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Onboarding guide</h3>
+            <p className="text-muted-foreground">A lightweight onboarding guide now appears the first time you open the extension, walking you through page detection, the collection entry, the data pool, export and sync, and the tutorials entry, so you know where to start on your first try.</p>
+        </div>
+    </div>
+
+    <div className="inline-flex rounded-full border border-emerald-400/70 bg-emerald-400/10 px-3 py-1 text-sm font-semibold text-emerald-300">Improved</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">More stable Douyin collection</h3>
+            <p className="text-muted-foreground">Improved detection logic for Douyin search pages, image post detail pages, video detail pages, and comment sections, reducing issues such as misidentified titles, image posts mistaken for videos, missed comments, and insufficient waiting for attachments.</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Clearer pre-collection state checks</h3>
+            <p className="text-muted-foreground">When a note is still loading, the extension now prompts you to wait until the page finishes loading, avoiding empty or incomplete results from collecting before the title, body, or media are ready.</p>
+        </div>
+    </div>
+
+    <div className="inline-flex rounded-full border border-rose-400/70 bg-rose-400/10 px-3 py-1 text-sm font-semibold text-rose-300">Fixed</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Fixed collection issues on some Douyin detail pages</h3>
+            <p className="text-muted-foreground">Reduced cases where player controls, related searches, and recommended content leaked into the title, body, or comments, keeping Douyin image, video, and comment collection results cleaner.</p>
+        </div>
+    </div>
+
+</div>

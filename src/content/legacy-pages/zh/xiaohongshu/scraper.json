@@ -1,0 +1,250 @@
+{
+  "metadata": {
+    "title": "小红书数据采集工具：一键采集笔记、主页、搜索结果并导出Excel/Markdown | MediaClaw 社媒虾",
+    "description": "免费小红书数据采集插件，支持批量采集笔记数据、主页数据与搜索结果数据，一键导出 Excel/CSV/Markdown。采集后可补齐配图文案和视频逐字稿，适合内容分析、评论挖掘、对标分析与竞品监控。",
+    "keywords": "小红书数据采集, 小红书采集工具, 小红书笔记数据采集, 小红书主页数据采集, 小红书搜索结果采集, 小红书采集插件, 导出Excel, Markdown导出, 配图文案, 视频逐字稿, 小红书笔记采集"
+  },
+  "page": {
+    "title": "小红书数据采集",
+    "show_sections": [
+      "hero",
+      "modes",
+      "batch",
+      "outputs",
+      "scenarios",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "小红书数据采集工具",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "小红书"
+          },
+          {
+            "title": "笔记采集"
+          }
+        ],
+        "title": "小红书数据采集工具：一键采集笔记、主页与搜索结果",
+        "description": "免费小红书数据采集插件，覆盖单篇深度采集、博主主页批量采集与关键词搜索结果采集；支持 CSV/Markdown 导出，采集后可补齐配图文案和视频逐字稿，满足从爆款笔记抓取到博主分析的全流程数据采集需求。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "下载小红书样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=222,258"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "单篇深度采集",
+            "description": "进入小红书单篇笔记详情页后，即可一键完整提取标题、正文、标签、点赞评论收藏数及配图视频地址；采集后还能按需提取配图文案或视频逐字稿，快速形成可复盘、可导出、可同步的标准化分析记录。",
+            "icon": "FileSearch",
+            "image": {
+              "src": "/imgs/features/16-v20260424.webp",
+              "alt": "MediaClaw 小红书单篇笔记深度采集界面"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "博主主页笔记批量拉取",
+            "description": "针对博主主页自动执行翻页采集，连续拉取历史笔记与互动表现数据，支持按点赞筛选，快速建立对标账号内容选题库。",
+            "icon": "Users",
+            "image": {
+              "src": "/imgs/features/2-v20260309.webp",
+              "alt": "MediaClaw 小红书博主主页批量采集模式，自动翻页抓取历史笔记并按互动指标筛选"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "关键词搜索采集",
+            "description": "围绕核心关键词批量抓取搜索结果中的相关笔记，支持设置点赞、收藏、评论等门槛与条件过滤，支持搜索低粉爆款，快速筛选出高质量样本，帮助团队建立更精准的赛道内容数据库与选题素材池。",
+            "icon": "Search",
+            "image": {
+              "src": "/imgs/features/1-v20260424.webp",
+              "alt": "MediaClaw 小红书关键词搜索采集模式，批量汇总赛道内容并设置点赞、收藏、评论等门槛过滤低质样本"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "outputs": {
+        "id": "outputs",
+        "block": "data-table",
+        "title": "采集完成后，数据可以直接投入业务",
+        "description": "根据团队流程自由选择输出方式。",
+        "columns": [
+          {
+            "key": "mode",
+            "title": "输出方式"
+          },
+          {
+            "key": "desc",
+            "title": "说明"
+          },
+          {
+            "key": "scene",
+            "title": "典型场景"
+          }
+        ],
+        "rows": [
+          {
+            "mode": "本地数据池",
+            "desc": "采集结果本地可查、可筛选、可删除",
+            "scene": "个人研究与快速复盘"
+          },
+          {
+            "mode": "飞书多维表格同步",
+            "desc": "一键入表，支持协作与报表流转",
+            "scene": "团队共享与任务分发"
+          },
+          {
+            "mode": "CSV / Markdown 导出",
+            "desc": "标准化字段可进入 Excel/BI/Python，Markdown 可直接进入 Obsidian 或 AI 整理流程",
+            "scene": "分析师深度处理"
+          },
+          {
+            "mode": "原数据补齐",
+            "desc": "单条图文/视频记录可补齐配图文案或视频逐字稿",
+            "scene": "爆款拆解、脚本整理与素材复盘"
+          },
+          {
+            "mode": "媒体文件下载",
+            "desc": "批量下载配图和视频用于素材管理",
+            "scene": "视觉素材库建设"
+          }
+        ]
+      },
+      "safety": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "Safety",
+        "title": "安全机制默认开启",
+        "description": "兼顾效率与账号稳定性。",
+        "items": [
+          {
+            "title": "随机化滚动模拟",
+            "description": "模拟真人浏览节奏，降低异常行为特征。",
+            "icon": "Mouse"
+          },
+          {
+            "title": "自定义等待间隔",
+            "description": "可按任务灵活配置采集速度。",
+            "icon": "Timer"
+          },
+          {
+            "title": "卡顿检测自动暂停",
+            "description": "页面异常或加载失败时及时停止任务。",
+            "icon": "TriangleAlert"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "能设置定时采集和消息通知吗？",
+            "answer": "小红书笔记采集插件本身需要浏览器保持打开状态才可执行任务，暂不支持插件离线自动采集；如需按天自动追踪更新，建议使用竞品监控功能，每天定时输出内容更新报告并同步消息提醒。"
+          },
+          {
+            "question": "会不会触发平台风控？账号安全怎么保障？",
+            "answer": "我们在小红书数据采集流程中采用模拟人工浏览与操作节奏的低风险策略，并结合随机化等待与异常暂停机制，尽量降低触发风控的概率，在效率和账号稳定性之间保持平衡。"
+          },
+          {
+            "question": "不懂技术也能上手吗？",
+            "answer": "可以，不需要任何技术背景。安装插件后打开小红书页面，侧边栏会自动出现并匹配当前页面操作；点击“开始采集”，等待进度条结束即可完成。全程无需写代码、无需配置 API，通常 5 分钟内就能完成第一次小红书笔记采集。"
+          },
+          {
+            "question": "能不能获取视频口播脚本？",
+            "answer": "可以。采集小红书视频笔记后，可在采集记录里按需提取视频逐字稿；如果是图文笔记，也可以提取配图里的文字。提取结果会回填到记录里，并随 CSV/Markdown 导出或飞书同步一起使用。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "继续完善你的小红书内容创作工作流",
+        "links": [
+          {
+            "title": "小红书评论采集",
+            "description": "批量抓取评论内容与用户数据，为内容分析和选题提供数据支撑。",
+            "url": "/xiaohongshu/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "小红书关键词洞察",
+            "description": "输入核心业务关键词，裂变 200+长尾词，聚类快速锁定选题方向。",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "小红书竞品监控",
+            "description": "订阅对标账号，一旦内容更新，自动推送飞书提醒。",
+            "url": "/xiaohongshu/monitoring",
+            "icon": "Radar"
+          },
+          {
+            "title": "小红书素材去水印下载",
+            "description": "批量保存图文与视频素材，构建视觉参考库。",
+            "url": "/xiaohongshu/downloader",
+            "icon": "Download"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "一键提效，你负责回归策略",
+        "description": "免费安装 MediaClaw，先跑通你的第一套数据工作流。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "下载小红书样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

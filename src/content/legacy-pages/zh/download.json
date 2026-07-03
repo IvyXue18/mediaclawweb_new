@@ -1,0 +1,95 @@
+{
+  "metadata": {
+    "title": "下载 MediaClaw - 小红书抖音数据采集插件",
+    "description": "下载 MediaClaw 浏览器插件，按安装插件、领取/输入激活码、教程引导 3 步完成上手。支持 Chrome 和 Edge 浏览器。",
+    "keywords": "MediaClaw下载, 浏览器插件, 小红书采集插件, 抖音数据爬取工具, 数据分析插件, 效率工具"
+  },
+  "page": {
+    "title": "下载安装 MediaClaw",
+    "sections": {
+      "download": {
+        "id": "download",
+        "block": "download",
+        "title": "下载并安装 MediaClaw",
+        "description": "MediaClaw 是你进行社媒数据运营的得力助手。我们提供官方商店安装和离线安装两种方式，建议优先选择商店安装以获得自动更新和更好的安全性。",
+        "market_tab_title": "商店安装 (推荐)",
+        "package_tab_title": "离线安装 (安装包)",
+        "market_items": [
+          {
+            "title": "Chrome 应用商店",
+            "description": "适用于 Google Chrome 浏览器",
+            "icon": "Chrome",
+            "features": [
+              "自动更新至最新版本",
+              "谷歌官方安全审核",
+              "一键安装，简单快捷"
+            ],
+            "button_text": "前往 Chrome 商店",
+            "button_url": "https://chromewebstore.google.com/detail/mediaclaw/ihclbgfnkclacfkbedkdnbpmkcdaccje?authuser=0&hl=zh-CN"
+          },
+          {
+            "title": "Microsoft Edge 加载项商店",
+            "description": "适用于 Microsoft Edge 浏览器",
+            "icon": "RiEdgeNewLine",
+            "features": [
+              "自动更新至最新版本",
+              "微软官方商店分发",
+              "Edge 用户可直接一键安装"
+            ],
+            "button_text": "前往 Edge 商店",
+            "button_url": "https://microsoftedge.microsoft.com/addons/detail/mediaclaw-%E7%A4%BE%E5%AA%92%E8%99%BE%EF%BD%9C%E5%B0%8F%E7%BA%A2%E4%B9%A6%E6%8A%96%E9%9F%B3ai%E8%BF%90%E8%90%A5%E5%B7%A5/moalagonhjmhmoiaehciejkkingpajpl"
+          }
+        ],
+        "package_items": [
+          {
+            "title": "下载 CRX 安装包",
+            "description": "适用于由于网络问题无法通过应用商店安装的用户",
+            "icon": "FileCode",
+            "button_text": "下载 .crx 文件",
+            "button_url": "/downloads/mediaclaw.crx"
+          }
+        ],
+        "steps_title": "如何手动安装离线包?",
+        "steps": [
+          {
+            "title": "下载安装包",
+            "description": "点击上方按钮下载 .crx 格式的插件安装包。"
+          },
+          {
+            "title": "打开扩展管理",
+            "description": "在浏览器地址栏输入 **chrome://extensions** 或 **edge://extensions** 并回车。"
+          },
+          {
+            "title": "开启开发者模式",
+            "description": "在扩展管理页面右上角，找到并打开「开发者模式」开关。"
+          },
+          {
+            "title": "拖拽安装",
+            "description": "将下载好的 .crx 文件直接 **拖拽** 到扩展管理页面中即可完成安装。"
+          }
+        ],
+        "faq_title": "安装常见问题",
+        "download_faq": [
+          {
+            "question": "为什么 Chrome 提示「无法从该网站添加应用」?",
+            "answer": "这是由于浏览器的安全限制。请尝试通过官方应用商店安装，或者下载 CRX 包并按照「离线安装」步骤进行拖拽安装。"
+          },
+          {
+            "question": "离线安装后如何更新?",
+            "answer": "离线安装的插件无法自动更新。当有新版本发布时，你需要重新下载最新的安装包并重复安装步骤。"
+          },
+          {
+            "question": "安装时提示「程序包无效」怎么办?",
+            "answer": "可能是下载过程中文件损坏。请尝试重新下载。如果持续报错，建议检查浏览器版本是否过低。"
+          }
+        ],
+        "video_button": {
+          "title": "查看安装及使用教程",
+          "url": "https://my.feishu.cn/wiki/TczWwrrGmiDRw3kWeojcXd5CnHh?from=from_copylink"
+        },
+        "security_title": "安全承诺",
+        "security_description": "所有安装包均经过安全扫描，不含任何恶意代码。推荐通过 Chrome 或 Edge 官方商店安装以获得自动更新功能。"
+      }
+    }
+  }
+}

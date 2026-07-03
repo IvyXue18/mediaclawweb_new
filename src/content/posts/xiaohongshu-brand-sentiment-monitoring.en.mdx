@@ -1,0 +1,105 @@
+export const meta = {
+  title:
+    'How to Monitor Your Brand on Xiaohongshu (RedNote): Search-Page Sentiment Scanning',
+  description:
+    "How do brands catch negative content on Xiaohongshu early? This post explains how to use MediaClaw's keyword sentiment scan to read the current search page, confirm sentiment with comments and raw data, then pair it with account monitoring and Feishu to make brand monitoring a fixed routine.",
+  created_at: '2026-06-22',
+  author_name: 'MediaClaw Team',
+  author_image: '/logo.png',
+  image:
+    'https://media.mediaclaw.app/blog-covers/a6d9c82262d00f64bb1558b2b15efc40.webp',
+  tags: [
+    'Xiaohongshu brand monitoring',
+    'brand sentiment',
+    'negative content alert',
+    'comment sentiment',
+    'RedNote operations',
+  ],
+};
+
+When people hear "brand monitoring," the first thing many imagine is a real-time system that watches every brand keyword across the whole platform, 24/7. That direction has value, but it isn't the problem most small brands hit first.
+
+Be honest: the whole platform talking about you around the clock is a privilege very few brands enjoy. For most small and mid-sized brands, real-time monitoring is overkill.
+
+Their urgent questions are usually very concrete: Did anyone mention me today? If I were a regular user searching my brand keyword, what would fill the first few screens—ordinary sharing, a pile-on of complaints, or an emerging negative narrative that could spread?
+
+So MediaClaw's keyword sentiment scan picks a different starting point—it upgrades the thing you already do, "open the search page and take a look," into an evidence-backed judgment. It's a scan you launch manually on the search page. It doesn't run scheduled subscriptions, background polling, or claim whole-platform statistics. It fits the moments before a meeting, after a campaign goes live, when customer support flags something odd, or during a crisis post-mortem—pulling the current sentiment around your brand keyword into clear view.
+
+## One scan sees more than the screen in front of you
+
+The keyword sentiment scan refreshes the current PC search page three times for you, pulling roughly the top 30 notes by comprehensive ranking each round (about what a mobile user sees scrolling 4-5 screens in a row), then merges, dedupes, and analyzes. Three rounds of front-page results is a deliberate compromise: scan too shallow and a fluke sample skews you; scan too deep and long-tail noise floods in and slows the judgment. It doesn't pretend to represent the whole platform, but it reliably covers the notes a user is most likely to actually see on the search page.
+
+Because of that, the result honestly labels its sampling scope: PC search sample, how many refresh rounds, how many notes after dedup, how many details opened.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/58f487cfdea2d1e5727904ec318b9eb9.webp"
+  alt="Raw collected data from the keyword sentiment scan: labels the comprehensive-ranking sampling scope, lists the deduplicated original notes, and supports expanding, syncing to Feishu, and CSV export"
+/>
+
+## Titles lie—the real sentiment hides in the body and comments
+
+The easiest way to get brand monitoring wrong is to treat the title as the conclusion.
+
+A note with a recommendation-looking title may be ranting about after-sales in the body. A note that never mentions your brand in its title may have a comment section entirely about one of your models. A "heads-up, avoid this" note may carry its real risk not in the author's original text, but in the dozens of similar experiences people pile into the comments below.
+
+So the scan doesn't just grab the search list. It picks representative samples from the deduplicated results, opens each one's detail page, and fills in the title, body, publish time, engagement, author info, and tags—then hands that to the backend to generate a judgment. The list can only tell you which notes were placed up front; the detail tells you what those notes are actually about.
+
+## How the scan results split work across PR, support, and product
+
+If a sentiment scan only handed you back "leans negative" or "elevated risk," it wouldn't help much. What a brand wants to know is: where is the negative coming from, which topic is it concentrated in, are there product signals, and what should PR, support, and the content team each do?
+
+So the results are split into layers, each one a lead a specific role can pick up directly:
+
+- **Sample heat**: the highest and average engagement in the current sample, plus a heat read—so you can first check whether risk is gaining volume.
+- **Topic clustering**: groups the detail samples into a few topics, such as product experience, price disputes, after-sales feedback, reviews, or competitor comparisons.
+- **Sentiment and disputes**: isolates neutral, mixed, and negative sentiment plus severity, so you don't lump every discussion into "a sentiment problem."
+- **User needs**: extracts the real ask behind the complaints—say, wanting a rule explained, logistics improved, or usage clarified.
+- **Brand discovery**: beyond risk, it keeps positive signals too—product opportunities, channel material, ways people phrase things, potential collaboration accounts.
+- **Action suggestions**: pushes the findings one step further into who does what next.
+
+The thinking behind the split is plain: sentiment is more like a set of dispatchable work leads than a single score. PR watches disputes, support watches high-frequency issues, product watches improvement signals, and the content team sees which kind of explanatory content to add.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/ca07d3afe2fe1512f031e0376b8f1d53.webp"
+  alt="Keyword sentiment scan results: layered insights showing sampling info, topic clustering, sentiment and disputes, brand discovery, and action suggestions"
+/>
+
+## Putting it into daily brand monitoring
+
+To actually fit this into a routine, you can divide the labor like this: the keyword sentiment scan judges the direction first, search and comment collection gather the full evidence, and account monitoring watches the targets that keep gaining volume.
+
+At the start of each day or after each campaign milestone, search your brand keyword, product keyword, and campaign keyword, then open the keyword sentiment scan to see the topics, disputes, and brand discoveries in the current sample. If the scan surfaces clear negatives or high-frequency needs, use [search result collection](/xiaohongshu/scraper) to bulk-export the relevant notes.
+
+For key notes, go into the detail page and use [comment collection](/xiaohongshu/comments) to grab the full comment section. Words in the comments like "got burned," "refund," "customer service," "avoid this," or "didn't work" can be filtered out separately with [lead keyword filtering](/xiaohongshu/leads), to see whether the real sentiment is spreading.
+
+If certain accounts keep showing up in the risk samples, or a particular review or complaint account has a big impact on your category, bring it into [account monitoring](/xiaohongshu/monitoring). Account monitoring suits watching a small, sharp set of key targets—you can set a like threshold and an observation window, run immediate or scheduled scans, and pipe hits into Feishu.
+
+Don't blur these together. The sentiment scan is manual judgment, account monitoring is continuous watching of people, search collection is bulk grabbing, and comment collection reads the comment section's mood—each covers its own stretch, and only combined do they make brand monitoring that actually works on the ground.
+
+## Douyin follows the same playbook
+
+This post starts from Xiaohongshu, but the keyword sentiment scan supports Douyin too. On Douyin's keyword search results page you can scan samples the same way, and pair it with [Douyin search collection](/douyin/scraper), [Douyin comment collection](/douyin/comments), and [Douyin account monitoring](/douyin/monitoring) for the same read on direction.
+
+The two platforms differ in content form: Xiaohongshu has more text-and-image experiences, avoid-this checklists, and comment additions, while Douyin has more video reviews, livestream clips, and short bursts of momentum. But the question a brand needs to answer is the same—how the front-page content is talking about me right now, where user sentiment is concentrated, and which content the team needs to see first.
+
+So this capability is designed around the current search page's sample: respect the platform's live search first, then structure the sample, evidence, and judgment—rather than locking into any one platform's report template.
+
+## Wrap-up
+
+A workable starting point for Xiaohongshu brand monitoring doesn't require bumping your search frequency to ten times a day, nor standing up a complex automated alerting system on day one. The more realistic move is to productize the search action brands already do every day: refresh the front-page sample over several rounds, open the details after dedup, use AI to summarize topics, sentiment, needs, and action suggestions, then keep the raw basis around for easy export, sync, and review.
+
+The keyword sentiment scan is built for exactly this. It doesn't claim whole-platform coverage, but across mainstream social platforms it lets you spot problems earlier than manual page-flipping when the sentiment around a brand keyword is just emerging—and know more clearly which note, which batch of comments, and which account to check next.
+
+## FAQ
+
+**Does the keyword sentiment scan automatically monitor brand keywords?**
+No, it's not a background subscription. You launch it manually on the search page, and it samples the current PC search results over several rounds, dedupes, and opens details to generate a judgment. To keep watching a few key accounts continuously, pair it with account monitoring.
+
+**How do I catch negative content about my brand on Xiaohongshu as early as possible?**
+First use the keyword sentiment scan to judge the sentiment and disputes in the current search sample, then use search collection to grab newly published content, and use comment collection plus keyword filtering to confirm whether the comment section is spreading it. This is earlier and more evidence-backed than manually flipping through search.
+
+**Why does the scan keep the raw collected data?**
+Brand sentiment judgments must be traceable back to the source. MediaClaw keeps the detail samples, supports expanding to view, exporting to CSV / Markdown, and syncing to Feishu, and lets you reuse already-collected samples to retry after a failed analysis—so you do less duplicate collection.
+
+**Does this method work on Douyin?**
+Yes. Douyin supports keyword sentiment scanning, search collection, comment collection, and account monitoring too. The content forms differ, but the approach is the same—judge direction from the search sample, confirm sentiment with comments, and keep watching key accounts.

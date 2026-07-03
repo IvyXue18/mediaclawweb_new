@@ -1,0 +1,30 @@
+export const meta = {
+  title: 'Partner Channels Without Product Forks',
+  description:
+    'Why MediaClaw models suppliers and white-label variants with partner IDs, variant IDs, and credential exports.',
+  created_at: '2026-06-16',
+  author_name: 'MediaClaw Team',
+  author_image: '/logo.png',
+};
+
+Partner channels often become expensive when each channel asks for a separate
+package, brand, or handoff process. MediaClaw keeps the product on one backend
+and moves attribution into data instead.
+
+## One backend, many channels
+
+Partner records carry partner codes, owner accounts, contract status, variant
+IDs, seat limits, and operational notes. Orders and activation codes can then
+carry the same attribution without a separate deployment.
+
+## Export for handoff
+
+When a supplier needs a batch of activation codes, operations can export the
+partner-linked credentials. The export is useful for reconciliation, while the
+website keeps the source of truth.
+
+## Keep the boundary clear
+
+White-label work should not become a fork unless the business truly needs a
+separate product. For most channels, data-level attribution is easier to audit,
+repair, and keep compatible with future backend changes.

@@ -1,0 +1,320 @@
+{
+  "metadata": {
+    "title": "MediaClaw 福利中心 - 领取试用与使用奖励",
+    "description": "进入 MediaClaw 福利中心，完成渠道调研，并在插件内达成使用体验反馈里程碑后领取试用或权益延长。",
+    "keywords": "MediaClaw福利中心, 试用激活码, 激活码领取, 渠道调研, 使用体验反馈"
+  },
+  "hero": {
+    "eyebrow": "福利中心",
+    "title": "领取 MediaClaw 福利奖励",
+    "description": "完成渠道调研后可领取渠道奖励；使用体验反馈需要在插件内达成真实使用里程碑后领取。",
+    "primary_action": "领取福利奖励",
+    "sign_in_action": "登录后领取",
+    "secondary_action": "查看我的激活码"
+  },
+  "partner_promo": {
+    "eyebrow": "伙伴计划",
+    "title": "邀请朋友，一起赚佣金",
+    "you": "你：首单 + 续费返佣",
+    "friend": "朋友：首购立享折扣",
+    "action": "去邀请",
+    "banner_title": "伙伴计划 · 你拿佣金，朋友享折扣",
+    "banner_action": "去邀请"
+  },
+  "reward_flow": {
+    "title": "3 步领取奖励",
+    "step": "步骤 {index}",
+    "signed_in": "已登录",
+    "credentials_action": "查看我的激活码",
+    "download_action": "下载插件",
+    "sample_code": "ACT-XXXX-XXXX",
+    "items": [
+      {
+        "title": "登录并确认账号",
+        "description": "奖励会绑定到当前账号。同一账号每个福利任务只能领取一次，登录后可继续填写任务。",
+        "icon": "LogIn"
+      },
+      {
+        "title": "完成渠道调研任务",
+        "description": "我们希望了解您从哪里了解到本插件、准备用它优先解决什么问题，以便迭代出更符合大家需求的产品。",
+        "icon": "ClipboardCheck"
+      },
+      {
+        "title": "补充使用体验反馈",
+        "description": "在插件内完成采集、导出/同步和高价值功能体验后，填写真实反馈领取奖励。",
+        "icon": "MessageSquareText"
+      }
+    ],
+    "success_modal": {
+      "title": "领取成功",
+      "extension_title": "权益已延长",
+      "subtitle": "在插件偏好设置中输入激活码后即可验证绑定",
+      "code_label": "激活码",
+      "action": "查看我的激活码"
+    },
+    "guide": {
+      "title": "激活码配置引导",
+      "steps": [
+        "打开 MediaClaw 插件，点击右上角菜单进入「偏好设置」。",
+        "在「产品授权状态」中粘贴激活码。",
+        "点击「验证并绑定」，完成后即可开始使用。"
+      ],
+      "image_alt": "MediaClaw 激活码输入与偏好设置引导"
+    }
+  },
+  "channel_survey": {
+    "title": "渠道调研任务",
+    "description": "完成后自动发放奖励。新用户可获得试用激活码；已有激活码用户提交后可选择延长指定激活码。",
+    "sign_in_required": "请先登录或注册账号。登录完成后会回到福利中心继续领取。",
+    "sign_in_action": "登录 / 注册",
+    "unavailable": "福利中心数据表尚未初始化，请先执行官网数据库迁移。",
+    "status": {
+      "available": "可领取",
+      "completed": "已领取"
+    },
+    "fields": {
+      "source": "你从哪里了解到 MediaClaw？",
+      "source_ai": "是哪个 AI？",
+      "source_question": "你问了什么问题？",
+      "search_engine": "是哪个搜索引擎？",
+      "search_question": "你搜索了什么问题？",
+      "source_other": "请补充来源",
+      "role": "你的身份是？",
+      "role_other": "请补充你的身份",
+      "platform": "核心运营平台",
+      "use_case": "你最想先用 MediaClaw 做什么？"
+    },
+    "placeholders": {
+      "source_ai": "例如 ChatGPT、Codex、豆包、Deepseek、Kimi…",
+      "source_question": "例如 怎么提取小红书视频逐字稿/抖音评论怎么批量导出",
+      "search_engine": "例如 Google、百度、bing、搜狗…",
+      "search_question": "例如 小红书数据采集工具",
+      "source_other": "例如 微信群、课程里看到",
+      "role_other": "例如 内容顾问、电商运营、课程讲师"
+    },
+    "source_options": [
+      {
+        "label": "AI 推荐",
+        "value": "ai"
+      },
+      {
+        "label": "搜索引擎",
+        "value": "search"
+      },
+      {
+        "label": "公众号",
+        "value": "official_account"
+      },
+      {
+        "label": "知乎",
+        "value": "zhihu"
+      },
+      {
+        "label": "视频号",
+        "value": "wechat_channels"
+      },
+      {
+        "label": "抖音",
+        "value": "douyin"
+      },
+      {
+        "label": "小红书",
+        "value": "xiaohongshu"
+      },
+      {
+        "label": "朋友推荐",
+        "value": "friend_referral"
+      },
+      {
+        "label": "其他",
+        "value": "other"
+      }
+    ],
+    "role_options": [
+      {
+        "label": "个人博主",
+        "value": "personal_blogger"
+      },
+      {
+        "label": "MCN / 达人运营",
+        "value": "mcn"
+      },
+      {
+        "label": "企业品牌团队成员",
+        "value": "brand_team"
+      },
+      {
+        "label": "企业运营 / 增长团队成员",
+        "value": "growth_team"
+      },
+      {
+        "label": "OPC 一人公司",
+        "value": "opc"
+      },
+      {
+        "label": "其他",
+        "value": "other"
+      }
+    ],
+    "platform_options": [
+      {
+        "label": "小红书",
+        "value": "xiaohongshu"
+      },
+      {
+        "label": "抖音",
+        "value": "douyin"
+      },
+      {
+        "label": "以上都要",
+        "value": "both"
+      }
+    ],
+    "use_case_options": [
+      {
+        "label": "找选题 / 判断内容方向",
+        "value": "topic_direction",
+        "capabilities": [
+          "关键词内容机会判断",
+          "搜索下拉词长尾内容挖掘",
+          "关键词搜索采集低粉爆款"
+        ]
+      },
+      {
+        "label": "分析对标账号",
+        "value": "benchmark_accounts",
+        "capabilities": [
+          "自动找对标账号",
+          "博主主页笔记数据和内容批量获取",
+          "对标账号监控、飞书日报"
+        ]
+      },
+      {
+        "label": "采集爆款样本",
+        "value": "viral_samples",
+        "capabilities": ["按关键词搜索结果采集", "单篇深度采集", "低粉爆款筛选"]
+      },
+      {
+        "label": "下载和管理创作素材",
+        "value": "asset_library",
+        "capabilities": [
+          "下载无水印图片和视频",
+          "提取视频逐字稿",
+          "批量保存素材"
+        ]
+      },
+      {
+        "label": "做达人 / 种草 / 投放前调研",
+        "value": "influencer_research",
+        "capabilities": [
+          "博主主页批量拉取",
+          "评论区批量采集",
+          "达人内容表现评估、评论口碑查看"
+        ]
+      },
+      {
+        "label": "私域获客 / 线索挖掘",
+        "value": "private_leads",
+        "capabilities": [
+          "评论区批量采集",
+          "高意向客资过滤",
+          "客资导出 Excel / 同步飞书"
+        ]
+      }
+    ],
+    "use_case_hint": "可多选。选项只记录你的使用目的，鼠标停在问号上可查看插件的哪些能力可以帮到你。",
+    "capability_title": "能用到",
+    "submit": "提交并领取奖励",
+    "submit_extend": "确认延长并领取奖励",
+    "reward_credential": {
+      "title": "选择要延长的激活码",
+      "description": "你当前账号下已有激活码。请选择本次奖励要延长到哪个激活码上；如果没有激活码，系统会自动生成新的试用码。",
+      "permanent": "长期有效",
+      "bindings": "台设备",
+      "cancel": "取消"
+    },
+    "footnote": "同一账号只能领取一次渠道调研奖励；同一浏览器安装也仅发放一次试用奖励。",
+    "trial_done": "已生成试用激活码。请复制后回到插件设置页输入并验证。",
+    "paid_extension_done": "所选激活码已获得福利奖励。可在激活码页面查看最新到期时间和积分。",
+    "view_reward": "查看奖励",
+    "copy": "复制",
+    "copy_success": "激活码已复制",
+    "return_to_plugin": "返回插件",
+    "success": "奖励已发放",
+    "errors": {
+      "required": "请先完成必填选项和已展开的补充信息",
+      "reward_credential_required": "请选择要延长的激活码",
+      "reward_credential_not_found": "未找到可延长的激活码，请刷新后重试",
+      "browser_claimed": "当前浏览器已领取过试用奖励，请使用已领取的激活码。",
+      "submit_failed": "提交失败，请稍后重试"
+    }
+  },
+  "experience_feedback": {
+    "title": "使用体验反馈",
+    "description": "使用体验反馈需要在插件内完成真实体验里程碑，官网仅展示进度。",
+    "sign_in_required": "请先登录或注册账号。登录完成后会回到福利中心继续领取。",
+    "sign_in_action": "登录 / 注册",
+    "unavailable": "福利中心数据表尚未初始化，请先执行官网数据库迁移。",
+    "status": {
+      "available": "插件内完成",
+      "ready": "可回插件领取",
+      "plugin_required": "插件内完成",
+      "completed": "已领取"
+    },
+    "open_plugin": "回到插件完成",
+    "download_plugin": "下载插件",
+    "plugin_completed": "已在插件内领取 {days} 天会员奖励",
+    "plugin_completed_description": "这项奖励已由插件完成校验并发放，官网仅同步最终领取状态。",
+    "plugin_ready_title": "插件里程碑已达成",
+    "plugin_ready_description": "请回到 MediaClaw 插件福利中心填写真实体验反馈，插件会校验当前激活码并发放奖励。",
+    "plugin_required_title": "请在插件内完成真实使用体验",
+    "plugin_required_description": "使用体验反馈需要基于实际操作：完成采集、导出或同步，以及关键词/舆情/监控等高价值功能体验后，才能在插件内提交。实时进度以插件内显示为准。",
+    "progress": {
+      "core": "采集体验",
+      "core_description": "成功完成核心采集任务",
+      "output": "导出 / 同步体验",
+      "output_description": "成功导出、复制或同步数据",
+      "high_value": "关键词洞察 / 舆情 / 监控体验",
+      "high_value_description": "体验高价值分析或监控能力"
+    },
+    "failure_blocked": "最近连续失败次数较多，请先完成一次成功操作后再回到插件领取。",
+    "reward_label": "奖励",
+    "reward_value": "+3 天会员",
+    "ready_action": "回到插件填写反馈",
+    "view_plugin_progress": "回到插件查看进度",
+    "pending_action": "完成条件后领取",
+    "claimed_action": "已领取",
+    "fields": {
+      "rating": "本次使用体验评分",
+      "comment": "使用评价",
+      "expected_feature": "期待功能"
+    },
+    "placeholders": {
+      "comment": "例如：哪些地方顺手，哪些地方卡住，整体是否符合你的预期",
+      "expected_feature": "例如：希望优先增加哪些采集、分析、同步或自动化能力"
+    },
+    "submit": "提交反馈并领取奖励",
+    "submit_extend": "确认延长并领取奖励",
+    "success_title": "反馈已提交",
+    "extension_title": "权益已延长",
+    "trial_done": "已生成试用激活码。请复制后回到插件设置页输入并验证。",
+    "paid_extension_done": "所选激活码已获得福利奖励。可在激活码页面查看最新到期时间和积分。",
+    "view_reward": "查看奖励",
+    "copy_success": "激活码已复制",
+    "success": "奖励已发放",
+    "reward_credential": {
+      "title": "选择要延长的激活码",
+      "description": "你当前账号下已有激活码。请选择本次奖励要延长到哪个激活码上；如果没有激活码，系统会自动生成新的试用码。",
+      "permanent": "长期有效",
+      "bindings": "台设备"
+    },
+    "footnote": "同一账号只能领取一次使用体验反馈奖励。",
+    "plugin_only_footnote": "使用体验反馈只能在插件内填写；官网不展示实时进度，也不会发放该奖励。",
+    "errors": {
+      "required": "请填写评分、使用评价和期待功能",
+      "reward_credential_required": "请选择要延长的激活码",
+      "reward_credential_not_found": "未找到可延长的激活码，请刷新后重试",
+      "submit_failed": "提交失败，请稍后重试"
+    }
+  }
+}

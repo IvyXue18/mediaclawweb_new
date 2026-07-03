@@ -1,0 +1,249 @@
+{
+  "metadata": {
+    "title": "Xiaohongshu Monitoring - Auto-Track Alerts | MediaClaw",
+    "description": "Auto-track Xiaohongshu competitor accounts. Get AI-summarized reports pushed to Lark when content matches your rules. Free Chrome extension.",
+    "keywords": "Xiaohongshu monitoring, competitor tracking, Lark alerts, content alerts, auto-track, social media monitoring"
+  },
+  "page": {
+    "title": "Xiaohongshu Competitor Monitoring",
+    "show_sections": [
+      "hero",
+      "modes",
+      "outputs",
+      "scenarios",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Xiaohongshu Account Tracker",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Xiaohongshu"
+          },
+          {
+            "title": "Competitor Monitoring"
+          }
+        ],
+        "title": "Auto-Monitor Xiaohongshu Competitor Accounts",
+        "description": "Set rules once — the system scans competitor accounts on schedule, generates AI-powered insights, and pushes daily reports to Lark. Stop manually checking feeds.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=8,37"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "Subscribe & Auto-Track Updates",
+            "description": "Add competitor accounts to your watchlist. The system automatically checks for new posts and engagement changes on your schedule — no manual feed-checking required.",
+            "icon": "Radar",
+            "image": {
+              "src": "/imgs/features/8-v20260425.webp",
+              "alt": "MediaClaw Xiaohongshu competitor monitoring subscription panel with automated account tracking"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "AI Insights Pushed to Lark",
+            "description": "When content matches your rules, AI generates summaries and trend tags. Structured results sync to Lark Base automatically — ready for team review, weekly reports, and strategic decisions.",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/features/10-v20260425.webp",
+              "alt": "MediaClaw auto-generating AI-summarized competitor insights and pushing daily reports to Lark Base"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "outputs": {
+        "id": "outputs",
+        "block": "features",
+        "title": "Monitoring Results Ready for Team Action",
+        "description": "From alerts to retrospectives — structured outputs across the workflow.",
+        "items": [
+          {
+            "title": "Lark Daily Report",
+            "description": "Matched content auto-pushed to Lark Base with title, link, timestamp, engagement, and AI summary.<br/>Best for: Team standups and daily intel reviews",
+            "icon": "Table2"
+          },
+          {
+            "title": "AI Insight Summary",
+            "description": "Auto-extracted content highlights, topic angles, and recommended follow-up actions.<br/>Best for: Content strategy reviews and topic planning",
+            "icon": "Sparkles"
+          },
+          {
+            "title": "Historical Record Archive",
+            "description": "Continuous monitoring history enables period-over-period comparison analysis.<br/>Best for: Weekly/monthly reports and trend identification",
+            "icon": "History"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "Who Uses Competitor Monitoring?",
+        "columns": [
+          {
+            "key": "role",
+            "title": "Role"
+          },
+          {
+            "key": "scene",
+            "title": "Use Case"
+          },
+          {
+            "key": "effect",
+            "title": "Outcome"
+          }
+        ],
+        "rows": [
+          {
+            "role": "Brand Ops",
+            "scene": "React to competitor viral posts immediately",
+            "effect": "Reduce information lag; follow up on trends faster"
+          },
+          {
+            "role": "Brand Ops",
+            "scene": "Build a systematic competitor early-warning system",
+            "effect": "Upgrade from manual feed-checking to automated alerts"
+          },
+          {
+            "role": "Solo Creator",
+            "scene": "Track benchmark accounts for trending topics",
+            "effect": "Find reusable content angles faster"
+          },
+          {
+            "role": "MCN Team",
+            "scene": "Centralized monitoring of multiple creator accounts",
+            "effect": "Cut manual patrol costs across the roster"
+          },
+          {
+            "role": "Investor / Talent Manager",
+            "scene": "Long-term tracking of emerging creator growth",
+            "effect": "Identify breakout talent and partnership opportunities earlier"
+          },
+          {
+            "role": "Content Team Lead",
+            "scene": "Keep the team informed without drowning in noise",
+            "effect": "Lark daily digest aggregates intel for continuous decision-making"
+          }
+        ]
+      },
+      "safety": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "Safety",
+        "title": "Built-In Account Protection",
+        "description": "Efficient monitoring without compromising account safety.",
+        "items": [
+          {
+            "title": "Scheduled Scanning",
+            "description": "Configurable scan frequency to stay within safe request patterns.",
+            "icon": "Timer"
+          },
+          {
+            "title": "Rule-Based Filtering",
+            "description": "Set engagement thresholds and time windows to receive only high-value alerts.",
+            "icon": "Filter"
+          },
+          {
+            "title": "Stall Detection & Auto-Pause",
+            "description": "Automatically stops when pages fail to load or behave abnormally.",
+            "icon": "TriangleAlert"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "How do I avoid getting too many low-value alerts?",
+            "answer": "Set like thresholds, time windows, and keyword conditions per account. Start narrow, then expand — this keeps alert quality high from day one."
+          },
+          {
+            "question": "Can it detect old posts that suddenly go viral again?",
+            "answer": "Yes. The system compares current engagement against historical records and flags abnormal growth, helping you spot 'second-wave' viral content."
+          },
+          {
+            "question": "Can I monitor my own account for performance tracking?",
+            "answer": "Yes. Add your own account to the watchlist — compare your performance against competitors using the same metrics and rules."
+          },
+          {
+            "question": "How do monitoring results integrate with team workflows?",
+            "answer": "Matched content syncs automatically to Lark Base. Your ops, content, and strategy teams can annotate, assign tasks, and run retrospectives on the same shared dataset."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "Related Tools",
+        "description": "Complete your Xiaohongshu content operations workflow.",
+        "links": [
+          {
+            "title": "Post Scraper",
+            "description": "Deep-dive into flagged competitor content with full data extraction.",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Comment Scraper",
+            "description": "Analyze comments on competitor posts for user demand signals.",
+            "url": "/xiaohongshu/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "Keyword Research Tool",
+            "description": "Track keyword trends behind competitor content strategies.",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "Watermark-Free Downloader",
+            "description": "Download flagged competitor content assets for reference analysis.",
+            "url": "/xiaohongshu/downloader",
+            "icon": "Download"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Competitor Intel on Autopilot",
+        "description": "Install MediaClaw for free and start receiving daily Xiaohongshu competitor reports in Lark.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

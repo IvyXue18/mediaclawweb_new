@@ -1,0 +1,64 @@
+{
+  "title": "Partner Dashboard",
+  "purchase": {
+    "title": "Bulk Purchase",
+    "description": "Choose a plan and seat count. The order amount is calculated from your partner pricing rule.",
+    "product": "Plan",
+    "seats": "Seats",
+    "submit": "Create Checkout"
+  },
+  "channel_buy": {
+    "title": "Channel Purchase",
+    "description": "This order uses the current channel pricing rule. Paid orders issue credentials attributed to this channel."
+  },
+  "stats": {
+    "total": "All Credentials",
+    "unused": "Unused",
+    "activated": "Activated",
+    "expired": "Expired",
+    "disabled": "Disabled"
+  },
+  "tabs": {
+    "all": "All",
+    "unused": "Unused",
+    "activated": "Activated",
+    "expired": "Expired",
+    "disabled": "Disabled"
+  },
+  "orders": {
+    "title": "Recent Orders",
+    "description": "The latest 10 orders under your supplier partnerId."
+  },
+  "credentials": {
+    "title": "Credential Pool",
+    "description": "Credentials are bound to your partnerId and default variantId. Copy, export, and add assignment notes."
+  },
+  "fields": {
+    "code": "Credential",
+    "plan": "Plan / Variant",
+    "status": "Status",
+    "expires_at": "Expires At",
+    "activated_at": "Activated At",
+    "assignment_note": "Assignment Note",
+    "assignment_note_placeholder": "Customer / user / project",
+    "created_at": "Created At",
+    "order_no": "Order No.",
+    "product": "Product",
+    "amount": "Amount",
+    "seats": "seats"
+  },
+  "status": {
+    "unused": "Unused",
+    "activated": "Activated",
+    "expired": "Expired",
+    "disabled": "Disabled"
+  },
+  "actions": {
+    "save": "Save",
+    "export": "Export CSV"
+  },
+  "empty": {
+    "credentials": "No credentials yet",
+    "orders": "No orders yet"
+  }
+}

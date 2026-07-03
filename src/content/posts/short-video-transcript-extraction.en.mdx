@@ -1,0 +1,91 @@
+export const meta = {
+  title:
+    'Extract Short Video Transcripts for Free: Lark Base + Alibaba Cloud AI (10 Hours/Month)',
+  description:
+    "Stop pasting links into ad-filled mini apps. Use Lark Base with Alibaba Bailian's speech-to-text AI to batch extract short video transcripts — 10 free hours every month.",
+  created_at: '2026-05-17',
+  author_name: 'MediaClaw Team',
+  author_image: '/logo.png',
+  image:
+    'https://media.mediaclaw.app/blog-covers/3dcac851783a45aeb97030233147458a.webp',
+  tags: [
+    'extract video transcript',
+    'video to text',
+    'short video transcript extraction',
+    'Lark Base AI',
+    'batch video transcription',
+    'video script analysis',
+  ],
+};
+
+> Extract short video transcripts with Lark Base + Alibaba Cloud AI — 10 free hours per month, more than enough for most content creators.
+
+## The Problem: Extracting Video Transcripts Is a Pain
+
+Analyzing viral videos, studying script structures, building a swipe file of proven hooks — it all starts with turning spoken words into text.
+
+The most common approach is pasting a video link into some web tool or mini app. But these tools are either gated behind ads, or they cap free usage and push you to pay. Others download the video first, then run it through a subtitle tool or local transcription software — but that's a long workflow, and scaling it to multiple videos per day gets tedious fast. If you're breaking down three to five videos daily, doing it one by one is not sustainable.
+
+## A Better Way: Lark Base + Alibaba Bailian
+
+Lark Base has an AI field shortcut called "Audio/Video to Text" that connects to Alibaba Bailian's speech-to-text model. Add this field to your table, feed it a raw video or audio URL, and it automatically extracts the full transcript.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/23959730eb58ef0d6a1ee53bd0271338.png"
+  alt="Audio/Video to Text field shortcut in Lark Base"
+/>
+
+Alibaba Cloud gives you 10 free hours of transcription per month. At an average of 2 minutes per video, that's roughly 300 videos — plenty for day-to-day content analysis. Once you fill in the video links, the field processes them one by one automatically. No manual triggering needed. The transcripts live in the same table as your video metadata, making it easy to compare, annotate, and organize.
+
+## Prerequisite: You Need the Raw Video File URL
+
+Alibaba Bailian's speech recognition requires a **raw file URL** — not a Xiaohongshu (RedNote) or Douyin share link. Share links open a webpage; the model can't extract audio from a webpage.
+
+This is where most people get stuck. The links you see on social platforms look like this:
+
+```
+https://www.xiaohongshu.com/explore/xxxx
+https://www.douyin.com/jingxuan/search/xxxx
+```
+
+But what Alibaba Bailian needs is a direct video URL like:
+
+```
+https://sns-video-xxx.xhscdn.com/xxxx.mp4?sign=xxx
+```
+
+How do you get the raw URL?
+
+MediaClaw extracts raw video file URLs from Xiaohongshu (RedNote), Douyin, and other platforms — both one at a time and in batch. For a single video, just trigger a scrape from the browser extension sidebar on the current page, and the raw video URL is captured as one of the fields. If you have a batch of videos to analyze, you can scrape them all and sync the data at once — all raw URLs exported to Lark Base in one go.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/0b62f6f7da5e7b9085c33c46d92baf94.png"
+  alt="Scraping video data with MediaClaw"
+/>
+
+Once you have the raw URLs in your Lark Base table, the AI field can read them directly and extract the transcripts.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/25d62b4a0aa7f5cb235fb09f6d70fc1e.png"
+  alt="Transcript extraction fields in a Lark Base table"
+/>
+
+## Full Workflow: From Watching a Video to Getting Its Transcript
+
+When you spot a video worth analyzing, scrape it with MediaClaw. The video title, author, engagement metrics, and raw file URL automatically land in your Lark Base table (scraping is free, with no usage limits). The table already has the Alibaba Bailian AI field configured and pointed at the raw URL column. When a new record comes in, transcription triggers automatically, and the transcript is written back to the table. A typical 2-minute video takes about 30 seconds to process.
+
+No downloading videos. No switching between multiple tools. No watching ads. Scraping and URL extraction happen in MediaClaw; transcript extraction happens in Lark Base; everything lives in one table. Once you have the transcripts, you can compare script structures across videos, use AI for deeper analysis, build a reusable copy library, and even rewrite entire posts — titles, captions, and spoken scripts — all within the same table.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/b76b2e8d56b648002b9b73f0c7d50dc2.png"
+  alt="AI analyzing and optimizing video scripts"
+/>
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/19711c105b2577936fd23022ee7614c4.png"
+  alt="AI deconstructing and rewriting original post"
+/>
+
+[Download the extension for free](https://mediaclaw.app/) — scraping individual Xiaohongshu (RedNote) posts and Douyin videos is completely free. The [Lark Base template](https://my.feishu.cn/base/H9fAb5QYtagaLDsjgdPcaliGnyf?from=from_copylink) is ready to copy and use as-is. Try it now: scrape one video with the extension to get its raw URL, paste it into the template, and the transcript will appear in about 30 seconds. You get 10 free hours per month — start by getting the workflow running first.
+
+If you're working at higher volume, or you'd rather not copy URLs manually, MediaClaw's paid plan supports syncing scraped data directly to Lark Base. Raw URLs are filled in automatically, and the AI field takes it from there — fully hands-free from scrape to transcript.

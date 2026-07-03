@@ -1,0 +1,84 @@
+{
+  "metadata": {
+    "title": "Join MediaClaw Partner Program — Earn 30% Commission",
+    "description": "Share MediaClaw and earn generous commissions. Join our affiliate program and monetize your influence with our leading scraper tool.",
+    "keywords": "MediaClaw partner program, affiliate program, earn commission, referral reward, monetization, social media tools"
+  },
+  "page": {
+    "title": "Join MediaClaw Partner Program",
+    "description": "Share MediaClaw and earn generous commissions while helping creators improve efficiency.",
+    "show_sections": ["hero", "mechanism", "rules", "cta"],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "hero",
+        "title": "Join MediaClaw Partner Program",
+        "highlight_text": "Partner Program",
+        "description": "Invite friends to use MediaClaw. We share our transaction revenue with you, building a sustainable income for you while helping others save time.",
+        "image": {
+          "src": "/imgs/features/V20260623.png",
+          "alt": "MediaClaw Partner Program commission dashboard preview",
+          "width": 2654,
+          "height": 1738
+        },
+        "image_invert": {
+          "src": "/imgs/features/V20260623.png",
+          "alt": "MediaClaw Partner Program commission dashboard preview",
+          "width": 2654,
+          "height": 1738
+        },
+        "buttons": [
+          {
+            "title": "Join and Share",
+            "url": "/settings/referral",
+            "icon": "UserPlus"
+          }
+        ],
+        "tip": "No threshold, get your link by signing in"
+      },
+      "mechanism": {
+        "id": "mechanism",
+        "block": "features",
+        "title": "How it Works",
+        "description": "Three simple steps to passive income",
+        "items": [
+          {
+            "title": "1. Get Referral Link",
+            "description": "Generate your referral short link in the 'Settings - Partner Program' page.",
+            "icon": "Link"
+          },
+          {
+            "title": "2. Social Media Sharing",
+            "description": "Share your experience and the link on social platforms, blogs, or communities.",
+            "icon": "Share"
+          },
+          {
+            "title": "3. Get Cash Rewards",
+            "description": "Commission is credited when the referred user pays. Earn reliably with MediaClaw.",
+            "icon": "PiggyBank"
+          }
+        ]
+      },
+      "rules": {
+        "id": "rules",
+        "block": "faq",
+        "title": "Commission Rules",
+        "description": "Transparent rules to ensure every referral reward is processed accurately",
+        "items": []
+      },
+      "cta": {
+        "id": "cta",
+        "block": "cta",
+        "title": "Ready to Start Promoting?",
+        "description": "100+ creators and experts have joined our partner program.",
+        "buttons": [
+          {
+            "title": "Join Now",
+            "url": "/settings/referral",
+            "icon": "CheckCircle"
+          }
+        ]
+      }
+    }
+  }
+}

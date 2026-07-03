@@ -1,0 +1,756 @@
+{
+  "metadata": {
+    "title": "MediaClaw 社媒虾｜小红书/抖音数据采集、评论挖掘、竞品监控工具",
+    "description": "一站式小红书/抖音数据采集与 AI 运营平台：支持笔记/视频数据采集、评论采集与客资挖掘、赛道机会判断、找对标账号、长尾关键词洞察、竞品账号监控、无水印素材下载，并可导出 Excel/CSV/Markdown 或同步飞书。",
+    "keywords": "小红书数据采集, 小红书评论采集, 小红书客资挖掘, 小红书竞品监控, 小红书对标账号, 赛道机会判断, 抖音数据采集, 抖音评论采集, 抖音竞品监控, Markdown导出, 视频逐字稿, 配图文案, MediaClaw, 飞书同步"
+  },
+  "page": {
+    "show_sections": [
+      "hero",
+      "platforms",
+      "introduce",
+      "benefits",
+      "pricing",
+      "testimonials",
+      "faq",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "title": "小红书/抖音采集、赛道判断与对标监控一套搞定",
+        "highlight_text": "10倍提效",
+        "description": "覆盖小红书与抖音两大平台：笔记/视频采集、评论客资、赛道机会判断、找对标账号、长尾需求分析、竞品监控、Markdown 导出与飞书协同。采集后还能补齐配图文字和视频逐字稿，让素材更适合复盘和 AI 整理。",
+        "announcement": {
+          "badge": "V0.1.8 已更新",
+          "title": "新增 Markdown 导出、视频逐字稿和配图文字提取",
+          "url": "/updates"
+        },
+        "buttons": [
+          {
+            "title": "免费开始",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          }
+        ],
+        "show_avatars": false,
+        "avatars_tip": "",
+        "show_award": false,
+        "image": {
+          "src": "/imgs/features/1-v20260424.webp",
+          "alt": "MediaClaw 在小红书页面右侧弹出采集侧边栏，可一键提取笔记页、账号页、搜索页数据并进入数据池",
+          "width": 1200,
+          "height": 800
+        },
+        "image_invert": {
+          "src": "/imgs/features/1-v20260424.webp",
+          "alt": "MediaClaw 在小红书页面右侧弹出采集侧边栏，可一键提取笔记页、账号页、搜索页数据并进入数据池",
+          "width": 1200,
+          "height": 800
+        },
+        "background_image": {
+          "src": "",
+          "alt": ""
+        },
+        "video_title": "MediaClaw 5 分钟演示",
+        "video_poster": "/imgs/features/1-v20260424.webp",
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4"
+      },
+      "platforms": {
+        "id": "platforms",
+        "block": "feature-matrix",
+        "label": "双平台覆盖",
+        "title": "一个插件，同时覆盖",
+        "description": "不再分平台切换工具，统一采集、统一分析、统一协作。",
+        "columns": 2,
+        "className": "bg-secondary/20",
+        "items": [
+          {
+            "title": "小红书能力集",
+            "description": "笔记采集 · 评论采集 · 客资采集 · 赛道策略 · 找对标账号 · 竞品监控 · 去水印下载 · 配图文案/视频逐字稿 · Markdown 导出",
+            "icon": "BookOpen",
+            "url": "/xiaohongshu/scraper",
+            "target": "_self",
+            "image": {
+              "src": "/imgs/features/platform-xiaohongshu.webp",
+              "alt": "MediaClaw 小红书爆款笔记数据采集与运营增强插件功能概览"
+            }
+          },
+          {
+            "title": "抖音能力集",
+            "description": "视频采集 · 评论采集 · 搜索采集 · 赛道策略 · 找对标账号 · 竞品监控 · 视频逐字稿 · Markdown 导出",
+            "icon": "Clapperboard",
+            "url": "/douyin/scraper",
+            "target": "_self",
+            "image": {
+              "src": "/imgs/features/platform-douyin.webp",
+              "alt": "MediaClaw 抖音爆款短视频数据提取与客资获取插件概览"
+            }
+          }
+        ]
+      },
+      "introduce": {
+        "block": "features-tab",
+        "title": "不同角色，都能快速落地",
+        "description": "从内容运营到 MCN，再到创作者和分析师，都有可复用工作流。",
+        "items": [
+          {
+            "title": "运营：竞品内容分析",
+            "description": "每周一早上，运营要整理竞品爆款周报，以前靠截图+手动记录要花半天。现在先用赛道策略找出反复出现的对标账号，再用关键词搜索采集本周高互动内容，同步飞书后直接进入周报复盘。",
+            "icon": "Users",
+            "image": {
+              "src": "/imgs/features/7-v20260309.webp",
+              "alt": "内容运营使用 MediaClaw 根据点赞量、收藏量、评论量批量获取小红书竞品爆款笔记生成周报"
+            }
+          },
+          {
+            "title": "MCN：博主质量评估",
+            "description": "签约前要评估50个博主，逐个翻主页算互动率太慢。先从品类搜索里找出低粉高表现的候选账号，再用博主主页采集批量抓取历史内容，导出飞书做横向评估，投放决策从2天缩到2小时。",
+            "icon": "Rocket",
+            "image": {
+              "src": "/imgs/features/2-v20260309.webp",
+              "alt": "MCN 机构利用 mediaclaw 抓取账号主页数据、综合分析博主作品数据、批量评估小红书和抖音博主质量"
+            }
+          },
+          {
+            "title": "创作者：爆款内容拆解",
+            "description": "发了20篇还是没爆，不知道该继续打主词还是换方向。先跑赛道机会判断，看这个词值不值得做；再分析长尾需求和低粉爆款样本，下一篇不靠灵感硬猜。",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/features/3-v20260309.webp",
+              "alt": "自媒体创作者利用Mediaclaw抓取工具拆解同赛道高赞爆文提炼流量选题结构"
+            }
+          },
+          {
+            "title": "分析师：行业趋势研究",
+            "description": "客户要一份美妆趋势报告，数据全靠手动太不专业。用关键词搜索采集批量抓取「护肤」「成分党」等关键词下的高互动内容，再结合找对标账号和长尾需求分析，快速建立内容与账号样本库。",
+            "icon": "TrendingUp",
+            "image": {
+              "src": "/imgs/features/4-v20260309.webp",
+              "alt": "通过 MediaClaw 围绕核心行业搜索词批量寻找同行对标笔记并通过 AI 分析拓展长尾选题"
+            }
+          }
+        ],
+        "id": "scenarios"
+      },
+      "benefits": {
+        "block": "features-scroll",
+        "title": "核心能力与业务价值",
+        "description": "把采集、赛道策略、对标发现、监控、协作和诊断追踪合并到一个工作流里。",
+        "items": [
+          {
+            "title": "笔记/视频深度提取",
+            "description": "一键抓取标题、正文、互动数据、配图与视频信息，核心数据字段完整保留，便于后续分析复盘。",
+            "icon": "Database",
+            "image": {
+              "src": "/imgs/features/9-v20260424.webp",
+              "alt": "使用 MediaClaw 一键批量导出小红书笔记与抖音视频详细内容互动数据"
+            },
+            "button": {
+              "title": "了解笔记采集",
+              "url": "/xiaohongshu/scraper"
+            }
+          },
+          {
+            "title": "Markdown 导出与原数据补齐",
+            "description": "数据池可导出 Markdown；采集记录可补齐图文配图文字和视频逐字稿，结果进入复制、CSV/Markdown 导出和飞书同步。",
+            "icon": "FileText",
+            "image": {
+              "src": "/imgs/features/9-v20260424.webp",
+              "alt": "MediaClaw 将采集记录导出为 Markdown，并补齐图文配图文字和视频逐字稿"
+            },
+            "button": {
+              "title": "查看 V0.1.8 更新",
+              "url": "/updates"
+            }
+          },
+          {
+            "title": "博主主页批量采集",
+            "description": "批量拉取博主资料与历史内容，自动翻页采集，帮助你快速完成账号横向评估。",
+            "icon": "Users",
+            "image": {
+              "src": "/imgs/features/2-v20260309.webp",
+              "alt": "MediaClaw 博主主页全量历史内容自动化下拉收集与导出工具"
+            },
+            "button": {
+              "title": "了解主页采集",
+              "url": "/xiaohongshu/scraper"
+            }
+          },
+          {
+            "title": "评论采集与客资挖掘",
+            "description": "批量采集评论数据并筛选高意向词，快速定位潜在客户线索与高价值讨论主题。",
+            "icon": "MessageCircle",
+            "image": {
+              "src": "/imgs/features/10-v20260424.webp",
+              "alt": "小红书与抖音评论采集下载工具及高意向潜在客户意向词自动筛选"
+            },
+            "button": {
+              "title": "了解评论采集",
+              "url": "/xiaohongshu/comments"
+            }
+          },
+          {
+            "title": "赛道策略与关键词洞察",
+            "description": "在搜索页先判断主词机会，再自动发现对标账号，继续扩展长尾需求词并触发搜索结果采集。",
+            "icon": "Search",
+            "image": {
+              "src": "/imgs/features/11-v20260424.webp",
+              "alt": "MediaClaw 赛道策略在搜索页判断内容机会、寻找对标账号并拓展长尾选题"
+            },
+            "button": {
+              "title": "了解赛道策略",
+              "url": "/xiaohongshu/keywords"
+            }
+          },
+          {
+            "title": "竞品监控与内容预警",
+            "description": "订阅对标账号动态，自动监控内容更新和互动变化，命中规则后即时提醒，帮助团队持续追踪竞品策略变化。",
+            "icon": "Radar",
+            "image": {
+              "src": "/imgs/features/12-v20260424.webp",
+              "alt": "小红书与抖音竞争对手账号最新内容动态追踪与爆款内容自动化提醒设置"
+            },
+            "button": {
+              "title": "了解竞品监控",
+              "url": "/xiaohongshu/monitoring"
+            }
+          },
+          {
+            "title": "无水印素材下载",
+            "description": "支持图文与视频素材批量下载，方便后续做内容拆解、素材沉淀与复用。",
+            "icon": "Download",
+            "image": {
+              "src": "/imgs/features/13-v20260424.webp",
+              "alt": "小红书优质图文与超清短视频素材高清无水印一键批量下载器"
+            },
+            "button": {
+              "title": "了解素材下载",
+              "url": "/xiaohongshu/downloader"
+            }
+          },
+          {
+            "title": "采集增强与诊断追踪",
+            "description": "基础采集后可继续补采详情、账号指标、评论和客资；遇到采集不足或同步失败，可复制脱敏诊断信息定位具体阶段。",
+            "icon": "Activity",
+            "image": {
+              "src": "/imgs/features/1-v20260424.webp",
+              "alt": "MediaClaw 执行历史与复制诊断信息帮助定位采集数量不足、评论漏采和飞书同步失败"
+            },
+            "button": {
+              "title": "查看更新日志",
+              "url": "/updates"
+            }
+          },
+          {
+            "title": "飞书多维表同步与协作",
+            "description": "采集结果一键同步飞书多维表，团队成员实时共享，减少手工搬运与对齐成本。",
+            "icon": "Table2",
+            "image": {
+              "src": "/imgs/features/14-v20260424.webp",
+              "alt": "Mediaclaw 支持一键将获取的小红书抖音详细数据同步向飞书多维表格实现团队在线云协作"
+            },
+            "button": {
+              "title": "了解飞书协作",
+              "url": "/features/feishu-integration"
+            }
+          }
+        ],
+        "id": "features"
+      },
+      "pricing": {
+        "id": "pricing",
+        "block": "pricing",
+        "title": "选择方案",
+        "description": "核心采集功能永久免费，按需升级解锁高级功能",
+        "groups": [
+          {
+            "name": "month",
+            "title": "月付",
+            "label": "灵活"
+          },
+          {
+            "name": "monthly",
+            "title": "季付"
+          },
+          {
+            "name": "yearly",
+            "title": "年付",
+            "is_featured": true,
+            "label": "立省30%"
+          },
+          {
+            "name": "credits",
+            "title": "积分包"
+          }
+        ],
+        "items": [
+          {
+            "title": "免费版",
+            "description": "适合个人用户，偶尔使用",
+            "features_title": "包含",
+            "features": [
+              "单篇笔记/视频深度采集，适合逐条保存高价值内容",
+              "支持搜索页、账号页基础列表采集",
+              "本地数据池保存，支持 CSV，Markdown导出",
+              "支持无水印图片、视频、音频下载",
+              "单浏览器设备使用"
+            ],
+            "interval": "one-time",
+            "amount": 0,
+            "currency": "CNY",
+            "price": "¥0",
+            "unit": "/ 月",
+            "is_featured": false,
+            "button": {
+              "title": "免费安装插件",
+              "url": "/download",
+              "target": "_blank",
+              "icon": "Download"
+            },
+            "product_id": "free",
+            "product_name": "MediaClaw 免费版",
+            "group": "month"
+          },
+          {
+            "title": "个人版",
+            "description": "适合持续做选题、采集、筛选和复盘",
+            "label": "最受欢迎",
+            "features_title": "包含免费版全部能力，再加：",
+            "features": [
+              "解锁采集增强：批量补全正文、标签、互动、附件媒体等详情数据内容",
+              "支持评论、博主指标、低粉爆款和客资线索筛选",
+              "数据同步飞书多维表格，沉淀选题和内容库",
+              "含 180 AI 积分，用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "单浏览器设备使用"
+            ],
+            "interval": "one-time",
+            "amount": 4900,
+            "currency": "CNY",
+            "credits": 180,
+            "valid_days": 30,
+            "price": "¥49",
+            "unit": "/ 月",
+            "is_featured": true,
+            "is_popular": true,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "选择购买",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "pro-1m",
+            "product_name": "MediaClaw 个人版月付",
+            "group": "month"
+          },
+          {
+            "title": "团队版",
+            "description": "适合团队共用数据、多人协作和持续监控",
+            "features_title": "包含个人版全部能力",
+            "features": [
+              "含 700 AI 积分，适合持续监控对标，选题和团队 AI 分析",
+              "支持多人数据同步一个飞书多维表格",
+              "适合内容团队、MCN、品牌投放和运营小组共用",
+              "支持 3 个浏览器设备同时使用"
+            ],
+            "interval": "one-time",
+            "amount": 12900,
+            "currency": "CNY",
+            "credits": 700,
+            "valid_days": 30,
+            "price": "¥129",
+            "unit": "/ 月",
+            "is_featured": false,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "选择购买",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "team-1m",
+            "product_name": "MediaClaw 团队版月付",
+            "group": "month"
+          },
+          {
+            "title": "免费版",
+            "description": "适合个人用户，偶尔使用",
+            "features_title": "包含",
+            "features": [
+              "单篇笔记/视频深度采集，适合逐条保存高价值内容",
+              "支持搜索页、账号页基础列表采集",
+              "本地数据池保存，支持 CSV，Markdown导出",
+              "支持无水印图片、视频、音频下载",
+              "单浏览器设备使用"
+            ],
+            "interval": "one-time",
+            "amount": 0,
+            "currency": "CNY",
+            "price": "¥0",
+            "unit": "/ 季",
+            "is_featured": false,
+            "button": {
+              "title": "免费安装插件",
+              "url": "/download",
+              "target": "_blank",
+              "icon": "Download"
+            },
+            "product_id": "free",
+            "product_name": "MediaClaw 免费版",
+            "group": "monthly"
+          },
+          {
+            "title": "个人版",
+            "description": "适合持续做选题、采集、筛选和复盘",
+            "label": "推荐",
+            "features_title": "包含免费版全部能力，再加：",
+            "features": [
+              "解锁采集增强：批量补全正文、标签、互动、附件媒体等详情数据内容",
+              "支持评论、博主指标、低粉爆款和客资线索筛选",
+              "数据同步飞书多维表格，沉淀选题和内容库",
+              "含 600 AI 积分，用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "单浏览器设备使用"
+            ],
+            "interval": "one-time",
+            "amount": 11800,
+            "currency": "CNY",
+            "credits": 600,
+            "valid_days": 90,
+            "price": "¥118",
+            "unit": "/ 季",
+            "is_featured": true,
+            "is_popular": true,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "选择购买",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "pro-monthly",
+            "product_name": "MediaClaw 个人版季付",
+            "group": "monthly"
+          },
+          {
+            "title": "团队版",
+            "description": "适合团队共用数据、多人协作和持续监控",
+            "features_title": "包含个人版全部能力",
+            "features": [
+              "含 2000 AI 积分，适合持续监控对标，选题和团队 AI 分析",
+              "支持多人数据同步一个飞书多维表格",
+              "适合内容团队、MCN、品牌投放和运营小组共用",
+              "支持 3 个浏览器设备同时使用"
+            ],
+            "interval": "one-time",
+            "amount": 31800,
+            "currency": "CNY",
+            "credits": 2000,
+            "valid_days": 90,
+            "price": "¥318",
+            "unit": "/ 季",
+            "is_featured": false,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "选择购买",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "team-monthly",
+            "product_name": "MediaClaw 团队版季付",
+            "group": "monthly"
+          },
+          {
+            "title": "免费版",
+            "description": "适合个人用户，偶尔使用",
+            "features_title": "包含",
+            "features": [
+              "单篇笔记/视频深度采集，适合逐条保存高价值内容",
+              "支持搜索页、账号页基础列表采集",
+              "本地数据池保存，支持 CSV，Markdown导出",
+              "支持无水印图片、视频、音频下载",
+              "单浏览器设备使用"
+            ],
+            "interval": "year",
+            "amount": 0,
+            "currency": "CNY",
+            "price": "¥0",
+            "unit": "/ 年",
+            "is_featured": false,
+            "button": {
+              "title": "免费安装插件",
+              "url": "/download",
+              "target": "_blank",
+              "icon": "Download"
+            },
+            "product_id": "free",
+            "product_name": "MediaClaw 免费版",
+            "group": "yearly"
+          },
+          {
+            "title": "个人版",
+            "description": "适合持续做选题、采集、筛选和复盘",
+            "label": "推荐",
+            "features_title": "包含免费版全部能力，再加：",
+            "features": [
+              "解锁采集增强：批量补全正文、标签、互动、附件媒体等详情数据内容",
+              "支持评论、博主指标、低粉爆款和客资线索筛选",
+              "数据同步飞书多维表格，沉淀选题和内容库",
+              "含 2500 AI 积分，用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "单浏览器设备使用"
+            ],
+            "interval": "one-time",
+            "amount": 39900,
+            "currency": "CNY",
+            "credits": 2500,
+            "valid_days": 365,
+            "price": "¥399",
+            "original_price": "¥588",
+            "unit": "/ 年",
+            "is_featured": true,
+            "is_popular": true,
+            "tip": "年付立省 ¥189",
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "选择购买",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "pro-yearly",
+            "product_name": "MediaClaw 个人版年付",
+            "group": "yearly"
+          },
+          {
+            "title": "团队版",
+            "description": "适合团队共用数据、多人协作和持续监控",
+            "features_title": "包含个人版全部能力",
+            "features": [
+              "含 9000 AI 积分，适合持续监控对标，选题和团队 AI 分析",
+              "支持多人数据同步一个飞书多维表格",
+              "适合内容团队、MCN、品牌投放和运营小组共用",
+              "支持 3 个浏览器设备同时使用"
+            ],
+            "interval": "one-time",
+            "amount": 108800,
+            "currency": "CNY",
+            "credits": 9000,
+            "valid_days": 365,
+            "price": "¥1088",
+            "original_price": "¥1548",
+            "unit": "/ 年",
+            "is_featured": false,
+            "tip": "年付立省 ¥460",
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "选择购买",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "team-yearly",
+            "product_name": "MediaClaw 团队版年付",
+            "group": "yearly"
+          },
+          {
+            "title": "紧急补量积分包",
+            "description": "适合临时增加 AI 分析和监控额度",
+            "label": "最受欢迎",
+            "features_title": "包含",
+            "features": [
+              "1000 AI 积分",
+              "用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "适合短期活动、临时多跑几次分析或监控任务",
+              "仅用于已有正式会员补充积分，不单独解锁会员功能",
+              "不延长插件使用期；会员过期后积分冻结不清零，续费后可继续使用"
+            ],
+            "interval": "one-time",
+            "amount": 2900,
+            "currency": "CNY",
+            "credits": 1000,
+            "valid_days": 0,
+            "price": "¥29",
+            "unit": "",
+            "is_featured": true,
+            "is_popular": true,
+            "button": {
+              "title": "购买积分",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Coins"
+            },
+            "product_id": "credits-emergency-150",
+            "product_name": "MediaClaw 紧急补量积分包",
+            "group": "credits"
+          },
+          {
+            "title": "创作者常用包",
+            "description": "适合个人持续做选题、逐字稿和二创分析",
+            "features_title": "包含",
+            "features": [
+              "3000 AI 积分",
+              "用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "适合个人账号持续复盘内容、分析选题和处理素材",
+              "仅用于已有正式会员补充积分，不单独解锁会员功能",
+              "不延长插件使用期；会员过期后积分冻结不清零，续费后可继续使用"
+            ],
+            "interval": "one-time",
+            "amount": 7900,
+            "currency": "CNY",
+            "credits": 3000,
+            "valid_days": 0,
+            "price": "¥79",
+            "unit": "",
+            "is_featured": false,
+            "button": {
+              "title": "购买积分",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Coins"
+            },
+            "product_id": "credits-creator-600",
+            "product_name": "MediaClaw 创作者常用包",
+            "group": "credits"
+          },
+          {
+            "title": "多内容线团队包",
+            "description": "适合团队高频监控、批量分析和多项目复盘",
+            "label": "高容量",
+            "features_title": "包含",
+            "features": [
+              "15000 AI 积分",
+              "用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "适合多账号、多项目、多成员持续消耗积分的团队场景",
+              "仅用于已有正式会员补充积分，不单独解锁会员功能",
+              "不延长插件使用期；会员过期后积分冻结不清零，续费后可继续使用"
+            ],
+            "interval": "one-time",
+            "amount": 36000,
+            "currency": "CNY",
+            "credits": 15000,
+            "valid_days": 0,
+            "price": "¥360",
+            "unit": "",
+            "is_featured": false,
+            "button": {
+              "title": "购买积分",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Coins"
+            },
+            "product_id": "credits-team-3000",
+            "product_name": "MediaClaw 多内容线团队包",
+            "group": "credits"
+          }
+        ]
+      },
+      "testimonials": {
+        "id": "testimonials",
+        "block": "testimonials",
+        "title": "用户怎么说",
+        "description": "来自真实用户的一线反馈。",
+        "items": [
+          {
+            "name": "Dayou",
+            "role": "MCN团队运营",
+            "quote": "我平时是做内容流量的，之前靠扣子工作流蛮多人在小红书抖音推，你这个产品比之前的好用太多了。",
+            "image": {
+              "src": "/logo.png",
+              "alt": "MediaClaw 真实用户（MCN 团队内容运营）的产品对比评价"
+            }
+          },
+          {
+            "name": "liberté",
+            "role": "文旅自媒体操盘手",
+            "quote": "我试了好方便！比以前配置容易很多。",
+            "image": {
+              "src": "/logo.png",
+              "alt": "MediaClaw 真实用户（文旅项目自媒体操盘）的易用性评价"
+            }
+          },
+          {
+            "name": "诗诗",
+            "role": "副业-营养师",
+            "quote": "太好用了！我已经夸了一上午了哈哈哈哈。",
+            "image": {
+              "src": "/logo.png",
+              "alt": "MediaClaw 真实用户（副业是营养师自媒体）的易用性评价"
+            }
+          },
+          {
+            "name": "木一",
+            "role": "教培行业自媒体矩阵运营",
+            "quote": "哇这个好好用啊，正是我需要的！感觉快成功了哈哈哈",
+            "image": {
+              "src": "/logo.png",
+              "alt": "MediaClaw 真实用户（教培行业自媒体矩阵运营）的需求匹配评价"
+            }
+          },
+          {
+            "name": "Jane",
+            "role": "新媒体从业者",
+            "quote": "真的很好上手哎！现在的功能挺不错，用得好爽。",
+            "image": {
+              "src": "/logo.png",
+              "alt": "MediaClaw 真实用户（新媒体从业者）的上手体验评价"
+            }
+          },
+          {
+            "name": "ZSJ",
+            "role": "品牌运营",
+            "quote": "用上了挺好的，怎么续费。",
+            "image": {
+              "src": "/logo.png",
+              "alt": "MediaClaw 真实用户（品牌运营）的效率提升评价"
+            }
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "title": "常见问题",
+        "description": "你最关心的问题，这里一次说清。",
+        "items": [
+          {
+            "question": "使用 MediaClaw 采集数据，平台会检测到吗？",
+            "answer": "MediaClaw 做的事，本质上和你手动刷小红书一样：打开页面、向下滚动、记录看到的内容。不同的是它比你手速快一点，但我们故意加入了随机延迟让它「慢下来」，模拟真实的人类浏览节奏。平台风控针对的是机械式高频请求，而不是正常浏览行为。合理使用 MediaClaw，账号安全有保障。"
+          },
+          {
+            "question": "我不懂技术，上手难吗？",
+            "answer": "不需要任何技术背景。安装插件后打开小红书，侧边栏自动出现，根据当前页面显示对应操作：点击「开始采集」，等进度条结束就完成了。整个流程不需要写代码、不需要配置 API，5分钟内可以完成第一次采集。"
+          },
+          {
+            "question": "采集的数据存储在哪里？",
+            "answer": "默认存储在 Chrome 浏览器的本地存储，不会上传到任何第三方服务器，注重隐私。如果你主动操作选择了\"同步到飞书\"，数据将点对点发送给你的私人飞书多维表格。"
+          },
+          {
+            "question": "目前支持哪些平台？",
+            "answer": "当前已支持小红书与抖音双平台，覆盖笔记/视频采集、评论客资、赛道机会判断、找对标账号、关键词洞察与竞品监控等能力。"
+          },
+          {
+            "question": "MediaClaw 可以免费使用吗？",
+            "answer": "可以，永久免费使用核心采集功能。免费版支持完整的数据采集流程：抓笔记、采博主作品、关键词笔记，采集结果存本地、随时导出 CSV，个人使用完全足够。当你开始需要账号监控、团队协作、判断赛道机会、找对标账号或插件内 AI 能力，再考虑升级。付费解锁的是效率的下一个量级，不是基础功能的门槛。"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": " 无论是谁，皆可提效",
+        "description": "免费安装 MediaClaw，先跑通你的第一套数据工作流。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

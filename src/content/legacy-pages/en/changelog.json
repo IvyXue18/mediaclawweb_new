@@ -1,0 +1,247 @@
+{
+  "metadata": {
+    "title": "MediaClaw Changelog — Product Updates & Improvements",
+    "description": "Track recent MediaClaw releases, new features, and performance improvements.",
+    "keywords": "MediaClaw changelog, product updates, feature releases, version history, improvement logs"
+  },
+  "page": {
+    "title": "MediaClaw Changelog",
+    "description": "Track recent MediaClaw releases and capability updates.",
+    "show_sections": ["hero", "timeline", "cta"],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Product Updates",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Resources",
+            "url": "/blog"
+          },
+          {
+            "title": "Changelog"
+          }
+        ],
+        "title": "MediaClaw Changelog",
+        "description": "Track product releases, capability upgrades, and UX improvements to stay up to date with every iteration.",
+        "buttons": [
+          {
+            "title": "Install Extension",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4"
+      },
+      "timeline": {
+        "id": "timeline",
+        "block": "timeline",
+        "title": "Release Timeline",
+        "description": "Key capabilities from recent releases.",
+        "items": [
+          {
+            "version": "0.1.8",
+            "date": "2026-06-20",
+            "title": "Markdown Export, Video Transcripts, and Image Text Extraction",
+            "description": "Added Markdown export, video transcript extraction, image text extraction for image posts, and comment time fields in comment exports.",
+            "tags": [
+              "Markdown Export",
+              "Video Transcripts",
+              "Image Text",
+              "Comment Time"
+            ],
+            "highlights": [
+              "Added Markdown export, making it easier to save collected records into local knowledge bases such as Obsidian and continue organizing them for AI-assisted workflows.",
+              "Added video transcripts and image text extraction: video notes can extract transcripts, and image posts can extract text from attached images, so completed text can be copied, exported, or synced from collected records.",
+              "Comment data exports now include a comment time field, making it easier to review feedback chronologically and filter important comments or leads."
+            ]
+          },
+          {
+            "version": "0.1.7",
+            "date": "2026-06-13",
+            "title": "Keyword Public Opinion Scan and Welfare Center",
+            "description": "Added keyword public opinion scan and the welfare center, with better large-batch sync, account monitoring, keyword analysis, and Douyin image-post collection stability.",
+            "tags": [
+              "Public Opinion Scan",
+              "Welfare Center",
+              "Sync Stability",
+              "Account Monitoring",
+              "Douyin"
+            ],
+            "highlights": [
+              "Added keyword public opinion scan: scan content samples from a search page to understand trends, topic directions, sentiment risks, user needs, product signals, and action ideas.",
+              "Added the welfare center: users who complete channel surveys or product feedback tasks can receive membership time and credit rewards.",
+              "Sync and feedback are more stable: large-batch data sync is steadier, completed content is preserved as much as possible when issues happen, and failure reasons are easier to understand.",
+              "Account monitoring and keyword analysis are more stable: account monitoring now gives a scan summary even when no viral content is found, and keyword analysis works better with long content.",
+              "Douyin batch collection stability improved: image-post batch collection is steadier."
+            ]
+          },
+          {
+            "version": "0.1.5",
+            "date": "2026-06-04",
+            "title": "Competitor Account Finder, Diagnostics Copy, and Scraping Stability Updates",
+            "description": "Added competitor account discovery and diagnostics copying, while improving Xiaohongshu suggestions, Douyin like filtering, search titles, comment collection, and failure traceability.",
+            "tags": [
+              "Competitor Accounts",
+              "Diagnostics",
+              "Xiaohongshu",
+              "Douyin",
+              "Scraping Stability"
+            ],
+            "highlights": [
+              "Added competitor account discovery on search pages: niche strategy workflows can identify repeatedly appearing high-performing accounts, enrich creator profile information, and generate recommendation reasons.",
+              "Added diagnostics copying from execution details, allowing sanitized operation logs and error details to be copied when scraping fails, counts are low, or sync behaves unexpectedly.",
+              "Fixed unstable Xiaohongshu suggestion collection by adapting to the new search page and AI search page, reducing missing, empty, or incorrectly parsed suggestions.",
+              "Fixed Douyin creator profile like filtering, search result title recognition, and comment collection gaps.",
+              "Improved diagnostics for low collection counts and added failure protection for batch sync to Lark."
+            ]
+          },
+          {
+            "version": "0.1.4",
+            "date": "2026-05-26",
+            "title": "Full Douyin Image-Post Scraping & Major Comment Collection Improvement",
+            "description": "Added full scraping support for Douyin image posts including content, comments, leads, and attachments. Significantly improved comment collection success rate across image detail pages, video detail pages, and recommendation feeds.",
+            "tags": ["Douyin", "Image Posts", "Comment Scraping", "Leads"],
+            "highlights": [
+              "Added Douyin image post scraping for content, comments, leads, and attachments, with optimized handling for image-type posts.",
+              "Significantly improved Douyin comment collection success rate by adapting to different page types — image detail pages, video detail pages, and recommendation feeds — fixing issues where comments were missing or empty."
+            ]
+          },
+          {
+            "version": "0.1.3",
+            "date": "2026-05-20",
+            "title": "Keyword Opportunity Analysis & Improved Keyword Strategy Workflow",
+            "description": "Added keyword opportunity analysis on search pages for quick content heat and topic distribution assessment, improved transition from seed keyword to long-tail analysis, and fixed note recognition and CSV export issues.",
+            "tags": [
+              "Keyword Opportunity",
+              "Keyword Strategy",
+              "Long-tail Analysis",
+              "CSV Export"
+            ],
+            "highlights": [
+              "Added keyword opportunity analysis: quickly assess content heat and topic distribution on search pages to identify the best content angles for a given keyword.",
+              "Improved the transition from seed keyword analysis to long-tail analysis for a smoother drill-down workflow.",
+              "Added first-install risk reminder to help users manage scraping frequency safely.",
+              "Fixed inaccurate Xiaohongshu note content recognition, improving note sync accuracy and reducing missing or misclassified content.",
+              "Fixed incomplete CSV export fields — full post body, audio/video links, and other fields are now included."
+            ]
+          },
+          {
+            "version": "0.1.2",
+            "date": "2026-05-15",
+            "title": "Douyin Attachment Downloads, Favorites/Likes Scraping & AI Rewrite",
+            "description": "Added Douyin attachment downloads and favorites/likes scraping, Lark Base template AI rewriting, and improved monitoring schedule settings.",
+            "tags": [
+              "Douyin",
+              "Xiaohongshu",
+              "Attachment Download",
+              "AI Rewrite",
+              "Favorites/Likes"
+            ],
+            "highlights": [
+              "Added Douyin post attachment downloads for cover images, videos, and audio files.",
+              "Added favorites and likes tab scraping on Xiaohongshu and Douyin creator profile pages.",
+              "Added AI rewrite capability to Lark Base templates: deconstructs title formulas and content structure, rewrites from different angles, and derives follow-up topic ideas from comments.",
+              "Changed monitoring scan schedule to hourly time slots with a dropdown picker for more intuitive configuration.",
+              "Fixed Xiaohongshu video playback issue where some posts showed a black screen despite successful attachment downloads."
+            ]
+          },
+          {
+            "version": "0.1.1",
+            "date": "2026-04-29",
+            "title": "Creator Profile Filtering, Version Notifications, and Edge Compatibility",
+            "description": "Added topic keyword filtering on creator profile note lists, version update notifications, and Microsoft Edge compatibility improvements.",
+            "tags": [
+              "Creator Profile",
+              "Topic Filtering",
+              "Version Notification",
+              "Microsoft Edge"
+            ],
+            "highlights": [
+              "Creator profile note lists now support filtering by content topic keywords, making target notes easier to locate.",
+              "Added version update notifications to remind users when a new version is available and guide them to release details.",
+              "Improved extension compatibility and user experience in Microsoft Edge."
+            ]
+          },
+          {
+            "version": "0.1.0",
+            "date": "2026-04-12",
+            "title": "Continuous Scraping & Topic Insight Upgrade",
+            "description": "Upgraded continuous scraping workflows and improved low-follower viral content filtering with AI topic insight.",
+            "tags": [
+              "Xiaohongshu",
+              "Douyin",
+              "Continuous Scraping",
+              "AI Topics"
+            ],
+            "highlights": [
+              "Added continuous scraping with batch inputs for post URLs, creator profile URLs, and keywords.",
+              "Added low-follower viral post filtering on Douyin and Xiaohongshu search pages.",
+              "Added query suggestion expansion and AI topic sub-direction insights for Xiaohongshu and Douyin."
+            ],
+            "note": "Please control collection volume and frequency to avoid triggering risk-control checks."
+          },
+          {
+            "version": "0.0.9",
+            "date": "2026-04-01",
+            "title": "Douyin Batch Scraping, Monitoring Digest, and Monetization Release",
+            "description": "Expanded Douyin batch scraping and comment-lead capabilities, while launching monitoring digests and referral monetization.",
+            "tags": ["Douyin", "Xiaohongshu", "Lark Digest", "Referral"],
+            "highlights": [
+              "Added batch scraping for Douyin single video pages, creator profile pages, and keyword search pages.",
+              "Added Douyin batch comment collection for lead filtering.",
+              "Added Douyin and Xiaohongshu competitor monitoring with daily insight digests pushed to Lark and matched records written to monitoring tables.",
+              "Launched website purchase/renewal flow (currently Alipay only, WeChat support coming later).",
+              "Launched referral program: 30% first-order commission, 5% renewal commission, and 10% first-purchase discount for invitees."
+            ],
+            "note": "Douyin batch scraping currently does not support downloading original image/video attachments."
+          },
+          {
+            "version": "0.0.7",
+            "date": "2026-03-12",
+            "title": "Xiaohongshu Creator Profile Enrichment & Comment Lead Filtering",
+            "description": "Connected post-to-creator profile enrichment and added comment lead filtering and export workflows.",
+            "tags": [
+              "Xiaohongshu",
+              "Creator Profile",
+              "Comment Leads",
+              "Export"
+            ],
+            "highlights": [
+              "Supported opening creator profiles from posts and collecting follower count, engagement metrics, and account attributes merged back into each post record.",
+              "Supported comment lead filtering: merge into post-level analysis or export as a standalone lead table (including profile URL and user ID)."
+            ]
+          },
+          {
+            "version": "0.0.6",
+            "date": "2026-03-10",
+            "title": "Xiaohongshu Batch Backfill & Filtering Upgrade",
+            "description": "Upgraded Xiaohongshu keyword and creator post backfill workflow, with new filtering by comment and save counts.",
+            "tags": ["Xiaohongshu", "Batch Backfill", "Keywords", "Filtering"],
+            "highlights": [
+              "Supported batch detail backfill for creator posts and keyword post lists.",
+              "Added filtering by comment count and save count on keyword result pages."
+            ]
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "block": "cta",
+        "title": "Ready to try the newest capabilities?",
+        "description": "Install MediaClaw and start your content growth workflow.",
+        "buttons": [
+          {
+            "title": "Download Now",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ]
+      }
+    }
+  }
+}

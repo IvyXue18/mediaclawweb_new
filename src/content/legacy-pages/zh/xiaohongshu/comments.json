@@ -1,0 +1,238 @@
+{
+  "metadata": {
+    "title": "小红书评论采集工具_批量采集评论数据并一键导出Excel | MediaClaw",
+    "description": "MediaClaw 是一款免费的小红书评论采集插件，支持批量采集评论数据、用户昵称、点赞数与主页链接，一键导出 Excel/CSV，并通过 AI 做评论挖掘、需求分析与选题洞察。",
+    "keywords": "小红书评论采集, 小红书评论数据采集, 批量采集小红书评论, 小红书评论导出Excel, 评论挖掘, 评论数据分析, 免费小红书插件"
+  },
+  "page": {
+    "title": "小红书评论采集",
+    "show_sections": [
+      "hero",
+      "modes",
+      "outputs",
+      "scenarios",
+      "compare",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "小红书评论采集与评论挖掘工具",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "小红书"
+          },
+          {
+            "title": "评论采集"
+          }
+        ],
+        "title": "批量采集小红书评论数据并导出 Excel",
+        "description": "无需代码基础，自动滚动采集笔记评论区数据，一键导出为 Excel / CSV，并支持 AI 做评论挖掘、需求分析与选题洞察",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "下载小红书样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=137,173"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "评论区批量采集",
+            "description": "安装浏览器插件后，一键自动滚动加载并采集笔记评论区。精准抓取评论内容、点赞数、评论时间、用户昵称与主页链接，释放双手，高效获取海量用户反馈。",
+            "icon": "MessageCircle",
+            "image": {
+              "src": "/imgs/features/16-v20260424.webp",
+              "alt": "MediaClaw 小红书评论采集面板批量抓取评论内容与用户字段"
+            },
+            "button": {
+              "title": "免费安装插件",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "评论数据免费一键导出 Excel",
+            "description": "将全量评论数据一键导出为 Excel / CSV 文件格式。结构化的数据字段完美适配你的数据分析、舆情监测和内容复盘工作流，更支持一键同步至飞书多维表格进行团队协作和 AI 洞察分析。",
+            "icon": "FileSpreadsheet",
+            "image": {
+              "src": "/imgs/features/1-v20260513.png",
+              "alt": "MediaClaw 小红书评论全量数据导出并支持飞书同步协作"
+            },
+            "button": {
+              "title": "免费安装插件",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "AI 评论挖掘与需求洞察",
+            "description": "结合大模型分析全量评论，一键解锁三大洞察：① 需求结构化分析（提炼真实痛点与高频诉求）；② 潜力选题挖掘（反推自带切入点与目标受众的爆款标题）；③ 评论精准溯源（提取引发共鸣的原始金句）。让每一条真实反馈都成为你下一篇笔记的灵感弹药库。",
+            "icon": "Brain",
+            "image": {
+              "src": "/imgs/features/16-v20260425.webp",
+              "alt": "MediaClaw AI 从评论中提炼高频需求词和选题建议"
+            },
+            "button": {
+              "title": "免费安装插件",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "评论采集的典型场景",
+        "columns": [
+          {
+            "key": "role",
+            "title": "人群"
+          },
+          {
+            "key": "scene",
+            "title": "典型场景"
+          },
+          {
+            "key": "effect",
+            "title": "效果"
+          }
+        ],
+        "rows": [
+          {
+            "role": "内容运营",
+            "scene": "从评论提取真实需求，反推后续选题",
+            "effect": "选题更贴近用户表达，降低内容试错成本"
+          },
+          {
+            "role": "数据分析师",
+            "scene": "基于评论语料做情感与需求词频分析",
+            "effect": "形成可视化需求地图与优先级建议"
+          },
+          {
+            "role": "品牌运营",
+            "scene": "监测自家和竞品笔记的用户反馈与口碑",
+            "effect": "及时发现产品问题和用户关注点"
+          },
+          {
+            "role": "市场调研",
+            "scene": "批量采集行业热门笔记评论做用户画像",
+            "effect": "快速了解目标人群的真实需求与偏好"
+          },
+          {
+            "role": "个人创作者",
+            "scene": "分析自己笔记评论区的互动质量",
+            "effect": "优化内容策略，提升粉丝粘性"
+          },
+          {
+            "role": "公关 / 舆情",
+            "scene": "持续监测品牌相关笔记的评论舆论走向",
+            "effect": "第一时间发现负面评论并做出响应"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "为什么需要采集小红书评论？从评论区能获得什么好处？",
+            "answer": "评论区是用户最真实的声音。通过采集评论，你可以挖掘用户的真实痛点、高频疑问和隐藏需求。这不仅能帮你反推后续的高爆款概率选题，还能用于监测竞品口碑、发现产品改进点。对商家而言，评论区更是高意向潜在客户的聚集地。"
+          },
+          {
+            "question": "如何使用工具批量采集小红书评论？怎么做？",
+            "answer": "无需懂任何代码。免费安装 MediaClaw 浏览器插件后，在电脑端打开任意小红书笔记页面，点击插件面板上的“采集评论”按钮，系统就会自动为你向下滚动页面并抓取所有的评论内容、点赞数等数据，随后一键导出为 Excel 或 CSV。"
+          },
+          {
+            "question": "这款评论采集工具是免费的吗？免费能用到什么程度？",
+            "answer": "是的，基础的采集和导出功能是完全免费的！免费版本无限制采集单篇笔记的评论，支持自动向下滚动并导出完整数据。绝大多数的日常内容分析和竞品调研需求，都可以通过免费版本完全满足。"
+          },
+          {
+            "question": "一次可以采集多少条评论？是越多越好吗？",
+            "answer": "MediaClaw 能够一次性抓取数百上千条评论。但从数据分析的角度来看，并不建议盲目追求“越多越好”。通常，采集前面 200-300 条具有代表性的高赞和近期评论，其样本量就已经完全足够用于 AI 需求洞察和情感分析了。精准的样本比庞杂的噪音更有价值。"
+          },
+          {
+            "question": "采集的评论数据可以用于什么商业目的？",
+            "answer": "用户评论包含了最直接的产品反馈、使用场景和痛点需求，是极具商业价值的数据资产。你可以利用这些数据做：① 竞品口碑监测（了解用户如何评价同类产品）；② 潜在客户挖掘（高意向评论可直接用于销售转化）；③ 产品改进决策（基于真实反馈优化功能和体验）；④ 内容选题反推（将用户痛点转化为高点击率选题）。"
+          },
+          {
+            "question": "采集的评论数据可以同步到飞书多维表格进行协作吗？",
+            "answer": "是的，MediaClaw 支持将采集的评论数据一键同步至飞书多维表格。同步后，你可以和团队成员在一个熟悉的协作环境中进行数据分析、标注、分工跟进等操作，极大地提升了内容运营和市场调研的协作效率。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "继续完善你的小红书内容创作工作流",
+        "links": [
+          {
+            "title": "小红书客资采集",
+            "description": "用关键词模板自动过滤高意向评论，导出可跟进客资名单。",
+            "url": "/xiaohongshu/leads",
+            "icon": "UserCheck"
+          },
+          {
+            "title": "小红书笔记采集",
+            "description": "一键采集小红书笔记，支持主页/评论/关键词笔记批量抓取，快速建立可复用内容库。",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "小红书关键词洞察",
+            "description": "输入核心业务关键词，裂变 200+长尾词，聚类快速锁定选题方向。",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "小红书竞品监控",
+            "description": "订阅对标账号，一旦内容更新，自动推送飞书提醒。",
+            "url": "/xiaohongshu/monitoring",
+            "icon": "Radar"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "评论数据一键采集，评论需求立即挖掘",
+        "description": "免费安装 MediaClaw，轻松采集小红书评论区全量数据，并把评论挖掘结果直接用于内容分析和运营决策。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "下载小红书样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

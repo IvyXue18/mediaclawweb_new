@@ -1,0 +1,24 @@
+{
+  "metadata": {
+    "title": "MediaClaw 博客 — 小红书抖音运营实战指南与案例分享",
+    "description": "深度解析小红书与抖音内容运营技巧、数据采集实战案例、爆款拆解方法与团队协作最佳实践，帮助你快速提升内容运营效率。",
+    "keywords": "MediaClaw博客, 小红书运营, 抖音营销, 数据采集教程, 自媒体增长, 实战案例, 爆款拆解"
+  },
+  "page": {
+    "title": "MediaClaw 博客",
+    "sections": {
+      "blog": {
+        "id": "blog",
+        "title": "博客",
+        "description": "阅读我们最新的产品功能、方案和更新内容。"
+      }
+    }
+  },
+  "messages": {
+    "all": "全部",
+    "no_content": "暂无内容",
+    "crumb": "博客",
+    "toc": "目录",
+    "related_posts": "相关文章"
+  }
+}

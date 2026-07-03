@@ -1,0 +1,125 @@
+export const meta = {
+  title:
+    'Reviewing Influencer Campaign Feedback: Bulk Export Xiaohongshu (RedNote) Comments Across Posts',
+  description:
+    'Ran a multi-post Xiaohongshu seeding campaign but unsure what users really thought? Bulk export your comment data for free, consolidate it into one Feishu (Lark) Base, and run cross-post analysis to surface the issues your campaign has in common.',
+  created_at: '2026-06-12',
+  author_name: 'MediaClaw Team',
+  author_image: '/logo.png',
+  image:
+    'https://media.mediaclaw.app/blog-covers/c3b96151fe61b047405de1f9ccc34859.webp',
+  tags: [
+    'Xiaohongshu',
+    'comment scraper',
+    'campaign review',
+    'content operations',
+    'influencer seeding',
+  ],
+};
+
+Once a round of Xiaohongshu (RedNote) seeding posts wraps up, how do you bulk export the comments from every post and analyze them together? Brands usually track impressions, engagement rate, final conversions, and the audience sentiment reflected in the comments—but this post isn't about those aggregate metrics. It's about something that's far easier to overlook: the specific, granular feedback buried in each comment section.
+
+One post can pull 200 comments; ten posts gives you two thousand. Reading them one post at a time by hand is hopeless, and the bigger problem is this—after one post you think "users seem to care about efficacy," after the next you think "price is the issue," and on a third someone is asking about a competitor. From a single-post view, it's almost impossible to tell which signal is a shared, recurring problem and which is just a one-off reaction.
+
+The right move is to merge the comments from all your posts into one place _first_, then analyze.
+
+## Why Looking at One Comment Section Leads to the Wrong Conclusion
+
+Seeding-post comments have a quirk: the same pool of users expresses different concerns depending on the content touchpoint. Under a post about ingredients, people ask "is it safe for sensitive skin?" Under a post about use cases, they ask "where can I buy it?" and "how much is it?" And under a dedicated comparison review, the comments are often flooded with competitor talk.
+
+The algorithm amplifies the reach of your single best-performing post, which skews the comment sample toward whoever got served that post—not necessarily the target audience you set out to reach. Reading post by post, you also get pulled off course by local noise: feedback drawn in by one post's unusual angle can look nothing like the comment profile on your other posts.
+
+Only when you pull the scattered comments from across all your posts into one view can you see clearly what users consistently cared about over the whole campaign, which concerns kept resurfacing, and which content direction drove the most purchase intent.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/c6133fa0062ffc48bbf4a546d11437c3.png"
+  alt="MediaClaw bulk post scraping: paste multiple Xiaohongshu post links to trigger batch comment scraping at once"
+/>
+
+## Step 1: Bulk Scrape Xiaohongshu Comments, Covering Multiple Seeding Posts at Once
+
+Each post usually finishes scraping in under a minute, so ten posts is only a dozen or so minutes. The results can be exported straight to CSV, or synced to a Feishu (Lark) Base—the two paths lead to different downstream analysis methods, which I'll cover separately below.
+
+Douyin supports the same bulk comment scraping, so if your campaign ran on Douyin too, you can handle both platforms with one workflow.
+
+## Step 2: Get Every Post's Comments Into One Sheet
+
+**Path A: Sync to a Feishu (Lark) Base**
+
+After configuring your Feishu template link in the MediaClaw dashboard, every completed scrape can sync directly into the designated Feishu Base. From there you can run your comment analysis.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/18dbd7706fd8f94e8e06623d152c0349.png"
+  alt="Scraped comments synced to a Feishu (Lark) Base, showing comment content, user region, and engagement data"
+/>
+
+This approach suits cases where the review needs to be a team effort. The data isn't locked on one person's laptop—the campaign team, content team, and product team can all annotate and tag inside the same sheet.
+
+**Path B: Export CSV and Hand It to an External AI Tool**
+
+If you're not using Feishu for now, you can also export all of these seeding posts and their comments and feed them to an AI for analysis, along with a simple prompt (adjust as your business requires):
+
+> Here's the comment data from N seeding posts from one round of our Xiaohongshu campaign. Please group the comments by user concern (efficacy, price, use case, competitor comparison, purchase intent) and list the specific high-frequency questions in each category.
+
+This path doesn't require any paid tools—once the comments are scraped, you analyze them straight in the AI. For a small team on a tight budget, it's the fastest way to get something running.
+
+| Dimension                         | Reading post by post                   | Bulk scrape + consolidated analysis     |
+| --------------------------------- | -------------------------------------- | --------------------------------------- |
+| Processing comments from 10 posts | About 3–4 hours                        | About 30 minutes                        |
+| Data completeness                 | Pagination breaks, easy to miss things | Auto-loads, higher capture rate         |
+| Cross-post comparison             | Relies on memory and screenshots       | One sheet, filterable and sortable      |
+| Team collaboration                | Screenshots passed around              | Multiple people sync in one Feishu Base |
+
+## Step 3: Pinpoint Campaign Problems From a Cross-Post View
+
+Once the comments are consolidated, you're really answering three questions:
+
+**Which problems are universal?** If 7 out of 10 posts have people asking "where can I buy this," your posts are seeding interest fine but the path that follows isn't clear enough—that's a content-strategy issue. If only 1 post draws that kind of comment, it may just be that this post's tone was unusual.
+
+**Which type of content draws higher-quality comments?** Comment likes show which user feedback resonated most. If ingredient-focused comments consistently get high like counts, that audience has a stronger appetite to discuss the topic, and this batch of content deserves more weight in your campaign strategy.
+
+**Which comments hint at purchase intent?** Use the lead-keyword filter to define your own terms—"how to buy," "where to get it," "how much," "any discounts"—and the system automatically pulls out comments containing your target words, generating a separate leads file with the comment content and the user's profile link. This data usually goes straight to the DM conversion team for follow-up.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/c1c2896e8fe250b31ec46d7b450c4f8a.png"
+  alt="Lead filtering"
+/>
+
+For a more detailed look at sentiment analysis within a single post's comments, see [Scraping and Analyzing the Xiaohongshu Comment Section: From User Sentiment and Needs to Lead Generation](/posts/xiaohongshu-comment-analysis), which lays out a more granular, layered analysis method. And if your goal is to mine your next round of content topics from the comments, [How to Export Xiaohongshu Comments for AI Topic Mining](/posts/xiaohongshu-comment-topic-mining) walks through the full topic-discovery workflow.
+
+## What to Change After the Review
+
+Comment data gives you a diagnosis, but it has to translate into action. Three common directions for improvement:
+
+**Adjust the content angle.** If users across multiple posts raise the same doubt, your next batch can dedicate a post to clearing up that concern. For example, one skincare brand found that 6 of 10 seeding posts had "is it safe for sensitive skin?" recurring in the comments. Their next round produced a dedicated ingredient-breakdown post, and purchase-intent comments rose about 40% above the average.
+
+**Optimize your content mix.** If the comment quality and depth of engagement differ sharply across content types (ingredient reviews vs. use-case posts vs. everyday-user shares), you can rebalance the mix next round. Everyday-user posts get high engagement, but the comments are mostly emotional reactions; ingredient reviews get fewer interactions, but the questions are real pre-purchase concerns—a difference that's hard to spot until you merge the data.
+
+**Manage the comment section.** Once the data is consolidated, you'll notice some high-frequency questions have no official brand reply at all—that's a blind spot in comment-section management. Replying promptly to high-intent comments isn't just customer service; it builds a trust signal right in the comments.
+
+## Wrapping Up
+
+The most common mistake in a campaign review is assuming that _reading_ equals _analyzing_. Valuable analysis requires pulling the feedback scattered across each comment section into a single view, so you can tell one-off signals apart from shared problems. Bulk comment scraping plus data consolidation is what makes that achievable.
+
+If you've just finished a round of seeding, [download MediaClaw](https://mediaclaw.app/download) to bulk export all your posts' comment data for free—you can run the entire scraping flow in under 10 minutes.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/12877b651240b6256f26b8f6ba263046.png"
+  alt="MediaClaw comment scraping settings: enable add-on comment scraping and set the comment load limit"
+/>
+
+---
+
+## FAQ
+
+**I ran 5 posts, each with under 50 comments. Is bulk export even worth it?**
+
+A total of 250 comments still exceeds the practical threshold for reading every one carefully, and cross-post common problems are easy to miss when scrolling by hand. Comment scraping is completely free, a single export takes under 5 minutes, and there's basically no extra cost.
+
+**Is there a tool that can bulk export comment data from multiple Xiaohongshu posts?**
+
+MediaClaw scrapes and exports posts one at a time to CSV. The fields include the full comment text (up to 280 characters), commenter nickname, commenter profile link, and comment likes. It's a Chrome extension—install it and you're ready to go, and comment scraping is completely free and unlimited.
+
+**After running multiple Xiaohongshu seeding posts, how do I consolidate all the comments for analysis?**
+
+Use a bulk scraping tool to export each post's comments to CSV, then merge the files into one sheet (locally, or sync to a Feishu (Lark) Base), using a source-post field to distinguish where each comment came from, and finally group the common problems by theme. If you don't use Feishu, you can upload the CSVs straight to an AI tool like Claude or Kimi for categorization.

@@ -1,0 +1,90 @@
+export const meta = {
+  title:
+    'How to Collect Research Data from Xiaohongshu (RedNote) and Douyin for Your Thesis',
+  description:
+    'Collect Xiaohongshu search samples and comment corpora for free, export CSV/Markdown into SPSS and NVivo, and run content analysis or discourse analysis. With sampling logic and research-ethics notes.',
+  created_at: '2026-06-27',
+  author_name: 'MediaClaw Team',
+  author_image: '/logo.png',
+  image:
+    'https://media.mediaclaw.app/blog-covers/e7e0a072c414efc013b983c4cc434dff.webp',
+  tags: [
+    'academic research',
+    'content analysis',
+    'discourse analysis',
+    'data collection',
+    'Xiaohongshu',
+  ],
+};
+
+> If you study communication, sociology, or consumer behavior, treating Xiaohongshu (RedNote) and Douyin as a fieldwork site is increasingly common. But the dataset a thesis needs is nothing like a few screenshots an operator saves on the fly — it has to be sampleable, traceable, and reproducible. This post lays out a complete method for collecting a research corpus from Xiaohongshu.
+
+I recently ran into two users, one doing a master's in China and one abroad, who were collecting data to write their theses. That was an angle I hadn't expected, so today let's talk about it.
+
+## Academic collection vs. commercial collection
+
+Bloggers and operations teams collecting from Xiaohongshu and Douyin care about topics, content, and leads — which note went viral, what topic I can write next, whether there are potential customers in the comments.
+
+Researchers care about a different set of things: does the sampling logic hold up, is the sample size large enough, can each record be verified.
+
+Translated into concrete operations, those requirements mean the data has to satisfy three points. First, it must be **sampleable** — you can scope a range by keyword or topic and record the sampling conditions you used. Second, the **fields must be complete** — every record carries publish time, engagement metrics, and author info, not just the body text. Third, it must be **exportable** — it can go into SPSS, NVivo, Excel and similar tools for coding, statistics, or qualitative analysis.
+
+## Building the "sample → collect corpus → into analysis tool" pipeline
+
+The most labor-intensive part of collecting a social media corpus is stitching sampling, collection, and export into a single reproducible pipeline. You can build this pipeline with a browser extension like MediaClaw — a Xiaohongshu/Douyin data collection tool that installs on Chrome. Collecting note data, collecting comment data, and exporting to CSV/Excel are **completely free with no usage limits**, which happens to cover every action you need to build a dataset.
+
+Here's the breakdown, in three steps that follow the research workflow.
+
+### Step 1: Scope your sample with search collection, and record your sampling conditions
+
+The first step of content analysis is defining the sampling frame. You decide on your research topic first — say "appearance anxiety," "workplace PUA," or "small-town tourism" — then use [Xiaohongshu search results collection](/xiaohongshu/scraper) to batch-pull the notes that match by keyword.
+
+The key is that the filter conditions at this step can be recorded. When you collect, you can set the publish-date range, sort order (comprehensive/latest/most popular), notes vs. videos, and a load limit. These parameters are exactly the sampling description you'll report in your methods section — for example, "using 'appearance anxiety' as the search term, restricted to posts published January–June 2025, sorted by comprehensive ranking, taking the first 300 notes." Another researcher can rerun the same conditions and get a consistent sampling frame, so reproducibility is guaranteed.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/9cfde8c3405105d93b76b68758b5fa9d.png"
+  alt="MediaClaw filter conditions: publish-date range, sort order (comprehensive/latest/most popular), notes vs. videos, load limit"
+/>
+
+Each record you collect carries the note title, body text, blogger nickname and follower count, likes/saves/comments, and publish time. Once these fields are in Excel, you can run descriptive statistics, or do stratified sampling by engagement and then select a sub-sample for close reading.
+
+### Step 2: Collect the comment section to get the UGC corpus discourse analysis needs
+
+If your research question lands on how users talk rather than what the platform publishes, the comment section is your primary corpus source. Discourse analysis and netnography are exactly the kinds of research that need users' own spontaneous words.
+
+[Xiaohongshu comment collection](/xiaohongshu/comments) automatically scrolls and loads, then exports all the comments under a note, each carrying the full comment text, username, profile link, like count, and IP location. The IP location field is especially useful for studies of regional differences, while publish time lets you trace how discourse evolves alongside an event.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/45d2ed548461b4dceb7da079315cd3db.png"
+  alt="MediaClaw comment collection"
+/>
+
+Export the comments from a set of target notes and what you get is a corpus you can code. Import it into NVivo and code by thematic nodes, or label sentiment and discourse strategies manually in Excel — either is far more efficient than transcribing one comment at a time off your phone. For how comment data goes from collection to analysis, see this piece on [how to collect and analyze Xiaohongshu comments](/blog/xiaohongshu-comment-analysis); the sentiment- and need-identification approach in it applies just as well to qualitative research.
+
+### Step 3: Export to CSV / Markdown and drop it into your analysis tool
+
+Collected content lands in a data pool, and from there you can export to CSV or Markdown. CSV goes straight into Excel, SPSS, or NVivo for coding and statistics; Markdown suits knowledge bases like Obsidian, Notion, and ima for qualitative organization and material archiving, after which you can use AI or an agent for further holistic analysis.
+
+This step is where the whole dataset becomes "citable and reproducible." Because what you export is structured fields rather than screenshots, every record traces back to the original link, original publish time, and original engagement numbers. When a reviewer questions a data point, you can produce the source directly — which is precisely the basic academic requirement that data be transparent and verifiable.
+
+## Douyin works as a research platform too
+
+If your topic needs short-video corpora, or you want a cross-platform discourse comparison, Douyin works just as well. [Douyin video collection](/douyin/scraper) and [Douyin comment collection](/douyin/comments) follow the same logic as Xiaohongshu, with a shared field structure, so after export you can merge everything into one coding framework. One tool covering both platforms saves you the trouble of finding a separate solution for each.
+
+## Wrap-up
+
+When you collect research data from Xiaohongshu for a thesis, the hard part was never finding content — it's turning content into a dataset that's sampleable, traceable, and reproducible. Scope your sample with search collection, pull the UGC corpus with comment collection, export CSV/Markdown into your analysis tool: this free pipeline connects the social media field to your analysis software.
+
+## FAQ
+
+**How do I collect research data from Xiaohongshu for a thesis?**
+Scope your sample with search-results collection by keyword or topic, and record sampling conditions like publish time, sort order, and count; collect the comment section if you need a UGC corpus; then export CSV into SPSS/NVivo/Excel or Markdown into a knowledge base. Every record carries the original link and publish time, so it's traceable and reproducible. Search collection, comment collection, and CSV export are all free.
+
+**How do I export Xiaohongshu comments for content analysis?**
+Use the comment collection feature to auto-scroll and load all comments under a note, then export to CSV and import into NVivo or Excel. Each comment carries the full text, nickname, profile link, like count, and IP location — well suited for coding, sentiment labeling, and regional-difference analysis.
+
+**How do I get a social media dataset for discourse analysis?**
+Discourse analysis needs users' own words, so the primary corpus comes from the comment section rather than the note body. Use search collection to locate a set of target notes first, then run a full comment export on each, gathering them into a codeable corpus. Export to CSV or Markdown and process it in a qualitative analysis tool.
+
+**Can Douyin content also be collected as research samples?**
+Yes. Douyin video collection and comment collection follow the same logic as Xiaohongshu with shared fields, so after export you can merge them into one coding framework — a good fit for cross-platform discourse comparison.

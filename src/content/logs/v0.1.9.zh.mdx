@@ -1,0 +1,41 @@
+export const meta = {
+  title: '新增新手引导，抖音采集更稳更干净',
+  description:
+    '首次打开插件新增轻量新手引导；优化抖音搜索、图文、视频和评论区识别逻辑；采集前增加页面加载状态判断；修复部分抖音详情页采集异常。',
+  date: '2026-06-29',
+  tags: ['新手引导', '抖音采集', '加载判断', '采集修复'],
+  version: '0.1.9',
+};
+
+首次打开插件新增轻量新手引导；优化抖音搜索、图文、视频和评论区识别逻辑；采集前增加页面加载状态判断；修复部分抖音详情页采集异常。
+
+<div className="not-prose space-y-4">
+    <div className="inline-flex rounded-full border border-amber-400/70 bg-amber-400/10 px-3 py-1 text-sm font-semibold text-amber-300">新增</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">新增新手引导</h3>
+            <p className="text-muted-foreground">首次打开插件时新增轻量新手引导，带你快速认识页面识别、采集入口、数据池、导出同步和教程入口，减少第一次使用时不知道从哪里开始的问题。</p>
+        </div>
+    </div>
+
+    <div className="inline-flex rounded-full border border-emerald-400/70 bg-emerald-400/10 px-3 py-1 text-sm font-semibold text-emerald-300">优化</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">抖音采集稳定性提升</h3>
+            <p className="text-muted-foreground">优化抖音搜索页、图文详情页、视频详情页和评论区的识别逻辑，减少标题误识别、图文被误判成视频、评论漏采和附件等待不充分等问题。</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">采集前状态判断更清晰</h3>
+            <p className="text-muted-foreground">当笔记内容还在加载时，会先提示等待页面加载完成，避免在标题、正文或素材还没准备好时提前采集导致结果为空或不完整。</p>
+        </div>
+    </div>
+
+    <div className="inline-flex rounded-full border border-rose-400/70 bg-rose-400/10 px-3 py-1 text-sm font-semibold text-rose-300">修复</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">修复部分抖音详情页采集异常</h3>
+            <p className="text-muted-foreground">减少播放器控件、相关搜索、页面推荐内容混入标题、正文或评论的情况，让抖音图文、视频和评论采集结果更干净。</p>
+        </div>
+    </div>
+
+</div>

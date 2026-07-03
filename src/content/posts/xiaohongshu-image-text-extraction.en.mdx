@@ -1,0 +1,87 @@
+export const meta = {
+  title:
+    'Xiaohongshu (RedNote) Image Text Extraction: Pull the Tips Out of Image Cards as Text',
+  description:
+    "Steps, book lists, prices, and specs on Xiaohongshu are baked into image cards—you can't copy them from the body text. Use OCR on the cover and every image, write the text back into the collected record, then export to CSV/Markdown.",
+  created_at: '2026-06-23',
+  author_name: 'MediaClaw Team',
+  author_image: '/logo.png',
+  image:
+    'https://media.mediaclaw.app/blog-covers/da8d325540cf457864b841ed8de9136c.webp',
+  tags: [
+    'Xiaohongshu image text extraction',
+    'extract text from images',
+    'image card OCR',
+    'image to text',
+    'cover text recognition',
+    'RedNote operations',
+  ],
+};
+
+If you scroll Xiaohongshu (RedNote), you've probably felt this: a note is packed with useful tips—steps, checklists, book lists, all spelled out clearly—but when you try to save it and copy the body text, all you get is one line: "see images for detailed steps."
+
+Text-and-image notes on Xiaohongshu increasingly bake the core information into image cards—step-by-step tutorials, good-stuff lists sorted by price, a full-page book list, product spec comparisons, all images. The body text shrinks to a line or two that just nudges you to keep scrolling. For readers, the layout looks nice and the info is concentrated. But for anyone breaking content down, repurposing it, or archiving it, the trouble shows up: you can see the words, but you can't copy them.
+
+{/* IMG_SLOT: a typical Xiaohongshu text-and-image note that bakes the tips into image cards, with very short body text that's just one or two lines of guidance */}
+
+## How do you actually pull the text out of the images?
+
+Turning text on an image into copyable text is, at bottom, an OCR (optical character recognition) problem: give it an image, recognize the text, output plain text. The hard part isn't the recognition itself—it's that a single Xiaohongshu text-and-image note often has 10-plus images counting the cover, so you have to recognize every one, gather the results together, and line them up with the note's title and body.
+
+The current ways to do this each come with their own compromise.
+
+Your phone's built-in screenshot text grab is the handiest. Long-press an image on iPhone, or use Android's smart screen recognition—convenient for a single image, but it handles one at a time, can't batch, and certainly can't archive merged with the note's title, body, and comments.
+
+Various online OCR sites are another route. Fine for occasional use, but at any volume you hit queues, ads, or paywalls—and you still have to save each image yourself and upload them one by one, which loops you right back to manual.
+
+All three routes get stuck somewhere: on batching, on accuracy, or on still having to move images by hand. The problem is really the same one: the image text is disconnected from the note data you're already collecting.
+
+## Use MediaClaw's image caption extraction to write image text back into the record
+
+If you're already using the extension to collect Xiaohongshu notes, the image text can be handled in the same flow. Since V0.1.8, MediaClaw has a built-in **image caption extraction (OCR)** inside the extension itself: it runs OCR on a text-and-image note's cover and every image, recognizes the text, and writes the result **straight back into that note's collected record**.
+
+First, some context. By default, a note you collect with the extension only has the title, body, engagement data, comments, and media links—what's available at the platform's body-text level. The text inside images isn't included. Image caption extraction fills exactly that gap: once recognition is done, the steps, book lists, prices, and specs that were scattered across images get written back into the record as text, turning a single note into one **complete set of raw data**.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/b9707b63cf430c4ad2d9751c0fc810b4.png"
+  alt="MediaClaw extension sidebar running image caption extraction (OCR) on a Xiaohongshu text-and-image note, with the recognized image text written back into the collected record shown on the right"
+/>
+
+After the write-back, the image text sits alongside the note's other fields: you read it directly when viewing, take the whole block when copying, carry it along when exporting to CSV or Markdown, and bring it across when syncing to Feishu Base. Worth stressing: this raw data lives inside the extension itself and **doesn't depend on Feishu**—Feishu is just one of many downstream sync destinations; you can use and export it without Feishu at all.
+
+The operation is simple, three steps:
+
+1. In the extension sidebar, trigger collection on the current text-and-image note to get the basics—title, body, media links
+2. Run image caption extraction on that record; the extension OCRs the cover and each image one by one
+3. The recognition results write back into the record, after which you view, copy, export to CSV/Markdown, or sync to Feishu as usual
+
+Douyin works the same way—raw data for both text-and-image and video posts can be filled out like this. If you're working both platforms, one approach covers them, no tool switching. To get the collection step running smoothly first, start with [Xiaohongshu note collection](/xiaohongshu/scraper)—collect a few before worrying about recognition.
+
+## Once you've extracted it, what can the text do?
+
+Pulling the image text out is only the first step; it gets genuinely useful once it's inside the collected record.
+
+The most common use is archiving. Take an image-based book-list note: after OCR, the whole list becomes searchable text, export it to Markdown into your library, and from then on you full-text search to find a title instead of flipping through images. Repurposing and breaking content down work the same way—only by extracting the card-based steps and scripts of benchmark accounts into text can you analyze, line by line, how they're structured and which words they use. Speaking of words, the Xiaohongshu cover is actually a key place to plant keywords; if you want to study what viral covers wrote, see the cover-OCR keyword approach in this [Xiaohongshu keyword placement guide](/blog/xiaohongshu-keyword-placement).
+
+If what you're handling is a video voiceover rather than image text, that's a different approach: for video, what you extract is a transcript. The extension can also one-click extract a video transcript and output a timestamped, sentence-segmented pacing script for analyzing the video's overall rhythm; to run it with Feishu Base and Alibaba Bailian's free quota, see [short video transcript extraction](/blog/short-video-transcript-extraction). Image text and video transcripts together cover the raw-data completion for both text-and-image and video notes.
+
+<img
+  src="https://media.mediaclaw.app/blog-covers/7c94d2a48528fa38a6c364e498fdb4b5.png"
+  alt="MediaClaw extension sidebar extracting a Xiaohongshu video transcript, with the timestamped, sentence-segmented pacing script shown on the right"
+/>
+
+To run the whole flow end to end, first [install the MediaClaw extension](/download) and collect a few notes, pick one text-and-image note to trigger image caption extraction, see how accurately it reads the book list or price table in the images, then decide whether to batch-process your benchmark notes. Collection and exporting to Excel/CSV are free—you can get the flow working first—and turn on OCR when you actually need it.
+
+## FAQ
+
+**Xiaohongshu bakes the tips into images—how do I extract the text inside them?**
+Just run OCR on the images. After collecting the note with MediaClaw, run image caption extraction on it; the extension recognizes the cover and each image one by one and writes the text back into the collected record, after which you copy or export directly. OCR is a paid capability billed by quota; collection and exporting to Excel/CSV are free.
+
+**Can text on the cover and images be batch-extracted into copyable text?**
+Yes. Image caption extraction recognizes the cover plus every image in a note, not just one, and the results are written back into the record as text, carried along when exporting to CSV or Markdown—handy for copying whole blocks and full-text search.
+
+**Feishu Base's built-in image recognition is free—why use the extension's OCR?**
+Feishu's built-in option is free but unstable on accuracy; complex images, artistic fonts, and vertical text easily produce wrong characters, and one wrong character in a price, book title, or spec means rework. MediaClaw's image caption extraction calls a paid model and recognizes more accurately. It's the trade-off between "free but not always accurate" and "paid but more accurate"—if the content is sensitive, pick the latter.
+
+**Can image text in Douyin's text-and-image posts be extracted too?**
+Yes. Douyin also supports raw-data completion for text-and-image and video posts; image caption extraction works the same way as on Xiaohongshu, and one flow covers both platforms.
