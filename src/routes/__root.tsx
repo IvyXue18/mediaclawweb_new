@@ -19,12 +19,9 @@ import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 import { Plausible } from '@/components/analytics/plausible';
 import { CustomerService } from '@/components/customer-service';
 import { GoogleOneTap } from '@/components/google-one-tap';
+import { ReferralCapture } from '@/components/referral-capture';
 import { Toaster } from '@/components/ui/sonner';
 
-import '@fontsource-variable/inter';
-import '@fontsource/libre-baskerville/400.css';
-import '@fontsource/libre-baskerville/700.css';
-import '@fontsource/libre-baskerville/400-italic.css';
 import '@/styles/globals.css';
 
 // Analytics IDs live in the DB config (1h-cached service). Fetched via a
@@ -71,8 +68,8 @@ export const Route = createRootRoute({
         { name: 'description', content: envConfigs.app_description },
       ],
       links: [
-        { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
-        { rel: 'apple-touch-icon', href: '/favicon.svg' },
+        { rel: 'icon', href: '/favicon.ico' },
+        { rel: 'apple-touch-icon', href: '/logo.png' },
         ...locales.map((loc) => ({
           rel: 'alternate',
           hrefLang: loc,
@@ -98,6 +95,7 @@ function RootComponent() {
         enableSystem
         disableTransitionOnChange
       >
+        <ReferralCapture />
         <Outlet />
         <Toaster position="top-center" richColors />
         <GoogleOneTap />
@@ -127,7 +125,7 @@ function RootDocument({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="font-sans antialiased">
+      <body className="overflow-x-clip font-sans antialiased">
         {children}
         <Scripts />
       </body>

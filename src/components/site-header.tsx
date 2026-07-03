@@ -1,13 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import { ArrowRight, Menu, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Menu, X } from 'lucide-react';
 
 import { useSession } from '@/core/auth/client';
 import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import { cn } from '@/lib/utils';
-import { m } from '@/paraglide/messages.js';
 import { LocaleSelector } from '@/components/locale-selector';
 import { SiteUserMenu } from '@/components/site-user-menu';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -23,17 +22,64 @@ export interface NavLink {
 /** Off-site URLs render as plain <a>; internal paths use the locale-aware Link. */
 const isExternalHref = (href: string) => /^https?:\/\//.test(href);
 
+function SiteHeaderAuthAction({
+  loginClassName,
+  onSignInClick,
+}: {
+  loginClassName: string;
+  onSignInClick?: () => void;
+}) {
+  const { data: session, isPending } = useSession();
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  if (!isHydrated || isPending) {
+    return (
+      <span
+        aria-hidden="true"
+        className="bg-muted/50 inline-flex size-10 shrink-0 rounded-full"
+      />
+    );
+  }
+
+  const user = session?.user;
+
+  if (user) {
+    return (
+      <SiteUserMenu
+        name={user.name || 'User'}
+        email={user.email}
+        image={user.image}
+      />
+    );
+  }
+
+  return (
+    <Link href="/sign-in" className={loginClassName} onClick={onSignInClick}>
+      登录
+    </Link>
+  );
+}
+
 export function SiteHeader({ navLinks }: { navLinks?: NavLink[] }) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { data: session } = useSession();
-  const user = session?.user;
 
   return (
     <header className="bg-background/80 sticky top-0 z-50 w-full backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Brand */}
-        <Link href="/" className="flex items-center">
-          <span className="font-serif text-lg italic">
+        <Link href="/" className="flex items-center gap-2">
+          {envConfigs.app_logo ? (
+            <img
+              src={envConfigs.app_logo}
+              alt={envConfigs.app_name}
+              className="size-8 rounded-md"
+            />
+          ) : null}
+          <span className="text-lg font-semibold tracking-normal">
             {envConfigs.app_name}
           </span>
         </Link>
@@ -68,18 +114,12 @@ export function SiteHeader({ navLinks }: { navLinks?: NavLink[] }) {
         <div className="hidden items-center gap-3 md:flex">
           <LocaleSelector />
           <ThemeToggle />
-          {user ? (
-            <SiteUserMenu
-              name={user.name || 'User'}
-              email={user.email}
-              image={user.image}
-            />
-          ) : (
-            <Link href="/settings" className={cn(buttonVariants(), 'gap-1.5')}>
-              {m['common.nav.get_started']()}
-              <ArrowRight className="size-4" />
-            </Link>
-          )}
+          <SiteHeaderAuthAction
+            loginClassName={cn(
+              buttonVariants({ variant: 'outline' }),
+              'gap-1.5'
+            )}
+          />
         </div>
 
         {/* Mobile toggle */}
@@ -126,21 +166,13 @@ export function SiteHeader({ navLinks }: { navLinks?: NavLink[] }) {
             <LocaleSelector />
             <ThemeToggle />
             <div className="flex-1" />
-            {user ? (
-              <SiteUserMenu
-                name={user.name || 'User'}
-                email={user.email}
-                image={user.image}
-              />
-            ) : (
-              <Link
-                href="/settings"
-                className={cn(buttonVariants(), 'gap-1.5')}
-                onClick={() => setMobileOpen(false)}
-              >
-                {m['common.nav.get_started']()}
-              </Link>
-            )}
+            <SiteHeaderAuthAction
+              loginClassName={cn(
+                buttonVariants({ variant: 'outline' }),
+                'gap-1.5'
+              )}
+              onSignInClick={() => setMobileOpen(false)}
+            />
           </div>
         </div>
       )}

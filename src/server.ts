@@ -23,11 +23,41 @@ function ensureCloudflareEnv(): Promise<void> {
   return cfEnvPromise;
 }
 
+function isPreviewHost(host: string) {
+  const normalized = host.toLowerCase().split(':')[0];
+  return (
+    normalized.endsWith('.workers.dev') ||
+    normalized.endsWith('.pages.dev') ||
+    normalized.includes('preview') ||
+    normalized.includes('staging')
+  );
+}
+
 // Custom server entry — wraps every request in Paraglide's middleware so
-// getLocale() resolves per-request (AsyncLocalStorage) during SSR.
+// getLocale() resolves per-request (AsyncLocalStorage) during SSR. TanStack's
+// router rewrite owns URL de-localization, so the handler receives the original
+// request; passing Paraglide's rewritten request causes /en/* self-redirects.
 export default {
   async fetch(req: Request): Promise<Response> {
     await ensureCloudflareEnv();
-    return paraglideMiddleware(req, () => handler.fetch(req));
+    const url = new URL(req.url);
+    const isApiRequest = url.pathname.startsWith('/api/');
+    const response = isApiRequest
+      ? await handler.fetch(req)
+      : await paraglideMiddleware(req, () => handler.fetch(req));
+    const host = req.headers.get('host') || '';
+
+    if (!isPreviewHost(host)) {
+      return response;
+    }
+
+    const headers = new Headers(response.headers);
+    headers.set('X-Robots-Tag', 'noindex, nofollow');
+
+    return new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers,
+    });
   },
 };

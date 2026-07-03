@@ -1,6 +1,5 @@
 import type { SVGProps } from 'react';
 
-import { m } from '@/paraglide/messages.js';
 import {
   SiteFooter,
   type FooterColumn,
@@ -26,32 +25,39 @@ function XIcon(props: SVGProps<SVGSVGElement>) {
 export function Footer() {
   const columns: FooterColumn[] = [
     {
-      title: m['landing.footer.feature'](),
+      title: '核心功能',
       links: [
-        {
-          label: m['landing.footer.settings'](),
-          href: '/settings',
-          external: true,
-        },
-        { label: m['landing.footer.admin'](), href: '/admin', external: true },
+        { label: '小红书数据采集', href: '/xiaohongshu/scraper' },
+        { label: '小红书评论采集', href: '/xiaohongshu/comments' },
+        { label: '抖音数据采集', href: '/douyin/scraper' },
+        { label: '对标监控', href: '/xiaohongshu/monitoring' },
+        { label: '飞书同步', href: '/features/feishu-integration' },
       ],
     },
     {
-      title: m['landing.footer.resources'](),
+      title: '产品',
       links: [
-        { label: m['landing.footer.blog'](), href: '/blog' },
-        {
-          label: m['landing.footer.github'](),
-          href: 'https://github.com',
-          external: true,
-        },
+        { label: '下载插件', href: '/download' },
+        { label: '价格方案', href: '/pricing' },
+        { label: '福利中心', href: '/welfare' },
+        { label: '伙伴计划', href: '/referral' },
+        { label: '更新日志', href: '/updates' },
       ],
     },
     {
-      title: m['landing.footer.legal'](),
+      title: '资源',
       links: [
-        { label: m['landing.footer.privacy'](), href: '/privacy-policy' },
-        { label: m['landing.footer.terms'](), href: '/terms-of-service' },
+        { label: '博客', href: '/blog' },
+        { label: '案例展示', href: '/showcases' },
+        { label: '文档', href: '/docs' },
+        { label: '账号设置', href: '/settings' },
+      ],
+    },
+    {
+      title: '法律',
+      links: [
+        { label: '隐私政策', href: '/privacy-policy' },
+        { label: '服务条款', href: '/terms-of-service' },
       ],
     },
   ];
@@ -63,7 +69,7 @@ export function Footer() {
 
   return (
     <SiteFooter
-      tagline={m['landing.footer.tagline']()}
+      tagline="小红书/抖音采集、赛道判断与对标监控一套搞定。"
       columns={columns}
       socials={socials}
     />

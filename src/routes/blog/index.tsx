@@ -1,36 +1,43 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
-import { m } from '@/paraglide/messages.js';
-import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
-import { Footer } from '@/blocks/footer';
-import { Header } from '@/blocks/header';
-import { BlogCard } from '@/components/blog-card';
-import { formatPostDate } from '@/content/posts';
+import {
+  baseLocale,
+  getLocale,
+  locales,
+  localizeUrl,
+} from '@/paraglide/runtime.js';
 import { getBlogPostsFn } from '@/content/posts/server';
+
+import { BlogArchivePage, getLegacyBlogPage } from './-blog-list';
 
 export const Route = createFileRoute('/blog/')({
   loader: async () => {
     const locale = getLocale();
     const posts = await getBlogPostsFn({ data: { locale } });
-    return { locale, posts };
+    return { locale, posts, page: getLegacyBlogPage(locale) };
   },
   head: ({ loaderData }) => {
     const locale = loaderData?.locale;
+    const page = loaderData?.page;
     const urlFor = (loc: string) =>
       localizeUrl(`${envConfigs.app_url}/blog`, { locale: loc as any }).href;
+    const meta: Array<{ title: string } | { name: string; content: string }> = [
+      {
+        title: page?.metadata?.title ?? `Blog | ${envConfigs.app_name}`,
+      },
+    ];
+    if (page?.metadata?.description) {
+      meta.push({ name: 'description', content: page.metadata.description });
+    }
+    if (page?.metadata?.keywords) {
+      meta.push({ name: 'keywords', content: page.metadata.keywords });
+    }
+
     return {
-      meta: [
-        {
-          title: `${m['blog.title']({}, { locale: locale as any })} | ${envConfigs.app_name}`,
-        },
-        {
-          name: 'description',
-          content: m['blog.description']({}, { locale: locale as any }),
-        },
-      ],
+      meta,
       links: [
-        { rel: 'canonical', href: urlFor(locale ?? 'en') },
+        { rel: 'canonical', href: urlFor(locale ?? baseLocale) },
         ...locales.map((loc) => ({
           rel: 'alternate',
           hrefLang: loc,
@@ -43,44 +50,6 @@ export const Route = createFileRoute('/blog/')({
 });
 
 function BlogPage() {
-  const { locale, posts } = Route.useLoaderData();
-
-  return (
-    <div className="bg-background text-foreground flex min-h-screen flex-col">
-      <Header />
-      <main className="flex-1 px-4 py-16 sm:py-24">
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-16 text-center">
-            <h1 className="font-serif text-4xl font-normal tracking-tight sm:text-5xl">
-              {m['blog.title']()}
-            </h1>
-            <p className="text-muted-foreground mx-auto mt-5 max-w-lg">
-              {m['blog.description']()}
-            </p>
-          </div>
-          {posts.length === 0 ? (
-            <p className="text-muted-foreground text-center">
-              {m['blog.no_posts']()}
-            </p>
-          ) : (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
-                <BlogCard
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  title={post.title}
-                  description={post.description}
-                  image={post.image}
-                  date={formatPostDate(post.createdAt, locale)}
-                  authorName={post.authorName}
-                  authorImage={post.authorImage}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      </main>
-      <Footer />
-    </div>
-  );
+  const { locale, posts, page } = Route.useLoaderData();
+  return <BlogArchivePage locale={locale} page={page} posts={posts} />;
 }

@@ -1,7 +1,12 @@
-import type { AnchorHTMLAttributes, HTMLAttributes } from 'react';
+import type {
+  AnchorHTMLAttributes,
+  HTMLAttributes,
+  VideoHTMLAttributes,
+} from 'react';
 import type { MDXComponents } from 'mdx/types';
 
 import { cn } from '@/lib/utils';
+import { resolveStaticVideoPoster } from '@/lib/video-posters';
 
 export const mdxComponents: MDXComponents = {
   h1: ({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) => (
@@ -93,5 +98,27 @@ export const mdxComponents: MDXComponents = {
   ),
   hr: ({ className, ...props }: HTMLAttributes<HTMLHRElement>) => (
     <hr className={cn('border-border my-8', className)} {...props} />
+  ),
+  Video: ({
+    className,
+    poster,
+    src,
+    ...props
+  }: VideoHTMLAttributes<HTMLVideoElement>) => (
+    <video
+      className={cn(
+        'border-border my-6 aspect-video w-full rounded-xl border bg-black object-contain',
+        className
+      )}
+      controls
+      preload="metadata"
+      playsInline
+      poster={
+        poster ||
+        (typeof src === 'string' ? resolveStaticVideoPoster(src) : undefined)
+      }
+      src={src}
+      {...props}
+    />
   ),
 };

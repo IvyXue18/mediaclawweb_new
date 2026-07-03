@@ -50,6 +50,9 @@ const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
 export default defineConfig({
   server: {
     port: 3000,
+    watch: {
+      ignored: ['**/src/routeTree.gen.ts'],
+    },
   },
   resolve: {
     tsconfigPaths: true,
@@ -83,16 +86,17 @@ export default defineConfig({
         {
           pattern: '/',
           localized: [
-            ['zh', '/zh'],
-            ['en', '/'],
+            ['zh', '/'],
+            ['en', '/en'],
           ],
         },
-        // "as-needed" prefix: zh under /zh, en (default) unprefixed.
+        // Match the old MediaClaw URL contract: zh is the canonical
+        // unprefixed locale, English lives under /en.
         {
           pattern: '/:path(.*)?',
           localized: [
-            ['zh', '/zh/:path(.*)?'],
-            ['en', '/:path(.*)?'],
+            ['en', '/en/:path(.*)?'],
+            ['zh', '/:path(.*)?'],
           ],
         },
       ],

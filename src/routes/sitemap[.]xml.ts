@@ -2,14 +2,41 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
 import { baseLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
+import { getLocalLogs } from '@/content/logs';
 import { getLocalPosts, mergePosts } from '@/content/posts';
 
 const STATIC_PATHS = [
   '',
   '/pricing',
+  '/download',
   '/blog',
+  '/updates',
+  '/showcases',
+  '/welfare',
+  '/referral',
+  '/docs',
   '/privacy-policy',
   '/terms-of-service',
+  '/features/feishu-integration',
+  '/ai-image-generator',
+  '/ai-music-generator',
+  '/ai-video-generator',
+  '/xiaohongshu/scraper',
+  '/xiaohongshu/comments',
+  '/xiaohongshu/leads',
+  '/xiaohongshu/keywords',
+  '/xiaohongshu/monitoring',
+  '/xiaohongshu/downloader',
+  '/xiaohongshu/image-text',
+  '/xiaohongshu/transcript',
+  '/douyin/scraper',
+  '/douyin/comments',
+  '/douyin/leads',
+  '/douyin/keywords',
+  '/douyin/monitoring',
+  '/douyin/downloader',
+  '/douyin/image-text',
+  '/douyin/transcript',
 ];
 
 type Entry = {
@@ -49,11 +76,32 @@ export const Route = createFileRoute('/sitemap.xml')({
   server: {
     handlers: {
       GET: async () => {
-        const entries: Entry[] = STATIC_PATHS.map((path) => ({
-          path,
-          changeFrequency: path === '/blog' ? 'daily' : 'weekly',
-          priority: path === '' ? 1 : 0.8,
-        }));
+        const entries: Entry[] = [];
+        const seenPaths = new Set<string>();
+
+        const addEntry = (entry: Entry) => {
+          if (seenPaths.has(entry.path)) return;
+          seenPaths.add(entry.path);
+          entries.push(entry);
+        };
+
+        for (const path of STATIC_PATHS) {
+          addEntry({
+            path,
+            changeFrequency:
+              path === '/blog' || path === '/updates' ? 'daily' : 'weekly',
+            priority: path === '' ? 1 : 0.8,
+          });
+        }
+
+        for (const log of getLocalLogs(baseLocale)) {
+          addEntry({
+            path: `/updates/${log.slug}`,
+            lastModified: new Date(log.date).toISOString(),
+            changeFrequency: 'monthly',
+            priority: 0.6,
+          });
+        }
 
         // Blog posts: db posts merged with local MDX posts.
         try {
@@ -69,7 +117,7 @@ export const Route = createFileRoute('/sitemap.xml')({
           }));
           const posts = mergePosts(dbPosts, getLocalPosts(baseLocale));
           for (const post of posts) {
-            entries.push({
+            addEntry({
               path: `/blog/${post.slug}`,
               lastModified: post.createdAt,
               changeFrequency: 'monthly',
@@ -79,7 +127,7 @@ export const Route = createFileRoute('/sitemap.xml')({
         } catch {
           // Database unreachable — static paths + local posts still listed.
           for (const post of getLocalPosts(baseLocale)) {
-            entries.push({
+            addEntry({
               path: `/blog/${post.slug}`,
               lastModified: post.createdAt,
               changeFrequency: 'monthly',

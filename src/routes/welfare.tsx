@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { LegacyDynamicPage } from '@/blocks/legacy-dynamic-page';
-import enHomePage from '@/content/legacy-pages/en/index.json';
-import zhHomePage from '@/content/legacy-pages/zh/index.json';
+import enWelfarePage from '@/content/legacy-pages/en/welfare.json';
+import zhWelfarePage from '@/content/legacy-pages/zh/welfare.json';
 
 import {
   localizedLegacyHead,
@@ -10,17 +10,17 @@ import {
 } from './-legacy-page-route';
 
 const pages = {
-  en: enHomePage,
-  zh: zhHomePage,
+  en: enWelfarePage,
+  zh: zhWelfarePage,
 };
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute('/welfare')({
   loader: () => localizedLegacyLoader(pages),
-  head: ({ loaderData }) => localizedLegacyHead('/', pages, loaderData),
-  component: HomePage,
+  head: ({ loaderData }) => localizedLegacyHead('/welfare', pages, loaderData),
+  component: WelfarePage,
 });
 
-function HomePage() {
+function WelfarePage() {
   const { data } = Route.useLoaderData();
   return <LegacyDynamicPage data={data} />;
 }
