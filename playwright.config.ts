@@ -4,6 +4,8 @@ const baseURL = process.env.MEDIACLAW_E2E_BASE_URL || 'http://localhost:3000';
 const skipWebServer =
   process.env.MEDIACLAW_E2E_SKIP_WEBSERVER === '1' ||
   Boolean(process.env.MEDIACLAW_E2E_BASE_URL);
+const reuseExistingServer =
+  process.env.MEDIACLAW_E2E_REUSE_EXISTING_SERVER === '1';
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -21,7 +23,7 @@ export default defineConfig({
     : {
         command: 'pnpm dev',
         url: baseURL,
-        reuseExistingServer: true,
+        reuseExistingServer,
         timeout: 120_000,
       },
   projects: [
