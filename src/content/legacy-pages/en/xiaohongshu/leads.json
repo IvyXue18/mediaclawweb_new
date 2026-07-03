@@ -1,0 +1,224 @@
+{
+  "metadata": {
+    "title": "Xiaohongshu Lead Scraper - Find High-Intent Comment Leads",
+    "description": "Extract high-intent leads from Xiaohongshu comments with keyword and location filters. Export lead lists to Excel/CSV and sync to Lark Base for follow-up.",
+    "keywords": "Xiaohongshu lead scraper, RedNote lead generation, comment lead extraction, intent keyword filtering, export sales leads"
+  },
+  "page": {
+    "title": "Xiaohongshu Lead Scraper",
+    "show_sections": [
+      "hero",
+      "modes",
+      "scenarios",
+      "compare",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Xiaohongshu Lead Mining Tool",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Xiaohongshu"
+          },
+          {
+            "title": "Lead Scraper"
+          }
+        ],
+        "title": "Find and Export High-Intent Leads from Xiaohongshu Comments",
+        "description": "Filter comment data by buying-intent keywords and IP location, then export lead-ready prospect lists for outreach.",
+        "buttons": [
+          {
+            "title": "Install Free Extension",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Download Lead List Sample",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-leads-sample.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=180,216"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "Intent Keyword + Location Filtering",
+            "description": "Build keyword templates like \"where to buy\" or \"DM me\" and combine them with IP location filters to surface high-probability prospects faster.",
+            "icon": "Filter",
+            "image": {
+              "src": "/imgs/features/1-v20260425.webp",
+              "alt": "MediaClaw filtering Xiaohongshu comments by intent keywords and location for lead extraction"
+            },
+            "button": {
+              "title": "Install Free Extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Free Lead Export to Excel/CSV",
+            "description": "Export lead lists with username, profile link, raw comment text, matched keywords, and IP location. Then sync to Lark Base for assignment and tracking.",
+            "icon": "FileSpreadsheet",
+            "image": {
+              "src": "/imgs/features/10-v20260424.webp",
+              "alt": "MediaClaw exporting Xiaohongshu lead lists with profile links and keyword matches"
+            },
+            "button": {
+              "title": "Install Free Extension",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "Where Teams Use Xiaohongshu Lead Extraction",
+        "columns": [
+          {
+            "key": "role",
+            "title": "Role"
+          },
+          {
+            "key": "scene",
+            "title": "Typical Use Case"
+          },
+          {
+            "key": "effect",
+            "title": "Business Outcome"
+          }
+        ],
+        "rows": [
+          {
+            "role": "Brand / E-commerce",
+            "scene": "Capture purchase signals from viral post comments",
+            "effect": "Discover “ready to buy” users earlier"
+          },
+          {
+            "role": "Brand Team",
+            "scene": "Mine competitor comment sections for demand leakage",
+            "effect": "Find users open to switching products"
+          },
+          {
+            "role": "Creators / Affiliates",
+            "scene": "Prioritize followers with strong conversion intent",
+            "effect": "Improve outreach efficiency and close rate"
+          },
+          {
+            "role": "Local Business",
+            "scene": "Filter same-city users with explicit buying needs",
+            "effect": "Reduce low-quality outreach and wasted DMs"
+          },
+          {
+            "role": "Sales / Private Traffic",
+            "scene": "Sync lead sheets and assign follow-ups by owner",
+            "effect": "Speed up lead routing and response time"
+          },
+          {
+            "role": "Agency / MCN",
+            "scene": "Manage lead pools across multiple accounts",
+            "effect": "Standardize lead ops and increase team output"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "How do I find qualified leads from noisy comment sections?",
+            "answer": "Use intent keyword templates and location filters together. This narrows large comment datasets to prospects who show clear inquiry or purchase signals."
+          },
+          {
+            "question": "Do I need to pay to export lead lists?",
+            "answer": "Core export is free. You can download lead data to Excel/CSV and start follow-up immediately without extra setup."
+          },
+          {
+            "question": "Can the tool catch slang or abbreviated contact intent?",
+            "answer": "Yes. Add common variants and slang to your keyword template library, and the matcher will flag those comments during extraction."
+          },
+          {
+            "question": "Why include profile links and location in lead exports?",
+            "answer": "Profile links are stable identifiers for accurate revisit and follow-up. Location helps local teams prioritize nearby prospects with stronger conversion potential."
+          },
+          {
+            "question": "How can teams collaborate on lead follow-up?",
+            "answer": "Sync lead exports to Lark Base and assign owners, status tags, and notes so everyone works from one shared source of truth."
+          },
+          {
+            "question": "How many comments should I process per campaign?",
+            "answer": "For viral posts, starting with the latest or most-liked 200-500 comments often captures the strongest commercial signals while keeping analysis manageable."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "Related Tools",
+        "description": "Complete your Xiaohongshu lead generation workflow",
+        "links": [
+          {
+            "title": "Xiaohongshu Comment Scraper",
+            "description": "Capture structured comment data before filtering for lead intent.",
+            "url": "/xiaohongshu/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "Xiaohongshu Post Scraper",
+            "description": "Build post datasets by keyword and account for upstream research.",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Xiaohongshu Competitor Monitor",
+            "description": "Track competitor content changes and react to new opportunities fast.",
+            "url": "/xiaohongshu/monitoring",
+            "icon": "Radar"
+          },
+          {
+            "title": "Lark Automation Integration",
+            "description": "Sync lead lists into collaborative tables for assignment and follow-up.",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Convert Comment Signals into Sales Opportunities",
+        "description": "Install MediaClaw for free and start exporting high-intent Xiaohongshu leads for faster outreach.",
+        "buttons": [
+          {
+            "title": "Install Free Extension",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "Download Lead List Sample",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-leads-sample.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

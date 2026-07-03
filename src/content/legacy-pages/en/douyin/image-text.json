@@ -1,0 +1,217 @@
+{
+  "metadata": {
+    "title": "Douyin Image Text Extraction - OCR Carousel to Text",
+    "description": "OCR every Douyin carousel image and cover to pull lists, product specs, and tutorial steps. Write text back to the record and export to CSV/Markdown.",
+    "keywords": "douyin image text extraction, douyin image OCR, douyin carousel OCR, product card text recognition, image to text, douyin image commerce, tutorial carousel extraction, douyin OCR"
+  },
+  "page": {
+    "title": "Douyin Image Text Extraction",
+    "show_sections": ["hero", "modes", "why", "uses", "faq", "related", "cta"],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Douyin image text OCR tool",
+        "breadcrumbs": [
+          { "title": "Home", "url": "/" },
+          { "title": "Douyin" },
+          { "title": "Image Text Extraction" }
+        ],
+        "title": "Pull the text out of Douyin carousel images, all at once",
+        "description": "Douyin image posts increasingly bake lists, product specs, and tutorial steps into carousel images, with the body down to a single line. Saving a peer's product list, prices, and key points by screenshotting one image at a time is slow. MediaClaw's built-in image text extraction (OCR) reads the cover and every image, writes the text back to the collected record, and carries it through copy and export.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Download Douyin Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          },
+          {
+            "title": "See how collection works",
+            "icon": "Database",
+            "url": "/douyin/scraper",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/demo/douyin-image-text-1d3290ed99b0.mp4",
+        "video_poster": "https://media.mediaclaw.app/blog-covers/b9707b63cf430c4ad2d9751c0fc810b4.png"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "OCR the cover and every carousel image",
+            "description": "A Douyin image post often has a dozen-plus carousel images. Image text extraction reads every one of them, not just the cover, pulling the product lists, prices, specs, and tutorial steps into copyable text.",
+            "icon": "ScanText",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/b9707b63cf430c4ad2d9751c0fc810b4.png",
+              "alt": "MediaClaw extension sidebar running image text extraction (OCR) on a Douyin image post, showing recognized carousel text written back to the record"
+            },
+            "button": { "title": "Download free", "url": "/download" }
+          },
+          {
+            "title": "Results write back to the record",
+            "description": "A record that only had title, body, and engagement becomes complete raw data once carousel text is added. You read it directly, copy it in full, and carry the image copy through CSV/Markdown export.",
+            "icon": "FileText",
+            "image": {
+              "src": "/imgs/features/image-text-writeback-v20260629.webp",
+              "alt": "Extracted carousel copy shown in table fields alongside the collected record"
+            },
+            "button": { "title": "Download free", "url": "/download" }
+          },
+          {
+            "title": "Raw data lives in the extension, ready to use",
+            "description": "This raw data is built inside the extension itself, collected, recognized, and exported in one place with no external tools. You can use it and export to CSV/Markdown right away. Collection and export are free, turn on OCR when you need it.",
+            "icon": "Boxes",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/0b62f6f7da5e7b9085c33c46d92baf94.png",
+              "alt": "Collecting Douyin image-post data in the MediaClaw extension and completing the carousel copy"
+            },
+            "button": { "title": "Download free", "url": "/download" }
+          }
+        ]
+      },
+      "why": {
+        "id": "why",
+        "block": "features",
+        "subtitle": "Why MediaClaw",
+        "title": "Why not phone screenshots or online OCR",
+        "description": "The three old paths each stall on something, batch, accuracy, or moving images by hand. The real problem is the same: carousel text is disconnected from the Douyin data you're already collecting.",
+        "items": [
+          {
+            "title": "Whole carousel at once, not one at a time",
+            "description": "Phone screenshot text grabs one image at a time, and a dozen carousel images is a grind. Image text extraction reads the whole post and lands results in one record.",
+            "icon": "Layers"
+          },
+          {
+            "title": "Paid model, specs stay correct",
+            "description": "Free OCR is inconsistent; stylized and vertical text in product specs, prices, and sizes produces errors, and one wrong digit misleads your product research. Image text extraction uses a steadier paid model.",
+            "icon": "ScanText"
+          },
+          {
+            "title": "No moving images by hand",
+            "description": "Online OCR sites make you save and upload each image yourself, back to the manual grind. Image text extraction reads the collected Douyin post directly and skips the shuffle.",
+            "icon": "Workflow"
+          }
+        ]
+      },
+      "uses": {
+        "id": "uses",
+        "block": "data-table",
+        "title": "What the extracted text is good for",
+        "description": "Pulling carousel text out is only step one. It gets useful once it's in the collected record.",
+        "columns": [
+          { "key": "scene", "title": "Use case" },
+          { "key": "how", "title": "How" },
+          { "key": "value", "title": "Value" }
+        ],
+        "rows": [
+          {
+            "scene": "Product and competitor breakdown",
+            "how": "OCR a peer's commerce carousel into product names, prices, and selling-point specs",
+            "value": "Compare selection and pricing side by side, no image-by-image checking"
+          },
+          {
+            "scene": "Tutorial carousel archiving",
+            "how": "OCR step tutorials and list carousels, export Markdown into your library",
+            "value": "A full step set becomes searchable text for faster reuse"
+          },
+          {
+            "scene": "Remix and script material",
+            "how": "Pull a benchmark account's image-baked scripts and selling points into text",
+            "value": "Analyze structure line by line, rewrite alongside the video transcript"
+          },
+          {
+            "scene": "Complete both image and video",
+            "how": "Carousel text via OCR, video voiceover via transcript",
+            "value": "Covers the raw data for both Douyin image and video content"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "FAQ",
+        "items": [
+          {
+            "question": "Douyin image posts bake info into carousels, how do I extract the text?",
+            "answer": "OCR the images. After collecting the Douyin post with MediaClaw, run image text extraction on it; the extension reads the cover and every carousel image and writes text back to the record for copy or export. OCR is a paid capability billed by quota; collection and CSV/Excel export are free."
+          },
+          {
+            "question": "Can product names, prices, and specs in a commerce carousel be batch-extracted?",
+            "answer": "Yes. Image text extraction reads the cover plus every carousel image in a post, not just one, and writes results back as text, making it easy to compare selection and pricing side by side, with CSV or Markdown export."
+          },
+          {
+            "question": "Do Douyin and Xiaohongshu image posts use the same extraction flow?",
+            "answer": "Yes. Douyin supports completing the raw data for both image and video content, and image text extraction works the same way as on Xiaohongshu, so one flow covers both platforms with no tool switching."
+          },
+          {
+            "question": "Where does the extracted image text live?",
+            "answer": "It writes back to the collected record inside the extension, alongside the post's title, body, and engagement. Run OCR on the record and the result lands right there, ready to copy or export to CSV/Markdown, with no external tools."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 You might also like",
+        "description": "Complete the raw data for both Douyin image and video content",
+        "links": [
+          {
+            "title": "Douyin video transcript",
+            "description": "Extract video voiceover into a transcript with a timestamped script for pacing and logic.",
+            "url": "/douyin/transcript",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "Douyin video collection",
+            "description": "Collect structured data first, then run image text extraction on image posts.",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Xiaohongshu image text extraction",
+            "description": "Different platform, Xiaohongshu note covers and images also support extraction.",
+            "url": "/xiaohongshu/image-text",
+            "icon": "ScanText"
+          },
+          {
+            "title": "Douyin watermark-free download",
+            "description": "Download carousel images and videos watermark-free first, then recognize and remix.",
+            "url": "/douyin/downloader",
+            "icon": "Download"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Pick a commerce carousel and run OCR once",
+        "description": "Install MediaClaw for free, collect a few Douyin image posts, run image text extraction on one commerce carousel, and see how accurately it reads the product list or price table before you batch-process your benchmark set.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "Download Douyin Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

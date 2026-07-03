@@ -1,0 +1,215 @@
+{
+  "metadata": {
+    "title": "Free Douyin Video Downloader - Batch Save No-Watermark MP4",
+    "description": "Free Douyin watermark remover. Pull the original MP4 link to batch-download no-watermark videos at full quality, plus carousel images and covers. No sign-up.",
+    "keywords": "douyin watermark removal, douyin no-watermark video download, douyin MP4 link, douyin video asset download, douyin remix footage, douyin image download, douyin cover download, douyin batch download"
+  },
+  "page": {
+    "title": "Free Batch Download of Watermark-Free Douyin Videos and Images",
+    "show_sections": [
+      "hero",
+      "modes",
+      "advantage",
+      "scenarios",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Free Douyin no-watermark video batch downloader",
+        "breadcrumbs": [
+          { "title": "Home", "url": "/" },
+          { "title": "Douyin" },
+          { "title": "Watermark-Free Download" }
+        ],
+        "title": "Batch download watermark-free Douyin videos for free",
+        "description": "The browser extension intercepts the original MP4 link right in the page, so you get the platform's stored source video, not a smudged watermark but a file that never had one, vertical and lossless, ideal for remixing and beat-sync editing. Carousel images and covers package too, completely free, unlimited, no sign-up.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=232,244"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features",
+        "subtitle": "Download types",
+        "title": "Covers nearly every asset in a Douyin post",
+        "description": "Open a post detail page, click export attachments, and the extension automatically detects the video, images, and cover on the page.",
+        "items": [
+          {
+            "title": "Watermark-free video MP4 link",
+            "description": "The extension pulls the original MP4 stream link, so what lands locally is the platform's source video, vertical and original quality with no watermark overlay and no re-encoding loss, ready for remixing, beat-sync, or mirroring with no quality drop.",
+            "icon": "Video"
+          },
+          {
+            "title": "Batch save carousel images",
+            "description": "On an image post, save every picture in one click, whether the post has 3 images or 18, all at original resolution and watermark-free, a free replacement for right-clicking one by one.",
+            "icon": "ImageDown"
+          },
+          {
+            "title": "Package and download covers",
+            "description": "Covers are the most-referenced asset; export attachments packages the cover plus video or images together, handy for cover reference and hook breakdowns.",
+            "icon": "Image"
+          }
+        ]
+      },
+      "advantage": {
+        "id": "advantage",
+        "block": "data-table",
+        "title": "Why browser-extension extraction wins",
+        "description": "Online sites and apps each have weak spots; extension extraction balances quality, speed, and batch capability.",
+        "columns": [
+          { "key": "dim", "title": "Dimension" },
+          { "key": "web", "title": "Online site / app" },
+          { "key": "plugin", "title": "Browser extension extraction" }
+        ],
+        "rows": [
+          {
+            "dim": "Price",
+            "web": "Limited free quota, then paid",
+            "plugin": "Completely free, unlimited use"
+          },
+          {
+            "dim": "Video quality",
+            "web": "Usually compressed and re-encoded",
+            "plugin": "Original MP4 link, vertical and lossless"
+          },
+          {
+            "dim": "Watermark",
+            "web": "Smudged or covered over",
+            "plugin": "Gets the watermark-free source file directly"
+          },
+          {
+            "dim": "Batch",
+            "web": "One at a time",
+            "plugin": "One click exports the video plus images"
+          },
+          {
+            "dim": "Workflow",
+            "web": "Switching between phone and web",
+            "plugin": "Done in one place in the desktop browser"
+          },
+          {
+            "dim": "Ads",
+            "web": "Heavy pop-ups, links often break",
+            "plugin": "Ad-free, download anytime while browsing"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "Typical use cases for free batch download",
+        "columns": [
+          { "key": "role", "title": "Role" },
+          { "key": "scene", "title": "Scenario" },
+          { "key": "effect", "title": "Outcome" }
+        ],
+        "rows": [
+          {
+            "role": "Video editors",
+            "scene": "Download benchmark videos for remixing and beat-sync footage",
+            "effect": "Lossless source files go straight into editing, no transcoding"
+          },
+          {
+            "role": "Short-video creators",
+            "scene": "Build a benchmark video reference library",
+            "effect": "Systematically collect peer techniques and cut drafting trial-and-error"
+          },
+          {
+            "role": "Media buyers / commerce",
+            "scene": "Pull peer footage to break down shots and hooks",
+            "effect": "Faster reads on pacing and conversion structure"
+          },
+          {
+            "role": "Brand teams",
+            "scene": "Archive how a niche's video assets change over time",
+            "effect": "Build a reusable visual intelligence asset"
+          },
+          {
+            "role": "Content ops",
+            "scene": "Set a cover reference baseline before a topic series",
+            "effect": "More consistent covers and clearer hook comparison"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "FAQ",
+        "items": [
+          {
+            "question": "Does the free version support batch download of watermark-free Douyin videos?",
+            "answer": "Yes. After installing, run batch download on a post detail page; the extension pulls the original MP4 link to quickly save watermark-free videos, completely free, unlimited, and no sign-up."
+          },
+          {
+            "question": "Does downloading compress the Douyin video quality?",
+            "answer": "No. The extension pulls the original MP4 link from the platform's servers and downloads at vertical original quality, with no re-encoding loss, so remixing, beat-sync, and mirroring keep full clarity."
+          },
+          {
+            "question": "Can I download carousel images and covers too?",
+            "answer": "Yes. On an image post you can batch-save every picture at original resolution and watermark-free, and export attachments packages the cover as well, so video, images, and cover are done in one place."
+          },
+          {
+            "question": "How should I use downloaded Douyin assets responsibly?",
+            "answer": "Douyin's reposting detection is fairly strict; don't repost content as-is, as it carries copyright risk and often gets throttled or banned. Use it for re-creation such as color grading, mirroring, or re-editing with new audio, or for internal analysis, to balance quality and platform rules."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 You might also like",
+        "description": "Chain Douyin collection, download, and analysis into one asset workflow",
+        "links": [
+          {
+            "title": "Douyin video collection",
+            "description": "Collect structured data first, then batch download the matching asset files.",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Douyin video transcript",
+            "description": "Extract a transcript from the downloaded video and read pacing against timestamps.",
+            "url": "/douyin/transcript",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "Douyin image text extraction",
+            "description": "Run OCR on downloaded carousel images to pull the image text.",
+            "url": "/douyin/image-text",
+            "icon": "ScanText"
+          },
+          {
+            "title": "Xiaohongshu watermark-free download",
+            "description": "Different platform, Xiaohongshu images, Live photos, and covers also save watermark-free.",
+            "url": "/xiaohongshu/downloader",
+            "icon": "Download"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Stockpile Douyin video assets in batch",
+        "description": "Install MediaClaw for free and plug watermark-free Douyin video and image download into your collection, analysis, and creation workflow, so the time saved goes back into real content.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

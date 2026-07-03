@@ -45,6 +45,7 @@ function workersDbProvider(): string {
 
 const workersDb = isCloudflareBuild ? workersDbProvider() : '';
 const keepPostgres = workersDb === 'postgresql' || workersDb === 'postgres';
+const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
 
 export default defineConfig({
   server: {
@@ -100,6 +101,14 @@ export default defineConfig({
       srcDirectory: 'src',
     }),
     viteReact(),
-    nitro(),
+    nitro({
+      publicAssets: [
+        {
+          baseURL: '/imgs',
+          dir: 'public/imgs',
+          maxAge: ONE_YEAR_IN_SECONDS,
+        },
+      ],
+    }),
   ],
 });

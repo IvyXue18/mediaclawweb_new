@@ -1,0 +1,446 @@
+{
+  "metadata": {
+    "title": "MediaClaw Pricing - Plans for Content Scraping & AI Ops",
+    "description": "Choose the MediaClaw plan that fits you best. Core scraping features stay free, and advanced AI plus collaboration unlock when you upgrade.",
+    "keywords": "MediaClaw pricing, subscription plans, social media scraper cost, AI content tools, team collaboration, data extraction pricing"
+  },
+  "page": {
+    "title": "MediaClaw Pricing",
+    "sections": {
+      "pricing": {
+        "id": "pricing",
+        "block": "pricing",
+        "title": "Choose the plan that fits you",
+        "description": "Core scraping features stay free. Upgrade when you need advanced collection tools, Lark Base sync, and AI workflows.",
+        "tip": "✅ 7-day free trial for Pro, no credit card required &nbsp;·&nbsp; 30-day money-back guarantee",
+        "groups": [
+          {
+            "name": "month",
+            "title": "Monthly",
+            "label": "Flexible"
+          },
+          {
+            "name": "monthly",
+            "title": "Quarterly"
+          },
+          {
+            "name": "yearly",
+            "title": "Yearly",
+            "is_featured": true,
+            "label": "Save 30%"
+          },
+          {
+            "name": "credits",
+            "title": "Credit Packs"
+          }
+        ],
+        "items": [
+          {
+            "title": "Free",
+            "description": "For individuals who use it occasionally.",
+            "features": [
+              "Deep single-note / video collection, ideal for saving high-value content one item at a time",
+              "Basic list collection from search and account pages",
+              "Local data pool storage with CSV and Markdown export",
+              "Watermark-free image, video, and audio download",
+              "Single browser device usage"
+            ],
+            "interval": "one-time",
+            "amount": 0,
+            "currency": "CNY",
+            "credits": 0,
+            "valid_days": 0,
+            "price": "¥0",
+            "unit": "",
+            "is_featured": false,
+            "button": {
+              "title": "Install Free Extension",
+              "url": "/download",
+              "target": "_blank",
+              "icon": "Download"
+            },
+            "product_id": "free",
+            "product_name": "MediaClaw Free",
+            "group": "month"
+          },
+          {
+            "title": "Pro",
+            "description": "For ongoing topic research, collection, filtering, and review.",
+            "label": "Most Popular",
+            "features_title": "Everything in Free",
+            "features": [
+              "Unlock enhanced collection: batch backfill body text, tags, engagement, attached media, and other detail data",
+              "Filter by comments, creator metrics, low-follower viral posts, and lead clues",
+              "Sync data to Lark Base to build a topic and content library",
+              "Includes 180 AI credits for competitor monitoring, topic analysis, long-tail keyword analysis, video transcripts, and content remixing",
+              "Single browser device usage"
+            ],
+            "interval": "one-time",
+            "amount": 4900,
+            "currency": "CNY",
+            "credits": 180,
+            "valid_days": 30,
+            "price": "¥49",
+            "unit": "/ month",
+            "is_featured": true,
+            "is_popular": true,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Choose Plan",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "pro-1m",
+            "product_name": "MediaClaw Pro Monthly",
+            "group": "month"
+          },
+          {
+            "title": "Team",
+            "description": "For teams sharing data, collaborating, and monitoring continuously.",
+            "features_title": "Everything in Pro",
+            "features": [
+              "Includes 700 AI credits for ongoing competitor monitoring, topic research, and team AI analysis",
+              "Multiple members sync data to one Lark Base",
+              "Ideal for content teams, MCNs, brand marketing, and ops groups",
+              "Use on up to 3 browser devices simultaneously"
+            ],
+            "interval": "one-time",
+            "amount": 12900,
+            "currency": "CNY",
+            "credits": 700,
+            "valid_days": 30,
+            "price": "¥129",
+            "unit": "/ month",
+            "is_featured": false,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Choose Plan",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "team-1m",
+            "product_name": "MediaClaw Team Monthly",
+            "group": "month"
+          },
+          {
+            "title": "Free",
+            "description": "For individuals who use it occasionally.",
+            "features": [
+              "Deep single-note / video collection, ideal for saving high-value content one item at a time",
+              "Basic list collection from search and account pages",
+              "Local data pool storage with CSV and Markdown export",
+              "Watermark-free image, video, and audio download",
+              "Single browser device usage"
+            ],
+            "interval": "one-time",
+            "amount": 0,
+            "currency": "CNY",
+            "credits": 0,
+            "valid_days": 0,
+            "price": "¥0",
+            "unit": "",
+            "is_featured": false,
+            "button": {
+              "title": "Install Free Extension",
+              "url": "/download",
+              "target": "_blank",
+              "icon": "Download"
+            },
+            "product_id": "free",
+            "product_name": "MediaClaw Free",
+            "group": "monthly"
+          },
+          {
+            "title": "Pro",
+            "description": "For ongoing topic research, collection, filtering, and review.",
+            "label": "Recommended",
+            "features_title": "Everything in Free",
+            "features": [
+              "Unlock enhanced collection: batch backfill body text, tags, engagement, attached media, and other detail data",
+              "Filter by comments, creator metrics, low-follower viral posts, and lead clues",
+              "Sync data to Lark Base to build a topic and content library",
+              "Includes 600 AI credits for competitor monitoring, topic analysis, long-tail keyword analysis, video transcripts, and content remixing",
+              "Single browser device usage"
+            ],
+            "interval": "one-time",
+            "amount": 11800,
+            "currency": "CNY",
+            "credits": 600,
+            "valid_days": 90,
+            "price": "¥118",
+            "unit": "/ quarter",
+            "is_featured": true,
+            "is_popular": true,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Choose Plan",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "pro-monthly",
+            "product_name": "MediaClaw Pro Quarterly",
+            "group": "monthly"
+          },
+          {
+            "title": "Team",
+            "description": "For teams sharing data, collaborating, and monitoring continuously.",
+            "features_title": "Everything in Pro",
+            "features": [
+              "Includes 2,000 AI credits for ongoing competitor monitoring, topic research, and team AI analysis",
+              "Multiple members sync data to one Lark Base",
+              "Ideal for content teams, MCNs, brand marketing, and ops groups",
+              "Use on up to 3 browser devices simultaneously"
+            ],
+            "interval": "one-time",
+            "amount": 31800,
+            "currency": "CNY",
+            "credits": 2000,
+            "valid_days": 90,
+            "price": "¥318",
+            "unit": "/ quarter",
+            "is_featured": false,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Choose Plan",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "team-monthly",
+            "product_name": "MediaClaw Team Quarterly",
+            "group": "monthly"
+          },
+          {
+            "title": "Free",
+            "description": "For individuals who use it occasionally.",
+            "features": [
+              "Deep single-note / video collection, ideal for saving high-value content one item at a time",
+              "Basic list collection from search and account pages",
+              "Local data pool storage with CSV and Markdown export",
+              "Watermark-free image, video, and audio download",
+              "Single browser device usage"
+            ],
+            "interval": "one-time",
+            "amount": 0,
+            "currency": "CNY",
+            "credits": 0,
+            "valid_days": 0,
+            "price": "¥0",
+            "unit": "",
+            "is_featured": false,
+            "button": {
+              "title": "Install Free Extension",
+              "url": "/download",
+              "target": "_blank",
+              "icon": "Download"
+            },
+            "product_id": "free",
+            "product_name": "MediaClaw Free",
+            "group": "yearly"
+          },
+          {
+            "title": "Pro",
+            "description": "For ongoing topic research, collection, filtering, and review.",
+            "label": "Recommended",
+            "features_title": "Everything in Free",
+            "features": [
+              "Unlock enhanced collection: batch backfill body text, tags, engagement, attached media, and other detail data",
+              "Filter by comments, creator metrics, low-follower viral posts, and lead clues",
+              "Sync data to Lark Base to build a topic and content library",
+              "Includes 2,500 AI credits for competitor monitoring, topic analysis, long-tail keyword analysis, video transcripts, and content remixing",
+              "Single browser device usage"
+            ],
+            "interval": "one-time",
+            "amount": 39900,
+            "currency": "CNY",
+            "credits": 2500,
+            "valid_days": 365,
+            "price": "¥399",
+            "original_price": "¥588",
+            "unit": "/ year",
+            "is_featured": true,
+            "is_popular": true,
+            "tip": "Save ¥189 with yearly billing",
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Choose Plan",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "pro-yearly",
+            "product_name": "MediaClaw Pro Yearly",
+            "group": "yearly"
+          },
+          {
+            "title": "Team",
+            "description": "For teams sharing data, collaborating, and monitoring continuously.",
+            "features_title": "Everything in Pro",
+            "features": [
+              "Includes 9,000 AI credits for ongoing competitor monitoring, topic research, and team AI analysis",
+              "Multiple members sync data to one Lark Base",
+              "Ideal for content teams, MCNs, brand marketing, and ops groups",
+              "Use on up to 3 browser devices simultaneously"
+            ],
+            "interval": "one-time",
+            "amount": 108800,
+            "currency": "CNY",
+            "credits": 9000,
+            "valid_days": 365,
+            "price": "¥1088",
+            "original_price": "¥1548",
+            "unit": "/ year",
+            "is_featured": false,
+            "tip": "Save ¥460 with yearly billing",
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Choose Plan",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "team-yearly",
+            "product_name": "MediaClaw Team Yearly",
+            "group": "yearly"
+          },
+          {
+            "title": "Emergency Top-up Pack",
+            "description": "For temporarily boosting AI analysis and monitoring quota.",
+            "label": "Most Popular",
+            "features": [
+              "1,000 AI credits",
+              "For competitor monitoring, topic analysis, long-tail keyword analysis, video transcripts, and content remixing",
+              "Good for short campaigns or running a few extra analysis or monitoring tasks",
+              "Only tops up credits for existing paid members; does not unlock membership features on its own",
+              "Does not extend the plugin validity period; after membership expires, credits freeze without resetting and resume after renewal"
+            ],
+            "interval": "one-time",
+            "amount": 2900,
+            "currency": "CNY",
+            "credits": 1000,
+            "valid_days": 0,
+            "price": "¥29",
+            "unit": "",
+            "is_featured": true,
+            "is_popular": true,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Buy Credits",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Coins"
+            },
+            "product_id": "credits-emergency-150",
+            "product_name": "MediaClaw Emergency Top-up Pack",
+            "group": "credits"
+          },
+          {
+            "title": "Creator Pack",
+            "description": "For individuals doing ongoing topic research, transcripts, and remix analysis.",
+            "features": [
+              "3,000 AI credits",
+              "For competitor monitoring, topic analysis, long-tail keyword analysis, video transcripts, and content remixing",
+              "Good for solo accounts to continually review content, analyze topics, and process material",
+              "Only tops up credits for existing paid members; does not unlock membership features on its own",
+              "Does not extend the plugin validity period; after membership expires, credits freeze without resetting and resume after renewal"
+            ],
+            "interval": "one-time",
+            "amount": 7900,
+            "currency": "CNY",
+            "credits": 3000,
+            "valid_days": 0,
+            "price": "¥79",
+            "unit": "",
+            "is_featured": false,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Buy Credits",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Coins"
+            },
+            "product_id": "credits-creator-600",
+            "product_name": "MediaClaw Creator Pack",
+            "group": "credits"
+          },
+          {
+            "title": "Multi-line Team Pack",
+            "description": "For teams doing high-frequency monitoring, batch analysis, and multi-project review.",
+            "label": "High Volume",
+            "features": [
+              "15,000 AI credits",
+              "For competitor monitoring, topic analysis, long-tail keyword analysis, video transcripts, and content remixing",
+              "Built for teams burning credits across multiple accounts, projects, and members",
+              "Only tops up credits for existing paid members; does not unlock membership features on its own",
+              "Does not extend the plugin validity period; after membership expires, credits freeze without resetting and resume after renewal"
+            ],
+            "interval": "one-time",
+            "amount": 36000,
+            "currency": "CNY",
+            "credits": 15000,
+            "valid_days": 0,
+            "price": "¥360",
+            "unit": "",
+            "is_featured": false,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Buy Credits",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Coins"
+            },
+            "product_id": "credits-team-3000",
+            "product_name": "MediaClaw Multi-line Team Pack",
+            "group": "credits"
+          }
+        ]
+      }
+    }
+  },
+  "messages": {
+    "current_plan": "Current Plan",
+    "processing": "Processing",
+    "purchase_mode_new": "New Activation Code",
+    "purchase_mode_renew": "Renew Existing Code",
+    "select_credential": "Select Activation Code",
+    "select_credential_placeholder": "Choose an activation code to renew",
+    "custom_input": "Custom Input",
+    "custom_credential_placeholder": "Enter code, e.g. ACT-XXXX-XXXX-XXXX",
+    "credential_expires": "Expires",
+    "credential_credits_remaining": "Credits left",
+    "credential_bindings": "Devices bound",
+    "credential_required": "Please select or enter an activation code",
+    "credential_type": "Code type",
+    "credential_kind_trial": "Trial code",
+    "credential_kind_paid": "Paid code",
+    "credential_status_active": "Active",
+    "credential_status_expired": "Expired",
+    "credential_status_frozen": "Frozen",
+    "no_credentials": "No activation codes found. Purchase a new one first.",
+    "no_formal_credentials": "No paid membership activation code found. Upgrade a plan first.",
+    "credits_require_credential": "Credit packs must be bound to a paid membership activation code for account monitoring and in-extension AI features. Trial codes cannot buy credits directly; upgrade to a paid plan first.",
+    "credits_trial_option_hint": "Upgrade plan first",
+    "credits_trial_not_allowed": "Trial codes cannot buy credits directly. Upgrade to a paid plan first.",
+    "checkout_modal_title": "Confirm Purchase Mode",
+    "checkout_modal_description": "Choose new activation or renew existing code before payment",
+    "checkout_modal_title_plan": "Choose how this plan applies",
+    "checkout_modal_description_plan": "You can buy a new paid activation code, or upgrade an existing trial code in place. After upgrading, keep the same code and re-verify it in the extension to refresh membership benefits.",
+    "checkout_modal_title_credits": "Choose where credits go",
+    "checkout_modal_description_credits": "Credit packs must be bound to a paid membership activation code for account monitoring and in-extension AI features. Trial codes cannot buy credits directly; upgrade to a paid plan first.",
+    "checkout_modal_cancel": "Cancel",
+    "checkout_modal_confirm": "Continue to Payment",
+    "checkout_confirm_upgrade_trial": "Upgrade to Paid Plan",
+    "checkout_confirm_renew": "Renew This Code",
+    "checkout_confirm_new": "Buy New Code",
+    "checkout_confirm_credits": "Buy Credits",
+    "checkout_creating_title": "Creating your payment order",
+    "checkout_creating_description": "We are creating the order, connecting to the payment channel, and preparing the QR checkout page.",
+    "checkout_step_order": "Order details submitted",
+    "checkout_step_provider": "Connecting to payment channel",
+    "checkout_step_redirect": "Opening the QR checkout page",
+    "checkout_keep_open": "This usually takes a few seconds. Please keep this window open."
+  }
+}

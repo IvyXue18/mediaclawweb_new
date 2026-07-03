@@ -1,0 +1,709 @@
+{
+  "metadata": {
+    "title": "Xiaohongshu & Douyin Scraper | MediaClaw",
+    "description": "Scrape Xiaohongshu (RedNote) and Douyin posts, comments, and keywords with one Chrome extension. Export CSV/Markdown, backfill text, sync to Lark Base. Free.",
+    "keywords": "Xiaohongshu scraper, Douyin data extraction, competitor account finder, niche opportunity analysis, export comments, Markdown export, video transcript extraction, image text extraction, content operations tool, MediaClaw, competitor monitoring, Lark synchronization"
+  },
+  "page": {
+    "show_sections": [
+      "hero",
+      "platforms",
+      "introduce",
+      "benefits",
+      "pricing",
+      "faq",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "title": "Scrape, Judge, Benchmark, and Monitor",
+        "highlight_text": "10x Faster",
+        "description": "One Chrome extension for Xiaohongshu and Douyin: scrape posts and videos, export comments, judge niche opportunity, find benchmark accounts, expand long-tail keywords, monitor competitors, export Markdown, backfill image text or video transcripts, and sync everything to Lark Base.",
+        "announcement": {
+          "badge": "V0.1.8 Update",
+          "title": "Markdown export, video transcripts, and image text extraction",
+          "url": "/updates"
+        },
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          }
+        ],
+        "show_avatars": false,
+        "avatars_tip": "",
+        "show_award": false,
+        "image": {
+          "src": "/imgs/features/1-v20260424.webp",
+          "alt": "MediaClaw Chrome extension sidebar scraping Xiaohongshu post data including notes, comments, and engagement metrics",
+          "width": 1200,
+          "height": 800
+        },
+        "image_invert": {
+          "src": "/imgs/features/1-v20260424.webp",
+          "alt": "MediaClaw Chrome extension sidebar scraping Xiaohongshu post data including notes, comments, and engagement metrics",
+          "width": 1200,
+          "height": 800
+        },
+        "background_image": {
+          "src": "",
+          "alt": ""
+        },
+        "video_title": "MediaClaw 5-Minute Demo",
+        "video_poster": "/imgs/features/1-v20260424.webp",
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4"
+      },
+      "platforms": {
+        "id": "platforms",
+        "block": "feature-matrix",
+        "label": "Dual Platform Coverage",
+        "title": "One Extension, Two Platforms",
+        "description": "No more switching between tools. Scrape, analyze, and collaborate across both Xiaohongshu and Douyin.",
+        "columns": 2,
+        "className": "bg-secondary/20",
+        "items": [
+          {
+            "title": "Xiaohongshu (RedNote)",
+            "description": "Post scraping · Comment scraping · Lead filtering · Niche strategy · Benchmark accounts · Competitor monitoring · Media download · Image text / video transcripts · Markdown export",
+            "icon": "BookOpen",
+            "url": "/xiaohongshu/scraper",
+            "target": "_self",
+            "image": {
+              "src": "/imgs/features/platform-xiaohongshu.webp",
+              "alt": "MediaClaw Xiaohongshu scraper capabilities overview for post data extraction and content analytics"
+            }
+          },
+          {
+            "title": "Douyin (TikTok China)",
+            "description": "Video scraping · Comment scraping · Search scraping · Niche strategy · Benchmark accounts · Competitor monitoring · Video transcripts · Markdown export",
+            "icon": "Clapperboard",
+            "url": "/douyin/scraper",
+            "target": "_self",
+            "image": {
+              "src": "/imgs/features/platform-douyin.webp",
+              "alt": "MediaClaw Douyin scraper capabilities overview for video data extraction and engagement analytics"
+            }
+          }
+        ]
+      },
+      "introduce": {
+        "block": "features-tab",
+        "title": "Built for Every Role in Content Ops",
+        "description": "From solo creators to MCN teams and market analysts — repeatable workflows",
+        "items": [
+          {
+            "title": "Ops: Competitor Reports",
+            "description": "Instead of spending half a day screenshotting competitors, start with niche strategy to find accounts repeatedly appearing for your keyword, then batch-scrape this week's top-performing content and sync it to Lark for reporting.",
+            "icon": "Users",
+            "image": {
+              "src": "/imgs/features/7-v20260309.webp",
+              "alt": "Content operations team using MediaClaw to batch-scrape high-engagement Xiaohongshu posts filtered by likes for weekly competitor reports"
+            }
+          },
+          {
+            "title": "MCN: Creator Vetting at Scale",
+            "description": "Need to evaluate 50 creators before signing? Find low-follower, high-performing accounts from category search first, then batch-scrape profile history and compare creator quality in Lark. Cut vetting time from 2 days to 2 hours.",
+            "icon": "Rocket",
+            "image": {
+              "src": "/imgs/features/2-v20260309.webp",
+              "alt": "MCN agency batch-scraping Xiaohongshu and Douyin creator profiles to evaluate KOL quality and engagement rates"
+            }
+          },
+          {
+            "title": "Creator: Reverse-Engineer Viral Posts",
+            "description": "Twenty posts and nothing took off? Run niche opportunity analysis before writing, then drill into long-tail demand and low-follower viral samples. Stop guessing whether the main keyword is still worth chasing.",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/features/3-v20260309.webp",
+              "alt": "Content creator using MediaClaw to scrape and analyze high-performing Xiaohongshu posts for viral content patterns"
+            }
+          },
+          {
+            "title": "Analyst: Trend Research Reports",
+            "description": "Client needs a beauty trend report? Batch-scrape high-engagement posts under keywords like 'skincare' and 'clean beauty', add benchmark account discovery and long-tail demand analysis, then build content and creator sample pools in hours.",
+            "icon": "TrendingUp",
+            "image": {
+              "src": "/imgs/features/4-v20260309.webp",
+              "alt": "Market analyst using MediaClaw keyword scraping to build Xiaohongshu industry trend reports with data-driven insights"
+            }
+          }
+        ],
+        "id": "scenarios"
+      },
+      "benefits": {
+        "block": "features-scroll",
+        "title": "Core Capabilities",
+        "description": "Scraping, niche strategy, benchmark discovery, monitoring, collaboration, and diagnostics — unified in one extension.",
+        "items": [
+          {
+            "title": "Deep Post & Video Extraction",
+            "description": "One-click scrape of titles, body text, engagement metrics, images, and video URLs. All structured data fields preserved for downstream analysis.",
+            "icon": "Database",
+            "image": {
+              "src": "/imgs/features/9-v20260424.webp",
+              "alt": "MediaClaw one-click batch export of Xiaohongshu post and Douyin video content with full engagement data"
+            },
+            "button": {
+              "title": "Learn about post scraping",
+              "url": "/xiaohongshu/scraper"
+            }
+          },
+          {
+            "title": "Markdown Export & Source Data Backfill",
+            "description": "Export your data pool as Markdown, then backfill image text or video transcripts on collected records. Completed text flows into copy, CSV/Markdown export, and Lark sync.",
+            "icon": "FileText",
+            "image": {
+              "src": "/imgs/features/9-v20260424.webp",
+              "alt": "MediaClaw exporting scraped records as Markdown and backfilling image text or video transcripts"
+            },
+            "button": {
+              "title": "See V0.1.8 update",
+              "url": "/updates"
+            }
+          },
+          {
+            "title": "Profile Batch Scraping",
+            "description": "Auto-scroll through creator profiles to scrape their full post history. Filter by engagement to quickly benchmark competitor accounts.",
+            "icon": "Users",
+            "image": {
+              "src": "/imgs/features/2-v20260309.webp",
+              "alt": "MediaClaw auto-scrolling creator profile page to batch-scrape historical posts for account benchmarking"
+            },
+            "button": {
+              "title": "Learn about profile scraping",
+              "url": "/xiaohongshu/scraper"
+            }
+          },
+          {
+            "title": "Comment Lead Filtering",
+            "description": "Batch-export comments and filter by intent keywords to surface high-value leads. Export clean prospect lists for sales follow-up.",
+            "icon": "MessageCircle",
+            "image": {
+              "src": "/imgs/features/10-v20260424.webp",
+              "alt": "MediaClaw comment scraper with keyword filtering to identify and export high-intent user leads from Xiaohongshu and Douyin"
+            },
+            "button": {
+              "title": "Learn about comment scraping",
+              "url": "/xiaohongshu/comments"
+            }
+          },
+          {
+            "title": "Niche Strategy & Keyword Insights",
+            "description": "Judge whether a main keyword is worth pursuing, find benchmark accounts from search samples, then expand long-tail demand and trigger search result scraping.",
+            "icon": "Search",
+            "image": {
+              "src": "/imgs/features/11-v20260424.webp",
+              "alt": "MediaClaw niche strategy workflow judging keyword opportunity, finding benchmark accounts, and expanding long-tail topics"
+            },
+            "button": {
+              "title": "Learn about niche strategy",
+              "url": "/xiaohongshu/keywords"
+            }
+          },
+          {
+            "title": "Competitor Account Monitoring",
+            "description": "Subscribe to competitor accounts for automatic tracking. Get AI-summarized daily alerts pushed to Lark when new content matches your rules.",
+            "icon": "Radar",
+            "image": {
+              "src": "/imgs/features/12-v20260424.webp",
+              "alt": "MediaClaw competitor monitoring dashboard automatically tracking Xiaohongshu and Douyin account updates with alert rules"
+            },
+            "button": {
+              "title": "Learn about monitoring",
+              "url": "/xiaohongshu/monitoring"
+            }
+          },
+          {
+            "title": "Watermark-Free Media Download",
+            "description": "Batch-download images and videos in original quality without watermarks. Build a reusable visual reference library for your team.",
+            "icon": "Download",
+            "image": {
+              "src": "/imgs/features/13-v20260424.webp",
+              "alt": "MediaClaw batch downloading Xiaohongshu photos and videos without watermarks in original HD quality"
+            },
+            "button": {
+              "title": "Learn about media download",
+              "url": "/xiaohongshu/downloader"
+            }
+          },
+          {
+            "title": "Enhancement & Diagnostics",
+            "description": "Backfill post details, creator metrics, comments, and lead filters after list scraping. If a task collects too few records or sync fails, copy sanitized diagnostics to locate the exact stage.",
+            "icon": "Activity",
+            "image": {
+              "src": "/imgs/features/1-v20260424.webp",
+              "alt": "MediaClaw execution history and diagnostics copy for investigating low collection counts, comment gaps, and Lark sync failures"
+            },
+            "button": {
+              "title": "See updates",
+              "url": "/updates"
+            }
+          },
+          {
+            "title": "Lark Base Sync & Team Collaboration",
+            "description": "One-click sync scraped data to Lark Base. Your entire team can view, filter, and act on shared datasets in real time — no manual copy-paste relay.",
+            "icon": "Table2",
+            "image": {
+              "src": "/imgs/features/14-v20260424.webp",
+              "alt": "MediaClaw syncing scraped Xiaohongshu and Douyin data to Lark Base for real-time team collaboration and analysis"
+            },
+            "button": {
+              "title": "Learn about Lark sync",
+              "url": "/features/feishu-integration"
+            }
+          }
+        ],
+        "id": "features"
+      },
+      "pricing": {
+        "id": "pricing",
+        "block": "pricing",
+        "title": "Choose Your Plan",
+        "description": "Core scraping features are free forever. Upgrade for advanced features, monitoring, and team collaboration.",
+        "groups": [
+          {
+            "name": "month",
+            "title": "Monthly",
+            "label": "Flexible"
+          },
+          {
+            "name": "monthly",
+            "title": "Quarterly"
+          },
+          {
+            "name": "yearly",
+            "title": "Annual",
+            "is_featured": true,
+            "label": "Save 30%"
+          },
+          {
+            "name": "credits",
+            "title": "Credit Packs"
+          }
+        ],
+        "items": [
+          {
+            "title": "Free",
+            "description": "For individuals — start scraping with zero setup",
+            "features_title": "Includes",
+            "features": [
+              "Batch scrape Xiaohongshu posts by keyword, account, or search",
+              "Local data storage",
+              "Watermark-free image and video download",
+              "Unlimited CSV / XLSX export",
+              "Single browser device"
+            ],
+            "interval": "one-time",
+            "amount": 0,
+            "currency": "CNY",
+            "price": "¥0",
+            "unit": "/ mo",
+            "is_featured": false,
+            "button": {
+              "title": "Install Free",
+              "url": "/download",
+              "target": "_blank",
+              "icon": "Download"
+            },
+            "product_id": "free",
+            "product_name": "MediaClaw Free",
+            "group": "month"
+          },
+          {
+            "title": "Pro",
+            "description": "For creators and solo operators who need the full toolkit",
+            "label": "Most Popular",
+            "features_title": "Everything in Free, plus",
+            "features": [
+              "Batch scrape Xiaohongshu & Douyin posts, accounts, and search results",
+              "Batch scrape post comments",
+              "180 credits for competitor monitoring and in-extension AI features",
+              "Monitor ~1 Xiaohongshu account for 30 days, or ~6 Douyin accounts for 30 days",
+              "Sync data to Lark Base",
+              "Lark Base AI analysis templates: image recognition, script extraction, comment analysis, batch content remixing",
+              "Single browser device"
+            ],
+            "interval": "one-time",
+            "amount": 4900,
+            "currency": "CNY",
+            "credits": 180,
+            "valid_days": 30,
+            "price": "¥49",
+            "unit": "/ mo",
+            "is_featured": true,
+            "is_popular": true,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Get Started",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "pro-1m",
+            "product_name": "MediaClaw Pro Monthly",
+            "group": "month"
+          },
+          {
+            "title": "Team",
+            "description": "For MCN agencies and brand teams with shared workflows",
+            "features_title": "Everything in Free, plus",
+            "features": [
+              "Batch scrape Xiaohongshu & Douyin posts, accounts, and search results",
+              "Batch scrape post comments",
+              "700 credits for competitor monitoring and in-extension AI features",
+              "Monitor ~5 Xiaohongshu accounts for 30 days, or ~20 Douyin accounts for 30 days",
+              "Sync data to Lark Base",
+              "Lark Base AI analysis templates: image recognition, script extraction, comment analysis, batch content remixing",
+              "Up to 3 browser devices"
+            ],
+            "interval": "one-time",
+            "amount": 12900,
+            "currency": "CNY",
+            "credits": 700,
+            "valid_days": 30,
+            "price": "¥129",
+            "unit": "/ mo",
+            "is_featured": false,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Get Started",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "team-1m",
+            "product_name": "MediaClaw Team Monthly",
+            "group": "month"
+          },
+          {
+            "title": "Free",
+            "description": "For individuals — start scraping with zero setup",
+            "features_title": "Includes",
+            "features": [
+              "Batch scrape Xiaohongshu posts by keyword, account, or search",
+              "Local data storage",
+              "Watermark-free image and video download",
+              "Unlimited CSV / XLSX export",
+              "Single browser device"
+            ],
+            "interval": "one-time",
+            "amount": 0,
+            "currency": "CNY",
+            "price": "¥0",
+            "unit": "/ quarter",
+            "is_featured": false,
+            "button": {
+              "title": "Install Free",
+              "url": "/download",
+              "target": "_blank",
+              "icon": "Download"
+            },
+            "product_id": "free",
+            "product_name": "MediaClaw Free",
+            "group": "monthly"
+          },
+          {
+            "title": "Pro",
+            "description": "Best value for creators who use MediaClaw daily",
+            "label": "Recommended",
+            "features_title": "Everything in Free, plus",
+            "features": [
+              "Batch scrape Xiaohongshu & Douyin posts, accounts, and search results",
+              "Batch scrape post comments",
+              "600 credits for competitor monitoring and in-extension AI features",
+              "Monitor ~4 Xiaohongshu accounts for 30 days, or ~10 Douyin accounts for 60 days",
+              "Sync data to Lark Base",
+              "Lark Base AI analysis templates: image recognition, script extraction, comment analysis, batch content remixing",
+              "Single browser device"
+            ],
+            "interval": "one-time",
+            "amount": 11800,
+            "currency": "CNY",
+            "credits": 600,
+            "valid_days": 90,
+            "price": "¥118",
+            "unit": "/ quarter",
+            "is_featured": true,
+            "is_popular": true,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Get Started",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "pro-monthly",
+            "product_name": "MediaClaw Pro Quarterly",
+            "group": "monthly"
+          },
+          {
+            "title": "Team",
+            "description": "For agencies and brand teams with shared workflows",
+            "features_title": "Everything in Free, plus",
+            "features": [
+              "Batch scrape Xiaohongshu & Douyin posts, accounts, and search results",
+              "Batch scrape post comments",
+              "2,000 credits for competitor monitoring and in-extension AI features",
+              "Monitor ~8 Xiaohongshu accounts for 50 days, or ~20 Douyin accounts for 100 days",
+              "Sync data to Lark Base",
+              "Lark Base AI analysis templates: image recognition, script extraction, comment analysis, batch content remixing",
+              "Up to 3 browser devices"
+            ],
+            "interval": "one-time",
+            "amount": 31800,
+            "currency": "CNY",
+            "credits": 2000,
+            "valid_days": 90,
+            "price": "¥318",
+            "unit": "/ quarter",
+            "is_featured": false,
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Get Started",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "team-monthly",
+            "product_name": "MediaClaw Team Quarterly",
+            "group": "monthly"
+          },
+          {
+            "title": "Free",
+            "description": "For individuals — start scraping with zero setup",
+            "features_title": "Includes",
+            "features": [
+              "Batch scrape Xiaohongshu posts by keyword, account, or search",
+              "Local data storage",
+              "Watermark-free image and video download",
+              "Unlimited CSV / XLSX export",
+              "Single browser device"
+            ],
+            "interval": "year",
+            "amount": 0,
+            "currency": "CNY",
+            "price": "¥0",
+            "unit": "/ yr",
+            "is_featured": false,
+            "button": {
+              "title": "Install Free",
+              "url": "/download",
+              "target": "_blank",
+              "icon": "Download"
+            },
+            "product_id": "free",
+            "product_name": "MediaClaw Free",
+            "group": "yearly"
+          },
+          {
+            "title": "Pro",
+            "description": "The best annual value for power users",
+            "label": "Recommended",
+            "features_title": "Everything in Free, plus",
+            "features": [
+              "Batch scrape Xiaohongshu & Douyin posts, accounts, and search results",
+              "Batch scrape post comments",
+              "2,500 credits for competitor monitoring and in-extension AI features",
+              "Monitor ~5 Xiaohongshu accounts for 100 days, or ~25 Douyin accounts for 100 days",
+              "Sync data to Lark Base",
+              "Lark Base AI analysis templates: image recognition, script extraction, comment analysis, batch content remixing",
+              "Single browser device"
+            ],
+            "interval": "one-time",
+            "amount": 39900,
+            "currency": "CNY",
+            "credits": 2500,
+            "valid_days": 365,
+            "price": "¥399",
+            "original_price": "¥588",
+            "unit": "/ yr",
+            "is_featured": true,
+            "is_popular": true,
+            "tip": "Save ¥189 with annual billing",
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Get Started",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "pro-yearly",
+            "product_name": "MediaClaw Pro Annual",
+            "group": "yearly"
+          },
+          {
+            "title": "Team",
+            "description": "For high-volume teams and agencies",
+            "features_title": "Everything in Free, plus",
+            "features": [
+              "Batch scrape Xiaohongshu & Douyin posts, accounts, and search results",
+              "Batch scrape post comments",
+              "9,000 credits for competitor monitoring and in-extension AI features",
+              "Monitor ~10 Xiaohongshu accounts for 180 days, or ~30 Douyin accounts for 300 days",
+              "Sync data to Lark Base",
+              "Lark Base AI analysis templates: image recognition, script extraction, comment analysis, batch content remixing",
+              "Up to 3 browser devices"
+            ],
+            "interval": "one-time",
+            "amount": 108800,
+            "currency": "CNY",
+            "credits": 9000,
+            "valid_days": 365,
+            "price": "¥1088",
+            "original_price": "¥1548",
+            "unit": "/ yr",
+            "is_featured": false,
+            "tip": "Save ¥460 with annual billing",
+            "payment_providers": ["zpay"],
+            "button": {
+              "title": "Get Started",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Zap"
+            },
+            "product_id": "team-yearly",
+            "product_name": "MediaClaw Team Annual",
+            "group": "yearly"
+          },
+          {
+            "title": "Emergency Top-Up",
+            "description": "Quick boost for campaign sprints or extra monitoring",
+            "label": "Most Popular",
+            "features_title": "Includes",
+            "features": [
+              "1,000 credits",
+              "Use for competitor monitoring and in-extension AI features",
+              "Monitor ~5 Xiaohongshu accounts for 40 days, or ~20 Douyin accounts for 50 days",
+              "Credits require an active plan — frozen (not lost) when plan expires, resume when renewed"
+            ],
+            "interval": "one-time",
+            "amount": 2900,
+            "currency": "CNY",
+            "credits": 1000,
+            "valid_days": 0,
+            "price": "¥29",
+            "unit": "",
+            "is_featured": true,
+            "is_popular": true,
+            "button": {
+              "title": "Buy Credits",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Coins"
+            },
+            "product_id": "credits-emergency-150",
+            "product_name": "MediaClaw Emergency Top-Up",
+            "group": "credits"
+          },
+          {
+            "title": "Creator Pack",
+            "description": "For solo creators and single-account operators",
+            "features_title": "Includes",
+            "features": [
+              "3,000 credits",
+              "Use for competitor monitoring and in-extension AI features",
+              "Monitor ~10 Xiaohongshu accounts for 60 days, or ~30 Douyin accounts for 100 days",
+              "Credits require an active plan — frozen (not lost) when plan expires, resume when renewed"
+            ],
+            "interval": "one-time",
+            "amount": 7900,
+            "currency": "CNY",
+            "credits": 3000,
+            "valid_days": 0,
+            "price": "¥79",
+            "unit": "",
+            "is_featured": false,
+            "button": {
+              "title": "Buy Credits",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Coins"
+            },
+            "product_id": "credits-creator-600",
+            "product_name": "MediaClaw Creator Pack",
+            "group": "credits"
+          },
+          {
+            "title": "Team Pack",
+            "description": "For agencies, MCNs, and multi-account teams",
+            "label": "High Capacity",
+            "features_title": "Includes",
+            "features": [
+              "15,000 credits",
+              "Use for competitor monitoring and in-extension AI features",
+              "Monitor ~30 Xiaohongshu accounts for 100 days, or ~50 Douyin accounts for 300 days",
+              "Credits require an active plan — frozen (not lost) when plan expires, resume when renewed"
+            ],
+            "interval": "one-time",
+            "amount": 36000,
+            "currency": "CNY",
+            "credits": 15000,
+            "valid_days": 0,
+            "price": "¥360",
+            "unit": "",
+            "is_featured": false,
+            "button": {
+              "title": "Buy Credits",
+              "url": "/pricing",
+              "target": "_self",
+              "icon": "Coins"
+            },
+            "product_id": "credits-team-3000",
+            "product_name": "MediaClaw Team Pack",
+            "group": "credits"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "title": "Frequently Asked Questions",
+        "description": "What you need to know before getting started.",
+        "items": [
+          {
+            "question": "Will scraping with MediaClaw get my account flagged?",
+            "answer": "MediaClaw works like manual browsing — opening pages, scrolling, and reading visible content. We add randomized delays to mimic natural human rhythm. Platform risk controls target automated high-frequency API requests, not normal browsing patterns. Use MediaClaw at reasonable speeds and your account stays safe."
+          },
+          {
+            "question": "Do I need coding skills or API setup?",
+            "answer": "No technical background needed. Install the Chrome extension, open Xiaohongshu or Douyin, and the sidebar appears automatically with context-aware controls. Click 'Start' and wait for the progress bar. No code, no API keys, no proxy configuration — your first scrape takes under 5 minutes."
+          },
+          {
+            "question": "Where is my scraped data stored?",
+            "answer": "By default, data stays in Chrome's local storage — nothing is uploaded to any third-party server. If you choose to sync, data goes point-to-point to your private Lark Base table. You control where your data lives."
+          },
+          {
+            "question": "Which platforms does MediaClaw support?",
+            "answer": "MediaClaw currently supports both Xiaohongshu (RedNote) and Douyin (TikTok China), covering post/video scraping, comment export, niche opportunity analysis, benchmark account discovery, keyword research, and competitor monitoring for both platforms."
+          },
+          {
+            "question": "Is MediaClaw really free?",
+            "answer": "Yes — core scraping features are free forever. The free tier covers the full data collection workflow: scrape posts, collect creator profiles, grab keyword results, store locally, and export CSV anytime. Upgrade when you need comment scraping, competitor monitoring, Lark Base sync, niche opportunity analysis, benchmark account discovery, or in-extension AI capabilities."
+          },
+          {
+            "question": "Is it legal to scrape Xiaohongshu and Douyin data?",
+            "answer": "MediaClaw only accesses publicly visible content — the same data any user sees when browsing. We do not bypass login walls, access private data, or use undocumented APIs. Users are responsible for complying with local regulations and platform terms of service when using collected data."
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Start Scraping in 5 Minutes",
+        "description": "Install MediaClaw for free and run your first Xiaohongshu or Douyin data workflow today.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

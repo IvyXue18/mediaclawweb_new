@@ -1,0 +1,207 @@
+{
+  "metadata": {
+    "title": "抖音图文文案提取 - 合集图、商品卡 OCR 一键提成文本 | MediaClaw 社媒虾",
+    "description": "抖音图文文案提取（OCR）：清单、商品参数、教程步骤做进合集图，一张张截图太慢？插件对封面和每张合集图逐一识别，文字回填采集记录，可导出 CSV/Markdown，方便选品拆解和归档。",
+    "keywords": "抖音图文文案提取, 抖音图片文字提取, 抖音合集图OCR, 商品卡文字识别, 图片转文字, 抖音图文带货, 教程合集提取, 抖音OCR"
+  },
+  "page": {
+    "title": "抖音图文文案提取",
+    "show_sections": ["hero", "modes", "why", "uses", "faq", "related", "cta"],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "抖音图片文字 OCR 提取工具",
+        "breadcrumbs": [
+          { "title": "首页", "url": "/" },
+          { "title": "抖音" },
+          { "title": "图文文案提取" }
+        ],
+        "title": "抖音图文文案，一键提取",
+        "description": "插件内置配图文案提取（OCR），对封面和每张合集图逐一识别，文字回填采集记录，复制、导出都带着走。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "下载抖音样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          },
+          {
+            "title": "看采集怎么跑通",
+            "icon": "Database",
+            "url": "/douyin/scraper",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/demo/douyin-image-text-1d3290ed99b0.mp4",
+        "video_poster": "https://media.mediaclaw.app/blog-covers/b9707b63cf430c4ad2d9751c0fc810b4.png"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "封面 + 每张合集图逐一 OCR",
+            "description": "一条抖音图文常有十几张合集图，配图文案提取会对每一张都识别，不是只识别封面，把图里的商品清单、价格参数、教程步骤全提成可复制文本。",
+            "icon": "ScanText",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/b9707b63cf430c4ad2d9751c0fc810b4.png",
+              "alt": "MediaClaw 插件侧边栏对抖音图文执行配图文案提取（OCR），右侧展示识别后回填到采集记录的合集图文字"
+            },
+            "button": { "title": "免费下载使用", "url": "/download" }
+          },
+          {
+            "title": "识别结果回填采集记录",
+            "description": "原本只有标题、正文、互动数据的采集记录，补上合集图文字后变成一份完整原数据。查看时直接读到，复制时整段带走，导出 CSV/Markdown 时图片文案一并带过去。",
+            "icon": "FileText",
+            "image": {
+              "src": "/imgs/features/image-text-writeback-v20260629.webp",
+              "alt": "提取后的合集图文案随采集记录一起在表格字段中展示"
+            },
+            "button": { "title": "免费下载使用", "url": "/download" }
+          }
+        ]
+      },
+      "why": {
+        "id": "why",
+        "block": "features",
+        "subtitle": "Why MediaClaw",
+        "title": "为什么不用手机截图或在线 OCR",
+        "description": "三条老路要么卡在批量，要么卡在准确度，要么卡在还得手动搬图片，问题其实是同一个：合集图里的文字和你已经在采集的那批抖音数据是脱节的。",
+        "items": [
+          {
+            "title": "整条合集一次提，不是一张张",
+            "description": "手机截图取字一次只能处理一张，十几张合集图截到手软。配图文案提取对整条图文逐张识别，结果归到同一条采集记录。",
+            "icon": "Layers"
+          },
+          {
+            "title": "调用付费模型，参数不出错",
+            "description": "免费 OCR 准确率不稳，商品参数、价格、规格里艺术字和竖排容易出别字，选品时错一个数字就误判。配图文案提取调用付费模型更稳。",
+            "icon": "ScanText"
+          },
+          {
+            "title": "不用手动搬图片",
+            "description": "在线 OCR 网站得你自己一张张存下来再上传，又绕回手动老路。配图文案提取直接对采集到的抖音图文识别，省掉中间搬运。",
+            "icon": "Workflow"
+          }
+        ]
+      },
+      "uses": {
+        "id": "uses",
+        "block": "data-table",
+        "title": "提完之后，这些文字能拿来做什么",
+        "description": "把合集图文字提出来只是第一步，它进了采集记录之后才真正有用。",
+        "columns": [
+          { "key": "scene", "title": "场景" },
+          { "key": "how", "title": "做法" },
+          { "key": "value", "title": "价值" }
+        ],
+        "rows": [
+          {
+            "scene": "选品与竞品拆解",
+            "how": "把同行带货合集里的商品名、价格、卖点参数 OCR 成文本",
+            "value": "横向对比选品和定价，不用一张张截图比对"
+          },
+          {
+            "scene": "教程合集归档",
+            "how": "把分步教程、清单合集 OCR 后导出 Markdown 存进资料库",
+            "value": "整套步骤变成可搜索文本，复用和检索更快"
+          },
+          {
+            "scene": "二创与脚本素材",
+            "how": "把对标账号做成图片的话术、卖点提成文字",
+            "value": "逐句分析结构，配合视频逐字稿一起改写"
+          },
+          {
+            "scene": "图文 + 视频一起补齐",
+            "how": "合集图文字配图文案提取，视频口播提逐字稿",
+            "value": "正好覆盖抖音图文和视频两类内容的原数据"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "抖音图文把信息做成合集图，怎么把图里的文字提取出来？",
+            "answer": "对图片做 OCR 就行。用 MediaClaw 采集这条抖音图文后，对它执行配图文案提取，插件会对封面和每张合集图逐一识别，把文字回填到采集记录，之后直接复制或导出。OCR 属于付费能力按额度计费，采集和导出 Excel/CSV 本身免费。"
+          },
+          {
+            "question": "带货合集里的商品名、价格、参数能批量提成文本吗？",
+            "answer": "可以。配图文案提取会对一条图文的封面加每一张合集图都识别，不是只识别一张，结果作为文本写回记录，方便横向对比选品和定价，导出 CSV 或 Markdown 时一并带出。"
+          },
+          {
+            "question": "抖音图文和小红书图文用同一套提取流程吗？",
+            "answer": "是。抖音侧同样支持图文和视频的原数据补齐，配图文案提取的用法和小红书一致，两个平台用同一套流程就能覆盖，不用换工具。"
+          },
+          {
+            "question": "识别出来的图片文字存在哪里、怎么用？",
+            "answer": "回填到插件里的采集记录上，和这条图文的标题、正文、互动数据放在一起。在采集记录上直接执行 OCR，结果就写回这条记录，照常复制、导出 CSV/Markdown，不依赖任何外部工具。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "把抖音图文和视频两类内容的原数据一并补齐",
+        "links": [
+          {
+            "title": "抖音视频逐字稿",
+            "description": "视频口播提逐字稿，输出带时间戳的分句稿看节奏逻辑。",
+            "url": "/douyin/transcript",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "抖音视频采集",
+            "description": "先采集结构化数据，再对图文执行配图文案提取。",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "小红书图文文案提取",
+            "description": "换个平台，小红书图文笔记的封面和配图文字也能提取。",
+            "url": "/xiaohongshu/image-text",
+            "icon": "ScanText"
+          },
+          {
+            "title": "抖音去水印下载",
+            "description": "先把合集图和视频无水印下载下来，再做识别和二创参考。",
+            "url": "/douyin/downloader",
+            "icon": "Download"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "挑一条带货合集，先识别一次",
+        "description": "免费安装 MediaClaw，采几条抖音图文，挑一条带货合集触发配图文案提取，看看图里的商品清单或价目表识别得准不准，再决定要不要批量处理你那批对标内容。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "下载抖音样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

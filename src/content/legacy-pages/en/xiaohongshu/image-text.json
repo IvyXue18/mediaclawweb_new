@@ -1,0 +1,217 @@
+{
+  "metadata": {
+    "title": "Xiaohongshu Image Text Extraction - OCR Card to Text",
+    "description": "OCR every Xiaohongshu (RED) image card and cover to pull steps, book lists, prices, and specs. Write text back to the record and export to CSV/Markdown.",
+    "keywords": "xiaohongshu image text extraction, RED image OCR, image to text, card text OCR, cover text recognition, image copy extraction, xiaohongshu OCR"
+  },
+  "page": {
+    "title": "Xiaohongshu Image Text Extraction",
+    "show_sections": ["hero", "modes", "why", "uses", "faq", "related", "cta"],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Xiaohongshu image text OCR tool",
+        "breadcrumbs": [
+          { "title": "Home", "url": "/" },
+          { "title": "Xiaohongshu" },
+          { "title": "Image Text Extraction" }
+        ],
+        "title": "Pull the value out of Xiaohongshu image cards, all at once",
+        "description": "Image notes increasingly bake the steps, book lists, prices, and specs into image cards, leaving the body with a line or two. You can see the text but can't copy it. MediaClaw's built-in image text extraction (OCR) reads the cover and every image, writes the text back to the collected record, and carries it through copy and export.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Download RedNote Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          },
+          {
+            "title": "See how collection works",
+            "icon": "Database",
+            "url": "/xiaohongshu/scraper",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/demo/xiaohongshu-image-text-98360a1ea20a.mp4",
+        "video_poster": "https://media.mediaclaw.app/blog-covers/b9707b63cf430c4ad2d9751c0fc810b4.png"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "OCR the cover and every image",
+            "description": "An image note often has a dozen-plus images counting the cover. Image text extraction reads every one of them, not just a single image, pulling the steps, book lists, prices, and specs into copyable text.",
+            "icon": "ScanText",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/b9707b63cf430c4ad2d9751c0fc810b4.png",
+              "alt": "MediaClaw extension sidebar running image text extraction (OCR) on a Xiaohongshu image note, showing recognized text written back to the record"
+            },
+            "button": { "title": "Download free", "url": "/download" }
+          },
+          {
+            "title": "Results write back to the record",
+            "description": "A record that only had title, body, and engagement becomes complete raw data once image text is added. You read it directly, copy it in full, and carry the image copy through CSV/Markdown export.",
+            "icon": "FileText",
+            "image": {
+              "src": "/imgs/features/image-text-writeback-v20260629.webp",
+              "alt": "Extracted image copy shown in table fields alongside the collected record"
+            },
+            "button": { "title": "Download free", "url": "/download" }
+          },
+          {
+            "title": "Raw data lives in the extension, ready to use",
+            "description": "This raw data is built inside the extension itself, collected, recognized, and exported in one place with no external tools. You can use it and export to CSV/Markdown right away. Collection and export are free, turn on OCR when you need it.",
+            "icon": "Boxes",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/0b62f6f7da5e7b9085c33c46d92baf94.png",
+              "alt": "Collecting Xiaohongshu note data in the MediaClaw extension and completing the image copy"
+            },
+            "button": { "title": "Download free", "url": "/download" }
+          }
+        ]
+      },
+      "why": {
+        "id": "why",
+        "block": "features",
+        "subtitle": "Why MediaClaw",
+        "title": "Why not phone screenshots or online OCR",
+        "description": "The three old paths each stall on something, batch, accuracy, or moving images by hand. The real problem is the same: image text is disconnected from the note data you're already collecting.",
+        "items": [
+          {
+            "title": "Batch, not one image at a time",
+            "description": "Phone screenshot text grabs one image at a time and can't be merged with the note's title, body, and comments. Image text extraction reads the whole note and lands results in one record.",
+            "icon": "Layers"
+          },
+          {
+            "title": "Paid model, more accurate",
+            "description": "Free OCR is inconsistent; complex layouts, stylized fonts, and vertical text produce errors. One wrong character in a price, title, or spec means rework. Image text extraction uses a paid model that's steadier.",
+            "icon": "ScanText"
+          },
+          {
+            "title": "No moving images by hand",
+            "description": "Online OCR sites make you save and upload each image yourself, back to the manual grind. Image text extraction reads the collected note directly and skips the shuffle.",
+            "icon": "Workflow"
+          }
+        ]
+      },
+      "uses": {
+        "id": "uses",
+        "block": "data-table",
+        "title": "What the extracted text is good for",
+        "description": "Pulling image text out is only step one. It gets useful once it's in the collected record.",
+        "columns": [
+          { "key": "scene", "title": "Use case" },
+          { "key": "how", "title": "How" },
+          { "key": "value", "title": "Value" }
+        ],
+        "rows": [
+          {
+            "scene": "Archive and full-text search",
+            "how": "OCR an image book list into searchable text and export Markdown into your library",
+            "value": "Find any book by search later instead of flipping through images"
+          },
+          {
+            "scene": "Remix and breakdown",
+            "how": "Pull a benchmark account's card-format steps and scripts into text",
+            "value": "Analyze its structure and word choices line by line"
+          },
+          {
+            "scene": "Cover keyword research",
+            "how": "Covers are a key place to seed keywords; OCR studies what viral covers wrote",
+            "value": "Apply that cover keyword approach to your own topics"
+          },
+          {
+            "scene": "Complete both image and video",
+            "how": "Image text via OCR, video voiceover via transcript",
+            "value": "Covers the raw data for both image and video notes"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "FAQ",
+        "items": [
+          {
+            "question": "Xiaohongshu makes the value into images, how do I extract the text?",
+            "answer": "OCR the images. After collecting the note with MediaClaw, run image text extraction on it; the extension reads the cover and every image one by one and writes text back to the record for copy or export. OCR is a paid capability billed by quota; collection and CSV/Excel export are free."
+          },
+          {
+            "question": "Can cover and image text be batch-extracted into copyable text?",
+            "answer": "Yes. Image text extraction reads the cover plus every image in a note, not just one, and writes results back to the record as text that carries through CSV or Markdown export for full-copy and search."
+          },
+          {
+            "question": "Free online OCR works too, why use the extension's paid OCR?",
+            "answer": "Free online OCR is inconsistent; complex images, stylized fonts, and vertical text produce errors, one wrong character in a price, title, or spec means rework, and you still save and upload each image by hand. MediaClaw's image text extraction reads the collected note directly with a paid model for higher accuracy. It's the tradeoff between free-but-maybe-wrong and paid-but-more-accurate; pick the latter for sensitive content."
+          },
+          {
+            "question": "Where does the extracted image text live?",
+            "answer": "It writes back to the collected record inside the extension, alongside the note's title, body, and engagement. Run OCR on the record and the result lands right there, ready to copy or export to CSV/Markdown, with no external tools."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 You might also like",
+        "description": "Complete the raw data for both image and video notes",
+        "links": [
+          {
+            "title": "Xiaohongshu video transcript",
+            "description": "Extract video voiceover into a transcript with a timestamped sentence-level script.",
+            "url": "/xiaohongshu/transcript",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "Xiaohongshu note collection",
+            "description": "Collect structured data first, then run image text extraction on image notes.",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Douyin image text extraction",
+            "description": "Same flow, Douyin image notes also support image text extraction.",
+            "url": "/douyin/image-text",
+            "icon": "ScanText"
+          },
+          {
+            "title": "Xiaohongshu watermark-free download",
+            "description": "Download image-note pictures watermark-free first, then recognize and remix.",
+            "url": "/xiaohongshu/downloader",
+            "icon": "Download"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Pick an image note and run OCR once",
+        "description": "Install MediaClaw for free, collect a few notes, run image text extraction on one image note, and see how accurately it reads the book list or price table before you batch-process your benchmark set.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "Download RedNote Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

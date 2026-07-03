@@ -47,6 +47,14 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# local test/browser artifacts
+/.playwright-cli/
+/.playwright-mcp/
+/.pnpm-store/
+/test-results/
+/output/
+*-playwright.png
+
 # env — local files hold secrets, never commit (keep .env.example tracked)
 .env
 .env.*

@@ -1,0 +1,238 @@
+{
+  "metadata": {
+    "title": "Free Xiaohongshu Comment Scraper - Export RedNote to Excel",
+    "description": "Free Xiaohongshu (RedNote) comment scraper. Batch-capture comment text, likes, timestamps, usernames, and profile links, then export to Excel/CSV for research.",
+    "keywords": "Xiaohongshu comment scraper, RedNote comment export, export Xiaohongshu comments, Xiaohongshu comment analysis, free Xiaohongshu tool"
+  },
+  "page": {
+    "title": "Xiaohongshu Comment Scraper",
+    "show_sections": [
+      "hero",
+      "modes",
+      "outputs",
+      "scenarios",
+      "compare",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Xiaohongshu Comment Scraping Tool",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Xiaohongshu"
+          },
+          {
+            "title": "Comment Scraper"
+          }
+        ],
+        "title": "Batch Scrape Xiaohongshu Comments for Free",
+        "description": "Automatically scroll and extract post comments, then export clean comment data to Excel/CSV with one click for fast analysis.",
+        "buttons": [
+          {
+            "title": "Install Free Extension",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Download RedNote Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=137,173"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "Batch Comment Collection",
+            "description": "Auto-scroll through post threads and collect comment text, likes, timestamps, usernames, and profile links in one run.",
+            "icon": "MessageCircle",
+            "image": {
+              "src": "/imgs/features/16-v20260424.webp",
+              "alt": "MediaClaw scraping Xiaohongshu comments and user fields in batch mode"
+            },
+            "button": {
+              "title": "Install Free Extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "One-Click Excel/CSV Export",
+            "description": "Export structured comment datasets instantly for reporting, social listening, and competitor benchmarking. You can also sync data to Lark Base for team workflows.",
+            "icon": "FileSpreadsheet",
+            "image": {
+              "src": "/imgs/features/1-v20260513.png",
+              "alt": "MediaClaw exporting full Xiaohongshu comment data to Excel with team sync"
+            },
+            "button": {
+              "title": "Install Free Extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "AI Comment Insight Engine",
+            "description": "Use AI to summarize demand signals, recurring objections, and topic opportunities hidden in comments so you can plan higher-converting content.",
+            "icon": "Brain",
+            "image": {
+              "src": "/imgs/features/16-v20260425.webp",
+              "alt": "MediaClaw AI extracting demand signals and content opportunities from comments"
+            },
+            "button": {
+              "title": "Install Free Extension",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "High-Value Use Cases for Comment Scraping",
+        "columns": [
+          {
+            "key": "role",
+            "title": "Role"
+          },
+          {
+            "key": "scene",
+            "title": "Typical Use Case"
+          },
+          {
+            "key": "effect",
+            "title": "Business Outcome"
+          }
+        ],
+        "rows": [
+          {
+            "role": "Content Marketing",
+            "scene": "Mine comment threads for real audience questions",
+            "effect": "Build topic plans that match actual demand"
+          },
+          {
+            "role": "Data Analyst",
+            "scene": "Run sentiment and keyword-frequency analysis at scale",
+            "effect": "Get prioritized insights from audience feedback"
+          },
+          {
+            "role": "Brand Team",
+            "scene": "Track reactions to your posts and competitor posts",
+            "effect": "Spot concerns early and adjust messaging faster"
+          },
+          {
+            "role": "Market Research",
+            "scene": "Collect comments from trending posts by niche",
+            "effect": "Understand audience preference patterns quickly"
+          },
+          {
+            "role": "Creators",
+            "scene": "Review engagement quality on your own posts",
+            "effect": "Improve retention and repeat engagement"
+          },
+          {
+            "role": "PR / Reputation",
+            "scene": "Monitor brand-related discussions continuously",
+            "effect": "Detect negative sentiment before it escalates"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "Why scrape Xiaohongshu comments instead of reading manually?",
+            "answer": "Manual review misses scale and patterns. A scraper helps you collect large, structured datasets so you can quickly identify recurring pain points, objections, and buying intent."
+          },
+          {
+            "question": "How do I scrape comments from a Xiaohongshu post?",
+            "answer": "Install MediaClaw, open a Xiaohongshu post in desktop browser, and start comment scraping. The tool auto-scrolls and captures comment fields, then exports data in one click."
+          },
+          {
+            "question": "Is this Xiaohongshu comment scraper free?",
+            "answer": "Yes. Core scraping and export workflows are available for free, making it practical for daily content research and competitor monitoring."
+          },
+          {
+            "question": "How many comments should I export for analysis?",
+            "answer": "For most projects, 200-500 recent or high-engagement comments provide enough signal for trend analysis. More data helps, but quality sampling usually matters more than volume."
+          },
+          {
+            "question": "What can teams do with exported comment data?",
+            "answer": "Teams can run sentiment analysis, identify product feedback trends, validate content angles, and build lead qualification rules from real audience language."
+          },
+          {
+            "question": "Can I sync comment data to Lark Base for collaboration?",
+            "answer": "Yes. You can push exported data into Lark Base to assign tasks, tag insights, and keep your research-to-action workflow in one shared workspace."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "Related Tools",
+        "description": "Extend your Xiaohongshu research and growth workflow",
+        "links": [
+          {
+            "title": "Xiaohongshu Lead Scraper",
+            "description": "Filter high-intent comments with keyword templates and export lead-ready lists.",
+            "url": "/xiaohongshu/leads",
+            "icon": "UserCheck"
+          },
+          {
+            "title": "Xiaohongshu Post Scraper",
+            "description": "Collect post datasets across profiles, keywords, and search results.",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Xiaohongshu Keyword Insights",
+            "description": "Expand seed keywords into long-tail opportunities for topic planning.",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "Xiaohongshu Competitor Monitor",
+            "description": "Track competitor updates automatically and receive timely alerts.",
+            "url": "/xiaohongshu/monitoring",
+            "icon": "Radar"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Turn Comments into Actionable Insights",
+        "description": "Install MediaClaw for free and start exporting Xiaohongshu comments for research, reporting, and growth decisions.",
+        "buttons": [
+          {
+            "title": "Install Free Extension",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "Download RedNote Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

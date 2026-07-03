@@ -1,0 +1,234 @@
+{
+  "metadata": {
+    "title": "Douyin Video Transcript Extractor - Timestamped Script",
+    "description": "Extract Douyin (TikTok China) voiceover transcripts in one click. Get a full transcript plus a timestamped, sentence-level script for pacing and rewrites.",
+    "keywords": "douyin video transcript, douyin voiceover transcript, douyin video to text, short video script extraction, timestamped transcript, douyin benchmark breakdown, douyin pacing analysis, batch transcript extraction"
+  },
+  "page": {
+    "title": "Douyin Video Transcript Extraction",
+    "show_sections": [
+      "hero",
+      "modes",
+      "compare",
+      "uses",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Douyin video transcript tool",
+        "breadcrumbs": [
+          { "title": "Home", "url": "/" },
+          { "title": "Douyin" },
+          { "title": "Video Transcript" }
+        ],
+        "title": "Douyin video transcripts, one click and timestamped",
+        "description": "Trigger extraction right on the collected record, no video download and no ad-walled mini-program. You get two outputs: a full transcript for copying and feeding to AI, and a timestamped sentence-level script that shows the video's pacing and logic, how the hook is thrown, how the setup builds, where the turn lands, and how it closes. For volume, batch via Feishu.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Download Douyin Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/demo/douyin-transcript-b847d1a5cd6c.mp4",
+        "video_poster": "https://media.mediaclaw.app/blog-covers/7c94d2a48528fa38a6c364e498fdb4b5.png"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "One click, right on the record",
+            "description": "Since V0.1.8 transcript extraction lives inside the extension. When you find a Douyin video worth breaking down, collect it and trigger extraction on the record; the voiceover turns to text in place, with no video download, no ad-walled mini-program, and no jumping between tools.",
+            "icon": "AudioLines",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/7c94d2a48528fa38a6c364e498fdb4b5.png",
+              "alt": "MediaClaw extension sidebar extracting a Douyin video voiceover transcript with a timestamped sentence-level script"
+            },
+            "button": { "title": "Download free", "url": "/download" }
+          },
+          {
+            "title": "Timestamps reveal pacing and logic",
+            "description": "A flat block of text only tells you what was said. A timestamped script tells you when and how long each line runs. When the hook is thrown, how long the setup drags, where the turn lands, how it closes, that pacing and logic only show up on the timeline.",
+            "icon": "Timer",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/b76b2e8d56b648002b9b73f0c7d50dc2.png",
+              "alt": "Using a timestamped transcript to analyze a Douyin video's pacing and script logic"
+            },
+            "button": { "title": "Download free", "url": "/download" }
+          },
+          {
+            "title": "Transcript ready for AI breakdown and rewrites",
+            "description": "The transcript and video data sit in the same record, so you can break down a benchmark video's voiceover structure and conversion phrasing line by line, then use AI to deconstruct and rewrite it into your own short-video script and a reusable copy library.",
+            "icon": "Wand2",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/19711c105b2577936fd23022ee7614c4.png",
+              "alt": "Using AI to break down a Douyin voiceover structure and generate a rewritten script in a Feishu base"
+            },
+            "button": { "title": "Download free", "url": "/download" }
+          },
+          {
+            "title": "Batch via Feishu + Alibaba Bailian, free",
+            "description": "To process a batch instead of one at a time, use the Feishu base audio/video-to-text field shortcut with Alibaba Bailian. Drop the raw links into the table and it extracts row by row, with 10 free hours a month, about 300 clips at two minutes each.",
+            "icon": "Table2",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/23959730eb58ef0d6a1ee53bd0271338.png",
+              "alt": "Feishu base audio/video-to-text field shortcut batch-extracting Douyin video transcripts"
+            },
+            "button": { "title": "Download free", "url": "/download" }
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "title": "Two paths, pick by volume and use case",
+        "description": "In-extension extraction and Feishu batch are two sides of the same need; we keep both.",
+        "columns": [
+          { "key": "dim", "title": "Dimension" },
+          { "key": "plugin", "title": "In-extension extraction" },
+          { "key": "feishu", "title": "Feishu shortcut + Alibaba Bailian" }
+        ],
+        "rows": [
+          {
+            "dim": "Cost",
+            "plugin": "Credits by video length",
+            "feishu": "10 free hours every month"
+          },
+          {
+            "dim": "Model accuracy",
+            "plugin": "Newer and more accurate, handles fast speech and music",
+            "feishu": "Older model, drops words on music and fast speech"
+          },
+          {
+            "dim": "Timestamps",
+            "plugin": "Yes, sentence-level, key for pacing and logic",
+            "feishu": "No, one flat block of text"
+          },
+          {
+            "dim": "Batch",
+            "plugin": "Row by row on records, no Feishu dependency",
+            "feishu": "Drop links in the table for automatic batch extraction"
+          },
+          {
+            "dim": "Best for",
+            "plugin": "Deep-diving one benchmark, hard audio, low error tolerance",
+            "feishu": "Stockpiling text from many clips, budget sensitive, high volume"
+          }
+        ]
+      },
+      "uses": {
+        "id": "uses",
+        "block": "features",
+        "subtitle": "What's next",
+        "title": "What the transcript unlocks",
+        "description": "A transcript is more than turning speech into text. It gets useful once it lands in the collected record.",
+        "items": [
+          {
+            "title": "Break down script pacing and logic",
+            "description": "Read a benchmark video's hook, setup length, and turning point against the timestamps, and rebuild its pacing and structure into a reusable script template.",
+            "icon": "Gauge"
+          },
+          {
+            "title": "Lift voiceover lines, rewrite with AI",
+            "description": "Pull a benchmark account's voiceover lines and conversion phrasing into text, study them, then use AI to rewrite them into your own short-video scripts for fast launching and testing.",
+            "icon": "Bot"
+          },
+          {
+            "title": "Build a reusable script library",
+            "description": "Transcripts export to CSV/Markdown or sync to Feishu alongside the record, building a searchable voiceover script library over time.",
+            "icon": "FolderKanban"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "FAQ",
+        "items": [
+          {
+            "question": "How do I extract a Douyin video transcript in one click?",
+            "answer": "After collecting the Douyin video with MediaClaw, trigger transcript extraction right on the record; the voiceover turns to text in place. No video download, no ad-walled mini-program, and no jumping between tools."
+          },
+          {
+            "question": "What are the timestamps for?",
+            "answer": "Timestamps reveal a video's pacing and logic. Flat text only tells you what was said; a timestamped script tells you when the hook is thrown, how long the setup drags, where the turn lands, and how it closes, which is what you need to read a benchmark script's structure."
+          },
+          {
+            "question": "Can I batch-extract transcripts for a set of Douyin videos?",
+            "answer": "Yes. For volume, use the Feishu base audio/video-to-text field shortcut with Alibaba Bailian; drop the raw links into the table and it extracts row by row, with 10 free hours a month, about 300 clips at two minutes each. The extension also extracts row by row on records."
+          },
+          {
+            "question": "Do I need Feishu to extract transcripts in the extension?",
+            "answer": "No. The raw data lives inside the extension, so you trigger extraction on the record and the result writes back there, ready to copy or export as CSV/Markdown. Feishu is an optional path for batch and sync when volume is high."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 You might also like",
+        "description": "Complete the raw data for both Douyin image and video content",
+        "links": [
+          {
+            "title": "Douyin image text extraction",
+            "description": "OCR the cover and carousel images to pull product info and lists into text.",
+            "url": "/douyin/image-text",
+            "icon": "ScanText"
+          },
+          {
+            "title": "Douyin video collection",
+            "description": "Collect structured data and the raw video link first, then trigger transcript extraction.",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Xiaohongshu video transcript",
+            "description": "Different platform, Xiaohongshu video-note voiceovers also get a timestamped script.",
+            "url": "/xiaohongshu/transcript",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "Feishu automation",
+            "description": "Transcripts flow into the base with the record for sharing and review.",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Pick a benchmark and pull one transcript",
+        "description": "Install MediaClaw for free, collect a Douyin video you want to break down, and extract a timestamped transcript to see when its hook is thrown and how it walks viewers to the end.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "Download Douyin Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

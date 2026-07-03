@@ -1,0 +1,291 @@
+{
+  "metadata": {
+    "title": "Xiaohongshu Niche Strategy Tool - Opportunity & Keywords",
+    "description": "Enter one keyword, judge Xiaohongshu niche opportunity, find benchmark accounts, scrape 200+ search suggestions, and cluster them with AI for content planning.",
+    "keywords": "Xiaohongshu keyword tool, niche opportunity analysis, benchmark account finder, search suggestions, content planning, AI clustering, RedNote scraper"
+  },
+  "page": {
+    "title": "Xiaohongshu Niche Strategy",
+    "show_sections": [
+      "hero",
+      "expand",
+      "scenes",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Xiaohongshu Niche Strategy & Keyword Tool",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Xiaohongshu"
+          },
+          {
+            "title": "Niche Strategy"
+          }
+        ],
+        "title": "Judge Niche Opportunity Before You Create",
+        "description": "Start from one seed keyword: judge whether the main term is worth pursuing, find benchmark accounts from search samples, expand long-tail demand, and trigger search result scraping.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Download Insight Image",
+            "icon": "ImageDown",
+            "url": "/downloads/samples/xiaohongshu-keyword-insights.png",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=45,87"
+      },
+      "expand": {
+        "id": "expand",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "Main Keyword Opportunity Analysis",
+            "description": "Sample high-engagement results from the current search term, enrich representative viral posts, and assess heat distribution, competition, and recommended entry angles.",
+            "icon": "Gauge",
+            "image": {
+              "src": "/imgs/features/11-v20260424.webp",
+              "alt": "MediaClaw Xiaohongshu niche opportunity analysis evaluating whether a keyword is worth pursuing"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Benchmark Account Finder",
+            "description": "Aggregate repeatedly appearing high-performing accounts from search samples, enrich profile metrics, generate recommendation reasons, and send accounts into monitoring.",
+            "icon": "UserSearch",
+            "image": {
+              "src": "/imgs/features/2-v20260309.webp",
+              "alt": "MediaClaw finding Xiaohongshu benchmark accounts from keyword search result samples"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "A-Z Autocomplete Batch Scraping",
+            "description": "Enter a seed keyword and the tool automatically triggers A-Z letter combinations in Xiaohongshu search, scraping all autocomplete suggestions in bulk. Fast, comprehensive keyword discovery.",
+            "icon": "SpellCheck2",
+            "image": {
+              "src": "/imgs/features/2-v20260425.webp",
+              "alt": "MediaClaw Xiaohongshu keyword expansion tool auto-scraping A-Z search autocomplete suggestions"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "200+ Long-Tail Keywords, Cleaned & Clustered",
+            "description": "Auto-deduplicate and remove low-value terms, then AI groups keywords by user intent and topic. Each cluster includes pain points, content opportunities, and actionable next steps.",
+            "icon": "FilterX",
+            "image": {
+              "src": "/imgs/features/11-v20260424.webp",
+              "alt": "MediaClaw cleaning and clustering 200+ Xiaohongshu long-tail keywords by user intent with AI analysis"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "One-Click Keyword-to-Scrape Pipeline",
+            "description": "From your keyword list, directly trigger search result scraping — collect sample posts for any high-value keyword and start building your data library immediately.",
+            "icon": "Play",
+            "image": {
+              "src": "/imgs/features/5-v20260425.webp",
+              "alt": "MediaClaw triggering Xiaohongshu post scraping directly from expanded keyword results"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "scenes": {
+        "id": "scenes",
+        "block": "data-table",
+        "title": "Who Uses Keyword Research?",
+        "columns": [
+          {
+            "key": "role",
+            "title": "Role"
+          },
+          {
+            "key": "scene",
+            "title": "Use Case"
+          },
+          {
+            "key": "result",
+            "title": "Outcome"
+          }
+        ],
+        "rows": [
+          {
+            "role": "Solo Creator",
+            "scene": "Entering a new niche — unsure whether the main keyword is still worth chasing",
+            "result": "Judge opportunity first, then use long-tail demand and low-follower viral samples to pick an entry angle"
+          },
+          {
+            "role": "Content Ops",
+            "scene": "Planning a content matrix and need competitor samples first",
+            "result": "Find benchmark accounts from search samples, then prioritize weekly/monthly topics by demand layer"
+          },
+          {
+            "role": "Brand Marketing",
+            "scene": "Validating user search language before product launch",
+            "result": "Identify high-frequency terms early to reduce launch guesswork"
+          },
+          {
+            "role": "SEO / SEM Team",
+            "scene": "Building cross-platform long-tail keyword coverage",
+            "result": "Increase Xiaohongshu search density and content match"
+          },
+          {
+            "role": "Course / Knowledge Creator",
+            "scene": "Finding the most common user questions and pain points",
+            "result": "Reverse-engineer demand from keywords to boost content hit rate"
+          },
+          {
+            "role": "MCN / Paid Growth",
+            "scene": "Looking for low-follower, high-performing accounts",
+            "result": "Generate a benchmark candidate list for review, outreach, or monitoring"
+          },
+          {
+            "role": "Strategy / Market Research",
+            "scene": "Early-stage niche demand mapping",
+            "result": "Replace gut feelings with data-driven resource allocation"
+          }
+        ]
+      },
+      "safety": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "Safety",
+        "title": "Built-In Account Protection",
+        "description": "Efficient scraping without compromising account safety.",
+        "items": [
+          {
+            "title": "Randomized Scroll Simulation",
+            "description": "Mimics natural human browsing patterns to reduce detection risk.",
+            "icon": "Mouse"
+          },
+          {
+            "title": "Custom Wait Intervals",
+            "description": "Configure scraping speed per task to balance throughput and safety.",
+            "icon": "Timer"
+          },
+          {
+            "title": "Stall Detection & Auto-Pause",
+            "description": "Automatically stops when pages fail to load or behave abnormally.",
+            "icon": "TriangleAlert"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "How do I find low-competition, high-opportunity keywords on Xiaohongshu?",
+            "answer": "Focus on long-tail combinations with clear intent and manageable content volume. Use the keyword expansion tool to get the full landscape, then filter by demand cluster and content quality to spot under-served opportunities."
+          },
+          {
+            "question": "How do I know whether a main keyword is still worth creating for?",
+            "answer": "Run niche opportunity analysis on the search page. MediaClaw samples high-engagement search results and representative viral posts, then summarizes heat distribution, competition, and recommended entry angles."
+          },
+          {
+            "question": "What if I don't know which accounts to benchmark?",
+            "answer": "Use the benchmark account finder. It aggregates accounts repeatedly appearing in the current keyword's search samples, enriches profile metrics, and gives recommendation reasons for review or monitoring."
+          },
+          {
+            "question": "Why is manual keyword research not enough?",
+            "answer": "Manual search misses edge-case keywords and can't scale. Automated expansion captures the full range of autocomplete suggestions in one pass, then AI clustering surfaces patterns you'd never find manually."
+          },
+          {
+            "question": "Besides autocomplete, where else can I source keywords?",
+            "answer": "Combine post titles, hashtags, and high-frequency comment phrases to build a broader keyword map. Feed these back into the expansion tool for a second pass to maximize coverage."
+          },
+          {
+            "question": "How do expanded keywords connect to my publishing schedule?",
+            "answer": "Maintain each expansion as a topic pool — split by intent cluster, assign priority, and trigger scraping for the top keywords. This turns 'find keywords' directly into 'executable content plan'."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "Related Tools",
+        "description": "Complete your Xiaohongshu content operations workflow.",
+        "links": [
+          {
+            "title": "Post Scraper",
+            "description": "Scrape posts matching your top keywords to build a sample content library.",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Comment Scraper",
+            "description": "Validate keyword demand by analyzing what users actually say in comments.",
+            "url": "/xiaohongshu/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "Competitor Monitoring",
+            "description": "Track how competitors use keywords and adapt your strategy.",
+            "url": "/xiaohongshu/monitoring",
+            "icon": "Radar"
+          },
+          {
+            "title": "Watermark-Free Downloader",
+            "description": "Download visual assets matching your keyword themes for reference.",
+            "url": "/xiaohongshu/downloader",
+            "icon": "Download"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Turn One Search Term into Strategy, Accounts, and Topics",
+        "description": "Install MediaClaw for free and build your Xiaohongshu niche strategy workflow today.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "Download Insight Image",
+            "icon": "ImageDown",
+            "url": "/downloads/samples/xiaohongshu-keyword-insights.png",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

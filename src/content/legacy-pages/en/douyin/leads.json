@@ -1,0 +1,224 @@
+{
+  "metadata": {
+    "title": "Douyin Lead Scraper - Extract High-Intent Comment Leads",
+    "description": "Find high-intent leads from Douyin comments using keyword and location filters. Export lead lists to Excel/CSV and sync to Lark Base for team follow-up.",
+    "keywords": "Douyin lead scraper, Douyin comment leads, TikTok China lead generation, intent keyword filtering, export prospect lists"
+  },
+  "page": {
+    "title": "Douyin Lead Scraper",
+    "show_sections": [
+      "hero",
+      "modes",
+      "scenarios",
+      "compare",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Douyin Lead Mining Tool",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Douyin"
+          },
+          {
+            "title": "Lead Scraper"
+          }
+        ],
+        "title": "Extract High-Intent Leads from Douyin Comment Sections",
+        "description": "Use intent keywords and IP location filters to identify qualified prospects, then export lead lists for rapid sales follow-up.",
+        "buttons": [
+          {
+            "title": "Install Free Extension",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Download Lead List Sample",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-leads-sample.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=180,216"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "Intent Keyword + IP Filtering",
+            "description": "Define lead-intent keyword patterns such as \"link please\" or \"how to buy\" and combine them with IP filters to prioritize high-conversion prospects.",
+            "icon": "Filter",
+            "image": {
+              "src": "/imgs/features/1-v20260425.webp",
+              "alt": "MediaClaw filtering Douyin comments by intent patterns and IP location for lead extraction"
+            },
+            "button": {
+              "title": "Install Free Extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Free Lead Export with Follow-Up Fields",
+            "description": "Export lead sheets including username, profile link, matched keyword, raw comment, and IP location. Sync to Lark Base for assignment and pipeline tracking.",
+            "icon": "FileSpreadsheet",
+            "image": {
+              "src": "/imgs/features/10-v20260424.webp",
+              "alt": "MediaClaw exporting Douyin lead lists with matched keyword and profile link fields"
+            },
+            "button": {
+              "title": "Install Free Extension",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "Where Douyin Lead Extraction Delivers Value",
+        "columns": [
+          {
+            "key": "role",
+            "title": "Role"
+          },
+          {
+            "key": "scene",
+            "title": "Typical Use Case"
+          },
+          {
+            "key": "effect",
+            "title": "Business Outcome"
+          }
+        ],
+        "rows": [
+          {
+            "role": "Livestream Commerce",
+            "scene": "Capture buy-intent users from traffic videos",
+            "effect": "Prioritize users asking for price, link, or stock"
+          },
+          {
+            "role": "Brand Team",
+            "scene": "Track competitor comments for dissatisfaction signals",
+            "effect": "Intercept high-intent switch candidates earlier"
+          },
+          {
+            "role": "Local Business",
+            "scene": "Filter same-city inquiries for visit or booking intent",
+            "effect": "Improve local lead quality and response efficiency"
+          },
+          {
+            "role": "Knowledge Creators",
+            "scene": "Extract paid-course and consulting inquiries",
+            "effect": "Turn repeated questions into offer and script assets"
+          },
+          {
+            "role": "Sales / CRM Team",
+            "scene": "Distribute lead lists to owners and follow-up queues",
+            "effect": "Shorten lead response and routing cycle time"
+          },
+          {
+            "role": "Agency / MCN",
+            "scene": "Manage lead operations across multiple client accounts",
+            "effect": "Scale lead capture with consistent process control"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "How do I quickly identify qualified leads in huge comment volumes?",
+            "answer": "Set intent keyword templates and run filtering on scraped comments. This helps isolate users with explicit purchase or inquiry signals first."
+          },
+          {
+            "question": "Do I need to pay to export Douyin lead lists?",
+            "answer": "Core export is free. You can download lead data to Excel/CSV and hand it to sales teams immediately."
+          },
+          {
+            "question": "Will the tool miss abbreviated contact wording or slang?",
+            "answer": "No, as long as text is visible on page. Add common slang variants to your keyword template to improve recall for your niche."
+          },
+          {
+            "question": "Why are profile links and IP location important in lead files?",
+            "answer": "Profile links are stable identifiers for accurate revisit. IP location helps local-service teams prioritize nearby prospects with higher conversion probability."
+          },
+          {
+            "question": "How do teams manage lead follow-up after export?",
+            "answer": "Sync leads into Lark Base, assign owners, tag stages, and record outreach notes so everyone tracks progress in one workflow."
+          },
+          {
+            "question": "How many comments should I process per viral video?",
+            "answer": "Starting with the latest or most-engaged 200-500 comments often captures the strongest intent signals while keeping operations efficient."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "Related Tools",
+        "description": "Complete your Douyin lead generation and conversion workflow",
+        "links": [
+          {
+            "title": "Douyin Comment Scraper",
+            "description": "Collect structured comment data before running lead-intent filters.",
+            "url": "/douyin/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "Douyin Video Scraper",
+            "description": "Build keyword and account datasets to support lead targeting.",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Douyin Competitor Monitor",
+            "description": "Track competitor content trends and emerging audience demand.",
+            "url": "/douyin/monitoring",
+            "icon": "Radar"
+          },
+          {
+            "title": "Lark Automation Integration",
+            "description": "Sync lead sheets to collaborative tables for execution and reporting.",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Turn Douyin Comments into Pipeline-Ready Leads",
+        "description": "Install MediaClaw for free and start extracting high-intent prospects from Douyin comments today.",
+        "buttons": [
+          {
+            "title": "Install Free Extension",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "Download Lead List Sample",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/douyin-leads-sample.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

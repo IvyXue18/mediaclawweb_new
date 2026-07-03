@@ -1,0 +1,291 @@
+{
+  "metadata": {
+    "title": "Douyin Niche Strategy Tool - Opportunity & Keyword Research",
+    "description": "Enter one keyword, judge Douyin niche opportunity, find benchmark accounts, scrape search suggestions, and cluster them with AI for content planning.",
+    "keywords": "Douyin keyword tool, niche opportunity analysis, benchmark account finder, TikTok China research, search suggestions, AI clustering, viral topics"
+  },
+  "page": {
+    "title": "Douyin Niche Strategy",
+    "show_sections": [
+      "hero",
+      "expand",
+      "scenes",
+      "safety",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Douyin Niche Strategy & Keyword Tool",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Douyin"
+          },
+          {
+            "title": "Niche Strategy"
+          }
+        ],
+        "title": "Judge Douyin Niche Opportunity Before You Create",
+        "description": "Start from one seed keyword: judge whether the main term is worth pursuing, find benchmark accounts from search samples, expand long-tail demand, and trigger video sample scraping.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Download Insight Image",
+            "icon": "ImageDown",
+            "url": "/downloads/samples/douyin-keyword-insights.png",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=45,87"
+      },
+      "expand": {
+        "id": "expand",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "Main Keyword Opportunity Analysis",
+            "description": "Sample high-engagement videos from the current search term, enrich representative works, and assess heat distribution, competition, and recommended entry angles.",
+            "icon": "Gauge",
+            "image": {
+              "src": "/imgs/features/17-v20260425.webp",
+              "alt": "MediaClaw Douyin niche opportunity analysis evaluating whether a keyword is worth pursuing"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Benchmark Account Finder",
+            "description": "Aggregate repeatedly appearing high-performing accounts from search samples, enrich profile metrics, generate recommendation reasons, and send accounts into monitoring.",
+            "icon": "UserSearch",
+            "image": {
+              "src": "/imgs/features/platform-douyin.webp",
+              "alt": "MediaClaw finding Douyin benchmark accounts from keyword search result samples"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Search Suggestion Batch Scraping",
+            "description": "Enter a seed keyword and auto-trigger Douyin search autocomplete scraping. Capture the full range of search suggestions to build a comprehensive keyword landscape.",
+            "icon": "SpellCheck2",
+            "image": {
+              "src": "/imgs/features/17-v20260425.webp",
+              "alt": "MediaClaw Douyin keyword expansion tool auto-scraping search autocomplete suggestions"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Long-Tail Keyword Cleaning & Clustering",
+            "description": "Auto-deduplicate and remove low-value terms, then AI groups keywords by audience, scenario, and question type — directly convertible to a topic backlog.",
+            "icon": "FilterX",
+            "image": {
+              "src": "/imgs/features/11-v20260424.webp",
+              "alt": "MediaClaw cleaning and clustering Douyin long-tail keywords by user intent with AI analysis"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Keywords to Scraping Pipeline",
+            "description": "Trigger video scraping directly from your keyword list — collect sample videos for any high-value keyword and validate whether there's real content opportunity.",
+            "icon": "Play",
+            "image": {
+              "src": "/imgs/features/5-v20260425.webp",
+              "alt": "MediaClaw triggering Douyin video scraping directly from expanded keyword results"
+            },
+            "button": {
+              "title": "Free download",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "scenes": {
+        "id": "scenes",
+        "block": "data-table",
+        "title": "Who Uses Douyin Keyword Research?",
+        "columns": [
+          {
+            "key": "role",
+            "title": "Role"
+          },
+          {
+            "key": "scene",
+            "title": "Use Case"
+          },
+          {
+            "key": "result",
+            "title": "Outcome"
+          }
+        ],
+        "rows": [
+          {
+            "role": "Short-Video Operator",
+            "scene": "Cold-starting an account and unsure whether the main keyword is worth chasing",
+            "result": "Judge niche opportunity first, then build a 30-video topic backlog from long-tail demand"
+          },
+          {
+            "role": "Livestream Ops",
+            "scene": "Capture product-related search demand for pre-stream content",
+            "result": "Align traffic-driving videos with high-intent search terms"
+          },
+          {
+            "role": "Local Business",
+            "scene": "Maximize same-city search-driven organic traffic",
+            "result": "Identify 'city + service + scenario' high-conversion keyword combos"
+          },
+          {
+            "role": "Brand Content Team",
+            "scene": "Reduce topic guesswork and production waste",
+            "result": "Prioritize by opportunity score, demand strength, and benchmark account evidence"
+          },
+          {
+            "role": "MCN / Paid Growth",
+            "scene": "Looking for potential accounts from search results",
+            "result": "Generate a benchmark candidate list for review, outreach, or monitoring"
+          },
+          {
+            "role": "Knowledge Creator",
+            "scene": "Scattered user questions, hard to organize into series",
+            "result": "Cluster keywords into sequential content pillars"
+          },
+          {
+            "role": "Growth / Paid Team",
+            "scene": "Align organic and paid creative topic selection",
+            "result": "Shared keyword library improves content-traffic match"
+          }
+        ]
+      },
+      "safety": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "Safety",
+        "title": "Built-In Account Protection",
+        "description": "Efficient scraping without compromising account safety.",
+        "items": [
+          {
+            "title": "Randomized Scroll Simulation",
+            "description": "Mimics natural human browsing patterns to reduce detection risk.",
+            "icon": "Mouse"
+          },
+          {
+            "title": "Custom Wait Intervals",
+            "description": "Configure scraping speed per task to balance throughput and safety.",
+            "icon": "Timer"
+          },
+          {
+            "title": "Stall Detection & Auto-Pause",
+            "description": "Automatically stops when pages fail to load or behave abnormally.",
+            "icon": "TriangleAlert"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "How do I find keywords that drive both views and conversions on Douyin?",
+            "answer": "Look for 'scenario + need + action' combinations. Use keyword expansion to get the full picture, then verify with video sample scraping to check engagement quality — not just volume."
+          },
+          {
+            "question": "How do I know whether a main Douyin keyword is worth creating for?",
+            "answer": "Run niche opportunity analysis on the search page. MediaClaw samples high-engagement results and representative videos, then summarizes heat distribution, competition, and recommended entry angles."
+          },
+          {
+            "question": "What if I don't know which Douyin accounts to benchmark?",
+            "answer": "Use the benchmark account finder. It aggregates accounts repeatedly appearing in the current keyword's search samples, enriches profile metrics, and gives recommendation reasons for review or monitoring."
+          },
+          {
+            "question": "Why isn't manual keyword search enough?",
+            "answer": "Manual search misses niche long-tail terms and can't scale. Automated expansion captures the complete autocomplete landscape in one pass, surfacing opportunities you'd miss by hand."
+          },
+          {
+            "question": "What other signals can improve my keyword library?",
+            "answer": "Combine video titles, hashtags, trending comment phrases, and competitor high-engagement content. Run a second expansion pass with these inputs for maximum coverage."
+          },
+          {
+            "question": "How do I connect keywords to a weekly publishing plan?",
+            "answer": "Split clusters into recurring content pillars, prioritize by demand, and trigger scraping for the top keywords each week. This turns keyword research directly into a production schedule."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "Related Tools",
+        "description": "Complete your Douyin content planning and execution workflow.",
+        "links": [
+          {
+            "title": "Video Scraper",
+            "description": "Scrape videos matching top keywords to validate content opportunity.",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Comment Scraper",
+            "description": "Check comment demand signals to verify keyword relevance.",
+            "url": "/douyin/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "Competitor Monitoring",
+            "description": "Track competitor keyword strategy shifts in real time.",
+            "url": "/douyin/monitoring",
+            "icon": "Radar"
+          },
+          {
+            "title": "Lark Base Integration",
+            "description": "Sync keyword, scraping, and comment data into unified team workspace.",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Find Opportunity, Accounts, and Topics Before You Create",
+        "description": "Install MediaClaw for free and build your Douyin niche strategy workflow today.",
+        "buttons": [
+          {
+            "title": "Get Started Free",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "Download Insight Image",
+            "icon": "ImageDown",
+            "url": "/downloads/samples/douyin-keyword-insights.png",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

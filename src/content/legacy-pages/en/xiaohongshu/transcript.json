@@ -1,0 +1,234 @@
+{
+  "metadata": {
+    "title": "Xiaohongshu Video Transcript Extractor - Timestamped Script",
+    "description": "Extract Xiaohongshu (RED) video transcripts in one click. Get a full transcript plus a timestamped, sentence-level script to break down hooks and pacing.",
+    "keywords": "xiaohongshu video transcript, RED video to text, video transcript extractor, timestamped transcript, voiceover script extraction, short video pacing analysis, xiaohongshu script"
+  },
+  "page": {
+    "title": "Xiaohongshu Video Transcript Extraction",
+    "show_sections": [
+      "hero",
+      "modes",
+      "compare",
+      "uses",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Xiaohongshu video transcript tool",
+        "breadcrumbs": [
+          { "title": "Home", "url": "/" },
+          { "title": "Xiaohongshu" },
+          { "title": "Video Transcript" }
+        ],
+        "title": "Xiaohongshu video transcripts, extracted in one click",
+        "description": "Trigger extraction right on the collected record, no need to sync to Feishu first. You get two outputs: a full transcript for copying and feeding to AI, and a timestamped, sentence-level script that shows exactly when the hook lands, how long the setup runs, and where the turn hits.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Download RedNote Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/demo/xiaohongshu-transcript-26ec58d2c880.mp4",
+        "video_poster": "https://media.mediaclaw.app/blog-covers/7c94d2a48528fa38a6c364e498fdb4b5.png"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "One click in the extension, no Feishu needed",
+            "description": "Since V0.1.8 transcript extraction lives inside the extension itself. The raw data is already here, so extraction happens in place and writes straight back to the collected record, ready to copy, export to CSV/Markdown, or sync to Feishu.",
+            "icon": "AudioLines",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/7c94d2a48528fa38a6c364e498fdb4b5.png",
+              "alt": "MediaClaw extension sidebar extracting a Xiaohongshu video transcript with a timestamped sentence-level script"
+            },
+            "button": { "title": "Download free", "url": "/download" }
+          },
+          {
+            "title": "Timestamped script for pacing analysis",
+            "description": "A flat block of text only tells you what was said. A timestamped, sentence-level script tells you when it was said and how long each line runs, which is the only way to read the hook, setup, and turning points.",
+            "icon": "Timer",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/b76b2e8d56b648002b9b73f0c7d50dc2.png",
+              "alt": "Using a timestamped transcript to analyze and optimize video script pacing"
+            },
+            "button": { "title": "Download free", "url": "/download" }
+          },
+          {
+            "title": "Transcript ready for AI rewriting",
+            "description": "The transcript and video data sit in the same record, so you can analyze a benchmark video's voiceover structure line by line, then use AI to deconstruct and rewrite the whole note into your own version.",
+            "icon": "Wand2",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/19711c105b2577936fd23022ee7614c4.png",
+              "alt": "Using AI to deconstruct and rewrite the original note structure in a Feishu base"
+            },
+            "button": { "title": "Download free", "url": "/download" }
+          },
+          {
+            "title": "High volume? Sync to Feishu for batch extraction",
+            "description": "To process a batch instead of one at a time, sync the records to a Feishu base and use the audio/video-to-text field shortcut with Alibaba Bailian. Drop the raw links into the table and it extracts row by row, with 10 free hours a month, about 300 clips at two minutes each.",
+            "icon": "Table2",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/23959730eb58ef0d6a1ee53bd0271338.png",
+              "alt": "Feishu base audio/video-to-text field shortcut batch-extracting Xiaohongshu video transcripts"
+            },
+            "button": { "title": "Download free", "url": "/download" }
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "title": "Two extraction paths, pick by use case",
+        "description": "Adding in-extension extraction doesn't retire the free Feishu path. They solve different sides of the same need.",
+        "columns": [
+          { "key": "dim", "title": "Dimension" },
+          { "key": "plugin", "title": "In-extension extraction" },
+          { "key": "feishu", "title": "Feishu shortcut + Alibaba Bailian" }
+        ],
+        "rows": [
+          {
+            "dim": "Cost",
+            "plugin": "Credits by video length",
+            "feishu": "10 free hours every month"
+          },
+          {
+            "dim": "Model accuracy",
+            "plugin": "Newer and more accurate, handles fast speech, dialects, noise",
+            "feishu": "Older model, drops or mistakes words on noise and dialects"
+          },
+          {
+            "dim": "Timestamps",
+            "plugin": "Yes, sentence-level with a timeline",
+            "feishu": "No, one flat block of text"
+          },
+          {
+            "dim": "Path",
+            "plugin": "Triggered on the record, no Feishu dependency",
+            "feishu": "Must sync the raw link into a Feishu base first"
+          },
+          {
+            "dim": "Best for",
+            "plugin": "Serious pacing analysis, hard-to-recognize audio, low error tolerance",
+            "feishu": "High volume, budget sensitive, a rough transcript is enough"
+          }
+        ]
+      },
+      "uses": {
+        "id": "uses",
+        "block": "features",
+        "subtitle": "What's next",
+        "title": "What the transcript unlocks",
+        "description": "A transcript is more than turning speech into text. It only becomes useful once it lands in the collected record.",
+        "items": [
+          {
+            "title": "Break down structure and pacing",
+            "description": "Compare hooks, setup length, and turning points across benchmark videos to find reusable script templates.",
+            "icon": "Gauge"
+          },
+          {
+            "title": "AI rewrite and remix",
+            "description": "Feed the transcript to AI to deconstruct and rewrite it, together with the title and body, into your own version.",
+            "icon": "Bot"
+          },
+          {
+            "title": "Build a reusable copy library",
+            "description": "Transcripts export to CSV/Markdown or sync to Feishu alongside the record, building a searchable copy library over time.",
+            "icon": "FolderKanban"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "FAQ",
+        "items": [
+          {
+            "question": "Do I have to set up Feishu to extract transcripts in the extension?",
+            "answer": "No. The raw data lives inside the extension, so you trigger extraction right on the record and the result writes back there, ready to copy or export as CSV/Markdown. Feishu is just one optional downstream destination."
+          },
+          {
+            "question": "Why do transcripts need timestamps?",
+            "answer": "Flat text only tells you what was said. A timestamped, sentence-level script tells you when it was said and how long each line runs. For short videos, hook timing, setup length, and turning points only show up on the timeline."
+          },
+          {
+            "question": "Which should I choose, the free Feishu path or the in-extension one?",
+            "answer": "For high volume on a budget where a rough transcript is enough, use Feishu plus Alibaba Bailian with its 10 free hours a month. For serious pacing analysis or hard-to-recognize audio, use the in-extension path with its more accurate paid model and timestamped script. We keep both."
+          },
+          {
+            "question": "Do I need to download the video first?",
+            "answer": "No. Trigger extraction directly on the collected record, with no video download, no ads, and no jumping between tools."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 You might also like",
+        "description": "Complete the raw data for both image and video notes",
+        "links": [
+          {
+            "title": "Xiaohongshu image text extraction",
+            "description": "OCR the cover and every image to pull steps, book lists, and prices into text.",
+            "url": "/xiaohongshu/image-text",
+            "icon": "ScanText"
+          },
+          {
+            "title": "Xiaohongshu note collection",
+            "description": "Collect structured data and the raw video link first, then trigger transcript extraction.",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Douyin video transcript",
+            "description": "Same flow, Douyin videos also produce a timestamped sentence-level script.",
+            "url": "/douyin/transcript",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "Feishu automation",
+            "description": "Transcripts flow into the base with the record for sharing and review.",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Pick a viral video and pull one transcript",
+        "description": "Install MediaClaw for free, collect a video you want to break down, and extract a timestamped transcript to see exactly when its hook lands.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "Download RedNote Sample Data",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

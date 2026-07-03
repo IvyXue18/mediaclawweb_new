@@ -1,0 +1,207 @@
+{
+  "metadata": {
+    "title": "小红书图文文案提取 - 图片文字 OCR，封面配图一键提成文本 | MediaClaw 社媒虾",
+    "description": "小红书图文文案提取（OCR）：步骤、书单、价格做进图片卡片，复制正文拿不到？插件对封面和每张配图逐一识别，文字回填采集记录，可导出 CSV/Markdown。",
+    "keywords": "小红书图片文字提取, 小红书图文文案提取, 图文笔记文案提取, 卡片文字OCR, 图片转文字, 封面文字识别, 小红书OCR, 配图文案提取"
+  },
+  "page": {
+    "title": "小红书图文文案提取",
+    "show_sections": ["hero", "modes", "why", "uses", "faq", "related", "cta"],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "小红书图片文字 OCR 提取工具",
+        "breadcrumbs": [
+          { "title": "首页", "url": "/" },
+          { "title": "小红书" },
+          { "title": "图文文案提取" }
+        ],
+        "title": "小红书图文干货，一键提取文字",
+        "description": "图文笔记越来越爱把步骤、书单、价格做进图片卡片，正文只写一两句——字看得到却复制不出来。插件内置配图文案提取（OCR），对封面和每张配图逐一识别，文字回填采集记录，复制、导出都带着走。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "下载小红书样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          },
+          {
+            "title": "看采集怎么跑通",
+            "icon": "Database",
+            "url": "/xiaohongshu/scraper",
+            "variant": "outline"
+          }
+        ],
+        "video_url": "https://media.mediaclaw.app/videos/demo/xiaohongshu-image-text-98360a1ea20a.mp4",
+        "video_poster": "https://media.mediaclaw.app/blog-covers/b9707b63cf430c4ad2d9751c0fc810b4.png"
+      },
+      "modes": {
+        "id": "modes",
+        "block": "features-scroll",
+        "items": [
+          {
+            "title": "封面 + 每张配图逐一 OCR",
+            "description": "一篇图文封面加配图常有十多张，配图文案提取会对每一张都识别，不是只识别一张，把散在图片里的步骤、书单、价格、参数全提成可复制文本。",
+            "icon": "ScanText",
+            "image": {
+              "src": "https://media.mediaclaw.app/blog-covers/b9707b63cf430c4ad2d9751c0fc810b4.png",
+              "alt": "MediaClaw 插件侧边栏对小红书图文笔记执行配图文案提取（OCR），右侧展示识别后回填到采集记录的配图文字"
+            },
+            "button": { "title": "免费下载使用", "url": "/download" }
+          },
+          {
+            "title": "识别结果回填采集记录",
+            "description": "原本只有标题、正文、互动数据的采集记录，补上图片文字后变成一份完整原数据。查看时直接读到，复制时整段带走，导出 CSV/Markdown 时图片文案一并带过去。",
+            "icon": "FileText",
+            "image": {
+              "src": "/imgs/features/image-text-writeback-v20260629.webp",
+              "alt": "提取后的图片文案随采集记录一起在表格字段中展示"
+            },
+            "button": { "title": "免费下载使用", "url": "/download" }
+          }
+        ]
+      },
+      "why": {
+        "id": "why",
+        "block": "features",
+        "subtitle": "Why MediaClaw",
+        "title": "为什么不用手机截图或在线 OCR",
+        "description": "三条老路要么卡在批量，要么卡在准确度，要么卡在还得手动搬图片，问题其实是同一个：图片文字和你已经在采集的那批笔记数据是脱节的。",
+        "items": [
+          {
+            "title": "批量，不是一张一张",
+            "description": "手机截图取字一次只能处理一张，没法和笔记标题、正文、评论合并归档。配图文案提取对整篇逐张识别，结果归到同一条记录。",
+            "icon": "Layers"
+          },
+          {
+            "title": "调用付费模型，识别更准",
+            "description": "复杂图、艺术字、竖排文案容易出别字。提价格、书名、参数错一个字就得返工，配图文案提取调用付费模型更稳。建议提取背景干净的文字图片，可能会识别到部分图片背景中的文字。",
+            "icon": "ScanText"
+          },
+          {
+            "title": "不用手动搬图片",
+            "description": "在线 OCR 网站得你自己一张张存下来再上传，又绕回手动老路。配图文案提取直接对采集到的笔记识别，省掉中间搬运。",
+            "icon": "Workflow"
+          }
+        ]
+      },
+      "uses": {
+        "id": "uses",
+        "block": "data-table",
+        "title": "提完之后，这些文字能拿来做什么",
+        "description": "把图片文字提出来只是第一步，它进了采集记录之后才真正有用。",
+        "columns": [
+          { "key": "scene", "title": "场景" },
+          { "key": "how", "title": "做法" },
+          { "key": "value", "title": "价值" }
+        ],
+        "rows": [
+          {
+            "scene": "归档全文检索",
+            "how": "图片版书单 OCR 后整份变成可搜索文本，导出 Markdown 存进资料库",
+            "value": "以后找哪本书全文检索就行，不用再翻图"
+          },
+          {
+            "scene": "二创与拆解",
+            "how": "把对标账号做成卡片的步骤、话术提成文字",
+            "value": "才能逐句分析它的结构、用了哪些词"
+          },
+          {
+            "scene": "封面埋词研究",
+            "how": "小红书封面是埋词的重要位置，OCR 顺带研究爆款封面写了什么",
+            "value": "把封面 OCR 埋词思路用进自己的选题"
+          },
+          {
+            "scene": "图文 + 视频一起补齐",
+            "how": "图片文字配图文案提取，视频口播提逐字稿",
+            "value": "正好覆盖图文和视频两类笔记的原数据"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "小红书把干货做成图片，怎么把图片里的文字提取出来？",
+            "answer": "对图片做 OCR 就行。用 MediaClaw 采集这篇笔记后，对它执行配图文案提取，插件会对封面和每张配图逐一识别，把文字回填到采集记录，之后直接复制或导出。OCR 属于付费能力按额度计费，采集和导出 Excel/CSV 本身免费。"
+          },
+          {
+            "question": "封面和配图上的文字，能批量提取成可复制文本吗？",
+            "answer": "可以。配图文案提取会对一篇笔记的封面加每一张配图都识别，不是只识别一张，结果作为文本写回记录，导出 CSV 或 Markdown 时一并带出，方便整段复制和全文检索。"
+          },
+          {
+            "question": "免费的在线 OCR 也能识别，为什么还要用插件的付费 OCR？",
+            "answer": "免费在线 OCR 准确率不稳，复杂图、艺术字、竖排文案容易出别字，提价格、书名、参数时错一个字就得返工，还得自己一张张存图再上传。MediaClaw 的配图文案提取直接对采集到的笔记识别，调用付费模型更准。区别就是免费但不一定准，和付费但更准之间的取舍，内容敏感就选后者。"
+          },
+          {
+            "question": "识别出来的图片文字存在哪里、怎么用？",
+            "answer": "回填到插件里的采集记录上，和这条笔记的标题、正文、互动数据放在一起。在采集记录上直接执行 OCR，结果就写回这条记录，照常复制、导出 CSV/Markdown，不依赖任何外部工具。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "把小红书图文和视频两类笔记的原数据一并补齐",
+        "links": [
+          {
+            "title": "小红书视频逐字稿",
+            "description": "视频口播提逐字稿，输出带时间戳的分句节奏稿。",
+            "url": "/xiaohongshu/transcript",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "小红书笔记采集",
+            "description": "先采集结构化数据，再对图文笔记执行配图文案提取。",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "抖音图文文案提取",
+            "description": "同一套流程，抖音图文的图片文字也能提取。",
+            "url": "/douyin/image-text",
+            "icon": "ScanText"
+          },
+          {
+            "title": "小红书去水印下载",
+            "description": "先把图文配图无水印下载下来，再做识别和二创参考。",
+            "url": "/xiaohongshu/downloader",
+            "icon": "Download"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "挑一篇图文，先识别一次配图",
+        "description": "免费安装 MediaClaw，采几篇笔记，挑一篇图文触发配图文案提取，看看图里的书单或价目表识别得准不准，再决定要不要批量处理你那批对标笔记。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "default"
+          },
+          {
+            "title": "下载小红书样例数据",
+            "icon": "FileSpreadsheet",
+            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

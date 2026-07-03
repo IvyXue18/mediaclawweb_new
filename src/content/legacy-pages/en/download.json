@@ -1,0 +1,95 @@
+{
+  "metadata": {
+    "title": "Download MediaClaw - Xiaohongshu & Douyin Scraper Plugin",
+    "description": "Download the MediaClaw browser extension and start in 3 steps: install, enter an activation code, and follow the tutorial. Works on Chrome and Edge.",
+    "keywords": "Download MediaClaw, Chrome extension, Xiaohongshu scraper, Douyin data extraction, content analytics tool, browser plugin"
+  },
+  "page": {
+    "title": "Download MediaClaw",
+    "sections": {
+      "download": {
+        "id": "download",
+        "block": "download",
+        "title": "Download and Install MediaClaw",
+        "description": "MediaClaw is your powerful assistant for social media data operations. Install the extension first, then claim or enter an activation code and follow the tutorial for your first collection. If you do not have a code yet, claim the channel feedback trial.",
+        "market_tab_title": "Store Installation (Recommended)",
+        "package_tab_title": "Offline Installation (CRX/ZIP)",
+        "market_items": [
+          {
+            "title": "Chrome Web Store",
+            "description": "For Google Chrome browser",
+            "icon": "Chrome",
+            "features": [
+              "Automatic updates to latest version",
+              "Official Google security review",
+              "One-click installation"
+            ],
+            "button_text": "Go to Chrome Store",
+            "button_url": "https://chromewebstore.google.com/detail/mediaclaw/ihclbgfnkclacfkbedkdnbpmkcdaccje?authuser=0&hl=en-GB"
+          },
+          {
+            "title": "Microsoft Edge Add-ons",
+            "description": "For Microsoft Edge browser",
+            "icon": "RiEdgeNewLine",
+            "features": [
+              "Automatic updates to latest version",
+              "Official Microsoft store distribution",
+              "One-click install for Edge users"
+            ],
+            "button_text": "Go to Edge Add-ons",
+            "button_url": "https://microsoftedge.microsoft.com/addons/detail/mediaclaw-%E7%A4%BE%E5%AA%92%E8%99%BE%EF%BD%9C%E5%B0%8F%E7%BA%A2%E4%B9%A6%E6%8A%96%E9%9F%B3ai%E8%BF%90%E8%90%A5%E5%B7%A5/moalagonhjmhmoiaehciejkkingpajpl"
+          }
+        ],
+        "package_items": [
+          {
+            "title": "Download CRX Package",
+            "description": "For users who need to manage plugin versions manually",
+            "icon": "FileCode",
+            "button_text": "Download .crx file",
+            "button_url": "/downloads/mediaclaw.crx"
+          }
+        ],
+        "steps_title": "How to manually install offline package?",
+        "steps": [
+          {
+            "title": "Download Package",
+            "description": "Click the button above to download the Chrome extension package in .crx format."
+          },
+          {
+            "title": "Open Extensions",
+            "description": "Type **chrome://extensions** or **edge://extensions** in the browser address bar and press Enter."
+          },
+          {
+            "title": "Enable Developer Mode",
+            "description": "In the top right of the extensions page, find and turn on the Developer Mode switch."
+          },
+          {
+            "title": "Drag to Install",
+            "description": "**Drag and drop** the downloaded .crx file onto the extensions management page to complete the installation."
+          }
+        ],
+        "faq_title": "Installation FAQ",
+        "download_faq": [
+          {
+            "question": "Why does Chrome say 'Apps, extensions, and user scripts cannot be added from this website'?",
+            "answer": "This is due to browser security restrictions. Please install via the official Web Store or download the CRX package and follow the 'Offline Installation' steps to drag and drop for installation."
+          },
+          {
+            "question": "How to update after offline installation?",
+            "answer": "Offline installed plugins cannot update automatically. When a new version is released, you need to re-download the latest package and repeat the installation steps."
+          },
+          {
+            "question": "What if it says 'Package is invalid' during installation?",
+            "answer": "The file might be corrupted during download. Please try downloading it again. If the error persists, check if your browser version is too low."
+          }
+        ],
+        "video_button": {
+          "title": "Installation and Usage Guide",
+          "url": "https://my.feishu.cn/wiki/TczWwrrGmiDRw3kWeojcXd5CnHh?from=from_copylink"
+        },
+        "security_title": "Security Promise",
+        "security_description": "All installation packages are security-scanned and free of malicious code. We recommend installing via the official Chrome Web Store or Microsoft Edge Add-ons for automatic updates."
+      }
+    }
+  }
+}
