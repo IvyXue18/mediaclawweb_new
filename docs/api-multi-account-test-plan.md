@@ -85,8 +85,13 @@ S1:U1 注册 → 登录 → 绑 U2 邀请码 → 提交调研领 trial(+10 积�
 
 S2(异常链):P8 重放回调 + R9 退款 → 全链账目不重不漏。
 
+## 执行决定(已确认)
+
+- 环境:直接打 **preview**。
+- 支付模拟:**伪造 zpay 回调**(用 preview 配置的 pkey 计算 MD5 签名后 POST notify 接口),需拿到 preview 的 `zpay_pkey`;P11 小额真实支付可选。
+
 ## 待确认
 
-1. 执行环境:本地 dev(可直接伪造 zpay 签名,需 pkey)还是直接打 preview(建议 preview 用 `zpay_test_amount` 小额真实支付验证 P7/P11)?
-2. 佣金结算任务在 preview 的触发方式(定时器还是内部接口手动触发)?影响 R11b 的执行手段。
-3. ADMIN 账号如何准备(RBAC 角色赋权路径)?
+1. 佣金结算任务在 preview 的触发方式(定时器还是内部接口手动触发)?影响 R11b 的执行手段。
+2. ADMIN 账号如何准备(RBAC 角色赋权路径)?
+3. preview 的 `zpay_pkey` 从哪取(admin 配置 or 环境变量),测试脚本需要它签名。
