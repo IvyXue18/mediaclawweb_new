@@ -1,33 +1,39 @@
 {
   "metadata": {
-    "title": "MediaClaw Pricing - Plans for Content Scraping & AI Ops",
-    "description": "Choose the MediaClaw plan that fits you best. Core scraping features stay free, and advanced AI plus collaboration unlock when you upgrade.",
-    "keywords": "MediaClaw pricing, subscription plans, social media scraper cost, AI content tools, team collaboration, data extraction pricing"
+    "title": "MediaClaw Pricing - One-Time Purchase, No Auto-Renewal",
+    "description": "Simple, transparent pricing: buy a fixed usage period once, no auto-renewal, pay as you go. Core scraping stays free forever; upgrade for batch enrichment, Feishu sync, and AI topic analysis workflows.",
+    "keywords": "MediaClaw pricing, subscription plans, social media scraper cost, AI content tools, team collaboration, data extraction pricing, one-time purchase"
   },
   "page": {
     "title": "MediaClaw Pricing",
     "sections": {
+      "hero": {
+        "id": "pricing-hero",
+        "block": "page-hero",
+        "title": "Simple, Transparent Pricing",
+        "description": "<span class=\"border-primary/30 bg-primary/10 text-primary mb-4 inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold\">One-time purchase per period. No auto-renewal. Pay as you go.</span><br/>Scraping is just step one — MediaClaw helps you build a full content creation workflow"
+      },
       "pricing": {
         "id": "pricing",
         "block": "pricing",
-        "title": "Choose the plan that fits you",
-        "description": "Core scraping features stay free. Upgrade when you need advanced collection tools, Lark Base sync, and AI workflows.",
-        "tip": "✅ 7-day free trial for Pro, no credit card required &nbsp;·&nbsp; 30-day money-back guarantee",
+        "title": "Choose the Plan That Fits You",
+        "description": "Core scraping features stay free forever. Upgrade when you need batch enrichment, team data sync, Feishu AI templates, and more content ops power",
+        "hide_heading": true,
         "groups": [
           {
             "name": "month",
-            "title": "Monthly",
-            "label": "Flexible"
+            "title": "Monthly"
           },
           {
             "name": "monthly",
-            "title": "Quarterly"
+            "title": "Quarterly",
+            "label": "Popular"
           },
           {
             "name": "yearly",
             "title": "Yearly",
             "is_featured": true,
-            "label": "Save 30%"
+            "label": "Save 60%"
           },
           {
             "name": "credits",
@@ -37,13 +43,14 @@
         "items": [
           {
             "title": "Free",
-            "description": "For individuals who use it occasionally.",
+            "description": "For individuals with occasional needs",
             "features": [
-              "Deep single-note / video collection, ideal for saving high-value content one item at a time",
-              "Basic list collection from search and account pages",
-              "Local data pool storage with CSV and Markdown export",
-              "Watermark-free image, video, and audio download",
-              "Single browser device usage"
+              "Deep scraping of single notes/videos — save high-value content one by one",
+              "Single-post comment and lead scraping",
+              "Basic list scraping on search and profile pages",
+              "Local data pool with CSV and Markdown export",
+              "Watermark-free image, video, and audio downloads",
+              "Single browser device"
             ],
             "interval": "one-time",
             "amount": 0,
@@ -64,46 +71,57 @@
             "group": "month"
           },
           {
-            "title": "Pro",
-            "description": "For ongoing topic research, collection, filtering, and review.",
+            "title": "Personal",
+            "description": "For creators and operators doing ongoing research, topic analysis, and content reviews",
             "label": "Most Popular",
-            "features_title": "Everything in Free",
+            "features_title": "Everything in Free, plus:",
             "features": [
-              "Unlock enhanced collection: batch backfill body text, tags, engagement, attached media, and other detail data",
-              "Filter by comments, creator metrics, low-follower viral posts, and lead clues",
-              "Sync data to Lark Base to build a topic and content library",
-              "Includes 180 AI credits for competitor monitoring, topic analysis, long-tail keyword analysis, video transcripts, and content remixing",
-              "Single browser device usage"
+              "Enhanced scraping on search and profile pages: batch-complete full text, tags, engagement, and media details",
+              "Batch filtering for low-follower viral posts and high-intent leads",
+              "Sync to Feishu AI templates for batch transcripts, topic analysis, and content rewriting",
+              "Single browser device"
+            ],
+            "credits_title": "Includes 180 credits for:",
+            "credits_features": [
+              "Competitor account monitoring and content daily reports",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension timestamped video transcripts and image copy extraction"
             ],
             "interval": "one-time",
-            "amount": 4900,
+            "amount": 5900,
             "currency": "CNY",
             "credits": 180,
             "valid_days": 30,
-            "price": "¥49",
-            "unit": "/ month",
+            "price": "¥59",
+            "unit": "/ mo",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],
             "button": {
-              "title": "Choose Plan",
+              "title": "Buy Now",
               "url": "/pricing",
               "target": "_self",
               "icon": "Zap"
             },
             "product_id": "pro-1m",
-            "product_name": "MediaClaw Pro Monthly",
+            "product_name": "MediaClaw Personal Monthly",
             "group": "month"
           },
           {
             "title": "Team",
-            "description": "For teams sharing data, collaborating, and monitoring continuously.",
-            "features_title": "Everything in Pro",
+            "description": "For ops, brand, and MCN teams",
+            "features_title": "Everything in Personal, plus:",
             "features": [
-              "Includes 700 AI credits for ongoing competitor monitoring, topic research, and team AI analysis",
-              "Multiple members sync data to one Lark Base",
-              "Ideal for content teams, MCNs, brand marketing, and ops groups",
-              "Use on up to 3 browser devices simultaneously"
+              "Multiple members sync data into one shared Feishu base",
+              "3 browser devices at the same time"
+            ],
+            "credits_title": "Includes 700 credits for:",
+            "credits_features": [
+              "Competitor account monitoring and content daily reports",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension timestamped video transcripts and image copy extraction"
             ],
             "interval": "one-time",
             "amount": 12900,
@@ -111,11 +129,11 @@
             "credits": 700,
             "valid_days": 30,
             "price": "¥129",
-            "unit": "/ month",
+            "unit": "/ mo",
             "is_featured": false,
             "payment_providers": ["zpay"],
             "button": {
-              "title": "Choose Plan",
+              "title": "Buy Now",
               "url": "/pricing",
               "target": "_self",
               "icon": "Zap"
@@ -126,13 +144,14 @@
           },
           {
             "title": "Free",
-            "description": "For individuals who use it occasionally.",
+            "description": "For individuals with occasional needs",
             "features": [
-              "Deep single-note / video collection, ideal for saving high-value content one item at a time",
-              "Basic list collection from search and account pages",
-              "Local data pool storage with CSV and Markdown export",
-              "Watermark-free image, video, and audio download",
-              "Single browser device usage"
+              "Deep scraping of single notes/videos — save high-value content one by one",
+              "Single-post comment and lead scraping",
+              "Basic list scraping on search and profile pages",
+              "Local data pool with CSV and Markdown export",
+              "Watermark-free image, video, and audio downloads",
+              "Single browser device"
             ],
             "interval": "one-time",
             "amount": 0,
@@ -153,58 +172,71 @@
             "group": "monthly"
           },
           {
-            "title": "Pro",
-            "description": "For ongoing topic research, collection, filtering, and review.",
-            "label": "Recommended",
-            "features_title": "Everything in Free",
+            "title": "Personal",
+            "description": "For creators and operators doing ongoing research, topic analysis, and content reviews",
+            "label": "Most Popular",
+            "features_title": "Everything in Free, plus:",
             "features": [
-              "Unlock enhanced collection: batch backfill body text, tags, engagement, attached media, and other detail data",
-              "Filter by comments, creator metrics, low-follower viral posts, and lead clues",
-              "Sync data to Lark Base to build a topic and content library",
-              "Includes 600 AI credits for competitor monitoring, topic analysis, long-tail keyword analysis, video transcripts, and content remixing",
-              "Single browser device usage"
+              "Enhanced scraping on search and profile pages: batch-complete full text, tags, engagement, and media details",
+              "Batch filtering for low-follower viral posts and high-intent leads",
+              "Sync to Feishu AI templates for batch transcripts, topic analysis, and content rewriting",
+              "Single browser device"
+            ],
+            "credits_title": "Includes 400 credits for:",
+            "credits_features": [
+              "Competitor account monitoring and content daily reports",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension timestamped video transcripts and image copy extraction"
             ],
             "interval": "one-time",
-            "amount": 11800,
+            "amount": 9900,
             "currency": "CNY",
-            "credits": 600,
+            "credits": 400,
             "valid_days": 90,
-            "price": "¥118",
-            "unit": "/ quarter",
+            "price": "¥33",
+            "unit": "/ mo",
+            "price_total": "¥99 per quarter",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],
             "button": {
-              "title": "Choose Plan",
+              "title": "Buy Now",
               "url": "/pricing",
               "target": "_self",
               "icon": "Zap"
             },
             "product_id": "pro-monthly",
-            "product_name": "MediaClaw Pro Quarterly",
+            "product_name": "MediaClaw Personal Quarterly",
             "group": "monthly"
           },
           {
             "title": "Team",
-            "description": "For teams sharing data, collaborating, and monitoring continuously.",
-            "features_title": "Everything in Pro",
+            "description": "For ops, brand, and MCN teams",
+            "features_title": "Everything in Personal, plus:",
             "features": [
-              "Includes 2,000 AI credits for ongoing competitor monitoring, topic research, and team AI analysis",
-              "Multiple members sync data to one Lark Base",
-              "Ideal for content teams, MCNs, brand marketing, and ops groups",
-              "Use on up to 3 browser devices simultaneously"
+              "Multiple members sync data into one shared Feishu base",
+              "3 browser devices at the same time"
+            ],
+            "credits_title": "Includes 1500 credits for:",
+            "credits_features": [
+              "Competitor account monitoring and content daily reports",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension timestamped video transcripts and image copy extraction"
             ],
             "interval": "one-time",
-            "amount": 31800,
+            "amount": 26800,
             "currency": "CNY",
-            "credits": 2000,
+            "credits": 1500,
             "valid_days": 90,
-            "price": "¥318",
-            "unit": "/ quarter",
+            "price": "¥89",
+            "unit": "/ mo",
+            "price_total": "¥268 per quarter",
             "is_featured": false,
             "payment_providers": ["zpay"],
             "button": {
-              "title": "Choose Plan",
+              "title": "Buy Now",
               "url": "/pricing",
               "target": "_self",
               "icon": "Zap"
@@ -215,13 +247,14 @@
           },
           {
             "title": "Free",
-            "description": "For individuals who use it occasionally.",
+            "description": "For individuals with occasional needs",
             "features": [
-              "Deep single-note / video collection, ideal for saving high-value content one item at a time",
-              "Basic list collection from search and account pages",
-              "Local data pool storage with CSV and Markdown export",
-              "Watermark-free image, video, and audio download",
-              "Single browser device usage"
+              "Deep scraping of single notes/videos — save high-value content one by one",
+              "Single-post comment and lead scraping",
+              "Basic list scraping on search and profile pages",
+              "Local data pool with CSV and Markdown export",
+              "Watermark-free image, video, and audio downloads",
+              "Single browser device"
             ],
             "interval": "one-time",
             "amount": 0,
@@ -242,62 +275,73 @@
             "group": "yearly"
           },
           {
-            "title": "Pro",
-            "description": "For ongoing topic research, collection, filtering, and review.",
-            "label": "Recommended",
-            "features_title": "Everything in Free",
+            "title": "Personal",
+            "description": "For creators and operators doing ongoing research, topic analysis, and content reviews",
+            "label": "Most Popular",
+            "features_title": "Everything in Free, plus:",
             "features": [
-              "Unlock enhanced collection: batch backfill body text, tags, engagement, attached media, and other detail data",
-              "Filter by comments, creator metrics, low-follower viral posts, and lead clues",
-              "Sync data to Lark Base to build a topic and content library",
-              "Includes 2,500 AI credits for competitor monitoring, topic analysis, long-tail keyword analysis, video transcripts, and content remixing",
-              "Single browser device usage"
+              "Enhanced scraping on search and profile pages: batch-complete full text, tags, engagement, and media details",
+              "Batch filtering for low-follower viral posts and high-intent leads",
+              "Sync to Feishu AI templates for batch transcripts, topic analysis, and content rewriting",
+              "Single browser device"
+            ],
+            "credits_title": "Includes 1500 credits for:",
+            "credits_features": [
+              "Competitor account monitoring and content daily reports",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension timestamped video transcripts and image copy extraction"
             ],
             "interval": "one-time",
-            "amount": 39900,
+            "amount": 28800,
             "currency": "CNY",
-            "credits": 2500,
+            "credits": 1500,
             "valid_days": 365,
-            "price": "¥399",
-            "original_price": "¥588",
-            "unit": "/ year",
+            "price": "¥24",
+            "unit": "/ mo",
+            "price_total": "¥288 per year",
+            "tip": "Save 60% vs monthly",
             "is_featured": true,
             "is_popular": true,
-            "tip": "Save ¥189 with yearly billing",
             "payment_providers": ["zpay"],
             "button": {
-              "title": "Choose Plan",
+              "title": "Buy Now",
               "url": "/pricing",
               "target": "_self",
               "icon": "Zap"
             },
             "product_id": "pro-yearly",
-            "product_name": "MediaClaw Pro Yearly",
+            "product_name": "MediaClaw Personal Yearly",
             "group": "yearly"
           },
           {
             "title": "Team",
-            "description": "For teams sharing data, collaborating, and monitoring continuously.",
-            "features_title": "Everything in Pro",
+            "description": "For ops, brand, and MCN teams",
+            "features_title": "Everything in Personal, plus:",
             "features": [
-              "Includes 9,000 AI credits for ongoing competitor monitoring, topic research, and team AI analysis",
-              "Multiple members sync data to one Lark Base",
-              "Ideal for content teams, MCNs, brand marketing, and ops groups",
-              "Use on up to 3 browser devices simultaneously"
+              "Multiple members sync data into one shared Feishu base",
+              "3 browser devices at the same time"
+            ],
+            "credits_title": "Includes 5000 credits for:",
+            "credits_features": [
+              "Competitor account monitoring and content daily reports",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension timestamped video transcripts and image copy extraction"
             ],
             "interval": "one-time",
-            "amount": 108800,
+            "amount": 68800,
             "currency": "CNY",
-            "credits": 9000,
+            "credits": 5000,
             "valid_days": 365,
-            "price": "¥1088",
-            "original_price": "¥1548",
-            "unit": "/ year",
+            "price": "¥57",
+            "unit": "/ mo",
+            "price_total": "¥688 per year",
+            "tip": "Save 55% vs monthly",
             "is_featured": false,
-            "tip": "Save ¥460 with yearly billing",
             "payment_providers": ["zpay"],
             "button": {
-              "title": "Choose Plan",
+              "title": "Buy Now",
               "url": "/pricing",
               "target": "_self",
               "icon": "Zap"
@@ -307,20 +351,21 @@
             "group": "yearly"
           },
           {
-            "title": "Emergency Top-up Pack",
-            "description": "For temporarily boosting AI analysis and monitoring quota.",
+            "title": "Emergency Top-Up Pack",
+            "description": "For temporarily boosting AI analysis and monitoring quota",
             "label": "Most Popular",
             "features": [
-              "1,000 AI credits",
-              "For competitor monitoring, topic analysis, long-tail keyword analysis, video transcripts, and content remixing",
-              "Good for short campaigns or running a few extra analysis or monitoring tasks",
-              "Only tops up credits for existing paid members; does not unlock membership features on its own",
-              "Does not extend the plugin validity period; after membership expires, credits freeze without resetting and resume after renewal"
+              "200 AI credits",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension video transcripts and image copy extraction",
+              "Only tops up credits for existing paid members; does not unlock membership features or extend the usage period",
+              "Credits are frozen (not cleared) when membership expires and reactivate after renewal"
             ],
             "interval": "one-time",
             "amount": 2900,
             "currency": "CNY",
-            "credits": 1000,
+            "credits": 200,
             "valid_days": 0,
             "price": "¥29",
             "unit": "",
@@ -334,23 +379,24 @@
               "icon": "Coins"
             },
             "product_id": "credits-emergency-150",
-            "product_name": "MediaClaw Emergency Top-up Pack",
+            "product_name": "MediaClaw Emergency Top-Up Pack",
             "group": "credits"
           },
           {
             "title": "Creator Pack",
-            "description": "For individuals doing ongoing topic research, transcripts, and remix analysis.",
+            "description": "For solo creators and operators who analyze topics and process material at volume",
             "features": [
-              "3,000 AI credits",
-              "For competitor monitoring, topic analysis, long-tail keyword analysis, video transcripts, and content remixing",
-              "Good for solo accounts to continually review content, analyze topics, and process material",
-              "Only tops up credits for existing paid members; does not unlock membership features on its own",
-              "Does not extend the plugin validity period; after membership expires, credits freeze without resetting and resume after renewal"
+              "1000 AI credits",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension video transcripts and image copy extraction",
+              "Only tops up credits for existing paid members; does not unlock membership features or extend the usage period",
+              "Credits are frozen (not cleared) when membership expires and reactivate after renewal"
             ],
             "interval": "one-time",
             "amount": 7900,
             "currency": "CNY",
-            "credits": 3000,
+            "credits": 1000,
             "valid_days": 0,
             "price": "¥79",
             "unit": "",
@@ -367,22 +413,23 @@
             "group": "credits"
           },
           {
-            "title": "Multi-line Team Pack",
-            "description": "For teams doing high-frequency monitoring, batch analysis, and multi-project review.",
+            "title": "Multi-Line Team Pack",
+            "description": "For teams running continuous analysis and monitoring across projects and members",
             "label": "High Volume",
             "features": [
-              "15,000 AI credits",
-              "For competitor monitoring, topic analysis, long-tail keyword analysis, video transcripts, and content remixing",
-              "Built for teams burning credits across multiple accounts, projects, and members",
-              "Only tops up credits for existing paid members; does not unlock membership features on its own",
-              "Does not extend the plugin validity period; after membership expires, credits freeze without resetting and resume after renewal"
+              "2500 AI credits",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension video transcripts and image copy extraction",
+              "Only tops up credits for existing paid members; does not unlock membership features or extend the usage period",
+              "Credits are frozen (not cleared) when membership expires and reactivate after renewal"
             ],
             "interval": "one-time",
-            "amount": 36000,
+            "amount": 16900,
             "currency": "CNY",
-            "credits": 15000,
+            "credits": 2500,
             "valid_days": 0,
-            "price": "¥360",
+            "price": "¥169",
             "unit": "",
             "is_featured": false,
             "payment_providers": ["zpay"],
@@ -393,12 +440,253 @@
               "icon": "Coins"
             },
             "product_id": "credits-team-3000",
-            "product_name": "MediaClaw Multi-line Team Pack",
+            "product_name": "MediaClaw Multi-Line Team Pack",
             "group": "credits"
           }
+        ],
+        "default_group": "yearly"
+      },
+      "comparison": {
+        "id": "comparison",
+        "block": "data-table",
+        "title": "Compare All Features",
+        "description": "From scraping to growth — one table shows everything MediaClaw can do",
+        "columns": [
+          {
+            "key": "feature",
+            "title": "Feature"
+          },
+          {
+            "key": "free",
+            "title": "Free"
+          },
+          {
+            "key": "pro",
+            "title": "Personal",
+            "highlight": true
+          },
+          {
+            "key": "team",
+            "title": "Team"
+          },
+          {
+            "key": "note",
+            "title": "Notes"
+          }
+        ],
+        "rows": [
+          {
+            "section_title": "Scraping Is Just Step One",
+            "section_description": "Basic scraping is free forever; batch and filtering power unlocks as you upgrade"
+          },
+          {
+            "feature": "Single-post scraping / watermark-free download",
+            "free": "✓",
+            "pro": "✓",
+            "team": "✓",
+            "note": "Save high-value content, free basic use forever"
+          },
+          {
+            "feature": "Single-post comment scraping / lead filtering",
+            "free": "✓",
+            "pro": "✓",
+            "team": "✓",
+            "note": "Save high-value comments and high-potential leads, free forever"
+          },
+          {
+            "feature": "Watermark-free images, videos, and covers per post",
+            "free": "✓",
+            "pro": "✓",
+            "team": "✓",
+            "note": "Save the right material, free basic use forever"
+          },
+          {
+            "feature": "Batch scraping with detail enrichment",
+            "free": "Basic list",
+            "pro": "Full support",
+            "team": "Full support",
+            "note": "Full text, tags, engagement, and media completed in one pass"
+          },
+          {
+            "feature": "Sort and filter by publish time, location, likes, comments, saves",
+            "free": "✓",
+            "pro": "✓",
+            "team": "✓",
+            "note": "Quickly surface the posts worth reading from search results"
+          },
+          {
+            "feature": "Low-follower viral post filtering",
+            "free": "—",
+            "pro": "✓",
+            "team": "✓",
+            "note": "Find viral posts ordinary accounts can replicate, not just big accounts"
+          },
+          {
+            "feature": "Batch scraping of creator profiles",
+            "free": "Basic list",
+            "pro": "✓",
+            "team": "✓",
+            "note": "Quickly pull a benchmark account's content history"
+          },
+          {
+            "feature": "Batch scraping of keyword search pages",
+            "free": "Basic list",
+            "pro": "✓",
+            "team": "✓",
+            "note": "Research content around niche, product, and audience keywords"
+          },
+          {
+            "feature": "Batch comment scraping and lead filtering",
+            "free": "—",
+            "pro": "✓",
+            "team": "✓",
+            "note": "Discover needs, pain points, and honest feedback in comments — find people with real intent"
+          },
+          {
+            "section_title": "Understand Your Niche, Benchmark, Find Topics",
+            "section_description": "AI analysis features, powered by credits"
+          },
+          {
+            "feature": "Niche opportunity assessment",
+            "free": "—",
+            "pro": "✓ Uses credits",
+            "team": "✓ Uses credits",
+            "note": "Judge whether a direction is worth pursuing long-term"
+          },
+          {
+            "feature": "Automated benchmark account analysis",
+            "free": "—",
+            "pro": "✓ Uses credits",
+            "team": "✓ Uses credits",
+            "note": "See what content your competitors ride for traffic"
+          },
+          {
+            "feature": "Long-tail demand keyword analysis",
+            "free": "—",
+            "pro": "✓ Uses credits",
+            "team": "✓ Uses credits",
+            "note": "Dig up demand keywords others haven't systematically covered"
+          },
+          {
+            "feature": "Benchmark monitoring / content daily reports",
+            "free": "—",
+            "pro": "✓ Uses credits",
+            "team": "✓ Uses credits",
+            "note": "Track competitors' new content and performance as readable topic reports"
+          },
+          {
+            "section_title": "From Content to Material",
+            "section_description": "Break viral content down into material you can use directly"
+          },
+          {
+            "feature": "Video transcripts",
+            "free": "—",
+            "pro": "✓ Uses credits",
+            "team": "✓ Uses credits",
+            "note": "Break down a competitor video in 30 seconds"
+          },
+          {
+            "feature": "Image / OCR copy extraction",
+            "free": "—",
+            "pro": "✓ Uses credits",
+            "team": "✓ Uses credits",
+            "note": "Extract text from image notes, posters, and comment screenshots"
+          },
+          {
+            "feature": "Script structure analysis",
+            "free": "—",
+            "pro": "✓ Uses credits",
+            "team": "✓ Uses credits",
+            "note": "Break down titles, hooks, selling points, and conversion points"
+          },
+          {
+            "feature": "Rewriting / adaptation",
+            "free": "—",
+            "pro": "✓ Uses credits",
+            "team": "✓ Uses credits",
+            "note": "Adapt viral content to your industry and voice"
+          },
+          {
+            "section_title": "Data Ownership and Collaboration",
+            "section_description": "Your data belongs to you — never locked inside the extension"
+          },
+          {
+            "feature": "Feishu base sync",
+            "free": "—",
+            "pro": "✓",
+            "team": "Shared team base",
+            "note": "Your data belongs to you, not locked inside the extension"
+          },
+          {
+            "feature": "CSV / Markdown export",
+            "free": "✓",
+            "pro": "✓",
+            "team": "✓",
+            "note": "Connects seamlessly with your own knowledge base"
+          },
+          {
+            "feature": "Online devices",
+            "free": "1",
+            "pro": "1",
+            "team": "3",
+            "note": "Personal use and team collaboration kept separate"
+          }
         ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "Will I be charged automatically?",
+            "answer": "No. Every plan is a one-time purchase for a fixed period. It simply stops when it expires — not a cent is deducted. Want to keep going? Just buy again."
+          },
+          {
+            "question": "How is MediaClaw different from other scraping extensions?",
+            "answer": "Other scraping tools end at a data table; MediaClaw ends at your next viral post and your next customer. Basic scraping is free — what you pay for is the full workflow and the judgment layer: what topics to make, who to watch, who to contact."
+          },
+          {
+            "question": "What are credits? Do they expire?",
+            "answer": "Credits are only used for in-extension AI tasks (transcripts, OCR, monitoring, analysis, rewriting). Scraping and sync never consume credits and are unlimited. Credits are usable while your membership is active; after expiry they are frozen (not cleared) and reactivate when you renew."
+          },
+          {
+            "question": "What if I run out of credits?",
+            "answer": "Active members can top up anytime with a credit pack — see the Credit Packs tab above."
+          },
+          {
+            "question": "How long does the Free plan last?",
+            "answer": "Free forever. Single-post scraping, basic lists, and watermark-free downloads have no time limit. Install it, use it, and upgrade only when it clicks."
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "block": "cta",
+        "title": "Install It Free, Run It Once, Then Decide",
+        "description": "Run the workflow once and you'll know whether it's worth ¥24 a month.",
+        "buttons": [
+          {
+            "title": "Watch Demo",
+            "icon": "Play",
+            "action": "open_video_modal",
+            "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4",
+            "video_poster": "/imgs/features/1-v20260424.webp",
+            "video_title": "MediaClaw 5-Minute Demo",
+            "variant": "default"
+          },
+          {
+            "title": "Start Using",
+            "icon": "Download",
+            "url": "/download",
+            "target": "_blank",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
       }
-    }
+    },
+    "show_sections": ["hero", "pricing", "comparison", "faq", "cta"]
   },
   "messages": {
     "current_plan": "Current Plan",
@@ -407,7 +695,7 @@
     "purchase_mode_renew": "Renew Existing Code",
     "select_credential": "Select Activation Code",
     "select_credential_placeholder": "Choose an activation code to renew",
-    "custom_input": "Custom Input",
+    "custom_input": "I have a code, enter it manually",
     "custom_credential_placeholder": "Enter code, e.g. ACT-XXXX-XXXX-XXXX",
     "credential_expires": "Expires",
     "credential_credits_remaining": "Credits left",
@@ -441,6 +729,9 @@
     "checkout_step_order": "Order details submitted",
     "checkout_step_provider": "Connecting to payment channel",
     "checkout_step_redirect": "Opening the QR checkout page",
-    "checkout_keep_open": "This usually takes a few seconds. Please keep this window open."
+    "checkout_keep_open": "This usually takes a few seconds. Please keep this window open.",
+    "credentials_load_failed": "Failed to load activation codes",
+    "checkout_failed": "Failed to create the payment order",
+    "credits_unit": "credits"
   }
 }

@@ -16,6 +16,7 @@ export type PaymentProvider =
   | 'stripe'
   | 'creem'
   | 'paypal'
+  | 'zpay'
   | 'alipay'
   | 'wechat';
 
@@ -33,6 +34,7 @@ const providerLabel: Record<PaymentProvider, string> = {
   stripe: 'Stripe',
   creem: 'Creem',
   paypal: 'PayPal',
+  zpay: 'ZPay',
   alipay: 'Alipay',
   wechat: 'WeChat Pay',
 };

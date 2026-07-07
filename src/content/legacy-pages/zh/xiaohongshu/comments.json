@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "小红书评论采集工具_批量采集评论数据并一键导出Excel | MediaClaw",
-    "description": "MediaClaw 是一款免费的小红书评论采集插件，支持批量采集评论数据、用户昵称、点赞数与主页链接，一键导出 Excel/CSV，并通过 AI 做评论挖掘、需求分析与选题洞察。",
-    "keywords": "小红书评论采集, 小红书评论数据采集, 批量采集小红书评论, 小红书评论导出Excel, 评论挖掘, 评论数据分析, 免费小红书插件"
+    "title": "小红书评论采集分析和AI 选题洞察｜MediaClaw 社媒虾",
+    "description": "MediaClaw 是一款免费的小红书评论采集插件，支持批量抓取评论数据、用户昵称、点赞数与主页链接，一键导出 Excel/CSV，并通过 AI 做评论挖掘、需求分析与选题洞察。",
+    "keywords": "小红书评论采集, 小红书评论数据采集, 批量采集小红书评论, 小红书评论导出Excel, 评论挖掘, 评论数据分析, 高潜客资筛选, 免费小红书插件"
   },
   "page": {
     "title": "小红书评论采集",
@@ -34,7 +34,7 @@
             "title": "评论采集"
           }
         ],
-        "title": "批量采集小红书评论数据并导出 Excel",
+        "title": "小红书批量评论采集、选题挖掘和获客筛选",
         "description": "无需代码基础，自动滚动采集笔记评论区数据，一键导出为 Excel / CSV，并支持 AI 做评论挖掘、需求分析与选题洞察",
         "buttons": [
           {
@@ -67,6 +67,19 @@
             "button": {
               "title": "免费安装插件",
               "url": "/download"
+            }
+          },
+          {
+            "title": "采集评论时，直接筛出高潜客资",
+            "description": "在插件里提前设置高意向关键词和 IP 属地条件，例如“怎么买 / 求链接 / 哪里买 / 价格 / 广东 / 北京”。采集评论时，系统会同步识别命中评论，把潜在客资标记到字段中，后续可以直接导出、筛选和跟进。",
+            "icon": "Filter",
+            "image": {
+              "src": "/imgs/features/1-v20260425.webp",
+              "alt": "MediaClaw 在评论采集时通过关键词和 IP 属地条件筛选高潜客资"
+            },
+            "button": {
+              "title": "查看客资筛选配置",
+              "url": "/xiaohongshu/leads"
             }
           },
           {
@@ -232,6 +245,63 @@
           }
         ],
         "className": "bg-secondary/20"
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "title": "插件采集 vs 手动复制 vs 云端服务",
+        "description": "三种获取小红书评论数据的方式对比。",
+        "columns": [
+          {
+            "key": "item",
+            "title": ""
+          },
+          {
+            "key": "mediaclaw",
+            "title": "MediaClaw 浏览器插件",
+            "highlight": true
+          },
+          {
+            "key": "manual",
+            "title": "手动复制整理"
+          },
+          {
+            "key": "cloud",
+            "title": "云端评论采集"
+          }
+        ],
+        "rows": [
+          {
+            "item": "采集效率",
+            "mediaclaw": "一键批量采集评论与回复",
+            "manual": "逐条复制，上百条就不现实",
+            "cloud": "需建任务并等待执行"
+          },
+          {
+            "item": "数据完整度",
+            "mediaclaw": "楼层结构、点赞、时间、IP 属地完整保留",
+            "manual": "只剩文字，结构丢失",
+            "cloud": "字段取决于服务商"
+          },
+          {
+            "item": "登录与配置",
+            "mediaclaw": "复用当前浏览器登录，无需配置",
+            "manual": "无需配置",
+            "cloud": "需提供 Cookie 与代理"
+          },
+          {
+            "item": "导出方式",
+            "mediaclaw": "Excel/CSV/Markdown、飞书多维表格同步",
+            "manual": "手动粘贴进表格",
+            "cloud": "JSON/CSV 下载"
+          },
+          {
+            "item": "适合场景",
+            "mediaclaw": "评论洞察、选题挖掘、口碑分析",
+            "manual": "个位数样本",
+            "cloud": "超大规模定时监控"
+          }
+        ]
       }
     }
   }

@@ -20,8 +20,6 @@ export const BLOG_POST_SLUGS = [
   'how-to-copy-viral-short-videos',
   'local-business-xiaohongshu-marketing',
   'low-follower-viral-content',
-  'media-capture-workflow',
-  'partners-without-forks',
   'short-video-transcript-extraction',
   'video-transcript-timestamps',
   'xiaohongshu-brand-sentiment-monitoring',

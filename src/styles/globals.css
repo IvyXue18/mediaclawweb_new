@@ -3,6 +3,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Base UI components expose orientation via data-orientation="…", not bare
+   data-horizontal/data-vertical attributes. shadcn's Base UI components rely
+   on these custom variants (normally provided by shadcn/tailwind.css). */
+@custom-variant data-horizontal (&[data-orientation='horizontal']);
+@custom-variant data-vertical (&[data-orientation='vertical']);
+
 /* Use local system fonts for the public site to keep mobile first paint fast. */
 :root {
   --font-sans:

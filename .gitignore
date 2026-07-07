@@ -58,6 +58,7 @@ yarn-error.log*
 # env — local files hold secrets, never commit (keep .env.example tracked)
 .env
 .env.*
+.dev.vars
 !.env.example
 
 # typescript

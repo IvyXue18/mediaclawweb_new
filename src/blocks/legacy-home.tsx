@@ -497,12 +497,14 @@ function HeroSection({ onPlay }: { onPlay: () => void }) {
             观看演示
           </button>
         </div>
-        <div className="mx-auto mt-16 max-w-6xl overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl shadow-slate-950/15">
-          <img
-            src="/imgs/features/1-v20260424.webp"
-            alt="MediaClaw 在小红书页面右侧弹出采集侧边栏，可一键提取笔记页、账号页、搜索页数据并进入数据池"
-            className="w-full rounded-xl object-cover"
-          />
+        <div className="relative mx-auto mt-16 max-w-6xl">
+          <div className="relative overflow-hidden rounded-2xl shadow-xl ring-1 shadow-slate-950/10 ring-slate-950/10">
+            <img
+              src="/imgs/features/1-v20260424.webp"
+              alt="MediaClaw 在小红书页面右侧弹出采集侧边栏，可一键提取笔记页、账号页、搜索页数据并进入数据池"
+              className="w-full object-cover"
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -635,8 +637,8 @@ function PricingSection({
   return (
     <section id="pricing" className="px-4 py-24 sm:px-6">
       <SectionHeading
-        title="选择方案"
-        description="核心采集功能永久免费，按需升级解锁高级功能"
+        title="简单透明的价格方案"
+        description="不自动续费，随用随买；采集只是第一步，MediaClaw 助你构建内容工作流系统"
       />
       <div className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-3 rounded-2xl bg-slate-100 p-2">
         {pricingGroups.map((group) => (

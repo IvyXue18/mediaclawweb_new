@@ -5,10 +5,11 @@
  * Any price, credits, or plan info sent by the client is IGNORED — only the
  * product_id is honored, and everything else is looked up here.
  *
- * To change pricing, edit this file and redeploy. Admin UI cannot alter prices.
+ * Defaults live here. Admin `pricing_products` config can override selected
+ * business fields for a deployed environment.
  */
 
-import { PaymentInterval, PaymentType } from '@/core/payment/types';
+import { PaymentType, type PaymentInterval } from '@/core/payment/types';
 
 export type PricingPlanInfo = {
   name: string;
@@ -29,121 +30,31 @@ export type PricingProduct = {
   creditsValidDays?: number;
   maxBindings?: number;
   plan?: PricingPlanInfo;
+  status?: string;
+};
+
+type PricingProductConfig = {
+  amount?: unknown;
+  priceInCents?: unknown;
+  currency?: unknown;
+  credits?: unknown;
+  type?: unknown;
+  fulfillment?: unknown;
+  duration_preset?: unknown;
+  durationPreset?: unknown;
+  duration_days?: unknown;
+  valid_days?: unknown;
+  validDays?: unknown;
+  max_bindings?: unknown;
+  maxBindings?: unknown;
+  status?: unknown;
 };
 
 /**
- * Default demo catalog. Replace with your real products when launching.
+ * MediaClaw pricing catalog.
  * Keys MUST match what the pricing UI sends as product_id.
  */
 export const pricingCatalog: Record<string, PricingProduct> = {
-  starter_monthly: {
-    productId: 'starter_monthly',
-    productName: 'Starter',
-    planName: 'Starter',
-    description: 'Starter Monthly',
-    type: PaymentType.SUBSCRIPTION,
-    priceInCents: 900,
-    currency: 'usd',
-    credits: 5000,
-    plan: {
-      name: 'Starter',
-      interval: PaymentInterval.MONTH,
-      intervalCount: 1,
-    },
-  },
-  pro_monthly: {
-    productId: 'pro_monthly',
-    productName: 'Pro',
-    planName: 'Pro',
-    description: 'Pro Monthly',
-    type: PaymentType.SUBSCRIPTION,
-    priceInCents: 2900,
-    currency: 'usd',
-    credits: 50000,
-    plan: { name: 'Pro', interval: PaymentInterval.MONTH, intervalCount: 1 },
-  },
-  enterprise_monthly: {
-    productId: 'enterprise_monthly',
-    productName: 'Enterprise',
-    planName: 'Enterprise',
-    description: 'Enterprise Monthly',
-    type: PaymentType.SUBSCRIPTION,
-    priceInCents: 9900,
-    currency: 'usd',
-    credits: 500000,
-    plan: {
-      name: 'Enterprise',
-      interval: PaymentInterval.MONTH,
-      intervalCount: 1,
-    },
-  },
-  starter_yearly: {
-    productId: 'starter_yearly',
-    productName: 'Starter',
-    planName: 'Starter',
-    description: 'Starter Yearly',
-    type: PaymentType.SUBSCRIPTION,
-    priceInCents: 8600,
-    currency: 'usd',
-    credits: 60000,
-    plan: { name: 'Starter', interval: PaymentInterval.YEAR, intervalCount: 1 },
-  },
-  pro_yearly: {
-    productId: 'pro_yearly',
-    productName: 'Pro',
-    planName: 'Pro',
-    description: 'Pro Yearly',
-    type: PaymentType.SUBSCRIPTION,
-    priceInCents: 27800,
-    currency: 'usd',
-    credits: 600000,
-    plan: { name: 'Pro', interval: PaymentInterval.YEAR, intervalCount: 1 },
-  },
-  enterprise_yearly: {
-    productId: 'enterprise_yearly',
-    productName: 'Enterprise',
-    planName: 'Enterprise',
-    description: 'Enterprise Yearly',
-    type: PaymentType.SUBSCRIPTION,
-    priceInCents: 95000,
-    currency: 'usd',
-    credits: 6000000,
-    plan: {
-      name: 'Enterprise',
-      interval: PaymentInterval.YEAR,
-      intervalCount: 1,
-    },
-  },
-  starter_lifetime: {
-    productId: 'starter_lifetime',
-    productName: 'Starter',
-    planName: 'Starter Lifetime',
-    description: 'Starter Lifetime',
-    type: PaymentType.ONE_TIME,
-    priceInCents: 14900,
-    currency: 'usd',
-    credits: 100000,
-  },
-  pro_lifetime: {
-    productId: 'pro_lifetime',
-    productName: 'Pro',
-    planName: 'Pro Lifetime',
-    description: 'Pro Lifetime',
-    type: PaymentType.ONE_TIME,
-    priceInCents: 49900,
-    currency: 'usd',
-    credits: 1000000,
-  },
-  enterprise_lifetime: {
-    productId: 'enterprise_lifetime',
-    productName: 'Enterprise',
-    planName: 'Enterprise Lifetime',
-    description: 'Enterprise Lifetime',
-    type: PaymentType.ONE_TIME,
-    priceInCents: 199900,
-    currency: 'usd',
-    credits: 10000000,
-  },
   free: {
     productId: 'free',
     productName: 'MediaClaw Free',
@@ -163,7 +74,7 @@ export const pricingCatalog: Record<string, PricingProduct> = {
     description: 'MediaClaw 个人版月付',
     type: PaymentType.ONE_TIME,
     fulfillment: 'credential',
-    priceInCents: 4900,
+    priceInCents: 5900,
     currency: 'cny',
     credits: 180,
     creditsValidDays: 30,
@@ -189,9 +100,9 @@ export const pricingCatalog: Record<string, PricingProduct> = {
     description: 'MediaClaw 个人版季付',
     type: PaymentType.ONE_TIME,
     fulfillment: 'credential',
-    priceInCents: 11800,
+    priceInCents: 9900,
     currency: 'cny',
-    credits: 600,
+    credits: 400,
     creditsValidDays: 90,
     maxBindings: 1,
   },
@@ -202,9 +113,9 @@ export const pricingCatalog: Record<string, PricingProduct> = {
     description: 'MediaClaw 团队版季付',
     type: PaymentType.ONE_TIME,
     fulfillment: 'credential',
-    priceInCents: 31800,
+    priceInCents: 26800,
     currency: 'cny',
-    credits: 2000,
+    credits: 1500,
     creditsValidDays: 90,
     maxBindings: 3,
   },
@@ -215,9 +126,9 @@ export const pricingCatalog: Record<string, PricingProduct> = {
     description: 'MediaClaw 个人版年付',
     type: PaymentType.ONE_TIME,
     fulfillment: 'credential',
-    priceInCents: 39900,
+    priceInCents: 28800,
     currency: 'cny',
-    credits: 2500,
+    credits: 1500,
     creditsValidDays: 365,
     maxBindings: 1,
   },
@@ -228,46 +139,46 @@ export const pricingCatalog: Record<string, PricingProduct> = {
     description: 'MediaClaw 团队版年付',
     type: PaymentType.ONE_TIME,
     fulfillment: 'credential',
-    priceInCents: 108800,
+    priceInCents: 68800,
     currency: 'cny',
-    credits: 9000,
+    credits: 5000,
     creditsValidDays: 365,
     maxBindings: 3,
   },
   'credits-emergency-150': {
     productId: 'credits-emergency-150',
-    productName: 'MediaClaw 应急积分包',
-    planName: '应急积分包',
+    productName: 'MediaClaw 紧急补量积分包',
+    planName: '紧急补量积分包',
     description: '给已有正式激活码加量',
     type: PaymentType.ONE_TIME,
     fulfillment: 'credits_only',
     priceInCents: 2900,
     currency: 'cny',
-    credits: 1000,
+    credits: 200,
     creditsValidDays: 0,
   },
   'credits-creator-600': {
     productId: 'credits-creator-600',
-    productName: 'MediaClaw 创作者积分包',
-    planName: '创作者积分包',
+    productName: 'MediaClaw 创作者常用包',
+    planName: '创作者常用包',
     description: '给已有正式激活码加量',
     type: PaymentType.ONE_TIME,
     fulfillment: 'credits_only',
     priceInCents: 7900,
     currency: 'cny',
-    credits: 3000,
+    credits: 1000,
     creditsValidDays: 0,
   },
   'credits-team-3000': {
     productId: 'credits-team-3000',
-    productName: 'MediaClaw 团队积分包',
-    planName: '团队积分包',
+    productName: 'MediaClaw 多内容线团队包',
+    planName: '多内容线团队包',
     description: '给已有正式激活码加量',
     type: PaymentType.ONE_TIME,
     fulfillment: 'credits_only',
-    priceInCents: 36000,
+    priceInCents: 16900,
     currency: 'cny',
-    credits: 15000,
+    credits: 2500,
     creditsValidDays: 0,
   },
 };
@@ -275,6 +186,88 @@ export const pricingCatalog: Record<string, PricingProduct> = {
 export function getPricingProduct(productId: string): PricingProduct | null {
   if (!productId) return null;
   return pricingCatalog[productId] ?? null;
+}
+
+function numberFromConfig(value: unknown): number | undefined {
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? Math.floor(parsed) : undefined;
+}
+
+function durationDaysFromConfig(
+  config: PricingProductConfig
+): number | undefined {
+  const explicit =
+    numberFromConfig(config.duration_days) ??
+    numberFromConfig(config.valid_days) ??
+    numberFromConfig(config.validDays);
+  if (explicit !== undefined) return Math.max(0, explicit);
+
+  const preset = String(config.duration_preset ?? config.durationPreset ?? '')
+    .trim()
+    .toLowerCase();
+  if (preset === '1y' || preset === 'yearly') return 365;
+  if (preset === '3m' || preset === 'quarterly') return 90;
+  if (preset === '1m' || preset === 'monthly') return 30;
+  return undefined;
+}
+
+export function resolvePricingProduct(
+  productId: string,
+  configs: Record<string, string>
+): PricingProduct | null {
+  const base = getPricingProduct(productId);
+  if (!base) return null;
+
+  let config: PricingProductConfig | null = null;
+  try {
+    const allProducts = JSON.parse(configs.pricing_products || '{}');
+    config = allProducts?.[productId] ?? null;
+  } catch (error) {
+    console.error('[pricing] failed to parse pricing_products config:', error);
+  }
+
+  if (!config || typeof config !== 'object') return base;
+
+  const amount = numberFromConfig(config.amount ?? config.priceInCents);
+  const credits = numberFromConfig(config.credits);
+  const maxBindings = numberFromConfig(
+    config.max_bindings ?? config.maxBindings
+  );
+  const fulfillment = String(config.fulfillment ?? config.type ?? '')
+    .trim()
+    .toLowerCase();
+  const next: PricingProduct = { ...base };
+
+  if (amount !== undefined && amount >= 0) next.priceInCents = amount;
+  if (typeof config.currency === 'string' && config.currency.trim()) {
+    next.currency = config.currency.trim().toLowerCase();
+  }
+  if (credits !== undefined && credits >= 0) next.credits = credits;
+  if (maxBindings !== undefined) {
+    if (maxBindings > 0) next.maxBindings = maxBindings;
+    else delete next.maxBindings;
+  }
+
+  const durationDays = durationDaysFromConfig(config);
+  if (durationDays !== undefined) next.creditsValidDays = durationDays;
+
+  if (fulfillment === 'credits_only' || fulfillment === 'credits') {
+    next.fulfillment = 'credits_only';
+    next.type = PaymentType.ONE_TIME;
+    delete next.plan;
+  } else if (fulfillment === 'credential') {
+    next.fulfillment = 'credential';
+    next.type = PaymentType.ONE_TIME;
+    delete next.plan;
+  } else if (fulfillment === 'generic') {
+    next.fulfillment = 'generic';
+  }
+
+  if (typeof config.status === 'string' && config.status.trim()) {
+    next.status = config.status.trim().toLowerCase();
+  }
+
+  return next;
 }
 
 export function listPricingProducts(): PricingProduct[] {

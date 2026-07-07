@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "小红书数据采集工具：一键采集笔记、主页、搜索结果并导出Excel/Markdown | MediaClaw 社媒虾",
-    "description": "免费小红书数据采集插件，支持批量采集笔记数据、主页数据与搜索结果数据，一键导出 Excel/CSV/Markdown。采集后可补齐配图文案和视频逐字稿，适合内容分析、评论挖掘、对标分析与竞品监控。",
+    "title": "小红书笔记采集和数据抓取插件｜MediaClaw 社媒虾",
+    "description": "免费小红书数据采集插件，一键提取笔记内容、互动评论、账号数据、无水印素材等，一键导出 Excel/CSV/Markdown。支持提取配图文案和视频逐字稿，适合内容分析、评论挖掘、搭建选题库。",
     "keywords": "小红书数据采集, 小红书采集工具, 小红书笔记数据采集, 小红书主页数据采集, 小红书搜索结果采集, 小红书采集插件, 导出Excel, Markdown导出, 配图文案, 视频逐字稿, 小红书笔记采集"
   },
   "page": {
@@ -11,6 +11,7 @@
       "modes",
       "batch",
       "outputs",
+      "compare",
       "scenarios",
       "safety",
       "faq",
@@ -34,7 +35,7 @@
             "title": "笔记采集"
           }
         ],
-        "title": "小红书数据采集工具：一键采集笔记、主页与搜索结果",
+        "title": "小红书数据采集，一键抓取笔记内容和互动数据",
         "description": "免费小红书数据采集插件，覆盖单篇深度采集、博主主页批量采集与关键词搜索结果采集；支持 CSV/Markdown 导出，采集后可补齐配图文案和视频逐字稿，满足从爆款笔记抓取到博主分析的全流程数据采集需求。",
         "buttons": [
           {
@@ -43,11 +44,25 @@
             "icon": "Download"
           },
           {
-            "title": "下载小红书样例数据",
-            "icon": "FileSpreadsheet",
-            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
-            "target": "_blank",
-            "variant": "outline"
+            "title": "查看数据示例",
+            "icon": "Table2",
+            "action": "open_sample_modal",
+            "variant": "outline",
+            "sample_url": "/downloads/samples/xiaohongshu-sample-data.csv",
+            "sample_button_title": "下载完整 CSV",
+            "sample_limit": 6,
+            "sample_columns": [
+              "博主",
+              "标题",
+              "正文",
+              "笔记类型",
+              "点赞数",
+              "收藏数",
+              "评论数",
+              "视频逐字稿提取",
+              "配图文案",
+              "评论内容"
+            ]
           }
         ],
         "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=222,258"
@@ -99,9 +114,15 @@
       },
       "outputs": {
         "id": "outputs",
-        "block": "data-table",
+        "block": "output-options",
         "title": "采集完成后，数据可以直接投入业务",
         "description": "根据团队流程自由选择输出方式。",
+        "image": {
+          "src": "/imgs/generated/scraper-export-excel-1783399614029.png",
+          "alt": "MediaClaw 将采集结果导出为 CSV Markdown 和 Excel 表格文件",
+          "width": 1280,
+          "height": 760
+        },
         "columns": [
           {
             "key": "mode",
@@ -118,29 +139,28 @@
         ],
         "rows": [
           {
-            "mode": "本地数据池",
-            "desc": "采集结果本地可查、可筛选、可删除",
-            "scene": "个人研究与快速复盘"
-          },
-          {
-            "mode": "飞书多维表格同步",
-            "desc": "一键入表，支持协作与报表流转",
-            "scene": "团队共享与任务分发"
-          },
-          {
             "mode": "CSV / Markdown 导出",
-            "desc": "标准化字段可进入 Excel/BI/Python，Markdown 可直接进入 Obsidian 或 AI 整理流程",
-            "scene": "分析师深度处理"
-          },
-          {
-            "mode": "原数据补齐",
-            "desc": "单条图文/视频记录可补齐配图文案或视频逐字稿",
-            "scene": "爆款拆解、脚本整理与素材复盘"
+            "desc": "标准化字段可进入 Excel、BI 或 Python；Markdown 保留标题、正文、互动数据与来源链接，可直接进入 Obsidian 或 AI 整理流程。",
+            "scene": "分析师深度处理、选题库复盘与 AI 整理",
+            "icon": "FileSpreadsheet",
+            "image_src": "/imgs/generated/scraper-export-excel-1783399614029.png",
+            "image_alt": "MediaClaw 将采集结果导出为 CSV Markdown 和 Excel 表格文件"
           },
           {
             "mode": "媒体文件下载",
-            "desc": "批量下载配图和视频用于素材管理",
-            "scene": "视觉素材库建设"
+            "desc": "批量保存配图和视频文件，并保留标题、作者、链接等结构化信息，方便统一归档和二次筛选。",
+            "scene": "视觉素材库建设、爆款拆解与团队共享",
+            "icon": "ImageDown",
+            "image_src": "/imgs/generated/scraper-media-download-1783399633407.png",
+            "image_alt": "MediaClaw 批量下载小红书配图和视频素材文件"
+          },
+          {
+            "mode": "飞书多维表格同步",
+            "desc": "一键写入团队表格，字段自动对齐，可继续标注、分配任务、生成周报，让采集结果直接进入协作流程。",
+            "scene": "团队共享、任务分发与协作复盘",
+            "icon": "Table2",
+            "image_src": "/imgs/generated/scraper-lark-base-sync-1783399686070.png",
+            "image_alt": "MediaClaw 将采集数据同步到飞书多维表格用于团队协作"
           }
         ]
       },
@@ -188,6 +208,10 @@
           {
             "question": "能不能获取视频口播脚本？",
             "answer": "可以。采集小红书视频笔记后，可在采集记录里按需提取视频逐字稿；如果是图文笔记，也可以提取配图里的文字。提取结果会回填到记录里，并随 CSV/Markdown 导出或飞书同步一起使用。"
+          },
+          {
+            "question": "采集的数据能接入 AI 或 MCP 工作流吗？",
+            "answer": "可以。Markdown 导出天然适配 AI 工作流，可直接投喂 Obsidian、飞书智能伙伴或任意大模型做内容总结与选题挖掘；MCP（Model Context Protocol）支持已在规划中，届时 AI Agent 可以直接查询你的采集数据。"
           }
         ]
       },
@@ -244,6 +268,79 @@
           }
         ],
         "className": "bg-secondary/20"
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "title": "浏览器插件 vs 云端采集 vs 开源脚本 vs 数据接口",
+        "description": "不同小红书数据获取方式的客观对比，帮你选择最适合的方案。",
+        "columns": [
+          {
+            "key": "item",
+            "title": ""
+          },
+          {
+            "key": "mediaclaw",
+            "title": "MediaClaw 浏览器插件",
+            "highlight": true
+          },
+          {
+            "key": "cloud",
+            "title": "云端采集服务"
+          },
+          {
+            "key": "script",
+            "title": "开源脚本"
+          },
+          {
+            "key": "api",
+            "title": "数据接口 API"
+          }
+        ],
+        "rows": [
+          {
+            "item": "是否需要写代码",
+            "mediaclaw": "不需要，点击即用",
+            "cloud": "较少，但需配置任务",
+            "script": "需要 Python/Node 基础",
+            "api": "需要接口开发能力"
+          },
+          {
+            "item": "成本模式",
+            "mediaclaw": "免费额度，本地运行",
+            "cloud": "按云端算力付费",
+            "script": "免费但维护成本高",
+            "api": "按调用量付费"
+          },
+          {
+            "item": "代理与登录配置",
+            "mediaclaw": "无需配置，复用当前浏览器会话",
+            "cloud": "需配置代理与 Cookie",
+            "script": "需配置代理与 Cookie",
+            "api": "服务方处理，价格更高"
+          },
+          {
+            "item": "风控保护",
+            "mediaclaw": "模拟真人浏览、随机等待、异常自动暂停",
+            "cloud": "取决于服务质量",
+            "script": "需自行实现",
+            "api": "不涉及"
+          },
+          {
+            "item": "输出方式",
+            "mediaclaw": "Excel/CSV/Markdown、飞书多维表格同步、配图文案与逐字稿回填",
+            "cloud": "JSON/CSV 下载",
+            "script": "原始 JSON",
+            "api": "JSON 响应"
+          },
+          {
+            "item": "适合人群",
+            "mediaclaw": "创作者、运营与营销团队",
+            "cloud": "数据工程师",
+            "script": "开发者",
+            "api": "产品集成场景"
+          }
+        ]
       }
     }
   }

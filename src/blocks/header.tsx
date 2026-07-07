@@ -191,7 +191,7 @@ const navItems: NavItem[] = [
       {
         title: '福利中心',
         description: '领取试用与使用奖励',
-        url: '/welfare',
+        url: '/welfare?entry=header_nav',
         icon: 'Gift',
       },
       {
@@ -523,16 +523,15 @@ export function Header() {
   }, []);
 
   return (
-    <header
-      className={cn(
-        'fixed inset-x-0 top-0 z-50 transition-all duration-300',
-        isScrolled || isMobileMenuOpen
-          ? 'bg-background/80 shadow-md backdrop-blur-lg'
-          : 'bg-transparent'
-      )}
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between gap-4 lg:h-20">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 lg:px-8 lg:pt-4">
+      <div
+        className={cn(
+          'border-border/50 bg-background/85 mx-auto max-w-7xl border backdrop-blur-lg transition-all duration-300',
+          isMobileMenuOpen ? 'overflow-hidden rounded-3xl' : 'rounded-full',
+          isScrolled || isMobileMenuOpen ? 'shadow-lg' : 'shadow-md'
+        )}
+      >
+        <div className="flex h-14 items-center justify-between gap-4 px-4 sm:px-5 lg:h-16 lg:px-6">
           <Link href="/" className="flex shrink-0 items-center gap-3">
             {envConfigs.app_logo ? (
               <img
@@ -542,7 +541,7 @@ export function Header() {
                 height={40}
                 decoding="async"
                 fetchPriority="high"
-                className="size-9 rounded-lg lg:size-10"
+                className="size-8 rounded-lg lg:size-9"
               />
             ) : null}
             <span className="text-xl font-semibold tracking-normal">
@@ -556,7 +555,7 @@ export function Header() {
             <div className="border-border/50 hidden items-center gap-2 border-l pl-3 lg:flex">
               <ThemeToggle />
               <LocaleSelector />
-              <HeaderAuthAction loginClassName="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-10 items-center justify-center rounded-lg px-4 text-sm font-semibold shadow-lg shadow-primary/20 transition-colors" />
+              <HeaderAuthAction loginClassName="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-10 items-center justify-center rounded-full px-5 text-sm font-semibold shadow-lg shadow-primary/20 transition-colors" />
             </div>
 
             <button
@@ -564,7 +563,7 @@ export function Header() {
               onClick={() => setIsMobileMenuOpen((open) => !open)}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMobileMenuOpen}
-              className="hover:bg-accent/50 flex size-10 items-center justify-center rounded-lg transition-colors lg:hidden"
+              className="hover:bg-accent/50 flex size-10 items-center justify-center rounded-full transition-colors lg:hidden"
             >
               {isMobileMenuOpen ? (
                 <X className="size-5" />
@@ -574,23 +573,23 @@ export function Header() {
             </button>
           </div>
         </div>
-      </div>
 
-      {isMobileMenuOpen ? (
-        <div className="border-border/50 bg-background/95 overflow-hidden border-t backdrop-blur-lg lg:hidden">
-          <MobileNav closeMenu={() => setIsMobileMenuOpen(false)} />
-          <div className="border-border/50 flex items-center justify-between gap-4 border-t px-4 py-4">
-            <div className="flex items-center gap-2">
-              <ThemeToggle />
-              <LocaleSelector />
+        {isMobileMenuOpen ? (
+          <div className="border-border/50 max-h-[calc(100dvh-6rem)] overflow-y-auto border-t lg:hidden">
+            <MobileNav closeMenu={() => setIsMobileMenuOpen(false)} />
+            <div className="border-border/50 flex items-center justify-between gap-4 border-t px-4 py-4">
+              <div className="flex items-center gap-2">
+                <ThemeToggle />
+                <LocaleSelector />
+              </div>
+              <HeaderAuthAction
+                loginClassName="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-10 items-center justify-center rounded-full px-5 text-sm font-semibold transition-colors"
+                onSignInClick={() => setIsMobileMenuOpen(false)}
+              />
             </div>
-            <HeaderAuthAction
-              loginClassName="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-10 items-center justify-center rounded-lg px-4 text-sm font-semibold transition-colors"
-              onSignInClick={() => setIsMobileMenuOpen(false)}
-            />
           </div>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
     </header>
   );
 }

@@ -329,6 +329,12 @@ function SettingField({
   value: string;
   onChange: (value: string) => void;
 }) {
+  const tip = setting.tip ? (
+    <p className="text-muted-foreground text-xs leading-relaxed">
+      {setting.tip}
+    </p>
+  ) : null;
+
   if (setting.type === 'switch') {
     return (
       <div className="space-y-2">
@@ -340,6 +346,7 @@ function SettingField({
             onCheckedChange={(checked) => onChange(checked ? 'true' : 'false')}
           />
         </div>
+        {tip}
       </div>
     );
   }
@@ -360,6 +367,7 @@ function SettingField({
             ))}
           </SelectContent>
         </Select>
+        {tip}
       </div>
     );
   }
@@ -373,9 +381,10 @@ function SettingField({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          rows={3}
+          rows={setting.rows ?? 3}
           className="border-input placeholder:text-muted-foreground focus-visible:ring-ring flex w-full rounded-md border bg-transparent px-3 py-2 text-sm focus-visible:ring-1 focus-visible:outline-none"
         />
+        {tip}
       </div>
     );
   }
@@ -396,6 +405,7 @@ function SettingField({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
       />
+      {tip}
     </div>
   );
 }

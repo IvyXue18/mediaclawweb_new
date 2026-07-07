@@ -25,6 +25,8 @@ export function TextField({
   autoComplete,
   required,
   disabled,
+  className,
+  inputClassName,
 }: {
   field: AnyFieldApi;
   label: string;
@@ -33,16 +35,19 @@ export function TextField({
   autoComplete?: string;
   required?: boolean;
   disabled?: boolean;
+  className?: string;
+  inputClassName?: string;
 }) {
   const error = fieldError(field);
 
   return (
-    <Field>
+    <Field className={className}>
       <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
       <Input
         id={field.name}
         name={field.name}
         type={type}
+        className={inputClassName}
         value={(field.state.value as string) ?? ''}
         onChange={(e) => field.handleChange(e.target.value)}
         onBlur={field.handleBlur}

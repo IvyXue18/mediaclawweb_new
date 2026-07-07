@@ -1,13 +1,13 @@
 {
   "metadata": {
     "title": "MediaClaw Welfare Center - Claim Trial and Usage Rewards",
-    "description": "Use the MediaClaw welfare center to claim channel rewards and track extension-only experience feedback milestones.",
+    "description": "Use the MediaClaw welfare center to claim channel survey and extension feedback rewards.",
     "keywords": "MediaClaw welfare center, trial activation code, activation code, channel survey, experience feedback"
   },
   "hero": {
     "eyebrow": "Welfare Center",
     "title": "Claim MediaClaw welfare rewards",
-    "description": "Complete the channel survey to claim its reward. Experience feedback must be unlocked through real usage milestones in the extension.",
+    "description": "Complete the channel survey to claim a reward. After real extension usage, submit feedback in the extension for an extra reward.",
     "primary_action": "Claim Reward",
     "sign_in_action": "Sign In to Claim",
     "secondary_action": "View My Codes"
@@ -22,26 +22,21 @@
     "banner_action": "Invite Now"
   },
   "reward_flow": {
-    "title": "Claim in 3 Steps",
-    "step": "Step {index}",
+    "title": "Welfare Rewards",
+    "step": "Reward {index}",
     "signed_in": "Signed in",
     "credentials_action": "View My Codes",
     "download_action": "Download Extension",
     "sample_code": "ACT-XXXX-XXXX",
     "items": [
       {
-        "title": "Sign in and confirm your account",
-        "description": "Rewards are bound to your current account. Each account can claim each welfare task once.",
-        "icon": "LogIn"
-      },
-      {
-        "title": "Complete the channel survey",
-        "description": "Tell us where you heard about MediaClaw and the first problem you want to solve. The reward is issued automatically after submission.",
+        "title": "Channel Survey Reward",
+        "description": "Answer a few questions after signing in, then claim a trial code or confirm which activation code to extend.",
         "icon": "ClipboardCheck"
       },
       {
-        "title": "Share experience feedback",
-        "description": "Complete scraping, export or sync, and high-value feature milestones in the extension, then return to the extension to submit real feedback.",
+        "title": "Experience Feedback Reward",
+        "description": "After trying scraping, export or sync, or monitoring features, submit feedback in the extension for an extra reward.",
         "icon": "MessageSquareText"
       }
     ],
@@ -63,8 +58,8 @@
     }
   },
   "channel_survey": {
-    "title": "Channel Survey Task",
-    "description": "Rewards are issued automatically. New users receive a trial activation code; users with activation codes choose which code to extend after submitting.",
+    "title": "Channel Survey Reward",
+    "description": "Submit to claim the reward: accounts without activation codes get a trial code directly; accounts with activation codes must confirm which code to extend.",
     "sign_in_required": "Please sign in or create an account first. You will return to the welfare center after signing in.",
     "sign_in_action": "Sign In / Sign Up",
     "unavailable": "The welfare center table is not initialized yet. Run the website database migration first.",
@@ -229,10 +224,11 @@
     "use_case_hint": "Multiple choices allowed. Choices record your intent; hover the question mark to see the plugin capabilities involved.",
     "capability_title": "Capabilities",
     "submit": "Submit and Claim",
-    "submit_extend": "Confirm Extension and Claim",
+    "submit_extend": "Submit and Claim",
+    "auto_reward_note": "After submission, MediaClaw checks your account: if you have no activation code, a trial code is generated directly; if you have activation codes, you confirm which one to extend.",
     "reward_credential": {
-      "title": "Choose the activation code to extend",
-      "description": "Your account already has activation codes. Choose which code should receive this reward. If you do not have a code, the system will generate a new trial code automatically.",
+      "title": "Choose an activation code to extend",
+      "description": "Your account already has activation codes. Please confirm which one should receive this welfare reward.",
       "permanent": "No expiry",
       "bindings": "devices",
       "cancel": "Cancel"
@@ -247,15 +243,15 @@
     "success": "Reward issued",
     "errors": {
       "required": "Please complete the required choices and any expanded fields first",
-      "reward_credential_required": "Please choose the activation code to extend",
+      "reward_credential_required": "Please choose an activation code to extend.",
       "reward_credential_not_found": "Could not find an extendable activation code. Please refresh and try again.",
       "browser_claimed": "This browser has already claimed a trial. Please use the existing activation code or choose a paid plan.",
       "submit_failed": "Submit failed. Please try again later"
     }
   },
   "experience_feedback": {
-    "title": "Experience Feedback",
-    "description": "Experience feedback must be unlocked through real usage milestones in the extension. The website only shows progress.",
+    "title": "Experience Feedback Reward",
+    "description": "Experience feedback is submitted in the extension; the website keeps the entry and final status.",
     "sign_in_required": "Please sign in or create an account first. You will return to the welfare center after signing in.",
     "sign_in_action": "Sign In / Sign Up",
     "unavailable": "The welfare center table is not initialized yet. Run the website database migration first.",
@@ -298,7 +294,7 @@
       "expected_feature": "Which scraping, analysis, sync, or automation features should we prioritize?"
     },
     "submit": "Submit Feedback and Claim",
-    "submit_extend": "Confirm Extension and Claim",
+    "submit_extend": "Submit and Claim",
     "success_title": "Feedback Submitted",
     "extension_title": "Access Extended",
     "trial_done": "A trial activation code has been generated. Copy it and enter it in the extension settings page.",
@@ -307,8 +303,8 @@
     "copy_success": "Activation code copied",
     "success": "Reward issued",
     "reward_credential": {
-      "title": "Choose the activation code to extend",
-      "description": "Your account already has activation codes. Choose which code should receive this reward. If you do not have a code, the system will generate a new trial code automatically.",
+      "title": "Choose an activation code to extend",
+      "description": "Your account already has activation codes. Please confirm which one should receive this welfare reward.",
       "permanent": "No expiry",
       "bindings": "devices"
     },
@@ -316,7 +312,7 @@
     "plugin_only_footnote": "Experience feedback can only be submitted in the extension. The website does not show real-time progress or issue this reward.",
     "errors": {
       "required": "Please provide a rating, usage feedback, and expected features",
-      "reward_credential_required": "Please choose the activation code to extend",
+      "reward_credential_required": "Please choose an activation code to extend.",
       "reward_credential_not_found": "Could not find an extendable activation code. Please refresh and try again.",
       "submit_failed": "Submit failed. Please try again later"
     }

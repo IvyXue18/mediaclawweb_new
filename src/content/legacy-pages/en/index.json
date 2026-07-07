@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Xiaohongshu & Douyin Scraper | MediaClaw",
-    "description": "Scrape Xiaohongshu (RedNote) and Douyin posts, comments, and keywords with one Chrome extension. Export CSV/Markdown, backfill text, sync to Lark Base. Free.",
+    "title": "RedNote & Douyin Scraper Chrome Extension | MediaClaw",
+    "description": "Scrape RedNote/Xiaohongshu and Douyin posts, comments, creator profiles, search results, and transcripts. Export to CSV, Excel, Markdown, or sync to Lark Base.",
     "keywords": "Xiaohongshu scraper, Douyin data extraction, competitor account finder, niche opportunity analysis, export comments, Markdown export, video transcript extraction, image text extraction, content operations tool, MediaClaw, competitor monitoring, Lark synchronization"
   },
   "page": {
@@ -17,9 +17,9 @@
     "sections": {
       "hero": {
         "id": "hero",
-        "title": "Scrape, Judge, Benchmark, and Monitor",
+        "title": "Scrape RedNote and Douyin Data in One Chrome Extension",
         "highlight_text": "10x Faster",
-        "description": "One Chrome extension for Xiaohongshu and Douyin: scrape posts and videos, export comments, judge niche opportunity, find benchmark accounts, expand long-tail keywords, monitor competitors, export Markdown, backfill image text or video transcripts, and sync everything to Lark Base.",
+        "description": "One Chrome extension for Xiaohongshu and Douyin: scrape posts and videos, export comments, find benchmark accounts, expand long-tail keywords, monitor competitors, backfill image text or video transcripts, and sync everything to Lark Base.",
         "announcement": {
           "badge": "V0.1.8 Update",
           "title": "Markdown export, video transcripts, and image text extraction",
@@ -27,12 +27,35 @@
         },
         "buttons": [
           {
-            "title": "Get Started Free",
+            "title": "Watch Demo",
+            "icon": "Play",
+            "action": "open_video_modal",
+            "video_title": "MediaClaw 5-Minute Demo",
+            "variant": "default"
+          },
+          {
+            "title": "Start Using",
             "icon": "Download",
             "url": "/download",
-            "target": "_blank",
-            "variant": "default"
+            "variant": "outline"
           }
+        ],
+        "sample_url": "/downloads/samples/homepage-sample-data.csv",
+        "sample_trigger_title": "View sample data",
+        "sample_button_title": "Download Full CSV",
+        "sample_limit": 7,
+        "sample_columns": [
+          "采集平台",
+          "博主",
+          "标题",
+          "正文",
+          "笔记类型",
+          "点赞数",
+          "收藏数",
+          "评论数",
+          "视频逐字稿提取",
+          "配图文案",
+          "评论内容"
         ],
         "show_avatars": false,
         "avatars_tip": "",
@@ -144,7 +167,7 @@
             "description": "One-click scrape of titles, body text, engagement metrics, images, and video URLs. All structured data fields preserved for downstream analysis.",
             "icon": "Database",
             "image": {
-              "src": "/imgs/features/9-v20260424.webp",
+              "src": "/imgs/features/1-V20260706.png",
               "alt": "MediaClaw one-click batch export of Xiaohongshu post and Douyin video content with full engagement data"
             },
             "button": {
@@ -262,23 +285,23 @@
       "pricing": {
         "id": "pricing",
         "block": "pricing",
-        "title": "Choose Your Plan",
-        "description": "Core scraping features are free forever. Upgrade for advanced features, monitoring, and team collaboration.",
+        "title": "Simple, Transparent Pricing",
+        "description": "One-time purchase per period. No auto-renewal. Pay as you go. Scraping is just step one — MediaClaw helps you build a full content creation workflow.",
         "groups": [
           {
             "name": "month",
-            "title": "Monthly",
-            "label": "Flexible"
+            "title": "Monthly"
           },
           {
             "name": "monthly",
-            "title": "Quarterly"
+            "title": "Quarterly",
+            "label": "Popular"
           },
           {
             "name": "yearly",
-            "title": "Annual",
+            "title": "Yearly",
             "is_featured": true,
-            "label": "Save 30%"
+            "label": "Save 60%"
           },
           {
             "name": "credits",
@@ -288,23 +311,25 @@
         "items": [
           {
             "title": "Free",
-            "description": "For individuals — start scraping with zero setup",
-            "features_title": "Includes",
+            "description": "For individuals with occasional needs",
             "features": [
-              "Batch scrape Xiaohongshu posts by keyword, account, or search",
-              "Local data storage",
-              "Watermark-free image and video download",
-              "Unlimited CSV / XLSX export",
+              "Deep scraping of single notes/videos — save high-value content one by one",
+              "Single-post comment and lead scraping",
+              "Basic list scraping on search and profile pages",
+              "Local data pool with CSV and Markdown export",
+              "Watermark-free image, video, and audio downloads",
               "Single browser device"
             ],
             "interval": "one-time",
             "amount": 0,
             "currency": "CNY",
+            "credits": 0,
+            "valid_days": 0,
             "price": "¥0",
-            "unit": "/ mo",
+            "unit": "",
             "is_featured": false,
             "button": {
-              "title": "Install Free",
+              "title": "Install Free Extension",
               "url": "/download",
               "target": "_blank",
               "icon": "Download"
@@ -314,51 +339,57 @@
             "group": "month"
           },
           {
-            "title": "Pro",
-            "description": "For creators and solo operators who need the full toolkit",
+            "title": "Personal",
+            "description": "For creators and operators doing ongoing research, topic analysis, and content reviews",
             "label": "Most Popular",
-            "features_title": "Everything in Free, plus",
+            "features_title": "Everything in Free, plus:",
             "features": [
-              "Batch scrape Xiaohongshu & Douyin posts, accounts, and search results",
-              "Batch scrape post comments",
-              "180 credits for competitor monitoring and in-extension AI features",
-              "Monitor ~1 Xiaohongshu account for 30 days, or ~6 Douyin accounts for 30 days",
-              "Sync data to Lark Base",
-              "Lark Base AI analysis templates: image recognition, script extraction, comment analysis, batch content remixing",
+              "Enhanced scraping on search and profile pages: batch-complete full text, tags, engagement, and media details",
+              "Batch filtering for low-follower viral posts and high-intent leads",
+              "Sync to Feishu AI templates for batch transcripts, topic analysis, and content rewriting",
               "Single browser device"
             ],
+            "credits_title": "Includes 180 credits for:",
+            "credits_features": [
+              "Competitor account monitoring and content daily reports",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension timestamped video transcripts and image copy extraction"
+            ],
             "interval": "one-time",
-            "amount": 4900,
+            "amount": 5900,
             "currency": "CNY",
             "credits": 180,
             "valid_days": 30,
-            "price": "¥49",
+            "price": "¥59",
             "unit": "/ mo",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],
             "button": {
-              "title": "Get Started",
+              "title": "Buy Now",
               "url": "/pricing",
               "target": "_self",
               "icon": "Zap"
             },
             "product_id": "pro-1m",
-            "product_name": "MediaClaw Pro Monthly",
+            "product_name": "MediaClaw Personal Monthly",
             "group": "month"
           },
           {
             "title": "Team",
-            "description": "For MCN agencies and brand teams with shared workflows",
-            "features_title": "Everything in Free, plus",
+            "description": "For ops, brand, and MCN teams",
+            "features_title": "Everything in Personal, plus:",
             "features": [
-              "Batch scrape Xiaohongshu & Douyin posts, accounts, and search results",
-              "Batch scrape post comments",
-              "700 credits for competitor monitoring and in-extension AI features",
-              "Monitor ~5 Xiaohongshu accounts for 30 days, or ~20 Douyin accounts for 30 days",
-              "Sync data to Lark Base",
-              "Lark Base AI analysis templates: image recognition, script extraction, comment analysis, batch content remixing",
-              "Up to 3 browser devices"
+              "Multiple members sync data into one shared Feishu base",
+              "3 browser devices at the same time"
+            ],
+            "credits_title": "Includes 700 credits for:",
+            "credits_features": [
+              "Competitor account monitoring and content daily reports",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension timestamped video transcripts and image copy extraction"
             ],
             "interval": "one-time",
             "amount": 12900,
@@ -370,7 +401,7 @@
             "is_featured": false,
             "payment_providers": ["zpay"],
             "button": {
-              "title": "Get Started",
+              "title": "Buy Now",
               "url": "/pricing",
               "target": "_self",
               "icon": "Zap"
@@ -381,23 +412,25 @@
           },
           {
             "title": "Free",
-            "description": "For individuals — start scraping with zero setup",
-            "features_title": "Includes",
+            "description": "For individuals with occasional needs",
             "features": [
-              "Batch scrape Xiaohongshu posts by keyword, account, or search",
-              "Local data storage",
-              "Watermark-free image and video download",
-              "Unlimited CSV / XLSX export",
+              "Deep scraping of single notes/videos — save high-value content one by one",
+              "Single-post comment and lead scraping",
+              "Basic list scraping on search and profile pages",
+              "Local data pool with CSV and Markdown export",
+              "Watermark-free image, video, and audio downloads",
               "Single browser device"
             ],
             "interval": "one-time",
             "amount": 0,
             "currency": "CNY",
+            "credits": 0,
+            "valid_days": 0,
             "price": "¥0",
-            "unit": "/ quarter",
+            "unit": "",
             "is_featured": false,
             "button": {
-              "title": "Install Free",
+              "title": "Install Free Extension",
               "url": "/download",
               "target": "_blank",
               "icon": "Download"
@@ -407,63 +440,71 @@
             "group": "monthly"
           },
           {
-            "title": "Pro",
-            "description": "Best value for creators who use MediaClaw daily",
-            "label": "Recommended",
-            "features_title": "Everything in Free, plus",
+            "title": "Personal",
+            "description": "For creators and operators doing ongoing research, topic analysis, and content reviews",
+            "label": "Most Popular",
+            "features_title": "Everything in Free, plus:",
             "features": [
-              "Batch scrape Xiaohongshu & Douyin posts, accounts, and search results",
-              "Batch scrape post comments",
-              "600 credits for competitor monitoring and in-extension AI features",
-              "Monitor ~4 Xiaohongshu accounts for 30 days, or ~10 Douyin accounts for 60 days",
-              "Sync data to Lark Base",
-              "Lark Base AI analysis templates: image recognition, script extraction, comment analysis, batch content remixing",
+              "Enhanced scraping on search and profile pages: batch-complete full text, tags, engagement, and media details",
+              "Batch filtering for low-follower viral posts and high-intent leads",
+              "Sync to Feishu AI templates for batch transcripts, topic analysis, and content rewriting",
               "Single browser device"
             ],
+            "credits_title": "Includes 400 credits for:",
+            "credits_features": [
+              "Competitor account monitoring and content daily reports",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension timestamped video transcripts and image copy extraction"
+            ],
             "interval": "one-time",
-            "amount": 11800,
+            "amount": 9900,
             "currency": "CNY",
-            "credits": 600,
+            "credits": 400,
             "valid_days": 90,
-            "price": "¥118",
-            "unit": "/ quarter",
+            "price": "¥33",
+            "unit": "/ mo",
+            "price_total": "¥99 per quarter",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],
             "button": {
-              "title": "Get Started",
+              "title": "Buy Now",
               "url": "/pricing",
               "target": "_self",
               "icon": "Zap"
             },
             "product_id": "pro-monthly",
-            "product_name": "MediaClaw Pro Quarterly",
+            "product_name": "MediaClaw Personal Quarterly",
             "group": "monthly"
           },
           {
             "title": "Team",
-            "description": "For agencies and brand teams with shared workflows",
-            "features_title": "Everything in Free, plus",
+            "description": "For ops, brand, and MCN teams",
+            "features_title": "Everything in Personal, plus:",
             "features": [
-              "Batch scrape Xiaohongshu & Douyin posts, accounts, and search results",
-              "Batch scrape post comments",
-              "2,000 credits for competitor monitoring and in-extension AI features",
-              "Monitor ~8 Xiaohongshu accounts for 50 days, or ~20 Douyin accounts for 100 days",
-              "Sync data to Lark Base",
-              "Lark Base AI analysis templates: image recognition, script extraction, comment analysis, batch content remixing",
-              "Up to 3 browser devices"
+              "Multiple members sync data into one shared Feishu base",
+              "3 browser devices at the same time"
+            ],
+            "credits_title": "Includes 1500 credits for:",
+            "credits_features": [
+              "Competitor account monitoring and content daily reports",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension timestamped video transcripts and image copy extraction"
             ],
             "interval": "one-time",
-            "amount": 31800,
+            "amount": 26800,
             "currency": "CNY",
-            "credits": 2000,
+            "credits": 1500,
             "valid_days": 90,
-            "price": "¥318",
-            "unit": "/ quarter",
+            "price": "¥89",
+            "unit": "/ mo",
+            "price_total": "¥268 per quarter",
             "is_featured": false,
             "payment_providers": ["zpay"],
             "button": {
-              "title": "Get Started",
+              "title": "Buy Now",
               "url": "/pricing",
               "target": "_self",
               "icon": "Zap"
@@ -474,23 +515,25 @@
           },
           {
             "title": "Free",
-            "description": "For individuals — start scraping with zero setup",
-            "features_title": "Includes",
+            "description": "For individuals with occasional needs",
             "features": [
-              "Batch scrape Xiaohongshu posts by keyword, account, or search",
-              "Local data storage",
-              "Watermark-free image and video download",
-              "Unlimited CSV / XLSX export",
+              "Deep scraping of single notes/videos — save high-value content one by one",
+              "Single-post comment and lead scraping",
+              "Basic list scraping on search and profile pages",
+              "Local data pool with CSV and Markdown export",
+              "Watermark-free image, video, and audio downloads",
               "Single browser device"
             ],
-            "interval": "year",
+            "interval": "one-time",
             "amount": 0,
             "currency": "CNY",
+            "credits": 0,
+            "valid_days": 0,
             "price": "¥0",
-            "unit": "/ yr",
+            "unit": "",
             "is_featured": false,
             "button": {
-              "title": "Install Free",
+              "title": "Install Free Extension",
               "url": "/download",
               "target": "_blank",
               "icon": "Download"
@@ -500,95 +543,103 @@
             "group": "yearly"
           },
           {
-            "title": "Pro",
-            "description": "The best annual value for power users",
-            "label": "Recommended",
-            "features_title": "Everything in Free, plus",
+            "title": "Personal",
+            "description": "For creators and operators doing ongoing research, topic analysis, and content reviews",
+            "label": "Most Popular",
+            "features_title": "Everything in Free, plus:",
             "features": [
-              "Batch scrape Xiaohongshu & Douyin posts, accounts, and search results",
-              "Batch scrape post comments",
-              "2,500 credits for competitor monitoring and in-extension AI features",
-              "Monitor ~5 Xiaohongshu accounts for 100 days, or ~25 Douyin accounts for 100 days",
-              "Sync data to Lark Base",
-              "Lark Base AI analysis templates: image recognition, script extraction, comment analysis, batch content remixing",
+              "Enhanced scraping on search and profile pages: batch-complete full text, tags, engagement, and media details",
+              "Batch filtering for low-follower viral posts and high-intent leads",
+              "Sync to Feishu AI templates for batch transcripts, topic analysis, and content rewriting",
               "Single browser device"
             ],
+            "credits_title": "Includes 1500 credits for:",
+            "credits_features": [
+              "Competitor account monitoring and content daily reports",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension timestamped video transcripts and image copy extraction"
+            ],
             "interval": "one-time",
-            "amount": 39900,
+            "amount": 28800,
             "currency": "CNY",
-            "credits": 2500,
+            "credits": 1500,
             "valid_days": 365,
-            "price": "¥399",
-            "original_price": "¥588",
-            "unit": "/ yr",
+            "price": "¥24",
+            "unit": "/ mo",
+            "price_total": "¥288 per year",
+            "tip": "Save 60% vs monthly",
             "is_featured": true,
             "is_popular": true,
-            "tip": "Save ¥189 with annual billing",
             "payment_providers": ["zpay"],
             "button": {
-              "title": "Get Started",
+              "title": "Buy Now",
               "url": "/pricing",
               "target": "_self",
               "icon": "Zap"
             },
             "product_id": "pro-yearly",
-            "product_name": "MediaClaw Pro Annual",
+            "product_name": "MediaClaw Personal Yearly",
             "group": "yearly"
           },
           {
             "title": "Team",
-            "description": "For high-volume teams and agencies",
-            "features_title": "Everything in Free, plus",
+            "description": "For ops, brand, and MCN teams",
+            "features_title": "Everything in Personal, plus:",
             "features": [
-              "Batch scrape Xiaohongshu & Douyin posts, accounts, and search results",
-              "Batch scrape post comments",
-              "9,000 credits for competitor monitoring and in-extension AI features",
-              "Monitor ~10 Xiaohongshu accounts for 180 days, or ~30 Douyin accounts for 300 days",
-              "Sync data to Lark Base",
-              "Lark Base AI analysis templates: image recognition, script extraction, comment analysis, batch content remixing",
-              "Up to 3 browser devices"
+              "Multiple members sync data into one shared Feishu base",
+              "3 browser devices at the same time"
+            ],
+            "credits_title": "Includes 5000 credits for:",
+            "credits_features": [
+              "Competitor account monitoring and content daily reports",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension timestamped video transcripts and image copy extraction"
             ],
             "interval": "one-time",
-            "amount": 108800,
+            "amount": 68800,
             "currency": "CNY",
-            "credits": 9000,
+            "credits": 5000,
             "valid_days": 365,
-            "price": "¥1088",
-            "original_price": "¥1548",
-            "unit": "/ yr",
+            "price": "¥57",
+            "unit": "/ mo",
+            "price_total": "¥688 per year",
+            "tip": "Save 55% vs monthly",
             "is_featured": false,
-            "tip": "Save ¥460 with annual billing",
             "payment_providers": ["zpay"],
             "button": {
-              "title": "Get Started",
+              "title": "Buy Now",
               "url": "/pricing",
               "target": "_self",
               "icon": "Zap"
             },
             "product_id": "team-yearly",
-            "product_name": "MediaClaw Team Annual",
+            "product_name": "MediaClaw Team Yearly",
             "group": "yearly"
           },
           {
-            "title": "Emergency Top-Up",
-            "description": "Quick boost for campaign sprints or extra monitoring",
+            "title": "Emergency Top-Up Pack",
+            "description": "For temporarily boosting AI analysis and monitoring quota",
             "label": "Most Popular",
-            "features_title": "Includes",
             "features": [
-              "1,000 credits",
-              "Use for competitor monitoring and in-extension AI features",
-              "Monitor ~5 Xiaohongshu accounts for 40 days, or ~20 Douyin accounts for 50 days",
-              "Credits require an active plan — frozen (not lost) when plan expires, resume when renewed"
+              "200 AI credits",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension video transcripts and image copy extraction",
+              "Only tops up credits for existing paid members; does not unlock membership features or extend the usage period",
+              "Credits are frozen (not cleared) when membership expires and reactivate after renewal"
             ],
             "interval": "one-time",
             "amount": 2900,
             "currency": "CNY",
-            "credits": 1000,
+            "credits": 200,
             "valid_days": 0,
             "price": "¥29",
             "unit": "",
             "is_featured": true,
             "is_popular": true,
+            "payment_providers": ["zpay"],
             "button": {
               "title": "Buy Credits",
               "url": "/pricing",
@@ -596,27 +647,29 @@
               "icon": "Coins"
             },
             "product_id": "credits-emergency-150",
-            "product_name": "MediaClaw Emergency Top-Up",
+            "product_name": "MediaClaw Emergency Top-Up Pack",
             "group": "credits"
           },
           {
             "title": "Creator Pack",
-            "description": "For solo creators and single-account operators",
-            "features_title": "Includes",
+            "description": "For solo creators and operators who analyze topics and process material at volume",
             "features": [
-              "3,000 credits",
-              "Use for competitor monitoring and in-extension AI features",
-              "Monitor ~10 Xiaohongshu accounts for 60 days, or ~30 Douyin accounts for 100 days",
-              "Credits require an active plan — frozen (not lost) when plan expires, resume when renewed"
+              "1000 AI credits",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension video transcripts and image copy extraction",
+              "Only tops up credits for existing paid members; does not unlock membership features or extend the usage period",
+              "Credits are frozen (not cleared) when membership expires and reactivate after renewal"
             ],
             "interval": "one-time",
             "amount": 7900,
             "currency": "CNY",
-            "credits": 3000,
+            "credits": 1000,
             "valid_days": 0,
             "price": "¥79",
             "unit": "",
             "is_featured": false,
+            "payment_providers": ["zpay"],
             "button": {
               "title": "Buy Credits",
               "url": "/pricing",
@@ -628,24 +681,26 @@
             "group": "credits"
           },
           {
-            "title": "Team Pack",
-            "description": "For agencies, MCNs, and multi-account teams",
-            "label": "High Capacity",
-            "features_title": "Includes",
+            "title": "Multi-Line Team Pack",
+            "description": "For teams running continuous analysis and monitoring across projects and members",
+            "label": "High Volume",
             "features": [
-              "15,000 credits",
-              "Use for competitor monitoring and in-extension AI features",
-              "Monitor ~30 Xiaohongshu accounts for 100 days, or ~50 Douyin accounts for 300 days",
-              "Credits require an active plan — frozen (not lost) when plan expires, resume when renewed"
+              "2500 AI credits",
+              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
+              "Batch scraping and sentiment analysis for brand keywords",
+              "In-extension video transcripts and image copy extraction",
+              "Only tops up credits for existing paid members; does not unlock membership features or extend the usage period",
+              "Credits are frozen (not cleared) when membership expires and reactivate after renewal"
             ],
             "interval": "one-time",
-            "amount": 36000,
+            "amount": 16900,
             "currency": "CNY",
-            "credits": 15000,
+            "credits": 2500,
             "valid_days": 0,
-            "price": "¥360",
+            "price": "¥169",
             "unit": "",
             "is_featured": false,
+            "payment_providers": ["zpay"],
             "button": {
               "title": "Buy Credits",
               "url": "/pricing",
@@ -653,10 +708,11 @@
               "icon": "Coins"
             },
             "product_id": "credits-team-3000",
-            "product_name": "MediaClaw Team Pack",
+            "product_name": "MediaClaw Multi-Line Team Pack",
             "group": "credits"
           }
-        ]
+        ],
+        "default_group": "yearly"
       },
       "faq": {
         "id": "faq",

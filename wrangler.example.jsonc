@@ -5,7 +5,7 @@
 // the generated .output/server/wrangler.json; deploy with `pnpm cf:deploy`.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "shipany-tanstack",
+  "name": "mediaclaw-web",
   "compatibility_flags": ["nodejs_compat"],
   "observability": {
     "enabled": true,
@@ -15,12 +15,12 @@
     // Server-side runtime fallbacks for the build-time VITE_* values — keep in
     // sync with .env.production (better-auth trustedOrigins, payment callbacks).
     "VITE_APP_URL": "https://<worker>.<your-subdomain>.workers.dev",
-    "VITE_APP_NAME": "My App",
+    "VITE_APP_NAME": "MediaClaw",
   },
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "shipany-db",
+      "database_name": "mediaclaw-db",
       "database_id": "REPLACE_WITH_OUTPUT_OF_WRANGLER_D1_CREATE",
       "migrations_dir": "drizzle",
     },

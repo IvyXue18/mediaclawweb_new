@@ -1,16 +1,16 @@
 {
   "metadata": {
-    "title": "Free No-Code Douyin Scraper Chrome Extension",
-    "description": "Scrape Douyin videos, profiles, and search results with a free no-code Chrome extension. Export to Excel/CSV or Markdown and backfill video transcripts.",
+    "title": "Free Douyin Scraper Chrome Extension | MediaClaw",
+    "description": "Douyin scraper Chrome extension: batch scrape videos, creator profiles with no code. Export to Export to CSV/Markdown, or sync to Lark Base.",
     "keywords": "Douyin scraper, Douyin scraper Chrome extension, no-code Douyin scraper, export Douyin to Excel, Douyin video scraper, Douyin video transcript, Markdown export"
   },
   "page": {
     "title": "Douyin Video Scraper",
     "show_sections": [
       "hero",
-      "howto",
       "modes",
       "outputs",
+      "compare",
       "scenarios",
       "safety",
       "faq",
@@ -34,8 +34,8 @@
             "title": "Video Scraper"
           }
         ],
-        "title": "Free Douyin Scraper: 1-Click Batch Export Videos to Excel",
-        "description": "Use a no-code Douyin scraper Chrome extension to batch extract videos, creator profiles, and search results. Export to Excel/CSV or Markdown, backfill video transcripts, and spot competitor trends.",
+        "title": "Douyin Scraper Chrome Extension: Batch Export to CSV/Excel",
+        "description": "A free no-code Douyin scraper Chrome extension. Batch extract videos, creator profiles, and search results, export to CSV/Excel or Markdown, backfill video transcripts, and spot competitor trends.",
         "buttons": [
           {
             "title": "Get Started Free",
@@ -51,35 +51,6 @@
           }
         ],
         "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=222,258"
-      },
-      "howto": {
-        "id": "howto",
-        "block": "workflow-steps",
-        "label": "How It Works",
-        "title": "Scrape Douyin Videos in 4 Steps — No Code",
-        "description": "Batch export Douyin videos and creator data to Excel without writing code.",
-        "items": [
-          {
-            "title": "Install the Free Extension",
-            "description": "Add MediaClaw to Chrome in one click. No account, API key, or proxy setup required to start.",
-            "icon": "Download"
-          },
-          {
-            "title": "Open a Video, Profile, or Search",
-            "description": "Visit any Douyin video, creator profile, or keyword search result and open the MediaClaw sidebar.",
-            "icon": "Chrome"
-          },
-          {
-            "title": "Click Start to Batch Scrape",
-            "description": "MediaClaw auto-scrolls and captures titles, hashtags, publish time, and engagement metrics into structured rows.",
-            "icon": "Play"
-          },
-          {
-            "title": "Export to Excel or Markdown",
-            "description": "Download Excel-ready data or Markdown, backfill video transcripts after scraping, or sync to Lark Base.",
-            "icon": "FileSpreadsheet"
-          }
-        ]
       },
       "modes": {
         "id": "modes",
@@ -128,9 +99,15 @@
       },
       "outputs": {
         "id": "outputs",
-        "block": "data-table",
+        "block": "output-options",
         "title": "Scraped Data Goes Straight to Work",
         "description": "From personal review to team collaboration — choose your output.",
+        "image": {
+          "src": "/imgs/generated/scraper-export-excel-1783399614029.png",
+          "alt": "MediaClaw exporting scraped data as CSV Markdown and Excel spreadsheet files",
+          "width": 1280,
+          "height": 760
+        },
         "columns": [
           {
             "key": "mode",
@@ -147,29 +124,101 @@
         ],
         "rows": [
           {
-            "mode": "Local Data Pool",
-            "desc": "View, search, and filter scraped results in the extension",
-            "scene": "Quick trend checks and review"
+            "mode": "CSV / Markdown Export",
+            "desc": "Structured fields are ready for Excel, BI tools, or Python; Markdown keeps video titles, metrics, hashtags, and source links for Obsidian or AI-assisted organization.",
+            "scene": "Data modeling, deep analysis, and script review",
+            "icon": "FileSpreadsheet",
+            "image_src": "/imgs/generated/scraper-export-excel-1783399614029.png",
+            "image_alt": "MediaClaw exporting scraped data as CSV Markdown and Excel spreadsheet files"
+          },
+          {
+            "mode": "Media File Download",
+            "desc": "Batch-save videos and cover assets while keeping creator, title, and source links structured for later filtering and review.",
+            "scene": "Video archives, viral-content breakdowns, and team sharing",
+            "icon": "ImageDown",
+            "image_src": "/imgs/generated/scraper-media-download-1783399633407.png",
+            "image_alt": "MediaClaw batch downloading video and cover media files from scraped posts"
           },
           {
             "mode": "Lark Base Sync",
-            "desc": "One-click push to Lark Base for team collaboration",
-            "scene": "Team topic meetings and task handoff"
+            "desc": "Push records into a collaborative base with mapped fields so teams can tag, assign, and turn the dataset into weekly reports.",
+            "scene": "Team topic meetings, task handoff, and collaborative review",
+            "icon": "Table2",
+            "image_src": "/imgs/generated/scraper-lark-base-sync-1783399686070.png",
+            "image_alt": "MediaClaw syncing scraped data to a Lark Base table for team collaboration"
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "title": "MediaClaw vs. Cloud Scrapers, Scripts & APIs",
+        "description": "How a no-code Douyin scraper Chrome extension compares with other ways to get Douyin data.",
+        "columns": [
+          {
+            "key": "item",
+            "title": ""
           },
           {
-            "mode": "CSV / Markdown Export",
-            "desc": "Standard fields ready for Excel, BI tools, Python, Obsidian, or AI-assisted organization",
-            "scene": "Data modeling and deep analysis"
+            "key": "mediaclaw",
+            "title": "MediaClaw (Extension)",
+            "highlight": true
           },
           {
-            "mode": "Video Transcript Extraction",
-            "desc": "Backfill transcripts on individual video records after scraping",
-            "scene": "Script breakdowns and content research"
+            "key": "cloud",
+            "title": "Cloud Scrapers (e.g. Apify)"
           },
           {
-            "mode": "Media Download",
-            "desc": "Batch-download videos for asset management",
-            "scene": "Video archive and content breakdown"
+            "key": "script",
+            "title": "Open-Source Scripts"
+          },
+          {
+            "key": "api",
+            "title": "Paid APIs (e.g. TikHub)"
+          }
+        ],
+        "rows": [
+          {
+            "item": "Coding required",
+            "mediaclaw": "None — point and click",
+            "cloud": "Low, but actor config needed",
+            "script": "Python/Node required",
+            "api": "API integration required"
+          },
+          {
+            "item": "Cost model",
+            "mediaclaw": "Free tier, runs locally",
+            "cloud": "Pay per compute unit",
+            "script": "Free but high maintenance",
+            "api": "Pay per request"
+          },
+          {
+            "item": "Proxy / login setup",
+            "mediaclaw": "None — uses your own browser session",
+            "cloud": "Proxies + cookies required",
+            "script": "Proxies + cookies required",
+            "api": "Handled, at a price"
+          },
+          {
+            "item": "Anti-detection",
+            "mediaclaw": "Human-like scrolling, random waits, auto-pause",
+            "cloud": "Depends on actor quality",
+            "script": "DIY",
+            "api": "N/A"
+          },
+          {
+            "item": "Output",
+            "mediaclaw": "Excel/CSV/Markdown, Lark Base sync, transcript backfill",
+            "cloud": "JSON/CSV download",
+            "script": "Raw JSON",
+            "api": "JSON response"
+          },
+          {
+            "item": "Best for",
+            "mediaclaw": "Creators, marketers, ops teams",
+            "cloud": "Data engineers",
+            "script": "Developers",
+            "api": "Product integrations"
           }
         ]
       },
@@ -262,6 +311,18 @@
           {
             "question": "How to scrape Douyin videos without coding?",
             "answer": "Use the free MediaClaw Chrome extension. It's a 100% no-code Douyin scraper that lets you batch extract video links, hashtags, and engagement metrics directly to an Excel-ready file with just one click."
+          },
+          {
+            "question": "Is there a Douyin scraper Chrome extension?",
+            "answer": "Yes. MediaClaw is a Douyin scraper that runs entirely as a Chrome extension. It uses your own browser session, so there are no API keys, proxies, or server setup — install it, open any Douyin page, and start scraping."
+          },
+          {
+            "question": "Can I export Douyin data to Excel or CSV?",
+            "answer": "Yes. Every scraping run produces structured rows that export to Excel-ready CSV or Markdown in one click. You can also sync datasets to Lark Base for team collaboration and AI analysis."
+          },
+          {
+            "question": "Is the Douyin scraper free?",
+            "answer": "The core scraper — single video extraction, profile batch scraping, keyword search scraping, and CSV export — is free. Paid credits are only needed for high-volume transcript extraction and advanced features."
           }
         ]
       },
@@ -294,6 +355,12 @@
             "description": "Sync scraped data to Lark Base for team collaboration.",
             "url": "/features/feishu-integration",
             "icon": "Table2"
+          },
+          {
+            "title": "MediaClaw",
+            "description": "One Chrome extension for Xiaohongshu (RedNote) and Douyin data workflows — see everything MediaClaw does.",
+            "url": "/",
+            "icon": "Home"
           }
         ]
       },

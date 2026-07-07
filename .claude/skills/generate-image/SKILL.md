@@ -71,7 +71,7 @@ Or one-liner:
 echo '{"prompt":"isometric illustration of cloud servers, pastel palette","width":800,"height":600,"slug":"feature-cloud"}' | node .claude/skills/generate-image/main.mjs
 ```
 
-Run from the project root so the `public/imgs/generated/` directory resolves correctly. Requires Node 18+ (for built-in `fetch`) — the same Node ShipAny already needs to run `pnpm dev`. No extra runtime, no `npm install`.
+Run from the project root so the `public/imgs/generated/` directory resolves correctly. Requires Node 18+ (for built-in `fetch`) — the same Node MediaClaw already needs to run `pnpm dev`. No extra runtime, no `npm install`.
 
 ## Recommended sizes
 

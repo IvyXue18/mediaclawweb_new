@@ -1,5 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
+import { m } from '@/paraglide/messages.js';
+
 import { AdminRewardRecordsPage } from './-reward-admin-page';
 
 export const Route = createFileRoute('/admin/rewards/experience-feedback')({
@@ -10,8 +12,8 @@ function ExperienceFeedbackRewardsPage() {
   return (
     <AdminRewardRecordsPage
       kind="experience-feedback"
-      title="Experience Feedback Rewards"
-      description="Review plugin-verified experience feedback, ratings, comments, expected features, and reward status."
+      title={m['admin.rewards.experience_feedback.title']()}
+      description={m['admin.rewards.experience_feedback.description']()}
     />
   );
 }

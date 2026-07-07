@@ -22,18 +22,24 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-const passwordSchema = z
-  .object({
-    password: z.string().min(1, 'Current password is required'),
-    newPassword: z
-      .string()
-      .min(6, 'New password must be at least 6 characters'),
-    confirmPassword: z.string().min(1, 'Confirm new password is required'),
-  })
-  .refine((value) => value.newPassword === value.confirmPassword, {
-    path: ['confirmPassword'],
-    message: 'Passwords do not match',
-  });
+function createPasswordSchema() {
+  return z
+    .object({
+      password: z
+        .string()
+        .min(1, m['settings.security.validation.current_required']()),
+      newPassword: z
+        .string()
+        .min(6, m['settings.security.validation.new_min']()),
+      confirmPassword: z
+        .string()
+        .min(1, m['settings.security.validation.confirm_required']()),
+    })
+    .refine((value) => value.newPassword === value.confirmPassword, {
+      path: ['confirmPassword'],
+      message: m['settings.security.validation.mismatch'](),
+    });
+}
 
 function SecurityPage() {
   const session = useSession();
@@ -54,7 +60,7 @@ function SecurityPage() {
       newPassword: '',
       confirmPassword: '',
     },
-    validators: { onSubmit: passwordSchema },
+    validators: { onSubmit: createPasswordSchema() },
     onSubmit: async ({ value }) => {
       setServerError('');
       setSuccess('');

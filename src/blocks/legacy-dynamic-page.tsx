@@ -1,4 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type AnchorHTMLAttributes,
+  type ReactNode,
+} from 'react';
 import {
   Activity,
   ArrowRight,
@@ -17,6 +24,7 @@ import {
   ClipboardCheck,
   Coins,
   Columns3,
+  Copy,
   CreditCard,
   Database,
   Download,
@@ -29,6 +37,7 @@ import {
   FilterX,
   FolderKanban,
   Gauge,
+  Gift,
   Globe,
   GraduationCap,
   History,
@@ -68,6 +77,7 @@ import {
   Video,
   Wand2,
   Workflow,
+  X,
   Zap,
   type LucideIcon,
 } from 'lucide-react';
@@ -76,6 +86,8 @@ import { toast } from 'sonner';
 import { useSession } from '@/core/auth/client';
 import { Link, useRouter } from '@/core/i18n/navigation';
 import { apiGet, apiPost, type PageResult } from '@/lib/api-client';
+import { recordAnalyticsEventSafe } from '@/lib/client-analytics';
+import { credentialPlanLabel } from '@/lib/credential-plan-display';
 import { cn } from '@/lib/utils';
 import {
   parseVideoMediaFragment,
@@ -90,6 +102,7 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -106,6 +119,7 @@ export type LegacyPageData = {
     description?: string;
     keywords?: string;
   };
+  messages?: Record<string, string>;
   page?: {
     title?: string;
     description?: string;
@@ -131,15 +145,47 @@ export type LegacyPageData = {
   };
   reward_flow?: {
     title?: string;
+    step?: string;
+    signed_in?: string;
+    credentials_action?: string;
+    download_action?: string;
+    sample_code?: string;
+    success_modal?: {
+      title?: string;
+      extension_title?: string;
+      subtitle?: string;
+      code_label?: string;
+      action?: string;
+    };
     items?: LegacyItem[];
     guide?: {
       title?: string;
       steps?: string[];
+      image_alt?: string;
     };
   };
   channel_survey?: {
     title?: string;
     description?: string;
+    sign_in_required?: string;
+    sign_in_action?: string;
+    submit?: string;
+    submit_extend?: string;
+    success?: string;
+    trial_done?: string;
+    paid_extension_done?: string;
+    view_reward?: string;
+    auto_reward_note?: string;
+    status?: Record<string, string>;
+    fields?: Record<string, string>;
+    placeholders?: Record<string, string>;
+    reward_credential?: {
+      title?: string;
+      description?: string;
+      permanent?: string;
+      bindings?: string;
+    };
+    errors?: Record<string, string>;
     source_options?: Array<{ label: string; value: string }>;
     role_options?: Array<{ label: string; value: string }>;
     platform_options?: Array<{ label: string; value: string }>;
@@ -152,6 +198,8 @@ export type LegacyPageData = {
   experience_feedback?: {
     title?: string;
     description?: string;
+    status?: Record<string, string>;
+    download_plugin?: string;
     progress?: Record<string, string>;
     reward_label?: string;
     reward_value?: string;
@@ -165,6 +213,8 @@ type LegacySection = {
   title?: string;
   subtitle?: string;
   description?: string;
+  hide_heading?: boolean;
+  messages?: Record<string, string>;
   className?: string;
   highlight_text?: string;
   announcement?: {
@@ -190,8 +240,12 @@ type LegacySection = {
   video_end?: number | string;
   items?: LegacyItem[];
   rows?: Array<Record<string, string>>;
-  columns?: Array<{ key: string; title: string }> | number | string;
+  columns?:
+    | Array<{ key: string; title: string; highlight?: boolean }>
+    | number
+    | string;
   links?: LegacyItem[];
+  default_group?: string;
   groups?: Array<{ name: string; title: string; label?: string }>;
   features?: LegacyItem[];
   market_tab_title?: string;
@@ -206,6 +260,13 @@ type LegacySection = {
   video_title?: string;
   video_poster?: string;
   video_url?: string;
+  video_tab_title?: string;
+  data_tab_title?: string;
+  sample_url?: string;
+  sample_trigger_title?: string;
+  sample_button_title?: string;
+  sample_columns?: string[];
+  sample_limit?: number | string;
   security_title?: string;
   security_description?: string;
   tip?: string;
@@ -218,6 +279,10 @@ type LegacyButton = {
   variant?: string;
   target?: string;
   action?: string;
+  sample_url?: string;
+  sample_button_title?: string;
+  sample_columns?: string[];
+  sample_limit?: number | string;
   video_url?: string;
   video_embed_url?: string;
   video_poster?: string;
@@ -255,9 +320,12 @@ type LegacyItem = {
   label?: string;
   price?: string;
   original_price?: string;
+  price_total?: string;
   unit?: string;
   tip?: string;
   features_title?: string;
+  credits_title?: string;
+  credits_features?: string[];
   product_id?: string;
   product_name?: string;
   valid_days?: number;
@@ -348,7 +416,7 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
           description:
             'Without a code, visit the welfare center to claim a 2-day trial; if you already have a code, enter it in the extension.',
           action: 'Claim trial',
-          href: '/welfare?source=onboarding&entry=download',
+          href: '/welfare?source=onboarding&entry=download_page',
           icon: KeyRound,
         },
         {
@@ -389,7 +457,7 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
         description:
           '没有激活码时，可到福利中心完成渠道反馈领取 2 天试用；已有激活码可直接在插件里输入。',
         action: '领取试用',
-        href: '/welfare?source=onboarding&entry=download',
+        href: '/welfare?source=onboarding&entry=download_page',
         icon: KeyRound,
       },
       {
@@ -479,6 +547,7 @@ const legacyIconMap: Record<string, LucideIcon> = {
 };
 
 const legacyImageSizes: Record<string, { width: number; height: number }> = {
+  '/imgs/features/1-V20260706.png': { width: 780, height: 696 },
   '/imgs/features/1-v20260424.webp': { width: 1200, height: 744 },
   '/imgs/features/2-v20260309.webp': { width: 1200, height: 750 },
   '/imgs/features/3-v20260309.webp': { width: 1200, height: 728 },
@@ -798,6 +867,134 @@ function formatVersionLabel(version?: string) {
   return `v ${normalized}`;
 }
 
+function isExternalUrl(url: string): boolean {
+  return /^(?:https?:)?\/\//.test(url) || /^(?:mailto|tel):/i.test(url);
+}
+
+function isStaticAssetUrl(url: string): boolean {
+  const pathname = url.split(/[?#]/, 1)[0] || '';
+  return (
+    pathname.startsWith('/downloads/') ||
+    /\.(?:avif|csv|docx?|gif|jpe?g|json|md|mp4|pdf|png|svg|webm|webp|xlsx?|zip)$/i.test(
+      pathname
+    )
+  );
+}
+
+function shouldUsePlainAnchor(url: string): boolean {
+  return isExternalUrl(url) || isStaticAssetUrl(url);
+}
+
+function openInNewTab(url: string, target?: string): boolean {
+  return Boolean(target && target !== '_self') || isExternalUrl(url);
+}
+
+type LegacyLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & {
+  href?: string;
+};
+
+function LegacyLink({
+  href = '#',
+  target,
+  className,
+  children,
+  ...props
+}: LegacyLinkProps) {
+  if (shouldUsePlainAnchor(href)) {
+    const openNewTab = openInNewTab(href, target);
+    return (
+      <a
+        {...props}
+        href={href}
+        target={openNewTab ? target || '_blank' : undefined}
+        rel={openNewTab ? 'noopener noreferrer' : props.rel}
+        className={className}
+      >
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} target={target} className={className} {...props}>
+      {children}
+    </Link>
+  );
+}
+
+const defaultContentSampleColumns = [
+  '博主',
+  '标题',
+  '正文',
+  '笔记类型',
+  '点赞数',
+  '收藏数',
+  '评论数',
+  '视频逐字稿提取',
+  '配图文案',
+  '评论内容',
+];
+
+const defaultLeadSampleColumns = [
+  '原笔记标题',
+  '评论用户',
+  'IP属地',
+  '评论时间',
+  '评论内容',
+  '点赞数',
+  '用户主页',
+  '命中关键词',
+  '采集平台',
+];
+
+function isCsvSampleUrl(url?: string): boolean {
+  if (!url) return false;
+  const pathname = url.split(/[?#]/, 1)[0] || '';
+  return (
+    pathname.startsWith('/downloads/samples/') && pathname.endsWith('.csv')
+  );
+}
+
+function isEnglishSampleButton(button: LegacyButton): boolean {
+  const title = button.title || '';
+  return /[a-z]/i.test(title) && !/[\u4e00-\u9fff]/.test(title);
+}
+
+function buildSampleButtonConfig(button: LegacyButton): LegacyButton | null {
+  const sampleUrl =
+    button.sample_url || (isCsvSampleUrl(button.url) ? button.url : undefined);
+  if (!sampleUrl || !isCsvSampleUrl(sampleUrl)) return null;
+
+  const pathname = sampleUrl.split(/[?#]/, 1)[0] || '';
+  const isLeadSample = pathname.includes('leads');
+  const english = isEnglishSampleButton(button);
+  const isExplicitSampleAction = button.action === 'open_sample_modal';
+
+  return {
+    ...button,
+    action: 'open_sample_modal',
+    icon: button.icon || 'Table2',
+    title:
+      isExplicitSampleAction && button.title
+        ? button.title
+        : english
+          ? isLeadSample
+            ? 'View Lead Sample'
+            : 'View Data Sample'
+          : isLeadSample
+            ? '查看客资示例'
+            : '查看数据示例',
+    sample_url: sampleUrl,
+    sample_button_title:
+      button.sample_button_title ||
+      (english ? 'Download Full CSV' : '下载完整 CSV'),
+    sample_limit: button.sample_limit ?? 6,
+    sample_columns:
+      button.sample_columns ||
+      (isLeadSample ? defaultLeadSampleColumns : defaultContentSampleColumns),
+  };
+}
+
 function RichText({
   children,
   className,
@@ -815,18 +1012,20 @@ function RichText({
 function ActionButton({
   button,
   onVideo,
+  onSample,
   className,
 }: {
   button: LegacyButton;
   onVideo?: (button: LegacyButton) => void;
+  onSample?: (button: LegacyButton) => void;
   className?: string;
 }) {
   const isOutline = button.variant === 'outline';
   const buttonClass = cn(
-    'inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-semibold transition-colors',
+    'inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors',
     isOutline
-      ? 'border border-neutral-300 bg-white text-neutral-950 hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-50'
-      : 'bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:bg-primary/90',
+      ? 'border border-border bg-background text-foreground hover:bg-muted'
+      : 'bg-primary text-primary-foreground shadow-sm hover:bg-primary/90',
     className
   );
 
@@ -843,26 +1042,225 @@ function ActionButton({
     );
   }
 
-  const href = button.url || '#';
-  if (/^https?:\/\//.test(href)) {
+  const sampleButton = buildSampleButtonConfig(button);
+  if ((button.action === 'open_sample_modal' || sampleButton) && onSample) {
+    const resolvedButton = sampleButton || button;
     return (
-      <a
-        href={href}
-        target={button.target || '_blank'}
-        rel="noopener noreferrer"
+      <button
+        type="button"
         className={buttonClass}
+        onClick={() => onSample(resolvedButton)}
       >
-        <SmartIcon name={button.icon} className="size-4" />
-        {button.title}
-      </a>
+        <SmartIcon name={resolvedButton.icon} className="size-4" />
+        {resolvedButton.title}
+      </button>
+    );
+  }
+
+  const href = button.url || '#';
+  return (
+    <LegacyLink href={href} target={button.target} className={buttonClass}>
+      <SmartIcon name={button.icon} className="size-4" />
+      {button.title}
+    </LegacyLink>
+  );
+}
+
+function buildSectionSampleButton(section: LegacySection): LegacyButton | null {
+  if (!section.sample_url) return null;
+
+  return {
+    title: section.sample_trigger_title || '查看数据示例',
+    icon: 'Table2',
+    action: 'open_sample_modal',
+    variant: 'outline',
+    sample_url: section.sample_url,
+    sample_button_title: section.sample_button_title,
+    sample_columns: section.sample_columns,
+    sample_limit: section.sample_limit,
+  };
+}
+
+function HeroSampleLink({
+  sampleButton,
+  onSample,
+}: {
+  sampleButton: LegacyButton;
+  onSample: (button: LegacyButton) => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => onSample(sampleButton)}
+      className="text-muted-foreground hover:text-primary inline-flex items-center gap-1 text-xs font-medium transition-colors"
+    >
+      {sampleButton.title}
+      <ArrowRight className="size-3.5" aria-hidden="true" />
+    </button>
+  );
+}
+
+function sectionUsesEnglish(section: LegacySection) {
+  const text = [
+    section.title,
+    section.description,
+    section.label,
+    ...(section.buttons?.map((button) => button.title) || []),
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  return /[a-z]/i.test(text) && !/[\u4e00-\u9fff]/.test(text);
+}
+
+function hasHeroDemoVideo(section: LegacySection) {
+  return Boolean(
+    section.video_url ||
+    section.video_embed_url ||
+    section.video?.src ||
+    section.video?.embed_src
+  );
+}
+
+type HeroActionLayout = {
+  structured: boolean;
+  demoButton?: LegacyButton;
+  useButton?: LegacyButton;
+  sampleButton?: LegacyButton | null;
+  extraButtons: LegacyButton[];
+};
+
+function buildHeroActionLayout(section: LegacySection): HeroActionLayout {
+  const buttons = section.buttons || [];
+  if (!hasHeroDemoVideo(section)) {
+    return { structured: false, extraButtons: buttons };
+  }
+
+  const english = sectionUsesEnglish(section);
+  const videoIndex = buttons.findIndex(
+    (button) => button.action === 'open_video_modal'
+  );
+  const sampleIndex = buttons.findIndex((button) =>
+    Boolean(buildSampleButtonConfig(button))
+  );
+  const sampleButton =
+    buildSectionSampleButton(section) ||
+    (sampleIndex >= 0 ? buildSampleButtonConfig(buttons[sampleIndex]) : null);
+  const useIndex = buttons.findIndex(
+    (button, index) =>
+      index !== videoIndex &&
+      index !== sampleIndex &&
+      (button.url || '').startsWith('/download')
+  );
+  const fallbackUseIndex = buttons.findIndex(
+    (button, index) =>
+      index !== videoIndex &&
+      index !== sampleIndex &&
+      button.action !== 'open_video_modal' &&
+      button.url
+  );
+  const resolvedUseIndex = useIndex >= 0 ? useIndex : fallbackUseIndex;
+  const videoSource = videoIndex >= 0 ? buttons[videoIndex] : undefined;
+  const useSource = resolvedUseIndex >= 0 ? buttons[resolvedUseIndex] : null;
+  const excludedIndexes = new Set(
+    [videoIndex, sampleIndex, resolvedUseIndex].filter((index) => index >= 0)
+  );
+
+  return {
+    structured: true,
+    demoButton: {
+      ...videoSource,
+      title: english ? 'Watch Demo' : '效果演示',
+      icon: 'Play',
+      action: 'open_video_modal',
+      variant: 'default',
+      video_title: videoSource?.video_title || section.video_title,
+    },
+    useButton: useSource
+      ? {
+          ...useSource,
+          title: english ? 'Start Using' : '我要使用',
+          icon: useSource.icon || 'Download',
+          variant: 'outline',
+        }
+      : undefined,
+    sampleButton,
+    extraButtons: buttons.filter((_, index) => !excludedIndexes.has(index)),
+  };
+}
+
+function HeroActions({
+  section,
+  onVideo,
+  onSample,
+  rowClassName,
+  actionClassName,
+}: {
+  section: LegacySection;
+  onVideo: (button: LegacyButton) => void;
+  onSample: (button: LegacyButton) => void;
+  rowClassName?: string;
+  actionClassName?: string;
+}) {
+  const layout = buildHeroActionLayout(section);
+
+  if (!layout.structured) {
+    if (!section.buttons?.length) return null;
+
+    return (
+      <div className={rowClassName}>
+        {section.buttons.map((button, index) => (
+          <ActionButton
+            key={`${button.title || 'button'}-${index}`}
+            button={button}
+            onVideo={onVideo}
+            onSample={onSample}
+            className={actionClassName}
+          />
+        ))}
+      </div>
     );
   }
 
   return (
-    <Link href={href} target={button.target} className={buttonClass}>
-      <SmartIcon name={button.icon} className="size-4" />
-      {button.title}
-    </Link>
+    <div className={rowClassName}>
+      {layout.demoButton ? (
+        <div className="flex flex-col items-center gap-2">
+          <ActionButton
+            button={layout.demoButton}
+            onVideo={onVideo}
+            onSample={onSample}
+            className={actionClassName}
+          />
+          {layout.sampleButton ? (
+            <HeroSampleLink
+              sampleButton={layout.sampleButton}
+              onSample={onSample}
+            />
+          ) : null}
+        </div>
+      ) : null}
+
+      {layout.useButton ? (
+        <ActionButton
+          button={layout.useButton}
+          onVideo={onVideo}
+          onSample={onSample}
+          className={actionClassName}
+        />
+      ) : null}
+
+      {layout.extraButtons.length ? (
+        <div className="mt-1 flex basis-full flex-wrap items-center justify-center gap-x-5 gap-y-2">
+          {layout.extraButtons.map((button, index) => (
+            <InlineArrowLink
+              key={`${button.title || 'extra'}-${index}`}
+              button={button}
+            />
+          ))}
+        </div>
+      ) : null}
+    </div>
   );
 }
 
@@ -903,10 +1301,10 @@ function HeroVideoPreview({
             video_end: config.end,
           })
         }
-        className="group border-border/60 bg-card/70 shadow-primary/10 hover:border-primary/40 hover:shadow-primary/20 focus-visible:ring-primary relative block aspect-video w-full overflow-hidden rounded-2xl border p-2 text-left shadow-2xl backdrop-blur-sm transition-all outline-none focus-visible:ring-2"
+        className="group ring-foreground/10 shadow-primary/10 hover:ring-primary/40 hover:shadow-primary/20 focus-visible:ring-primary relative block aspect-video w-full overflow-hidden rounded-2xl text-left shadow-2xl ring-1 transition-all outline-none focus-visible:ring-2"
         aria-label={title}
       >
-        <div className="bg-muted relative size-full overflow-hidden rounded-xl">
+        <div className="bg-muted relative size-full overflow-hidden">
           {config.poster ? (
             <LegacyImageElement
               image={{ src: config.poster, alt: title }}
@@ -917,7 +1315,7 @@ function HeroVideoPreview({
               className="size-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
             />
           ) : (
-            <div className="from-primary/10 to-accent/10 flex size-full items-center justify-center bg-gradient-to-br" />
+            <div className="bg-muted flex size-full items-center justify-center" />
           )}
           <div className="absolute inset-0 bg-black/30 transition-colors group-hover:bg-black/20" />
           <span className="absolute inset-0 flex items-center justify-center">
@@ -942,33 +1340,26 @@ function InlineArrowLink({ button }: { button: LegacyButton }) {
   );
   const href = button.url || '#';
 
-  if (/^https?:\/\//.test(href)) {
-    return (
-      <a
-        href={href}
-        target={button.target || '_blank'}
-        rel="noopener noreferrer"
-        className={className}
-      >
-        {content}
-      </a>
-    );
-  }
-
   return (
-    <Link href={href} target={button.target || '_self'} className={className}>
+    <LegacyLink
+      href={href}
+      target={button.target || '_self'}
+      className={className}
+    >
       {content}
-    </Link>
+    </LegacyLink>
   );
 }
 
 function PageHero({
   section,
   onVideo,
+  onSample,
   fallbackPoster,
 }: {
   section: LegacySection;
   onVideo: (button: LegacyButton) => void;
+  onSample: (button: LegacyButton) => void;
   fallbackPoster?: string;
 }) {
   const title = section.title || '';
@@ -982,14 +1373,11 @@ function PageHero({
     <section
       id={section.id}
       className={cn(
-        'bg-background relative flex min-h-[85vh] items-center justify-center overflow-hidden border-b py-20 md:py-32',
+        'bg-background relative flex min-h-[85vh] items-center justify-center overflow-hidden py-20 md:py-32',
         section.className
       )}
     >
-      <div className="from-background via-background to-accent/5 absolute inset-0 bg-gradient-to-br" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:64px_64px]" />
-      <div className="bg-primary/5 pointer-events-none absolute top-1/4 left-1/4 h-64 w-64 rounded-full blur-3xl" />
-      <div className="bg-accent/5 pointer-events-none absolute right-1/4 bottom-1/4 h-80 w-80 rounded-full blur-3xl" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,black,transparent)] bg-[size:64px_64px]" />
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6">
         {section.breadcrumbs?.length ? (
           <nav className="mb-8 overflow-x-auto whitespace-nowrap">
@@ -1005,13 +1393,13 @@ function PageHero({
                       <ChevronRight className="mx-1 size-3.5" />
                     ) : null}
                     {crumb.url && !isLast ? (
-                      <Link
+                      <LegacyLink
                         href={crumb.url}
                         target={crumb.target}
                         className="hover:text-neutral-950 dark:hover:text-white"
                       >
                         {crumb.title}
-                      </Link>
+                      </LegacyLink>
                     ) : (
                       <span className="font-medium text-neutral-950 dark:text-white">
                         {crumb.title}
@@ -1026,9 +1414,9 @@ function PageHero({
 
         <div className="mx-auto max-w-4xl text-center">
           {section.announcement ? (
-            <Link
+            <LegacyLink
               href={section.announcement.url || '#'}
-              className="from-primary/10 to-accent/10 text-foreground ring-primary/20 hover:ring-primary/30 mb-8 inline-flex max-w-full items-center gap-3 rounded-full bg-gradient-to-r px-5 py-2 text-sm font-medium shadow-md ring-1 transition-all hover:shadow-lg"
+              className="border-border/70 bg-background/80 text-foreground hover:border-border mb-8 inline-flex max-w-full items-center gap-3 rounded-full border px-5 py-2 text-sm font-medium transition-colors"
             >
               <span
                 className="bg-primary size-2 shrink-0 rounded-full"
@@ -1036,42 +1424,32 @@ function PageHero({
               />
               <span className="truncate">{section.announcement.title}</span>
               <ChevronRight className="size-4 shrink-0" />
-            </Link>
+            </LegacyLink>
           ) : null}
           {section.label ? (
-            <div className="bg-primary/10 text-primary mb-4 inline-flex rounded-full px-4 py-1.5 text-sm font-semibold">
+            <div className="text-primary mb-4 text-sm font-semibold tracking-wide">
               {section.label}
             </div>
           ) : null}
-          <h1 className="text-foreground mb-6 text-5xl font-bold tracking-normal sm:text-6xl md:text-7xl">
+          <h1 className="text-foreground mb-6 text-4xl font-semibold tracking-tight text-balance sm:text-5xl md:text-6xl">
             {baseTitle}
             {highlight ? (
               <>
                 {' '}
-                <span className="relative inline-block">
-                  <span className="from-primary to-primary/70 relative z-10 bg-gradient-to-r bg-clip-text text-transparent">
-                    {highlight}
-                  </span>
-                  <span className="from-primary/20 to-primary/10 absolute -bottom-2 left-0 h-3 w-full bg-gradient-to-r blur-sm" />
-                </span>
+                <span className="text-primary">{highlight}</span>
               </>
             ) : null}
           </h1>
           <RichText className="text-muted-foreground mx-auto max-w-2xl text-lg leading-8 md:text-xl">
             {section.description}
           </RichText>
-          {section.buttons?.length ? (
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap sm:gap-3">
-              {section.buttons.map((button, index) => (
-                <ActionButton
-                  key={`${button.title || 'button'}-${index}`}
-                  button={button}
-                  onVideo={onVideo}
-                  className="min-w-[150px]"
-                />
-              ))}
-            </div>
-          ) : null}
+          <HeroActions
+            section={section}
+            onVideo={onVideo}
+            onSample={onSample}
+            rowClassName="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:gap-3"
+            actionClassName="min-w-[150px]"
+          />
         </div>
 
         {section.video_url || section.video_embed_url || section.video?.src ? (
@@ -1082,18 +1460,19 @@ function PageHero({
           />
         ) : section.image?.src ? (
           <div className="relative mx-auto mt-16 max-w-6xl">
-            <div className="border-border/50 bg-card/50 relative overflow-hidden rounded-2xl border p-2 shadow-2xl backdrop-blur-sm">
-              <div className="overflow-hidden rounded-xl">
-                <LegacyImageElement
-                  image={section.image}
-                  alt={section.image.alt || section.title || ''}
-                  loading="eager"
-                  fetchPriority="high"
-                  sizes="(max-width: 768px) 100vw, 1152px"
-                  className="w-full"
-                />
-              </div>
-              <div className="from-primary/20 via-accent/20 to-primary/20 absolute -inset-1 -z-10 bg-gradient-to-r opacity-50 blur-2xl" />
+            <div className="ring-foreground/10 relative overflow-hidden rounded-2xl shadow-xl ring-1 shadow-black/10">
+              <LegacyImageElement
+                image={section.image}
+                alt={section.image.alt || section.title || ''}
+                loading="eager"
+                fetchPriority="high"
+                sizes="(max-width: 768px) 100vw, 1152px"
+                className="w-full"
+              />
+              <div
+                className="ring-foreground/5 pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset"
+                aria-hidden="true"
+              />
             </div>
           </div>
         ) : null}
@@ -1105,10 +1484,12 @@ function PageHero({
 function CompactPageHero({
   section,
   onVideo,
+  onSample,
   fallbackPoster,
 }: {
   section: LegacySection;
   onVideo: (button: LegacyButton) => void;
+  onSample: (button: LegacyButton) => void;
   fallbackPoster?: string;
 }) {
   const crumbs = section.breadcrumbs || [];
@@ -1117,11 +1498,10 @@ function CompactPageHero({
     <section
       id={section.id}
       className={cn(
-        'relative overflow-hidden border-b py-20 md:py-28',
+        'relative overflow-hidden pt-28 pb-12 md:pt-32 md:pb-16',
         section.className
       )}
     >
-      <div className="from-primary/5 via-background to-background absolute inset-0 bg-gradient-to-b" />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:48px_48px]" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 sm:px-6">
@@ -1142,13 +1522,13 @@ function CompactPageHero({
                       <ChevronRight className="mx-1 size-3.5 opacity-70" />
                     ) : null}
                     {crumb.url && !isLast ? (
-                      <Link
+                      <LegacyLink
                         href={crumb.url}
                         target={crumb.target || '_self'}
                         className="hover:text-foreground transition-colors"
                       >
                         {crumb.title}
-                      </Link>
+                      </LegacyLink>
                     ) : (
                       <span className="text-foreground font-medium">
                         {crumb.title}
@@ -1163,12 +1543,12 @@ function CompactPageHero({
 
         <div className="mx-auto max-w-4xl text-center">
           {section.label ? (
-            <div className="bg-primary/10 text-primary mb-4 inline-flex rounded-full px-4 py-1.5 text-sm font-semibold">
+            <div className="text-primary mb-4 text-sm font-semibold tracking-wide">
               {section.label}
             </div>
           ) : null}
 
-          <h1 className="text-foreground mb-6 text-4xl font-bold tracking-normal sm:text-5xl md:text-6xl">
+          <h1 className="text-foreground mb-6 text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
             {section.title}
           </h1>
 
@@ -1178,23 +1558,13 @@ function CompactPageHero({
             </RichText>
           ) : null}
 
-          {section.buttons?.length ? (
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
-              {section.buttons.map((button, index) => (
-                <ActionButton
-                  key={`${button.title || 'button'}-${index}`}
-                  button={button}
-                  onVideo={onVideo}
-                  className={cn(
-                    'rounded-xl px-6 py-3 text-sm',
-                    button.variant === 'outline'
-                      ? 'border-border/60 bg-background/80 hover:bg-accent/40'
-                      : 'from-primary to-primary/90 shadow-primary/25 bg-gradient-to-r shadow-lg hover:shadow-xl'
-                  )}
-                />
-              ))}
-            </div>
-          ) : null}
+          <HeroActions
+            section={section}
+            onVideo={onVideo}
+            onSample={onSample}
+            rowClassName="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap sm:items-start"
+            actionClassName="min-w-[150px] rounded-xl px-6 py-3 text-sm"
+          />
 
           {section.tip ? (
             <RichText className="text-muted-foreground mt-6 text-sm">
@@ -1235,13 +1605,13 @@ function FeatureCards({ section }: { section: LegacySection }) {
         >
           {items.map((item, index) => {
             const content = (
-              <div className="border-border/50 bg-card/50 group-hover:shadow-primary/5 relative h-full overflow-hidden rounded-2xl border p-8 shadow-sm backdrop-blur-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
+              <div className="border-border/60 bg-card group-hover:border-border relative h-full overflow-hidden rounded-2xl border p-8 transition-colors duration-300">
                 {item.icon ? (
                   <div
                     data-feature-icon
-                    className="from-primary/20 to-primary/10 text-primary group-hover:from-primary group-hover:to-primary/80 group-hover:text-primary-foreground mb-6 inline-flex size-14 items-center justify-center rounded-xl bg-gradient-to-br transition-all duration-300 group-hover:scale-110"
+                    className="bg-primary/10 text-primary mb-6 inline-flex size-12 items-center justify-center rounded-xl"
                   >
-                    <SmartIcon name={item.icon} className="size-7" />
+                    <SmartIcon name={item.icon} className="size-6" />
                   </div>
                 ) : null}
                 {item.image?.src ? (
@@ -1252,7 +1622,7 @@ function FeatureCards({ section }: { section: LegacySection }) {
                     className="border-border/60 mb-6 aspect-[16/10] w-full rounded-xl border object-cover"
                   />
                 ) : null}
-                <h2 className="text-foreground mb-3 text-xl font-bold tracking-normal">
+                <h2 className="text-foreground mb-3 text-lg font-semibold tracking-tight">
                   {item.title}
                 </h2>
                 <RichText className="text-muted-foreground leading-7">
@@ -1271,7 +1641,6 @@ function FeatureCards({ section }: { section: LegacySection }) {
                     ))}
                   </ul>
                 ) : null}
-                <div className="from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-accent/5 pointer-events-none absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </div>
             );
             const card = (
@@ -1286,14 +1655,14 @@ function FeatureCards({ section }: { section: LegacySection }) {
 
             if (!item.url) return card;
             return (
-              <Link
+              <LegacyLink
                 key={`${item.title || 'feature'}-${index}`}
                 href={item.url}
                 target={item.target}
                 className="block h-full transition-transform hover:-translate-y-0.5"
               >
                 {card}
-              </Link>
+              </LegacyLink>
             );
           })}
         </div>
@@ -1322,7 +1691,7 @@ function FeatureMatrixBlock({ section }: { section: LegacySection }) {
     <section
       id={section.id}
       className={cn(
-        'relative overflow-hidden border-b py-20 md:py-28',
+        'relative overflow-hidden py-20 md:py-28',
         section.className
       )}
     >
@@ -1355,7 +1724,7 @@ function FeatureMatrixBlock({ section }: { section: LegacySection }) {
                   </p>
                 ) : null}
                 {item.image?.src ? (
-                  <div className="border-border/50 bg-muted/20 mt-4 flex h-[360px] items-start justify-center overflow-hidden rounded-xl border p-2 sm:h-[420px] lg:h-[520px]">
+                  <div className="ring-foreground/10 bg-muted/20 mt-4 flex h-[360px] items-start justify-center overflow-hidden rounded-xl shadow-lg ring-1 shadow-black/10 sm:h-[420px] lg:h-[520px]">
                     <LegacyImageElement
                       image={item.image}
                       alt={item.image.alt || item.title || ''}
@@ -1368,7 +1737,7 @@ function FeatureMatrixBlock({ section }: { section: LegacySection }) {
             );
 
             const className =
-              'group block rounded-2xl border border-border/60 bg-card/40 p-5 backdrop-blur-sm transition-all hover:border-primary/30 hover:bg-card/60';
+              'group block rounded-2xl border border-border/60 bg-card p-5 transition-colors hover:border-border';
 
             if (!item.url) {
               return (
@@ -1381,29 +1750,15 @@ function FeatureMatrixBlock({ section }: { section: LegacySection }) {
               );
             }
 
-            if (/^https?:\/\//.test(item.url)) {
-              return (
-                <a
-                  key={`${item.title || 'matrix'}-${index}`}
-                  href={item.url}
-                  target={item.target || '_blank'}
-                  rel="noopener noreferrer"
-                  className={cn(className, 'hover:-translate-y-0.5')}
-                >
-                  {content}
-                </a>
-              );
-            }
-
             return (
-              <Link
+              <LegacyLink
                 key={`${item.title || 'matrix'}-${index}`}
                 href={item.url}
                 target={item.target}
                 className={cn(className, 'hover:-translate-y-0.5')}
               >
                 {content}
-              </Link>
+              </LegacyLink>
             );
           })}
         </div>
@@ -1416,6 +1771,9 @@ function FeaturesTabBlock({ section }: { section: LegacySection }) {
   const items = section.items || [];
   const [activeTab, setActiveTab] = useState(0);
   const activeItem = items[activeTab] || items[0];
+  const isMcnProfileImage =
+    activeItem?.title?.startsWith('MCN') &&
+    activeItem.image?.src === '/imgs/features/2-v20260309.webp';
 
   if (!items.length) return null;
 
@@ -1423,7 +1781,7 @@ function FeaturesTabBlock({ section }: { section: LegacySection }) {
     <section
       id={section.id}
       className={cn(
-        'bg-background relative overflow-hidden border-b py-24 md:py-32',
+        'bg-background relative overflow-hidden py-24 md:py-32',
         section.className
       )}
     >
@@ -1466,12 +1824,17 @@ function FeaturesTabBlock({ section }: { section: LegacySection }) {
               </div>
 
               {activeItem.image?.src ? (
-                <div className="border-border/50 relative h-[220px] w-full flex-1 overflow-hidden rounded-2xl border shadow-md md:h-[340px]">
+                <div
+                  className={cn(
+                    'border-border/50 relative h-[220px] w-full flex-1 overflow-hidden rounded-2xl border shadow-md md:h-[340px]',
+                    isMcnProfileImage && 'md:mr-4 md:-ml-4'
+                  )}
+                >
                   <LegacyImageElement
                     image={activeItem.image}
                     alt={activeItem.image.alt || activeItem.title || ''}
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="size-full object-cover"
+                    className="size-full object-cover object-right"
                   />
                 </div>
               ) : null}
@@ -1488,7 +1851,7 @@ function FeaturesScroll({ section }: { section: LegacySection }) {
     <section
       id={section.id}
       className={cn(
-        'bg-secondary/30 relative overflow-hidden border-b py-24 md:py-32',
+        'bg-secondary/30 relative overflow-hidden py-24 md:py-32',
         section.className
       )}
       data-features-scroll
@@ -1520,16 +1883,16 @@ function FeaturesScroll({ section }: { section: LegacySection }) {
                 {item.button ? <InlineArrowLink button={item.button} /> : null}
               </div>
               <div
-                className="border-border bg-card relative w-full flex-1 overflow-hidden rounded-3xl border p-4 shadow-2xl sm:p-6"
+                className="group relative w-full flex-1"
                 data-features-scroll-media
               >
-                <div className="border-border bg-muted relative max-h-[500px] w-full overflow-hidden rounded-xl border shadow-inner">
+                <div className="ring-foreground/10 bg-muted relative max-h-[500px] w-full overflow-hidden rounded-2xl shadow-xl ring-1 shadow-black/10">
                   {item.image?.src ? (
                     <LegacyImageElement
                       image={item.image}
                       alt={item.image.alt || item.title || ''}
                       sizes="(max-width: 768px) 100vw, 50vw"
-                      className="h-auto w-full object-cover transition-transform duration-700 hover:scale-105"
+                      className="h-auto w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                     />
                   ) : (
                     <div className="bg-muted flex h-64 w-full items-center justify-center sm:h-80 md:h-[450px]">
@@ -1539,6 +1902,10 @@ function FeaturesScroll({ section }: { section: LegacySection }) {
                       />
                     </div>
                   )}
+                  <div
+                    className="ring-foreground/5 pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset"
+                    aria-hidden="true"
+                  />
                 </div>
               </div>
             </div>
@@ -1555,9 +1922,43 @@ function normalizeTableColumns(section: LegacySection) {
 
   return columns.map((column, index) => ({
     key: column.key || `col_${index}`,
-    title: column.title || column.key || `Column ${index + 1}`,
+    title: column.title ?? column.key ?? `Column ${index + 1}`,
     align: index === 0 ? 'left' : 'center',
+    highlight: column.highlight === true,
   }));
+}
+
+function DataTableCellValue({ value }: { value?: string }) {
+  const text = (value || '').trim();
+
+  if (!text || text === '—' || text === '-' || text === '✕' || text === '×') {
+    return (
+      <Minus
+        className="text-muted-foreground/40 inline-block size-4"
+        aria-hidden="true"
+      />
+    );
+  }
+
+  if (text.startsWith('✓')) {
+    const rest = text.slice(1).trim();
+    return (
+      <span className="inline-flex items-center justify-center gap-1.5">
+        <span className="bg-primary/10 flex size-5 shrink-0 items-center justify-center rounded-full">
+          <CheckCircle2 className="text-primary size-3" aria-hidden="true" />
+        </span>
+        {rest ? (
+          <span className="text-muted-foreground text-xs">{rest}</span>
+        ) : null}
+      </span>
+    );
+  }
+
+  return <>{text}</>;
+}
+
+function isDataTableGroupRow(row: Record<string, string>) {
+  return Boolean(row.section_title);
 }
 
 function DataTableBlock({ section }: { section: LegacySection }) {
@@ -1568,27 +1969,28 @@ function DataTableBlock({ section }: { section: LegacySection }) {
     <section
       id={section.id}
       className={cn(
-        'relative overflow-hidden border-b py-20 md:py-28',
+        'relative overflow-hidden py-20 md:py-28',
         section.className
       )}
       data-legacy-data-table
     >
       <div className="mx-auto w-full max-w-6xl px-6">
         <SectionHeading section={section} />
-        <div className="bg-card/40 border-border/60 mt-10 overflow-hidden rounded-2xl border backdrop-blur-sm">
+        <div className="mt-12">
           <div
             className="hidden overflow-x-auto md:block"
             data-desktop-data-table
           >
             <table className="min-w-full border-collapse text-sm">
-              <thead className="bg-primary/5">
+              <thead>
                 <tr className="border-border/60 border-b">
                   {columns.map((column) => (
                     <th
                       key={column.key}
                       className={cn(
-                        'text-foreground px-5 py-4 text-sm font-semibold',
-                        column.align === 'center' ? 'text-center' : 'text-left'
+                        'text-muted-foreground px-4 py-4 align-middle text-sm font-medium whitespace-nowrap',
+                        column.align === 'center' ? 'text-center' : 'text-left',
+                        column.highlight && 'bg-primary/5 text-foreground'
                       )}
                     >
                       {column.title}
@@ -1597,52 +1999,103 @@ function DataTableBlock({ section }: { section: LegacySection }) {
                 </tr>
               </thead>
               <tbody>
-                {rows.map((row, index) => (
-                  <tr
-                    key={index}
-                    className="border-border/50 border-b last:border-b-0"
-                  >
-                    {columns.map((column) => (
+                {rows.map((row, index) =>
+                  isDataTableGroupRow(row) ? (
+                    <tr
+                      key={index}
+                      className="border-border/60 border-b"
+                      data-table-group-row
+                    >
                       <td
-                        key={column.key}
-                        className={cn(
-                          'text-muted-foreground px-5 py-4',
-                          column.align === 'center'
-                            ? 'text-center'
-                            : 'text-left'
-                        )}
+                        colSpan={columns.length}
+                        className="px-4 pt-10 pb-3 text-left"
                       >
-                        {row[column.key] || '-'}
+                        <p className="text-foreground text-base font-semibold">
+                          {row.section_title}
+                        </p>
+                        {row.section_description ? (
+                          <p className="text-muted-foreground mt-1 text-xs">
+                            {row.section_description}
+                          </p>
+                        ) : null}
                       </td>
-                    ))}
-                  </tr>
-                ))}
+                    </tr>
+                  ) : (
+                    <tr key={index} className="border-border/40 border-b">
+                      {columns.map((column, columnIndex) => (
+                        <td
+                          key={column.key}
+                          className={cn(
+                            'px-4 py-5',
+                            columnIndex === 0 || column.key === 'note'
+                              ? 'text-balance'
+                              : 'whitespace-nowrap',
+                            columnIndex === 0
+                              ? 'text-foreground font-medium'
+                              : 'text-muted-foreground',
+                            column.align === 'center'
+                              ? 'text-center'
+                              : 'text-left',
+                            column.highlight && 'bg-primary/5 text-foreground'
+                          )}
+                        >
+                          {columnIndex === 0 ? (
+                            row[column.key] || '-'
+                          ) : (
+                            <DataTableCellValue value={row[column.key]} />
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  )
+                )}
               </tbody>
             </table>
           </div>
 
-          <div className="divide-border/50 divide-y md:hidden">
-            {rows.map((row, rowIndex) => (
-              <article
-                key={rowIndex}
-                className="space-y-3 p-4"
-                data-mobile-data-row
-              >
-                {columns.map((column) => (
-                  <div
-                    key={`${rowIndex}-${column.key}`}
-                    className="grid grid-cols-[6rem_minmax(0,1fr)] gap-3 text-sm"
-                  >
-                    <span className="text-muted-foreground">
-                      {column.title}
-                    </span>
-                    <span className="text-foreground font-medium">
-                      {row[column.key] || '-'}
-                    </span>
-                  </div>
-                ))}
-              </article>
-            ))}
+          <div className="divide-border/40 border-border/60 divide-y border-y md:hidden">
+            {rows.map((row, rowIndex) =>
+              isDataTableGroupRow(row) ? (
+                <div
+                  key={rowIndex}
+                  className="px-1 pt-8 pb-3"
+                  data-mobile-data-group
+                >
+                  <p className="text-foreground text-sm font-semibold">
+                    {row.section_title}
+                  </p>
+                  {row.section_description ? (
+                    <p className="text-muted-foreground mt-1 text-xs">
+                      {row.section_description}
+                    </p>
+                  ) : null}
+                </div>
+              ) : (
+                <article
+                  key={rowIndex}
+                  className="space-y-3 px-1 py-5"
+                  data-mobile-data-row
+                >
+                  {columns.map((column, columnIndex) => (
+                    <div
+                      key={`${rowIndex}-${column.key}`}
+                      className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 text-sm"
+                    >
+                      <span className="text-muted-foreground">
+                        {column.title}
+                      </span>
+                      <span className="text-foreground font-medium">
+                        {columnIndex === 0 ? (
+                          row[column.key] || '-'
+                        ) : (
+                          <DataTableCellValue value={row[column.key]} />
+                        )}
+                      </span>
+                    </div>
+                  ))}
+                </article>
+              )
+            )}
           </div>
         </div>
         {section.tip ? (
@@ -1650,6 +2103,557 @@ function DataTableBlock({ section }: { section: LegacySection }) {
             {section.tip}
           </RichText>
         ) : null}
+      </div>
+    </section>
+  );
+}
+
+function resolveOutputOptionIcon(mode?: string) {
+  const text = mode || '';
+
+  if (/csv|markdown|导出/i.test(text)) return 'FileSpreadsheet';
+  if (/media|媒体|download|下载/i.test(text)) return 'ImageDown';
+  if (/lark|feishu|飞书|base|同步/i.test(text)) return 'Table2';
+
+  return 'Database';
+}
+
+function OutputOptionsBlock({ section }: { section: LegacySection }) {
+  const options = (section.rows || []).filter((row) => row.mode);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeOption = options[activeIndex] || options[0];
+  const sceneColumnTitle =
+    normalizeTableColumns(section).find((column) => column.key === 'scene')
+      ?.title ||
+    (/[一-龥]/.test(section.title || '') ? '典型场景' : 'Best for');
+  const activeImage =
+    activeOption?.image_src || section.image?.src
+      ? {
+          src: activeOption?.image_src || section.image?.src,
+          alt:
+            activeOption?.image_alt ||
+            section.image?.alt ||
+            activeOption?.mode ||
+            section.title,
+          width: section.image?.width,
+          height: section.image?.height,
+        }
+      : null;
+  const iconName =
+    activeOption?.icon || resolveOutputOptionIcon(activeOption?.mode);
+
+  if (!options.length || !activeOption) return null;
+
+  return (
+    <section
+      id={section.id}
+      className={cn(
+        'relative overflow-hidden py-20 md:py-28',
+        section.className
+      )}
+      data-output-options
+    >
+      <div className="mx-auto w-full max-w-6xl px-6">
+        <SectionHeading section={section} />
+        <div
+          className="mt-10 flex flex-wrap justify-center gap-3"
+          role="tablist"
+          aria-label={section.title}
+          data-output-option-tabs
+        >
+          {options.map((option, index) => (
+            <button
+              key={`${option.mode}-${index}`}
+              type="button"
+              role="tab"
+              aria-selected={activeIndex === index}
+              onClick={() => setActiveIndex(index)}
+              className={cn(
+                'rounded-full px-5 py-3 text-sm font-semibold transition sm:text-base',
+                activeIndex === index
+                  ? 'bg-foreground text-background shadow-lg shadow-black/10'
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+              )}
+            >
+              {option.mode}
+            </button>
+          ))}
+        </div>
+
+        <article
+          className="border-border bg-card mt-10 grid items-center gap-8 rounded-3xl border p-6 shadow-xl shadow-black/5 lg:grid-cols-[0.9fr_1.1fr] lg:p-10"
+          data-output-option-card
+        >
+          <div className="min-w-0">
+            <div className="bg-primary/10 text-primary mb-6 inline-flex size-14 items-center justify-center rounded-2xl">
+              <SmartIcon name={iconName} className="size-7" />
+            </div>
+            <h3 className="text-foreground text-3xl font-semibold tracking-tight text-balance md:text-4xl">
+              {activeOption.mode}
+            </h3>
+            {activeOption.desc ? (
+              <p className="text-muted-foreground mt-5 text-lg leading-8">
+                {activeOption.desc}
+              </p>
+            ) : null}
+            {activeOption.scene ? (
+              <div className="border-border/70 bg-muted/40 mt-8 rounded-2xl border p-5">
+                <p className="text-muted-foreground text-sm font-medium">
+                  {sceneColumnTitle}
+                </p>
+                <p className="text-foreground mt-2 text-base leading-7 font-semibold">
+                  {activeOption.scene}
+                </p>
+              </div>
+            ) : null}
+          </div>
+
+          <div className="bg-muted relative overflow-hidden rounded-2xl">
+            {activeImage?.src ? (
+              <LegacyImageElement
+                image={activeImage}
+                alt={activeImage.alt || activeOption.mode}
+                sizes="(max-width: 1024px) 100vw, 52vw"
+                className="aspect-[16/10] w-full object-cover"
+              />
+            ) : (
+              <div className="flex aspect-[16/10] w-full items-center justify-center">
+                <SmartIcon
+                  name={iconName}
+                  className="text-muted-foreground/30 size-20"
+                />
+              </div>
+            )}
+            <div
+              className="ring-foreground/10 pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset"
+              aria-hidden="true"
+            />
+          </div>
+        </article>
+      </div>
+    </section>
+  );
+}
+
+type CsvPreview = {
+  headers: string[];
+  rows: Array<Record<string, string>>;
+};
+
+function parseCsvPreview(csv: string, limit: number): CsvPreview {
+  const source = csv.replace(/^\uFEFF/, '');
+  const parsedRows: string[][] = [];
+  let row: string[] = [];
+  let cell = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < source.length; i += 1) {
+    const char = source[i];
+
+    if (inQuotes) {
+      if (char === '"' && source[i + 1] === '"') {
+        cell += '"';
+        i += 1;
+      } else if (char === '"') {
+        inQuotes = false;
+      } else {
+        cell += char;
+      }
+      continue;
+    }
+
+    if (char === '"') {
+      inQuotes = true;
+    } else if (char === ',') {
+      row.push(cell);
+      cell = '';
+    } else if (char === '\n' || char === '\r') {
+      if (char === '\r' && source[i + 1] === '\n') i += 1;
+      row.push(cell);
+      parsedRows.push(row);
+      if (parsedRows.length >= limit + 1) break;
+      row = [];
+      cell = '';
+    } else {
+      cell += char;
+    }
+  }
+
+  if (parsedRows.length < limit + 1 && (cell || row.length)) {
+    row.push(cell);
+    parsedRows.push(row);
+  }
+
+  const headers = parsedRows[0]?.map((header) => header.trim()) || [];
+  const rows = parsedRows
+    .slice(1, limit + 1)
+    .map((values) =>
+      Object.fromEntries(
+        headers.map((header, index) => [header, values[index]?.trim() || ''])
+      )
+    );
+
+  return { headers, rows };
+}
+
+function normalizeSampleCell(value?: string) {
+  return (value || '').replace(/\s+/g, ' ').trim();
+}
+
+const sampleColumnLabels: Record<string, string> = {
+  采集平台: '平台',
+  点赞数: '点赞',
+  收藏数: '收藏',
+  评论数: '评论',
+  视频逐字稿提取: '视频逐字稿',
+  配图文案: '图文文案',
+};
+
+function getSampleColumnLabel(column: string) {
+  return sampleColumnLabels[column] || column;
+}
+
+function SampleDataDialogContent({ sample }: { sample: LegacyButton }) {
+  const rowLimit = Math.max(
+    1,
+    Math.min(20, Math.floor(readNumber(sample.sample_limit) ?? 6))
+  );
+  const [preview, setPreview] = useState<CsvPreview | null>(null);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>(
+    sample.sample_url ? 'loading' : 'idle'
+  );
+
+  useEffect(() => {
+    if (!sample.sample_url) return;
+
+    let active = true;
+    setStatus('loading');
+
+    fetch(sample.sample_url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to load sample CSV: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then((csv) => {
+        if (!active) return;
+        setPreview(parseCsvPreview(csv, rowLimit));
+        setStatus('ready');
+      })
+      .catch(() => {
+        if (!active) return;
+        setStatus('error');
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [rowLimit, sample.sample_url]);
+
+  const configuredColumns =
+    sample.sample_columns?.filter((column) =>
+      preview?.headers.includes(column)
+    ) || [];
+  const columns = configuredColumns.length
+    ? configuredColumns
+    : preview?.headers.slice(0, 10) || [];
+
+  return (
+    <div className="bg-card flex max-h-[88vh] flex-col overflow-hidden rounded-lg">
+      <div className="border-border/60 flex flex-col gap-4 border-b px-5 py-4 sm:flex-row sm:items-start sm:justify-between">
+        <DialogHeader className="space-y-1 text-left">
+          <DialogTitle>{sample.title || '数据示例'}</DialogTitle>
+          <DialogDescription>
+            {preview
+              ? `${preview.headers.length} 个字段 · 预览 ${preview.rows.length} 行`
+              : status === 'error'
+                ? '示例数据暂时无法加载'
+                : '正在加载示例数据'}
+          </DialogDescription>
+        </DialogHeader>
+
+        {sample.sample_url ? (
+          <LegacyLink
+            href={sample.sample_url}
+            target="_blank"
+            className={cn(
+              buttonVariants({ variant: 'outline' }),
+              'shrink-0 gap-2'
+            )}
+            data-sample-download
+          >
+            <Download className="size-4" aria-hidden="true" />
+            {sample.sample_button_title || '下载完整 CSV'}
+          </LegacyLink>
+        ) : null}
+      </div>
+
+      <div className="overflow-auto" data-sample-table-scroll>
+        <table className="min-w-[1280px] border-collapse text-sm">
+          <thead className="bg-card sticky top-0 z-10">
+            <tr className="border-border/60 border-b">
+              {columns.map((column) => (
+                <th
+                  key={column}
+                  className="text-foreground px-4 py-3 text-left text-xs font-semibold whitespace-nowrap"
+                >
+                  {getSampleColumnLabel(column)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {preview?.rows.map((row, rowIndex) => (
+              <tr
+                key={rowIndex}
+                className="border-border/50 hover:bg-muted/30 border-b last:border-b-0"
+              >
+                {columns.map((column) => {
+                  const value = normalizeSampleCell(row[column]);
+                  return (
+                    <td
+                      key={`${rowIndex}-${column}`}
+                      className="text-muted-foreground px-4 py-3 align-top"
+                    >
+                      <span
+                        className="block max-w-[20rem] truncate"
+                        title={value}
+                      >
+                        {value || '-'}
+                      </span>
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function SampleVideoPanel({
+  section,
+  fallbackPoster,
+}: {
+  section: LegacySection;
+  fallbackPoster?: string;
+}) {
+  const config = resolveDemoVideoConfig(section, undefined, fallbackPoster);
+
+  if (!config) {
+    return (
+      <div className="bg-muted/30 flex aspect-video items-center justify-center rounded-lg border">
+        <Play className="text-muted-foreground size-10" aria-hidden="true" />
+      </div>
+    );
+  }
+
+  if (config.embedSrc) {
+    return (
+      <iframe
+        src={config.embedSrc}
+        title={config.title || section.title || 'Sample preview video'}
+        className="aspect-video w-full rounded-lg border"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+    );
+  }
+
+  return (
+    <video
+      className="bg-muted aspect-video w-full rounded-lg border object-contain"
+      controls
+      preload="metadata"
+      poster={config.poster}
+    >
+      {config.src ? (
+        <source src={buildTimedSrc(config.src, config.start)} />
+      ) : null}
+    </video>
+  );
+}
+
+function SamplePreviewBlock({
+  section,
+  fallbackPoster,
+}: {
+  section: LegacySection;
+  fallbackPoster?: string;
+}) {
+  const rowLimit = Math.max(
+    1,
+    Math.min(20, Math.floor(readNumber(section.sample_limit) ?? 6))
+  );
+  const [preview, setPreview] = useState<CsvPreview | null>(null);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>(
+    section.sample_url ? 'loading' : 'idle'
+  );
+
+  useEffect(() => {
+    if (!section.sample_url) return;
+
+    let active = true;
+    setStatus('loading');
+
+    fetch(section.sample_url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to load sample CSV: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then((csv) => {
+        if (!active) return;
+        setPreview(parseCsvPreview(csv, rowLimit));
+        setStatus('ready');
+      })
+      .catch(() => {
+        if (!active) return;
+        setStatus('error');
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [rowLimit, section.sample_url]);
+
+  const sampleColumns =
+    section.sample_columns?.filter((column) =>
+      preview?.headers.includes(column)
+    ) || [];
+  const columns = sampleColumns.length
+    ? sampleColumns
+    : preview?.headers.slice(0, 9) || [];
+
+  return (
+    <section
+      id={section.id}
+      className={cn(
+        'relative overflow-hidden py-20 md:py-28',
+        section.className
+      )}
+      data-sample-preview
+    >
+      <div className="mx-auto w-full max-w-6xl px-6">
+        <SectionHeading section={section} />
+
+        <Tabs
+          defaultValue="data"
+          className="mt-10 flex-col"
+          data-sample-preview-tabs
+        >
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <TabsList className="bg-muted/50 grid h-auto w-full grid-cols-2 rounded-lg p-1 sm:w-auto">
+              <TabsTrigger
+                value="data"
+                className="gap-2 rounded-md px-4 py-2 text-sm"
+              >
+                <Table2 className="size-4" aria-hidden="true" />
+                {section.data_tab_title || '数据预览'}
+              </TabsTrigger>
+              <TabsTrigger
+                value="video"
+                className="gap-2 rounded-md px-4 py-2 text-sm"
+              >
+                <Play className="size-4" aria-hidden="true" />
+                {section.video_tab_title || '视频演示'}
+              </TabsTrigger>
+            </TabsList>
+
+            {section.sample_url ? (
+              <LegacyLink
+                href={section.sample_url}
+                target="_blank"
+                className={cn(
+                  buttonVariants({ variant: 'outline' }),
+                  'w-full gap-2 sm:w-auto'
+                )}
+                data-sample-download
+              >
+                <Download className="size-4" aria-hidden="true" />
+                {section.sample_button_title || '下载完整示例'}
+              </LegacyLink>
+            ) : null}
+          </div>
+
+          <TabsContent value="data" className="mt-6 focus-visible:outline-none">
+            <div className="border-border/60 bg-card/60 overflow-hidden rounded-lg border shadow-sm">
+              <div className="border-border/60 flex flex-wrap items-center justify-between gap-3 border-b px-4 py-3">
+                <div className="text-muted-foreground text-sm">
+                  {preview
+                    ? `${preview.headers.length} 个字段 · 预览 ${preview.rows.length} 行`
+                    : status === 'error'
+                      ? '示例数据暂时无法加载'
+                      : '正在加载示例数据'}
+                </div>
+                {section.tip ? (
+                  <RichText className="text-muted-foreground text-sm">
+                    {section.tip}
+                  </RichText>
+                ) : null}
+              </div>
+
+              <div
+                className="max-h-[460px] overflow-auto"
+                data-sample-table-scroll
+              >
+                <table className="min-w-[1080px] border-collapse text-sm">
+                  <thead className="bg-card sticky top-0 z-10">
+                    <tr className="border-border/60 border-b">
+                      {columns.map((column) => (
+                        <th
+                          key={column}
+                          className="text-foreground px-4 py-3 text-left text-xs font-semibold whitespace-nowrap"
+                        >
+                          {column}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {preview?.rows.map((row, rowIndex) => (
+                      <tr
+                        key={rowIndex}
+                        className="border-border/50 hover:bg-muted/30 border-b last:border-b-0"
+                      >
+                        {columns.map((column) => {
+                          const value = normalizeSampleCell(row[column]);
+                          return (
+                            <td
+                              key={`${rowIndex}-${column}`}
+                              className="text-muted-foreground px-4 py-3 align-top"
+                            >
+                              <span
+                                className="block max-w-[18rem] truncate"
+                                title={value}
+                              >
+                                {value || '-'}
+                              </span>
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent
+            value="video"
+            className="mt-6 focus-visible:outline-none"
+          >
+            <SampleVideoPanel
+              section={section}
+              fallbackPoster={fallbackPoster}
+            />
+          </TabsContent>
+        </Tabs>
       </div>
     </section>
   );
@@ -1663,7 +2667,7 @@ function RelatedLinks({ section }: { section: LegacySection }) {
     <section
       id={section.id}
       className={cn(
-        'relative overflow-hidden border-b py-16 md:py-20',
+        'relative overflow-hidden py-16 md:py-20',
         section.className
       )}
       data-related-links
@@ -1681,11 +2685,11 @@ function RelatedLinks({ section }: { section: LegacySection }) {
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {links.map((item, index) => (
-            <Link
+            <LegacyLink
               key={`${item.title || 'link'}-${index}`}
               href={item.url || '#'}
               target={item.target || '_self'}
-              className="border-border/60 bg-card/40 hover:border-primary/30 hover:bg-card/60 group rounded-2xl border p-5 transition-all hover:-translate-y-0.5"
+              className="border-border/60 bg-card hover:border-border group rounded-2xl border p-5 transition-colors"
               data-related-link-card
             >
               <div className="mb-2 flex items-center gap-2">
@@ -1703,7 +2707,7 @@ function RelatedLinks({ section }: { section: LegacySection }) {
                   {item.description}
                 </RichText>
               ) : null}
-            </Link>
+            </LegacyLink>
           ))}
         </div>
       </div>
@@ -1721,7 +2725,7 @@ function FaqBlock({ section }: { section: LegacySection }) {
     <section
       id={section.id}
       className={cn(
-        'relative overflow-hidden border-b py-24 md:py-32',
+        'relative overflow-hidden py-24 md:py-32',
         section.className
       )}
     >
@@ -1739,7 +2743,7 @@ function FaqBlock({ section }: { section: LegacySection }) {
               <article
                 key={`${question || 'faq'}-${index}`}
                 className={cn(
-                  'border-border/50 bg-card/50 overflow-hidden rounded-2xl border backdrop-blur-sm transition-all duration-300',
+                  'border-border/60 bg-card overflow-hidden rounded-2xl border transition-colors duration-300',
                   isOpen &&
                     'border-primary/30 bg-card shadow-primary/5 shadow-lg'
                 )}
@@ -1818,8 +2822,6 @@ function FaqBlock({ section }: { section: LegacySection }) {
           </RichText>
         ) : null}
       </div>
-      <div className="bg-primary/5 pointer-events-none absolute top-1/4 left-1/4 -z-10 size-72 rounded-full blur-3xl" />
-      <div className="bg-accent/5 pointer-events-none absolute right-1/4 bottom-1/4 -z-10 size-96 rounded-full blur-3xl" />
     </section>
   );
 }
@@ -1831,7 +2833,7 @@ function TimelineBlock({ section }: { section: LegacySection }) {
     <section
       id={section.id}
       className={cn(
-        'relative overflow-hidden border-b py-20 md:py-28',
+        'relative overflow-hidden py-20 md:py-28',
         section.className
       )}
     >
@@ -1947,29 +2949,15 @@ function TimelineBlock({ section }: { section: LegacySection }) {
                             </>
                           );
 
-                          if (/^https?:\/\//.test(action.url || '')) {
-                            return (
-                              <a
-                                key={`${action.title}-${actionIndex}`}
-                                href={action.url}
-                                target={action.target || '_blank'}
-                                rel="noopener noreferrer"
-                                className={className}
-                              >
-                                {content}
-                              </a>
-                            );
-                          }
-
                           return (
-                            <Link
+                            <LegacyLink
                               key={`${action.title}-${actionIndex}`}
                               href={action.url || '#'}
                               target={action.target}
                               className={className}
                             >
                               {content}
-                            </Link>
+                            </LegacyLink>
                           );
                         })}
                       </div>
@@ -1990,7 +2978,7 @@ function DownloadBlock({ section }: { section: LegacySection }) {
     <section
       id={section.id}
       className={cn(
-        'relative overflow-hidden border-b bg-white py-24 dark:bg-neutral-950',
+        'relative overflow-hidden bg-white py-24 dark:bg-neutral-950',
         section.className
       )}
       data-download-section
@@ -2005,7 +2993,7 @@ function DownloadBlock({ section }: { section: LegacySection }) {
           data-download-heading
         >
           {section.title ? (
-            <h2 className="text-foreground mb-4 text-4xl font-bold tracking-normal sm:text-5xl">
+            <h2 className="text-foreground mb-4 text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
               {section.title}
             </h2>
           ) : null}
@@ -2151,7 +3139,7 @@ function DownloadOnboardingGuide({ section }: { section: LegacySection }) {
                               {step.action}
                             </Link>
                             <Link
-                              href="/pricing?source=onboarding&entry=download"
+                              href="/pricing?source=onboarding&entry=download_page"
                               className="inline-flex h-8 items-center justify-center rounded-lg border border-amber-300/80 bg-amber-300 px-2.5 text-sm font-medium text-slate-950 shadow-lg shadow-amber-500/20 transition-colors hover:bg-amber-200"
                             >
                               {buyLabel}
@@ -2405,10 +3393,8 @@ function DownloadCardContent({
   return (
     <Card
       className={cn(
-        'group border-border/50 bg-card/50 h-full overflow-hidden backdrop-blur-sm transition-all duration-300',
-        isPackage
-          ? 'hover:border-primary/50 shadow-sm hover:shadow-lg'
-          : 'hover:border-primary/50 hover:shadow-primary/5 hover:-translate-y-1 hover:shadow-2xl'
+        'group border-border/60 bg-card h-full overflow-hidden transition-colors duration-300',
+        'hover:border-border'
       )}
       data-download-store-card={!isPackage ? '' : undefined}
       data-download-package-card={isPackage ? '' : undefined}
@@ -2453,7 +3439,7 @@ function DownloadCardContent({
             href={item.button_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-primary text-primary-foreground shadow-primary/25 hover:shadow-primary/35 mt-auto inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-base font-bold shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl active:scale-95"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 mt-auto inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-base font-medium shadow-sm transition-colors"
             data-download-card-button
           >
             {isPackage ? (
@@ -2480,7 +3466,7 @@ function isPaidPricingItem(item: LegacyItem) {
 
 function credentialOptionLabel(credential: UserCredentialSummary) {
   const code = credential.code || '';
-  const plan = credential.planCode || 'formal';
+  const plan = credentialPlanLabel(credential.planCode);
   const expiresAt =
     credential.expiresAt instanceof Date
       ? credential.expiresAt.toISOString().slice(0, 10)
@@ -2493,8 +3479,10 @@ function credentialOptionLabel(credential: UserCredentialSummary) {
 function PricingBlock({ section }: { section: LegacySection }) {
   const router = useRouter();
   const { data: session, isPending: sessionPending } = useSession();
+  const messages = section.messages || {};
+  const copy = (key: string, fallback: string) => messages[key] || fallback;
   const groups = section.groups || [];
-  const defaultGroup = groups[0]?.name || 'month';
+  const defaultGroup = section.default_group || groups[0]?.name || 'month';
   const [group, setGroup] = useState(defaultGroup);
   const [checkoutItem, setCheckoutItem] = useState<LegacyItem | null>(null);
   const [checkoutMode, setCheckoutMode] = useState<CheckoutMode>('issue');
@@ -2544,7 +3532,9 @@ function PricingBlock({ section }: { section: LegacySection }) {
       setCredentials(rows);
       setSelectedCredentialCode(usableRows[0]?.code || '');
     } catch (error: any) {
-      toast.error(error?.message || '激活码列表加载失败');
+      toast.error(
+        error?.message || copy('credentials_load_failed', '激活码列表加载失败')
+      );
     } finally {
       setCredentialsLoading(false);
     }
@@ -2554,12 +3544,12 @@ function PricingBlock({ section }: { section: LegacySection }) {
     if (!isPaidPricingItem(item)) return;
     if (sessionPending) return;
     if (!session?.user) {
-      const redirect = encodeURIComponent(
+      const callbackUrl = encodeURIComponent(
         typeof window !== 'undefined'
           ? `${window.location.pathname}${window.location.search}`
           : '/pricing'
       );
-      router.push(`/sign-in?redirect=${redirect}`);
+      router.push(`/sign-in?callbackUrl=${callbackUrl}`);
       return;
     }
 
@@ -2586,7 +3576,7 @@ function PricingBlock({ section }: { section: LegacySection }) {
     ).toUpperCase();
 
     if (checkoutNeedsCredential && !credentialCode) {
-      toast.error('请选择或输入激活码');
+      toast.error(copy('credential_required', '请选择或输入激活码'));
       return;
     }
 
@@ -2602,10 +3592,12 @@ function PricingBlock({ section }: { section: LegacySection }) {
         redirect: '/settings/payments',
       });
       const checkoutUrl = result?.checkoutUrl || result?.checkout_url;
-      if (!checkoutUrl) throw new Error('Checkout failed');
+      if (!checkoutUrl) {
+        throw new Error(copy('checkout_failed', 'Checkout failed'));
+      }
       window.location.href = checkoutUrl;
     } catch (error: any) {
-      toast.error(error?.message || 'Checkout failed');
+      toast.error(error?.message || copy('checkout_failed', 'Checkout failed'));
       setCheckoutLoading(false);
     }
   }
@@ -2615,14 +3607,23 @@ function PricingBlock({ section }: { section: LegacySection }) {
       <section
         id={section.id}
         className={cn(
-          'relative overflow-hidden py-24 md:py-32',
+          'relative overflow-hidden',
+          section.hide_heading
+            ? 'pt-0 pb-24 md:pt-0 md:pb-28'
+            : 'py-24 md:py-32',
           section.className
         )}
       >
         <div className="mx-auto w-full max-w-6xl px-4">
-          <SectionHeading section={section} />
+          {!section.hide_heading ? <SectionHeading section={section} /> : null}
           {groups.length ? (
-            <div className="mt-10 mb-12 flex justify-center">
+            <div
+              className={cn(
+                'flex justify-center',
+                section.hide_heading ? 'mb-8' : 'mb-12',
+                section.hide_heading ? 'mt-0' : 'mt-10'
+              )}
+            >
               <div
                 data-pricing-group-tabs
                 className="border-border/50 bg-card/50 inline-flex max-w-full gap-1 overflow-x-auto rounded-xl border p-1 backdrop-blur-sm"
@@ -2674,15 +3675,15 @@ function PricingBlock({ section }: { section: LegacySection }) {
                   data-pricing-card
                   data-pricing-popular={isFeatured ? 'true' : undefined}
                   className={cn(
-                    'relative flex h-full flex-col overflow-hidden rounded-2xl border backdrop-blur-sm transition-all duration-300',
+                    'relative flex h-full flex-col overflow-hidden rounded-2xl border transition-colors duration-300',
                     isFeatured
-                      ? 'border-primary/50 from-primary/5 shadow-primary/10 bg-gradient-to-b to-transparent shadow-2xl lg:-mt-4 lg:scale-105'
-                      : 'border-border/50 bg-card/50 hover:shadow-primary/5 hover:shadow-xl'
+                      ? 'border-primary/60 bg-card shadow-lg shadow-black/5 lg:-mt-4'
+                      : 'border-border/60 bg-card hover:border-border'
                   )}
                 >
                   {isFeatured && (
                     <div className="absolute top-6 right-6">
-                      <div className="from-primary to-primary/80 text-primary-foreground rounded-full bg-gradient-to-r px-3 py-1 text-xs font-semibold shadow-lg">
+                      <div className="bg-primary text-primary-foreground rounded-full px-3 py-1 text-xs font-semibold">
                         {item.label || '最受欢迎'}
                       </div>
                     </div>
@@ -2707,6 +3708,11 @@ function PricingBlock({ section }: { section: LegacySection }) {
                           </span>
                         ) : null}
                       </div>
+                      {item.price_total ? (
+                        <p className="text-muted-foreground mt-1 text-sm">
+                          {item.price_total}
+                        </p>
+                      ) : null}
                       {item.original_price ? (
                         <p className="text-muted-foreground mt-1 text-sm line-through">
                           原价 {item.original_price}
@@ -2725,10 +3731,10 @@ function PricingBlock({ section }: { section: LegacySection }) {
                         type="button"
                         data-pricing-cta
                         className={cn(
-                          'mb-8 inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-4 text-base font-semibold transition-all disabled:opacity-60',
+                          'mb-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-base font-medium transition-colors disabled:opacity-60',
                           isFeatured
-                            ? 'from-primary to-primary/90 text-primary-foreground shadow-primary/30 hover:shadow-primary/40 bg-gradient-to-r shadow-lg hover:shadow-xl'
-                            : 'border-primary/20 bg-background text-foreground hover:bg-primary/5 border-2'
+                            ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm'
+                            : 'border-border bg-background text-foreground hover:bg-muted border'
                         )}
                         disabled={sessionPending}
                         onClick={() => openCheckout(item)}
@@ -2744,7 +3750,7 @@ function PricingBlock({ section }: { section: LegacySection }) {
                         button={
                           item.button || { title: '选择', url: '/pricing' }
                         }
-                        className="border-primary/20 bg-background text-foreground hover:bg-primary/5 mb-8 w-full rounded-xl px-6 py-4 text-base shadow-none"
+                        className="border-border bg-background text-foreground hover:bg-muted mb-8 w-full border px-6 py-3.5 text-base shadow-none"
                       />
                     )}
 
@@ -2772,11 +3778,32 @@ function PricingBlock({ section }: { section: LegacySection }) {
                         </ul>
                       </div>
                     ) : null}
-                  </div>
 
-                  {isFeatured && (
-                    <div className="from-primary/20 to-accent/20 pointer-events-none absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br via-transparent opacity-50" />
-                  )}
+                    {item.credits_features?.length ? (
+                      <div className="border-border/40 mt-6 border-t pt-5">
+                        {item.credits_title ? (
+                          <p className="text-foreground mb-3 text-sm font-semibold">
+                            {item.credits_title}
+                          </p>
+                        ) : null}
+                        <ul className="space-y-3">
+                          {item.credits_features.map((feature) => (
+                            <li
+                              key={feature}
+                              className="flex items-start gap-3"
+                            >
+                              <span className="bg-primary/10 mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full">
+                                <Sparkles className="text-primary size-3" />
+                              </span>
+                              <span className="text-muted-foreground text-sm leading-6">
+                                {feature}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                  </div>
                 </article>
               );
             })}
@@ -2799,9 +3826,13 @@ function PricingBlock({ section }: { section: LegacySection }) {
               {checkoutItem?.product_name || checkoutItem?.title}
             </DialogTitle>
             <DialogDescription>
-              {checkoutItem?.price}
-              {checkoutItem?.unit ? ` ${checkoutItem.unit}` : ''}
-              {checkoutItem?.credits ? ` · ${checkoutItem.credits} 积分` : ''}
+              {checkoutItem?.price_total ||
+                `${checkoutItem?.price || ''}${
+                  checkoutItem?.unit ? ` ${checkoutItem.unit}` : ''
+                }`}
+              {checkoutItem?.credits
+                ? ` · ${checkoutItem.credits} ${copy('credits_unit', '积分')}`
+                : ''}
             </DialogDescription>
           </DialogHeader>
 
@@ -2812,14 +3843,14 @@ function PricingBlock({ section }: { section: LegacySection }) {
                 variant={checkoutMode === 'issue' ? 'default' : 'outline'}
                 onClick={() => switchCheckoutMode('issue')}
               >
-                新购激活码
+                {copy('purchase_mode_new', '新购激活码')}
               </Button>
               <Button
                 type="button"
                 variant={checkoutMode === 'recharge' ? 'default' : 'outline'}
                 onClick={() => switchCheckoutMode('recharge')}
               >
-                续费已有码
+                {copy('purchase_mode_renew', '续费已有码')}
               </Button>
             </div>
           ) : null}
@@ -2827,7 +3858,9 @@ function PricingBlock({ section }: { section: LegacySection }) {
           {checkoutNeedsCredential ? (
             <div className="space-y-4 rounded-lg border bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900/50">
               <div className="space-y-2">
-                <Label htmlFor="credential-select">选择已有激活码</Label>
+                <Label htmlFor="credential-select">
+                  {copy('select_credential', '选择已有激活码')}
+                </Label>
                 <select
                   id="credential-select"
                   className="border-input bg-background h-9 w-full rounded-lg border px-3 text-sm"
@@ -2845,17 +3878,29 @@ function PricingBlock({ section }: { section: LegacySection }) {
                     ))
                   ) : (
                     <option value="">
-                      {credentialsLoading ? '正在加载...' : '暂无可用激活码'}
+                      {credentialsLoading
+                        ? `${copy('processing', '处理中')}...`
+                        : isCreditPackItem(checkoutItem)
+                          ? copy(
+                              'no_formal_credentials',
+                              '暂无可用正式会员激活码'
+                            )
+                          : copy('no_credentials', '暂无可用激活码')}
                     </option>
                   )}
                 </select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="credential-code">手动输入激活码</Label>
+                <Label htmlFor="credential-code">
+                  {copy('custom_input', '手动输入激活码')}
+                </Label>
                 <Input
                   id="credential-code"
                   value={customCredentialCode}
-                  placeholder="MC-XXXX-XXXX-XXXX"
+                  placeholder={copy(
+                    'custom_credential_placeholder',
+                    'ACT-XXXX-XXXX-XXXX'
+                  )}
                   onChange={(event) =>
                     setCustomCredentialCode(event.target.value)
                   }
@@ -2871,7 +3916,7 @@ function PricingBlock({ section }: { section: LegacySection }) {
               disabled={checkoutLoading}
               onClick={() => setCheckoutItem(null)}
             >
-              取消
+              {copy('checkout_modal_cancel', '取消')}
             </Button>
             <Button
               type="button"
@@ -2883,7 +3928,7 @@ function PricingBlock({ section }: { section: LegacySection }) {
               ) : (
                 <CreditCard className="size-4" />
               )}
-              去支付
+              {copy('checkout_modal_confirm', '继续支付')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -2960,9 +4005,30 @@ function TestimonialsBlock({ section }: { section: LegacySection }) {
   );
 }
 
-function ShowcasesBlock({ section }: { section: LegacySection }) {
-  const groups = section.groups || [];
-  const [group, setGroup] = useState(groups[0]?.name || 'all');
+function resolveShowcaseGroup(
+  groups: LegacySection['groups'] = [],
+  requestedGroup?: string
+) {
+  const fallbackGroup = groups[0]?.name || 'all';
+  return groups.some((item) => item.name === requestedGroup)
+    ? requestedGroup || fallbackGroup
+    : fallbackGroup;
+}
+
+function ShowcasesBlock({
+  section,
+  initialGroup,
+}: {
+  section: LegacySection;
+  initialGroup?: string;
+}) {
+  const groups = useMemo(() => section.groups || [], [section.groups]);
+  const [group, setGroup] = useState(() =>
+    resolveShowcaseGroup(groups, initialGroup)
+  );
+  useEffect(() => {
+    setGroup(resolveShowcaseGroup(groups, initialGroup));
+  }, [groups, initialGroup]);
   const items = useMemo(() => {
     if (group === 'all') return section.items || [];
     return (section.items || []).filter((item) => item.group === group);
@@ -2993,9 +4059,13 @@ function ShowcasesBlock({ section }: { section: LegacySection }) {
             className="mb-12 flex flex-wrap justify-center gap-4"
           >
             {groups.map((item) => (
-              <button
+              <a
                 key={item.name}
-                type="button"
+                href={
+                  item.name === groups[0]?.name
+                    ? '#showcases'
+                    : `?group=${encodeURIComponent(item.name)}#showcases`
+                }
                 data-showcase-group-button={item.name}
                 aria-pressed={group === item.name}
                 className={cn(
@@ -3004,10 +4074,26 @@ function ShowcasesBlock({ section }: { section: LegacySection }) {
                     ? 'text-primary ring-primary/30 bg-background ring-2 ring-inset'
                     : 'border-border bg-background text-foreground hover:bg-accent hover:text-accent-foreground border'
                 )}
-                onClick={() => setGroup(item.name)}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setGroup(item.name);
+                  if (typeof window === 'undefined') return;
+                  const url = new URL(window.location.href);
+                  if (item.name === groups[0]?.name) {
+                    url.searchParams.delete('group');
+                  } else {
+                    url.searchParams.set('group', item.name);
+                  }
+                  url.hash = 'showcases';
+                  window.history.replaceState(
+                    null,
+                    '',
+                    `${url.pathname}${url.search}${url.hash}`
+                  );
+                }}
               >
                 {item.title}
-              </button>
+              </a>
             ))}
           </div>
         ) : null}
@@ -3061,25 +4147,15 @@ function ShowcasesBlock({ section }: { section: LegacySection }) {
                 </div>
               );
             }
-            return /^https?:\/\//.test(item.url) ? (
-              <a
-                key={`${item.title || 'showcase'}-${index}`}
-                href={item.url}
-                target={item.target || '_blank'}
-                rel="noopener noreferrer"
-                className="block h-full"
-              >
-                {content}
-              </a>
-            ) : (
-              <Link
+            return (
+              <LegacyLink
                 key={`${item.title || 'showcase'}-${index}`}
                 href={item.url}
                 target={item.target}
                 className="block h-full"
               >
                 {content}
-              </Link>
+              </LegacyLink>
             );
           })}
           {!items.length ? (
@@ -3096,29 +4172,29 @@ function ShowcasesBlock({ section }: { section: LegacySection }) {
 function CtaBlock({
   section,
   onVideo,
+  onSample,
 }: {
   section: LegacySection;
   onVideo: (button: LegacyButton) => void;
+  onSample: (button: LegacyButton) => void;
 }) {
   return (
     <section
       id={section.id}
       className={cn(
-        'relative overflow-hidden border-b py-24 md:py-32',
+        'relative overflow-hidden py-24 md:py-32',
         section.className
       )}
     >
       <div className="mx-auto max-w-6xl px-6">
-        <div className="border-border/50 from-primary/10 via-accent/5 to-primary/5 relative overflow-hidden rounded-3xl border bg-gradient-to-br p-10 text-center shadow-2xl backdrop-blur-sm sm:p-12 md:p-16 lg:p-20">
-          <div className="from-primary/15 to-primary/5 pointer-events-none absolute -top-24 right-12 size-64 rounded-full bg-gradient-to-br blur-3xl" />
-          <div className="from-accent/10 to-primary/10 pointer-events-none absolute bottom-0 left-0 size-56 rounded-full bg-gradient-to-tr blur-3xl" />
+        <div className="bg-secondary/40 relative overflow-hidden rounded-3xl p-10 text-center sm:p-12 md:p-16 lg:p-20">
           <div className="relative z-10 mx-auto max-w-4xl">
             {section.subtitle || section.label ? (
-              <p className="bg-primary/20 text-primary mb-4 inline-flex rounded-full px-4 py-1.5 text-sm font-semibold">
+              <p className="text-primary mb-4 text-sm font-semibold tracking-wide">
                 {section.subtitle || section.label}
               </p>
             ) : null}
-            <h2 className="text-foreground text-4xl font-bold tracking-normal sm:text-5xl md:text-6xl">
+            <h2 className="text-foreground text-3xl font-semibold tracking-tight text-balance sm:text-4xl md:text-5xl">
               {section.title}
             </h2>
             {section.description ? (
@@ -3133,11 +4209,12 @@ function CtaBlock({
                     key={`${button.title}-${index}`}
                     button={button}
                     onVideo={onVideo}
+                    onSample={onSample}
                     className={cn(
-                      'rounded-xl px-8 py-4 text-base shadow-xl transition-all hover:-translate-y-0.5',
+                      'rounded-full px-8 py-4 text-base transition-colors',
                       button.variant === 'outline'
-                        ? 'border-primary/30 bg-background text-foreground hover:border-primary/50 hover:bg-accent/10'
-                        : 'from-primary to-primary/90 text-primary-foreground shadow-primary/30 hover:shadow-primary/40 bg-gradient-to-r hover:shadow-2xl'
+                        ? 'border-border bg-background text-foreground hover:bg-muted border shadow-none'
+                        : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm'
                     )}
                   />
                 ))}
@@ -3154,12 +4231,12 @@ function SectionHeading({ section }: { section: LegacySection }) {
   return (
     <div className="mx-auto max-w-3xl text-center">
       {section.subtitle || section.label ? (
-        <p className="bg-primary/10 text-primary mb-3 inline-flex rounded-full px-4 py-1.5 text-sm font-semibold">
+        <p className="text-primary mb-3 text-sm font-semibold tracking-wide">
           {section.subtitle || section.label}
         </p>
       ) : null}
       {section.title ? (
-        <h2 className="text-foreground mb-4 text-3xl font-bold tracking-normal sm:text-4xl md:text-5xl">
+        <h2 className="text-foreground mb-4 text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
           {section.title}
         </h2>
       ) : null}
@@ -3174,10 +4251,7 @@ function SectionHeading({ section }: { section: LegacySection }) {
 
 function GenericSection({ section }: { section: LegacySection }) {
   return (
-    <section
-      id={section.id}
-      className="border-b bg-white py-18 dark:bg-neutral-950"
-    >
+    <section id={section.id} className="bg-white py-18 dark:bg-neutral-950">
       <div className="mx-auto w-full max-w-6xl px-6">
         <SectionHeading section={section} />
         {section.items?.length ? (
@@ -3215,9 +4289,9 @@ function PartnerPromoCard({
   if (!promo?.title && !promo?.banner_title) return null;
 
   return (
-    <section className="border-b bg-white py-8 dark:bg-neutral-950">
+    <section className="bg-white py-8 dark:bg-neutral-950">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="border-primary/25 from-primary/10 to-primary/5 grid gap-5 rounded-lg border bg-gradient-to-r p-6 md:grid-cols-[1fr_auto] md:items-center">
+        <div className="border-border/60 bg-secondary/40 grid gap-5 rounded-xl border p-6 md:grid-cols-[1fr_auto] md:items-center">
           <div className="flex min-w-0 gap-4">
             <div className="bg-primary/15 text-primary flex size-11 shrink-0 items-center justify-center rounded-lg">
               <PiggyBank className="size-5" aria-hidden="true" />
@@ -3260,7 +4334,7 @@ function PartnerPromoBanner({
   return (
     <Link
       href="/referral"
-      className="border-primary/25 from-primary/10 to-primary/5 mx-auto mt-8 flex max-w-6xl items-center gap-3 rounded-lg border bg-gradient-to-r p-4"
+      className="border-border/60 bg-secondary/40 mx-auto mt-8 flex max-w-6xl items-center gap-3 rounded-xl border p-4"
     >
       <div className="bg-primary/15 text-primary flex size-10 shrink-0 items-center justify-center rounded-lg">
         <Share className="size-5" aria-hidden="true" />
@@ -3276,127 +4350,1190 @@ function PartnerPromoBanner({
   );
 }
 
-function BusinessDictionaryPage({ data }: { data: LegacyPageData }) {
-  const survey = data.channel_survey;
-  const feedback = data.experience_feedback;
+type ChannelSurveyTaskState = {
+  status?: string | null;
+  rewardType?: string | null;
+  rewardCredentialCode?: string | null;
+};
+
+type ChannelSurveyFormState = {
+  source: string;
+  sourceAi: string;
+  sourceQuestion: string;
+  searchEngine: string;
+  searchQuestion: string;
+  sourceOther: string;
+  role: string;
+  roleOther: string;
+  platform: string;
+  useCases: string[];
+};
+
+function getInitialChannelSurveyForm(
+  survey?: LegacyPageData['channel_survey']
+): ChannelSurveyFormState {
+  return {
+    source: survey?.source_options?.[0]?.value || '',
+    sourceAi: '',
+    sourceQuestion: '',
+    searchEngine: '',
+    searchQuestion: '',
+    sourceOther: '',
+    role: survey?.role_options?.[0]?.value || '',
+    roleOther: '',
+    platform: survey?.platform_options?.[0]?.value || '',
+    useCases: [],
+  };
+}
+
+function getBrowserInstallId() {
+  if (typeof window === 'undefined') return '';
+
+  const key = 'mediaclaw_browser_install_id';
+  const existing = window.localStorage.getItem(key);
+  if (existing) return existing;
+
+  const next =
+    typeof window.crypto?.randomUUID === 'function'
+      ? window.crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  window.localStorage.setItem(key, next);
+  return next;
+}
+
+function getCurrentPath(fallback = '/welfare') {
+  if (typeof window === 'undefined') return fallback;
+  return `${window.location.pathname}${window.location.search}`;
+}
+
+function getWelfareEntryPoint(fallback = 'welfare_direct') {
+  if (typeof window === 'undefined') return fallback;
+  return new URLSearchParams(window.location.search).get('entry') || fallback;
+}
+
+function getWelfareQueryParam(name: string) {
+  if (typeof window === 'undefined') return '';
+  return new URLSearchParams(window.location.search).get(name) || '';
+}
+
+function getSurveyErrorMessage(
+  survey: LegacyPageData['channel_survey'] | undefined,
+  error: any,
+  fallback: string
+) {
+  const message = String(error?.message || '').trim();
+  return survey?.errors?.[message] || message || fallback;
+}
+
+function isEnglishWelfarePage(data: LegacyPageData) {
+  return String(data.hero?.eyebrow || '')
+    .toLowerCase()
+    .includes('welfare');
+}
+
+function isEnglishSurvey(survey?: LegacyPageData['channel_survey']) {
+  return String(survey?.sign_in_action || '')
+    .toLowerCase()
+    .includes('sign');
+}
+
+function NativeSelect({
+  id,
+  value,
+  onChange,
+  options = [],
+}: {
+  id: string;
+  value: string;
+  onChange: (value: string) => void;
+  options?: Array<{ label: string; value: string }>;
+}) {
   return (
-    <>
-      <section className="relative overflow-hidden border-b bg-white py-20 md:py-28 dark:bg-neutral-950">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:44px_44px]" />
-        <div className="relative mx-auto max-w-5xl px-6 text-center">
-          {data.hero?.eyebrow ? (
-            <p className="text-sm font-semibold text-pink-600">
-              {data.hero.eyebrow}
-            </p>
-          ) : null}
-          <h1 className="mt-3 text-4xl font-bold tracking-normal md:text-6xl">
-            {data.hero?.title || data.metadata?.title}
-          </h1>
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-neutral-600 dark:text-neutral-300">
-            {data.hero?.description || data.metadata?.description}
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link
-              href="/sign-in"
-              className="inline-flex items-center gap-2 rounded-md bg-neutral-950 px-5 py-3 text-sm font-semibold text-white dark:bg-white dark:text-neutral-950"
-            >
-              {data.hero?.sign_in_action || data.hero?.primary_action}
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              href="/settings/credentials"
-              className="inline-flex items-center gap-2 rounded-md border px-5 py-3 text-sm font-semibold"
-            >
-              {data.hero?.secondary_action || '查看激活码'}
-            </Link>
-          </div>
-        </div>
-      </section>
+    <select
+      id={id}
+      value={value}
+      onChange={(event) => onChange(event.target.value)}
+      className="border-input bg-background ring-offset-background focus-visible:ring-ring h-10 w-full rounded-md border px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+    >
+      {options.map((option) => (
+        <option key={`${id}-${option.value}`} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+  );
+}
 
-      <PartnerPromoCard promo={data.partner_promo} />
-
-      {data.reward_flow?.items?.length ? (
-        <section className="border-b bg-neutral-50 py-18 dark:bg-neutral-950">
-          <div className="mx-auto max-w-6xl px-6">
-            <SectionHeading
-              section={{
-                title: data.reward_flow.title,
-                description: data.reward_flow.guide?.title,
-              }}
-            />
-            <div className="mt-10 grid gap-5 md:grid-cols-3">
-              {data.reward_flow.items.map((item, index) => (
-                <Card key={`${item.title}-${index}`}>
-                  <CardContent className="p-6">
-                    <div className="mb-4 flex size-11 items-center justify-center rounded-lg bg-pink-100 text-pink-700 dark:bg-pink-950/40 dark:text-pink-200">
-                      <SmartIcon name={item.icon} className="size-5" />
-                    </div>
-                    <h2 className="text-xl font-semibold">{item.title}</h2>
-                    <p className="mt-3 text-sm leading-7 text-neutral-600 dark:text-neutral-300">
-                      {item.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-            <PartnerPromoBanner promo={data.partner_promo} />
-          </div>
-        </section>
+function SurveyQuestionBlock({
+  title,
+  htmlFor,
+  children,
+  className,
+}: {
+  title?: string;
+  htmlFor?: string;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <section
+      className={cn(
+        'bg-card/70 rounded-xl border p-4 shadow-sm md:p-5',
+        className
+      )}
+    >
+      {title ? (
+        <Label htmlFor={htmlFor} className="text-base leading-6 font-semibold">
+          {title}
+        </Label>
       ) : null}
+      <div className="mt-3 space-y-3">{children}</div>
+    </section>
+  );
+}
 
-      {survey ? (
-        <section className="border-b bg-white py-18 dark:bg-neutral-950">
-          <div className="mx-auto max-w-6xl px-6">
-            <SectionHeading
-              section={{ title: survey.title, description: survey.description }}
-            />
-            <div className="mt-10 grid gap-5 lg:grid-cols-2">
-              <OptionGroup title="了解来源" items={survey.source_options} />
-              <OptionGroup title="用户身份" items={survey.role_options} />
-              <OptionGroup
-                title="核心运营平台"
-                items={survey.platform_options}
-              />
-              <OptionGroup
-                title="使用目的"
-                items={survey.use_case_options?.map((item) => ({
-                  label: item.label,
-                  value: item.capabilities?.join(' / ') || item.value,
-                }))}
-              />
-            </div>
+function isExtendableCredential(credential: UserCredentialSummary) {
+  const status = String(credential.status || '').toLowerCase();
+  return Boolean(
+    credential.id &&
+    credential.code &&
+    (status === 'active' || status === 'trial')
+  );
+}
+
+function formatCredentialExpiresAt(value?: string | Date | null) {
+  if (!value) return '长期';
+  if (value instanceof Date) return value.toISOString().slice(0, 10);
+  return String(value).slice(0, 10) || '长期';
+}
+
+function ChannelSurveyRewardDialog({
+  open,
+  onOpenChange,
+  survey,
+  rewardFlow,
+  task,
+  credentialsAction,
+  onCopyCode,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  survey: LegacyPageData['channel_survey'];
+  rewardFlow?: LegacyPageData['reward_flow'];
+  task: ChannelSurveyTaskState | null;
+  credentialsAction?: string;
+  onCopyCode: (code: string) => void;
+}) {
+  const english = isEnglishSurvey(survey);
+  const code = task?.rewardCredentialCode || '';
+  const isExtension = task?.rewardType === 'paid_extension';
+  const modalCopy = rewardFlow?.success_modal;
+  const title = isExtension
+    ? modalCopy?.extension_title ||
+      (english ? 'Benefits Extended' : '权益已延长')
+    : modalCopy?.title || (english ? 'Reward Claimed' : '领取成功');
+  const description = isExtension
+    ? survey?.paid_extension_done ||
+      (english
+        ? 'The selected activation code has received the reward. Re-verify it in the extension to refresh benefits.'
+        : '所选激活码已获得福利奖励。回到插件重新验证后即可刷新权益。')
+    : survey?.trial_done ||
+      (english
+        ? 'Copy the activation code, then enter and verify it in the extension settings.'
+        : '请复制激活码，然后回到插件设置页输入并验证。');
+  const guideTitle =
+    rewardFlow?.guide?.title ||
+    (english ? 'Activation Setup Guide' : '激活码配置引导');
+  const guideSteps =
+    rewardFlow?.guide?.steps ||
+    (english
+      ? [
+          'Open the MediaClaw extension and enter Preferences from the top-right menu.',
+          'Paste the activation code into Product Authorization Status.',
+          'Click Verify and Bind to start using premium features.',
+        ]
+      : [
+          '打开 MediaClaw 插件，点击右上角菜单进入「偏好设置」。',
+          '在「产品授权状态」中粘贴激活码。',
+          '点击「验证并绑定」，完成后即可开始使用。',
+        ]);
+  const codeLabel =
+    modalCopy?.code_label || (english ? 'Activation Code' : '激活码');
+  const downloadAction =
+    rewardFlow?.download_action ||
+    (english ? 'Download Extension' : '下载插件');
+  const credentialsLabel =
+    modalCopy?.action ||
+    survey?.view_reward ||
+    credentialsAction ||
+    (english ? 'View My Activation Codes' : '查看我的激活码');
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-h-[92vh] overflow-y-auto sm:max-w-5xl">
+        <DialogHeader className="items-center text-center">
+          <div className="bg-primary/10 text-primary flex size-16 items-center justify-center rounded-full">
+            <ShieldCheck className="size-8" aria-hidden="true" />
           </div>
-        </section>
-      ) : null}
+          <DialogTitle className="text-2xl font-bold">{title}</DialogTitle>
+          <DialogDescription className="max-w-3xl text-base leading-7">
+            {description}
+          </DialogDescription>
+        </DialogHeader>
 
-      {feedback ? (
-        <section className="border-b bg-neutral-50 py-18 dark:bg-neutral-950">
-          <div className="mx-auto max-w-5xl px-6">
-            <SectionHeading
-              section={{
-                title: feedback.title,
-                description: feedback.description,
-              }}
-            />
-            <div className="mt-10 rounded-lg border bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900">
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <p className="text-sm text-neutral-500">
-                    {feedback.reward_label}
-                  </p>
-                  <p className="mt-1 text-2xl font-semibold">
-                    {feedback.reward_value}
-                  </p>
+        <div className="mt-2 grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="space-y-4">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="bg-muted/40 rounded-xl border p-4">
+                <div className="text-foreground flex items-center gap-2 font-semibold">
+                  <Download
+                    className="text-primary size-4"
+                    aria-hidden="true"
+                  />
+                  {english
+                    ? '1. Install or Open MediaClaw'
+                    : '1. 下载或打开 MediaClaw'}
                 </div>
-                <Link href="/download" className={buttonVariants()}>
-                  下载插件
+                <p className="text-muted-foreground mt-2 text-sm leading-6">
+                  {english
+                    ? 'If you have not installed the extension yet, install it first. If it is already installed, open the extension and follow the setup steps.'
+                    : '如果还没安装插件，先下载并安装；如果已经安装，打开插件后按下面步骤配置激活码。'}
+                </p>
+                <Link
+                  href="/download"
+                  className={cn(
+                    buttonVariants({ variant: 'outline' }),
+                    'mt-3 w-full'
+                  )}
+                >
+                  <Download className="size-4" aria-hidden="true" />
+                  {downloadAction}
+                </Link>
+              </div>
+
+              <div className="bg-muted/40 rounded-xl border p-4">
+                <div className="text-foreground flex items-center gap-2 font-semibold">
+                  <KeyRound
+                    className="text-primary size-4"
+                    aria-hidden="true"
+                  />
+                  {english ? '2. Configure the Code' : '2. 配置激活码'}
+                </div>
+                <p className="text-muted-foreground mt-2 text-sm leading-6">
+                  {english
+                    ? 'Enter the code in Product Authorization Status, then verify and bind it to refresh your extension benefits.'
+                    : '在「产品授权状态」输入激活码，再点击「验证并绑定」，插件里的权益会刷新。'}
+                </p>
+                <Link
+                  href="/settings/credentials"
+                  className={cn(
+                    buttonVariants({ variant: 'outline' }),
+                    'mt-3 w-full'
+                  )}
+                >
+                  <KeyRound className="size-4" aria-hidden="true" />
+                  {credentialsLabel}
                 </Link>
               </div>
             </div>
+
+            <div className="rounded-xl border p-4">
+              <h3 className="text-foreground font-semibold">{guideTitle}</h3>
+              <ol className="mt-3 space-y-3">
+                {guideSteps.map((step, index) => (
+                  <li key={`${step}-${index}`} className="flex gap-3">
+                    <span className="bg-primary/10 text-primary flex size-6 shrink-0 items-center justify-center rounded-full text-sm font-bold">
+                      {index + 1}
+                    </span>
+                    <span className="text-muted-foreground text-sm leading-6">
+                      {step}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
-        </section>
-      ) : null}
+
+          <div className="space-y-4">
+            <div className="border-primary/30 bg-primary/5 rounded-xl border p-5">
+              <p className="text-muted-foreground text-sm font-semibold">
+                {codeLabel}
+              </p>
+              <div className="mt-3 flex items-center gap-3">
+                <code className="text-primary min-w-0 flex-1 text-2xl font-bold tracking-[0.18em] break-all">
+                  {code || '-'}
+                </code>
+                {code ? (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => onCopyCode(code)}
+                  >
+                    <Copy className="size-4" aria-hidden="true" />
+                    <span className="sr-only">
+                      {english ? 'Copy activation code' : '复制激活码'}
+                    </span>
+                  </Button>
+                ) : null}
+              </div>
+            </div>
+
+            <div className="rounded-xl border p-4">
+              <div className="text-foreground flex items-center gap-2 font-semibold">
+                <Rocket className="text-primary size-4" aria-hidden="true" />
+                {english ? 'Next Step' : '下一步'}
+              </div>
+              <p className="text-muted-foreground mt-2 text-sm leading-6">
+                {english
+                  ? 'After verification, return to MediaClaw and complete one high-value task: scrape a search result, extract a transcript, or sync data to Feishu.'
+                  : '验证完成后，回到 MediaClaw 先完成一个高价值动作：采集搜索结果、提取逐字稿，或同步到飞书。'}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <DialogFooter className="mt-2 flex-col gap-2 sm:flex-row">
+          <Link
+            href="/settings/credentials"
+            className={cn(buttonVariants({ size: 'lg' }), 'w-full sm:w-auto')}
+          >
+            {credentialsLabel}
+          </Link>
+          <Link
+            href="/download"
+            className={cn(
+              buttonVariants({ variant: 'outline', size: 'lg' }),
+              'w-full sm:w-auto'
+            )}
+          >
+            {downloadAction}
+          </Link>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function BenefitGiftNavItem({
+  icon,
+  title,
+  description,
+}: {
+  icon: string;
+  title?: string;
+  description?: string;
+}) {
+  return (
+    <div className="bg-card text-card-foreground rounded-lg border p-4 shadow-sm">
+      <div className="flex items-start gap-3">
+        <div className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center rounded-lg">
+          <SmartIcon name={icon} className="size-5" />
+        </div>
+        <div className="min-w-0">
+          <p className="font-semibold">{title}</p>
+          {description ? (
+            <p className="text-muted-foreground mt-1 text-sm leading-6">
+              {description}
+            </p>
+          ) : null}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BenefitGiftCard({
+  icon,
+  title,
+  description,
+  status,
+  giftLabel,
+  children,
+}: {
+  icon: string;
+  title?: string;
+  description?: string;
+  status?: string;
+  giftLabel: string;
+  children?: ReactNode;
+}) {
+  return (
+    <div className="bg-card text-card-foreground rounded-lg border p-5 shadow-sm md:p-6">
+      <div className="flex flex-col gap-4 md:flex-row md:items-start">
+        <div className="bg-primary/10 text-primary flex size-12 shrink-0 items-center justify-center rounded-lg">
+          <SmartIcon name={icon} className="size-6" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-3">
+            <Badge className="bg-primary/10 text-primary hover:bg-primary/10">
+              <Gift className="mr-1 size-3.5" aria-hidden="true" />
+              {giftLabel}
+            </Badge>
+            {status ? (
+              <Badge className="bg-muted text-muted-foreground hover:bg-muted">
+                {status}
+              </Badge>
+            ) : null}
+          </div>
+          <h2 className="mt-3 text-2xl font-bold tracking-normal md:text-3xl">
+            {title}
+          </h2>
+          {description ? (
+            <p className="text-muted-foreground mt-3 max-w-4xl text-base leading-7">
+              {description}
+            </p>
+          ) : null}
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ChannelSurveyGift({
+  survey,
+  rewardFlow,
+  credentialsAction,
+}: {
+  survey: LegacyPageData['channel_survey'];
+  rewardFlow?: LegacyPageData['reward_flow'];
+  credentialsAction?: string;
+}) {
+  const router = useRouter();
+  const { data: session, isPending: sessionPending } = useSession();
+  const english = isEnglishSurvey(survey);
+  const copy = {
+    loading: english ? 'Loading reward status...' : '正在加载福利状态...',
+    loadFailed: english ? 'Failed to load reward status' : '福利状态加载失败',
+    required: english
+      ? 'Please complete the required choices and expanded fields first'
+      : '请先完成必填选项和已展开的补充信息',
+    rewardIssued: english ? 'Reward issued' : '奖励已发放',
+    submitFailed: english
+      ? 'Submit failed. Please try again later'
+      : '提交失败，请稍后重试',
+  };
+  const [task, setTask] = useState<ChannelSurveyTaskState | null>(null);
+  const [credentials, setCredentials] = useState<UserCredentialSummary[]>([]);
+  const [form, setForm] = useState<ChannelSurveyFormState>(() =>
+    getInitialChannelSurveyForm(survey)
+  );
+  const [hydrated, setHydrated] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [confirmCredentialOpen, setConfirmCredentialOpen] = useState(false);
+  const [rewardDialogOpen, setRewardDialogOpen] = useState(false);
+  const [selectedRewardCredentialId, setSelectedRewardCredentialId] =
+    useState('');
+
+  const completed = task?.status === 'completed';
+  const extendableCredentials = useMemo(
+    () => credentials.filter(isExtendableCredential),
+    [credentials]
+  );
+  const hasCredentials = extendableCredentials.length > 0;
+  const sourceNeedsAi = form.source === 'ai';
+  const sourceNeedsSearch = form.source === 'search';
+  const sourceNeedsOther = form.source === 'other';
+  const roleNeedsOther = form.role === 'other';
+
+  useEffect(() => {
+    setForm((current) => ({
+      ...current,
+      source: current.source || survey?.source_options?.[0]?.value || '',
+      role: current.role || survey?.role_options?.[0]?.value || '',
+      platform: current.platform || survey?.platform_options?.[0]?.value || '',
+    }));
+  }, [survey]);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated || sessionPending) return;
+    if (!session?.user) {
+      setTask(null);
+      setCredentials([]);
+      return;
+    }
+
+    let active = true;
+    async function load() {
+      setLoading(true);
+      try {
+        const [taskResult, credentialResult] = await Promise.all([
+          apiGet<{ task?: ChannelSurveyTaskState | null }>(
+            '/api/rewards/channel-survey'
+          ),
+          apiGet<PageResult<UserCredentialSummary>>(
+            '/api/user/get-credentials?page=1&pageSize=100&status=all'
+          ),
+        ]);
+        if (!active) return;
+
+        const rows = (credentialResult?.items || []).filter(
+          isExtendableCredential
+        );
+        setTask(taskResult?.task || null);
+        setCredentials(rows);
+        setSelectedRewardCredentialId(
+          (current) => current || rows[0]?.id || ''
+        );
+      } catch (error: any) {
+        if (active) {
+          toast.error(getSurveyErrorMessage(survey, error, copy.loadFailed));
+        }
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+
+    void load();
+    return () => {
+      active = false;
+    };
+  }, [hydrated, sessionPending, session?.user?.id, survey, copy.loadFailed]);
+
+  function updateForm(patch: Partial<ChannelSurveyFormState>) {
+    setForm((current) => ({ ...current, ...patch }));
+  }
+
+  function toggleUseCase(value: string) {
+    setForm((current) => {
+      const exists = current.useCases.includes(value);
+      return {
+        ...current,
+        useCases: exists
+          ? current.useCases.filter((item) => item !== value)
+          : [...current.useCases, value],
+      };
+    });
+  }
+
+  function goToSignIn() {
+    router.push(`/sign-in?callbackUrl=${encodeURIComponent(getCurrentPath())}`);
+  }
+
+  function validateSurvey() {
+    const requiredMessage = survey?.errors?.required || copy.required;
+
+    if (!form.source || !form.role || !form.platform || !form.useCases.length) {
+      toast.error(requiredMessage);
+      return false;
+    }
+    if (sourceNeedsAi && (!form.sourceAi || !form.sourceQuestion)) {
+      toast.error(requiredMessage);
+      return false;
+    }
+    if (sourceNeedsSearch && (!form.searchEngine || !form.searchQuestion)) {
+      toast.error(requiredMessage);
+      return false;
+    }
+    if (sourceNeedsOther && !form.sourceOther) {
+      toast.error(requiredMessage);
+      return false;
+    }
+    if (roleNeedsOther && !form.roleOther) {
+      toast.error(requiredMessage);
+      return false;
+    }
+    return true;
+  }
+
+  function buildAnalyticsContext(entryPoint: string, browserInstallId: string) {
+    return {
+      source: getWelfareQueryParam('source') || undefined,
+      entry: entryPoint,
+      installId: getWelfareQueryParam('install_id') || undefined,
+      browserInstallId,
+      feature: getWelfareQueryParam('feature') || undefined,
+      intent: getWelfareQueryParam('intent') || undefined,
+      reason: getWelfareQueryParam('reason') || undefined,
+      hasCredentials,
+      surveySource: form.source,
+      surveyRole: form.role,
+      surveyPlatform: form.platform,
+      surveyUseCases: form.useCases,
+    };
+  }
+
+  async function grantSurveyReward(rewardCredentialId?: string) {
+    const entryPoint = getWelfareEntryPoint();
+    const browserInstallId = getBrowserInstallId();
+    const analyticsContext = buildAnalyticsContext(
+      entryPoint,
+      browserInstallId
+    );
+
+    recordAnalyticsEventSafe('trial_claim_started', analyticsContext);
+    setSubmitting(true);
+    try {
+      const result = await apiPost<{
+        task?: ChannelSurveyTaskState;
+        rewardType?: string;
+        rewardCredentialCode?: string;
+      }>('/api/rewards/channel-survey', {
+        surveySource: form.source,
+        surveyRole: form.role,
+        surveyUseCase: form.useCases.join(','),
+        surveyDetail: JSON.stringify({
+          platform: form.platform,
+          sourceAi: form.sourceAi,
+          sourceQuestion: form.sourceQuestion,
+          searchEngine: form.searchEngine,
+          searchQuestion: form.searchQuestion,
+          sourceOther: form.sourceOther,
+          roleOther: form.roleOther,
+        }),
+        rewardCredentialId,
+        entryPoint,
+        browserInstallId,
+      });
+
+      const nextTask = result.task || {
+        status: 'completed',
+        rewardType: result.rewardType,
+        rewardCredentialCode: result.rewardCredentialCode,
+      };
+      setTask(nextTask);
+      setConfirmCredentialOpen(false);
+      setRewardDialogOpen(true);
+      recordAnalyticsEventSafe('trial_claim_success', {
+        ...analyticsContext,
+        rewardType: result.rewardType || result.task?.rewardType,
+        rewardCredentialCode:
+          result.rewardCredentialCode || result.task?.rewardCredentialCode,
+      });
+      toast.success(survey?.success || copy.rewardIssued);
+    } catch (error: any) {
+      toast.error(getSurveyErrorMessage(survey, error, copy.submitFailed));
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function submitSurvey() {
+    if (!validateSurvey()) return;
+    if (hasCredentials) {
+      setSelectedRewardCredentialId(
+        (current) => current || extendableCredentials[0]?.id || ''
+      );
+      setConfirmCredentialOpen(true);
+      return;
+    }
+
+    await grantSurveyReward();
+  }
+
+  async function confirmCredentialReward() {
+    if (!selectedRewardCredentialId) {
+      toast.error(
+        survey?.errors?.reward_credential_required ||
+          (english
+            ? 'Please choose an activation code to extend'
+            : '请选择要延长的激活码')
+      );
+      return;
+    }
+    await grantSurveyReward(selectedRewardCredentialId);
+  }
+
+  function copyRewardCode(code: string) {
+    if (!code) return;
+    void navigator.clipboard?.writeText(code);
+    toast.success(
+      survey?.copy_success ||
+        (english ? 'Activation code copied' : '激活码已复制')
+    );
+  }
+
+  const rewardDialog = (
+    <ChannelSurveyRewardDialog
+      open={rewardDialogOpen}
+      onOpenChange={setRewardDialogOpen}
+      survey={survey}
+      rewardFlow={rewardFlow}
+      task={task}
+      credentialsAction={credentialsAction}
+      onCopyCode={copyRewardCode}
+    />
+  );
+
+  const confirmCredentialDialog = (
+    <Dialog
+      open={confirmCredentialOpen}
+      onOpenChange={setConfirmCredentialOpen}
+    >
+      <DialogContent className="sm:max-w-lg">
+        <DialogHeader>
+          <DialogTitle>
+            {english
+              ? 'Choose Activation Code to Extend'
+              : '选择要延长的激活码'}
+          </DialogTitle>
+          <DialogDescription>
+            {english
+              ? 'Your account already has activation codes. Please confirm which one should receive this welfare reward.'
+              : '当前账号下已有激活码，请确认本次福利奖励要延长到哪一个激活码上。'}
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-3">
+          <Label htmlFor="welfare-reward-credential">
+            {english ? 'Activation code' : '激活码'}
+          </Label>
+          <NativeSelect
+            id="welfare-reward-credential"
+            value={selectedRewardCredentialId}
+            onChange={setSelectedRewardCredentialId}
+            options={extendableCredentials.map((credential) => ({
+              value: credential.id || '',
+              label: credentialOptionLabel(credential),
+            }))}
+          />
+          {selectedRewardCredentialId ? (
+            <div className="text-muted-foreground rounded-lg border p-3 text-sm leading-6">
+              {extendableCredentials
+                .filter(
+                  (credential) => credential.id === selectedRewardCredentialId
+                )
+                .map((credential) => (
+                  <div key={credential.id}>
+                    <p className="text-foreground font-semibold">
+                      {credential.code}
+                    </p>
+                    <p>
+                      {credentialPlanLabel(credential.planCode)} ·{' '}
+                      {english ? 'expires' : '到期'}{' '}
+                      {formatCredentialExpiresAt(credential.expiresAt)}
+                    </p>
+                  </div>
+                ))}
+            </div>
+          ) : null}
+        </div>
+        <DialogFooter>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => setConfirmCredentialOpen(false)}
+            disabled={submitting}
+          >
+            {survey?.reward_credential?.cancel || (english ? 'Cancel' : '取消')}
+          </Button>
+          <Button
+            type="button"
+            onClick={() => void confirmCredentialReward()}
+            disabled={submitting}
+          >
+            {submitting ? (
+              <Loader2
+                className="mr-2 size-4 animate-spin"
+                aria-hidden="true"
+              />
+            ) : null}
+            {english ? 'Confirm and Claim' : '确认延长并领取奖励'}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+
+  if (!hydrated || sessionPending || loading) {
+    return (
+      <div className="bg-background/70 text-muted-foreground mt-5 flex items-center gap-3 rounded-lg border p-4 text-sm">
+        <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+        {copy.loading}
+      </div>
+    );
+  }
+
+  if (!session?.user) {
+    return (
+      <div className="bg-background/70 mt-5 rounded-lg border p-4">
+        <p className="text-muted-foreground text-sm leading-6">
+          {survey?.sign_in_required}
+        </p>
+        <Button className="mt-4" onClick={goToSignIn}>
+          {survey?.sign_in_action || '登录 / 注册'}
+        </Button>
+      </div>
+    );
+  }
+
+  if (completed) {
+    const message =
+      task?.rewardType === 'paid_extension'
+        ? survey?.paid_extension_done
+        : survey?.trial_done;
+    return (
+      <>
+        <div className="bg-background/70 mt-5 rounded-lg border p-4">
+          <div className="flex items-start gap-3">
+            <CheckCircle2
+              className="text-primary mt-0.5 size-5 shrink-0"
+              aria-hidden="true"
+            />
+            <div className="min-w-0 flex-1">
+              <p className="font-semibold">
+                {survey?.success || copy.rewardIssued}
+              </p>
+              <p className="text-muted-foreground mt-1 text-sm leading-6">
+                {message}
+              </p>
+            </div>
+          </div>
+          <Button
+            type="button"
+            className="mt-4 w-full sm:w-auto"
+            onClick={() => setRewardDialogOpen(true)}
+          >
+            {survey?.view_reward || credentialsAction || '查看奖励'}
+          </Button>
+        </div>
+        {rewardDialog}
+      </>
+    );
+  }
+
+  return (
+    <>
+      <div className="mt-5 space-y-4">
+        <SurveyQuestionBlock
+          htmlFor="welfare-source"
+          title={
+            survey?.fields?.source ||
+            (english
+              ? 'Where did you hear about MediaClaw?'
+              : '你从哪里了解到 MediaClaw？')
+          }
+          className="md:p-6"
+        >
+          <NativeSelect
+            id="welfare-source"
+            value={form.source}
+            onChange={(source) => updateForm({ source })}
+            options={survey?.source_options}
+          />
+
+          {sourceNeedsAi ? (
+            <div className="grid gap-3 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="welfare-source-ai">
+                  {survey?.fields?.source_ai}
+                </Label>
+                <Input
+                  id="welfare-source-ai"
+                  value={form.sourceAi}
+                  onChange={(event) =>
+                    updateForm({ sourceAi: event.target.value })
+                  }
+                  placeholder={survey?.placeholders?.source_ai}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="welfare-source-question">
+                  {survey?.fields?.source_question}
+                </Label>
+                <Input
+                  id="welfare-source-question"
+                  value={form.sourceQuestion}
+                  onChange={(event) =>
+                    updateForm({ sourceQuestion: event.target.value })
+                  }
+                  placeholder={survey?.placeholders?.source_question}
+                />
+              </div>
+            </div>
+          ) : null}
+
+          {sourceNeedsSearch ? (
+            <div className="grid gap-3 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="welfare-search-engine">
+                  {survey?.fields?.search_engine}
+                </Label>
+                <Input
+                  id="welfare-search-engine"
+                  value={form.searchEngine}
+                  onChange={(event) =>
+                    updateForm({ searchEngine: event.target.value })
+                  }
+                  placeholder={survey?.placeholders?.search_engine}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="welfare-search-question">
+                  {survey?.fields?.search_question}
+                </Label>
+                <Input
+                  id="welfare-search-question"
+                  value={form.searchQuestion}
+                  onChange={(event) =>
+                    updateForm({ searchQuestion: event.target.value })
+                  }
+                  placeholder={survey?.placeholders?.search_question}
+                />
+              </div>
+            </div>
+          ) : null}
+
+          {sourceNeedsOther ? (
+            <div className="space-y-2">
+              <Label htmlFor="welfare-source-other">
+                {survey?.fields?.source_other}
+              </Label>
+              <Input
+                id="welfare-source-other"
+                value={form.sourceOther}
+                onChange={(event) =>
+                  updateForm({ sourceOther: event.target.value })
+                }
+                placeholder={survey?.placeholders?.source_other}
+              />
+            </div>
+          ) : null}
+        </SurveyQuestionBlock>
+
+        <div className="grid gap-4 lg:grid-cols-2">
+          <SurveyQuestionBlock
+            htmlFor="welfare-role"
+            title={
+              survey?.fields?.role ||
+              (english ? 'What best describes you?' : '你的身份是？')
+            }
+          >
+            <NativeSelect
+              id="welfare-role"
+              value={form.role}
+              onChange={(role) => updateForm({ role })}
+              options={survey?.role_options}
+            />
+            {roleNeedsOther ? (
+              <div className="space-y-2">
+                <Label htmlFor="welfare-role-other">
+                  {survey?.fields?.role_other}
+                </Label>
+                <Input
+                  id="welfare-role-other"
+                  value={form.roleOther}
+                  onChange={(event) =>
+                    updateForm({ roleOther: event.target.value })
+                  }
+                  placeholder={survey?.placeholders?.role_other}
+                />
+              </div>
+            ) : null}
+          </SurveyQuestionBlock>
+
+          <SurveyQuestionBlock
+            htmlFor="welfare-platform"
+            title={
+              survey?.fields?.platform ||
+              (english ? 'Core operating platform' : '核心运营平台')
+            }
+          >
+            <NativeSelect
+              id="welfare-platform"
+              value={form.platform}
+              onChange={(platform) => updateForm({ platform })}
+              options={survey?.platform_options}
+            />
+          </SurveyQuestionBlock>
+        </div>
+
+        <SurveyQuestionBlock title={survey?.fields?.use_case}>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {(survey?.use_case_options || []).map((item) => {
+              const checked = form.useCases.includes(item.value);
+              return (
+                <label
+                  key={item.value}
+                  className={cn(
+                    'hover:bg-muted/60 flex cursor-pointer gap-3 rounded-lg border p-3 text-sm transition-colors',
+                    checked && 'border-primary bg-primary/5'
+                  )}
+                >
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    onChange={() => toggleUseCase(item.value)}
+                    className="accent-primary mt-1 size-4 shrink-0"
+                  />
+                  <span>
+                    <span className="font-medium">{item.label}</span>
+                    {item.capabilities?.length ? (
+                      <span className="text-muted-foreground mt-1 block text-xs leading-5">
+                        {item.capabilities.join(' / ')}
+                      </span>
+                    ) : null}
+                  </span>
+                </label>
+              );
+            })}
+          </div>
+        </SurveyQuestionBlock>
+
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t pt-5">
+          <p className="text-muted-foreground max-w-3xl text-sm leading-6">
+            {survey?.auto_reward_note ||
+              (english
+                ? 'When you submit, MediaClaw checks your account: no activation code creates a trial code; existing activation codes require your confirmation.'
+                : '提交后系统会检测当前账号：没有激活码则直接生成新的试用码；已有激活码会先让你确认要延长哪一个。')}
+          </p>
+          <Button onClick={submitSurvey} disabled={submitting}>
+            {submitting ? (
+              <Loader2
+                className="mr-2 size-4 animate-spin"
+                aria-hidden="true"
+              />
+            ) : null}
+            {survey?.submit}
+          </Button>
+        </div>
+      </div>
+      {confirmCredentialDialog}
+      {rewardDialog}
     </>
+  );
+}
+
+function BusinessDictionaryPage({ data }: { data: LegacyPageData }) {
+  const survey = data.channel_survey;
+  const feedback = data.experience_feedback;
+  const english = isEnglishWelfarePage(data);
+  const giftLabel = english ? 'Welfare gift' : '福利礼物';
+
+  return (
+    <section className="bg-background text-foreground px-6 pt-24 pb-10 md:pt-24 md:pb-16">
+      <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-4xl lg:ml-72">
+          {data.hero?.eyebrow ? (
+            <p className="text-primary text-sm font-semibold">
+              {data.hero.eyebrow}
+            </p>
+          ) : null}
+          <h1 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
+            {data.hero?.title || data.metadata?.title}
+          </h1>
+          <p className="text-muted-foreground mt-4 max-w-4xl text-lg leading-8">
+            {data.hero?.description || data.metadata?.description}
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-6 lg:grid-cols-[17rem_1fr]">
+          <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
+            <div className="space-y-3">
+              <div>
+                <h2 className="text-base font-semibold">
+                  {english ? 'Welfare gifts' : '福利礼物'}
+                </h2>
+                <p className="text-muted-foreground mt-1 text-sm leading-6">
+                  {english
+                    ? 'Choose the reward that matches your current state.'
+                    : '选择适合当前状态的奖励领取。'}
+                </p>
+              </div>
+              {survey ? (
+                <BenefitGiftNavItem
+                  icon="ClipboardCheck"
+                  title={survey.title}
+                  description={survey.description}
+                />
+              ) : null}
+              {feedback ? (
+                <BenefitGiftNavItem
+                  icon="MessageSquareText"
+                  title={feedback.title}
+                  description={feedback.description}
+                />
+              ) : null}
+            </div>
+
+            {data.partner_promo?.title || data.partner_promo?.banner_title ? (
+              <Link
+                href="/referral"
+                className="border-primary/25 bg-primary/5 text-card-foreground hover:bg-primary/10 block rounded-lg border p-5 transition-colors"
+              >
+                <div className="bg-primary/10 text-primary flex size-11 items-center justify-center rounded-lg">
+                  <Gift className="size-5" aria-hidden="true" />
+                </div>
+                <p className="text-primary mt-4 text-sm font-semibold">
+                  {data.partner_promo.eyebrow}
+                </p>
+                <h2 className="mt-2 text-xl font-bold">
+                  {data.partner_promo.title || data.partner_promo.banner_title}
+                </h2>
+                <div className="text-muted-foreground mt-4 space-y-2 text-sm leading-6">
+                  {data.partner_promo.you ? (
+                    <p>{data.partner_promo.you}</p>
+                  ) : null}
+                  {data.partner_promo.friend ? (
+                    <p>{data.partner_promo.friend}</p>
+                  ) : null}
+                </div>
+                <span className="bg-primary text-primary-foreground mt-5 inline-flex w-full items-center justify-center rounded-md px-4 py-2.5 text-sm font-semibold">
+                  {data.partner_promo.action ||
+                    data.partner_promo.banner_action}
+                </span>
+              </Link>
+            ) : null}
+          </aside>
+
+          <div className="space-y-6">
+            {survey ? (
+              <BenefitGiftCard
+                icon="ClipboardCheck"
+                title={survey.title}
+                description={survey.description}
+                status={survey.status?.available}
+                giftLabel={giftLabel}
+              >
+                <ChannelSurveyGift
+                  survey={survey}
+                  rewardFlow={data.reward_flow}
+                  credentialsAction={
+                    data.reward_flow?.credentials_action ||
+                    data.hero?.secondary_action
+                  }
+                />
+              </BenefitGiftCard>
+            ) : null}
+
+            {feedback ? (
+              <BenefitGiftCard
+                icon="MessageSquareText"
+                title={feedback.title}
+                description={feedback.description}
+                status={
+                  feedback.status?.plugin_required || feedback.status?.available
+                }
+                giftLabel={giftLabel}
+              >
+                <div className="border-border mt-5 flex flex-wrap items-center justify-between gap-4 border-t pt-5">
+                  <div className="border-primary/30 bg-primary/5 rounded-md border px-4 py-3">
+                    <span className="text-muted-foreground text-sm">
+                      {feedback.reward_label}
+                    </span>
+                    <span className="text-primary ml-2 font-bold">
+                      {feedback.reward_value}
+                    </span>
+                  </div>
+                  <Link
+                    href="/download"
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-bold"
+                  >
+                    {feedback.download_plugin ||
+                      data.reward_flow?.download_action}
+                  </Link>
+                </div>
+              </BenefitGiftCard>
+            ) : null}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -3430,7 +5567,9 @@ function OptionGroup({
 function renderSection(
   section: LegacySection,
   onVideo: (button: LegacyButton) => void,
-  fallbackPoster?: string
+  onSample: (button: LegacyButton) => void,
+  fallbackPoster?: string,
+  initialShowcaseGroup?: string
 ) {
   const block = section.block || section.id;
 
@@ -3440,6 +5579,7 @@ function renderSection(
         <CompactPageHero
           section={section}
           onVideo={onVideo}
+          onSample={onSample}
           fallbackPoster={fallbackPoster}
         />
       );
@@ -3448,6 +5588,7 @@ function renderSection(
         <PageHero
           section={section}
           onVideo={onVideo}
+          onSample={onSample}
           fallbackPoster={fallbackPoster}
         />
       );
@@ -3462,6 +5603,12 @@ function renderSection(
       return <FeatureCards section={section} />;
     case 'features-scroll':
       return <FeaturesScroll section={section} />;
+    case 'sample-preview':
+      return (
+        <SamplePreviewBlock section={section} fallbackPoster={fallbackPoster} />
+      );
+    case 'output-options':
+      return <OutputOptionsBlock section={section} />;
     case 'data-table':
       return <DataTableBlock section={section} />;
     case 'related-links':
@@ -3480,16 +5627,27 @@ function renderSection(
     case 'testimonials':
       return <TestimonialsBlock section={section} />;
     case 'showcases':
-      return <ShowcasesBlock section={section} />;
+      return (
+        <ShowcasesBlock section={section} initialGroup={initialShowcaseGroup} />
+      );
     case 'cta':
-      return <CtaBlock section={section} onVideo={onVideo} />;
+      return (
+        <CtaBlock section={section} onVideo={onVideo} onSample={onSample} />
+      );
     default:
       return <GenericSection section={section} />;
   }
 }
 
-export function LegacyDynamicPage({ data }: { data: LegacyPageData }) {
+export function LegacyDynamicPage({
+  data,
+  initialShowcaseGroup,
+}: {
+  data: LegacyPageData;
+  initialShowcaseGroup?: string;
+}) {
   const [videoConfig, setVideoConfig] = useState<DemoVideoConfig | null>(null);
+  const [sampleConfig, setSampleConfig] = useState<LegacyButton | null>(null);
   const sections = data.page?.sections;
   const sectionKeys = data.page?.show_sections || Object.keys(sections || {});
   const fallbackPoster = resolvePageVideoFallbackPoster(data);
@@ -3506,15 +5664,24 @@ export function LegacyDynamicPage({ data }: { data: LegacyPageData }) {
             {sectionKeys.map((key) => {
               const section = sections[key];
               if (!section) return null;
+              const localizedSection = data.messages
+                ? { ...section, messages: data.messages }
+                : section;
               return (
                 <div key={key}>
                   {renderSection(
-                    section,
+                    localizedSection,
                     (button) =>
                       setVideoConfig(
-                        resolveDemoVideoConfig(section, button, fallbackPoster)
+                        resolveDemoVideoConfig(
+                          localizedSection,
+                          button,
+                          fallbackPoster
+                        )
                       ),
-                    fallbackPoster
+                    setSampleConfig,
+                    fallbackPoster,
+                    initialShowcaseGroup
                   )}
                 </div>
               );
@@ -3553,6 +5720,34 @@ export function LegacyDynamicPage({ data }: { data: LegacyPageData }) {
               <SegmentedVideo config={videoConfig} />
             ) : null}
           </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={Boolean(sampleConfig)}
+        onOpenChange={(open) => {
+          if (!open) setSampleConfig(null);
+        }}
+      >
+        <DialogContent
+          showCloseButton={false}
+          className="border-border/60 bg-card/95 w-[min(96vw,1280px)] max-w-[min(96vw,1280px)] overflow-visible p-0 sm:max-w-[min(96vw,1280px)]"
+        >
+          <DialogClose
+            render={
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                className="border-border/70 bg-background/95 text-muted-foreground hover:bg-accent hover:text-foreground absolute top-2 right-2 z-20 border shadow-lg backdrop-blur sm:-top-3 sm:-right-3"
+              />
+            }
+          >
+            <X className="size-4" aria-hidden="true" />
+            <span className="sr-only">关闭</span>
+          </DialogClose>
+          {sampleConfig ? (
+            <SampleDataDialogContent sample={sampleConfig} />
+          ) : null}
         </DialogContent>
       </Dialog>
     </div>

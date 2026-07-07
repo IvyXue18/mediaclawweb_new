@@ -15,6 +15,9 @@ const pages = {
 };
 
 export const Route = createFileRoute('/showcases')({
+  validateSearch: (search: Record<string, unknown>) => ({
+    group: typeof search.group === 'string' ? search.group : undefined,
+  }),
   loader: () => localizedLegacyLoader(pages),
   head: ({ loaderData }) =>
     localizedLegacyHead('/showcases', pages, loaderData),
@@ -23,5 +26,6 @@ export const Route = createFileRoute('/showcases')({
 
 function ShowcasesPage() {
   const { data } = Route.useLoaderData();
-  return <LegacyDynamicPage data={data} />;
+  const { group } = Route.useSearch();
+  return <LegacyDynamicPage data={data} initialShowcaseGroup={group} />;
 }

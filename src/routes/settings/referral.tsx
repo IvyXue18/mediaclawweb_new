@@ -34,9 +34,6 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 
-const WITHDRAW_CONTACT_TEXT =
-  '扫描二维码，备注"返佣"+提供注册邮箱号\n审核时间：1个工作日\n到账方式：微信或支付宝';
-
 type ReferralOverview = {
   account: {
     inviteCode: string;
@@ -205,6 +202,7 @@ function ReferralPage() {
   const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const withdrawContactText = m['settings.referral.withdraw.contact_text']();
 
   const query = useQuery({
     queryKey: ['settings-referral'],
@@ -225,7 +223,7 @@ function ReferralPage() {
   const withdrawalMutation = useMutation({
     mutationFn: () =>
       apiPost('/api/referral/withdrawals', {
-        contactSnapshot: WITHDRAW_CONTACT_TEXT,
+        contactSnapshot: withdrawContactText,
         currency,
       }),
     onSuccess: () => {
@@ -570,7 +568,7 @@ function ReferralPage() {
                 {m['settings.referral.withdraw.contact_title']()}
               </p>
               <p className="text-muted-foreground mt-1 text-sm whitespace-pre-line">
-                {WITHDRAW_CONTACT_TEXT ||
+                {withdrawContactText ||
                   m['settings.referral.withdraw.contact_fallback']()}
               </p>
             </div>

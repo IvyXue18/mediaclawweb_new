@@ -1,13 +1,13 @@
 {
   "metadata": {
     "title": "MediaClaw 福利中心 - 领取试用与使用奖励",
-    "description": "进入 MediaClaw 福利中心，完成渠道调研，并在插件内达成使用体验反馈里程碑后领取试用或权益延长。",
+    "description": "进入 MediaClaw 福利中心，完成渠道调研和插件体验反馈，领取试用或权益延长。",
     "keywords": "MediaClaw福利中心, 试用激活码, 激活码领取, 渠道调研, 使用体验反馈"
   },
   "hero": {
     "eyebrow": "福利中心",
     "title": "领取 MediaClaw 福利奖励",
-    "description": "完成渠道调研后可领取渠道奖励；使用体验反馈需要在插件内达成真实使用里程碑后领取。",
+    "description": "完成渠道调研可领取奖励；真实体验插件后，还可在插件内补充反馈领取额外奖励。",
     "primary_action": "领取福利奖励",
     "sign_in_action": "登录后领取",
     "secondary_action": "查看我的激活码"
@@ -22,26 +22,21 @@
     "banner_action": "去邀请"
   },
   "reward_flow": {
-    "title": "3 步领取奖励",
-    "step": "步骤 {index}",
+    "title": "福利奖励",
+    "step": "福利 {index}",
     "signed_in": "已登录",
     "credentials_action": "查看我的激活码",
     "download_action": "下载插件",
     "sample_code": "ACT-XXXX-XXXX",
     "items": [
       {
-        "title": "登录并确认账号",
-        "description": "奖励会绑定到当前账号。同一账号每个福利任务只能领取一次，登录后可继续填写任务。",
-        "icon": "LogIn"
-      },
-      {
-        "title": "完成渠道调研任务",
-        "description": "我们希望了解您从哪里了解到本插件、准备用它优先解决什么问题，以便迭代出更符合大家需求的产品。",
+        "title": "渠道调研福利",
+        "description": "登录后回答几个问题，提交后按账号状态领取试用或确认延长奖励。",
         "icon": "ClipboardCheck"
       },
       {
-        "title": "补充使用体验反馈",
-        "description": "在插件内完成采集、导出/同步和高价值功能体验后，填写真实反馈领取奖励。",
+        "title": "体验反馈福利",
+        "description": "真实体验采集、导出/同步或监控能力后，在插件内提交反馈领取额外奖励。",
         "icon": "MessageSquareText"
       }
     ],
@@ -63,8 +58,8 @@
     }
   },
   "channel_survey": {
-    "title": "渠道调研任务",
-    "description": "完成后自动发放奖励。新用户可获得试用激活码；已有激活码用户提交后可选择延长指定激活码。",
+    "title": "渠道调研福利",
+    "description": "提交后领取奖励：没有激活码会直接发放试用码，已有激活码需确认要延长哪一个。",
     "sign_in_required": "请先登录或注册账号。登录完成后会回到福利中心继续领取。",
     "sign_in_action": "登录 / 注册",
     "unavailable": "福利中心数据表尚未初始化，请先执行官网数据库迁移。",
@@ -225,10 +220,11 @@
     "use_case_hint": "可多选。选项只记录你的使用目的，鼠标停在问号上可查看插件的哪些能力可以帮到你。",
     "capability_title": "能用到",
     "submit": "提交并领取奖励",
-    "submit_extend": "确认延长并领取奖励",
+    "submit_extend": "提交并领取奖励",
+    "auto_reward_note": "提交后系统会检测当前账号：没有激活码则直接生成新的试用码；已有激活码会先让你确认要延长哪一个。",
     "reward_credential": {
       "title": "选择要延长的激活码",
-      "description": "你当前账号下已有激活码。请选择本次奖励要延长到哪个激活码上；如果没有激活码，系统会自动生成新的试用码。",
+      "description": "当前账号已有激活码，请确认本次福利奖励要延长到哪一个激活码上。",
       "permanent": "长期有效",
       "bindings": "台设备",
       "cancel": "取消"
@@ -250,8 +246,8 @@
     }
   },
   "experience_feedback": {
-    "title": "使用体验反馈",
-    "description": "使用体验反馈需要在插件内完成真实体验里程碑，官网仅展示进度。",
+    "title": "体验反馈福利",
+    "description": "体验反馈只在插件内提交，官网保留领取入口和最终状态。",
     "sign_in_required": "请先登录或注册账号。登录完成后会回到福利中心继续领取。",
     "sign_in_action": "登录 / 注册",
     "unavailable": "福利中心数据表尚未初始化，请先执行官网数据库迁移。",
@@ -294,7 +290,7 @@
       "expected_feature": "例如：希望优先增加哪些采集、分析、同步或自动化能力"
     },
     "submit": "提交反馈并领取奖励",
-    "submit_extend": "确认延长并领取奖励",
+    "submit_extend": "提交并领取奖励",
     "success_title": "反馈已提交",
     "extension_title": "权益已延长",
     "trial_done": "已生成试用激活码。请复制后回到插件设置页输入并验证。",
@@ -303,8 +299,8 @@
     "copy_success": "激活码已复制",
     "success": "奖励已发放",
     "reward_credential": {
-      "title": "选择要延长的激活码",
-      "description": "你当前账号下已有激活码。请选择本次奖励要延长到哪个激活码上；如果没有激活码，系统会自动生成新的试用码。",
+      "title": "奖励发放规则",
+      "description": "提交时如果已有激活码，需要确认要延长哪一个；没有激活码则生成新的试用码。",
       "permanent": "长期有效",
       "bindings": "台设备"
     },

@@ -10,6 +10,7 @@ import { Download, MoreHorizontal, Plus, Users } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { apiGet, apiPatch, apiPost, type PageResult } from '@/lib/api-client';
+import { m } from '@/paraglide/messages.js';
 import { DataTable, type Column } from '@/components/data-table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -55,6 +56,33 @@ function statusVariant(
   return 'destructive';
 }
 
+function formatPartnerStatus(status: string) {
+  const labels: Record<string, string> = {
+    active: m['admin.partners.status.active'](),
+    paused: m['admin.partners.status.paused'](),
+    disabled: m['admin.partners.status.disabled'](),
+  };
+  return labels[status] || status || '-';
+}
+
+function formatPartnerType(type: string) {
+  const labels: Record<string, string> = {
+    supplier: m['admin.partners.type.supplier'](),
+    channel: m['admin.partners.type.channel'](),
+    white_label: m['admin.partners.type.white_label'](),
+  };
+  return labels[type] || type || '-';
+}
+
+function formatContractStatus(status: string) {
+  const labels: Record<string, string> = {
+    draft: m['admin.partners.contract.draft'](),
+    signed: m['admin.partners.contract.signed'](),
+    expired: m['admin.partners.contract.expired'](),
+  };
+  return labels[status] || status || '-';
+}
+
 function AdminPartnersPage() {
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
@@ -98,7 +126,7 @@ function AdminPartnersPage() {
         seatLimit: Number(form.seatLimit || 0),
       }),
     onSuccess: () => {
-      toast.success('Partner created');
+      toast.success(m['admin.partners.messages.created']());
       setOpen(false);
       queryClient.invalidateQueries({ queryKey: ['admin-partners'] });
     },
@@ -112,7 +140,7 @@ function AdminPartnersPage() {
       contractStatus?: string;
     }) => apiPatch('/api/admin/partners', vars),
     onSuccess: () => {
-      toast.success('Partner updated');
+      toast.success(m['admin.partners.messages.updated']());
       queryClient.invalidateQueries({ queryKey: ['admin-partners'] });
     },
     onError: (error: Error) => toast.error(error.message),
@@ -120,7 +148,7 @@ function AdminPartnersPage() {
 
   const columns: Column<PartnerRow>[] = [
     {
-      header: 'Partner',
+      header: m['admin.partners.columns.partner'](),
       cell: (row) => (
         <div>
           <p className="font-medium">{row.name}</p>
@@ -131,19 +159,23 @@ function AdminPartnersPage() {
       ),
     },
     {
-      header: 'Owner',
+      header: m['admin.partners.columns.owner'](),
       cell: (row) => row.ownerEmail || '-',
     },
     {
-      header: 'Type',
-      cell: (row) => row.type,
+      header: m['admin.partners.columns.type'](),
+      cell: (row) => formatPartnerType(row.type),
     },
     {
-      header: 'Contract',
-      cell: (row) => <Badge variant="secondary">{row.contractStatus}</Badge>,
+      header: m['admin.partners.columns.contract_status'](),
+      cell: (row) => (
+        <Badge variant="secondary">
+          {formatContractStatus(row.contractStatus)}
+        </Badge>
+      ),
     },
     {
-      header: 'Seats',
+      header: m['admin.partners.columns.seats'](),
       cell: (row) => (
         <span className="tabular-nums">
           {row.usedSeats}/{row.seatLimit || '∞'}
@@ -151,9 +183,11 @@ function AdminPartnersPage() {
       ),
     },
     {
-      header: 'Status',
+      header: m['admin.partners.columns.status'](),
       cell: (row) => (
-        <Badge variant={statusVariant(row.status)}>{row.status}</Badge>
+        <Badge variant={statusVariant(row.status)}>
+          {formatPartnerStatus(row.status)}
+        </Badge>
       ),
     },
     {
@@ -165,7 +199,7 @@ function AdminPartnersPage() {
             variant="ghost"
             size="icon"
             className="size-8"
-            aria-label="Export credentials"
+            aria-label={m['admin.partners.actions.export_credentials']()}
             onClick={() => {
               window.location.href = `/api/partner/credentials/export?partnerId=${encodeURIComponent(row.id)}`;
             }}
@@ -186,7 +220,9 @@ function AdminPartnersPage() {
                   key={status}
                   onClick={() => updateMutation.mutate({ id: row.id, status })}
                 >
-                  Mark {status}
+                  {m['admin.partners.actions.set_status']({
+                    status: formatPartnerStatus(status),
+                  })}
                 </DropdownMenuItem>
               ))}
               {['draft', 'signed', 'expired'].map((contractStatus) => (
@@ -196,7 +232,9 @@ function AdminPartnersPage() {
                     updateMutation.mutate({ id: row.id, contractStatus })
                   }
                 >
-                  Contract {contractStatus}
+                  {m['admin.partners.actions.set_contract']({
+                    status: formatContractStatus(contractStatus),
+                  })}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
@@ -210,15 +248,14 @@ function AdminPartnersPage() {
     <div className="space-y-6 p-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Partners</h1>
+          <h1 className="text-2xl font-bold">{m['admin.partners.title']()}</h1>
           <p className="text-muted-foreground">
-            Manage supplier, channel, and white-label attribution on one
-            backend.
+            {m['admin.partners.description']()}
           </p>
         </div>
         <Button className="gap-2" onClick={() => setOpen(true)}>
           <Plus className="size-4" />
-          New partner
+          {m['admin.partners.create_button']()}
         </Button>
       </div>
 
@@ -234,10 +271,10 @@ function AdminPartnersPage() {
             rowKey={(row) => row.id}
             search={search}
             onSearchChange={setSearch}
-            searchPlaceholder="Search partner, code, or owner"
+            searchPlaceholder={m['admin.partners.search_placeholder']()}
             onRefresh={() => query.refetch()}
             loading={query.isFetching}
-            emptyText="No partners yet"
+            emptyText={m['admin.partners.empty']()}
           />
         </CardContent>
       </Card>
@@ -247,12 +284,14 @@ function AdminPartnersPage() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Users className="size-5" />
-              New partner
+              {m['admin.partners.create_title']()}
             </DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-2">
             <div className="grid gap-2">
-              <Label htmlFor="partner-name">Name</Label>
+              <Label htmlFor="partner-name">
+                {m['admin.partners.fields.name']()}
+              </Label>
               <Input
                 id="partner-name"
                 value={form.name}
@@ -261,7 +300,9 @@ function AdminPartnersPage() {
             </div>
             <div className="grid gap-2 sm:grid-cols-2">
               <div className="grid gap-2">
-                <Label htmlFor="partner-type">Type</Label>
+                <Label htmlFor="partner-type">
+                  {m['admin.partners.fields.type']()}
+                </Label>
                 <Input
                   id="partner-type"
                   value={form.type}
@@ -269,7 +310,9 @@ function AdminPartnersPage() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="partner-owner">Owner email</Label>
+                <Label htmlFor="partner-owner">
+                  {m['admin.partners.fields.owner_email']()}
+                </Label>
                 <Input
                   id="partner-owner"
                   value={form.ownerEmail}
@@ -281,7 +324,9 @@ function AdminPartnersPage() {
             </div>
             <div className="grid gap-2 sm:grid-cols-2">
               <div className="grid gap-2">
-                <Label htmlFor="variant-id">Variant ID</Label>
+                <Label htmlFor="variant-id">
+                  {m['admin.partners.fields.variant_id']()}
+                </Label>
                 <Input
                   id="variant-id"
                   value={form.variantId}
@@ -291,7 +336,9 @@ function AdminPartnersPage() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="seat-limit">Seat limit</Label>
+                <Label htmlFor="seat-limit">
+                  {m['admin.partners.fields.seat_limit']()}
+                </Label>
                 <Input
                   id="seat-limit"
                   type="number"
@@ -303,7 +350,9 @@ function AdminPartnersPage() {
               </div>
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="partner-notes">Notes</Label>
+              <Label htmlFor="partner-notes">
+                {m['admin.partners.fields.notes']()}
+              </Label>
               <Input
                 id="partner-notes"
                 value={form.notes}
@@ -313,13 +362,13 @@ function AdminPartnersPage() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setOpen(false)}>
-              Cancel
+              {m['admin.partners.cancel']()}
             </Button>
             <Button
               disabled={!form.name.trim() || createMutation.isPending}
               onClick={() => createMutation.mutate()}
             >
-              Create
+              {m['admin.partners.create_confirm']()}
             </Button>
           </DialogFooter>
         </DialogContent>

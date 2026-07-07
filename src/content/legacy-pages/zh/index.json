@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "MediaClaw 社媒虾｜小红书/抖音数据采集、评论挖掘、竞品监控工具",
-    "description": "一站式小红书/抖音数据采集与 AI 运营平台：支持笔记/视频数据采集、评论采集与客资挖掘、赛道机会判断、找对标账号、长尾关键词洞察、竞品账号监控、无水印素材下载，并可导出 Excel/CSV/Markdown 或同步飞书。",
+    "title": "小红书/抖音采集分析和 AI选题创作插件｜MediaClaw 社媒虾",
+    "description": "免费 Chrome 插件，一键采集小红书/抖音的图文视频笔记内容、评论与互动数据、账号信息；自动完成赛道判断、对标账号分析与账号监控，可提取视频逐字稿与配图文字，导出 Excel//Markdown 或同步飞书多维表格。",
     "keywords": "小红书数据采集, 小红书评论采集, 小红书客资挖掘, 小红书竞品监控, 小红书对标账号, 赛道机会判断, 抖音数据采集, 抖音评论采集, 抖音竞品监控, Markdown导出, 视频逐字稿, 配图文案, MediaClaw, 飞书同步"
   },
   "page": {
@@ -18,7 +18,7 @@
     "sections": {
       "hero": {
         "id": "hero",
-        "title": "小红书/抖音采集、赛道判断与对标监控一套搞定",
+        "title": "自媒体采集分析、AI选题创作一套搞定--10倍提效",
         "highlight_text": "10倍提效",
         "description": "覆盖小红书与抖音两大平台：笔记/视频采集、评论客资、赛道机会判断、找对标账号、长尾需求分析、竞品监控、Markdown 导出与飞书协同。采集后还能补齐配图文字和视频逐字稿，让素材更适合复盘和 AI 整理。",
         "announcement": {
@@ -28,12 +28,35 @@
         },
         "buttons": [
           {
-            "title": "免费开始",
+            "title": "效果演示",
+            "icon": "Play",
+            "action": "open_video_modal",
+            "video_title": "MediaClaw 5 分钟演示",
+            "variant": "default"
+          },
+          {
+            "title": "我要使用",
             "icon": "Download",
             "url": "/download",
-            "target": "_blank",
-            "variant": "default"
+            "variant": "outline"
           }
+        ],
+        "sample_url": "/downloads/samples/homepage-sample-data.csv",
+        "sample_trigger_title": "查看示例数据",
+        "sample_button_title": "下载完整 CSV",
+        "sample_limit": 7,
+        "sample_columns": [
+          "采集平台",
+          "博主",
+          "标题",
+          "正文",
+          "笔记类型",
+          "点赞数",
+          "收藏数",
+          "评论数",
+          "视频逐字稿提取",
+          "配图文案",
+          "评论内容"
         ],
         "show_avatars": false,
         "avatars_tip": "",
@@ -62,7 +85,7 @@
         "id": "platforms",
         "block": "feature-matrix",
         "label": "双平台覆盖",
-        "title": "一个插件，同时覆盖",
+        "title": "一个插件，多个平台",
         "description": "不再分平台切换工具，统一采集、统一分析、统一协作。",
         "columns": 2,
         "className": "bg-secondary/20",
@@ -93,7 +116,7 @@
       },
       "introduce": {
         "block": "features-tab",
-        "title": "不同角色，都能快速落地",
+        "title": "不同运营角色，都能快速落地",
         "description": "从内容运营到 MCN，再到创作者和分析师，都有可复用工作流。",
         "items": [
           {
@@ -145,7 +168,7 @@
             "description": "一键抓取标题、正文、互动数据、配图与视频信息，核心数据字段完整保留，便于后续分析复盘。",
             "icon": "Database",
             "image": {
-              "src": "/imgs/features/9-v20260424.webp",
+              "src": "/imgs/features/1-V20260706.png",
               "alt": "使用 MediaClaw 一键批量导出小红书笔记与抖音视频详细内容互动数据"
             },
             "button": {
@@ -263,23 +286,23 @@
       "pricing": {
         "id": "pricing",
         "block": "pricing",
-        "title": "选择方案",
-        "description": "核心采集功能永久免费，按需升级解锁高级功能",
+        "title": "简单透明的价格方案",
+        "description": "不自动续费，随用随买；采集只是第一步，MediaClaw 助你构建内容工作流系统",
         "groups": [
           {
             "name": "month",
-            "title": "月付",
-            "label": "灵活"
+            "title": "月付"
           },
           {
             "name": "monthly",
-            "title": "季付"
+            "title": "季付",
+            "label": "热门"
           },
           {
             "name": "yearly",
             "title": "年付",
             "is_featured": true,
-            "label": "立省30%"
+            "label": "省 60%"
           },
           {
             "name": "credits",
@@ -289,20 +312,22 @@
         "items": [
           {
             "title": "免费版",
-            "description": "适合个人用户，偶尔使用",
-            "features_title": "包含",
+            "description": "适合个人用户，低频使用",
             "features": [
               "单篇笔记/视频深度采集，适合逐条保存高价值内容",
-              "支持搜索页、账号页基础列表采集",
-              "本地数据池保存，支持 CSV，Markdown导出",
-              "支持无水印图片、视频、音频下载",
+              "单篇评论、客资采集",
+              "搜索页、账号页基础列表采集",
+              "本地数据池保存，支持 CSV、Markdown 导出",
+              "无水印图片、视频、音频下载",
               "单浏览器设备使用"
             ],
             "interval": "one-time",
             "amount": 0,
             "currency": "CNY",
+            "credits": 0,
+            "valid_days": 0,
             "price": "¥0",
-            "unit": "/ 月",
+            "unit": "",
             "is_featured": false,
             "button": {
               "title": "免费安装插件",
@@ -316,22 +341,28 @@
           },
           {
             "title": "个人版",
-            "description": "适合持续做选题、采集、筛选和复盘",
+            "description": "适合持续做采集分析、选题创作复盘的博主和运营",
             "label": "最受欢迎",
-            "features_title": "包含免费版全部能力，再加：",
+            "features_title": "包含免费版全部能力，另支持：",
             "features": [
-              "解锁采集增强：批量补全正文、标签、互动、附件媒体等详情数据内容",
-              "支持评论、博主指标、低粉爆款和客资线索筛选",
-              "数据同步飞书多维表格，沉淀选题和内容库",
-              "含 180 AI 积分，用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "搜索页、账号页采集增强：批量补全正文、标签、互动、附件媒体等详情数据",
+              "批量筛选低粉爆款、高意向客资线索",
+              "同步飞书 AI 模板，进行批量逐字稿提取、选题分析和二创改写",
               "单浏览器设备使用"
             ],
+            "credits_title": "含 180 积分，可用于：",
+            "credits_features": [
+              "对标账号监控和内容日报",
+              "自动找对标账号、分析关键词选题、批量拓展搜索下拉词给出选题地图",
+              "批量抓取内容分析品牌关键词相关舆情",
+              "插件内提取视频带时间戳口播稿，提取配图文案"
+            ],
             "interval": "one-time",
-            "amount": 4900,
+            "amount": 5900,
             "currency": "CNY",
             "credits": 180,
             "valid_days": 30,
-            "price": "¥49",
+            "price": "¥59",
             "unit": "/ 月",
             "is_featured": true,
             "is_popular": true,
@@ -348,13 +379,18 @@
           },
           {
             "title": "团队版",
-            "description": "适合团队共用数据、多人协作和持续监控",
-            "features_title": "包含个人版全部能力",
+            "description": "适合运营、品牌、MCN 团队使用",
+            "features_title": "包含个人版全部能力，另支持：",
             "features": [
-              "含 700 AI 积分，适合持续监控对标，选题和团队 AI 分析",
-              "支持多人数据同步一个飞书多维表格",
-              "适合内容团队、MCN、品牌投放和运营小组共用",
-              "支持 3 个浏览器设备同时使用"
+              "多人数据同步一个飞书多维表格协作",
+              "3 个浏览器设备同时使用"
+            ],
+            "credits_title": "含 700 积分，可用于：",
+            "credits_features": [
+              "对标账号监控和内容日报",
+              "自动找对标账号、分析关键词选题、批量拓展搜索下拉词给出选题地图",
+              "批量抓取内容分析品牌关键词相关舆情",
+              "插件内提取视频带时间戳口播稿，提取配图文案"
             ],
             "interval": "one-time",
             "amount": 12900,
@@ -377,20 +413,22 @@
           },
           {
             "title": "免费版",
-            "description": "适合个人用户，偶尔使用",
-            "features_title": "包含",
+            "description": "适合个人用户，低频使用",
             "features": [
               "单篇笔记/视频深度采集，适合逐条保存高价值内容",
-              "支持搜索页、账号页基础列表采集",
-              "本地数据池保存，支持 CSV，Markdown导出",
-              "支持无水印图片、视频、音频下载",
+              "单篇评论、客资采集",
+              "搜索页、账号页基础列表采集",
+              "本地数据池保存，支持 CSV、Markdown 导出",
+              "无水印图片、视频、音频下载",
               "单浏览器设备使用"
             ],
             "interval": "one-time",
             "amount": 0,
             "currency": "CNY",
+            "credits": 0,
+            "valid_days": 0,
             "price": "¥0",
-            "unit": "/ 季",
+            "unit": "",
             "is_featured": false,
             "button": {
               "title": "免费安装插件",
@@ -404,23 +442,30 @@
           },
           {
             "title": "个人版",
-            "description": "适合持续做选题、采集、筛选和复盘",
-            "label": "推荐",
-            "features_title": "包含免费版全部能力，再加：",
+            "description": "适合持续做采集分析、选题创作复盘的博主和运营",
+            "label": "最受欢迎",
+            "features_title": "包含免费版全部能力，另支持：",
             "features": [
-              "解锁采集增强：批量补全正文、标签、互动、附件媒体等详情数据内容",
-              "支持评论、博主指标、低粉爆款和客资线索筛选",
-              "数据同步飞书多维表格，沉淀选题和内容库",
-              "含 600 AI 积分，用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "搜索页、账号页采集增强：批量补全正文、标签、互动、附件媒体等详情数据",
+              "批量筛选低粉爆款、高意向客资线索",
+              "同步飞书 AI 模板，进行批量逐字稿提取、选题分析和二创改写",
               "单浏览器设备使用"
             ],
+            "credits_title": "含 400 积分，可用于：",
+            "credits_features": [
+              "对标账号监控和内容日报",
+              "自动找对标账号、分析关键词选题、批量拓展搜索下拉词给出选题地图",
+              "批量抓取内容分析品牌关键词相关舆情",
+              "插件内提取视频带时间戳口播稿，提取配图文案"
+            ],
             "interval": "one-time",
-            "amount": 11800,
+            "amount": 9900,
             "currency": "CNY",
-            "credits": 600,
+            "credits": 400,
             "valid_days": 90,
-            "price": "¥118",
-            "unit": "/ 季",
+            "price": "¥33",
+            "unit": "/ 月",
+            "price_total": "季度合计 ¥99",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],
@@ -436,21 +481,27 @@
           },
           {
             "title": "团队版",
-            "description": "适合团队共用数据、多人协作和持续监控",
-            "features_title": "包含个人版全部能力",
+            "description": "适合运营、品牌、MCN 团队使用",
+            "features_title": "包含个人版全部能力，另支持：",
             "features": [
-              "含 2000 AI 积分，适合持续监控对标，选题和团队 AI 分析",
-              "支持多人数据同步一个飞书多维表格",
-              "适合内容团队、MCN、品牌投放和运营小组共用",
-              "支持 3 个浏览器设备同时使用"
+              "多人数据同步一个飞书多维表格协作",
+              "3 个浏览器设备同时使用"
+            ],
+            "credits_title": "含 1500 积分，可用于：",
+            "credits_features": [
+              "对标账号监控和内容日报",
+              "自动找对标账号、分析关键词选题、批量拓展搜索下拉词给出选题地图",
+              "批量抓取内容分析品牌关键词相关舆情",
+              "插件内提取视频带时间戳口播稿，提取配图文案"
             ],
             "interval": "one-time",
-            "amount": 31800,
+            "amount": 26800,
             "currency": "CNY",
-            "credits": 2000,
+            "credits": 1500,
             "valid_days": 90,
-            "price": "¥318",
-            "unit": "/ 季",
+            "price": "¥89",
+            "unit": "/ 月",
+            "price_total": "季度合计 ¥268",
             "is_featured": false,
             "payment_providers": ["zpay"],
             "button": {
@@ -465,20 +516,22 @@
           },
           {
             "title": "免费版",
-            "description": "适合个人用户，偶尔使用",
-            "features_title": "包含",
+            "description": "适合个人用户，低频使用",
             "features": [
               "单篇笔记/视频深度采集，适合逐条保存高价值内容",
-              "支持搜索页、账号页基础列表采集",
-              "本地数据池保存，支持 CSV，Markdown导出",
-              "支持无水印图片、视频、音频下载",
+              "单篇评论、客资采集",
+              "搜索页、账号页基础列表采集",
+              "本地数据池保存，支持 CSV、Markdown 导出",
+              "无水印图片、视频、音频下载",
               "单浏览器设备使用"
             ],
-            "interval": "year",
+            "interval": "one-time",
             "amount": 0,
             "currency": "CNY",
+            "credits": 0,
+            "valid_days": 0,
             "price": "¥0",
-            "unit": "/ 年",
+            "unit": "",
             "is_featured": false,
             "button": {
               "title": "免费安装插件",
@@ -492,27 +545,33 @@
           },
           {
             "title": "个人版",
-            "description": "适合持续做选题、采集、筛选和复盘",
-            "label": "推荐",
-            "features_title": "包含免费版全部能力，再加：",
+            "description": "适合持续做采集分析、选题创作复盘的博主和运营",
+            "label": "最受欢迎",
+            "features_title": "包含免费版全部能力，另支持：",
             "features": [
-              "解锁采集增强：批量补全正文、标签、互动、附件媒体等详情数据内容",
-              "支持评论、博主指标、低粉爆款和客资线索筛选",
-              "数据同步飞书多维表格，沉淀选题和内容库",
-              "含 2500 AI 积分，用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
+              "搜索页、账号页采集增强：批量补全正文、标签、互动、附件媒体等详情数据",
+              "批量筛选低粉爆款、高意向客资线索",
+              "同步飞书 AI 模板，进行批量逐字稿提取、选题分析和二创改写",
               "单浏览器设备使用"
             ],
+            "credits_title": "含 1500 积分，可用于：",
+            "credits_features": [
+              "对标账号监控和内容日报",
+              "自动找对标账号、分析关键词选题、批量拓展搜索下拉词给出选题地图",
+              "批量抓取内容分析品牌关键词相关舆情",
+              "插件内提取视频带时间戳口播稿，提取配图文案"
+            ],
             "interval": "one-time",
-            "amount": 39900,
+            "amount": 28800,
             "currency": "CNY",
-            "credits": 2500,
+            "credits": 1500,
             "valid_days": 365,
-            "price": "¥399",
-            "original_price": "¥588",
-            "unit": "/ 年",
+            "price": "¥24",
+            "unit": "/ 月",
+            "price_total": "年度合计 ¥288",
+            "tip": "对比月付立省 60%",
             "is_featured": true,
             "is_popular": true,
-            "tip": "年付立省 ¥189",
             "payment_providers": ["zpay"],
             "button": {
               "title": "选择购买",
@@ -526,24 +585,29 @@
           },
           {
             "title": "团队版",
-            "description": "适合团队共用数据、多人协作和持续监控",
-            "features_title": "包含个人版全部能力",
+            "description": "适合运营、品牌、MCN 团队使用",
+            "features_title": "包含个人版全部能力，另支持：",
             "features": [
-              "含 9000 AI 积分，适合持续监控对标，选题和团队 AI 分析",
-              "支持多人数据同步一个飞书多维表格",
-              "适合内容团队、MCN、品牌投放和运营小组共用",
-              "支持 3 个浏览器设备同时使用"
+              "多人数据同步一个飞书多维表格协作",
+              "3 个浏览器设备同时使用"
+            ],
+            "credits_title": "含 5000 积分，可用于：",
+            "credits_features": [
+              "对标账号监控和内容日报",
+              "自动找对标账号、分析关键词选题、批量拓展搜索下拉词给出选题地图",
+              "批量抓取内容分析品牌关键词相关舆情",
+              "插件内提取视频带时间戳口播稿，提取配图文案"
             ],
             "interval": "one-time",
-            "amount": 108800,
+            "amount": 68800,
             "currency": "CNY",
-            "credits": 9000,
+            "credits": 5000,
             "valid_days": 365,
-            "price": "¥1088",
-            "original_price": "¥1548",
-            "unit": "/ 年",
+            "price": "¥57",
+            "unit": "/ 月",
+            "price_total": "年度合计 ¥688",
+            "tip": "对比月付立省 55%",
             "is_featured": false,
-            "tip": "年付立省 ¥460",
             "payment_providers": ["zpay"],
             "button": {
               "title": "选择购买",
@@ -559,23 +623,24 @@
             "title": "紧急补量积分包",
             "description": "适合临时增加 AI 分析和监控额度",
             "label": "最受欢迎",
-            "features_title": "包含",
             "features": [
-              "1000 AI 积分",
-              "用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
-              "适合短期活动、临时多跑几次分析或监控任务",
-              "仅用于已有正式会员补充积分，不单独解锁会员功能",
-              "不延长插件使用期；会员过期后积分冻结不清零，续费后可继续使用"
+              "200 AI 积分",
+              "自动找对标账号、分析关键词选题、批量拓展搜索下拉词给出选题地图",
+              "批量抓取内容分析品牌关键词相关舆情",
+              "插件内提取视频逐字稿，提取配图文案",
+              "仅用于已有正式会员补充积分，不单独解锁会员功能，不延长插件使用期",
+              "会员过期后积分冻结不清零，续费后可继续使用"
             ],
             "interval": "one-time",
             "amount": 2900,
             "currency": "CNY",
-            "credits": 1000,
+            "credits": 200,
             "valid_days": 0,
             "price": "¥29",
             "unit": "",
             "is_featured": true,
             "is_popular": true,
+            "payment_providers": ["zpay"],
             "button": {
               "title": "购买积分",
               "url": "/pricing",
@@ -588,23 +653,24 @@
           },
           {
             "title": "创作者常用包",
-            "description": "适合个人持续做选题、逐字稿和二创分析",
-            "features_title": "包含",
+            "description": "适合个人博主、运营持续大量分析选题和处理素材",
             "features": [
-              "3000 AI 积分",
-              "用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
-              "适合个人账号持续复盘内容、分析选题和处理素材",
-              "仅用于已有正式会员补充积分，不单独解锁会员功能",
-              "不延长插件使用期；会员过期后积分冻结不清零，续费后可继续使用"
+              "1000 AI 积分",
+              "自动找对标账号、分析关键词选题、批量拓展搜索下拉词给出选题地图",
+              "批量抓取内容分析品牌关键词相关舆情",
+              "插件内提取视频逐字稿，提取配图文案",
+              "仅用于已有正式会员补充积分，不单独解锁会员功能，不延长插件使用期",
+              "会员过期后积分冻结不清零，续费后可继续使用"
             ],
             "interval": "one-time",
             "amount": 7900,
             "currency": "CNY",
-            "credits": 3000,
+            "credits": 1000,
             "valid_days": 0,
             "price": "¥79",
             "unit": "",
             "is_featured": false,
+            "payment_providers": ["zpay"],
             "button": {
               "title": "购买积分",
               "url": "/pricing",
@@ -617,24 +683,25 @@
           },
           {
             "title": "多内容线团队包",
-            "description": "适合团队高频监控、批量分析和多项目复盘",
+            "description": "适合多项目、多成员持续分析和监控的团队场景",
             "label": "高容量",
-            "features_title": "包含",
             "features": [
-              "15000 AI 积分",
-              "用于对标监控、选题分析、长尾需求词分析、视频逐字稿和二创改写",
-              "适合多账号、多项目、多成员持续消耗积分的团队场景",
-              "仅用于已有正式会员补充积分，不单独解锁会员功能",
-              "不延长插件使用期；会员过期后积分冻结不清零，续费后可继续使用"
+              "2500 AI 积分",
+              "自动找对标账号、分析关键词选题、批量拓展搜索下拉词给出选题地图",
+              "批量抓取内容分析品牌关键词相关舆情",
+              "插件内提取视频逐字稿，提取配图文案",
+              "仅用于已有正式会员补充积分，不单独解锁会员功能，不延长插件使用期",
+              "会员过期后积分冻结不清零，续费后可继续使用"
             ],
             "interval": "one-time",
-            "amount": 36000,
+            "amount": 16900,
             "currency": "CNY",
-            "credits": 15000,
+            "credits": 2500,
             "valid_days": 0,
-            "price": "¥360",
+            "price": "¥169",
             "unit": "",
             "is_featured": false,
+            "payment_providers": ["zpay"],
             "button": {
               "title": "购买积分",
               "url": "/pricing",
@@ -645,7 +712,8 @@
             "product_name": "MediaClaw 多内容线团队包",
             "group": "credits"
           }
-        ]
+        ],
+        "default_group": "yearly"
       },
       "testimonials": {
         "id": "testimonials",
@@ -738,7 +806,7 @@
       },
       "cta": {
         "id": "cta",
-        "title": " 无论是谁，皆可提效",
+        "title": "无论是谁，皆可提效",
         "description": "免费安装 MediaClaw，先跑通你的第一套数据工作流。",
         "buttons": [
           {

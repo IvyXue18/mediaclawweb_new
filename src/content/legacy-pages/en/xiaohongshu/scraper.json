@@ -1,17 +1,17 @@
 {
   "metadata": {
-    "title": "Free RedNote & Xiaohongshu Scraper Chrome Extension",
-    "description": "Scrape RedNote/Xiaohongshu posts, profiles, and search results in your browser. Export to Excel or Markdown, backfill media text, or sync to Lark Base.",
-    "keywords": "RedNote scraper, red note scraper, Xiaohongshu scraper, RedNote scraper Chrome extension, export Xiaohongshu to Excel, no-code scraper, RedNote data export"
+    "title": "Free RedNote（Xiaohongshu） Scraper Chrome Extension | MediaClaw",
+    "description": "RedNote scraper Chrome extension: scrape Xiaohongshu posts, data and creator profiles. Export to CSV/Markdown, or sync to Lark Base.",
+    "keywords": "RedNote scraper, red note scraper, Xiaohongshu scraper, RedNote scraper Chrome extension, export Xiaohongshu to Excel, no-code scraper, RedNote data export, best free rednote scraper"
   },
   "page": {
     "title": "Xiaohongshu Post Scraper",
     "show_sections": [
       "hero",
-      "howto",
       "modes",
       "batch",
       "outputs",
+      "compare",
       "scenarios",
       "safety",
       "faq",
@@ -35,8 +35,8 @@
             "title": "Post Scraper"
           }
         ],
-        "title": "Free RedNote & Xiaohongshu Scraper Chrome Extension",
-        "description": "Scrape public RedNote (Xiaohongshu) posts, creator profiles, and keyword search results from your browser. Export to Excel/Markdown, backfill image text or video transcripts, and sync to Lark Base for competitor research and content planning.",
+        "title": "RedNote Scraper: Batch Export to CSV/Excel",
+        "description": "Scrape public RedNote (Xiaohongshu) posts, creator profiles, and keyword search results with a free no-code Chrome extension. One-click export to CSV/Excel or Markdown, or sync to Lark Base.",
         "buttons": [
           {
             "title": "Install Free Extension",
@@ -52,35 +52,6 @@
           }
         ],
         "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=222,258"
-      },
-      "howto": {
-        "id": "howto",
-        "block": "workflow-steps",
-        "label": "How It Works",
-        "title": "Scrape Xiaohongshu in 4 Steps — No Code",
-        "description": "From install to Excel export in under 5 minutes, no API keys or proxies.",
-        "items": [
-          {
-            "title": "Install the Free Extension",
-            "description": "Add MediaClaw to Chrome in one click. No account, API key, or proxy setup required to start.",
-            "icon": "Download"
-          },
-          {
-            "title": "Open Any Xiaohongshu Page",
-            "description": "Visit a RedNote post, creator profile, or keyword search result. The MediaClaw sidebar appears automatically.",
-            "icon": "Chrome"
-          },
-          {
-            "title": "Click Start to Scrape",
-            "description": "MediaClaw auto-scrolls and captures titles, body text, hashtags, engagement counts, and media URLs into structured rows.",
-            "icon": "Play"
-          },
-          {
-            "title": "Export to Excel or Lark",
-            "description": "Download Excel-ready data or Markdown in one click, backfill image text or transcripts, or sync to Lark Base for your team.",
-            "icon": "FileSpreadsheet"
-          }
-        ]
       },
       "batch": {
         "id": "batch",
@@ -196,9 +167,15 @@
       },
       "outputs": {
         "id": "outputs",
-        "block": "data-table",
+        "block": "output-options",
         "title": "Scraped Data Goes Straight to Work",
         "description": "Choose the output format that fits your workflow.",
+        "image": {
+          "src": "/imgs/generated/scraper-export-excel-1783399614029.png",
+          "alt": "MediaClaw exporting scraped data as CSV Markdown and Excel spreadsheet files",
+          "width": 1280,
+          "height": 760
+        },
         "columns": [
           {
             "key": "mode",
@@ -215,29 +192,28 @@
         ],
         "rows": [
           {
-            "mode": "Local Data Pool",
-            "desc": "View, search, and filter scraped results directly in the extension",
-            "scene": "Quick personal research and review"
+            "mode": "CSV / Markdown Export",
+            "desc": "Structured fields are ready for Excel, BI tools, or Python; Markdown keeps titles, captions, metrics, and source links for Obsidian or AI-assisted organization.",
+            "scene": "Deep analysis, topic-library review, and AI-assisted reporting",
+            "icon": "FileSpreadsheet",
+            "image_src": "/imgs/generated/scraper-export-excel-1783399614029.png",
+            "image_alt": "MediaClaw exporting scraped data as CSV Markdown and Excel spreadsheet files"
+          },
+          {
+            "mode": "Media File Download",
+            "desc": "Batch-save images and videos while keeping titles, authors, and source links structured for later filtering and review.",
+            "scene": "Visual reference libraries, viral-post breakdowns, and team sharing",
+            "icon": "ImageDown",
+            "image_src": "/imgs/generated/scraper-media-download-1783399633407.png",
+            "image_alt": "MediaClaw batch downloading image and video media files from scraped posts"
           },
           {
             "mode": "Lark Base Sync",
-            "desc": "One-click push to Lark Base for team collaboration and reporting",
-            "scene": "Shared datasets and task distribution"
-          },
-          {
-            "mode": "CSV / Markdown Export",
-            "desc": "Excel-ready fields for spreadsheets, BI tools, or Python; Markdown for Obsidian and AI-assisted organization",
-            "scene": "Deep data analysis and custom reporting"
-          },
-          {
-            "mode": "Source Data Backfill",
-            "desc": "Backfill image text or video transcripts on individual collected records",
-            "scene": "Viral post breakdowns and script research"
-          },
-          {
-            "mode": "Media Download",
-            "desc": "Batch-download images and videos for asset management",
-            "scene": "Building visual reference libraries"
+            "desc": "Push records into a collaborative base with mapped fields so teams can tag, assign, and turn the dataset into weekly reports.",
+            "scene": "Shared datasets, task distribution, and collaborative review",
+            "icon": "Table2",
+            "image_src": "/imgs/generated/scraper-lark-base-sync-1783399686070.png",
+            "image_alt": "MediaClaw syncing scraped data to a Lark Base table for team collaboration"
           }
         ]
       },
@@ -301,6 +277,10 @@
           {
             "question": "Can I export Rednote data without coding or API access?",
             "answer": "Yes. MediaClaw runs as a Chrome extension, so you do not need code, API keys, proxy setup, or a custom scraper. Install it, open a public Xiaohongshu page, and export the captured dataset."
+          },
+          {
+            "question": "Can I use scraped RedNote data in AI or MCP workflows?",
+            "answer": "Yes. Markdown export is designed for AI workflows — drop it into Obsidian, Notion AI, or any LLM for summarization and topic mining. Native MCP (Model Context Protocol) support is on our roadmap, so AI agents will be able to query your scraped data directly."
           }
         ]
       },
@@ -357,6 +337,79 @@
           }
         ],
         "className": "bg-secondary/20"
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "title": "MediaClaw vs. Cloud Scrapers, Scripts & APIs",
+        "description": "How a no-code browser extension compares with other ways to get RedNote data.",
+        "columns": [
+          {
+            "key": "item",
+            "title": ""
+          },
+          {
+            "key": "mediaclaw",
+            "title": "MediaClaw (Extension)",
+            "highlight": true
+          },
+          {
+            "key": "cloud",
+            "title": "Cloud Scrapers (e.g. Apify)"
+          },
+          {
+            "key": "script",
+            "title": "Open-Source Scripts"
+          },
+          {
+            "key": "api",
+            "title": "Paid APIs (e.g. TikHub)"
+          }
+        ],
+        "rows": [
+          {
+            "item": "Coding required",
+            "mediaclaw": "None — point and click",
+            "cloud": "Low, but actor config needed",
+            "script": "Python/Node required",
+            "api": "API integration required"
+          },
+          {
+            "item": "Cost model",
+            "mediaclaw": "Free tier, runs locally",
+            "cloud": "Pay per compute unit",
+            "script": "Free but high maintenance",
+            "api": "Pay per request"
+          },
+          {
+            "item": "Proxy / login setup",
+            "mediaclaw": "None — uses your own browser session",
+            "cloud": "Proxies + cookies required",
+            "script": "Proxies + cookies required",
+            "api": "Handled, at a price"
+          },
+          {
+            "item": "Anti-detection",
+            "mediaclaw": "Human-like scrolling, random waits, auto-pause",
+            "cloud": "Depends on actor quality",
+            "script": "DIY",
+            "api": "N/A"
+          },
+          {
+            "item": "Output",
+            "mediaclaw": "Excel/CSV/Markdown, Lark Base sync, OCR & transcript backfill",
+            "cloud": "JSON/CSV download",
+            "script": "Raw JSON",
+            "api": "JSON response"
+          },
+          {
+            "item": "Best for",
+            "mediaclaw": "Creators, marketers, ops teams",
+            "cloud": "Data engineers",
+            "script": "Developers",
+            "api": "Product integrations"
+          }
+        ]
       }
     }
   }

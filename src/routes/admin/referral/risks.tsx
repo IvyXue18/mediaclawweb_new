@@ -1,13 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { LegacyLinkPage } from '@/routes/-legacy-action-pages';
 
+import { m } from '@/paraglide/messages.js';
+
 export const Route = createFileRoute('/admin/referral/risks')({
   component: () => (
     <LegacyLinkPage
-      title="Referral Risks"
-      description="Referral risk records and review APIs are migrated; the full review table will be expanded here."
+      title={m['admin.referral.risks_page.title']()}
+      description={m['admin.referral.risks_page.description']()}
       href="/admin/referral"
-      label="Open referral operations"
+      label={m['admin.referral.risks_page.open']()}
     />
   ),
 });

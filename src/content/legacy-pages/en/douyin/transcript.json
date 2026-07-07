@@ -1,16 +1,18 @@
 {
   "metadata": {
-    "title": "Douyin Video Transcript Extractor - Timestamped Script",
-    "description": "Extract Douyin (TikTok China) voiceover transcripts in one click. Get a full transcript plus a timestamped, sentence-level script for pacing and rewrites.",
-    "keywords": "douyin video transcript, douyin voiceover transcript, douyin video to text, short video script extraction, timestamped transcript, douyin benchmark breakdown, douyin pacing analysis, batch transcript extraction"
+    "title": "Douyin Video Transcript Extractor | MediaClaw",
+    "description": "Douyin script extractor: pull timestamped, sentence-level video transcripts in one click. Break down pacing, rewrite scripts with AI, batch via Lark",
+    "keywords": "douyin script extractor, douyin video transcript, douyin voiceover transcript, douyin video to text, short video script extraction, timestamped transcript, douyin benchmark breakdown, douyin pacing analysis, batch transcript extraction"
   },
   "page": {
-    "title": "Douyin Video Transcript Extraction",
+    "title": "Douyin Script Extractor: Timestamped Transcripts in One Click",
     "show_sections": [
       "hero",
       "modes",
       "compare",
+      "compare_methods",
       "uses",
+      "scenarios",
       "faq",
       "related",
       "cta"
@@ -21,11 +23,18 @@
         "block": "page-hero",
         "label": "Douyin video transcript tool",
         "breadcrumbs": [
-          { "title": "Home", "url": "/" },
-          { "title": "Douyin" },
-          { "title": "Video Transcript" }
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Douyin"
+          },
+          {
+            "title": "Video Transcript"
+          }
         ],
-        "title": "Douyin video transcripts, one click and timestamped",
+        "title": "Douyin Script Extractor: Timestamped Transcripts in One Click",
         "description": "Trigger extraction right on the collected record, no video download and no ad-walled mini-program. You get two outputs: a full transcript for copying and feeding to AI, and a timestamped sentence-level script that shows the video's pacing and logic, how the hook is thrown, how the setup builds, where the turn lands, and how it closes. For volume, batch via Feishu.",
         "buttons": [
           {
@@ -56,7 +65,10 @@
               "src": "https://media.mediaclaw.app/blog-covers/7c94d2a48528fa38a6c364e498fdb4b5.png",
               "alt": "MediaClaw extension sidebar extracting a Douyin video voiceover transcript with a timestamped sentence-level script"
             },
-            "button": { "title": "Download free", "url": "/download" }
+            "button": {
+              "title": "Download free",
+              "url": "/download"
+            }
           },
           {
             "title": "Timestamps reveal pacing and logic",
@@ -66,7 +78,10 @@
               "src": "https://media.mediaclaw.app/blog-covers/b76b2e8d56b648002b9b73f0c7d50dc2.png",
               "alt": "Using a timestamped transcript to analyze a Douyin video's pacing and script logic"
             },
-            "button": { "title": "Download free", "url": "/download" }
+            "button": {
+              "title": "Download free",
+              "url": "/download"
+            }
           },
           {
             "title": "Transcript ready for AI breakdown and rewrites",
@@ -76,7 +91,10 @@
               "src": "https://media.mediaclaw.app/blog-covers/19711c105b2577936fd23022ee7614c4.png",
               "alt": "Using AI to break down a Douyin voiceover structure and generate a rewritten script in a Feishu base"
             },
-            "button": { "title": "Download free", "url": "/download" }
+            "button": {
+              "title": "Download free",
+              "url": "/download"
+            }
           },
           {
             "title": "Batch via Feishu + Alibaba Bailian, free",
@@ -86,7 +104,10 @@
               "src": "https://media.mediaclaw.app/blog-covers/23959730eb58ef0d6a1ee53bd0271338.png",
               "alt": "Feishu base audio/video-to-text field shortcut batch-extracting Douyin video transcripts"
             },
-            "button": { "title": "Download free", "url": "/download" }
+            "button": {
+              "title": "Download free",
+              "url": "/download"
+            }
           }
         ]
       },
@@ -96,9 +117,18 @@
         "title": "Two paths, pick by volume and use case",
         "description": "In-extension extraction and Feishu batch are two sides of the same need; we keep both.",
         "columns": [
-          { "key": "dim", "title": "Dimension" },
-          { "key": "plugin", "title": "In-extension extraction" },
-          { "key": "feishu", "title": "Feishu shortcut + Alibaba Bailian" }
+          {
+            "key": "dim",
+            "title": "Dimension"
+          },
+          {
+            "key": "plugin",
+            "title": "In-extension extraction"
+          },
+          {
+            "key": "feishu",
+            "title": "Feishu shortcut + Alibaba Bailian"
+          }
         ],
         "rows": [
           {
@@ -149,6 +179,48 @@
             "title": "Build a reusable script library",
             "description": "Transcripts export to CSV/Markdown or sync to Feishu alongside the record, building a searchable voiceover script library over time.",
             "icon": "FolderKanban"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "data-table",
+        "title": "How Teams Use Douyin Video Transcripts",
+        "description": "The transcript is raw material — here's what different roles extract scripts for.",
+        "columns": [
+          {
+            "key": "role",
+            "title": "Role"
+          },
+          {
+            "key": "scene",
+            "title": "Typical Use Case"
+          },
+          {
+            "key": "effect",
+            "title": "Outcome"
+          }
+        ],
+        "rows": [
+          {
+            "role": "Short-Video Scriptwriter",
+            "scene": "Extract timestamped scripts from benchmark videos to study hook timing, setup length, and closing CTAs",
+            "effect": "Reusable script templates with proven pacing instead of guesswork"
+          },
+          {
+            "role": "Account Operator",
+            "scene": "Batch-extract transcripts from a competitor's recent videos to map their topic and phrasing patterns",
+            "effect": "A searchable voiceover library for faster content planning"
+          },
+          {
+            "role": "E-commerce / Livestream Team",
+            "scene": "Pull conversion phrasing from top product videos, then rewrite with AI into your own selling scripts",
+            "effect": "Faster script iteration with lines already validated by the market"
+          },
+          {
+            "role": "MCN / Training",
+            "scene": "Turn viral videos into annotated teaching material with sentence-level timing",
+            "effect": "Concrete, timestamped examples for creator coaching"
           }
         ]
       },
@@ -228,6 +300,79 @@
           }
         ],
         "className": "bg-secondary/20"
+      },
+      "compare_methods": {
+        "id": "compare-methods",
+        "block": "data-table",
+        "title": "Extension vs. Online Transcribers, CapCut & APIs",
+        "description": "Four ways to turn Douyin videos into text, compared.",
+        "columns": [
+          {
+            "key": "item",
+            "title": ""
+          },
+          {
+            "key": "mediaclaw",
+            "title": "MediaClaw (Extension)",
+            "highlight": true
+          },
+          {
+            "key": "online",
+            "title": "Online transcribers"
+          },
+          {
+            "key": "jianying",
+            "title": "CapCut subtitle export"
+          },
+          {
+            "key": "api",
+            "title": "Transcription APIs"
+          }
+        ],
+        "rows": [
+          {
+            "item": "Workflow",
+            "mediaclaw": "Extract right from collected posts — no download needed",
+            "online": "Download the video, then upload it",
+            "jianying": "Download, import to CapCut, export subtitles",
+            "api": "Build an integration and send videos yourself"
+          },
+          {
+            "item": "Batch",
+            "mediaclaw": "Batch-extract from your collection list",
+            "online": "One at a time",
+            "jianying": "One at a time",
+            "api": "Batch possible, but you build the pipeline"
+          },
+          {
+            "item": "Timestamps",
+            "mediaclaw": "Sentence-level timeline",
+            "online": "Varies by tool",
+            "jianying": "Subtitle timeline included",
+            "api": "Depends on the API"
+          },
+          {
+            "item": "Accuracy",
+            "mediaclaw": "Recent models — handles fast speech, dialects, and background music",
+            "online": "Hit or miss",
+            "jianying": "Usable, but typos need manual cleanup",
+            "api": "Depends on the model you pick"
+          },
+          {
+            "item": "Cost",
+            "mediaclaw": "Credits by video length",
+            "online": "Small free tiers, usage caps",
+            "jianying": "Free",
+            "api": "Pay per minute, plus dev cost"
+          },
+          {
+            "item": "Best for",
+            "mediaclaw": "Competitor teardowns, bulk transcripts",
+            "online": "The odd video",
+            "jianying": "Already editing in CapCut",
+            "api": "Product integrations"
+          }
+        ]
       }
     }
   }

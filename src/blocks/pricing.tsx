@@ -35,6 +35,7 @@ const ALL_PROVIDERS: PaymentProvider[] = [
   'stripe',
   'creem',
   'paypal',
+  'zpay',
   'alipay',
   'wechat',
 ];
@@ -265,10 +266,12 @@ export function Pricing({ title }: { title?: string } = {}) {
 
   async function handleCheckout(plan: PricingPlan) {
     if (!session?.user) {
-      const redirect = encodeURIComponent(
-        typeof window !== 'undefined' ? window.location.pathname : '/pricing'
+      const callbackUrl = encodeURIComponent(
+        typeof window !== 'undefined'
+          ? `${window.location.pathname}${window.location.search}`
+          : '/pricing'
       );
-      router.push(`/sign-in?redirect=${redirect}`);
+      router.push(`/sign-in?callbackUrl=${callbackUrl}`);
       return;
     }
 

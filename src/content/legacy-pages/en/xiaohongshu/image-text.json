@@ -31,12 +31,6 @@
             "url": "/downloads/samples/xiaohongshu-sample-data.csv",
             "target": "_blank",
             "variant": "outline"
-          },
-          {
-            "title": "See how collection works",
-            "icon": "Database",
-            "url": "/xiaohongshu/scraper",
-            "variant": "outline"
           }
         ],
         "video_url": "https://media.mediaclaw.app/videos/demo/xiaohongshu-image-text-98360a1ea20a.mp4",

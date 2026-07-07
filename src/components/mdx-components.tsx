@@ -1,6 +1,9 @@
 import type {
   AnchorHTMLAttributes,
   HTMLAttributes,
+  TableHTMLAttributes,
+  TdHTMLAttributes,
+  ThHTMLAttributes,
   VideoHTMLAttributes,
 } from 'react';
 import type { MDXComponents } from 'mdx/types';
@@ -84,6 +87,44 @@ export const mdxComponents: MDXComponents = {
         'border-border text-muted-foreground my-4 border-l-2 pl-4 italic',
         className
       )}
+      {...props}
+    />
+  ),
+  table: ({ className, ...props }: TableHTMLAttributes<HTMLTableElement>) => (
+    <div className="border-border my-5 overflow-x-auto rounded-lg border">
+      <table
+        className={cn(
+          'w-full min-w-[640px] border-collapse text-sm',
+          className
+        )}
+        {...props}
+      />
+    </div>
+  ),
+  thead: ({ className, ...props }: HTMLAttributes<HTMLTableSectionElement>) => (
+    <thead className={cn('bg-muted/60', className)} {...props} />
+  ),
+  tbody: ({ className, ...props }: HTMLAttributes<HTMLTableSectionElement>) => (
+    <tbody className={cn('divide-border/70 divide-y', className)} {...props} />
+  ),
+  tr: ({ className, ...props }: HTMLAttributes<HTMLTableRowElement>) => (
+    <tr
+      className={cn('border-border/70 border-b last:border-0', className)}
+      {...props}
+    />
+  ),
+  th: ({ className, ...props }: ThHTMLAttributes<HTMLTableCellElement>) => (
+    <th
+      className={cn(
+        'text-foreground px-4 py-3 text-left font-semibold whitespace-nowrap',
+        className
+      )}
+      {...props}
+    />
+  ),
+  td: ({ className, ...props }: TdHTMLAttributes<HTMLTableCellElement>) => (
+    <td
+      className={cn('text-foreground/85 px-4 py-3 leading-6', className)}
       {...props}
     />
   ),

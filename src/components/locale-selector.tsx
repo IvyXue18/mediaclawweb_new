@@ -1,6 +1,7 @@
 import { Check, ChevronDown, Globe, Languages } from 'lucide-react';
 
 import { localeNames } from '@/config/locale';
+import { prepareThemeStableNavigation } from '@/lib/theme-transition';
 import { cn } from '@/lib/utils';
 import { getLocale, locales, setLocale } from '@/paraglide/runtime.js';
 import {
@@ -20,6 +21,8 @@ export function LocaleSelector({
   const locale = getLocale();
 
   function handleSwitch(newLocale: string) {
+    if (newLocale === locale) return;
+    prepareThemeStableNavigation();
     // Writes the locale cookie and reloads on the localized URL.
     setLocale(newLocale as typeof locale);
   }

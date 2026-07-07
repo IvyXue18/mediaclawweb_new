@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { and, count, desc, eq, like, or, type SQL } from 'drizzle-orm';
+import { and, count, desc, eq, like, not, or, type SQL } from 'drizzle-orm';
 
 import { getAuth } from '@/core/auth';
 import { db } from '@/core/db';
@@ -21,11 +21,24 @@ async function GET({ request }: { request: Request }) {
     const offset = (page - 1) * pageSize;
 
     const paymentType = searchParams.get('paymentType');
+    const purchaseKind = searchParams.get('purchaseKind');
     const status = searchParams.get('status');
     const search = searchParams.get('search');
 
     const conditions: SQL[] = [eq(order.userId, session.user.id)];
     if (paymentType) conditions.push(eq(order.paymentType, paymentType));
+    if (purchaseKind === 'credits') {
+      conditions.push(like(order.productId, 'credits-%'));
+    } else if (purchaseKind === 'activation') {
+      const credentialOrder = and(
+        or(
+          eq(order.credentialAction, 'issue'),
+          eq(order.credentialAction, 'recharge')
+        )!,
+        not(like(order.productId, 'credits-%'))
+      );
+      if (credentialOrder) conditions.push(credentialOrder);
+    }
     if (status) conditions.push(eq(order.status, status));
     if (search) {
       conditions.push(
@@ -53,6 +66,7 @@ async function GET({ request }: { request: Request }) {
         currency: order.currency,
         paymentProvider: order.paymentProvider,
         paymentType: order.paymentType,
+        productId: order.productId,
         productName: order.productName,
         planName: order.planName,
         invoiceUrl: order.invoiceUrl,

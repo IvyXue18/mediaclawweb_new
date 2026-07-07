@@ -1,23 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { Activity, CreditCard, Key, TrendingUp } from 'lucide-react';
+import { BadgeCheck, CreditCard, KeyRound } from 'lucide-react';
 
 import { useSession } from '@/core/auth/client';
-import { apiGet } from '@/lib/api-client';
+import { apiGet, type PageResult } from '@/lib/api-client';
 import { m } from '@/paraglide/messages.js';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-
-type Subscription = {
-  status: string;
-  planName?: string | null;
-  productName?: string | null;
-};
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 function DashboardPage() {
   const { data: session } = useSession();
@@ -26,24 +14,24 @@ function DashboardPage() {
     queryKey: ['user-credits'],
     queryFn: () => apiGet<{ balance: number }>('/api/credits'),
   });
-  const { data: apiKeysData } = useQuery({
-    queryKey: ['user-apikeys'],
-    queryFn: () => apiGet<unknown[]>('/api/apikeys'),
-  });
-  const { data: subscriptionData } = useQuery({
-    queryKey: ['user-subscription-current'],
+  const { data: credentialsData } = useQuery({
+    queryKey: ['settings-overview-credentials'],
     queryFn: () =>
-      apiGet<Subscription | null>('/api/user/subscriptions/current'),
+      apiGet<PageResult<{ id: string }>>(
+        '/api/user/credentials?page=1&pageSize=1'
+      ),
+  });
+  const { data: activeCredentialsData } = useQuery({
+    queryKey: ['settings-overview-active-credentials'],
+    queryFn: () =>
+      apiGet<PageResult<{ id: string }>>(
+        '/api/user/credentials?page=1&pageSize=1&status=active'
+      ),
   });
 
   const credits = creditsData?.balance ?? null;
-  const apiKeys = apiKeysData?.length ?? null;
-  const subscription = subscriptionData ?? null;
-
-  const planLabel =
-    subscription?.planName ||
-    subscription?.productName ||
-    m['settings.overview.plan_free']();
+  const credentials = credentialsData?.total ?? null;
+  const activeCredentials = activeCredentialsData?.total ?? null;
 
   return (
     <div className="space-y-6 p-4 md:p-6">
@@ -58,18 +46,18 @@ function DashboardPage() {
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">
-              {m['settings.overview.plan']()}
+              {m['settings.overview.entitlement']()}
             </CardTitle>
-            <TrendingUp className="text-muted-foreground size-4" />
+            <BadgeCheck className="text-muted-foreground size-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{planLabel}</div>
+            <div className="text-2xl font-bold">{activeCredentials ?? '—'}</div>
             <p className="text-muted-foreground mt-1 text-xs">
-              {m['settings.overview.plan_description']()}
+              {m['settings.overview.entitlement_description']()}
             </p>
           </CardContent>
         </Card>
@@ -92,49 +80,18 @@ function DashboardPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">
-              {m['settings.apikeys.title']()}
+              {m['settings.credentials.title']()}
             </CardTitle>
-            <Key className="text-muted-foreground size-4" />
+            <KeyRound className="text-muted-foreground size-4" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{apiKeys ?? '—'}</div>
+            <div className="text-2xl font-bold">{credentials ?? '—'}</div>
             <p className="text-muted-foreground mt-1 text-xs">
-              {m['settings.overview.apikeys_description']()}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">
-              {m['settings.overview.usage']()}
-            </CardTitle>
-            <Activity className="text-muted-foreground size-4" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">0</div>
-            <p className="text-muted-foreground mt-1 text-xs">
-              {m['settings.overview.usage_description']()}
+              {m['settings.overview.credentials_description']()}
             </p>
           </CardContent>
         </Card>
       </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">
-            {m['settings.overview.getting_started']()}
-          </CardTitle>
-          <CardDescription>
-            {m['settings.overview.getting_started_description']()}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="border-border text-muted-foreground rounded-lg border border-dashed p-8 text-center">
-            <p className="text-sm">{m['settings.placeholder']()}</p>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 }

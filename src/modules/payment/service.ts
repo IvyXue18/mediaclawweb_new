@@ -38,6 +38,7 @@ import {
   type UpdateSubscription,
 } from '@/modules/subscriptions/service';
 import { getSnowId, getUniSeq, getUuid } from '@/lib/hash';
+import { recordServerAnalyticsEvent } from '@/lib/server-analytics';
 
 // --- Order types ---
 
@@ -458,7 +459,7 @@ export async function createCheckout(params: {
 
   const finalSuccessUrl =
     paymentOrder.successUrl ||
-    `${envConfigs.app_url}/settings/billing?success=1`;
+    `${envConfigs.app_url}/settings/payments?success=1`;
   const callbackSuccessUrl = `${envConfigs.app_url}/api/payment/callback?order_no=${orderNo}&redirect=${encodeURIComponent(finalSuccessUrl)}`;
 
   const providerOrder: PaymentOrder = {
@@ -473,7 +474,7 @@ export async function createCheckout(params: {
     successUrl: callbackSuccessUrl,
     cancelUrl:
       paymentOrder.cancelUrl ||
-      `${envConfigs.app_url}/settings/billing?canceled=1`,
+      `${envConfigs.app_url}/settings/payments?canceled=1`,
   };
 
   const session = await pm.createPayment({
@@ -726,6 +727,27 @@ export async function handleCheckoutSuccess(session: any, provider: string) {
 
     await processPaidOrderCredentialSync(existingOrder);
     await processPaidOrderReferralCommission(existingOrder, orderUpdate);
+    await recordServerAnalyticsEvent({
+      eventName: 'payment_success',
+      source: 'server',
+      userId: existingOrder.userId,
+      orderNo: existingOrder.orderNo,
+      properties: {
+        productId: existingOrder.productId,
+        productName: existingOrder.productName,
+        planName: existingOrder.planName,
+        paymentProvider: provider,
+        paymentType: existingOrder.paymentType,
+        credentialAction: existingOrder.credentialAction || 'none',
+        credentialCode: existingOrder.credentialCode || undefined,
+        amount: orderUpdate.paymentAmount || existingOrder.amount,
+        currency: orderUpdate.paymentCurrency || existingOrder.currency,
+        paidAt:
+          orderUpdate.paidAt instanceof Date
+            ? orderUpdate.paidAt.toISOString()
+            : undefined,
+      },
+    });
   } else if (
     session.paymentStatus === PaymentStatus.FAILED ||
     session.paymentStatus === PaymentStatus.CANCELED
@@ -960,7 +982,7 @@ export async function getUserSubscriptionBillingPortal(params: {
 
   const billing = await provider.getPaymentBilling({
     customerId: sub.paymentUserId,
-    returnUrl: params.returnUrl || `${envConfigs.app_url}/settings/billing`,
+    returnUrl: params.returnUrl || `${envConfigs.app_url}/settings/payments`,
   });
   if (!billing?.billingUrl) {
     throw new Error('Billing url not found');

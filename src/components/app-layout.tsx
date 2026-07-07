@@ -6,9 +6,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useSession } from '@/core/auth/client';
 import { usePathname, useRouter } from '@/core/i18n/navigation';
 import { apiGet } from '@/lib/api-client';
+import { m } from '@/paraglide/messages.js';
 import { useUserPermissions } from '@/hooks/use-user-permissions';
 import { AppSidebar, type NavItem } from '@/components/app-sidebar';
-import { Separator } from '@/components/ui/separator';
 import {
   SidebarInset,
   SidebarProvider,
@@ -25,6 +25,7 @@ export function AppLayout({
   mobileBrand,
   headerExtra,
   profileHref,
+  securityHref,
   requirePermission,
   unauthorizedRedirect = '/settings',
 }: {
@@ -36,6 +37,7 @@ export function AppLayout({
   mobileBrand?: React.ReactNode;
   headerExtra?: React.ReactNode;
   profileHref?: string;
+  securityHref?: string;
   requirePermission?: string;
   unauthorizedRedirect?: string;
 }) {
@@ -126,7 +128,9 @@ export function AppLayout({
       <div className="bg-background flex min-h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <div className="border-primary size-6 animate-spin rounded-full border-2 border-t-transparent" />
-          <span className="text-muted-foreground text-sm">Loading...</span>
+          <span className="text-muted-foreground text-sm">
+            {m['common.loading']()}
+          </span>
         </div>
       </div>
     );
@@ -141,10 +145,11 @@ export function AppLayout({
         footerNavItems={footerNavItems}
         footer={
           <UserMenu
-            name={session.user.name || 'User'}
+            name={session.user.name || m['common.user']()}
             email={session.user.email}
             image={session.user.image}
             profileHref={profileHref}
+            securityHref={securityHref}
           />
         }
       />

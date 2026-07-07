@@ -3,7 +3,6 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { CheckCircle2, ExternalLink, Info, TriangleAlert } from 'lucide-react';
 
-import { tDynamic } from '@/core/i18n/dynamic';
 import { apiGet, type PageResult } from '@/lib/api-client';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
@@ -19,6 +18,7 @@ type Order = {
   currency: string;
   paymentProvider: string;
   paymentType?: string | null;
+  productId?: string | null;
   productName?: string | null;
   planName?: string | null;
   invoiceUrl?: string | null;
@@ -30,7 +30,7 @@ type Order = {
   createdAt: string;
 };
 
-const TABS = ['all', 'one-time', 'subscription', 'renew'] as const;
+const TABS = ['all', 'activation', 'credits'] as const;
 type Tab = (typeof TABS)[number];
 
 const PAGE_SIZE = 20;
@@ -67,6 +67,19 @@ function fulfillmentLabel(status?: string | null) {
     return m['settings.payments.fulfillment_processing']();
   }
   return m['settings.payments.fulfillment_pending']();
+}
+
+function purchaseKind(order: Order) {
+  if (order.productId?.startsWith('credits-')) {
+    return m['settings.payments.kind_credits']();
+  }
+  if (order.credentialAction === 'recharge') {
+    return m['settings.payments.kind_activation_recharge']();
+  }
+  if (order.credentialAction === 'issue') {
+    return m['settings.payments.kind_activation']();
+  }
+  return m['settings.payments.kind_other']();
 }
 
 function paymentCallbackMessage(params: {
@@ -142,7 +155,7 @@ function PaymentsPage() {
         page: String(page),
         pageSize: String(PAGE_SIZE),
       });
-      if (tab !== 'all') params.set('paymentType', tab);
+      if (tab !== 'all') params.set('purchaseKind', tab);
       if (debouncedSearch) params.set('search', debouncedSearch);
       return apiGet<PageResult<Order>>(`/api/user/orders?${params}`);
     },
@@ -197,8 +210,8 @@ function PaymentsPage() {
       },
     },
     {
-      header: m['settings.payments.type'](),
-      cell: (o) => o.paymentType || '—',
+      header: m['settings.payments.kind'](),
+      cell: (o) => purchaseKind(o),
     },
     {
       header: m['settings.payments.provider'](),
@@ -302,7 +315,7 @@ function PaymentsPage() {
                 : 'text-muted-foreground hover:text-foreground border-transparent'
             )}
           >
-            {tDynamic(`settings.payments.tab_${tb.replace('-', '_')}`)}
+            {m[`settings.payments.tab_${tb}`]()}
           </button>
         ))}
       </div>

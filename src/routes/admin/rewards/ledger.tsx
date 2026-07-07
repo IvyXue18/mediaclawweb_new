@@ -1,5 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
+import { m } from '@/paraglide/messages.js';
+
 import { AdminRewardRecordsPage } from './-reward-admin-page';
 
 export const Route = createFileRoute('/admin/rewards/ledger')({
@@ -10,8 +12,8 @@ function RewardLedgerPage() {
   return (
     <AdminRewardRecordsPage
       kind="ledger"
-      title="Reward Ledger"
-      description="Audit every welfare reward issuance attempt, action, credential, granted days, credits, status, and error message."
+      title={m['admin.rewards.ledger.title']()}
+      description={m['admin.rewards.ledger.description']()}
     />
   );
 }

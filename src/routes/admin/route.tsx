@@ -1,10 +1,10 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 import {
+  ChartNoAxesCombined,
   CreditCard,
   FolderOpen,
   Handshake,
   Home,
-  KeyRound,
   LayoutDashboard,
   LifeBuoy,
   Settings,
@@ -26,6 +26,12 @@ function AdminLayout() {
       href: '/admin',
       label: m['admin.nav.overview'](),
       icon: LayoutDashboard,
+      group,
+    },
+    {
+      href: '/admin/analytics',
+      label: m['admin.nav.analytics'](),
+      icon: ChartNoAxesCombined,
       group,
     },
     {
@@ -59,30 +65,33 @@ function AdminLayout() {
         { href: '/admin/payments', label: m['admin.nav.payments']() },
         { href: '/admin/subscriptions', label: m['admin.nav.subscriptions']() },
         { href: '/admin/credits', label: m['admin.nav.credits']() },
-        { href: '/admin/credentials', label: 'Activation Codes' },
+        {
+          href: '/admin/credentials',
+          label: m['admin.nav.activation_codes'](),
+        },
       ],
     },
     {
       href: '/admin/referral',
-      label: 'Growth',
+      label: m['admin.nav.growth'](),
       icon: Handshake,
       group,
       items: [
-        { href: '/admin/referral', label: 'Referral' },
-        { href: '/admin/partners', label: 'Partners' },
-        { href: '/admin/rewards/channel-survey', label: 'Channel Survey' },
+        { href: '/admin/referral', label: m['admin.nav.referral']() },
+        { href: '/admin/partners', label: m['admin.nav.partners']() },
+        {
+          href: '/admin/rewards/channel-survey',
+          label: m['admin.nav.channel_survey'](),
+        },
         {
           href: '/admin/rewards/experience-feedback',
-          label: 'Experience Feedback',
+          label: m['admin.nav.experience_feedback'](),
         },
-        { href: '/admin/rewards/ledger', label: 'Reward Ledger' },
+        {
+          href: '/admin/rewards/ledger',
+          label: m['admin.nav.reward_ledger'](),
+        },
       ],
-    },
-    {
-      href: '/admin/credentials',
-      label: 'Codes',
-      icon: KeyRound,
-      group,
     },
     {
       href: '/admin/tickets',
@@ -108,6 +117,7 @@ function AdminLayout() {
       brand={envConfigs.app_name}
       brandHref="/admin"
       profileHref="/settings/profile"
+      securityHref="/settings/security"
       requirePermission="admin.*"
     >
       <Outlet />

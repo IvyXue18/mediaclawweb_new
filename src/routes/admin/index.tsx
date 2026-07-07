@@ -6,6 +6,8 @@ import { apiGet } from '@/lib/api-client';
 import { m } from '@/paraglide/messages.js';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
+import { BusinessAnalyticsPanel } from './-business-analytics';
+
 function AdminPage() {
   const usersQuery = useQuery({
     queryKey: ['admin-users-total'],
@@ -52,6 +54,8 @@ function AdminPage() {
           </CardContent>
         </Card>
       </div>
+
+      <BusinessAnalyticsPanel />
     </div>
   );
 }

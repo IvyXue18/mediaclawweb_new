@@ -3,6 +3,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { apiGet, type PageResult } from '@/lib/api-client';
 import { cn } from '@/lib/utils';
+import { m } from '@/paraglide/messages.js';
 import { DataTable, type Column } from '@/components/data-table';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
@@ -39,40 +40,84 @@ type RewardRow = {
 
 const PAGE_SIZE = 10;
 
-const CHANNEL_SOURCE_OPTIONS = [
-  { value: 'all', label: 'All sources' },
-  { value: 'ai', label: 'AI recommendation' },
-  { value: 'search', label: 'Search engine' },
-  { value: 'official_account', label: 'Official account' },
-  { value: 'zhihu', label: 'Zhihu' },
-  { value: 'wechat_channels', label: 'WeChat Channels' },
-  { value: 'douyin', label: 'Douyin' },
-  { value: 'xiaohongshu', label: 'Xiaohongshu' },
-  { value: 'friend_referral', label: 'Friend referral' },
-  { value: 'other', label: 'Other' },
-];
+function channelSourceOptions() {
+  return [
+    { value: 'all', label: m['admin.rewards.filters.source.all']() },
+    { value: 'ai', label: m['admin.rewards.filters.source.ai']() },
+    { value: 'search', label: m['admin.rewards.filters.source.search']() },
+    {
+      value: 'official_account',
+      label: m['admin.rewards.filters.source.official_account'](),
+    },
+    { value: 'zhihu', label: m['admin.rewards.filters.source.zhihu']() },
+    {
+      value: 'wechat_channels',
+      label: m['admin.rewards.filters.source.wechat_channels'](),
+    },
+    { value: 'douyin', label: m['admin.rewards.filters.source.douyin']() },
+    {
+      value: 'xiaohongshu',
+      label: m['admin.rewards.filters.source.xiaohongshu'](),
+    },
+    {
+      value: 'friend_referral',
+      label: m['admin.rewards.filters.source.friend_referral'](),
+    },
+    { value: 'other', label: m['admin.rewards.filters.source.other']() },
+  ];
+}
 
-const LEDGER_TASK_OPTIONS = [
-  { value: 'all', label: 'All tasks' },
-  { value: 'channel_survey', label: 'Channel survey' },
-  { value: 'experience_feedback', label: 'Experience feedback' },
-];
+function ledgerTaskOptions() {
+  return [
+    { value: 'all', label: m['admin.rewards.filters.task.all']() },
+    {
+      value: 'channel_survey',
+      label: m['admin.rewards.filters.task.channel_survey'](),
+    },
+    {
+      value: 'experience_feedback',
+      label: m['admin.rewards.filters.task.experience_feedback'](),
+    },
+  ];
+}
 
-const STATUS_OPTIONS = [
-  { value: 'all', label: 'All statuses' },
-  { value: 'completed', label: 'Completed' },
-  { value: 'pending', label: 'Pending' },
-  { value: 'failed', label: 'Failed' },
-];
+function statusOptions() {
+  return [
+    { value: 'all', label: m['admin.rewards.filters.status.all']() },
+    {
+      value: 'completed',
+      label: m['admin.rewards.status.completed'](),
+    },
+    { value: 'pending', label: m['admin.rewards.status.pending']() },
+    { value: 'failed', label: m['admin.rewards.status.failed']() },
+  ];
+}
 
-const RATING_OPTIONS = [
-  { value: '0', label: 'All ratings' },
-  { value: '5', label: '5 stars' },
-  { value: '4', label: '4 stars' },
-  { value: '3', label: '3 stars' },
-  { value: '2', label: '2 stars' },
-  { value: '1', label: '1 star' },
-];
+function ratingOptions() {
+  return [
+    { value: '0', label: m['admin.rewards.filters.rating.all']() },
+    {
+      value: '5',
+      label: m['admin.rewards.filters.rating.stars']({ count: 5 }),
+    },
+    {
+      value: '4',
+      label: m['admin.rewards.filters.rating.stars']({ count: 4 }),
+    },
+    {
+      value: '3',
+      label: m['admin.rewards.filters.rating.stars']({ count: 3 }),
+    },
+    {
+      value: '2',
+      label: m['admin.rewards.filters.rating.stars']({ count: 2 }),
+    },
+    {
+      value: '1',
+      label: m['admin.rewards.filters.rating.stars']({ count: 1 }),
+    },
+  ];
+}
 
 function formatDate(value: RewardRow['createdAt']) {
   if (!value) return '-';
@@ -85,8 +130,12 @@ function formatReward(row: RewardRow) {
   const durationDays = row.rewardDurationDays ?? row.durationDays ?? 0;
   const credits = row.rewardCredits ?? row.credits ?? 0;
   const parts = [];
-  if (durationDays) parts.push(`+${durationDays}d`);
-  if (credits) parts.push(`+${credits} credits`);
+  if (durationDays) {
+    parts.push(m['admin.rewards.reward.days']({ count: durationDays }));
+  }
+  if (credits) {
+    parts.push(m['admin.rewards.reward.credits']({ count: credits }));
+  }
   return parts.length ? parts.join(' / ') : '-';
 }
 
@@ -104,7 +153,16 @@ function statusVariant(
 }
 
 function StatusBadge({ status }: { status: string }) {
-  return <Badge variant={statusVariant(status)}>{status}</Badge>;
+  const labels: Record<string, string> = {
+    completed: m['admin.rewards.status.completed'](),
+    success: m['admin.rewards.status.success'](),
+    pending: m['admin.rewards.status.pending'](),
+    failed: m['admin.rewards.status.failed'](),
+    rejected: m['admin.rewards.status.rejected'](),
+  };
+  return (
+    <Badge variant={statusVariant(status)}>{labels[status] || status}</Badge>
+  );
 }
 
 function UserCell({ row }: { row: RewardRow }) {
@@ -161,76 +219,118 @@ function FilterSelect({
 function getColumns(kind: RewardKind): Column<RewardRow>[] {
   if (kind === 'experience-feedback') {
     return [
-      { header: 'User', cell: (row) => <UserCell row={row} /> },
-      { header: 'Rating', cell: (row) => `${row.rating || '-'} / 5` },
-      { header: 'Comment', cell: (row) => <TextCell>{row.comment}</TextCell> },
       {
-        header: 'Expected feature',
+        header: m['admin.rewards.columns.user'](),
+        cell: (row) => <UserCell row={row} />,
+      },
+      {
+        header: m['admin.rewards.columns.rating'](),
+        cell: (row) => `${row.rating || '-'} / 5`,
+      },
+      {
+        header: m['admin.rewards.columns.feedback'](),
+        cell: (row) => <TextCell>{row.comment}</TextCell>,
+      },
+      {
+        header: m['admin.rewards.columns.expected_feature'](),
         cell: (row) => <TextCell>{row.expectedFeature}</TextCell>,
       },
       {
-        header: 'Credential',
+        header: m['admin.rewards.columns.reward_credential'](),
         cell: (row) => (
           <span className="font-mono text-xs">
             {row.rewardCredentialCode || '-'}
           </span>
         ),
       },
-      { header: 'Reward', cell: formatReward },
+      { header: m['admin.rewards.columns.reward'](), cell: formatReward },
       {
-        header: 'Status',
+        header: m['admin.rewards.columns.status'](),
         cell: (row) => <StatusBadge status={getStatus(row)} />,
       },
-      { header: 'Created', cell: (row) => formatDate(row.createdAt) },
+      {
+        header: m['admin.rewards.columns.created_at'](),
+        cell: (row) => formatDate(row.createdAt),
+      },
     ];
   }
 
   if (kind === 'ledger') {
     return [
-      { header: 'User', cell: (row) => <UserCell row={row} /> },
-      { header: 'Task', cell: (row) => row.taskType || '-' },
-      { header: 'Action', cell: (row) => row.rewardAction || '-' },
       {
-        header: 'Credential',
+        header: m['admin.rewards.columns.user'](),
+        cell: (row) => <UserCell row={row} />,
+      },
+      {
+        header: m['admin.rewards.columns.task'](),
+        cell: (row) => row.taskType || '-',
+      },
+      {
+        header: m['admin.rewards.columns.action'](),
+        cell: (row) => row.rewardAction || '-',
+      },
+      {
+        header: m['admin.rewards.columns.credential'](),
         cell: (row) => (
           <span className="font-mono text-xs">
             {row.credentialCode || row.rewardCredentialCode || '-'}
           </span>
         ),
       },
-      { header: 'Reward', cell: formatReward },
+      { header: m['admin.rewards.columns.reward'](), cell: formatReward },
       {
-        header: 'Status',
+        header: m['admin.rewards.columns.status'](),
         cell: (row) => <StatusBadge status={getStatus(row)} />,
       },
       {
-        header: 'Error',
+        header: m['admin.rewards.columns.error'](),
         cell: (row) => <TextCell>{row.errorMessage}</TextCell>,
       },
-      { header: 'Created', cell: (row) => formatDate(row.createdAt) },
+      {
+        header: m['admin.rewards.columns.created_at'](),
+        cell: (row) => formatDate(row.createdAt),
+      },
     ];
   }
 
   return [
-    { header: 'User', cell: (row) => <UserCell row={row} /> },
-    { header: 'Source', cell: (row) => row.source || '-' },
-    { header: 'Role', cell: (row) => row.role || '-' },
-    { header: 'Use case', cell: (row) => <TextCell>{row.useCase}</TextCell> },
-    { header: 'Detail', cell: (row) => <TextCell>{row.detail}</TextCell> },
     {
-      header: 'Credential',
+      header: m['admin.rewards.columns.user'](),
+      cell: (row) => <UserCell row={row} />,
+    },
+    {
+      header: m['admin.rewards.columns.source'](),
+      cell: (row) => row.source || '-',
+    },
+    {
+      header: m['admin.rewards.columns.role'](),
+      cell: (row) => row.role || '-',
+    },
+    {
+      header: m['admin.rewards.columns.use_case'](),
+      cell: (row) => <TextCell>{row.useCase}</TextCell>,
+    },
+    {
+      header: m['admin.rewards.columns.detail'](),
+      cell: (row) => <TextCell>{row.detail}</TextCell>,
+    },
+    {
+      header: m['admin.rewards.columns.reward_credential'](),
       cell: (row) => (
         <span className="font-mono text-xs">
           {row.rewardCredentialCode || '-'}
         </span>
       ),
     },
-    { header: 'Reward', cell: formatReward },
+    { header: m['admin.rewards.columns.reward'](), cell: formatReward },
     {
-      header: 'Status',
+      header: m['admin.rewards.columns.status'](),
       cell: (row) => <StatusBadge status={getStatus(row)} />,
     },
-    { header: 'Created', cell: (row) => formatDate(row.createdAt) },
+    {
+      header: m['admin.rewards.columns.created_at'](),
+      cell: (row) => formatDate(row.createdAt),
+    },
   ];
 }
 
@@ -299,30 +399,30 @@ export function AdminRewardRecordsPage({
   const toolbar =
     kind === 'channel-survey' ? (
       <FilterSelect
-        label="Source"
+        label={m['admin.rewards.filters.source.label']()}
         value={source}
-        options={CHANNEL_SOURCE_OPTIONS}
+        options={channelSourceOptions()}
         onChange={setSource}
       />
     ) : kind === 'experience-feedback' ? (
       <FilterSelect
-        label="Rating"
+        label={m['admin.rewards.filters.rating.label']()}
         value={rating}
-        options={RATING_OPTIONS}
+        options={ratingOptions()}
         onChange={setRating}
       />
     ) : (
       <div className="flex flex-wrap items-center gap-2">
         <FilterSelect
-          label="Task"
+          label={m['admin.rewards.filters.task.label']()}
           value={taskType}
-          options={LEDGER_TASK_OPTIONS}
+          options={ledgerTaskOptions()}
           onChange={setTaskType}
         />
         <FilterSelect
-          label="Status"
+          label={m['admin.rewards.filters.status.label']()}
           value={status}
-          options={STATUS_OPTIONS}
+          options={statusOptions()}
           onChange={setStatus}
         />
       </div>
@@ -346,12 +446,12 @@ export function AdminRewardRecordsPage({
             onPageChange={setPage}
             search={search}
             onSearchChange={setSearch}
-            searchPlaceholder="Search user, credential, detail..."
+            searchPlaceholder={m['admin.rewards.search_placeholder']()}
             toolbar={toolbar}
             rowKey={(row) => row.id}
             onRefresh={() => query.refetch()}
             loading={query.isFetching}
-            emptyText="No reward records"
+            emptyText={m['admin.rewards.empty']()}
           />
         </CardContent>
       </Card>

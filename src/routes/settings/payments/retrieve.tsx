@@ -1,13 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { LegacyLinkPage } from '@/routes/-legacy-action-pages';
 
+import { m } from '@/paraglide/messages.js';
+
 export const Route = createFileRoute('/settings/payments/retrieve')({
   component: () => (
     <LegacyLinkPage
-      title="Payment Details"
-      description="Payment retrieval routes are preserved and payment history is available in the migrated settings page."
+      title={m['settings.payments.retrieve_title']()}
+      description={m['settings.payments.retrieve_description']()}
       href="/settings/payments"
-      label="Open payments"
+      label={m['settings.payments.open']()}
     />
   ),
 });

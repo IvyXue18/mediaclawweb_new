@@ -648,11 +648,11 @@ export async function grantChannelSurveyReward(input: {
     ? credentials.find((item) => item.id === selectedRewardCredentialId)
     : null;
 
+  if (credentials.length > 0 && !selectedRewardCredentialId) {
+    throw new Error('reward_credential_required');
+  }
   if (selectedRewardCredentialId && !selectedCredential) {
     throw new Error('reward_credential_not_found');
-  }
-  if (credentials.length > 0 && !selectedCredential) {
-    throw new Error('reward_credential_required');
   }
   if (!selectedCredential && browserInstallHash) {
     const existingTrialTask =
@@ -773,13 +773,10 @@ export async function grantExperienceFeedbackReward(input: {
   const credentials = await getUserManagedCredentials(userId);
   const selectedCredential = selectedRewardCredentialId
     ? credentials.find((item) => item.id === selectedRewardCredentialId)
-    : null;
+    : credentials[0] || null;
 
   if (selectedRewardCredentialId && !selectedCredential) {
     throw new Error('reward_credential_not_found');
-  }
-  if (credentials.length > 0 && !selectedCredential) {
-    throw new Error('reward_credential_required');
   }
 
   const pendingTask =

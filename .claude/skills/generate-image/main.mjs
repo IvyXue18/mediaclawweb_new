@@ -64,7 +64,7 @@ try {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 120_000);
   const res = await fetch(url, {
-    headers: { "User-Agent": "shipany/0.1" },
+    headers: { "User-Agent": "mediaclaw/0.1" },
     signal: controller.signal,
   });
   clearTimeout(timer);

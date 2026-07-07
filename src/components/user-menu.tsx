@@ -6,6 +6,7 @@ import {
   MonitorIcon,
   MoonIcon,
   PaletteIcon,
+  ShieldCheckIcon,
   SunIcon,
   UserIcon,
 } from 'lucide-react';
@@ -14,13 +15,9 @@ import { useTheme } from 'next-themes';
 import { signOut } from '@/core/auth/client';
 import { useRouter } from '@/core/i18n/navigation';
 import { localeNames } from '@/config/locale';
+import { prepareThemeStableNavigation } from '@/lib/theme-transition';
 import { m } from '@/paraglide/messages.js';
-import {
-  getLocale,
-  locales,
-  localizeHref,
-  setLocale,
-} from '@/paraglide/runtime.js';
+import { getLocale, locales, setLocale } from '@/paraglide/runtime.js';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -46,11 +43,13 @@ export function UserMenu({
   email,
   image,
   profileHref,
+  securityHref,
 }: {
   name: string;
   email: string;
   image?: string | null;
   profileHref?: string;
+  securityHref?: string;
 }) {
   const router = useRouter();
   const locale = getLocale();
@@ -63,6 +62,8 @@ export function UserMenu({
   }
 
   function handleLocaleSwitch(newLocale: string) {
+    if (newLocale === locale) return;
+    prepareThemeStableNavigation();
     // Writes the locale cookie and reloads on the localized URL.
     setLocale(newLocale as typeof locale);
   }
@@ -120,11 +121,21 @@ export function UserMenu({
             {profileHref && (
               <DropdownMenuItem
                 onClick={() => {
-                  window.open(localizeHref(profileHref), '_blank');
+                  router.push(profileHref);
                 }}
               >
                 <UserIcon className="size-4" />
-                {m['common.nav.profile']()}
+                {m['settings.nav.profile']()}
+              </DropdownMenuItem>
+            )}
+            {securityHref && (
+              <DropdownMenuItem
+                onClick={() => {
+                  router.push(securityHref);
+                }}
+              >
+                <ShieldCheckIcon className="size-4" />
+                {m['settings.nav.security']()}
               </DropdownMenuItem>
             )}
             <DropdownMenuSub>

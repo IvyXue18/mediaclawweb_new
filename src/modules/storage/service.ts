@@ -3,8 +3,8 @@ import { getAllConfigs, type ConfigMap } from '@/modules/config/service';
 
 /**
  * Storage config is DB-driven (like auth/payment/email): values come from the
- * admin "Storage" settings, merged over env via getAllConfigs(). Keys mirror the
- * original ShipAny Two (`r2_*`).
+ * admin "Storage" settings, merged over env via getAllConfigs(). Keys keep the
+ * legacy `r2_*` names so existing config continues to work.
  */
 function isConfigured(configs: ConfigMap): boolean {
   return Boolean(

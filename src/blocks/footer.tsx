@@ -39,7 +39,7 @@ export function Footer() {
       links: [
         { label: '下载插件', href: '/download' },
         { label: '价格方案', href: '/pricing' },
-        { label: '福利中心', href: '/welfare' },
+        { label: '福利中心', href: '/welfare?entry=footer' },
         { label: '伙伴计划', href: '/referral' },
         { label: '更新日志', href: '/updates' },
       ],
@@ -69,7 +69,7 @@ export function Footer() {
 
   return (
     <SiteFooter
-      tagline="小红书/抖音采集、赛道判断与对标监控一套搞定。"
+      tagline="小红书/抖音采集分析、选题创作一套搞定"
       columns={columns}
       socials={socials}
     />

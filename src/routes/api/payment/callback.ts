@@ -70,7 +70,7 @@ export async function GET({ request }: { request: Request }) {
   const url = new URL(request.url);
   const orderNo = url.searchParams.get('order_no');
   const redirect = url.searchParams.get('redirect');
-  const fallback = `${envConfigs.app_url}/settings/billing`;
+  const fallback = `${envConfigs.app_url}/settings/payments`;
   let callbackError = false;
 
   try {

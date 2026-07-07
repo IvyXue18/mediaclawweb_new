@@ -1,15 +1,16 @@
 {
   "metadata": {
-    "title": "小红书视频逐字稿一键提取，带时间戳分句节奏稿 | MediaClaw 社媒虾",
-    "description": "小红书视频逐字稿一键提取，插件内直接把口播转成文字，不依赖飞书。输出完整逐字稿和带时间戳的分句稿，方便拆口播节奏、AI 改写仿写、沉淀文案素材。",
+    "title": "小红书视频口播逐字稿一键提取 | MediaClaw 社媒虾",
+    "description": "小红书视频逐字稿一键提取，插件内直接把口播转成文字。输出完整逐字稿和带时间戳的分句稿，方便拆口播节奏、AI 改写仿写、沉淀文案素材，也支持批量自动提取。",
     "keywords": "小红书视频逐字稿, 小红书逐字稿提取, 视频转文字, 口播文案提取, 带时间戳逐字稿, 视频节奏分析, 短视频口播拆解, 小红书视频文案, 视频脚本提取"
   },
   "page": {
-    "title": "小红书视频逐字稿提取",
+    "title": "一键提取/批量自动提取小红书视频逐字稿",
     "show_sections": [
       "hero",
       "modes",
       "compare",
+      "compare_methods",
       "uses",
       "faq",
       "related",
@@ -21,11 +22,18 @@
         "block": "page-hero",
         "label": "小红书视频逐字稿提取工具",
         "breadcrumbs": [
-          { "title": "首页", "url": "/" },
-          { "title": "小红书" },
-          { "title": "视频逐字稿" }
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "小红书"
+          },
+          {
+            "title": "视频逐字稿"
+          }
         ],
-        "title": "小红书视频逐字稿，一键提取",
+        "title": "一键提取/批量自动提取小红书视频逐字稿",
         "description": "一条视频口播逐字稿直接提取，一次给两份：完整逐字稿方以及带时间戳的分句稿，拆解视频角度更完整。前三秒，中间结构，结尾召唤，节奏信息一目了然。",
         "buttons": [
           {
@@ -56,7 +64,10 @@
               "src": "https://media.mediaclaw.app/blog-covers/7c94d2a48528fa38a6c364e498fdb4b5.png",
               "alt": "MediaClaw 插件侧边栏提取小红书视频逐字稿，右侧展示带时间戳的分句节奏稿"
             },
-            "button": { "title": "免费下载使用", "url": "/download" }
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
           },
           {
             "title": "带时间戳分句稿，拿来拆节奏",
@@ -66,7 +77,10 @@
               "src": "https://media.mediaclaw.app/blog-covers/b76b2e8d56b648002b9b73f0c7d50dc2.png",
               "alt": "用带时间戳的逐字稿分析并优化视频脚本节奏"
             },
-            "button": { "title": "免费下载使用", "url": "/download" }
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
           },
           {
             "title": "逐字稿直接进 AI 改写仿写",
@@ -76,7 +90,10 @@
               "src": "https://media.mediaclaw.app/blog-covers/19711c105b2577936fd23022ee7614c4.png",
               "alt": "在飞书多维表格中用 AI 解构原笔记结构并生成改写版本"
             },
-            "button": { "title": "免费下载使用", "url": "/download" }
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
           },
           {
             "title": "量大就同步飞书批量提取",
@@ -86,7 +103,10 @@
               "src": "https://media.mediaclaw.app/blog-covers/23959730eb58ef0d6a1ee53bd0271338.png",
               "alt": "飞书多维表格音视频转文字字段捷径批量提取小红书视频逐字稿"
             },
-            "button": { "title": "免费下载使用", "url": "/download" }
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
           }
         ]
       },
@@ -96,9 +116,18 @@
         "title": "两条提取路径，按你的场景选",
         "description": "做了插件内提取，不代表飞书那条免费路就该被废，它俩解决同一需求的不同侧面。",
         "columns": [
-          { "key": "dim", "title": "维度" },
-          { "key": "plugin", "title": "插件内提取" },
-          { "key": "feishu", "title": "飞书字段捷径 + 阿里百炼" }
+          {
+            "key": "dim",
+            "title": "维度"
+          },
+          {
+            "key": "plugin",
+            "title": "插件内提取"
+          },
+          {
+            "key": "feishu",
+            "title": "飞书字段捷径 + 阿里百炼"
+          }
         ],
         "rows": [
           {
@@ -228,6 +257,79 @@
           }
         ],
         "className": "bg-secondary/20"
+      },
+      "compare_methods": {
+        "id": "compare-methods",
+        "block": "data-table",
+        "title": "插件提取 vs 在线转写 vs 剪映导出 vs 转写 API",
+        "description": "四种把小红书视频转成文字的方式对比，帮你选对路径。",
+        "columns": [
+          {
+            "key": "item",
+            "title": ""
+          },
+          {
+            "key": "mediaclaw",
+            "title": "MediaClaw 浏览器插件",
+            "highlight": true
+          },
+          {
+            "key": "online",
+            "title": "在线转写工具"
+          },
+          {
+            "key": "jianying",
+            "title": "剪映导出字幕"
+          },
+          {
+            "key": "api",
+            "title": "转写 API"
+          }
+        ],
+        "rows": [
+          {
+            "item": "操作路径",
+            "mediaclaw": "采集记录上直接提取，无需下载视频",
+            "online": "先下载视频再逐条上传",
+            "jianying": "下载视频、导入剪映、导出字幕",
+            "api": "需开发对接，自行传入视频"
+          },
+          {
+            "item": "批量能力",
+            "mediaclaw": "采集列表逐条批量提取",
+            "online": "逐条上传处理",
+            "jianying": "逐条导入处理",
+            "api": "可批量但需自建流程"
+          },
+          {
+            "item": "时间戳",
+            "mediaclaw": "分句带时间轴",
+            "online": "部分工具支持",
+            "jianying": "字幕自带时间轴",
+            "api": "取决于接口能力"
+          },
+          {
+            "item": "识别准确率",
+            "mediaclaw": "模型较新，快语速、方言、配乐也能扛",
+            "online": "参差不齐",
+            "jianying": "可用，错字需手动校对",
+            "api": "取决于所选模型"
+          },
+          {
+            "item": "成本",
+            "mediaclaw": "按视频时长扣积分",
+            "online": "免费额度小，常有次数限制",
+            "jianying": "免费",
+            "api": "按时长付费，另有开发成本"
+          },
+          {
+            "item": "适合场景",
+            "mediaclaw": "对标拆解、批量整理逐字稿",
+            "online": "偶尔转一条",
+            "jianying": "本来就在剪辑流程里",
+            "api": "产品集成"
+          }
+        ]
       }
     }
   }

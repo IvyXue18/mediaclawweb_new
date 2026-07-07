@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "Free Xiaohongshu Comment Scraper - Export RedNote to Excel",
-    "description": "Free Xiaohongshu (RedNote) comment scraper. Batch-capture comment text, likes, timestamps, usernames, and profile links, then export to Excel/CSV for research.",
-    "keywords": "Xiaohongshu comment scraper, RedNote comment export, export Xiaohongshu comments, Xiaohongshu comment analysis, free Xiaohongshu tool"
+    "title": "Free Rednote（Xiaohongshu） Comment scraper Chrome Extension | MediaClaw",
+    "description": "Free Xiaohongshu (RedNote) comment extractor. Batch-capture comment text, likes, timestamps, usernames, and profile links, then export to Excel/CSV for research.",
+    "keywords": "Xiaohongshu comment scraper, RedNote comment export, export Xiaohongshu comments, Xiaohongshu comment analysis, high-intent lead filtering, free Xiaohongshu tool"
   },
   "page": {
     "title": "Xiaohongshu Comment Scraper",
@@ -34,7 +34,7 @@
             "title": "Comment Scraper"
           }
         ],
-        "title": "Batch Scrape Xiaohongshu Comments for Free",
+        "title": "Batch Scrape Rednote Comments for Free",
         "description": "Automatically scroll and extract post comments, then export clean comment data to Excel/CSV with one click for fast analysis.",
         "buttons": [
           {
@@ -67,6 +67,19 @@
             "button": {
               "title": "Install Free Extension",
               "url": "/download"
+            }
+          },
+          {
+            "title": "Filter High-Intent Leads While Scraping Comments",
+            "description": "Set buying-intent keywords and IP location conditions directly inside the extension, such as \"where to buy\", \"send link\", \"price\", \"Guangdong\", or \"Beijing\". While comments are collected, MediaClaw flags matching prospects so the exported sheet is ready for filtering and follow-up.",
+            "icon": "Filter",
+            "image": {
+              "src": "/imgs/features/1-v20260425.webp",
+              "alt": "MediaClaw filtering high-intent lead signals while scraping Xiaohongshu comments"
+            },
+            "button": {
+              "title": "View Lead Filter Setup",
+              "url": "/xiaohongshu/leads"
             }
           },
           {
@@ -232,6 +245,63 @@
           }
         ],
         "className": "bg-secondary/20"
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "title": "Extension vs. Manual Copying vs. Cloud Scrapers",
+        "description": "Three ways to collect RedNote comment data, compared.",
+        "columns": [
+          {
+            "key": "item",
+            "title": ""
+          },
+          {
+            "key": "mediaclaw",
+            "title": "MediaClaw (Extension)",
+            "highlight": true
+          },
+          {
+            "key": "manual",
+            "title": "Manual copying"
+          },
+          {
+            "key": "cloud",
+            "title": "Cloud comment scrapers"
+          }
+        ],
+        "rows": [
+          {
+            "item": "Speed",
+            "mediaclaw": "Bulk-collect comments and replies in one click",
+            "manual": "Copy one by one — unrealistic past a hundred",
+            "cloud": "Set up a task and wait"
+          },
+          {
+            "item": "Data completeness",
+            "mediaclaw": "Thread structure, likes, timestamps, and location kept intact",
+            "manual": "Plain text only, structure lost",
+            "cloud": "Fields depend on the provider"
+          },
+          {
+            "item": "Login & setup",
+            "mediaclaw": "Reuses your current browser session",
+            "manual": "None",
+            "cloud": "Requires cookies and proxies"
+          },
+          {
+            "item": "Export",
+            "mediaclaw": "Excel/CSV/Markdown, Feishu Base sync",
+            "manual": "Paste into a spreadsheet by hand",
+            "cloud": "JSON/CSV download"
+          },
+          {
+            "item": "Best for",
+            "mediaclaw": "Comment insights, topic mining, sentiment analysis",
+            "manual": "A handful of samples",
+            "cloud": "Large-scale scheduled monitoring"
+          }
+        ]
       }
     }
   }

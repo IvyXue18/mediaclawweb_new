@@ -1,15 +1,16 @@
 {
   "metadata": {
-    "title": "Xiaohongshu Video Transcript Extractor - Timestamped Script",
-    "description": "Extract Xiaohongshu (RED) video transcripts in one click. Get a full transcript plus a timestamped, sentence-level script to break down hooks and pacing.",
+    "title": "Rednote（xiaohongshu） Video Transcript Extractor | MediaClaw",
+    "description": "Extract Xiaohongshu (Rednote) video transcripts in one click. Get a full transcript plus a timestamped, sentence-level script to break down hooks and pacing.",
     "keywords": "xiaohongshu video transcript, RED video to text, video transcript extractor, timestamped transcript, voiceover script extraction, short video pacing analysis, xiaohongshu script"
   },
   "page": {
-    "title": "Xiaohongshu Video Transcript Extraction",
+    "title": "Xiaohongshu video transcripts, extracted in one click",
     "show_sections": [
       "hero",
       "modes",
       "compare",
+      "compare_methods",
       "uses",
       "faq",
       "related",
@@ -21,9 +22,16 @@
         "block": "page-hero",
         "label": "Xiaohongshu video transcript tool",
         "breadcrumbs": [
-          { "title": "Home", "url": "/" },
-          { "title": "Xiaohongshu" },
-          { "title": "Video Transcript" }
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Xiaohongshu"
+          },
+          {
+            "title": "Video Transcript"
+          }
         ],
         "title": "Xiaohongshu video transcripts, extracted in one click",
         "description": "Trigger extraction right on the collected record, no need to sync to Feishu first. You get two outputs: a full transcript for copying and feeding to AI, and a timestamped, sentence-level script that shows exactly when the hook lands, how long the setup runs, and where the turn hits.",
@@ -56,7 +64,10 @@
               "src": "https://media.mediaclaw.app/blog-covers/7c94d2a48528fa38a6c364e498fdb4b5.png",
               "alt": "MediaClaw extension sidebar extracting a Xiaohongshu video transcript with a timestamped sentence-level script"
             },
-            "button": { "title": "Download free", "url": "/download" }
+            "button": {
+              "title": "Download free",
+              "url": "/download"
+            }
           },
           {
             "title": "Timestamped script for pacing analysis",
@@ -66,7 +77,10 @@
               "src": "https://media.mediaclaw.app/blog-covers/b76b2e8d56b648002b9b73f0c7d50dc2.png",
               "alt": "Using a timestamped transcript to analyze and optimize video script pacing"
             },
-            "button": { "title": "Download free", "url": "/download" }
+            "button": {
+              "title": "Download free",
+              "url": "/download"
+            }
           },
           {
             "title": "Transcript ready for AI rewriting",
@@ -76,7 +90,10 @@
               "src": "https://media.mediaclaw.app/blog-covers/19711c105b2577936fd23022ee7614c4.png",
               "alt": "Using AI to deconstruct and rewrite the original note structure in a Feishu base"
             },
-            "button": { "title": "Download free", "url": "/download" }
+            "button": {
+              "title": "Download free",
+              "url": "/download"
+            }
           },
           {
             "title": "High volume? Sync to Feishu for batch extraction",
@@ -86,7 +103,10 @@
               "src": "https://media.mediaclaw.app/blog-covers/23959730eb58ef0d6a1ee53bd0271338.png",
               "alt": "Feishu base audio/video-to-text field shortcut batch-extracting Xiaohongshu video transcripts"
             },
-            "button": { "title": "Download free", "url": "/download" }
+            "button": {
+              "title": "Download free",
+              "url": "/download"
+            }
           }
         ]
       },
@@ -96,9 +116,18 @@
         "title": "Two extraction paths, pick by use case",
         "description": "Adding in-extension extraction doesn't retire the free Feishu path. They solve different sides of the same need.",
         "columns": [
-          { "key": "dim", "title": "Dimension" },
-          { "key": "plugin", "title": "In-extension extraction" },
-          { "key": "feishu", "title": "Feishu shortcut + Alibaba Bailian" }
+          {
+            "key": "dim",
+            "title": "Dimension"
+          },
+          {
+            "key": "plugin",
+            "title": "In-extension extraction"
+          },
+          {
+            "key": "feishu",
+            "title": "Feishu shortcut + Alibaba Bailian"
+          }
         ],
         "rows": [
           {
@@ -228,6 +257,79 @@
           }
         ],
         "className": "bg-secondary/20"
+      },
+      "compare_methods": {
+        "id": "compare-methods",
+        "block": "data-table",
+        "title": "Extension vs. Online Transcribers, CapCut & APIs",
+        "description": "Four ways to turn RedNote videos into text, compared.",
+        "columns": [
+          {
+            "key": "item",
+            "title": ""
+          },
+          {
+            "key": "mediaclaw",
+            "title": "MediaClaw (Extension)",
+            "highlight": true
+          },
+          {
+            "key": "online",
+            "title": "Online transcribers"
+          },
+          {
+            "key": "jianying",
+            "title": "CapCut subtitle export"
+          },
+          {
+            "key": "api",
+            "title": "Transcription APIs"
+          }
+        ],
+        "rows": [
+          {
+            "item": "Workflow",
+            "mediaclaw": "Extract right from collected posts — no download needed",
+            "online": "Download the video, then upload it",
+            "jianying": "Download, import to CapCut, export subtitles",
+            "api": "Build an integration and send videos yourself"
+          },
+          {
+            "item": "Batch",
+            "mediaclaw": "Batch-extract from your collection list",
+            "online": "One at a time",
+            "jianying": "One at a time",
+            "api": "Batch possible, but you build the pipeline"
+          },
+          {
+            "item": "Timestamps",
+            "mediaclaw": "Sentence-level timeline",
+            "online": "Varies by tool",
+            "jianying": "Subtitle timeline included",
+            "api": "Depends on the API"
+          },
+          {
+            "item": "Accuracy",
+            "mediaclaw": "Recent models — handles fast speech, dialects, and background music",
+            "online": "Hit or miss",
+            "jianying": "Usable, but typos need manual cleanup",
+            "api": "Depends on the model you pick"
+          },
+          {
+            "item": "Cost",
+            "mediaclaw": "Credits by video length",
+            "online": "Small free tiers, usage caps",
+            "jianying": "Free",
+            "api": "Pay per minute, plus dev cost"
+          },
+          {
+            "item": "Best for",
+            "mediaclaw": "Competitor teardowns, bulk transcripts",
+            "online": "The odd video",
+            "jianying": "Already editing in CapCut",
+            "api": "Product integrations"
+          }
+        ]
       }
     }
   }

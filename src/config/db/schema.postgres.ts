@@ -115,6 +115,43 @@ export const config = table('config', {
   value: text('value'),
 });
 
+export const eventLog = table(
+  'event_log',
+  {
+    id: text('id').primaryKey(),
+    eventName: text('event_name').notNull(),
+    eventVersion: text('event_version').notNull().default('1'),
+    project: text('project').notNull().default('mediaclaw_web'),
+    source: text('source').notNull().default('server'),
+    anonymousId: text('anonymous_id').notNull().default(''),
+    userId: text('user_id').notNull().default(''),
+    orderNo: text('order_no').notNull().default(''),
+    credentialId: text('credential_id').notNull().default(''),
+    credentialCode: text('credential_code').notNull().default(''),
+    clientUuid: text('client_uuid').notNull().default(''),
+    sessionId: text('session_id').notNull().default(''),
+    appVersion: text('app_version').notNull().default(''),
+    pagePath: text('page_path').notNull().default(''),
+    referrer: text('referrer').notNull().default(''),
+    utmSource: text('utm_source').notNull().default(''),
+    utmMedium: text('utm_medium').notNull().default(''),
+    utmCampaign: text('utm_campaign').notNull().default(''),
+    locale: text('locale').notNull().default(''),
+    propertiesJson: text('properties_json'),
+    occurredAt: timestamp('occurred_at').defaultNow().notNull(),
+    receivedAt: timestamp('received_at').defaultNow().notNull(),
+  },
+  (table) => [
+    index('idx_event_log_event_occurred').on(table.eventName, table.occurredAt),
+    index('idx_event_log_user_occurred').on(table.userId, table.occurredAt),
+    index('idx_event_log_anonymous_occurred').on(
+      table.anonymousId,
+      table.occurredAt
+    ),
+    index('idx_event_log_page_occurred').on(table.pagePath, table.occurredAt),
+  ]
+);
+
 export const benefitTask = table(
   'benefit_task',
   {
@@ -975,6 +1012,8 @@ export type Account = typeof account.$inferSelect;
 export type NewAccount = typeof account.$inferInsert;
 export type Verification = typeof verification.$inferSelect;
 export type Config = typeof config.$inferSelect;
+export type EventLog = typeof eventLog.$inferSelect;
+export type NewEventLog = typeof eventLog.$inferInsert;
 export type BenefitTask = typeof benefitTask.$inferSelect;
 export type ChannelSurveyResponse = typeof channelSurveyResponse.$inferSelect;
 export type ExperienceFeedbackResponse =

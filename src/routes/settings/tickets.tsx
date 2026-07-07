@@ -156,7 +156,7 @@ function TicketsPage() {
       setReplyAttachments([]);
       setReplyUploaderKey((k) => k + 1);
     } catch (e: any) {
-      toast.error(e?.message || 'Failed');
+      toast.error(e?.message || m['settings.tickets.failed']());
     }
   }
 
@@ -177,7 +177,7 @@ function TicketsPage() {
       setPage(1);
       refreshList();
     } catch (e: any) {
-      toast.error(e?.message || 'Failed');
+      toast.error(e?.message || m['settings.tickets.failed']());
     } finally {
       setSubmitting(false);
     }
@@ -195,7 +195,7 @@ function TicketsPage() {
       await openDetail(activeTicket);
       refreshList();
     } catch (e: any) {
-      toast.error(e?.message || 'Failed');
+      toast.error(e?.message || m['settings.tickets.failed']());
     } finally {
       setReplying(false);
     }
@@ -209,7 +209,7 @@ function TicketsPage() {
       setActiveTicket(null);
       refreshList();
     } catch (e: any) {
-      toast.error(e?.message || 'Failed');
+      toast.error(e?.message || m['settings.tickets.failed']());
     }
   }
 

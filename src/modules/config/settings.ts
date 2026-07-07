@@ -5,6 +5,8 @@
  * and they'll automatically appear in the admin panel.
  */
 
+import { pricingCatalog } from '@/config/pricing';
+
 export interface Setting {
   name: string;
   title: string;
@@ -15,6 +17,7 @@ export interface Setting {
   group: string;
   tab: string;
   defaultValue?: string;
+  rows?: number;
 }
 
 export interface SettingGroup {
@@ -29,6 +32,42 @@ export interface SettingTab {
   title: string;
 }
 
+function durationPresetFromDays(days?: number): '1m' | '3m' | '1y' | null {
+  if (!days || days <= 0) return null;
+  if (days >= 365) return '1y';
+  if (days >= 90) return '3m';
+  if (days >= 30) return '1m';
+  return null;
+}
+
+function buildDefaultPricingProducts(): string {
+  const products = Object.fromEntries(
+    Object.values(pricingCatalog)
+      .filter((product) => product.priceInCents > 0)
+      .map((product) => [
+        product.productId,
+        {
+          amount: product.priceInCents,
+          currency: product.currency,
+          credits: product.credits,
+          type:
+            product.fulfillment === 'credits_only'
+              ? 'credits_only'
+              : product.fulfillment === 'credential'
+                ? 'credential'
+                : 'generic',
+          duration_preset: durationPresetFromDays(product.creditsValidDays),
+          max_bindings: product.maxBindings ?? null,
+          status: 'active',
+        },
+      ])
+  );
+
+  return JSON.stringify(products, null, 2);
+}
+
+const defaultPricingProducts = buildDefaultPricingProducts();
+
 export function getSettingTabs(): SettingTab[] {
   return [
     { name: 'general', title: 'General' },
@@ -38,7 +77,12 @@ export function getSettingTabs(): SettingTab[] {
     { name: 'storage', title: 'Storage' },
     { name: 'ai', title: 'AI' },
     { name: 'analytics', title: 'Analytics' },
+    { name: 'ads', title: 'Ads' },
+    { name: 'affiliate', title: 'Affiliate' },
     { name: 'customer_service', title: 'Customer Service' },
+    { name: 'referral', title: 'Referral' },
+    { name: 'pricing', title: 'Pricing' },
+    { name: 'benefits', title: 'Benefits' },
     { name: 'custom', title: 'Custom' },
   ];
 }
@@ -108,6 +152,12 @@ export function getSettingGroups(): SettingGroup[] {
       name: 'paypal',
       title: 'PayPal',
       description: 'PayPal payment gateway',
+      tab: 'payment',
+    },
+    {
+      name: 'zpay',
+      title: 'ZPay',
+      description: 'ZPay gateway for Alipay / WeChat Pay',
       tab: 'payment',
     },
     {
@@ -204,10 +254,50 @@ export function getSettingGroups(): SettingGroup[] {
       tab: 'analytics',
     },
     {
+      name: 'clarity',
+      title: 'Clarity',
+      description: 'Microsoft Clarity project tracking',
+      tab: 'analytics',
+    },
+    {
       name: 'plausible',
       title: 'Plausible',
       description: 'Inject plausible.js for self-hosted or cloud Plausible',
       tab: 'analytics',
+    },
+    {
+      name: 'openpanel',
+      title: 'OpenPanel',
+      description: 'OpenPanel analytics client',
+      tab: 'analytics',
+    },
+    {
+      name: 'vercel_analytics',
+      title: 'Vercel Analytics',
+      description: 'Vercel Analytics toggle',
+      tab: 'analytics',
+    },
+
+    // Ads
+    {
+      name: 'adsense',
+      title: 'AdSense',
+      description: 'Google AdSense publisher configuration',
+      tab: 'ads',
+    },
+
+    // Affiliate
+    {
+      name: 'affonso',
+      title: 'Affonso',
+      description: 'Affonso affiliate tracking',
+      tab: 'affiliate',
+    },
+    {
+      name: 'promotekit',
+      title: 'PromoteKit',
+      description: 'PromoteKit affiliate tracking',
+      tab: 'affiliate',
     },
 
     // Customer Service
@@ -223,6 +313,33 @@ export function getSettingGroups(): SettingGroup[] {
       description: 'Tawk.to live chat widget',
       tab: 'customer_service',
     },
+
+    // Referral / Pricing / Benefits
+    {
+      name: 'referral',
+      title: 'Referral',
+      description: 'Referral and commission settings',
+      tab: 'referral',
+    },
+    {
+      name: 'pricing_products',
+      title: 'Pricing Products',
+      description:
+        'Pricing catalog overrides for amount, credits, duration, and status',
+      tab: 'pricing',
+    },
+    {
+      name: 'benefit_channel_survey',
+      title: 'Channel Survey Reward',
+      description: 'Channel survey reward duration and credits',
+      tab: 'benefits',
+    },
+    {
+      name: 'benefit_experience_feedback',
+      title: 'Experience Feedback Reward',
+      description: 'Experience feedback reward duration and credits',
+      tab: 'benefits',
+    },
   ];
 }
 
@@ -233,7 +350,7 @@ export function getSettings(): Setting[] {
       name: 'app_name',
       title: 'App Name',
       type: 'text',
-      placeholder: 'My App',
+      placeholder: 'MediaClaw',
       group: 'appinfo',
       tab: 'general',
     },
@@ -241,7 +358,8 @@ export function getSettings(): Setting[] {
       name: 'app_description',
       title: 'App Description',
       type: 'textarea',
-      placeholder: 'Ship your SaaS faster',
+      placeholder:
+        'MediaClaw helps teams capture, monitor, and operationalize social media intelligence.',
       group: 'appinfo',
       tab: 'general',
     },
@@ -404,6 +522,7 @@ export function getSettings(): Setting[] {
         { label: 'Stripe', value: 'stripe' },
         { label: 'Creem', value: 'creem' },
         { label: 'PayPal', value: 'paypal' },
+        { label: 'ZPay', value: 'zpay' },
         { label: 'Alipay', value: 'alipay' },
         { label: 'WeChat Pay', value: 'wechat' },
       ],
@@ -484,7 +603,7 @@ export function getSettings(): Setting[] {
       name: 'creem_product_ids_mapping',
       title: 'Product IDs Mapping',
       type: 'textarea',
-      placeholder: '{"starter_monthly": "prod_xxx"}',
+      placeholder: '{"pro-1m": "prod_xxx"}',
       tip: 'Map the product_id in pricing catalog to the product ID created in Creem. Must be a valid JSON object.',
       group: 'creem',
       tab: 'payment',
@@ -547,6 +666,33 @@ export function getSettings(): Setting[] {
       type: 'number',
       placeholder: '留空使用实际金额，填 1 则支付 $0.01',
       group: 'paypal',
+      tab: 'payment',
+    },
+
+    // ─── Payment / ZPay ────────────────────────────────────────────────
+    {
+      name: 'zpay_enabled',
+      title: 'Enable ZPay',
+      type: 'switch',
+      group: 'zpay',
+      tab: 'payment',
+    },
+    {
+      name: 'zpay_pid',
+      title: 'ZPay PID',
+      type: 'text',
+      placeholder: '2026031411590962',
+      tip: 'ZPay merchant ID from zpayz.cn',
+      group: 'zpay',
+      tab: 'payment',
+    },
+    {
+      name: 'zpay_pkey',
+      title: 'ZPay PKEY',
+      type: 'password',
+      placeholder: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+      tip: 'ZPay merchant key from zpayz.cn',
+      group: 'zpay',
       tab: 'payment',
     },
 
@@ -691,7 +837,7 @@ export function getSettings(): Setting[] {
       name: 'resend_sender_email',
       title: 'Sender Email',
       type: 'text',
-      placeholder: 'hello@example.com',
+      placeholder: 'support@mediaclaw.app',
       group: 'resend',
       tab: 'email',
     },
@@ -717,13 +863,13 @@ export function getSettings(): Setting[] {
       name: 'cloudflare_email_sender_email',
       title: 'Sender Email',
       type: 'text',
-      placeholder: 'hello@yourdomain.com',
+      placeholder: 'support@mediaclaw.app',
       group: 'cloudflare_email',
       tab: 'email',
     },
 
     // ─── Storage / R2 ────────────────────────────────────────────────
-    // Keys mirror the original ShipAny Two (`r2_*`) so existing DB config is read as-is.
+    // Keep the legacy `r2_*` keys so existing DB config is read as-is.
     {
       name: 'r2_access_key',
       title: 'Cloudflare Access Key',
@@ -959,6 +1105,16 @@ export function getSettings(): Setting[] {
       tab: 'analytics',
     },
 
+    // ─── Analytics / Clarity ───────────────────────────────────────────
+    {
+      name: 'clarity_id',
+      title: 'Clarity ID',
+      type: 'text',
+      placeholder: 'xxxxxxxxxx',
+      group: 'clarity',
+      tab: 'analytics',
+    },
+
     // ─── Analytics / Plausible ───────────────────────────────────────
     {
       name: 'plausible_domain',
@@ -977,6 +1133,84 @@ export function getSettings(): Setting[] {
       tip: 'Use https://plausible.io/js/script.js for cloud, or your self-hosted URL',
       group: 'plausible',
       tab: 'analytics',
+    },
+
+    // ─── Analytics / OpenPanel ────────────────────────────────────────
+    {
+      name: 'openpanel_client_id',
+      title: 'OpenPanel Client ID',
+      type: 'text',
+      placeholder: 'op_...',
+      group: 'openpanel',
+      tab: 'analytics',
+    },
+
+    // ─── Analytics / Vercel Analytics ─────────────────────────────────
+    {
+      name: 'vercel_analytics_enabled',
+      title: 'Enable Vercel Analytics',
+      type: 'switch',
+      group: 'vercel_analytics',
+      tab: 'analytics',
+      defaultValue: 'false',
+    },
+
+    // ─── Ads / AdSense ────────────────────────────────────────────────
+    {
+      name: 'adsense_code',
+      title: 'AdSense Publisher Code',
+      type: 'text',
+      placeholder: 'ca-pub-xxx',
+      group: 'adsense',
+      tab: 'ads',
+    },
+
+    // ─── Affiliate / Affonso ──────────────────────────────────────────
+    {
+      name: 'affonso_enabled',
+      title: 'Enable Affonso',
+      type: 'switch',
+      group: 'affonso',
+      tab: 'affiliate',
+      defaultValue: 'false',
+    },
+    {
+      name: 'affonso_id',
+      title: 'Affonso ID',
+      type: 'text',
+      placeholder: 'xxx',
+      tip: 'Affonso Program ID',
+      group: 'affonso',
+      tab: 'affiliate',
+    },
+    {
+      name: 'affonso_cookie_duration',
+      title: 'Cookie duration (days)',
+      type: 'number',
+      placeholder: '30',
+      tip: 'Affonso cookie duration in days',
+      group: 'affonso',
+      tab: 'affiliate',
+      defaultValue: '30',
+    },
+
+    // ─── Affiliate / PromoteKit ───────────────────────────────────────
+    {
+      name: 'promotekit_enabled',
+      title: 'Enable PromoteKit',
+      type: 'switch',
+      group: 'promotekit',
+      tab: 'affiliate',
+      defaultValue: 'false',
+    },
+    {
+      name: 'promotekit_id',
+      title: 'PromoteKit ID',
+      type: 'text',
+      placeholder: 'xxx',
+      tip: 'PromoteKit Program ID',
+      group: 'promotekit',
+      tab: 'affiliate',
     },
 
     // ─── Customer Service / Crisp ───────────────────────────────────
@@ -1019,6 +1253,174 @@ export function getSettings(): Setting[] {
       placeholder: '1xxxxx/default',
       group: 'tawk',
       tab: 'customer_service',
+    },
+
+    // ─── Referral / Commission ───────────────────────────────────────
+    {
+      name: 'referral_enabled',
+      title: 'Referral Enabled',
+      type: 'switch',
+      group: 'referral',
+      tab: 'referral',
+      tip: 'Enable or disable the referral program',
+      defaultValue: 'true',
+    },
+    {
+      name: 'referral_first_order_rate',
+      title: 'First Order Commission Rate (%)',
+      type: 'number',
+      placeholder: '30',
+      group: 'referral',
+      tab: 'referral',
+      tip: 'Commission rate for first order from referred users (0-100)',
+      defaultValue: '30',
+    },
+    {
+      name: 'referral_renewal_rate',
+      title: 'Renewal Commission Rate (%)',
+      type: 'number',
+      placeholder: '5',
+      group: 'referral',
+      tab: 'referral',
+      tip: 'Commission rate for renewal orders from referred users (0-100)',
+      defaultValue: '5',
+    },
+    {
+      name: 'referral_invitee_discount',
+      title: 'Invitee Discount (%)',
+      type: 'number',
+      placeholder: '10',
+      group: 'referral',
+      tab: 'referral',
+      tip: 'Discount for new users who sign up with a referral code (0-100)',
+      defaultValue: '10',
+    },
+    {
+      name: 'referral_min_settlement',
+      title: 'Minimum Settlement Amount (cents)',
+      type: 'number',
+      placeholder: '10000',
+      group: 'referral',
+      tab: 'referral',
+      tip: 'Minimum amount required before commission can be settled. 10000 = ¥100',
+      defaultValue: '10000',
+    },
+    {
+      name: 'referral_lock_days',
+      title: 'Commission Lock Period (days)',
+      type: 'number',
+      placeholder: '7',
+      group: 'referral',
+      tab: 'referral',
+      tip: 'Number of days commission is locked before it can be settled',
+      defaultValue: '7',
+    },
+    {
+      name: 'referral_max_refund_rate',
+      title: 'Max Refund Rate (%)',
+      type: 'number',
+      placeholder: '30',
+      group: 'referral',
+      tab: 'referral',
+      tip: 'Maximum allowed refund rate before referrer is suspended (0-100)',
+      defaultValue: '30',
+    },
+
+    // ─── Pricing / Products ───────────────────────────────────────────
+    {
+      name: 'pricing_products',
+      title: 'Pricing Products (JSON)',
+      type: 'textarea',
+      placeholder: defaultPricingProducts,
+      group: 'pricing_products',
+      tab: 'pricing',
+      tip: 'Configure each product_id with amount (cents), currency, credits, type, duration_preset, max_bindings, and status.',
+      defaultValue: defaultPricingProducts,
+      rows: 20,
+    },
+
+    // ─── Benefits / Channel Survey ────────────────────────────────────
+    {
+      name: 'benefit_channel_survey_enabled',
+      title: 'Enable channel survey reward',
+      type: 'switch',
+      group: 'benefit_channel_survey',
+      tab: 'benefits',
+      defaultValue: 'true',
+    },
+    {
+      name: 'benefit_channel_survey_new_duration_days',
+      title: 'Channel survey: new trial days',
+      type: 'number',
+      group: 'benefit_channel_survey',
+      tab: 'benefits',
+      defaultValue: '2',
+    },
+    {
+      name: 'benefit_channel_survey_new_credits',
+      title: 'Channel survey: new trial credits',
+      type: 'number',
+      group: 'benefit_channel_survey',
+      tab: 'benefits',
+      defaultValue: '10',
+    },
+    {
+      name: 'benefit_channel_survey_existing_duration_days',
+      title: 'Channel survey: existing code extra days',
+      type: 'number',
+      group: 'benefit_channel_survey',
+      tab: 'benefits',
+      defaultValue: '2',
+    },
+    {
+      name: 'benefit_channel_survey_existing_credits',
+      title: 'Channel survey: existing code extra credits',
+      type: 'number',
+      group: 'benefit_channel_survey',
+      tab: 'benefits',
+      defaultValue: '10',
+    },
+
+    // ─── Benefits / Experience Feedback ───────────────────────────────
+    {
+      name: 'benefit_experience_feedback_enabled',
+      title: 'Enable experience feedback reward',
+      type: 'switch',
+      group: 'benefit_experience_feedback',
+      tab: 'benefits',
+      defaultValue: 'true',
+    },
+    {
+      name: 'benefit_experience_feedback_new_duration_days',
+      title: 'Experience feedback: new trial days',
+      type: 'number',
+      group: 'benefit_experience_feedback',
+      tab: 'benefits',
+      defaultValue: '3',
+    },
+    {
+      name: 'benefit_experience_feedback_new_credits',
+      title: 'Experience feedback: new trial credits',
+      type: 'number',
+      group: 'benefit_experience_feedback',
+      tab: 'benefits',
+      defaultValue: '0',
+    },
+    {
+      name: 'benefit_experience_feedback_existing_duration_days',
+      title: 'Experience feedback: existing code extra days',
+      type: 'number',
+      group: 'benefit_experience_feedback',
+      tab: 'benefits',
+      defaultValue: '3',
+    },
+    {
+      name: 'benefit_experience_feedback_existing_credits',
+      title: 'Experience feedback: existing code extra credits',
+      type: 'number',
+      group: 'benefit_experience_feedback',
+      tab: 'benefits',
+      defaultValue: '0',
     },
   ];
 }

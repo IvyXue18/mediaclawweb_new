@@ -1,13 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { LegacyLinkPage } from '@/routes/-legacy-action-pages';
 
+import { m } from '@/paraglide/messages.js';
+
 export const Route = createFileRoute('/settings/invoices/retrieve')({
   component: () => (
     <LegacyLinkPage
-      title="Invoices"
-      description="Invoice retrieval routes are preserved while the exact old billing portal handoff is migrated."
+      title={m['settings.invoices.retrieve_title']()}
+      description={m['settings.invoices.retrieve_description']()}
       href="/settings/payments"
-      label="Open payments"
+      label={m['settings.payments.open']()}
     />
   ),
 });

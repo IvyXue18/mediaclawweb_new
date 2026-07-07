@@ -11,6 +11,7 @@
       "modes",
       "advantage",
       "scenarios",
+      "compare",
       "faq",
       "related",
       "cta"
@@ -21,9 +22,16 @@
         "block": "page-hero",
         "label": "Free Douyin no-watermark video batch downloader",
         "breadcrumbs": [
-          { "title": "Home", "url": "/" },
-          { "title": "Douyin" },
-          { "title": "Watermark-Free Download" }
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Douyin"
+          },
+          {
+            "title": "Watermark-Free Download"
+          }
         ],
         "title": "Batch download watermark-free Douyin videos for free",
         "description": "The browser extension intercepts the original MP4 link right in the page, so you get the platform's stored source video, not a smudged watermark but a file that never had one, vertical and lossless, ideal for remixing and beat-sync editing. Carousel images and covers package too, completely free, unlimited, no sign-up.",
@@ -66,9 +74,18 @@
         "title": "Why browser-extension extraction wins",
         "description": "Online sites and apps each have weak spots; extension extraction balances quality, speed, and batch capability.",
         "columns": [
-          { "key": "dim", "title": "Dimension" },
-          { "key": "web", "title": "Online site / app" },
-          { "key": "plugin", "title": "Browser extension extraction" }
+          {
+            "key": "dim",
+            "title": "Dimension"
+          },
+          {
+            "key": "web",
+            "title": "Online site / app"
+          },
+          {
+            "key": "plugin",
+            "title": "Browser extension extraction"
+          }
         ],
         "rows": [
           {
@@ -108,9 +125,18 @@
         "block": "data-table",
         "title": "Typical use cases for free batch download",
         "columns": [
-          { "key": "role", "title": "Role" },
-          { "key": "scene", "title": "Scenario" },
-          { "key": "effect", "title": "Outcome" }
+          {
+            "key": "role",
+            "title": "Role"
+          },
+          {
+            "key": "scene",
+            "title": "Scenario"
+          },
+          {
+            "key": "effect",
+            "title": "Outcome"
+          }
         ],
         "rows": [
           {
@@ -209,6 +235,72 @@
           }
         ],
         "className": "bg-secondary/20"
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "title": "Extension vs. Online Parsers, Mini Apps & Screen Recording",
+        "description": "Four ways to save Douyin videos, compared.",
+        "columns": [
+          {
+            "key": "item",
+            "title": ""
+          },
+          {
+            "key": "mediaclaw",
+            "title": "MediaClaw (Extension)",
+            "highlight": true
+          },
+          {
+            "key": "parser",
+            "title": "Online parser sites"
+          },
+          {
+            "key": "miniapp",
+            "title": "Watermark-removal mini apps"
+          },
+          {
+            "key": "record",
+            "title": "Screen recording"
+          }
+        ],
+        "rows": [
+          {
+            "item": "Batch downloads",
+            "mediaclaw": "Bulk-download from profiles and search results",
+            "parser": "Paste links one by one",
+            "miniapp": "Forward posts one by one",
+            "record": "Record one by one"
+          },
+          {
+            "item": "Quality & watermark",
+            "mediaclaw": "Original quality, no watermark",
+            "parser": "Often re-compressed",
+            "miniapp": "Compression is common",
+            "record": "Screen quality, UI elements included"
+          },
+          {
+            "item": "Privacy & safety",
+            "mediaclaw": "Runs locally in your browser",
+            "parser": "Links sent to third parties, heavy ads",
+            "miniapp": "Requires authorization, data-collection risk",
+            "record": "Safe but slow"
+          },
+          {
+            "item": "Data alongside media",
+            "mediaclaw": "Keeps post data and captions, exports to Excel/Markdown",
+            "parser": "File only",
+            "miniapp": "File only",
+            "record": "File only"
+          },
+          {
+            "item": "Best for",
+            "mediaclaw": "Asset libraries and competitor teardowns",
+            "parser": "Saving the odd post",
+            "miniapp": "Quick saves on mobile",
+            "record": "Fallback when parsing fails"
+          }
+        ]
       }
     }
   }

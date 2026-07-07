@@ -15,7 +15,7 @@ import {
 
 import { db } from '@/core/db';
 import { credential, credentialCredit, credit, user } from '@/config/db/schema';
-import { getNonceStr, getUuid } from '@/lib/hash';
+import { getNonceStr, getSnowId, getUuid } from '@/lib/hash';
 
 export type CredentialStatus = 'active' | 'frozen' | 'expired' | 'revoked';
 
@@ -117,14 +117,14 @@ async function enrichCredentialRows<
       .where(
         and(
           inArray(credit.credentialCode, credentialCodes),
-          eq(credit.transactionType, 'grant')
+          inArray(credit.transactionType, ['grant', 'credential_recharge'])
         )
       )
       .groupBy(credit.credentialCode),
     db()
       .select({
         credentialCode: credit.credentialCode,
-        last90GrantCredits: sql<number>`coalesce(sum(case when ${credit.transactionType} = 'grant' then ${credit.credits} else 0 end), 0)`,
+        last90GrantCredits: sql<number>`coalesce(sum(case when ${credit.transactionType} in ('grant', 'credential_recharge') then ${credit.credits} else 0 end), 0)`,
         last90ConsumeCredits: sql<number>`coalesce(sum(case when ${credit.transactionType} in ('consume', 'expense') then abs(${credit.credits}) else 0 end), 0)`,
         last90MonitorConsumeCredits: sql<number>`coalesce(sum(case when ${credit.transactionType} in ('consume', 'expense') and ${credit.transactionScene} = 'account_monitor' then abs(${credit.credits}) else 0 end), 0)`,
         last90MonitorConsumeCount: sql<number>`coalesce(sum(case when ${credit.transactionType} in ('consume', 'expense') and ${credit.transactionScene} = 'account_monitor' then 1 else 0 end), 0)`,
@@ -217,6 +217,7 @@ export async function listCredentials(params: {
       code: credential.code,
       ownerUserId: credential.ownerUserId,
       ownerEmail: user.email,
+      ownerName: user.name,
       sourceOrderNo: credential.sourceOrderNo,
       planCode: credential.planCode,
       durationPreset: credential.durationPreset,
@@ -425,6 +426,16 @@ export async function rechargeCredential(params: {
 
     const credits = Number(params.credits || 0);
     if (credits > 0) {
+      const owner = existing.ownerUserId
+        ? (
+            await tx
+              .select({ email: user.email })
+              .from(user)
+              .where(eq(user.id, existing.ownerUserId))
+              .limit(1)
+          )[0]
+        : null;
+
       const [summary] = await tx
         .select()
         .from(credentialCredit)
@@ -458,6 +469,30 @@ export async function rechargeCredential(params: {
             nextExpiresAt === undefined ? existing.expiresAt : nextExpiresAt,
           status: 'active',
           activatedAt: existing.ownerUserId ? now : null,
+        });
+      }
+
+      if (existing.ownerUserId) {
+        await tx.insert(credit).values({
+          id: getUuid(),
+          userId: existing.ownerUserId,
+          userEmail: owner?.email || '',
+          orderNo: existing.sourceOrderNo || '',
+          subscriptionNo: '',
+          transactionNo: getSnowId(),
+          transactionType: 'credential_recharge',
+          transactionScene: 'manual_credential_recharge',
+          credits,
+          remainingCredits: 0,
+          description: params.notes || 'Manual credential recharge',
+          expiresAt:
+            nextExpiresAt === undefined ? existing.expiresAt : nextExpiresAt,
+          status: 'active',
+          credentialCode: existing.code,
+          metadata: JSON.stringify({
+            credentialId: existing.id,
+            source: 'credential_recharge',
+          }),
         });
       }
     }

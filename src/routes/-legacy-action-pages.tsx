@@ -14,20 +14,18 @@ import {
   Copy,
   History,
   Home,
-  Key,
   KeyRound,
   Loader2,
   MessageSquare,
   Plus,
   RefreshCw,
   Send,
-  Trash2,
   UserRound,
 } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Link } from '@/core/i18n/navigation';
-import { apiDelete, apiGet, apiPost, type PageResult } from '@/lib/api-client';
+import { apiGet, apiPost, type PageResult } from '@/lib/api-client';
 import { cn } from '@/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -691,89 +689,6 @@ export function AdminCredentialRechargePage({ id }: { id: string }) {
               Recharge
             </Button>
           </form>
-        </CardContent>
-      </Card>
-    </PageFrame>
-  );
-}
-
-export function ApiKeyCreatePage() {
-  const [title, setTitle] = useState('');
-  const [createdKey, setCreatedKey] = useState('');
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation({
-    mutationFn: () => apiPost<{ key: string }>('/api/apikeys', { title }),
-    onSuccess: (data) => {
-      setCreatedKey(data.key);
-      toast.success('API key created');
-      queryClient.invalidateQueries({ queryKey: ['apikeys'] });
-    },
-    onError: (error: Error) => toast.error(error.message),
-  });
-
-  return (
-    <PageFrame
-      icon={<Key className="size-5" />}
-      title="Create API Key"
-      description="Create a MediaClaw API key for plugin or integration access."
-    >
-      <Card>
-        <CardContent>
-          <form
-            className="grid max-w-xl gap-4"
-            onSubmit={(event: FormEvent<HTMLFormElement>) => {
-              event.preventDefault();
-              mutation.mutate();
-            }}
-          >
-            <Field label="Key name" value={title} onChange={setTitle} />
-            {createdKey ? (
-              <div className="bg-muted rounded-md p-3">
-                <Label>Created key</Label>
-                <p className="mt-2 font-mono text-sm break-all">{createdKey}</p>
-              </div>
-            ) : null}
-            <Button className="w-fit gap-2" disabled={mutation.isPending}>
-              <Plus className="size-4" />
-              Create
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-    </PageFrame>
-  );
-}
-
-export function ApiKeyDeletePage({ id }: { id: string }) {
-  const navigate = useNavigate();
-  const mutation = useMutation({
-    mutationFn: () => apiDelete(`/api/apikeys?id=${id}`),
-    onSuccess: () => {
-      toast.success('API key deleted');
-      navigate({ to: '/settings/apikeys' });
-    },
-    onError: (error: Error) => toast.error(error.message),
-  });
-
-  return (
-    <PageFrame
-      icon={<Trash2 className="size-5" />}
-      title="Delete API Key"
-      description="Confirm removal of this API key. Existing integrations using it will stop working."
-    >
-      <Card>
-        <CardContent className="space-y-4">
-          <p className="font-mono text-sm">{id}</p>
-          <Button
-            variant="destructive"
-            className="gap-2"
-            onClick={() => mutation.mutate()}
-            disabled={mutation.isPending}
-          >
-            <Trash2 className="size-4" />
-            Delete key
-          </Button>
         </CardContent>
       </Card>
     </PageFrame>

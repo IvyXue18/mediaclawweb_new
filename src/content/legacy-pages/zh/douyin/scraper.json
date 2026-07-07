@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "抖音数据采集工具：批量采集视频、主页、搜索结果并导出Excel/Markdown | MediaClaw 社媒虾",
-    "description": "免费抖音数据采集插件，支持批量采集视频数据、主页数据与搜索结果数据，一键导出 Excel/CSV/Markdown。采集后可提取视频逐字稿，适合做内容分析、评论挖掘前的数据沉淀、对标分析与竞品监控。",
+    "title": "抖音视频下载和数据采集插件｜MediaClaw 社媒虾",
+    "description": "免费抖音数据采集插件，支持一键采集视频内容、抓取互动评论、账号数据、无水印视频素材等，支持导出 Excel/CSV/Markdown。佳能提取配图文案和视频逐字稿，适合内容分析、评论挖掘、搭建选题库。",
     "keywords": "抖音数据采集, 抖音采集工具, 抖音视频数据采集, 抖音主页数据采集, 抖音搜索结果采集, 免费抖音插件, 导出Excel, Markdown导出, 抖音视频逐字稿, 抖音视频采集"
   },
   "page": {
@@ -11,6 +11,7 @@
       "modes",
       "batch",
       "outputs",
+      "compare",
       "scenarios",
       "safety",
       "faq",
@@ -34,7 +35,7 @@
             "title": "视频采集"
           }
         ],
-        "title": "抖音数据采集工具：批量采集视频、主页与搜索结果",
+        "title": "抖音数据采集，批量采集视频内容和互动数据",
         "description": "免费抖音数据采集插件，覆盖单视频深度采集、账号主页批量采集与关键词搜索结果采集，支持 CSV/Markdown 导出，采集后可提取视频逐字稿，帮助团队持续沉淀可复用样本，减少选题靠感觉、复盘靠记忆。",
         "buttons": [
           {
@@ -99,9 +100,15 @@
       },
       "outputs": {
         "id": "outputs",
-        "block": "data-table",
+        "block": "output-options",
         "title": "采集结果可直接进入分析和协作",
         "description": "从个人复盘到团队流程都能无缝接入。",
+        "image": {
+          "src": "/imgs/generated/scraper-export-excel-1783399614029.png",
+          "alt": "MediaClaw 将采集结果导出为 CSV Markdown 和 Excel 表格文件",
+          "width": 1280,
+          "height": 760
+        },
         "columns": [
           {
             "key": "mode",
@@ -118,29 +125,101 @@
         ],
         "rows": [
           {
-            "mode": "本地数据池",
-            "desc": "采集结果本地可查、可筛选、可删除",
-            "scene": "热点跟踪与快速复盘"
-          },
-          {
-            "mode": "飞书多维表格同步",
-            "desc": "一键入表，支持协作与报表流转",
-            "scene": "团队选题会与任务流转"
-          },
-          {
             "mode": "CSV / Markdown 导出",
-            "desc": "标准化字段可进入 Excel/BI/Python，Markdown 可直接进入 Obsidian 或 AI 整理流程",
-            "scene": "数据建模与深度分析"
-          },
-          {
-            "mode": "视频逐字稿提取",
-            "desc": "单条视频记录可按需补齐口播逐字稿",
-            "scene": "脚本拆解、内容复盘与选题沉淀"
+            "desc": "标准化字段可进入 Excel、BI 或 Python；Markdown 保留视频标题、互动数据、话题与来源链接，可直接进入 Obsidian 或 AI 整理流程。",
+            "scene": "数据建模、深度分析与脚本复盘",
+            "icon": "FileSpreadsheet",
+            "image_src": "/imgs/generated/scraper-export-excel-1783399614029.png",
+            "image_alt": "MediaClaw 将采集结果导出为 CSV Markdown 和 Excel 表格文件"
           },
           {
             "mode": "媒体文件下载",
-            "desc": "批量下载配图和视频用于素材管理",
-            "scene": "视频素材归档与拆解"
+            "desc": "批量保存视频与封面素材，并保留账号、链接、标题等结构化信息，方便统一归档和复盘。",
+            "scene": "视频素材归档、爆款拆解与团队共享",
+            "icon": "ImageDown",
+            "image_src": "/imgs/generated/scraper-media-download-1783399633407.png",
+            "image_alt": "MediaClaw 批量下载抖音视频和封面素材文件"
+          },
+          {
+            "mode": "飞书多维表格同步",
+            "desc": "一键写入团队表格，字段自动对齐，可继续标注、分配任务、生成周报，让采集结果直接进入协作流程。",
+            "scene": "团队选题会、任务流转与协作复盘",
+            "icon": "Table2",
+            "image_src": "/imgs/generated/scraper-lark-base-sync-1783399686070.png",
+            "image_alt": "MediaClaw 将采集数据同步到飞书多维表格用于团队协作"
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "title": "浏览器插件 vs 云端采集 vs 开源脚本 vs 数据接口",
+        "description": "不同抖音数据获取方式的客观对比，帮你选择最适合的方案。",
+        "columns": [
+          {
+            "key": "item",
+            "title": ""
+          },
+          {
+            "key": "mediaclaw",
+            "title": "MediaClaw 浏览器插件",
+            "highlight": true
+          },
+          {
+            "key": "cloud",
+            "title": "云端采集服务"
+          },
+          {
+            "key": "script",
+            "title": "开源脚本"
+          },
+          {
+            "key": "api",
+            "title": "数据接口 API"
+          }
+        ],
+        "rows": [
+          {
+            "item": "是否需要写代码",
+            "mediaclaw": "不需要，点击即用",
+            "cloud": "较少，但需配置任务",
+            "script": "需要 Python/Node 基础",
+            "api": "需要接口开发能力"
+          },
+          {
+            "item": "成本模式",
+            "mediaclaw": "免费额度，本地运行",
+            "cloud": "按云端算力付费",
+            "script": "免费但维护成本高",
+            "api": "按调用量付费"
+          },
+          {
+            "item": "代理与登录配置",
+            "mediaclaw": "无需配置，复用当前浏览器会话",
+            "cloud": "需配置代理与 Cookie",
+            "script": "需配置代理与 Cookie",
+            "api": "服务方处理，价格更高"
+          },
+          {
+            "item": "风控保护",
+            "mediaclaw": "模拟真人浏览、随机等待、异常自动暂停",
+            "cloud": "取决于服务质量",
+            "script": "需自行实现",
+            "api": "不涉及"
+          },
+          {
+            "item": "输出方式",
+            "mediaclaw": "Excel/CSV/Markdown、飞书多维表格同步、配图文案与逐字稿回填",
+            "cloud": "JSON/CSV 下载",
+            "script": "原始 JSON",
+            "api": "JSON 响应"
+          },
+          {
+            "item": "适合人群",
+            "mediaclaw": "创作者、运营与营销团队",
+            "cloud": "数据工程师",
+            "script": "开发者",
+            "api": "产品集成场景"
           }
         ]
       },

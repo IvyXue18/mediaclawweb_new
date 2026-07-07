@@ -108,6 +108,47 @@ export const config = table('config', {
   value: text('value'),
 });
 
+export const eventLog = table(
+  'event_log',
+  {
+    id: varchar191('id').primaryKey(),
+    eventName: varchar('event_name', { length: 120 }).notNull(),
+    eventVersion: varchar('event_version', { length: 20 })
+      .notNull()
+      .default('1'),
+    project: varchar('project', { length: 80 })
+      .notNull()
+      .default('mediaclaw_web'),
+    source: varchar('source', { length: 80 }).notNull().default('server'),
+    anonymousId: varchar191('anonymous_id').notNull().default(''),
+    userId: varchar191('user_id').notNull().default(''),
+    orderNo: varchar191('order_no').notNull().default(''),
+    credentialId: varchar191('credential_id').notNull().default(''),
+    credentialCode: varchar191('credential_code').notNull().default(''),
+    clientUuid: varchar191('client_uuid').notNull().default(''),
+    sessionId: varchar191('session_id').notNull().default(''),
+    appVersion: varchar('app_version', { length: 80 }).notNull().default(''),
+    pagePath: text('page_path').notNull().default(''),
+    referrer: text('referrer').notNull().default(''),
+    utmSource: varchar('utm_source', { length: 120 }).notNull().default(''),
+    utmMedium: varchar('utm_medium', { length: 120 }).notNull().default(''),
+    utmCampaign: varchar('utm_campaign', { length: 120 }).notNull().default(''),
+    locale: varchar('locale', { length: 20 }).notNull().default(''),
+    propertiesJson: longtext('properties_json'),
+    occurredAt: timestamp('occurred_at').defaultNow().notNull(),
+    receivedAt: timestamp('received_at').defaultNow().notNull(),
+  },
+  (table) => [
+    index('idx_event_log_event_occurred').on(table.eventName, table.occurredAt),
+    index('idx_event_log_user_occurred').on(table.userId, table.occurredAt),
+    index('idx_event_log_anonymous_occurred').on(
+      table.anonymousId,
+      table.occurredAt
+    ),
+    index('idx_event_log_page_occurred').on(table.pagePath, table.occurredAt),
+  ]
+);
+
 export const benefitTask = table(
   'benefit_task',
   {
@@ -927,6 +968,8 @@ export type Account = typeof account.$inferSelect;
 export type NewAccount = typeof account.$inferInsert;
 export type Verification = typeof verification.$inferSelect;
 export type Config = typeof config.$inferSelect;
+export type EventLog = typeof eventLog.$inferSelect;
+export type NewEventLog = typeof eventLog.$inferInsert;
 export type BenefitTask = typeof benefitTask.$inferSelect;
 export type ChannelSurveyResponse = typeof channelSurveyResponse.$inferSelect;
 export type ExperienceFeedbackResponse =

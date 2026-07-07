@@ -14,7 +14,9 @@ import { ThemeProvider } from 'next-themes';
 
 import { envConfigs } from '@/config';
 import { getQueryClient } from '@/lib/query-client';
+import { THEME_TRANSITION_STORAGE_KEY } from '@/lib/theme-transition';
 import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
+import { FirstPartyAnalytics } from '@/components/analytics/first-party-analytics';
 import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 import { Plausible } from '@/components/analytics/plausible';
 import { CustomerService } from '@/components/customer-service';
@@ -23,6 +25,55 @@ import { ReferralCapture } from '@/components/referral-capture';
 import { Toaster } from '@/components/ui/sonner';
 
 import '@/styles/globals.css';
+
+const EARLY_THEME_SCRIPT = `
+(function () {
+  try {
+    var root = document.documentElement;
+    var storedTheme = localStorage.getItem('theme') || 'system';
+    var resolvedTheme =
+      storedTheme === 'system'
+        ? window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light'
+        : storedTheme;
+
+    if (resolvedTheme === 'dark' || resolvedTheme === 'light') {
+      root.classList.remove('light', 'dark');
+      root.classList.add(resolvedTheme);
+      root.style.colorScheme = resolvedTheme;
+    }
+
+    var transitionKey = ${JSON.stringify(THEME_TRANSITION_STORAGE_KEY)};
+    var shouldSuppressTransitions = false;
+    try {
+      shouldSuppressTransitions = sessionStorage.getItem(transitionKey) === '1';
+      sessionStorage.removeItem(transitionKey);
+    } catch (error) {}
+
+    if (shouldSuppressTransitions) {
+      var style = document.createElement('style');
+      style.id = 'mediaclaw-disable-theme-transitions';
+      style.appendChild(
+        document.createTextNode(
+          '*,*::before,*::after{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}'
+        )
+      );
+      document.head.appendChild(style);
+
+      var removeStyle = function () {
+        window.setTimeout(function () {
+          style.remove();
+        }, 120);
+      };
+
+      requestAnimationFrame(function () {
+        requestAnimationFrame(removeStyle);
+      });
+    }
+  } catch (error) {}
+})();
+`;
 
 // Analytics IDs live in the DB config (1h-cached service). Fetched via a
 // server function so drizzle/db code never reaches the client bundle.
@@ -96,6 +147,7 @@ function RootComponent() {
         disableTransitionOnChange
       >
         <ReferralCapture />
+        <FirstPartyAnalytics />
         <Outlet />
         <Toaster position="top-center" richColors />
         <GoogleOneTap />
@@ -124,6 +176,10 @@ function RootDocument({ children }: { children: ReactNode }) {
     <html lang={getLocale()} suppressHydrationWarning>
       <head>
         <HeadContent />
+        <script
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: EARLY_THEME_SCRIPT }}
+        />
       </head>
       <body className="overflow-x-clip font-sans antialiased">
         {children}

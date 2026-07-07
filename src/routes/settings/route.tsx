@@ -1,15 +1,12 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 import {
-  Coins,
   CreditCard,
   Gift,
   Home,
-  Key,
   KeyRound,
   LayoutDashboard,
   LifeBuoy,
-  Receipt,
-  User,
+  Sparkles,
 } from 'lucide-react';
 
 import { envConfigs } from '@/config';
@@ -31,54 +28,40 @@ function SettingsLayout() {
       group,
     },
     {
-      href: '/settings/billing',
-      label: m['settings.nav.billing'](),
-      icon: CreditCard,
-      group,
-    },
-    {
-      href: '/settings/payments',
-      label: m['settings.nav.payments'](),
-      icon: Receipt,
-      group,
-    },
-    {
-      href: '/settings/credits',
-      label: m['settings.nav.credits'](),
-      icon: Coins,
-      group,
-    },
-    {
       href: '/settings/credentials',
-      label: 'Activation Codes',
+      label: m['settings.nav.credentials'](),
       icon: KeyRound,
       group,
     },
     {
+      href: '/settings/payments',
+      label: m['settings.nav.billing_history'](),
+      icon: CreditCard,
+      group,
+      items: [
+        { href: '/settings/payments', label: m['settings.nav.payments']() },
+        { href: '/settings/credits', label: m['settings.nav.credits']() },
+      ],
+    },
+    {
+      href: '/welfare?entry=settings_nav',
+      label: m['settings.nav.welfare'](),
+      icon: Sparkles,
+      group,
+    },
+    {
       href: '/settings/referral',
-      label: 'Referral',
+      label: m['settings.nav.referral'](),
       icon: Gift,
-      group,
-    },
-    {
-      href: '/settings/apikeys',
-      label: m['settings.nav.apikeys'](),
-      icon: Key,
-      group,
-    },
-    {
-      href: '/settings/tickets',
-      label: m['settings.nav.tickets'](),
-      icon: LifeBuoy,
       group,
     },
   ];
 
   const footerNavItems = [
     {
-      href: '/settings/profile',
-      label: m['settings.nav.profile'](),
-      icon: User,
+      href: '/settings/tickets',
+      label: m['settings.nav.tickets'](),
+      icon: LifeBuoy,
     },
     { href: '/', label: m['common.systems.home'](), icon: Home, newTab: true },
   ];
@@ -89,6 +72,8 @@ function SettingsLayout() {
       footerNavItems={footerNavItems}
       brand={envConfigs.app_name}
       brandHref="/settings"
+      profileHref="/settings/profile"
+      securityHref="/settings/security"
     >
       <Outlet />
       <SupportWidget />

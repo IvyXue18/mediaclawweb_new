@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 
 import { Link } from '@/core/i18n/navigation';
 import { ApiError, apiGet, apiPost, type PageResult } from '@/lib/api-client';
+import { credentialPlanLabel } from '@/lib/credential-plan-display';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
 import { DataTable, type Column } from '@/components/data-table';
@@ -228,6 +229,10 @@ function CredentialsPage() {
     {
       header: m['settings.credentials.fields.code'](),
       cell: (row) => <span className="font-mono text-xs">{row.code}</span>,
+    },
+    {
+      header: m['settings.credentials.fields.plan'](),
+      cell: (row) => <span>{credentialPlanLabel(row.planCode)}</span>,
     },
     {
       header: m['settings.credentials.fields.bindings'](),

@@ -1,9 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { getAuth } from '@/core/auth';
-import { PaymentType } from '@/core/payment/types';
 import { envConfigs } from '@/config';
-import { getPricingProduct } from '@/config/pricing';
+import { resolvePricingProduct } from '@/config/pricing';
 import { getAllConfigs } from '@/modules/config/service';
 import { getCredentialByCode } from '@/modules/credentials/service';
 import {
@@ -14,6 +13,7 @@ import {
 import { createCheckout } from '@/modules/payment/service';
 import { enforceMinIntervalRateLimit } from '@/lib/rate-limit';
 import { respData, respErr } from '@/lib/resp';
+import { recordServerAnalyticsEvent } from '@/lib/server-analytics';
 
 function safeSameOriginPath(
   input: string | undefined | null,
@@ -61,11 +61,16 @@ async function POST({ request }: { request: Request }) {
       return respErr('Missing product_id');
     }
 
-    // Look up product in the authoritative server-side catalog.
+    const configs = await getAllConfigs();
+
+    // Look up product in the authoritative server-side catalog plus admin overrides.
     // We DO NOT trust price / credits / plan from the request body.
-    const product = getPricingProduct(product_id);
+    const product = resolvePricingProduct(product_id, configs);
     if (!product) {
       return respErr('Unknown product');
+    }
+    if (product.status && product.status !== 'active') {
+      return respErr('this product is currently unavailable');
     }
 
     const credentialCode =
@@ -134,7 +139,6 @@ async function POST({ request }: { request: Request }) {
     // Optional per-provider "test amount" override (admin-configured).
     // Only the charged amount is overridden — credits granted and order
     // amount stored both come from the authoritative catalog.
-    const configs = await getAllConfigs();
     const providerKey = payment_provider || configs.default_payment_provider;
     const testAmountRaw = providerKey
       ? configs[`${providerKey}_test_amount`]
@@ -144,17 +148,12 @@ async function POST({ request }: { request: Request }) {
       ? product.priceInCents * seatCount
       : product.priceInCents;
     const chargeAmount = testAmount > 0 ? testAmount : baseAmount;
-    const defaultRedirectPath =
-      product.type === PaymentType.SUBSCRIPTION
-        ? '/settings/billing'
-        : '/settings/payments';
+    const defaultRedirectPath = '/settings/payments';
 
     // Build success/cancel URLs — only accept same-origin redirects.
     const baseUrl = envConfigs.app_url || 'http://localhost:3000';
     const safeRedirectPath = safeSameOriginPath(redirect, defaultRedirectPath);
-    const successRedirect = redirect
-      ? `${baseUrl}/auth-callback?redirect=${encodeURIComponent(`${baseUrl}${safeRedirectPath}`)}`
-      : `${baseUrl}${defaultRedirectPath}`;
+    const successRedirect = `${baseUrl}${safeRedirectPath}`;
     const cancelUrl = `${baseUrl}/pricing`;
 
     const partnerId = partnerRow ? partnerBusinessId(partnerRow) : null;
@@ -236,6 +235,27 @@ async function POST({ request }: { request: Request }) {
     });
 
     const checkoutUrl = checkout.checkoutInfo.checkoutUrl;
+    await recordServerAnalyticsEvent({
+      eventName: 'checkout_created',
+      source: 'server',
+      userId: session.user.id,
+      pagePath: safeRedirectPath,
+      properties: {
+        productId: product.productId,
+        productName: product.productName,
+        planName: product.planName,
+        fulfillment,
+        credentialAction,
+        credentialCode: credentialCode || undefined,
+        paymentProvider: checkout.provider,
+        partnerId,
+        variantId: partnerRow ? partnerVariantId : undefined,
+        seats: partnerRow ? seatCount : undefined,
+        amount: chargeAmount,
+        currency: product.currency,
+        redirect: safeRedirectPath,
+      },
+    });
     return respData({ checkoutUrl, checkout_url: checkoutUrl });
   } catch (error: any) {
     console.error('checkout error:', error);

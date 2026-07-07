@@ -11,6 +11,7 @@
       "modes",
       "advantage",
       "scenarios",
+      "compare",
       "faq",
       "related",
       "cta"
@@ -21,9 +22,16 @@
         "block": "page-hero",
         "label": "免费抖音无水印视频批量下载工具",
         "breadcrumbs": [
-          { "title": "首页", "url": "/" },
-          { "title": "抖音" },
-          { "title": "去水印下载" }
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "抖音"
+          },
+          {
+            "title": "去水印下载"
+          }
         ],
         "title": "免费批量下载抖音无水印视频素材",
         "description": "一键批量下载抖音视频和图文内容，无水印保存原画质；下载后可直接进入内容分析与二次创作流程。",
@@ -66,9 +74,18 @@
         "title": "为什么浏览器插件提取是最优解",
         "description": "在线网站和 App 各有短板，浏览器插件提取兼顾画质、效率和批量能力。",
         "columns": [
-          { "key": "dim", "title": "对比维度" },
-          { "key": "web", "title": "在线网站 / App" },
-          { "key": "plugin", "title": "浏览器插件提取" }
+          {
+            "key": "dim",
+            "title": "对比维度"
+          },
+          {
+            "key": "web",
+            "title": "在线网站 / App"
+          },
+          {
+            "key": "plugin",
+            "title": "浏览器插件提取"
+          }
         ],
         "rows": [
           {
@@ -108,9 +125,18 @@
         "block": "data-table",
         "title": "免费批量下载的典型使用场景",
         "columns": [
-          { "key": "role", "title": "人群" },
-          { "key": "scene", "title": "场景" },
-          { "key": "effect", "title": "效果" }
+          {
+            "key": "role",
+            "title": "人群"
+          },
+          {
+            "key": "scene",
+            "title": "场景"
+          },
+          {
+            "key": "effect",
+            "title": "效果"
+          }
         ],
         "rows": [
           {
@@ -209,6 +235,72 @@
           }
         ],
         "className": "bg-secondary/20"
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "title": "插件下载 vs 在线解析 vs 小程序 vs 录屏",
+        "description": "四种保存抖音视频的方式对比，帮你选对工具。",
+        "columns": [
+          {
+            "key": "item",
+            "title": ""
+          },
+          {
+            "key": "mediaclaw",
+            "title": "MediaClaw 浏览器插件",
+            "highlight": true
+          },
+          {
+            "key": "parser",
+            "title": "在线解析站"
+          },
+          {
+            "key": "miniapp",
+            "title": "去水印小程序"
+          },
+          {
+            "key": "record",
+            "title": "手机录屏"
+          }
+        ],
+        "rows": [
+          {
+            "item": "批量能力",
+            "mediaclaw": "主页、搜索结果批量下载",
+            "parser": "逐条粘贴链接",
+            "miniapp": "逐条转发解析",
+            "record": "逐条录制"
+          },
+          {
+            "item": "画质与水印",
+            "mediaclaw": "原画质、无水印",
+            "parser": "部分站点二次压缩",
+            "miniapp": "画质压缩常见",
+            "record": "画质取决于屏幕，混入界面元素"
+          },
+          {
+            "item": "隐私与安全",
+            "mediaclaw": "本地运行，链接不出浏览器",
+            "parser": "链接提交给第三方，广告弹窗多",
+            "miniapp": "需授权，存在信息收集风险",
+            "record": "安全但费时"
+          },
+          {
+            "item": "配套数据",
+            "mediaclaw": "同步保留笔记数据与文案，可导出 Excel/Markdown",
+            "parser": "只有文件本身",
+            "miniapp": "只有文件本身",
+            "record": "只有文件本身"
+          },
+          {
+            "item": "适合场景",
+            "mediaclaw": "素材库建设、对标拆解",
+            "parser": "偶尔存一条",
+            "miniapp": "手机端应急",
+            "record": "其他方式失效时的兜底"
+          }
+        ]
       }
     }
   }

@@ -31,12 +31,6 @@
             "url": "/downloads/samples/douyin-sample-data.csv",
             "target": "_blank",
             "variant": "outline"
-          },
-          {
-            "title": "看采集怎么跑通",
-            "icon": "Database",
-            "url": "/douyin/scraper",
-            "variant": "outline"
           }
         ],
         "video_url": "https://media.mediaclaw.app/videos/demo/douyin-image-text-1d3290ed99b0.mp4",
