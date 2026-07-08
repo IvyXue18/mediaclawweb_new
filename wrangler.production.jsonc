@@ -1,0 +1,32 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mediaclawweb-prod-candidate",
+  "compatibility_date": "2026-06-10",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true,
+  },
+  "vars": {
+    "DATABASE_PROVIDER": "postgresql",
+    "VITE_APP_URL": "https://mediaclaw.app",
+    "VITE_APP_NAME": "MediaClaw",
+    "VITE_APP_DESCRIPTION": "MediaClaw helps teams capture, monitor, and operationalize social media intelligence.",
+    "VITE_DEFAULT_LOCALE": "zh",
+    "COZE_API_URL": "https://api.coze.cn/v1/workflow/run",
+    "COZE_WORKFLOW_ID_IMAGE_OCR": "7653316003980476435",
+    "DASHSCOPE_API_BASE_URL": "https://dashscope.aliyuncs.com/api/v1",
+    "DASHSCOPE_ASR_MODEL": "fun-asr",
+    "DASHSCOPE_ASR_POLL_INTERVAL_MS": "2500",
+    "DASHSCOPE_ASR_TIMEOUT_MS": "600000",
+  },
+  "routes": [
+    { "pattern": "mediaclaw.app/*", "zone_name": "mediaclaw.app" },
+    { "pattern": "www.mediaclaw.app/*", "zone_name": "mediaclaw.app" },
+  ],
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "3450682c5069405b844c72754c6fa7ea",
+    },
+  ],
+}
