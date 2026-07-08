@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import {
@@ -16,9 +16,13 @@ import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import { apiGet } from '@/lib/api-client';
 import { createQrSvg } from '@/lib/qr-code';
+import { getLocale } from '@/paraglide/runtime.js';
 import { Footer } from '@/blocks/footer';
 import { Header } from '@/blocks/header';
+import { ActivationCodeGuideDialog } from '@/components/activation-code-guide-dialog';
 import { buttonVariants } from '@/components/ui/button';
+import enWelfarePage from '@/content/legacy-pages/en/welfare.json';
+import zhWelfarePage from '@/content/legacy-pages/zh/welfare.json';
 
 type ZpaySearch = {
   order_no?: string;
@@ -147,24 +151,70 @@ function statusLabel(status?: string) {
   return '等待付款';
 }
 
+function hasCredentialFulfillment(data?: PaymentStatusData | null) {
+  const action = data?.credentialAction || 'none';
+  return action !== 'none';
+}
+
+function isCredentialFulfilled(data?: PaymentStatusData | null) {
+  return (
+    data?.status === 'paid' &&
+    hasCredentialFulfillment(data) &&
+    data.credentialSyncStatus === 'done' &&
+    Boolean(data.credentialCode)
+  );
+}
+
+function shouldPollPaymentStatus(data?: PaymentStatusData | null) {
+  if (data?.status !== 'paid') return true;
+  if (!hasCredentialFulfillment(data)) return false;
+  return !['done', 'failed'].includes(data.credentialSyncStatus || '');
+}
+
+function paymentGuideTitle(
+  data: PaymentStatusData | undefined,
+  english: boolean
+) {
+  if (data?.credentialAction === 'recharge') {
+    return english
+      ? 'Payment complete, access extended'
+      : '支付成功，权益已延长';
+  }
+
+  return english
+    ? 'Payment complete, activation code issued'
+    : '支付成功，激活码已发放';
+}
+
+function paymentGuideDescription(
+  data: PaymentStatusData | undefined,
+  english: boolean
+) {
+  if (data?.credentialAction === 'recharge') {
+    return english
+      ? 'This activation code has been updated. Re-verify it in the extension to refresh the latest benefits.'
+      : '这枚激活码已更新。回到插件重新验证后，即可刷新最新权益。';
+  }
+
+  return english
+    ? 'Copy the activation code, then follow the steps below to verify and bind it in the extension.'
+    : '复制激活码，然后按下面步骤在插件系统配置中验证绑定。';
+}
+
 function AlipayBrandHeader() {
   return (
     <div
-      className="mb-4 flex items-center justify-center gap-3 rounded-xl border border-[#1677ff]/20 bg-[#1677ff]/5 px-4 py-3"
+      className="mb-4 flex items-center justify-between gap-3 rounded-xl border border-[#1677ff] bg-[#1677ff] px-4 py-3 shadow-sm"
       aria-label="支付宝扫码支付"
       data-zpay-alipay-brand
     >
-      <div
-        className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-[#1677ff] text-2xl leading-none font-semibold text-white shadow-sm"
-        aria-hidden="true"
-      >
-        支
-      </div>
-      <div className="leading-tight">
-        <p className="text-foreground text-lg font-semibold">支付宝</p>
-        <p className="text-xs font-semibold text-[#1677ff]">ALIPAY</p>
-      </div>
-      <span className="hidden rounded-full bg-[#1677ff]/10 px-2.5 py-1 text-xs font-medium text-[#0f6bff] sm:inline-flex">
+      <img
+        src="/imgs/logos/alipay-logo.png"
+        alt="支付宝 ALIPAY"
+        className="h-11 min-w-0 object-contain sm:h-14"
+        data-zpay-alipay-logo
+      />
+      <span className="hidden rounded-full bg-white/15 px-2.5 py-1 text-xs font-medium text-white sm:inline-flex">
         扫码支付
       </span>
     </div>
@@ -173,6 +223,13 @@ function AlipayBrandHeader() {
 
 function ZpayCheckoutPage() {
   const search = Route.useSearch();
+  const locale = getLocale();
+  const guideEnglish = locale === 'en';
+  const guideFlow = guideEnglish
+    ? enWelfarePage.reward_flow
+    : zhWelfarePage.reward_flow;
+  const [guideOpen, setGuideOpen] = useState(false);
+  const [guideShown, setGuideShown] = useState(false);
   const submitUrl = safeZpayUrl(search.submit_url);
   const payUrl = safeZpayUrl(search.pay_url) || submitUrl;
   const qrValue = safeQrContent(search.qrcode) || payUrl;
@@ -202,7 +259,7 @@ function ZpayCheckoutPage() {
     enabled: Boolean(search.order_no),
     retry: false,
     refetchInterval: (query) =>
-      query.state.data?.status === 'paid' ? false : 3000,
+      shouldPollPaymentStatus(query.state.data) ? 3000 : false,
   });
 
   const manualCheck = useMutation({
@@ -212,6 +269,16 @@ function ZpayCheckoutPage() {
       ),
     onSuccess: (data) => {
       if (data.status === 'paid') {
+        if (isCredentialFulfilled(data)) {
+          setGuideShown(true);
+          setGuideOpen(true);
+          return;
+        }
+        if (hasCredentialFulfillment(data)) {
+          toast.message('支付已确认，正在发放权益，请稍后再试');
+          statusQuery.refetch();
+          return;
+        }
         window.location.href = callbackHref;
         return;
       }
@@ -234,9 +301,30 @@ function ZpayCheckoutPage() {
 
   const latestStatus = manualCheck.data || statusQuery.data;
   const paid = latestStatus?.status === 'paid';
+  const guideTask = latestStatus?.credentialCode
+    ? {
+        rewardType:
+          latestStatus.credentialAction === 'recharge'
+            ? 'paid_extension'
+            : 'paid_issue',
+        rewardCredentialCode: latestStatus.credentialCode,
+      }
+    : null;
   const credentialSyncMessage = publicCredentialSyncMessage(
     latestStatus?.credentialSyncError
   );
+
+  useEffect(() => {
+    if (guideShown || !isCredentialFulfilled(latestStatus)) return;
+    setGuideShown(true);
+    setGuideOpen(true);
+  }, [
+    guideShown,
+    latestStatus?.credentialAction,
+    latestStatus?.credentialCode,
+    latestStatus?.credentialSyncStatus,
+    latestStatus?.status,
+  ]);
 
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col">
@@ -278,11 +366,6 @@ function ZpayCheckoutPage() {
                     </div>
                   )}
                 </div>
-
-                <p className="text-muted-foreground mt-4 text-center text-sm">
-                  请使用支付宝 App
-                  扫码付款，之后右侧点击完成支付。（移动端按钮在下面）
-                </p>
               </section>
 
               <section className="flex flex-col justify-center px-6 py-8 md:px-10">
@@ -301,7 +384,7 @@ function ZpayCheckoutPage() {
                   Mediaclaw 收银台
                 </h1>
                 <p className="text-muted-foreground mt-3 text-sm leading-6">
-                  请核对订单信息后扫码或打开支付链接。支付完成后，本页会自动轮询订单状态，也可以手动确认。
+                  请核对订单信息后扫码或打开支付链接。付款后，点击按钮确认完成支付。
                 </p>
 
                 <div className="mt-6 space-y-3 rounded-2xl border p-4 text-sm">
@@ -413,22 +496,26 @@ function ZpayCheckoutPage() {
                     支付已确认，查看订单
                   </Link>
                 ) : null}
-
-                <div className="text-muted-foreground mt-6 space-y-2 text-sm">
-                  <p>完成付款后，请点击“我已完成支付”确认订单状态。</p>
-                  <p>
-                    如扫码无法识别，可点击上方“二维码无法显示？打开支付链接”到支付宝中打开。
-                  </p>
-                  <p>
-                    页面每 3
-                    秒自动查询一次订单状态；没有真实通知前会保持等待付款。
-                  </p>
-                </div>
               </section>
             </div>
           </div>
         </div>
       </main>
+      <ActivationCodeGuideDialog
+        open={guideOpen}
+        onOpenChange={setGuideOpen}
+        english={guideEnglish}
+        rewardFlow={guideFlow}
+        task={guideTask}
+        title={paymentGuideTitle(latestStatus, guideEnglish)}
+        description={paymentGuideDescription(latestStatus, guideEnglish)}
+        onCopyCode={(code) =>
+          handleCopy(
+            code,
+            guideEnglish ? 'Activation code copied' : '激活码已复制'
+          )
+        }
+      />
       <Footer />
     </div>
   );
