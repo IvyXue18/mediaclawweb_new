@@ -68,9 +68,13 @@ export async function userCreditsResponse(request: Request) {
     const search = searchParams.get('search');
 
     if (transactionType === 'grant') {
-      // Grants include activation-code recharges.
+      // Grants include activation-code issue and recharge rows.
       conditions.push(
-        inArray(credit.transactionType, ['grant', 'credential_recharge'])
+        inArray(credit.transactionType, [
+          'grant',
+          'credential_issue',
+          'credential_recharge',
+        ])
       );
     } else if (transactionType === 'consume') {
       conditions.push(inArray(credit.transactionType, ['consume', 'expense']));

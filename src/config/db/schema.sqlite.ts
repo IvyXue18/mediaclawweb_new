@@ -958,6 +958,8 @@ export const referralCommission = table(
   'referral_commission',
   {
     id: text('id').primaryKey(),
+    userId: text('user_id'),
+    relationId: text('relation_id'),
     referrerUserId: text('referrer_user_id')
       .notNull()
       .references(() => user.id, { onDelete: 'cascade' }),
@@ -965,6 +967,12 @@ export const referralCommission = table(
       onDelete: 'set null',
     }),
     orderNo: text('order_no'),
+    orderAmount: integer('order_amount').notNull().default(0),
+    orderCurrency: text('order_currency').notNull().default('usd'),
+    commissionRate: integer('commission_rate').notNull().default(0),
+    commissionAmount: integer('commission_amount').notNull().default(0),
+    commissionCurrency: text('commission_currency').notNull().default('usd'),
+    commissionType: text('commission_type').notNull().default('first_order'),
     amount: integer('amount').notNull().default(0),
     currency: text('currency').notNull().default('usd'),
     rate: integer('rate').notNull().default(0),

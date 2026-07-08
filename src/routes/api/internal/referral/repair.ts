@@ -19,11 +19,12 @@ async function POST({ request }: { request: Request }) {
       );
     }
 
-    await processPendingReferralTasks();
+    const result = await processPendingReferralTasks();
 
     return Response.json({
       ok: true,
       message: 'Referral repair tasks processed',
+      data: result,
     });
   } catch (error: any) {
     return Response.json(

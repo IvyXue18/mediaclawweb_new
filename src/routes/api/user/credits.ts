@@ -38,9 +38,13 @@ async function GET({ request }: { request: Request }) {
       isNull(credit.deletedAt) as unknown as SQL,
     ];
     if (transactionType === 'grant') {
-      // Grants include activation-code recharges.
+      // Grants include activation-code issue and recharge rows.
       conditions.push(
-        inArray(credit.transactionType, ['grant', 'credential_recharge'])
+        inArray(credit.transactionType, [
+          'grant',
+          'credential_issue',
+          'credential_recharge',
+        ])
       );
     } else if (transactionType === 'consume') {
       conditions.push(inArray(credit.transactionType, ['consume', 'expense']));

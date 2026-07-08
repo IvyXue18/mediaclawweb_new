@@ -1129,6 +1129,7 @@ export function getSettings(): Setting[] {
       placeholder: 'xxxxxxxxxx',
       group: 'clarity',
       tab: 'analytics',
+      defaultValue: 'xj860xja7v',
     },
 
     // ─── Analytics / Plausible ───────────────────────────────────────

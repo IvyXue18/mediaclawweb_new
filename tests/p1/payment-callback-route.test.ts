@@ -66,7 +66,7 @@ describe('/api/payment/callback', () => {
     expect(location).not.toContain('ACT-SHOULD-NOT-LEAK');
   });
 
-  it('falls back to a same-origin billing page for unsafe redirect targets', async () => {
+  it('falls back to a same-origin payments page for unsafe redirect targets', async () => {
     const redirect = encodeURIComponent('https://evil.example/payments');
     const response = await GET({
       request: request(
@@ -77,7 +77,7 @@ describe('/api/payment/callback', () => {
     const location = response.headers.get('Location') || '';
     const url = new URL(location);
     expect(url.origin).toBe('https://mediaclaw.example');
-    expect(url.pathname).toBe('/settings/billing');
+    expect(url.pathname).toBe('/settings/payments');
     expect(url.searchParams.get('order_no')).toBe('ORDER-CALLBACK-1');
   });
 

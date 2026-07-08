@@ -1,4 +1,4 @@
-import { and, desc, eq, isNull } from 'drizzle-orm';
+import { and, desc, eq, inArray, isNull, lt, or } from 'drizzle-orm';
 
 import { db } from '@/core/db';
 import {
@@ -21,6 +21,7 @@ import { credential, credit, order, subscription } from '@/config/db/schema';
 import { getAllConfigs } from '@/modules/config/service';
 import {
   createCredential,
+  ensureCredentialIssueCreditLedgerForOrder,
   getCredentialByCode,
   rechargeCredential,
 } from '@/modules/credentials/service';
@@ -199,6 +200,7 @@ async function rechargeCredentialForPaidOrder(
     id: existing.id,
     credits: paidOrder.creditsAmount || 0,
     durationDays: paidOrder.creditsValidDays || 0,
+    orderNo: paidOrder.orderNo,
     maxBindings: getCredentialMaxBindings(paidOrder),
     planCode:
       paidOrder.productId && paidOrder.productId.startsWith('credits-')
@@ -215,11 +217,72 @@ async function rechargeCredentialForPaidOrder(
   return existing.code;
 }
 
+async function ensurePaidOrderCredentialIssueLedger(
+  paidOrder: typeof order.$inferSelect,
+  credentialCode?: string | null
+) {
+  const action = String(paidOrder.credentialAction || 'none');
+  if (action === 'none' || action === 'recharge') return false;
+  const credits = Math.floor(Number(paidOrder.creditsAmount || 0));
+  if (credits <= 0) return false;
+
+  const result = await ensureCredentialIssueCreditLedgerForOrder({
+    orderNo: paidOrder.orderNo,
+    credentialCode: credentialCode || paidOrder.credentialCode,
+    userId: paidOrder.userId,
+    userEmail: paidOrder.userEmail,
+    credits,
+    description: `paid issue from order ${paidOrder.orderNo}`,
+  });
+
+  return result.inserted;
+}
+
+async function claimPaidOrderCredentialSync(
+  paidOrder: typeof order.$inferSelect
+) {
+  if (paidOrder.credentialSyncStatus === 'done') return false;
+
+  const staleProcessingBefore = new Date(Date.now() - 5 * 60 * 1000);
+  const [claimed] = await db()
+    .update(order)
+    .set({
+      credentialSyncStatus: 'processing',
+      credentialSyncError: null,
+      credentialProcessedAt: new Date(),
+    })
+    .where(
+      and(
+        eq(order.id, paidOrder.id),
+        eq(order.status, OrderStatus.PAID),
+        isNull(order.deletedAt),
+        or(
+          inArray(order.credentialSyncStatus, ['pending', 'failed']),
+          and(
+            eq(order.credentialSyncStatus, 'processing'),
+            or(
+              isNull(order.credentialProcessedAt),
+              lt(order.credentialProcessedAt, staleProcessingBefore)
+            )!
+          )
+        )!
+      )
+    )
+    .returning({ id: order.id });
+
+  return Boolean(claimed);
+}
+
 async function processPaidOrderCredentialSync(
   paidOrder: typeof order.$inferSelect
 ) {
   const action = String(paidOrder.credentialAction || 'none');
   if (action === 'none') return;
+  const claimed = await claimPaidOrderCredentialSync(paidOrder);
+  if (!claimed) {
+    await ensurePaidOrderCredentialIssueLedger(paidOrder);
+    return;
+  }
 
   try {
     let credentialCode = paidOrder.credentialCode || null;
@@ -232,6 +295,8 @@ async function processPaidOrderCredentialSync(
     } else {
       credentialCode = await issueCredentialForPaidOrder(paidOrder);
     }
+
+    await ensurePaidOrderCredentialIssueLedger(paidOrder, credentialCode);
 
     await db()
       .update(order)
@@ -248,6 +313,7 @@ async function processPaidOrderCredentialSync(
       .set({
         credentialSyncStatus: 'failed',
         credentialSyncError: error?.message || 'credential sync failed',
+        credentialProcessedAt: new Date(),
       })
       .where(eq(order.id, paidOrder.id));
   }
@@ -262,8 +328,14 @@ async function processPaidOrderReferralCommission(
   try {
     await processReferralCommissionForPaidOrder({
       order: paidOrder,
-      paymentAmount: orderUpdate.paymentAmount || paidOrder.amount,
-      paymentCurrency: orderUpdate.paymentCurrency || paidOrder.currency,
+      paymentAmount:
+        orderUpdate.paymentAmount ||
+        paidOrder.paymentAmount ||
+        paidOrder.amount,
+      paymentCurrency:
+        orderUpdate.paymentCurrency ||
+        paidOrder.paymentCurrency ||
+        paidOrder.currency,
     });
   } catch (error) {
     console.error('[payment] referral commission failed:', error);
@@ -616,8 +688,13 @@ export async function handleCheckoutSuccess(session: any, provider: string) {
 
   if (!existingOrder) return;
 
-  // Idempotency: skip if already paid
-  if (existingOrder.status === OrderStatus.PAID) return;
+  // Idempotency: if the paid transition already happened, still repair the
+  // side effects that may have been interrupted after the status update.
+  if (existingOrder.status === OrderStatus.PAID) {
+    await processPaidOrderCredentialSync(existingOrder);
+    await processPaidOrderReferralCommission(existingOrder, {});
+    return;
+  }
   if (
     existingOrder.status !== OrderStatus.CREATED &&
     existingOrder.status !== OrderStatus.PENDING
@@ -645,12 +722,15 @@ export async function handleCheckoutSuccess(session: any, provider: string) {
       discountAmount: paymentInfo?.discountAmount || null,
     };
 
-    // Atomically update order + create subscription + grant credits
+    // Atomically claim the paid transition, then create subscription/grant credits.
+    // The conditional update is the idempotency gate for webhook + return callback races.
+    let paidOrderCommitted = false;
     await db().transaction(async (tx: any) => {
-      // 1. Create subscription if applicable
+      let newSub: any = null;
+
       if (subscriptionInfo && session.subscriptionId) {
         const subNo = getSnowId();
-        const newSub: any = {
+        newSub = {
           id: getUuid(),
           subscriptionNo: subNo,
           userId: existingOrder.userId,
@@ -677,12 +757,31 @@ export async function handleCheckoutSuccess(session: any, provider: string) {
           paymentProductId: existingOrder.paymentProductId,
           paymentUserId: paymentInfo?.paymentUserId,
         };
-        await tx.insert(subscription).values(newSub);
         orderUpdate.subscriptionNo = subNo;
         orderUpdate.subscriptionId = session.subscriptionId;
         orderUpdate.subscriptionResult = JSON.stringify(
           session.subscriptionResult
         );
+      }
+
+      const [paidOrderRow] = await tx
+        .update(order)
+        .set(orderUpdate)
+        .where(
+          and(
+            eq(order.id, existingOrder.id),
+            inArray(order.status, [OrderStatus.CREATED, OrderStatus.PENDING]),
+            isNull(order.deletedAt)
+          )
+        )
+        .returning({ id: order.id });
+
+      if (!paidOrderRow) return;
+      paidOrderCommitted = true;
+
+      // 1. Create subscription if applicable
+      if (newSub) {
+        await tx.insert(subscription).values(newSub);
       }
 
       // 2. Grant credits if applicable
@@ -717,16 +816,18 @@ export async function handleCheckoutSuccess(session: any, provider: string) {
           status: 'active',
         });
       }
-
-      // 3. Update order
-      await tx
-        .update(order)
-        .set(orderUpdate)
-        .where(eq(order.id, existingOrder.id));
     });
 
-    await processPaidOrderCredentialSync(existingOrder);
-    await processPaidOrderReferralCommission(existingOrder, orderUpdate);
+    if (!paidOrderCommitted) return;
+
+    const paidOrder = {
+      ...existingOrder,
+      ...orderUpdate,
+      status: OrderStatus.PAID,
+    } as typeof order.$inferSelect;
+
+    await processPaidOrderCredentialSync(paidOrder);
+    await processPaidOrderReferralCommission(paidOrder, orderUpdate);
     await recordServerAnalyticsEvent({
       eventName: 'payment_success',
       source: 'server',
@@ -1031,6 +1132,8 @@ export async function repairOrderPayment(
     String(existingOrder.credentialAction || 'none') !== 'none' &&
     existingOrder.credentialSyncStatus !== 'done';
 
+  let credentialLedgerRepaired = false;
+
   if (shouldRetryCredentialSync) {
     await processPaidOrderCredentialSync(existingOrder);
   } else {
@@ -1038,6 +1141,13 @@ export async function repairOrderPayment(
   }
 
   const refreshed = await findOrderByOrderNo(existingOrder.orderNo);
+  if (shouldRetryCredentialSync && refreshed?.status === OrderStatus.PAID) {
+    await processPaidOrderReferralCommission(refreshed, {});
+  }
+  if (refreshed?.status === OrderStatus.PAID) {
+    credentialLedgerRepaired =
+      await ensurePaidOrderCredentialIssueLedger(refreshed);
+  }
   const paymentStatus = refreshed?.status || existingOrder.status || null;
 
   return {
@@ -1047,7 +1157,9 @@ export async function repairOrderPayment(
       (existingOrder.status !== OrderStatus.PAID &&
         refreshed?.status === OrderStatus.PAID) ||
       (existingOrder.credentialSyncStatus !== 'done' &&
-        refreshed?.credentialSyncStatus === 'done'),
+        refreshed?.credentialSyncStatus === 'done') ||
+      credentialLedgerRepaired,
+    credentialLedgerRepaired,
     order: refreshed,
   };
 }

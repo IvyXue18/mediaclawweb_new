@@ -183,9 +183,30 @@ export const pricingCatalog: Record<string, PricingProduct> = {
   },
 };
 
+function pricingProductIdCandidates(...productIds: string[]): string[] {
+  const candidates = new Set<string>();
+  for (const productId of productIds) {
+    const trimmed = String(productId || '').trim();
+    if (!trimmed) continue;
+    candidates.add(trimmed);
+    candidates.add(trimmed.replace(/_/g, '-'));
+    candidates.add(trimmed.replace(/-/g, '_'));
+  }
+  return [...candidates];
+}
+
+function getPricingProductEntry(
+  productId: string
+): { product: PricingProduct; catalogKey: string } | null {
+  for (const candidate of pricingProductIdCandidates(productId)) {
+    const product = pricingCatalog[candidate];
+    if (product) return { product, catalogKey: candidate };
+  }
+  return null;
+}
+
 export function getPricingProduct(productId: string): PricingProduct | null {
-  if (!productId) return null;
-  return pricingCatalog[productId] ?? null;
+  return getPricingProductEntry(productId)?.product ?? null;
 }
 
 function numberFromConfig(value: unknown): number | undefined {
@@ -215,13 +236,24 @@ export function resolvePricingProduct(
   productId: string,
   configs: Record<string, string>
 ): PricingProduct | null {
-  const base = getPricingProduct(productId);
-  if (!base) return null;
+  const entry = getPricingProductEntry(productId);
+  if (!entry) return null;
+  const base = entry.product;
 
   let config: PricingProductConfig | null = null;
   try {
     const allProducts = JSON.parse(configs.pricing_products || '{}');
-    config = allProducts?.[productId] ?? null;
+    for (const candidate of pricingProductIdCandidates(
+      productId,
+      entry.catalogKey,
+      base.productId
+    )) {
+      const candidateConfig = allProducts?.[candidate];
+      if (candidateConfig && typeof candidateConfig === 'object') {
+        config = candidateConfig;
+        break;
+      }
+    }
   } catch (error) {
     console.error('[pricing] failed to parse pricing_products config:', error);
   }

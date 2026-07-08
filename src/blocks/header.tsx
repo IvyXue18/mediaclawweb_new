@@ -195,6 +195,12 @@ const navItems: NavItem[] = [
         icon: 'Gift',
       },
       {
+        title: '更新日志',
+        description: '查看产品版本发布与功能改进记录',
+        url: '/updates',
+        icon: 'History',
+      },
+      {
         title: '伙伴计划',
         description: '联盟营销、推广链接与佣金提现',
         url: '/referral',
@@ -203,7 +209,6 @@ const navItems: NavItem[] = [
     ],
   },
   { title: '下载', url: '/download', icon: 'Download' },
-  { title: '更新', url: '/updates', icon: 'History' },
   { title: '定价', url: '/pricing', icon: 'CreditCard' },
 ];
 

@@ -8,6 +8,9 @@ import { decryptSecret, encryptSecret, isEncryptedSecret } from '@/lib/crypto';
 import { getSettings } from './settings';
 
 export type ConfigMap = Record<string, string>;
+export type ConfigReadOptions = {
+  bypassCache?: boolean;
+};
 
 // In-memory cache
 let cachedConfigs: ConfigMap | null = null;
@@ -17,9 +20,11 @@ const CACHE_TTL = 3600_000; // 1 hour
 /**
  * Get all configs from database.
  */
-export async function getDbConfigs(): Promise<ConfigMap> {
+export async function getDbConfigs(
+  options: ConfigReadOptions = {}
+): Promise<ConfigMap> {
   const now = Date.now();
-  if (cachedConfigs && now - cacheTime < CACHE_TTL) {
+  if (!options.bypassCache && cachedConfigs && now - cacheTime < CACHE_TTL) {
     return cachedConfigs;
   }
 
@@ -61,8 +66,10 @@ export async function getDbConfigs(): Promise<ConfigMap> {
 /**
  * Get all configs merged: env + database (database overrides env).
  */
-export async function getAllConfigs(): Promise<ConfigMap> {
-  const dbConfigs = await getDbConfigs();
+export async function getAllConfigs(
+  options: ConfigReadOptions = {}
+): Promise<ConfigMap> {
+  const dbConfigs = await getDbConfigs(options);
   return { ...envConfigs, ...dbConfigs };
 }
 
@@ -170,8 +177,11 @@ export async function saveConfigs(configs: ConfigMap) {
 /**
  * Get a single config value.
  */
-export async function getConfig(name: string): Promise<string | undefined> {
-  const configs = await getAllConfigs();
+export async function getConfig(
+  name: string,
+  options: ConfigReadOptions = {}
+): Promise<string | undefined> {
+  const configs = await getAllConfigs(options);
   return configs[name];
 }
 
@@ -180,8 +190,10 @@ export async function getConfig(name: string): Promise<string | undefined> {
  * secret values masked. Never send getAllConfigs() to a client — it
  * contains every env secret in plaintext.
  */
-export async function getAdminConfigs(): Promise<ConfigMap> {
-  const configs = await getAllConfigs();
+export async function getAdminConfigs(
+  options: ConfigReadOptions = {}
+): Promise<ConfigMap> {
+  const configs = await getAllConfigs(options);
   const result: ConfigMap = {};
   for (const [name, value] of Object.entries(configs)) {
     if (PROTECTED_CONFIG_KEYS.has(name)) continue;

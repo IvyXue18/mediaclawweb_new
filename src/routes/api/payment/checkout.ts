@@ -75,7 +75,7 @@ async function POST({ request }: { request: Request }) {
       return respErr('Missing product_id');
     }
 
-    const configs = await getAllConfigs();
+    const configs = await getAllConfigs({ bypassCache: true });
 
     // Look up product in the authoritative server-side catalog plus admin overrides.
     // We DO NOT trust price / credits / plan from the request body.

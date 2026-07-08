@@ -32,7 +32,14 @@ async function GET({ request }: { request: Request }) {
       order.credentialAction !== 'none' &&
       order.credentialSyncStatus !== 'done';
 
-    if (shouldSync && (order.status !== 'paid' || shouldRetryCredentialSync)) {
+    if (
+      shouldSync &&
+      (order.status !== 'paid' ||
+        shouldRetryCredentialSync ||
+        (order.status === 'paid' &&
+          order.credentialAction &&
+          order.credentialAction !== 'none'))
+    ) {
       const result = await repairOrderPayment(order);
       repaired = result.repaired;
       paymentStatus = result.paymentStatus || null;

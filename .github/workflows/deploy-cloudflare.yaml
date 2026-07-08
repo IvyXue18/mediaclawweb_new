@@ -47,3 +47,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: deploy
+
+      - name: Submit URLs to IndexNow
+        continue-on-error: true
+        run: pnpm indexnow:submit

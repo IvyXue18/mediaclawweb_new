@@ -73,8 +73,29 @@ function resolveRemaining(row: CreditRow): number | null {
   if (typeof remainingAfter === 'number' && Number.isFinite(remainingAfter)) {
     return remainingAfter;
   }
-  if (row.transactionType === 'grant') return row.remainingCredits;
+  if (
+    ['grant', 'credential_issue', 'credential_recharge'].includes(
+      row.transactionType
+    )
+  ) {
+    return row.remainingCredits;
+  }
   return null;
+}
+
+function isConsumeRow(row: CreditRow): boolean {
+  return row.transactionType === 'consume' || row.transactionType === 'expense';
+}
+
+function displayCredits(row: CreditRow): number {
+  const value = Number(row.credits || 0);
+  if (isConsumeRow(row) && value > 0) return -value;
+  return value;
+}
+
+function formatCredits(row: CreditRow): string {
+  const value = displayCredits(row);
+  return value > 0 ? `+${value}` : String(value);
 }
 
 function formatDateTime(value?: string | null): string {
@@ -121,7 +142,9 @@ function CreditDetailDialog({
             <DetailField
               label={m['settings.credits.type']()}
               value={
-                <Badge variant={row.credits < 0 ? 'secondary' : 'default'}>
+                <Badge
+                  variant={displayCredits(row) < 0 ? 'secondary' : 'default'}
+                >
                   {enumLabel('type', row.transactionType)}
                 </Badge>
               }
@@ -138,7 +161,7 @@ function CreditDetailDialog({
               label={m['settings.credits.credits']()}
               value={
                 <span className="font-medium tabular-nums">
-                  {row.credits > 0 ? `+${row.credits}` : row.credits}
+                  {formatCredits(row)}
                 </span>
               }
             />
@@ -242,7 +265,7 @@ function CreditsPage() {
     {
       header: m['settings.credits.type'](),
       cell: (r) => (
-        <Badge variant={r.credits < 0 ? 'secondary' : 'default'}>
+        <Badge variant={displayCredits(r) < 0 ? 'secondary' : 'default'}>
           {enumLabel('type', r.transactionType)}
         </Badge>
       ),
@@ -265,10 +288,10 @@ function CreditsPage() {
         <span
           className={cn(
             'font-medium tabular-nums',
-            r.credits < 0 && 'text-muted-foreground'
+            displayCredits(r) < 0 && 'text-muted-foreground'
           )}
         >
-          {r.credits > 0 ? `+${r.credits}` : r.credits}
+          {formatCredits(r)}
         </span>
       ),
     },

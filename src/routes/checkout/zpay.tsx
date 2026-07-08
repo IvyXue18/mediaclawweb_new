@@ -147,6 +147,30 @@ function statusLabel(status?: string) {
   return '等待付款';
 }
 
+function AlipayBrandHeader() {
+  return (
+    <div
+      className="mb-4 flex items-center justify-center gap-3 rounded-xl border border-[#1677ff]/20 bg-[#1677ff]/5 px-4 py-3"
+      aria-label="支付宝扫码支付"
+      data-zpay-alipay-brand
+    >
+      <div
+        className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-[#1677ff] text-2xl leading-none font-semibold text-white shadow-sm"
+        aria-hidden="true"
+      >
+        支
+      </div>
+      <div className="leading-tight">
+        <p className="text-foreground text-lg font-semibold">支付宝</p>
+        <p className="text-xs font-semibold text-[#1677ff]">ALIPAY</p>
+      </div>
+      <span className="hidden rounded-full bg-[#1677ff]/10 px-2.5 py-1 text-xs font-medium text-[#0f6bff] sm:inline-flex">
+        扫码支付
+      </span>
+    </div>
+  );
+}
+
 function ZpayCheckoutPage() {
   const search = Route.useSearch();
   const submitUrl = safeZpayUrl(search.submit_url);
@@ -237,6 +261,7 @@ function ZpayCheckoutPage() {
                 data-zpay-qr-panel
               >
                 <div className="w-full max-w-[360px] rounded-2xl bg-white p-5 shadow-lg dark:bg-neutral-900">
+                  <AlipayBrandHeader />
                   {qrImageSrc ? (
                     <img
                       src={qrImageSrc}
@@ -323,21 +348,16 @@ function ZpayCheckoutPage() {
 
                   {payUrl ? (
                     <div>
-                      <p className="text-muted-foreground text-xs uppercase">
-                        支付链接
-                      </p>
-                      <div className="mt-1">
-                        <a
-                          href={payUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary inline-flex items-center gap-1 text-sm underline underline-offset-4"
-                          data-zpay-pay-url
-                        >
-                          <ExternalLink className="size-4" />
-                          打开支付链接
-                        </a>
-                      </div>
+                      <a
+                        href={payUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary inline-flex items-center gap-1 text-sm underline underline-offset-4"
+                        data-zpay-pay-url
+                      >
+                        <ExternalLink className="size-4" />
+                        二维码无法显示？打开支付链接
+                      </a>
                     </div>
                   ) : null}
                 </div>
@@ -373,19 +393,6 @@ function ZpayCheckoutPage() {
                     我已完成支付
                   </button>
 
-                  {payUrl ? (
-                    <a
-                      href={payUrl}
-                      target="_blank"
-                      className={buttonVariants({ variant: 'outline' })}
-                      rel="noopener noreferrer"
-                      data-zpay-open-pay
-                    >
-                      <ExternalLink className="size-4" />
-                      打开支付链接
-                    </a>
-                  ) : null}
-
                   <Link
                     href={cancelHref}
                     className={buttonVariants({ variant: 'outline' })}
@@ -410,7 +417,7 @@ function ZpayCheckoutPage() {
                 <div className="text-muted-foreground mt-6 space-y-2 text-sm">
                   <p>完成付款后，请点击“我已完成支付”确认订单状态。</p>
                   <p>
-                    如扫码无法识别，可点击“打开支付链接”或复制链接到支付宝中打开。
+                    如扫码无法识别，可点击上方“二维码无法显示？打开支付链接”到支付宝中打开。
                   </p>
                   <p>
                     页面每 3

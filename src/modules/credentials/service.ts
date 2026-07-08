@@ -22,6 +22,11 @@ export type CredentialStatus = 'active' | 'frozen' | 'expired' | 'revoked';
 
 const DEFAULT_UNCLAIMED_OWNER_EMAIL =
   'system+unclaimed-credential@mediaclaw.local';
+const CREDIT_GRANT_TYPES = [
+  'grant',
+  'credential_issue',
+  'credential_recharge',
+] as const;
 
 export type CredentialClaimReason =
   | 'claimable'
@@ -69,8 +74,8 @@ function getUnclaimedOwnerEmail() {
   );
 }
 
-export function generateActivationCode(prefix = 'MC') {
-  const cleanPrefix = prefix.replace(/[^A-Za-z0-9]/g, '').slice(0, 8) || 'MC';
+export function generateActivationCode(prefix = 'ACT') {
+  const cleanPrefix = prefix.replace(/[^A-Za-z0-9]/g, '').slice(0, 8) || 'ACT';
   return `${cleanPrefix}-${getNonceStr(4)}-${getNonceStr(4)}-${getNonceStr(4)}`.toUpperCase();
 }
 
@@ -118,14 +123,14 @@ async function enrichCredentialRows<
       .where(
         and(
           inArray(credit.credentialCode, credentialCodes),
-          inArray(credit.transactionType, ['grant', 'credential_recharge'])
+          inArray(credit.transactionType, [...CREDIT_GRANT_TYPES])
         )
       )
       .groupBy(credit.credentialCode),
     db()
       .select({
         credentialCode: credit.credentialCode,
-        last90GrantCredits: sql<number>`coalesce(sum(case when ${credit.transactionType} in ('grant', 'credential_recharge') then ${credit.credits} else 0 end), 0)`,
+        last90GrantCredits: sql<number>`coalesce(sum(case when ${credit.transactionType} in ('grant', 'credential_issue', 'credential_recharge') then ${credit.credits} else 0 end), 0)`,
         last90ConsumeCredits: sql<number>`coalesce(sum(case when ${credit.transactionType} in ('consume', 'expense') then abs(${credit.credits}) else 0 end), 0)`,
         last90MonitorConsumeCredits: sql<number>`coalesce(sum(case when ${credit.transactionType} in ('consume', 'expense') and ${credit.transactionScene} = 'account_monitor' then abs(${credit.credits}) else 0 end), 0)`,
         last90MonitorConsumeCount: sql<number>`coalesce(sum(case when ${credit.transactionType} in ('consume', 'expense') and ${credit.transactionScene} = 'account_monitor' then 1 else 0 end), 0)`,
@@ -283,43 +288,205 @@ export async function createCredential(params: {
   const owner = await findUserByEmail(params.ownerEmail);
   const code = (params.code || generateActivationCode()).trim().toUpperCase();
   const now = new Date();
+  const totalCredits = Math.floor(Number(params.totalCredits || 0));
 
-  const [created] = await db()
-    .insert(credential)
-    .values({
-      id: getUuid(),
-      code,
-      ownerUserId: owner?.id ?? null,
-      sourceOrderNo: params.sourceOrderNo || null,
-      planCode: params.planCode || 'formal',
-      durationPreset: params.durationPreset || 'monthly',
-      maxBindings: Math.max(1, params.maxBindings || 1),
-      expiresAt: params.expiresAt || null,
-      status: params.status || 'active',
-      partnerId: params.partnerId || null,
-      variantId: params.variantId || null,
-      notes: params.notes || null,
-    })
-    .returning();
-
-  if (params.totalCredits && params.totalCredits > 0) {
-    await db()
-      .insert(credentialCredit)
+  const created = await db().transaction(async (tx: any) => {
+    const [credentialRow] = await tx
+      .insert(credential)
       .values({
         id: getUuid(),
-        credentialId: created.id,
+        code,
+        ownerUserId: owner?.id ?? null,
+        sourceOrderNo: params.sourceOrderNo || null,
+        planCode: params.planCode || 'formal',
+        durationPreset: params.durationPreset || 'monthly',
+        maxBindings: Math.max(1, params.maxBindings || 1),
+        expiresAt: params.expiresAt || null,
+        status: params.status || 'active',
+        partnerId: params.partnerId || null,
+        variantId: params.variantId || null,
+        notes: params.notes || null,
+      })
+      .returning();
+
+    if (totalCredits > 0) {
+      await tx.insert(credentialCredit).values({
+        id: getUuid(),
+        credentialId: credentialRow.id,
         credentialCode: code,
         userId: owner?.id ?? null,
         orderNo: params.sourceOrderNo || null,
-        totalCredits: params.totalCredits,
+        totalCredits,
         usedCredits: 0,
         expiresAt: params.expiresAt || null,
-        status: 'active',
+        status: params.status || 'active',
         activatedAt: owner ? now : null,
       });
-  }
+
+      await writeCredentialIssueCreditLedger(tx, {
+        credentialId: credentialRow.id,
+        credentialCode: code,
+        ownerUserId: owner?.id ?? null,
+        ownerEmail: owner?.email || params.ownerEmail || '',
+        orderNo: params.sourceOrderNo || null,
+        credits: totalCredits,
+        expiresAt: params.expiresAt || null,
+        description: params.notes || 'Credential issued',
+      });
+    }
+
+    return credentialRow;
+  });
 
   return created;
+}
+
+type CredentialIssueLedgerParams = {
+  credentialId: string;
+  credentialCode: string;
+  ownerUserId?: string | null;
+  ownerEmail?: string | null;
+  orderNo?: string | null;
+  credits?: number | null;
+  expiresAt?: Date | null;
+  description?: string | null;
+};
+
+async function writeCredentialIssueCreditLedger(
+  tx: any,
+  params: CredentialIssueLedgerParams
+): Promise<boolean> {
+  const ownerUserId = String(params.ownerUserId || '').trim();
+  const credentialCode = String(params.credentialCode || '')
+    .trim()
+    .toUpperCase();
+  const credits = Math.floor(Number(params.credits || 0));
+
+  if (!ownerUserId || !credentialCode || credits <= 0) return false;
+
+  const orderNo = String(params.orderNo || '').trim();
+  const idempotencyConditions: SQL[] = [
+    eq(credit.credentialCode, credentialCode) as unknown as SQL,
+    eq(credit.transactionType, 'credential_issue') as unknown as SQL,
+    isNull(credit.deletedAt) as unknown as SQL,
+  ];
+  if (orderNo) {
+    idempotencyConditions.push(eq(credit.orderNo, orderNo) as unknown as SQL);
+  }
+
+  const [alreadyApplied] = await tx
+    .select({ id: credit.id })
+    .from(credit)
+    .where(and(...idempotencyConditions))
+    .limit(1);
+
+  if (alreadyApplied) return false;
+
+  await tx.insert(credit).values({
+    id: getUuid(),
+    userId: ownerUserId,
+    userEmail: params.ownerEmail || '',
+    orderNo,
+    subscriptionNo: '',
+    transactionNo: getSnowId(),
+    transactionType: 'credential_issue',
+    transactionScene: orderNo ? 'payment' : 'manual_credential_issue',
+    credits,
+    remainingCredits: 0,
+    description: params.description || 'Credential issued',
+    expiresAt: params.expiresAt || null,
+    status: 'active',
+    credentialCode,
+    metadata: JSON.stringify({
+      credentialId: params.credentialId,
+      source: orderNo ? 'paid_credential_issue' : 'credential_issue',
+      orderNo: orderNo || null,
+      remainingBefore: 0,
+      remainingAfter: credits,
+    }),
+  });
+
+  return true;
+}
+
+export async function ensureCredentialIssueCreditLedgerForOrder(params: {
+  orderNo?: string | null;
+  credentialCode?: string | null;
+  userId?: string | null;
+  userEmail?: string | null;
+  credits?: number | null;
+  expiresAt?: Date | null;
+  description?: string | null;
+}): Promise<{ inserted: boolean; credentialCode: string | null }> {
+  const orderNo = String(params.orderNo || '').trim();
+  const credentialCode = String(params.credentialCode || '')
+    .trim()
+    .toUpperCase();
+  if (!orderNo && !credentialCode) {
+    return { inserted: false, credentialCode: null };
+  }
+
+  return db().transaction(async (tx: any) => {
+    const credentialConditions: SQL[] = [
+      isNull(credential.deletedAt) as unknown as SQL,
+    ];
+
+    if (orderNo && credentialCode) {
+      credentialConditions.push(
+        or(
+          eq(credential.sourceOrderNo, orderNo),
+          eq(credential.code, credentialCode)
+        )! as unknown as SQL
+      );
+    } else if (orderNo) {
+      credentialConditions.push(
+        eq(credential.sourceOrderNo, orderNo) as unknown as SQL
+      );
+    } else {
+      credentialConditions.push(
+        eq(credential.code, credentialCode) as unknown as SQL
+      );
+    }
+
+    const [row] = await tx
+      .select({
+        id: credential.id,
+        code: credential.code,
+        ownerUserId: credential.ownerUserId,
+        ownerEmail: user.email,
+        sourceOrderNo: credential.sourceOrderNo,
+        expiresAt: credential.expiresAt,
+        totalCredits: credentialCredit.totalCredits,
+      })
+      .from(credential)
+      .leftJoin(user, eq(user.id, credential.ownerUserId))
+      .leftJoin(
+        credentialCredit,
+        eq(credentialCredit.credentialCode, credential.code)
+      )
+      .where(and(...credentialConditions))
+      .limit(1);
+
+    if (!row)
+      return { inserted: false, credentialCode: credentialCode || null };
+
+    const credits = Math.floor(Number(params.credits ?? row.totalCredits ?? 0));
+    const inserted = await writeCredentialIssueCreditLedger(tx, {
+      credentialId: row.id,
+      credentialCode: row.code,
+      ownerUserId: params.userId || row.ownerUserId,
+      ownerEmail: params.userEmail || row.ownerEmail,
+      orderNo: orderNo || row.sourceOrderNo,
+      credits,
+      expiresAt:
+        params.expiresAt === undefined ? row.expiresAt : params.expiresAt,
+      description:
+        params.description ||
+        `paid issue from order ${orderNo || row.sourceOrderNo || ''}`.trim(),
+    });
+
+    return { inserted, credentialCode: row.code };
+  });
 }
 
 export async function updateCredentialStatus(params: {
@@ -405,6 +572,7 @@ export async function rechargeCredential(params: {
   credits?: number | null;
   durationDays?: number | null;
   expiresAt?: Date | null;
+  orderNo?: string | null;
   maxBindings?: number | null;
   planCode?: string | null;
   durationPreset?: string | null;
@@ -417,6 +585,7 @@ export async function rechargeCredential(params: {
   const now = new Date();
   let nextExpiresAt = params.expiresAt ?? undefined;
   const durationDays = Number(params.durationDays || 0);
+  const orderNo = String(params.orderNo || '').trim();
 
   if (durationDays > 0) {
     const base =
@@ -429,6 +598,27 @@ export async function rechargeCredential(params: {
   }
 
   const updated = await db().transaction(async (tx: any) => {
+    const credits = Number(params.credits || 0);
+    if (credits > 0 && orderNo) {
+      const [alreadyApplied] = await tx
+        .select({ id: credit.id })
+        .from(credit)
+        .where(
+          and(
+            or(
+              eq(credit.orderNo, orderNo),
+              eq(credit.description, `paid recharge from order ${orderNo}`)
+            )!,
+            eq(credit.credentialCode, existing.code),
+            eq(credit.transactionType, 'credential_recharge'),
+            isNull(credit.deletedAt)
+          )
+        )
+        .limit(1);
+
+      if (alreadyApplied) return existing;
+    }
+
     const [credentialRow] = await tx
       .update(credential)
       .set({
@@ -450,8 +640,8 @@ export async function rechargeCredential(params: {
       .where(eq(credential.id, params.id))
       .returning();
 
-    const credits = Number(params.credits || 0);
     if (credits > 0) {
+      const ledgerOrderNo = orderNo || existing.sourceOrderNo || '';
       const owner = existing.ownerUserId
         ? (
             await tx
@@ -474,6 +664,7 @@ export async function rechargeCredential(params: {
           .set({
             credentialId: summary.credentialId || existing.id,
             userId: summary.userId || existing.ownerUserId || null,
+            orderNo: summary.orderNo || ledgerOrderNo || null,
             totalCredits: sql`${credentialCredit.totalCredits} + ${credits}`,
             expiresAt:
               nextExpiresAt === undefined ? summary.expiresAt : nextExpiresAt,
@@ -488,7 +679,7 @@ export async function rechargeCredential(params: {
           credentialId: existing.id,
           credentialCode: existing.code,
           userId: existing.ownerUserId || null,
-          orderNo: existing.sourceOrderNo || null,
+          orderNo: ledgerOrderNo || null,
           totalCredits: credits,
           usedCredits: 0,
           expiresAt:
@@ -503,11 +694,11 @@ export async function rechargeCredential(params: {
           id: getUuid(),
           userId: existing.ownerUserId,
           userEmail: owner?.email || '',
-          orderNo: existing.sourceOrderNo || '',
+          orderNo: ledgerOrderNo,
           subscriptionNo: '',
           transactionNo: getSnowId(),
           transactionType: 'credential_recharge',
-          transactionScene: 'manual_credential_recharge',
+          transactionScene: orderNo ? 'payment' : 'manual_credential_recharge',
           credits,
           remainingCredits: 0,
           description: params.notes || 'Manual credential recharge',
@@ -517,7 +708,10 @@ export async function rechargeCredential(params: {
           credentialCode: existing.code,
           metadata: JSON.stringify({
             credentialId: existing.id,
-            source: 'credential_recharge',
+            source: orderNo
+              ? 'paid_credential_recharge'
+              : 'credential_recharge',
+            orderNo: ledgerOrderNo || null,
             remainingBefore: summary
               ? Math.max(
                   Number(summary.totalCredits || 0) -

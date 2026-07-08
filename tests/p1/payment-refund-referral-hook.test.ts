@@ -41,6 +41,10 @@ vi.mock('@/modules/config/service', () => ({
 
 vi.mock('@/modules/credentials/service', () => ({
   createCredential: vi.fn(),
+  ensureCredentialIssueCreditLedgerForOrder: vi.fn(async () => ({
+    inserted: false,
+    credentialCode: null,
+  })),
   getCredentialByCode: vi.fn(),
   rechargeCredential: vi.fn(),
 }));

@@ -18,6 +18,7 @@ import { THEME_TRANSITION_STORAGE_KEY } from '@/lib/theme-transition';
 import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
 import { FirstPartyAnalytics } from '@/components/analytics/first-party-analytics';
 import { GoogleAnalytics } from '@/components/analytics/google-analytics';
+import { MicrosoftClarity } from '@/components/analytics/microsoft-clarity';
 import { Plausible } from '@/components/analytics/plausible';
 import { CustomerService } from '@/components/customer-service';
 import { GoogleOneTap } from '@/components/google-one-tap';
@@ -82,6 +83,7 @@ const getAnalyticsConfigs = createServerFn().handler(async () => {
   const configs = await getAllConfigs();
   return {
     gaId: configs.google_analytics_id?.trim() || '',
+    clarityId: configs.clarity_id?.trim() || 'xj860xja7v',
     plausibleDomain: configs.plausible_domain?.trim() || '',
     plausibleSrc: configs.plausible_src?.trim() || '',
     crispWebsiteId:
@@ -153,6 +155,9 @@ function RootComponent() {
         <GoogleOneTap />
         {analytics?.gaId ? (
           <GoogleAnalytics measurementId={analytics.gaId} />
+        ) : null}
+        {analytics?.clarityId ? (
+          <MicrosoftClarity projectId={analytics.clarityId} />
         ) : null}
         {analytics?.plausibleDomain ? (
           <Plausible

@@ -1,8 +1,22 @@
-import { and, count, desc, eq, like, lt, or, sql, type SQL } from 'drizzle-orm';
+import {
+  and,
+  asc,
+  count,
+  desc,
+  eq,
+  gte,
+  isNull,
+  like,
+  lt,
+  or,
+  sql,
+  type SQL,
+} from 'drizzle-orm';
 
 import { db } from '@/core/db';
 import { envConfigs } from '@/config';
 import {
+  order as orderTable,
   referralAccount,
   referralCommission,
   referralRelation,
@@ -60,6 +74,8 @@ function inviteCodeFromUser(userId: string) {
     .slice(0, 6)
     .toUpperCase()}${getNonceStr(3).toUpperCase()}`;
 }
+
+const REFERRAL_BACKFILL_LOOKBACK_HOURS = 48;
 
 export enum ReferralStatus {
   ACTIVE = 'active',
@@ -174,7 +190,10 @@ export async function createReferralRelation(params: {
     .from(referralRelation)
     .where(eq(referralRelation.refereeId, params.refereeId))
     .limit(1);
-  if (existing) return existing;
+  if (existing) {
+    await repairMissingReferralCommissionForRelationQuietly(existing);
+    return existing;
+  }
 
   try {
     const [created] = await db().transaction(async (tx: any) => {
@@ -200,6 +219,7 @@ export async function createReferralRelation(params: {
       return [row];
     });
 
+    await repairMissingReferralCommissionForRelationQuietly(created);
     return created;
   } catch (error) {
     const [existingAfterRace] = await db()
@@ -207,7 +227,12 @@ export async function createReferralRelation(params: {
       .from(referralRelation)
       .where(eq(referralRelation.refereeId, params.refereeId))
       .limit(1);
-    if (existingAfterRace) return existingAfterRace;
+    if (existingAfterRace) {
+      await repairMissingReferralCommissionForRelationQuietly(
+        existingAfterRace
+      );
+      return existingAfterRace;
+    }
     throw error;
   }
 }
@@ -312,7 +337,15 @@ export async function processReferralCommissionForPaidOrder(params: {
     .from(referralCommission)
     .where(eq(referralCommission.orderNo, params.order.orderNo))
     .limit(1);
-  if (existingCommission) return existingCommission;
+  if (existingCommission) {
+    if (!relation.hasFirstOrder) {
+      await updateReferralRelationFirstOrder({
+        relationId: relation.id,
+        orderNo: params.order.orderNo,
+      });
+    }
+    return existingCommission;
+  }
 
   const [referrerAccount] = await db()
     .select()
@@ -348,9 +381,17 @@ export async function processReferralCommissionForPaidOrder(params: {
       .insert(referralCommission)
       .values({
         id: getUuid(),
+        userId: relation.referrerId,
+        relationId: relation.id,
         referrerUserId: relation.referrerId,
         inviteeUserId: relation.refereeId,
         orderNo: params.order.orderNo,
+        orderAmount,
+        orderCurrency: currency,
+        commissionRate: rate,
+        commissionAmount: amount,
+        commissionCurrency: currency,
+        commissionType: commissionReason,
         amount,
         currency,
         rate,
@@ -384,6 +425,138 @@ export async function processReferralCommissionForPaidOrder(params: {
   });
 
   return created;
+}
+
+function dateFromUnknown(value: unknown, fallback = new Date()) {
+  if (value instanceof Date && !Number.isNaN(value.getTime())) return value;
+  const parsed = new Date(String(value || ''));
+  return Number.isNaN(parsed.getTime()) ? fallback : parsed;
+}
+
+export async function repairMissingReferralCommissionForRelation(
+  relation: typeof referralRelation.$inferSelect,
+  options: {
+    lookbackHours?: number;
+    orderLimit?: number;
+  } = {}
+) {
+  if (!relation || relation.status !== ReferralStatus.ACTIVE) {
+    return { commission: null, candidateOrders: 0 };
+  }
+  if (relation.hasFirstOrder) {
+    return { commission: null, candidateOrders: 0 };
+  }
+
+  const lookbackHours = Math.min(
+    24 * 30,
+    Math.max(
+      1,
+      Math.floor(options.lookbackHours || REFERRAL_BACKFILL_LOOKBACK_HOURS)
+    )
+  );
+  const orderLimit = Math.min(
+    10,
+    Math.max(1, Math.floor(options.orderLimit || 5))
+  );
+  const relationCreatedAt = dateFromUnknown(relation.createdAt);
+  const windowStart = new Date(
+    relationCreatedAt.getTime() - lookbackHours * 60 * 60 * 1000
+  );
+
+  const paidOrders = await db()
+    .select({
+      orderNo: orderTable.orderNo,
+      userId: orderTable.userId,
+      productId: orderTable.productId,
+      amount: orderTable.amount,
+      currency: orderTable.currency,
+      paymentAmount: orderTable.paymentAmount,
+      paymentCurrency: orderTable.paymentCurrency,
+      createdAt: orderTable.createdAt,
+      paidAt: orderTable.paidAt,
+    })
+    .from(orderTable)
+    .where(
+      and(
+        eq(orderTable.userId, relation.refereeId),
+        eq(orderTable.status, 'paid'),
+        isNull(orderTable.deletedAt),
+        or(
+          gte(orderTable.createdAt, windowStart),
+          gte(orderTable.paidAt, windowStart)
+        )!
+      )
+    )
+    .orderBy(asc(orderTable.paidAt), asc(orderTable.createdAt))
+    .limit(orderLimit);
+
+  for (const paidOrder of paidOrders) {
+    const commission = await processReferralCommissionForPaidOrder({
+      order: {
+        orderNo: paidOrder.orderNo,
+        userId: paidOrder.userId,
+        productId: paidOrder.productId,
+        amount: paidOrder.amount,
+        currency: paidOrder.currency,
+      },
+      paymentAmount: paidOrder.paymentAmount,
+      paymentCurrency: paidOrder.paymentCurrency,
+    });
+    if (commission) {
+      return { commission, candidateOrders: paidOrders.length };
+    }
+  }
+
+  return { commission: null, candidateOrders: paidOrders.length };
+}
+
+async function repairMissingReferralCommissionForRelationQuietly(
+  relation: typeof referralRelation.$inferSelect
+) {
+  try {
+    return await repairMissingReferralCommissionForRelation(relation);
+  } catch {
+    return { commission: null, candidateOrders: 0 };
+  }
+}
+
+export async function repairMissingReferralCommissions(
+  options: {
+    limit?: number;
+    lookbackHours?: number;
+  } = {}
+) {
+  const limit = Math.min(200, Math.max(1, Math.floor(options.limit || 100)));
+  const relations = await db()
+    .select()
+    .from(referralRelation)
+    .where(
+      and(
+        eq(referralRelation.status, ReferralStatus.ACTIVE),
+        eq(referralRelation.hasFirstOrder, false)
+      )
+    )
+    .orderBy(desc(referralRelation.createdAt))
+    .limit(limit);
+
+  let repairedCommissions = 0;
+  let candidateOrders = 0;
+
+  for (const relation of relations) {
+    const result = await repairMissingReferralCommissionForRelation(relation, {
+      lookbackHours: options.lookbackHours,
+    });
+    candidateOrders += result.candidateOrders;
+    if (result.commission) {
+      repairedCommissions += 1;
+    }
+  }
+
+  return {
+    scannedRelations: relations.length,
+    candidateOrders,
+    repairedCommissions,
+  };
 }
 
 export async function cancelReferralCommissionForOrder(
@@ -765,5 +938,14 @@ export async function processLockedCommissionsSettlement() {
 }
 
 export async function processPendingReferralTasks() {
-  return processLockedCommissionsSettlement();
+  const missingCommissions = await repairMissingReferralCommissions();
+  const settlement = await processLockedCommissionsSettlement();
+
+  return {
+    processed:
+      missingCommissions.repairedCommissions +
+      Number(settlement.processed || 0),
+    missingCommissions,
+    settlement,
+  };
 }

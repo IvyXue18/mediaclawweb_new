@@ -3496,12 +3496,7 @@ function isPaidPricingItem(item: LegacyItem) {
 function credentialOptionLabel(credential: UserCredentialSummary) {
   const code = credential.code || '';
   const plan = credentialPlanLabel(credential.planCode);
-  const expiresAt =
-    credential.expiresAt instanceof Date
-      ? credential.expiresAt.toISOString().slice(0, 10)
-      : credential.expiresAt
-        ? String(credential.expiresAt).slice(0, 10)
-        : '长期';
+  const expiresAt = formatCredentialExpiresAt(credential.expiresAt);
   return `${code} · ${plan} · ${expiresAt}`;
 }
 
@@ -4532,8 +4527,15 @@ function isExtendableCredential(credential: UserCredentialSummary) {
 
 function formatCredentialExpiresAt(value?: string | Date | null) {
   if (!value) return '长期';
-  if (value instanceof Date) return value.toISOString().slice(0, 10);
-  return String(value).slice(0, 10) || '长期';
+  const date = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(date.getTime())) return '长期';
+  return new Intl.DateTimeFormat(undefined, {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date);
 }
 
 function ChannelSurveyRewardDialog({

@@ -63,6 +63,9 @@ test('zpay checkout shows qr handoff and redirects after manual paid check', asy
       '请使用支付宝 App 扫码付款，之后右侧点击完成支付。（移动端按钮在下面）'
     )
   ).toBeVisible();
+  await expect(page.locator('[data-zpay-alipay-brand]')).toContainText(
+    'ALIPAY'
+  );
   await expect(page.locator('[data-zpay-qr-image]')).toBeVisible();
   await expect(page.locator('[data-zpay-status-badge]')).toContainText(
     '等待付款'
@@ -74,10 +77,10 @@ test('zpay checkout shows qr handoff and redirects after manual paid check', asy
     'href',
     'https://zpayz.cn/pay/ORDER-ZPAY-UI'
   );
-  await expect(page.locator('[data-zpay-open-pay]')).toHaveAttribute(
-    'href',
-    'https://zpayz.cn/pay/ORDER-ZPAY-UI'
+  await expect(page.locator('[data-zpay-pay-url]')).toContainText(
+    '二维码无法显示？打开支付链接'
   );
+  await expect(page.locator('[data-zpay-open-pay]')).toHaveCount(0);
 
   await expect.poll(() => statusRequests).toBeGreaterThanOrEqual(1);
   const requestsBeforeManualCheck = statusRequests;

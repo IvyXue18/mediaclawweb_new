@@ -418,13 +418,11 @@ function appendRewardNote(existingNotes: string | null, note: string) {
 
 function extendExpiration(expiresAt: Date | null, durationDays: number) {
   if (durationDays <= 0) return expiresAt;
-  const next =
+  const base =
     expiresAt && expiresAt.getTime() > Date.now()
       ? new Date(expiresAt)
       : new Date();
-  next.setDate(next.getDate() + durationDays);
-  next.setHours(23, 59, 59, 999);
-  return next;
+  return new Date(base.getTime() + durationDays * 24 * 60 * 60 * 1000);
 }
 
 async function addCredentialCredits({
@@ -547,7 +545,7 @@ async function grantBenefitReward({
         .insert(credential)
         .values({
           id: getUuid(),
-          code: generateActivationCode('MC'),
+          code: generateActivationCode('ACT'),
           ownerUserId: userId,
           sourceOrderNo: null,
           planCode: 'trial',

@@ -689,6 +689,8 @@ export const referralCommission = table(
   'referral_commission',
   {
     id: varchar191('id').primaryKey(),
+    userId: varchar191('user_id'),
+    relationId: varchar191('relation_id'),
     referrerUserId: varchar191('referrer_user_id')
       .notNull()
       .references(() => user.id, { onDelete: 'cascade' }),
@@ -696,6 +698,18 @@ export const referralCommission = table(
       onDelete: 'set null',
     }),
     orderNo: varchar191('order_no'),
+    orderAmount: int('order_amount').notNull().default(0),
+    orderCurrency: varchar('order_currency', { length: 10 })
+      .notNull()
+      .default('usd'),
+    commissionRate: int('commission_rate').notNull().default(0),
+    commissionAmount: int('commission_amount').notNull().default(0),
+    commissionCurrency: varchar('commission_currency', { length: 10 })
+      .notNull()
+      .default('usd'),
+    commissionType: varchar('commission_type', { length: 50 })
+      .notNull()
+      .default('first_order'),
     amount: int('amount').notNull().default(0),
     currency: varchar('currency', { length: 10 }).notNull().default('usd'),
     rate: int('rate').notNull().default(0),

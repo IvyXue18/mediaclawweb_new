@@ -10,6 +10,8 @@
 // Env-file loading mirrors scripts/with-env.ts so this script picks up
 // DATABASE_PROVIDER from .env.<NODE_ENV> / .env.local / .env when run from
 // `pnpm install` postinstall (which doesn't go through with-env.ts).
+// For Cloudflare deployments, also fall back to wrangler.jsonc vars so CI only
+// needs the Wrangler credentials when runtime config already lives there.
 import { copyFileSync, existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
@@ -39,6 +41,27 @@ const envFiles = process.env.ENV_FILE
   ? [process.env.ENV_FILE]
   : [`.env.${nodeEnv}.local`, `.env.${nodeEnv}`, '.env.local', '.env'];
 for (const f of envFiles) loadEnvFile(resolve(f));
+
+function loadWranglerDatabaseProvider() {
+  if (process.env.DATABASE_PROVIDER) return;
+  if (
+    !process.env.CI &&
+    !process.env.NITRO_PRESET?.includes('cloudflare') &&
+    process.env.npm_lifecycle_event !== 'precf:build' &&
+    process.env.npm_lifecycle_event !== 'cf:build'
+  ) {
+    return;
+  }
+
+  const wranglerPath = resolve('wrangler.jsonc');
+  if (!existsSync(wranglerPath)) return;
+
+  const raw = readFileSync(wranglerPath, 'utf-8');
+  const match = raw.match(/"DATABASE_PROVIDER"\s*:\s*"([^"]+)"/);
+  if (match?.[1]) process.env.DATABASE_PROVIDER = match[1];
+}
+
+loadWranglerDatabaseProvider();
 
 const TEMPLATE_BY_PROVIDER = {
   sqlite: 'sqlite',

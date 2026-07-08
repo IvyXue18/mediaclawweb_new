@@ -1,12 +1,21 @@
 import { useEffect, useMemo, useState } from 'react';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { Eye } from 'lucide-react';
 
 import { apiGet, type PageResult } from '@/lib/api-client';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
 import { DataTable, type Column } from '@/components/data-table';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 
 type RewardKind = 'channel-survey' | 'experience-feedback' | 'ledger';
@@ -20,6 +29,7 @@ type RewardRow = {
   role?: string | null;
   useCase?: string | null;
   detail?: string | null;
+  answersJson?: string | null;
   rating?: number | null;
   comment?: string | null;
   expectedFeature?: string | null;
@@ -36,9 +46,30 @@ type RewardRow = {
   rewardStatus?: string | null;
   errorMessage?: string | null;
   createdAt?: string | number | Date | null;
+  updatedAt?: string | number | Date | null;
 };
 
 const PAGE_SIZE = 10;
+
+type SurveyDetail = {
+  platform?: string;
+  sourceAi?: string;
+  sourceQuestion?: string;
+  searchEngine?: string;
+  searchQuestion?: string;
+  sourceOther?: string;
+  roleOther?: string;
+  rawDetail?: string;
+};
+
+type SurveySummary = {
+  source: string;
+  role: string;
+  useCases: string[];
+  detail: SurveyDetail;
+  version?: string;
+  entryPoint?: string;
+};
 
 function channelSourceOptions() {
   return [
@@ -119,6 +150,175 @@ function ratingOptions() {
   ];
 }
 
+function asRecord(value: unknown): Record<string, unknown> | null {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+  return value as Record<string, unknown>;
+}
+
+function parseRecord(value: unknown): Record<string, unknown> | null {
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    if (!trimmed) return null;
+    try {
+      return asRecord(JSON.parse(trimmed));
+    } catch {
+      return null;
+    }
+  }
+  return asRecord(value);
+}
+
+function readString(value: unknown) {
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+function readStringArray(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => readString(item))
+      .filter((item): item is string => Boolean(item));
+  }
+  if (typeof value === 'string') {
+    return value
+      .split(',')
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+  return [];
+}
+
+function isLikelyJsonText(value: string) {
+  const trimmed = value.trim();
+  return trimmed.startsWith('{') || trimmed.startsWith('[');
+}
+
+function parseSurveySummary(row: RewardRow): SurveySummary {
+  const answers = parseRecord(row.answersJson);
+  const answersDetail: Record<string, unknown> =
+    parseRecord(answers?.detail) || asRecord(answers?.detail) || {};
+  const rowDetail = parseRecord(row.detail);
+  const detailSource: Record<string, unknown> = rowDetail || answersDetail;
+  const rawDetail =
+    row.detail && !rowDetail && !isLikelyJsonText(row.detail)
+      ? row.detail.trim()
+      : '';
+  const answerUseCases = readStringArray(answers?.useCase);
+
+  return {
+    source: readString(answers?.source) || row.source || '',
+    role: readString(answers?.role) || row.role || '',
+    useCases: answerUseCases.length
+      ? answerUseCases
+      : readStringArray(row.useCase),
+    version: readString(answers?.version),
+    entryPoint: readString(answers?.entryPoint),
+    detail: {
+      platform: readString(detailSource.platform),
+      sourceAi: readString(detailSource.sourceAi),
+      sourceQuestion: readString(detailSource.sourceQuestion),
+      searchEngine: readString(detailSource.searchEngine),
+      searchQuestion: readString(detailSource.searchQuestion),
+      sourceOther: readString(detailSource.sourceOther),
+      roleOther: readString(detailSource.roleOther),
+      rawDetail,
+    },
+  };
+}
+
+function sourceLabel(value?: string | null) {
+  switch (value) {
+    case 'ai':
+      return m['admin.rewards.filters.source.ai']();
+    case 'search':
+      return m['admin.rewards.filters.source.search']();
+    case 'official_account':
+      return m['admin.rewards.filters.source.official_account']();
+    case 'zhihu':
+      return m['admin.rewards.filters.source.zhihu']();
+    case 'wechat_channels':
+      return m['admin.rewards.filters.source.wechat_channels']();
+    case 'douyin':
+      return m['admin.rewards.filters.source.douyin']();
+    case 'xiaohongshu':
+      return m['admin.rewards.filters.source.xiaohongshu']();
+    case 'friend_referral':
+      return m['admin.rewards.filters.source.friend_referral']();
+    case 'other':
+      return m['admin.rewards.filters.source.other']();
+    default:
+      return value || '-';
+  }
+}
+
+function roleLabel(value?: string | null) {
+  switch (value) {
+    case 'personal_blogger':
+      return m['admin.rewards.channel_survey.roles.personal_blogger']();
+    case 'mcn':
+      return m['admin.rewards.channel_survey.roles.mcn']();
+    case 'brand_team':
+      return m['admin.rewards.channel_survey.roles.brand_team']();
+    case 'growth_team':
+      return m['admin.rewards.channel_survey.roles.growth_team']();
+    case 'opc':
+      return m['admin.rewards.channel_survey.roles.opc']();
+    case 'other':
+      return m['admin.rewards.channel_survey.roles.other']();
+    default:
+      return value || '-';
+  }
+}
+
+function platformLabel(value?: string | null) {
+  switch (value) {
+    case 'xiaohongshu':
+      return m['admin.rewards.channel_survey.platforms.xiaohongshu']();
+    case 'douyin':
+      return m['admin.rewards.channel_survey.platforms.douyin']();
+    case 'both':
+      return m['admin.rewards.channel_survey.platforms.both']();
+    default:
+      return value || '-';
+  }
+}
+
+function useCaseLabel(value?: string | null) {
+  switch (value) {
+    case 'topic_direction':
+      return m['admin.rewards.channel_survey.use_cases.topic_direction']();
+    case 'benchmark_accounts':
+      return m['admin.rewards.channel_survey.use_cases.benchmark_accounts']();
+    case 'viral_samples':
+      return m['admin.rewards.channel_survey.use_cases.viral_samples']();
+    case 'asset_library':
+      return m['admin.rewards.channel_survey.use_cases.asset_library']();
+    case 'influencer_research':
+      return m['admin.rewards.channel_survey.use_cases.influencer_research']();
+    case 'private_leads':
+      return m['admin.rewards.channel_survey.use_cases.private_leads']();
+    default:
+      return value || '-';
+  }
+}
+
+function compactList(values: string[]) {
+  const labels = values.map(useCaseLabel).filter((value) => value !== '-');
+  return labels.length ? labels.join('、') : '-';
+}
+
+function getSpecificChannel(summary: SurveySummary) {
+  if (summary.source === 'ai') return summary.detail.sourceAi;
+  if (summary.source === 'search') return summary.detail.searchEngine;
+  if (summary.source === 'other') return summary.detail.sourceOther;
+  return '';
+}
+
+function getSourceQuestion(summary: SurveySummary) {
+  if (summary.source === 'ai') return summary.detail.sourceQuestion;
+  if (summary.source === 'search') return summary.detail.searchQuestion;
+  return '';
+}
+
 function formatDate(value: RewardRow['createdAt']) {
   if (!value) return '-';
   const date = new Date(value);
@@ -184,6 +384,190 @@ function TextCell({ children }: { children?: string | null }) {
   );
 }
 
+function MultiValueCell({ value }: { value: string }) {
+  return (
+    <span className="block max-w-[24rem] whitespace-normal" title={value}>
+      {value || '-'}
+    </span>
+  );
+}
+
+function DetailField({
+  label,
+  value,
+}: {
+  label: string;
+  value?: string | number | null;
+}) {
+  return (
+    <div className="space-y-1">
+      <dt className="text-muted-foreground text-xs">{label}</dt>
+      <dd className="text-sm break-words">{value || '-'}</dd>
+    </div>
+  );
+}
+
+function ChannelSurveyDetailDialog({
+  row,
+  onClose,
+}: {
+  row: RewardRow | null;
+  onClose: () => void;
+}) {
+  const summary = row ? parseSurveySummary(row) : null;
+  const specificChannel = summary ? getSpecificChannel(summary) : '';
+  const sourceQuestion = summary ? getSourceQuestion(summary) : '';
+
+  return (
+    <Dialog open={!!row} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-2xl">
+        <DialogHeader>
+          <DialogTitle>
+            {m['admin.rewards.channel_survey.detail_title']()}
+          </DialogTitle>
+          <DialogDescription>
+            {m['admin.rewards.channel_survey.detail_description']()}
+          </DialogDescription>
+        </DialogHeader>
+
+        {row && summary ? (
+          <div className="space-y-6">
+            <section className="space-y-3">
+              <h3 className="text-sm font-medium">
+                {m['admin.rewards.channel_survey.sections.focus']()}
+              </h3>
+              <dl className="grid gap-4 sm:grid-cols-2">
+                <DetailField
+                  label={m['admin.rewards.columns.source']()}
+                  value={sourceLabel(summary.source)}
+                />
+                <DetailField
+                  label={m['admin.rewards.columns.role']()}
+                  value={roleLabel(summary.role)}
+                />
+                <DetailField
+                  label={m['admin.rewards.columns.use_case']()}
+                  value={compactList(summary.useCases)}
+                />
+                <DetailField
+                  label={m['admin.rewards.columns.platform']()}
+                  value={platformLabel(summary.detail.platform)}
+                />
+                <DetailField
+                  label={m['admin.rewards.columns.specific_channel']()}
+                  value={specificChannel}
+                />
+                <DetailField
+                  label={m['admin.rewards.columns.search_question']()}
+                  value={sourceQuestion}
+                />
+              </dl>
+            </section>
+
+            <section className="space-y-3">
+              <h3 className="text-sm font-medium">
+                {m['admin.rewards.channel_survey.sections.supplement']()}
+              </h3>
+              <dl className="grid gap-4 sm:grid-cols-2">
+                <DetailField
+                  label={m['admin.rewards.channel_survey.fields.ai_name']()}
+                  value={summary.detail.sourceAi}
+                />
+                <DetailField
+                  label={m['admin.rewards.channel_survey.fields.ai_question']()}
+                  value={summary.detail.sourceQuestion}
+                />
+                <DetailField
+                  label={m[
+                    'admin.rewards.channel_survey.fields.search_engine'
+                  ]()}
+                  value={summary.detail.searchEngine}
+                />
+                <DetailField
+                  label={m[
+                    'admin.rewards.channel_survey.fields.search_question'
+                  ]()}
+                  value={summary.detail.searchQuestion}
+                />
+                <DetailField
+                  label={m[
+                    'admin.rewards.channel_survey.fields.source_other'
+                  ]()}
+                  value={summary.detail.sourceOther}
+                />
+                <DetailField
+                  label={m['admin.rewards.channel_survey.fields.role_other']()}
+                  value={summary.detail.roleOther}
+                />
+                <DetailField
+                  label={m['admin.rewards.columns.detail']()}
+                  value={summary.detail.rawDetail}
+                />
+                <DetailField
+                  label={m['admin.rewards.channel_survey.fields.entry_point']()}
+                  value={summary.entryPoint}
+                />
+              </dl>
+            </section>
+
+            <section className="space-y-3">
+              <h3 className="text-sm font-medium">
+                {m['admin.rewards.channel_survey.sections.reward']()}
+              </h3>
+              <dl className="grid gap-4 sm:grid-cols-2">
+                <DetailField
+                  label={m['admin.rewards.columns.reward_credential']()}
+                  value={row.rewardCredentialCode}
+                />
+                <DetailField
+                  label={m['admin.rewards.columns.reward']()}
+                  value={formatReward(row)}
+                />
+                <DetailField
+                  label={m['admin.rewards.columns.status']()}
+                  value={getStatus(row)}
+                />
+                <DetailField
+                  label={m['admin.rewards.columns.created_at']()}
+                  value={formatDate(row.createdAt)}
+                />
+                <DetailField
+                  label={m['admin.rewards.channel_survey.fields.updated_at']()}
+                  value={formatDate(row.updatedAt)}
+                />
+                <DetailField
+                  label={m['admin.rewards.channel_survey.fields.version']()}
+                  value={summary.version}
+                />
+              </dl>
+            </section>
+
+            <section className="space-y-3">
+              <h3 className="text-sm font-medium">
+                {m['admin.rewards.channel_survey.sections.system']()}
+              </h3>
+              <dl className="grid gap-4 sm:grid-cols-2">
+                <DetailField
+                  label={m['admin.rewards.columns.user']()}
+                  value={row.userEmail || row.userName}
+                />
+                <DetailField
+                  label={m['admin.rewards.channel_survey.fields.user_id']()}
+                  value={row.userId}
+                />
+                <DetailField
+                  label={m['admin.rewards.channel_survey.fields.response_id']()}
+                  value={row.id}
+                />
+              </dl>
+            </section>
+          </div>
+        ) : null}
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 function FilterSelect({
   label,
   value,
@@ -216,7 +600,10 @@ function FilterSelect({
   );
 }
 
-function getColumns(kind: RewardKind): Column<RewardRow>[] {
+function getColumns(
+  kind: RewardKind,
+  onOpenChannelSurveyDetail?: (row: RewardRow) => void
+): Column<RewardRow>[] {
   if (kind === 'experience-feedback') {
     return [
       {
@@ -300,36 +687,50 @@ function getColumns(kind: RewardKind): Column<RewardRow>[] {
     },
     {
       header: m['admin.rewards.columns.source'](),
-      cell: (row) => row.source || '-',
+      cell: (row) => sourceLabel(parseSurveySummary(row).source),
     },
     {
       header: m['admin.rewards.columns.role'](),
-      cell: (row) => row.role || '-',
+      cell: (row) => roleLabel(parseSurveySummary(row).role),
     },
     {
       header: m['admin.rewards.columns.use_case'](),
-      cell: (row) => <TextCell>{row.useCase}</TextCell>,
-    },
-    {
-      header: m['admin.rewards.columns.detail'](),
-      cell: (row) => <TextCell>{row.detail}</TextCell>,
-    },
-    {
-      header: m['admin.rewards.columns.reward_credential'](),
       cell: (row) => (
-        <span className="font-mono text-xs">
-          {row.rewardCredentialCode || '-'}
-        </span>
+        <MultiValueCell value={compactList(parseSurveySummary(row).useCases)} />
       ),
     },
-    { header: m['admin.rewards.columns.reward'](), cell: formatReward },
     {
-      header: m['admin.rewards.columns.status'](),
-      cell: (row) => <StatusBadge status={getStatus(row)} />,
+      header: m['admin.rewards.columns.specific_channel'](),
+      cell: (row) => {
+        const summary = parseSurveySummary(row);
+        return <TextCell>{getSpecificChannel(summary)}</TextCell>;
+      },
+    },
+    {
+      header: m['admin.rewards.columns.search_question'](),
+      cell: (row) => {
+        const summary = parseSurveySummary(row);
+        return <TextCell>{getSourceQuestion(summary)}</TextCell>;
+      },
     },
     {
       header: m['admin.rewards.columns.created_at'](),
       cell: (row) => formatDate(row.createdAt),
+    },
+    {
+      header: m['admin.rewards.columns.details'](),
+      className: 'w-[5rem] text-right',
+      cell: (row) => (
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={() => onOpenChannelSurveyDetail?.(row)}
+        >
+          <Eye className="size-3.5" aria-hidden="true" />
+          {m['admin.rewards.columns.details']()}
+        </Button>
+      ),
     },
   ];
 }
@@ -350,6 +751,7 @@ export function AdminRewardRecordsPage({
   const [rating, setRating] = useState('0');
   const [taskType, setTaskType] = useState('all');
   const [status, setStatus] = useState('all');
+  const [detailRow, setDetailRow] = useState<RewardRow | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearch(search), 300);
@@ -393,7 +795,10 @@ export function AdminRewardRecordsPage({
     placeholderData: keepPreviousData,
   });
 
-  const columns = useMemo(() => getColumns(kind), [kind]);
+  const columns = useMemo(
+    () => getColumns(kind, (row) => setDetailRow(row)),
+    [kind]
+  );
   const rows = query.data?.items ?? [];
 
   const toolbar =
@@ -455,6 +860,13 @@ export function AdminRewardRecordsPage({
           />
         </CardContent>
       </Card>
+
+      {kind === 'channel-survey' ? (
+        <ChannelSurveyDetailDialog
+          row={detailRow}
+          onClose={() => setDetailRow(null)}
+        />
+      ) : null}
     </div>
   );
 }
