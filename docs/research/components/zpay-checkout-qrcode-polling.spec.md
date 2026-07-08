@@ -16,8 +16,8 @@
 - The checkout page accepts the old handoff query fields: `order_no`, `amount`, `name`, `pay_url`, `submit_url`, `qrcode`, `img`, `callback_url`, and `cancel_url`.
 - `pay_url` / `submit_url` must be `https://zpayz.cn/...`; unsafe payment links are hidden.
 - `callback_url` / `return_url` and `cancel_url` must be relative or same-origin with `VITE_APP_URL`; unsafe external redirects fall back to `/settings/payments` and `/pricing`.
-- When `img` or an HTTPS `qrcode` image URL is present, the page renders the QR image.
-- When no image is present, the page keeps a large QR placeholder and exposes copyable payment link and QR content.
+- When `img` or an HTTPS `qrcode` image URL is present, the page renders the provider QR image.
+- When no provider image is present, the page generates a local SVG QR code from safe QR content (`alipay://`, `weixin://`, or trusted `zpayz.cn` URLs) or the fallback payment link, while still exposing copyable payment link and QR content.
 - The page polls `/api/payment/status?order_no=...` every 3 seconds until paid.
 - The manual confirmation button calls `/api/payment/status?order_no=...&sync=1`; if paid, it redirects to the safe callback URL.
 - Status copy distinguishes waiting, paid, failed, and completed states, and surfaces credential code or credential sync errors when the status API returns them.
@@ -35,4 +35,4 @@
 - Verify a real Zpay merchant PID/key with a small payment.
 - Confirm Zpay asynchronous notify reaches `/api/payment/notify/zpay` and triggers credential issuing/recharge or credit fulfillment.
 - Confirm the real return/callback URL lands on `/settings/payments` with the expected callback banner and entitlement status after a live payment.
-- The current provider still emits a signed `submit.php` URL directly; if the production merchant relies on `mapi.php` returning `payurl/qrcode/img`, port that provider session creation path next.
+- The current provider attempts `mapi.php` session creation and passes returned `payurl/qrcode/img` into the local cashier; it falls back to a signed `submit.php` URL when the API is temporarily unavailable.

@@ -26,7 +26,13 @@ async function GET({ request }: { request: Request }) {
     let repaired = false;
     let paymentStatus: string | null = null;
 
-    if (shouldSync && order.status !== 'paid') {
+    const shouldRetryCredentialSync =
+      order.status === 'paid' &&
+      order.credentialAction &&
+      order.credentialAction !== 'none' &&
+      order.credentialSyncStatus !== 'done';
+
+    if (shouldSync && (order.status !== 'paid' || shouldRetryCredentialSync)) {
       const result = await repairOrderPayment(order);
       repaired = result.repaired;
       paymentStatus = result.paymentStatus || null;

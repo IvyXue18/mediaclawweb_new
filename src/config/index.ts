@@ -129,6 +129,24 @@ const envConfigReaders = {
     serverEnv('OPENROUTER_MODEL') ?? 'deepseek/deepseek-chat',
   openrouter_http_referer: () => serverEnv('OPENROUTER_HTTP_REFERER') ?? '',
   openrouter_x_title: () => serverEnv('OPENROUTER_X_TITLE') ?? '',
+  openclaw_api_token: () =>
+    serverEnv('OPENCLAW_API_TOKEN') ?? serverEnv('COZE_API_TOKEN') ?? '',
+  coze_api_url: () =>
+    serverEnv('COZE_API_URL') ?? 'https://api.coze.cn/v1/workflow/run',
+  coze_workflow_id_image_ocr: () =>
+    serverEnv('COZE_WORKFLOW_ID_IMAGE_OCR') ?? '7653316003980476435',
+  dashscope_api_key: () =>
+    serverEnv('DASHSCOPE_API_KEY') ??
+    serverEnv('ALIYUN_DASHSCOPE_API_KEY') ??
+    '',
+  dashscope_api_base_url: () =>
+    serverEnv('DASHSCOPE_API_BASE_URL') ??
+    'https://dashscope.aliyuncs.com/api/v1',
+  dashscope_asr_model: () => serverEnv('DASHSCOPE_ASR_MODEL') ?? 'fun-asr',
+  dashscope_asr_poll_interval_ms: () =>
+    serverEnv('DASHSCOPE_ASR_POLL_INTERVAL_MS') ?? '2500',
+  dashscope_asr_timeout_ms: () =>
+    serverEnv('DASHSCOPE_ASR_TIMEOUT_MS') ?? '600000',
 
   // Locale (public)
   locale: () => publicEnv('VITE_DEFAULT_LOCALE') ?? 'zh',

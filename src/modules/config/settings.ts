@@ -245,6 +245,12 @@ export function getSettingGroups(): SettingGroup[] {
       tab: 'ai',
     },
     { name: 'fal', title: 'Fal', description: 'Fal AI API', tab: 'ai' },
+    {
+      name: 'ai_generation',
+      title: 'AI Media Generation',
+      description: 'Legacy AI image/video/music generation (credit-consuming)',
+      tab: 'ai',
+    },
 
     // Analytics
     {
@@ -955,6 +961,16 @@ export function getSettings(): Setting[] {
       placeholder: 'sk-ant-xxx',
       group: 'anthropic',
       tab: 'ai',
+    },
+
+    // ─── AI / Media Generation ───────────────────────────────────────
+    {
+      name: 'ai_generation_enabled',
+      title: 'Enable AI Media Generation',
+      type: 'switch',
+      group: 'ai_generation',
+      tab: 'ai',
+      tip: 'Allow the legacy /api/ai/generate endpoint to create credit-consuming AI tasks. Disabled by default; all current product features live in the browser plugin.',
     },
 
     // ─── AI / Replicate ──────────────────────────────────────────────

@@ -7,7 +7,7 @@ import {
   type UseMutationResult,
 } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { Activity, Ban, KeyRound, Loader2, Plus, Receipt } from 'lucide-react';
+import { Ban, KeyRound, Loader2, Plus, Receipt } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Link } from '@/core/i18n/navigation';
@@ -304,16 +304,6 @@ function CredentialsPage() {
             >
               <Receipt className="size-3.5" />
               {m['settings.credentials.buttons.view_billing']()}
-            </Link>
-            <Link
-              href={`/activity/monitoring?credentialCode=${codeParam}`}
-              className={cn(
-                buttonVariants({ variant: 'outline', size: 'sm' }),
-                'gap-1.5'
-              )}
-            >
-              <Activity className="size-3.5" />
-              {m['settings.credentials.buttons.view_monitoring']()}
             </Link>
             <Button
               data-credential-freeze={row.id}

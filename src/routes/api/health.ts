@@ -1,15 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { pluginOk } from './-plugin-compat';
+import { respData } from '@/lib/resp';
 
 async function GET() {
-  return pluginOk(
-    {
-      service: 'mediaclawweb',
-      health: 'ok',
-    },
-    'health ok'
-  );
+  return respData({
+    service: 'mediaclawweb',
+    health: 'ok',
+  });
 }
 
 export const Route = createFileRoute('/api/health')({

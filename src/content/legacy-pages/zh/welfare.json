@@ -43,18 +43,42 @@
     "success_modal": {
       "title": "领取成功",
       "extension_title": "权益已延长",
-      "subtitle": "在插件偏好设置中输入激活码后即可验证绑定",
+      "subtitle": "在插件系统配置中输入激活码后即可验证绑定",
       "code_label": "激活码",
       "action": "查看我的激活码"
     },
+    "install": {
+      "title": "安装或打开 MediaClaw",
+      "description": "已安装的话，直接打开插件即可跳过这一步。",
+      "channels": [
+        {
+          "label": "Chrome 商店",
+          "url": "https://chromewebstore.google.com/detail/mediaclaw/ihclbgfnkclacfkbedkdnbpmkcdaccje?authuser=0&hl=zh-CN",
+          "icon": "Chrome",
+          "external": true
+        },
+        {
+          "label": "Edge 商店",
+          "url": "https://microsoftedge.microsoft.com/addons/detail/mediaclaw-%E7%A4%BE%E5%AA%92%E8%99%BE%EF%BD%9C%E5%B0%8F%E7%BA%A2%E4%B9%A6%E6%8A%96%E9%9F%B3ai%E8%BF%90%E8%90%A5%E5%B7%A5/moalagonhjmhmoiaehciejkkingpajpl",
+          "icon": "Globe",
+          "external": true
+        },
+        {
+          "label": "离线安装包 (.crx)",
+          "url": "/downloads/mediaclaw.crx",
+          "icon": "Download"
+        }
+      ]
+    },
     "guide": {
-      "title": "激活码配置引导",
-      "steps": [
-        "打开 MediaClaw 插件，点击右上角菜单进入「偏好设置」。",
-        "在「产品授权状态」中粘贴激活码。",
-        "点击「验证并绑定」，完成后即可开始使用。"
-      ],
-      "image_alt": "MediaClaw 激活码输入与偏好设置引导"
+      "title": "粘贴激活码并验证",
+      "description": "打开插件右上角菜单 →「系统配置」→ 在「产品授权」粘贴激活码 → 点击「验证并绑定」。",
+      "image": "/imgs/features/activcode.png",
+      "image_alt": "MediaClaw 激活码输入与系统配置引导"
+    },
+    "next_step": {
+      "title": "开始使用",
+      "description": "回到 MediaClaw 完成新手引导，或继续探索插件的更多功能。"
     }
   },
   "channel_survey": {

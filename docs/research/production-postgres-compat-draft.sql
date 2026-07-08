@@ -50,6 +50,21 @@ CREATE INDEX IF NOT EXISTS "idx_apikey_user_status"
 CREATE INDEX IF NOT EXISTS "idx_apikey_keyhash_status"
   ON "apikey" ("key_hash", "status");
 
+-- Old production credential columns were stricter than the current app
+-- schema. The app writes null for optional ownership/source/partner fields.
+ALTER TABLE "credential"
+  ALTER COLUMN "owner_user_id" DROP NOT NULL,
+  ALTER COLUMN "source_order_no" DROP NOT NULL,
+  ALTER COLUMN "partner_id" DROP NOT NULL,
+  ALTER COLUMN "variant_id" DROP NOT NULL;
+
+CREATE INDEX IF NOT EXISTS "idx_credential_owner_status"
+  ON "credential" ("owner_user_id", "status");
+CREATE INDEX IF NOT EXISTS "idx_credential_source_order"
+  ON "credential" ("source_order_no");
+CREATE INDEX IF NOT EXISTS "idx_credential_partner"
+  ON "credential" ("partner_id", "variant_id");
+
 ALTER TABLE "referral_commission"
   ADD COLUMN IF NOT EXISTS "referrer_user_id" text,
   ADD COLUMN IF NOT EXISTS "invitee_user_id" text,

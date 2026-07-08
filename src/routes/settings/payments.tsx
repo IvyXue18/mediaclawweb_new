@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { CheckCircle2, ExternalLink, Info, TriangleAlert } from 'lucide-react';
+import { CheckCircle2, Info, TriangleAlert } from 'lucide-react';
 
 import { apiGet, type PageResult } from '@/lib/api-client';
 import { cn } from '@/lib/utils';
@@ -214,34 +214,12 @@ function PaymentsPage() {
       cell: (o) => purchaseKind(o),
     },
     {
-      header: m['settings.payments.provider'](),
-      cell: (o) => <span className="capitalize">{o.paymentProvider}</span>,
-    },
-    {
       header: m['settings.payments.date'](),
       cell: (o) => (
         <span className="text-muted-foreground text-sm">
           {new Date(o.paidAt || o.createdAt).toLocaleDateString()}
         </span>
       ),
-    },
-    {
-      header: m['settings.payments.invoice'](),
-      className: 'w-[60px]',
-      cell: (o) =>
-        o.invoiceUrl ? (
-          <a
-            href={o.invoiceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary inline-flex items-center gap-1 text-sm hover:underline"
-            aria-label={m['settings.payments.invoice']()}
-          >
-            <ExternalLink className="size-3.5" />
-          </a>
-        ) : (
-          <span className="text-muted-foreground">—</span>
-        ),
     },
   ];
 

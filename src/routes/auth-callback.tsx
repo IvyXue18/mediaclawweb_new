@@ -5,43 +5,11 @@ import { Loader2 } from 'lucide-react';
 import { useSession } from '@/core/auth/client';
 import { useRouter } from '@/core/i18n/navigation';
 import { apiGet } from '@/lib/api-client';
+import {
+  DEFAULT_AUTH_REDIRECT_PATH,
+  resolveAuthRedirectTarget,
+} from '@/lib/auth-redirect';
 import { localizeHref } from '@/paraglide/runtime.js';
-
-type RedirectTarget =
-  | { kind: 'web'; path: string }
-  | { kind: 'protocol'; url: URL };
-
-function isSafeWebPath(path: string) {
-  return (
-    path.startsWith('/') &&
-    !path.startsWith('//') &&
-    !/^\/(sign-in|sign-up|verify-email|auth-callback)(\/|\?|$)/.test(path)
-  );
-}
-
-function resolveRedirectTarget(raw: string | null): RedirectTarget {
-  if (typeof window === 'undefined') return { kind: 'web', path: '/settings' };
-  if (!raw) return { kind: 'web', path: '/settings' };
-
-  if (isSafeWebPath(raw)) return { kind: 'web', path: raw };
-
-  try {
-    const url = new URL(raw, window.location.origin);
-    if (url.origin === window.location.origin) {
-      const path = `${url.pathname}${url.search}${url.hash}`;
-      return {
-        kind: 'web',
-        path: isSafeWebPath(path) ? path : '/settings',
-      };
-    }
-
-    if (url.protocol === 'mediaclaw:' || url.protocol === 'her:') {
-      return { kind: 'protocol', url };
-    }
-  } catch {}
-
-  return { kind: 'web', path: '/settings' };
-}
 
 function AuthCallbackPage() {
   const router = useRouter();
@@ -64,7 +32,10 @@ function AuthCallbackPage() {
       return;
     }
 
-    const target = resolveRedirectTarget(redirect);
+    const target =
+      typeof window === 'undefined'
+        ? { kind: 'web' as const, path: DEFAULT_AUTH_REDIRECT_PATH }
+        : resolveAuthRedirectTarget(redirect, window.location.origin);
     if (target.kind === 'web') {
       window.location.assign(localizeHref(target.path));
       return;

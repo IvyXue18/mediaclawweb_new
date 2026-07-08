@@ -3,6 +3,7 @@ import {
   count,
   desc,
   eq,
+  gt,
   gte,
   inArray,
   isNull,
@@ -179,6 +180,31 @@ async function enrichCredentialRows<
       last90MonitorConsumeCount: Number(recent?.last90MonitorConsumeCount || 0),
     };
   });
+}
+
+// Total remaining credits across all activation codes bound to the user.
+// Used by the credits page balance so it matches what plugins can consume.
+export async function getUserCredentialBalance(
+  userId: string
+): Promise<number> {
+  const now = new Date();
+  const [result] = await db()
+    .select({
+      total: sql<string>`coalesce(sum(case when ${credentialCredit.totalCredits} > ${credentialCredit.usedCredits} then ${credentialCredit.totalCredits} - ${credentialCredit.usedCredits} else 0 end), 0)`,
+    })
+    .from(credentialCredit)
+    .where(
+      and(
+        eq(credentialCredit.userId, userId),
+        eq(credentialCredit.status, 'active'),
+        or(
+          isNull(credentialCredit.expiresAt),
+          gt(credentialCredit.expiresAt, now)
+        )
+      )
+    );
+
+  return parseInt(String(result?.total || '0'), 10) || 0;
 }
 
 export async function listCredentials(params: {
@@ -492,6 +518,21 @@ export async function rechargeCredential(params: {
           metadata: JSON.stringify({
             credentialId: existing.id,
             source: 'credential_recharge',
+            remainingBefore: summary
+              ? Math.max(
+                  Number(summary.totalCredits || 0) -
+                    Number(summary.usedCredits || 0),
+                  0
+                )
+              : 0,
+            remainingAfter: summary
+              ? Math.max(
+                  Number(summary.totalCredits || 0) +
+                    credits -
+                    Number(summary.usedCredits || 0),
+                  0
+                )
+              : credits,
           }),
         });
       }

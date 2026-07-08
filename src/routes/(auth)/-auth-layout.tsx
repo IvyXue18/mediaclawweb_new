@@ -9,6 +9,14 @@ import { Button, buttonVariants } from '@/components/ui/button';
 
 type AuthMode = 'sign-in' | 'sign-up';
 
+// The auth card is intentionally always light (see AuthPageShell), but the
+// shadcn Input still reacts to the global `.dark` class (dark:bg-input/30,
+// border-input -> dark gray), which renders as gray boxes on the white card
+// when the OS theme is dark. Pin the auth inputs to a light look regardless
+// of theme.
+export const authInputClassName =
+  'h-11 rounded-[14px] border-slate-200 bg-white px-4 text-slate-950 placeholder:text-slate-400 focus-visible:border-slate-950 focus-visible:ring-slate-950/10 dark:border-slate-200 dark:bg-white dark:text-slate-950 dark:placeholder:text-slate-400';
+
 function GoogleIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} aria-hidden="true">

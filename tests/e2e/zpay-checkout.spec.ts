@@ -55,6 +55,14 @@ test('zpay checkout shows qr handoff and redirects after manual paid check', asy
   });
 
   await expect(page.locator('[data-zpay-checkout]')).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Mediaclaw 收银台' })
+  ).toBeVisible();
+  await expect(
+    page.getByText(
+      '请使用支付宝 App 扫码付款，之后右侧点击完成支付。（移动端按钮在下面）'
+    )
+  ).toBeVisible();
   await expect(page.locator('[data-zpay-qr-image]')).toBeVisible();
   await expect(page.locator('[data-zpay-status-badge]')).toContainText(
     '等待付款'
@@ -62,11 +70,9 @@ test('zpay checkout shows qr handoff and redirects after manual paid check', asy
   await expect(page.locator('[data-zpay-order-no]')).toContainText(
     'ORDER-ZPAY-UI'
   );
-  await expect(page.locator('[data-zpay-pay-url]')).toContainText(
-    'zpayz.cn/pay/ORDER-ZPAY-UI'
-  );
-  await expect(page.locator('[data-zpay-qr-value]')).toContainText(
-    'alipay://qr/ORDER-ZPAY-UI'
+  await expect(page.locator('[data-zpay-pay-url]')).toHaveAttribute(
+    'href',
+    'https://zpayz.cn/pay/ORDER-ZPAY-UI'
   );
   await expect(page.locator('[data-zpay-open-pay]')).toHaveAttribute(
     'href',
@@ -115,11 +121,16 @@ test('zpay checkout keeps a usable fallback when no qr image is provided', async
   });
 
   await expect(page.locator('[data-zpay-checkout]')).toBeVisible();
-  await expect(page.locator('[data-zpay-qr-placeholder]')).toBeVisible();
-  await expect(page.locator('[data-zpay-pay-url]')).toContainText(
-    'zpayz.cn/submit.php'
-  );
-  await expect(page.locator('[data-zpay-qr-value]')).toContainText(
-    'alipay://qr/ORDER-ZPAY-FALLBACK'
+  const qrImage = page.locator('[data-zpay-qr-image]');
+  await expect(qrImage).toBeVisible();
+  await expect(qrImage).toHaveAttribute('src', /^data:image\/svg\+xml/);
+  await expect
+    .poll(() =>
+      qrImage.evaluate((element) => (element as HTMLImageElement).naturalWidth)
+    )
+    .toBeGreaterThan(0);
+  await expect(page.locator('[data-zpay-pay-url]')).toHaveAttribute(
+    'href',
+    'https://zpayz.cn/submit.php?out_trade_no=ORDER-ZPAY-FALLBACK'
   );
 });

@@ -24,7 +24,11 @@ export async function getDbConfigs(): Promise<ConfigMap> {
   }
 
   try {
-    if (!envConfigs.database_url && envConfigs.database_provider !== 'd1') {
+    const provider = envConfigs.database_provider;
+    const canUseBinding =
+      provider === 'd1' || provider === 'postgresql' || provider === 'mysql';
+
+    if (!envConfigs.database_url && !canUseBinding) {
       return {};
     }
 

@@ -43,18 +43,42 @@
     "success_modal": {
       "title": "Reward Claimed",
       "extension_title": "Access Extended",
-      "subtitle": "Enter the activation code in extension preferences to verify and bind it",
+      "subtitle": "Enter the activation code in the extension's System Settings to verify and bind it",
       "code_label": "Activation Code",
       "action": "View My Codes"
     },
+    "install": {
+      "title": "Install or open MediaClaw",
+      "description": "Already installed? Just open the extension and skip this step.",
+      "channels": [
+        {
+          "label": "Chrome Web Store",
+          "url": "https://chromewebstore.google.com/detail/mediaclaw/ihclbgfnkclacfkbedkdnbpmkcdaccje?authuser=0&hl=en-GB",
+          "icon": "Chrome",
+          "external": true
+        },
+        {
+          "label": "Edge Add-ons",
+          "url": "https://microsoftedge.microsoft.com/addons/detail/mediaclaw-%E7%A4%BE%E5%AA%92%E8%99%BE%EF%BD%9C%E5%B0%8F%E7%BA%A2%E4%B9%A6%E6%8A%96%E9%9F%B3ai%E8%BF%90%E8%90%A5%E5%B7%A5/moalagonhjmhmoiaehciejkkingpajpl",
+          "icon": "Globe",
+          "external": true
+        },
+        {
+          "label": "Offline package (.crx)",
+          "url": "/downloads/mediaclaw.crx",
+          "icon": "Download"
+        }
+      ]
+    },
     "guide": {
-      "title": "Activation Setup Guide",
-      "steps": [
-        "Open the MediaClaw extension and enter Preferences from the top-right menu.",
-        "Paste the activation code into Product Authorization Status.",
-        "Click Verify and Bind to finish setup."
-      ],
-      "image_alt": "MediaClaw activation code and preferences guide"
+      "title": "Paste the code and verify",
+      "description": "Open the top-right menu in the extension → System Settings → paste the code into Product Authorization → click Verify and Bind.",
+      "image": "/imgs/features/activcode.png",
+      "image_alt": "MediaClaw activation code and system settings guide"
+    },
+    "next_step": {
+      "title": "Start using it",
+      "description": "Back in MediaClaw, complete one high-value task: scrape a search result, extract a transcript, or sync data to Feishu."
     }
   },
   "channel_survey": {

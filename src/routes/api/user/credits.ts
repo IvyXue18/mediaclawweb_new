@@ -1,5 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { and, count, desc, eq, isNull, like, or, type SQL } from 'drizzle-orm';
+import {
+  and,
+  count,
+  desc,
+  eq,
+  inArray,
+  isNull,
+  like,
+  or,
+  type SQL,
+} from 'drizzle-orm';
 
 import { getAuth } from '@/core/auth';
 import { db } from '@/core/db';
@@ -27,8 +37,16 @@ async function GET({ request }: { request: Request }) {
       eq(credit.userId, session.user.id),
       isNull(credit.deletedAt) as unknown as SQL,
     ];
-    if (transactionType)
+    if (transactionType === 'grant') {
+      // Grants include activation-code recharges.
+      conditions.push(
+        inArray(credit.transactionType, ['grant', 'credential_recharge'])
+      );
+    } else if (transactionType === 'consume') {
+      conditions.push(inArray(credit.transactionType, ['consume', 'expense']));
+    } else if (transactionType) {
       conditions.push(eq(credit.transactionType, transactionType));
+    }
     if (search) {
       conditions.push(
         or(
@@ -57,6 +75,8 @@ async function GET({ request }: { request: Request }) {
         status: credit.status,
         expiresAt: credit.expiresAt,
         createdAt: credit.createdAt,
+        credentialCode: credit.credentialCode,
+        metadata: credit.metadata,
       })
       .from(credit)
       .where(where)

@@ -4,7 +4,6 @@ import { getAuth } from '@/core/auth';
 import { db } from '@/core/db';
 import { eventLog } from '@/config/db/schema';
 import { getUuid } from '@/lib/hash';
-import { respData } from '@/lib/resp';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -107,10 +106,19 @@ export async function POST({ request }: { request: Request }) {
       });
   }
 
+  const data = {
+    accepted: true,
+    eventName: eventName || 'unknown',
+  };
+
   return withCors(
-    respData({
-      accepted: true,
-      eventName: eventName || 'unknown',
+    Response.json({
+      code: 0,
+      ok: true,
+      status: 'ok',
+      reason: 'none',
+      message: 'ok',
+      data,
     })
   );
 }

@@ -30,6 +30,19 @@ function safeSameOriginPath(
   }
 }
 
+function clientIpFromHeaders(headers: Headers) {
+  return (
+    headers.get('cf-connecting-ip') ||
+    headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+    headers.get('x-real-ip') ||
+    ''
+  );
+}
+
+function normalizeDevice(input: unknown) {
+  return input === 'mobile' ? 'mobile' : 'pc';
+}
+
 async function POST({ request }: { request: Request }) {
   const limited = enforceMinIntervalRateLimit(request, {
     intervalMs: 1000,
@@ -55,6 +68,7 @@ async function POST({ request }: { request: Request }) {
       channel_code,
       credential_code,
       seats,
+      device,
     } = body;
 
     if (!product_id || typeof product_id !== 'string') {
@@ -149,6 +163,7 @@ async function POST({ request }: { request: Request }) {
       : product.priceInCents;
     const chargeAmount = testAmount > 0 ? testAmount : baseAmount;
     const defaultRedirectPath = '/settings/payments';
+    const clientip = clientIpFromHeaders(request.headers);
 
     // Build success/cancel URLs — only accept same-origin redirects.
     const baseUrl = envConfigs.app_url || 'http://localhost:3000';
@@ -205,6 +220,8 @@ async function POST({ request }: { request: Request }) {
         cancelUrl: partnerCancelUrl,
         metadata: {
           ...(metadata && typeof metadata === 'object' ? metadata : {}),
+          device: normalizeDevice(device),
+          ...(clientip ? { clientip } : {}),
           ...(partnerRow
             ? {
                 partner_id: partnerId,

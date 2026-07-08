@@ -10,6 +10,7 @@ import {
   updateTaskById,
 } from '@/modules/ai-tasks/service';
 import { getAIService } from '@/modules/ai/service';
+import { getConfig } from '@/modules/config/service';
 import { getBalance } from '@/modules/credits/service';
 import { respData, respErr } from '@/lib/resp';
 
@@ -34,6 +35,13 @@ function getCostCredits(mediaType: string, scene?: string) {
 
 async function POST({ request }: { request: Request }) {
   try {
+    // Legacy template feature. All product features currently live in the
+    // browser plugin, so this credit-spending endpoint is disabled unless
+    // explicitly enabled via admin config.
+    if ((await getConfig('ai_generation_enabled')) !== 'true') {
+      return respErr('AI generation is disabled');
+    }
+
     let { provider, mediaType, model, prompt, options, scene } =
       await request.json();
 

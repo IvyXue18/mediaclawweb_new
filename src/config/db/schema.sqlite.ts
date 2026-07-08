@@ -418,6 +418,175 @@ export const welfareFeedbackTask = table(
   ]
 );
 
+export const userSyncTarget = table(
+  'user_sync_target',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id),
+    targetJson: text('target_json').notNull(),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    uniqueIndex('user_sync_target_user_id_unique').on(table.userId),
+    index('idx_user_sync_target_user_id').on(table.userId),
+  ]
+);
+
+export const userMonitorSetting = table(
+  'user_monitor_setting',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id),
+    publishWindow: text('publish_window').notNull().default('previous_day'),
+    likeThreshold: integer('like_threshold').notNull().default(0),
+    runTimesJson: text('run_times_json').notNull().default('["10:00"]'),
+    observeWindowHours: integer('observe_window_hours').notNull().default(48),
+    timezone: text('timezone').notNull().default('Asia/Shanghai'),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    uniqueIndex('user_monitor_setting_user_id_unique').on(table.userId),
+    index('idx_user_monitor_setting_user_id').on(table.userId),
+  ]
+);
+
+export const monitorSubscription = table(
+  'monitor_subscription',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id),
+    platform: text('platform').notNull(),
+    platformBloggerId: text('platform_blogger_id').notNull(),
+    bloggerNameSnapshot: text('blogger_name_snapshot'),
+    bloggerAvatarSnapshot: text('blogger_avatar_snapshot'),
+    bloggerUrl: text('blogger_url'),
+    frequency: text('frequency').notNull().default('daily'),
+    lookbackHours: integer('lookback_hours').notNull().default(24),
+    likeThreshold: integer('like_threshold').notNull().default(100),
+    status: text('status').notNull().default('active'),
+    lastRunAt: integer('last_run_at', { mode: 'timestamp_ms' }),
+    nextRunAt: integer('next_run_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    lastHitAt: integer('last_hit_at', { mode: 'timestamp_ms' }),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index('idx_monitor_subscription_user_status_next_run').on(
+      table.userId,
+      table.status,
+      table.nextRunAt
+    ),
+    uniqueIndex('monitor_subscription_user_platform_blogger_unique').on(
+      table.userId,
+      table.platform,
+      table.platformBloggerId
+    ),
+  ]
+);
+
+export const monitorExecution = table(
+  'monitor_execution',
+  {
+    id: text('id').primaryKey(),
+    subscriptionId: text('subscription_id')
+      .notNull()
+      .references(() => monitorSubscription.id),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id),
+    billingCredentialId: text('billing_credential_id').references(
+      () => credential.id
+    ),
+    status: text('status').notNull(),
+    lookbackHours: integer('lookback_hours').notNull(),
+    likeThreshold: integer('like_threshold').notNull(),
+    scannedCount: integer('scanned_count').notNull().default(0),
+    hitCount: integer('hit_count').notNull().default(0),
+    costCredits: integer('cost_credits').notNull().default(0),
+    errorCode: text('error_code'),
+    errorMessage: text('error_message'),
+    errorDetailJson: text('error_detail_json'),
+    batchId: text('batch_id'),
+    platform: text('platform'),
+    bloggerName: text('blogger_name'),
+    bloggerUrl: text('blogger_url'),
+    startedAt: integer('started_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    finishedAt: integer('finished_at', { mode: 'timestamp_ms' }),
+  },
+  (table) => [
+    index('idx_monitor_execution_subscription_started_at').on(
+      table.subscriptionId,
+      table.startedAt
+    ),
+    index('idx_monitor_execution_user_started_at').on(
+      table.userId,
+      table.startedAt
+    ),
+  ]
+);
+
+export const monitorHit = table(
+  'monitor_hit',
+  {
+    id: text('id').primaryKey(),
+    subscriptionId: text('subscription_id')
+      .notNull()
+      .references(() => monitorSubscription.id),
+    executionId: text('execution_id')
+      .notNull()
+      .references(() => monitorExecution.id),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id),
+    platform: text('platform').notNull(),
+    platformContentId: text('platform_content_id').notNull(),
+    contentUrl: text('content_url'),
+    publishedAt: integer('published_at', { mode: 'timestamp_ms' }),
+    likes: integer('likes').notNull().default(0),
+    bloggerName: text('blogger_name'),
+    bloggerUrl: text('blogger_url'),
+    payloadJson: text('payload_json'),
+    aiStatus: text('ai_status').notNull().default('pending'),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+  },
+  (table) => [
+    uniqueIndex('monitor_hit_subscription_platform_content_unique').on(
+      table.subscriptionId,
+      table.platformContentId
+    ),
+    index('idx_monitor_hit_user_created_at').on(table.userId, table.createdAt),
+  ]
+);
+
 export const taxonomy = table(
   'taxonomy',
   {

@@ -1,4 +1,14 @@
-import { and, count, desc, eq, isNull, like, or, type SQL } from 'drizzle-orm';
+import {
+  and,
+  count,
+  desc,
+  eq,
+  inArray,
+  isNull,
+  like,
+  or,
+  type SQL,
+} from 'drizzle-orm';
 
 import { getAuth } from '@/core/auth';
 import { db } from '@/core/db';
@@ -57,7 +67,14 @@ export async function userCreditsResponse(request: Request) {
     const transactionType = searchParams.get('transactionType');
     const search = searchParams.get('search');
 
-    if (transactionType) {
+    if (transactionType === 'grant') {
+      // Grants include activation-code recharges.
+      conditions.push(
+        inArray(credit.transactionType, ['grant', 'credential_recharge'])
+      );
+    } else if (transactionType === 'consume') {
+      conditions.push(inArray(credit.transactionType, ['consume', 'expense']));
+    } else if (transactionType) {
       conditions.push(eq(credit.transactionType, transactionType));
     }
     if (search) {
@@ -87,6 +104,8 @@ export async function userCreditsResponse(request: Request) {
         status: credit.status,
         expiresAt: credit.expiresAt,
         createdAt: credit.createdAt,
+        credentialCode: credit.credentialCode,
+        metadata: credit.metadata,
       })
       .from(credit)
       .where(where)

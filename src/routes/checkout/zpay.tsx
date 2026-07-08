@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import {
@@ -14,6 +15,7 @@ import { toast } from 'sonner';
 import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import { apiGet } from '@/lib/api-client';
+import { createQrSvg } from '@/lib/qr-code';
 import { Footer } from '@/blocks/footer';
 import { Header } from '@/blocks/header';
 import { buttonVariants } from '@/components/ui/button';
@@ -78,6 +80,54 @@ function safeImageUrl(input?: string) {
   }
 }
 
+function safeQrContent(input?: string) {
+  if (!input) return '';
+  try {
+    const url = new URL(input);
+    if (
+      url.protocol === 'alipay:' ||
+      url.protocol === 'alipays:' ||
+      url.protocol === 'weixin:' ||
+      url.protocol === 'wxp:'
+    ) {
+      return input;
+    }
+    if (
+      url.protocol === 'https:' &&
+      ['zpayz.cn', 'qr.alipay.com', 'wx.tenpay.com'].includes(url.hostname)
+    ) {
+      return url.toString();
+    }
+    return '';
+  } catch {
+    return '';
+  }
+}
+
+function localQrImageUrl(value?: string) {
+  if (!value) return '';
+  try {
+    return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
+      createQrSvg(value)
+    )}`;
+  } catch {
+    return '';
+  }
+}
+
+function publicCredentialSyncMessage(value?: string | null) {
+  if (!value) return '';
+  const text = String(value);
+  if (
+    text.includes('Failed query') ||
+    text.includes('insert into') ||
+    text.includes('params:')
+  ) {
+    return '支付已确认，但权益发放暂未完成。请点击“我已完成支付”重试，或稍后到订单页查看。';
+  }
+  return text;
+}
+
 function safeInternalHref(input: string | undefined, fallback: string) {
   if (!input) return fallback;
   try {
@@ -101,9 +151,12 @@ function ZpayCheckoutPage() {
   const search = Route.useSearch();
   const submitUrl = safeZpayUrl(search.submit_url);
   const payUrl = safeZpayUrl(search.pay_url) || submitUrl;
-  const qrImageSrc =
-    safeImageUrl(search.img) ||
-    (safeImageUrl(search.qrcode) ? safeImageUrl(search.qrcode) : '');
+  const qrValue = safeQrContent(search.qrcode) || payUrl;
+  const generatedQrImageSrc = useMemo(
+    () => localQrImageUrl(qrValue),
+    [qrValue]
+  );
+  const qrImageSrc = safeImageUrl(search.img) || generatedQrImageSrc;
   const amount =
     typeof search.amount === 'number'
       ? `¥${search.amount.toFixed(2)}`
@@ -157,6 +210,9 @@ function ZpayCheckoutPage() {
 
   const latestStatus = manualCheck.data || statusQuery.data;
   const paid = latestStatus?.status === 'paid';
+  const credentialSyncMessage = publicCredentialSyncMessage(
+    latestStatus?.credentialSyncError
+  );
 
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col">
@@ -193,13 +249,14 @@ function ZpayCheckoutPage() {
                       className="border-muted-foreground/20 text-muted-foreground flex min-h-[320px] items-center justify-center rounded-xl border border-dashed px-6 text-center text-sm"
                       data-zpay-qr-placeholder
                     >
-                      当前未拿到二维码图片，请复制支付链接或二维码内容到支付宝中打开。
+                      当前缺少可生成二维码的支付内容，请复制支付链接到支付宝中打开。
                     </div>
                   )}
                 </div>
 
                 <p className="text-muted-foreground mt-4 text-center text-sm">
-                  请使用支付宝或微信扫码完成付款。手机端也会保留本页，不再直接跳到下载页。
+                  请使用支付宝 App
+                  扫码付款，之后右侧点击完成支付。（移动端按钮在下面）
                 </p>
               </section>
 
@@ -216,7 +273,7 @@ function ZpayCheckoutPage() {
                 </div>
 
                 <h1 className="mt-4 text-3xl font-semibold tracking-normal">
-                  Zpay 收银台
+                  Mediaclaw 收银台
                 </h1>
                 <p className="text-muted-foreground mt-3 text-sm leading-6">
                   请核对订单信息后扫码或打开支付链接。支付完成后，本页会自动轮询订单状态，也可以手动确认。
@@ -269,55 +326,17 @@ function ZpayCheckoutPage() {
                       <p className="text-muted-foreground text-xs uppercase">
                         支付链接
                       </p>
-                      <div className="mt-1 flex items-center gap-2">
-                        <code
-                          className="flex-1 font-mono text-xs break-all"
+                      <div className="mt-1">
+                        <a
+                          href={payUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary inline-flex items-center gap-1 text-sm underline underline-offset-4"
                           data-zpay-pay-url
                         >
-                          {payUrl}
-                        </code>
-                        <button
-                          type="button"
-                          className={buttonVariants({
-                            variant: 'outline',
-                            size: 'sm',
-                            className: 'shrink-0',
-                          })}
-                          onClick={() => handleCopy(payUrl, '支付链接已复制')}
-                          data-zpay-copy-pay-url
-                        >
-                          <Copy className="size-4" />
-                        </button>
-                      </div>
-                    </div>
-                  ) : null}
-
-                  {search.qrcode && search.qrcode !== payUrl ? (
-                    <div>
-                      <p className="text-muted-foreground text-xs uppercase">
-                        二维码内容
-                      </p>
-                      <div className="mt-1 flex items-center gap-2">
-                        <code
-                          className="flex-1 font-mono text-xs break-all"
-                          data-zpay-qr-value
-                        >
-                          {search.qrcode}
-                        </code>
-                        <button
-                          type="button"
-                          className={buttonVariants({
-                            variant: 'outline',
-                            size: 'sm',
-                            className: 'shrink-0',
-                          })}
-                          onClick={() =>
-                            handleCopy(search.qrcode || '', '二维码内容已复制')
-                          }
-                          data-zpay-copy-qr
-                        >
-                          <Copy className="size-4" />
-                        </button>
+                          <ExternalLink className="size-4" />
+                          打开支付链接
+                        </a>
                       </div>
                     </div>
                   ) : null}
@@ -332,9 +351,9 @@ function ZpayCheckoutPage() {
                   </div>
                 ) : null}
 
-                {latestStatus?.credentialSyncError ? (
+                {credentialSyncMessage ? (
                   <div className="text-destructive border-destructive/20 bg-destructive/10 mt-4 rounded-xl border p-3 text-sm">
-                    发码/充值同步失败：{latestStatus.credentialSyncError}
+                    {credentialSyncMessage}
                   </div>
                 ) : null}
 
@@ -357,6 +376,7 @@ function ZpayCheckoutPage() {
                   {payUrl ? (
                     <a
                       href={payUrl}
+                      target="_blank"
                       className={buttonVariants({ variant: 'outline' })}
                       rel="noopener noreferrer"
                       data-zpay-open-pay
@@ -390,7 +410,7 @@ function ZpayCheckoutPage() {
                 <div className="text-muted-foreground mt-6 space-y-2 text-sm">
                   <p>完成付款后，请点击“我已完成支付”确认订单状态。</p>
                   <p>
-                    如扫码无法识别，可复制支付链接或二维码内容到支付宝中打开。
+                    如扫码无法识别，可点击“打开支付链接”或复制链接到支付宝中打开。
                   </p>
                   <p>
                     页面每 3
@@ -424,7 +444,7 @@ export const Route = createFileRoute('/checkout/zpay')({
   head: () => ({
     meta: [
       {
-        title: 'Zpay 收银台 - MediaClaw',
+        title: 'Mediaclaw 收银台 - MediaClaw',
       },
       {
         name: 'description',

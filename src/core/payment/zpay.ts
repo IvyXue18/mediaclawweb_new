@@ -17,9 +17,35 @@ export interface ZpayConfigs extends PaymentConfigs {
   appUrl?: string;
 }
 
+type ZpayMapiResponse = {
+  code?: number | string;
+  msg?: string;
+  trade_no?: string;
+  payurl?: string;
+  pay_url?: string;
+  qrcode?: string;
+  img?: string;
+  urlscheme?: string;
+  url?: string;
+};
+
+type ZpayOrderQueryResponse = {
+  code?: number | string;
+  msg?: string;
+  trade_no?: string;
+  out_trade_no?: string;
+  money?: string;
+  status?: number | string;
+  buyer?: string;
+  endtime?: string;
+  param?: string;
+};
+
 export class ZpayProvider implements PaymentProvider {
   readonly name = 'zpay';
   configs: ZpayConfigs;
+  private readonly mapiUrl = 'https://zpayz.cn/mapi.php';
+  private readonly queryUrl = 'https://zpayz.cn/api.php';
 
   constructor(configs: ZpayConfigs) {
     this.configs = configs;
@@ -43,26 +69,60 @@ export class ZpayProvider implements PaymentProvider {
       throw new Error('order_no is required');
     }
 
+    const paymentType =
+      String(order.metadata?.payment_type || 'alipay') === 'wxpay'
+        ? 'wxpay'
+        : 'alipay';
+    const returnUrl = order.successUrl || this.returnUrl(orderNo);
+    const clientip = String(order.metadata?.clientip || '127.0.0.1');
+    const device = String(order.metadata?.device || 'pc');
     const params: Record<string, string> = {
       pid: this.configs.pid,
-      type: String(order.metadata?.payment_type || 'alipay'),
+      type: paymentType,
       out_trade_no: orderNo,
       notify_url: this.notifyUrl(),
-      return_url: order.successUrl || this.returnUrl(orderNo),
+      return_url: returnUrl,
       name: order.description || order.productId || 'MediaClaw',
       money: (order.price.amount / 100).toFixed(2),
+      clientip,
+      device,
       sign_type: 'MD5',
     };
     params.sign = this.sign(params);
 
-    const checkoutUrl = `${this.localCheckoutUrl()}?${new URLSearchParams({
+    const submitUrl = `https://zpayz.cn/submit.php?${new URLSearchParams(params).toString()}`;
+    let checkoutResult: ZpayMapiResponse | Record<string, string | number> = {
+      code: 1,
+      outTradeNo: orderNo,
+    };
+    let checkoutUrl = this.buildLocalCheckoutUrl({
       order_no: orderNo,
       amount: params.money,
       name: params.name,
-      provider: this.name,
-      submit_url: `https://zpayz.cn/submit.php?${new URLSearchParams(params).toString()}`,
+      submit_url: submitUrl,
       return_url: params.return_url,
-    }).toString()}`;
+      cancel_url: order.cancelUrl,
+    });
+
+    try {
+      const result = await this.createMapiPayment(params);
+      if (result) {
+        checkoutResult = result;
+        checkoutUrl = this.buildLocalCheckoutUrl({
+          order_no: orderNo,
+          amount: params.money,
+          name: params.name,
+          submit_url: submitUrl,
+          return_url: params.return_url,
+          cancel_url: order.cancelUrl,
+          pay_url: result.payurl || result.pay_url || result.url,
+          qrcode: result.qrcode || result.urlscheme,
+          img: result.img,
+        });
+      }
+    } catch (error: any) {
+      console.warn('Zpay mapi checkout fallback:', error?.message || error);
+    }
 
     return {
       provider: this.name,
@@ -71,8 +131,15 @@ export class ZpayProvider implements PaymentProvider {
         sessionId: orderNo,
         checkoutUrl,
       },
-      checkoutResult: { code: 1, outTradeNo: orderNo },
-      metadata: order.metadata || {},
+      checkoutResult,
+      metadata: {
+        ...(order.metadata || {}),
+        order_no: orderNo,
+        trade_no:
+          typeof checkoutResult.trade_no === 'string'
+            ? checkoutResult.trade_no
+            : undefined,
+      },
     };
   }
 
@@ -81,10 +148,62 @@ export class ZpayProvider implements PaymentProvider {
   }: {
     sessionId: string;
   }): Promise<PaymentSession> {
+    try {
+      const url = new URL(this.queryUrl);
+      url.searchParams.set('act', 'order');
+      url.searchParams.set('pid', this.configs.pid);
+      url.searchParams.set('key', this.configs.pkey);
+      url.searchParams.set('out_trade_no', sessionId);
+
+      const response = await fetch(url.toString());
+      const data = (await response.json()) as ZpayOrderQueryResponse;
+      if (String(data.code) !== '1') {
+        return this.processingSession(sessionId, data);
+      }
+
+      const isPaid = String(data.status) === '1';
+      const paymentAmount = Math.round(parseFloat(data.money || '0') * 100);
+      return {
+        provider: this.name,
+        paymentStatus: isPaid
+          ? PaymentStatus.SUCCESS
+          : PaymentStatus.PROCESSING,
+        paymentInfo: isPaid
+          ? {
+              paymentAmount,
+              paymentCurrency: 'CNY',
+              transactionId: data.trade_no,
+              paidAt: data.endtime ? new Date(data.endtime) : new Date(),
+            }
+          : undefined,
+        paymentResult: {
+          ...data,
+          out_trade_no: data.out_trade_no || sessionId,
+        },
+        metadata: {
+          order_no: data.out_trade_no || sessionId,
+          buyer: data.buyer,
+          param: data.param,
+        },
+      };
+    } catch (error: any) {
+      console.warn('Zpay order query fallback:', error?.message || error);
+    }
+
+    return this.processingSession(sessionId);
+  }
+
+  private processingSession(
+    sessionId: string,
+    paymentResult: Record<string, unknown> = { sessionId }
+  ): PaymentSession {
     return {
       provider: this.name,
       paymentStatus: PaymentStatus.PROCESSING,
-      paymentResult: { sessionId },
+      paymentResult: {
+        ...paymentResult,
+        out_trade_no: String(paymentResult.out_trade_no || sessionId),
+      },
       metadata: {
         order_no: sessionId,
       },
@@ -162,6 +281,61 @@ export class ZpayProvider implements PaymentProvider {
 
   private returnUrl(orderNo: string) {
     return `${this.appUrl()}/api/payment/callback?order_no=${encodeURIComponent(orderNo)}`;
+  }
+
+  private async createMapiPayment(params: Record<string, string>) {
+    const response = await fetch(this.mapiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams(params).toString(),
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Zpay mapi request failed with status ${response.status}`
+      );
+    }
+
+    const result = (await response.json()) as ZpayMapiResponse;
+    if (String(result.code) !== '1') {
+      throw new Error(`Zpay mapi error: ${result.msg || 'Unknown error'}`);
+    }
+
+    if (
+      !result.payurl &&
+      !result.pay_url &&
+      !result.url &&
+      !result.qrcode &&
+      !result.urlscheme &&
+      !result.img
+    ) {
+      throw new Error('Zpay mapi returned no pay url or qr code');
+    }
+
+    return result;
+  }
+
+  private buildLocalCheckoutUrl(params: {
+    order_no: string;
+    amount: string;
+    name: string;
+    submit_url: string;
+    return_url: string;
+    cancel_url?: string;
+    pay_url?: string;
+    qrcode?: string;
+    img?: string;
+  }) {
+    const url = new URL(this.localCheckoutUrl());
+    url.searchParams.set('provider', this.name);
+    Object.entries(params).forEach(([key, value]) => {
+      if (value) {
+        url.searchParams.set(key, value);
+      }
+    });
+    return url.toString();
   }
 }
 

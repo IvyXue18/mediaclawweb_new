@@ -1026,7 +1026,17 @@ export async function repairOrderPayment(
     throw new Error('invalid order');
   }
 
-  await handlePaymentCallback(existingOrder.orderNo);
+  const shouldRetryCredentialSync =
+    existingOrder.status === OrderStatus.PAID &&
+    String(existingOrder.credentialAction || 'none') !== 'none' &&
+    existingOrder.credentialSyncStatus !== 'done';
+
+  if (shouldRetryCredentialSync) {
+    await processPaidOrderCredentialSync(existingOrder);
+  } else {
+    await handlePaymentCallback(existingOrder.orderNo);
+  }
+
   const refreshed = await findOrderByOrderNo(existingOrder.orderNo);
   const paymentStatus = refreshed?.status || existingOrder.status || null;
 
@@ -1034,8 +1044,10 @@ export async function repairOrderPayment(
     orderNo: existingOrder.orderNo,
     paymentStatus,
     repaired:
-      existingOrder.status !== OrderStatus.PAID &&
-      refreshed?.status === OrderStatus.PAID,
+      (existingOrder.status !== OrderStatus.PAID &&
+        refreshed?.status === OrderStatus.PAID) ||
+      (existingOrder.credentialSyncStatus !== 'done' &&
+        refreshed?.credentialSyncStatus === 'done'),
     order: refreshed,
   };
 }

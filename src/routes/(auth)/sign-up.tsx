@@ -6,6 +6,10 @@ import { z } from 'zod';
 import { authClient, signIn, signUp, useSession } from '@/core/auth/client';
 import { useRouter } from '@/core/i18n/navigation';
 import { apiPost } from '@/lib/api-client';
+import {
+  DEFAULT_AUTH_REDIRECT_PATH,
+  getSafeAuthCallbackPath,
+} from '@/lib/auth-redirect';
 import { recordAnalyticsEventSafe } from '@/lib/client-analytics';
 import { m } from '@/paraglide/messages.js';
 import { localizeHref } from '@/paraglide/runtime.js';
@@ -15,6 +19,7 @@ import { Button } from '@/components/ui/button';
 import { Field, FieldGroup, FieldSeparator } from '@/components/ui/field';
 
 import {
+  authInputClassName,
   AuthPageShell,
   AuthSocialButton,
   EmailButtonContent,
@@ -72,18 +77,11 @@ function SignUpPage() {
     setParamsReady(true);
   }, []);
 
-  // Allow only same-site relative paths, and never an auth page (would loop).
-  const safeCallbackUrl =
-    callbackUrl &&
-    callbackUrl.startsWith('/') &&
-    !callbackUrl.startsWith('//') &&
-    !/^\/(sign-in|sign-up|verify-email)(\/|\?|$)/.test(callbackUrl)
-      ? callbackUrl
-      : null;
+  const safeCallbackUrl = getSafeAuthCallbackPath(callbackUrl);
 
   const afterLoginUrl = redirectParam
     ? `/auth-callback?redirect=${encodeURIComponent(redirectParam)}`
-    : safeCallbackUrl || '/settings';
+    : safeCallbackUrl || DEFAULT_AUTH_REDIRECT_PATH;
 
   // Already signed in (visited /sign-up directly, or a stale callbackUrl looped
   // back here) → continue to the intended destination.
@@ -265,7 +263,7 @@ function SignUpPage() {
                       type="text"
                       required
                       placeholder={m['common.sign.name_placeholder']()}
-                      inputClassName="h-11 rounded-[14px] px-4"
+                      inputClassName={authInputClassName}
                     />
                   )}
                 </form.Field>
@@ -277,7 +275,7 @@ function SignUpPage() {
                       type="email"
                       required
                       placeholder={m['common.sign.email_placeholder']()}
-                      inputClassName="h-11 rounded-[14px] px-4"
+                      inputClassName={authInputClassName}
                     />
                   )}
                 </form.Field>
@@ -289,7 +287,7 @@ function SignUpPage() {
                       type="password"
                       required
                       placeholder={m['common.sign.password_placeholder']()}
-                      inputClassName="h-11 rounded-[14px] px-4"
+                      inputClassName={authInputClassName}
                     />
                   )}
                 </form.Field>
@@ -303,7 +301,7 @@ function SignUpPage() {
                       placeholder={m[
                         'common.sign.confirm_password_placeholder'
                       ]()}
-                      inputClassName="h-11 rounded-[14px] px-4"
+                      inputClassName={authInputClassName}
                     />
                   )}
                 </form.Field>
@@ -316,7 +314,7 @@ function SignUpPage() {
                         type="text"
                         required
                         placeholder={m['common.sign.invite_code_placeholder']()}
-                        inputClassName="h-11 rounded-[14px] px-4"
+                        inputClassName={authInputClassName}
                       />
                     )}
                   </form.Field>

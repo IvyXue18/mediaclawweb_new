@@ -5,6 +5,10 @@ import { z } from 'zod';
 
 import { authClient, signIn, useSession } from '@/core/auth/client';
 import { Link, useRouter } from '@/core/i18n/navigation';
+import {
+  DEFAULT_AUTH_REDIRECT_PATH,
+  getSafeAuthCallbackPath,
+} from '@/lib/auth-redirect';
 import { m } from '@/paraglide/messages.js';
 import { localizeHref } from '@/paraglide/runtime.js';
 import { usePublicConfig } from '@/hooks/use-public-config';
@@ -19,6 +23,7 @@ import {
 import { Input } from '@/components/ui/input';
 
 import {
+  authInputClassName,
   AuthPageShell,
   AuthSocialButton,
   EmailButtonContent,
@@ -49,18 +54,11 @@ function SignInPage() {
     setParamsReady(true);
   }, []);
 
-  // Allow only same-site relative paths, and never an auth page (would loop).
-  const safeCallbackUrl =
-    callbackUrl &&
-    callbackUrl.startsWith('/') &&
-    !callbackUrl.startsWith('//') &&
-    !/^\/(sign-in|sign-up|verify-email)(\/|\?|$)/.test(callbackUrl)
-      ? callbackUrl
-      : null;
+  const safeCallbackUrl = getSafeAuthCallbackPath(callbackUrl);
 
   const afterLoginUrl = redirectParam
     ? `/auth-callback?redirect=${encodeURIComponent(redirectParam)}`
-    : safeCallbackUrl || '/settings';
+    : safeCallbackUrl || DEFAULT_AUTH_REDIRECT_PATH;
 
   // Already signed in (visited /sign-in directly, or a stale callbackUrl looped
   // back here) → continue to the intended destination.
@@ -201,7 +199,7 @@ function SignInPage() {
                       type="email"
                       required
                       placeholder={m['common.sign.email_placeholder']()}
-                      inputClassName="h-11 rounded-[14px] px-4"
+                      inputClassName={authInputClassName}
                     />
                   )}
                 </form.Field>
@@ -237,7 +235,7 @@ function SignInPage() {
                           id={field.name}
                           name={field.name}
                           type="password"
-                          className="h-11 rounded-[14px] px-4"
+                          className={authInputClassName}
                           value={field.state.value}
                           onChange={(e) => field.handleChange(e.target.value)}
                           onBlur={field.handleBlur}

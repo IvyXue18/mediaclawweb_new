@@ -125,7 +125,7 @@ export async function getReferralOverview(userId: string) {
     0,
     account.pendingCommission - withdrawingAmount
   );
-  const referralLink = `${envConfigs.app_url.replace(/\/$/, '')}/pricing?ref=${encodeURIComponent(account.inviteCode)}`;
+  const referralLink = `${envConfigs.app_url.replace(/\/$/, '')}/?ref=${encodeURIComponent(account.inviteCode)}`;
 
   return {
     account,

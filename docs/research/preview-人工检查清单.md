@@ -1,14 +1,15 @@
 # Preview 人工检查清单
 
-更新时间：2026-06-30 09:07 CST
+更新时间：2026-07-08 CST
 
-## 当前暂停点
+## 当前状态
 
-- 人工检查入口：`https://mediaclawweb-preview.ycxue18.workers.dev`
-- 生产主域：`https://mediaclaw.app` 仍由旧 Worker `mediaclaw-web` 服务，未切换。
+- 本清单保留为 preview 阶段的历史验收记录。
+- 历史人工检查入口：`https://mediaclawweb-preview.ycxue18.workers.dev`
 - preview 搜索引擎策略：响应头包含 `X-Robots-Tag: noindex, nofollow`。
-- 当前本地部署配置：`wrangler.jsonc` / `.env.production` 已恢复为 `mediaclawweb-preview` + D1，无 `routes`。
-- 目标边界：先人工检查所有网站功能和页面；不推进主域切换。
+- 当前本地部署配置已切为正式域名生产候选：`mediaclawweb-prod-candidate` + `mediaclaw.app` / `www.mediaclaw.app` routes + `DATABASE_PROVIDER=postgresql` + Hyperdrive/Neon。
+- 2026-07-08 已执行正式部署，正式域名基础验证通过；本清单不再作为当前测试入口。
+- 正式域名测试请以 `docs/research/生产切流配置差距清单.md` 的当前步骤为准。
 
 ## 公开页检查
 
@@ -61,18 +62,18 @@
 
 - `pnpm verify:web`：已通过。
 - `pnpm cf:build`：preview/D1 已通过。
+- `pnpm cf:build`：2026-07-08 正式域名 + PostgreSQL/Hyperdrive 生产候选构建已通过。
 - `MEDIACLAW_E2E_BASE_URL=http://127.0.0.1:3002 pnpm test:p2`：66/66 通过。
 - Preview P2：`MEDIACLAW_E2E_BASE_URL=https://mediaclawweb-preview.ycxue18.workers.dev pnpm test:p2` 66/66 通过。
 - Staging P2：`MEDIACLAW_E2E_BASE_URL=https://staging.mediaclaw.app pnpm test:p2` 66/66 通过。
 
 ## 未开始的动作
 
-- 未切 `mediaclaw.app` 主域。
-- 未把 `mediaclaw.app/*` route 指到新 Worker。
-- 未执行生产 PostgreSQL 兼容 SQL。
+- preview 阶段已结束，正式部署已于 2026-07-08 执行。
+- 生产 PostgreSQL 兼容 SQL 已于 2026-07-08 review、dry-run 并 COMMIT 执行。
 - 未把 preview D1 当作生产库。
 
-## 人工检查之后
+## 历史人工检查之后
 
 如果人工检查发现问题：
 
@@ -82,9 +83,9 @@
 
 如果人工检查通过：
 
-- 不直接切主域，先进入生产态承接准备。
-- 决定生产数据方案：当前 preview D1 不是生产库，不能直接承接旧站用户、订单、积分、激活码和福利数据。
+- 进入生产态承接准备。
+- 生产数据方案已改为 Neon/PostgreSQL + Hyperdrive；preview D1 不是生产库，不能直接承接旧站用户、订单、积分、激活码和福利数据。
 - 迁移或确认生产配置：Auth secret、配置加密 key、Zpay、License token、R2、Google OAuth、Analytics、AI provider。
-- 若走旧 PostgreSQL + Hyperdrive，先 review `docs/research/production-postgres-compat-draft.sql`，确认后再把末尾 `ROLLBACK` 改为 `COMMIT` 并在维护窗口执行。
+- 旧 PostgreSQL + Hyperdrive 路线已执行生产兼容 SQL；正式域名部署后继续复测业务路径。
 - 用无主域 route 的候选 Worker 跑生产态 smoke：公开页、登录、插件 validate/consume、Zpay notify、支付 callback、AI key test 和 P2。
 - 生产态 smoke 全部通过后，再安排 Cloudflare 主域 route 切换和 48 小时监控。
