@@ -366,12 +366,16 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 function UserCell({ row }: { row: RewardRow }) {
+  const displayName = row.userName || row.userEmail || '-';
+  const email =
+    row.userEmail && row.userEmail !== displayName ? row.userEmail : '';
+
   return (
     <div className="min-w-[11rem]">
-      <div className="font-medium">{row.userEmail || row.userName || '-'}</div>
-      <div className="text-muted-foreground mt-1 font-mono text-xs">
-        {row.userId || '-'}
-      </div>
+      <div className="font-medium">{displayName}</div>
+      {email ? (
+        <div className="text-muted-foreground mt-1 text-xs">{email}</div>
+      ) : null}
     </div>
   );
 }
@@ -549,15 +553,11 @@ function ChannelSurveyDetailDialog({
               <dl className="grid gap-4 sm:grid-cols-2">
                 <DetailField
                   label={m['admin.rewards.columns.user']()}
-                  value={row.userEmail || row.userName}
+                  value={row.userName || row.userEmail}
                 />
                 <DetailField
-                  label={m['admin.rewards.channel_survey.fields.user_id']()}
-                  value={row.userId}
-                />
-                <DetailField
-                  label={m['admin.rewards.channel_survey.fields.response_id']()}
-                  value={row.id}
+                  label={m['admin.users.email_col']()}
+                  value={row.userEmail}
                 />
               </dl>
             </section>

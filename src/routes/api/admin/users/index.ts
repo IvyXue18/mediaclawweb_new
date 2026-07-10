@@ -4,6 +4,7 @@ import { and, count, desc, like, or, type SQL } from 'drizzle-orm';
 import { getAuth } from '@/core/auth';
 import { db } from '@/core/db';
 import { user } from '@/config/db/schema';
+import { getUserCredentialBalance } from '@/modules/credentials/service';
 import { getBalance } from '@/modules/credits/service';
 import { hasPermission } from '@/modules/rbac/service';
 import { respErr, respPage } from '@/lib/resp';
@@ -55,10 +56,19 @@ async function GET({ request }: { request: Request }) {
       .offset(offset);
 
     const withCredits = await Promise.all(
-      users.map(async (u: (typeof users)[number]) => ({
-        ...u,
-        credits: await getBalance(u.id),
-      }))
+      users.map(async (u: (typeof users)[number]) => {
+        const [walletBalance, credentialBalance] = await Promise.all([
+          getBalance(u.id),
+          getUserCredentialBalance(u.id),
+        ]);
+
+        return {
+          ...u,
+          credits: walletBalance + credentialBalance,
+          walletBalance,
+          credentialBalance,
+        };
+      })
     );
 
     return respPage(withCredits, total);
