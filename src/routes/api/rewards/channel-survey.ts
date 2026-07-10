@@ -7,6 +7,7 @@ import {
   isMissingBenefitTaskTable,
 } from '@/modules/benefits/service';
 import { respData, respErr } from '@/lib/resp';
+import { recordServerAnalyticsEvent } from '@/lib/server-analytics';
 
 import { requireUser } from '../user/-compat';
 
@@ -24,9 +25,12 @@ async function GET({ request }: { request: Request }) {
 }
 
 async function POST({ request }: { request: Request }) {
+  let userId = '';
+  let body: any = {};
   try {
     const user = await requireUser(request);
-    const body = await request.json();
+    userId = user.id;
+    body = await request.json();
     const result = await grantChannelSurveyReward({
       userId: user.id,
       surveySource: body?.surveySource,
@@ -36,10 +40,35 @@ async function POST({ request }: { request: Request }) {
       rewardCredentialId: body?.rewardCredentialId,
       entryPoint: body?.entryPoint,
       browserInstallId: body?.browserInstallId,
+      urlSource: body?.urlSource,
+      feature: body?.feature,
+      intent: body?.intent,
+      reason: body?.reason,
+      installId: body?.installId,
     });
 
     return respData(result);
   } catch (error: any) {
+    if (userId) {
+      await recordServerAnalyticsEvent({
+        eventName: 'trial_claim_failed',
+        source: 'server',
+        userId,
+        properties: {
+          taskType: 'channel_survey',
+          surveySource: body?.surveySource,
+          surveyRole: body?.surveyRole,
+          surveyUseCase: body?.surveyUseCase,
+          entryPoint: body?.entryPoint,
+          urlSource: body?.urlSource,
+          feature: body?.feature,
+          intent: body?.intent,
+          reason: body?.reason,
+          installId: body?.installId,
+          errorReason: error?.message || 'submit channel survey reward failed',
+        },
+      });
+    }
     if (isMissingBenefitTaskTable(error)) {
       return respErr('benefit center is not initialized');
     }

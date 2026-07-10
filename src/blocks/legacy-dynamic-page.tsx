@@ -400,8 +400,7 @@ type OnboardingCopy = {
   }>;
 };
 
-const TUTORIAL_URL =
-  'https://my.feishu.cn/wiki/TczWwrrGmiDRw3kWeojcXd5CnHh?from=from_copylink';
+const TUTORIAL_URL = 'https://my.feishu.cn/wiki/ZIGqwGtF8i2Dkbk6S1HcZdZWnMd';
 
 function getOnboardingCopy(section: LegacySection): OnboardingCopy {
   const isEnglish =
@@ -429,9 +428,9 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
         {
           id: 'activate',
           number: '02',
-          title: 'Claim / enter activation code',
+          title: 'Choose free or activate',
           description:
-            'Without a code, visit the welfare center to claim a 2-day trial; if you already have a code, enter it in the extension.',
+            'Use the free version first, or buy an activation code to unlock paid collection, Feishu sync, and AI workflows.',
           action: 'Claim trial',
           href: '/welfare?source=onboarding&entry=download_page',
           icon: KeyRound,
@@ -455,7 +454,7 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
     badge: '新用户上手路径',
     flowTitle: '3 步完成上手',
     flowHint:
-      '先在第 1 步完成插件安装，安装后继续领取或购买激活码，并按教程完成首次采集。',
+      '先完成插件安装，再选择免费使用或购买激活码，并按教程完成首次采集。',
     currentBadge: '当前步骤',
     nextBadge: '后续步骤',
     steps: [
@@ -470,9 +469,9 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
       {
         id: 'activate',
         number: '02',
-        title: '领取/输入激活码',
+        title: '选择免费版或激活码',
         description:
-          '没有激活码时，可到福利中心完成渠道反馈领取 2 天试用；已有激活码可直接在插件里输入。',
+          '基础采集可以先使用免费版；需要批量增强、飞书同步或 AI 分析时，建议直接购买激活码。',
         action: '领取试用',
         href: '/welfare?source=onboarding&entry=download_page',
         icon: KeyRound,
@@ -3157,23 +3156,46 @@ function DownloadOnboardingGuide({ section }: { section: LegacySection }) {
                       </div>
                     </div>
                     {step.href ? (
-                      <div className="grid shrink-0 gap-2 sm:grid-cols-2 md:w-[23rem]">
+                      <div className="grid shrink-0 gap-2 md:w-[23rem]">
                         {step.id === 'activate' ? (
                           <>
                             <Link
-                              href={step.href}
-                              className={buttonVariants({
-                                className: 'w-full',
-                              })}
-                            >
-                              {step.action}
-                            </Link>
-                            <Link
                               href="/pricing?source=onboarding&entry=download_page"
-                              className="inline-flex h-8 items-center justify-center rounded-lg border border-amber-300/80 bg-amber-300 px-2.5 text-sm font-medium text-slate-950 shadow-lg shadow-amber-500/20 transition-colors hover:bg-amber-200"
+                              className="inline-flex h-10 w-full items-center justify-center rounded-lg border border-amber-300/80 bg-amber-300 px-4 text-sm font-bold text-slate-950 shadow-md shadow-amber-500/15 transition-colors hover:bg-amber-200"
                             >
                               {buyLabel}
                             </Link>
+                            <p className="text-muted-foreground text-center text-sm leading-6">
+                              {/[一-龥]/.test(copy.badge) ? (
+                                <>
+                                  也可以先
+                                  <Link
+                                    href="/pricing?source=onboarding&entry=free_version"
+                                    className="text-foreground mx-1 font-medium underline-offset-4 hover:underline"
+                                  >
+                                    使用免费版
+                                  </Link>
+                                  ，或
+                                </>
+                              ) : (
+                                <>
+                                  You can also
+                                  <Link
+                                    href="/pricing?source=onboarding&entry=free_version"
+                                    className="text-foreground mx-1 font-medium underline-offset-4 hover:underline"
+                                  >
+                                    use the free version
+                                  </Link>
+                                  or
+                                </>
+                              )}
+                              <Link
+                                href={step.href}
+                                className="text-primary ml-1 font-medium underline-offset-4 hover:underline"
+                              >
+                                {step.action}
+                              </Link>
+                            </p>
                           </>
                         ) : step.external ? (
                           <a
@@ -4847,6 +4869,11 @@ function ChannelSurveyGift({
         rewardCredentialId,
         entryPoint,
         browserInstallId,
+        urlSource: getWelfareQueryParam('source') || undefined,
+        feature: getWelfareQueryParam('feature') || undefined,
+        intent: getWelfareQueryParam('intent') || undefined,
+        reason: getWelfareQueryParam('reason') || undefined,
+        installId: getWelfareQueryParam('install_id') || undefined,
       });
 
       const nextTask = result.task || {
@@ -5340,22 +5367,24 @@ function BusinessDictionaryPage({ data }: { data: LegacyPageData }) {
 
           <div className="space-y-6">
             {survey ? (
-              <BenefitGiftCard
-                icon="ClipboardCheck"
-                title={survey.title}
-                description={survey.description}
-                status={survey.status?.available}
-                giftLabel={giftLabel}
-              >
-                <ChannelSurveyGift
-                  survey={survey}
-                  rewardFlow={data.reward_flow}
-                  credentialsAction={
-                    data.reward_flow?.credentials_action ||
-                    data.hero?.secondary_action
-                  }
-                />
-              </BenefitGiftCard>
+              <div id="welfare-reward-channel-survey">
+                <BenefitGiftCard
+                  icon="ClipboardCheck"
+                  title={survey.title}
+                  description={survey.description}
+                  status={survey.status?.available}
+                  giftLabel={giftLabel}
+                >
+                  <ChannelSurveyGift
+                    survey={survey}
+                    rewardFlow={data.reward_flow}
+                    credentialsAction={
+                      data.reward_flow?.credentials_action ||
+                      data.hero?.secondary_action
+                    }
+                  />
+                </BenefitGiftCard>
+              </div>
             ) : null}
 
             {feedback ? (

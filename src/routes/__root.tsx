@@ -7,6 +7,7 @@ import {
   HeadContent,
   Outlet,
   Scripts,
+  useRouterState,
   type ErrorComponentProps,
 } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
@@ -76,6 +77,25 @@ const EARLY_THEME_SCRIPT = `
 })();
 `;
 
+const CLARITY_EXCLUDED_PATH_PREFIXES = [
+  '/admin',
+  '/settings',
+  '/partner',
+  '/activity',
+  '/checkout',
+];
+
+function normalizeAnalyticsPath(pathname: string) {
+  return (pathname.replace(/^\/[a-z]{2}(?=\/|$)/, '') || '/').toLowerCase();
+}
+
+function shouldExcludeClarity(pathname: string) {
+  const normalized = normalizeAnalyticsPath(pathname);
+  return CLARITY_EXCLUDED_PATH_PREFIXES.some(
+    (prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`)
+  );
+}
+
 // Analytics IDs live in the DB config (1h-cached service). Fetched via a
 // server function so drizzle/db code never reaches the client bundle.
 const getAnalyticsConfigs = createServerFn().handler(async () => {
@@ -139,6 +159,10 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const analytics = Route.useLoaderData();
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  });
+  const excludeClarity = shouldExcludeClarity(pathname);
 
   return (
     <QueryClientProvider client={getQueryClient()}>
@@ -150,13 +174,15 @@ function RootComponent() {
       >
         <ReferralCapture />
         <FirstPartyAnalytics />
-        <Outlet />
+        <div {...(excludeClarity ? { 'data-clarity-mask': 'true' } : {})}>
+          <Outlet />
+        </div>
         <Toaster position="top-center" richColors />
         <GoogleOneTap />
         {analytics?.gaId ? (
           <GoogleAnalytics measurementId={analytics.gaId} />
         ) : null}
-        {analytics?.clarityId ? (
+        {analytics?.clarityId && !excludeClarity ? (
           <MicrosoftClarity projectId={analytics.clarityId} />
         ) : null}
         {analytics?.plausibleDomain ? (

@@ -16,6 +16,7 @@ import {
 import { getAllConfigs, type ConfigMap } from '@/modules/config/service';
 import { generateActivationCode } from '@/modules/credentials/service';
 import { getUuid } from '@/lib/hash';
+import { recordServerAnalyticsEvent } from '@/lib/server-analytics';
 
 export const CHANNEL_SURVEY_TASK_TYPE = 'channel_survey_trial';
 export const CHANNEL_SURVEY_REWARD_TASK_TYPE = 'channel_survey';
@@ -612,6 +613,11 @@ export async function grantChannelSurveyReward(input: {
   rewardCredentialId?: string;
   entryPoint?: string;
   browserInstallId?: string;
+  urlSource?: string;
+  feature?: string;
+  intent?: string;
+  reason?: string;
+  installId?: string;
 }) {
   const userId = sanitizeSurveyValue(input.userId, 80);
   const surveySource = sanitizeSurveyValue(input.surveySource);
@@ -624,6 +630,11 @@ export async function grantChannelSurveyReward(input: {
   );
   const entryPoint = sanitizeSurveyValue(input.entryPoint, 120);
   const browserInstallHash = hashBrowserInstallId(input.browserInstallId);
+  const urlSource = sanitizeSurveyValue(input.urlSource, 120);
+  const feature = sanitizeSurveyValue(input.feature, 120);
+  const intent = sanitizeSurveyValue(input.intent, 120);
+  const reason = sanitizeSurveyValue(input.reason, 120);
+  const installId = sanitizeSurveyValue(input.installId, 191);
 
   if (!userId) throw new Error('user id is required');
   if (!surveySource || !surveyRole || !surveyUseCase) {
@@ -723,8 +734,36 @@ export async function grantChannelSurveyReward(input: {
     .where(eq(benefitTask.id, pendingTask.id))
     .returning();
 
+  await recordServerAnalyticsEvent({
+    eventName: 'benefit_reward_granted',
+    source: 'server',
+    userId,
+    credentialId: reward.credentialId,
+    credentialCode: reward.credentialCode,
+    properties: {
+      rewardLedgerId: reward.ledger.id,
+      taskType: CHANNEL_SURVEY_REWARD_TASK_TYPE,
+      rewardType: reward.rewardType,
+      rewardAction: reward.ledger.rewardAction,
+      rewardCredentialId: reward.credentialId,
+      rewardCredentialCode: reward.credentialCode,
+      surveySource,
+      surveyRole,
+      surveyUseCase,
+      entryPoint,
+      urlSource: urlSource || undefined,
+      feature: feature || undefined,
+      intent: intent || undefined,
+      reason: reason || undefined,
+      installId: installId || undefined,
+      browserInstallHash: updatedTask.browserInstallHash || browserInstallHash,
+      sourceResponseId: response.id,
+    },
+  });
+
   return {
     task: updatedTask,
+    rewardLedgerId: reward.ledger.id,
     rewardType: reward.rewardType,
     rewardCredentialCode: reward.credentialCode,
     alreadyCompleted: false,
