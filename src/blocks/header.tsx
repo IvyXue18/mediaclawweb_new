@@ -30,6 +30,7 @@ import { useSession } from '@/core/auth/client';
 import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import { cn } from '@/lib/utils';
+import { m } from '@/paraglide/messages.js';
 import { LocaleSelector } from '@/components/locale-selector';
 import { SiteUserMenu } from '@/components/site-user-menu';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -43,174 +44,175 @@ type NavItem = {
   children?: NavItem[];
 };
 
-const navItems: NavItem[] = [
-  {
-    title: '核心功能',
-    icon: 'LayoutGrid',
-    children: [
-      {
-        title: '小红书',
-        icon: 'BookOpen',
-        children: [
-          {
-            title: '笔记采集',
-            description:
-              '批量采集笔记数据与搜索结果数据，支持关键词页和账号页入口',
-            url: '/xiaohongshu/scraper',
-            icon: 'Database',
-          },
-          {
-            title: '视频逐字稿',
-            description: '一键提取视频笔记口播逐字稿，输出带时间戳分句稿',
-            url: '/xiaohongshu/transcript',
-            icon: 'AudioLines',
-          },
-          {
-            title: '图文文案提取',
-            description: '对封面和配图做 OCR，提取图片里的文字内容',
-            url: '/xiaohongshu/image-text',
-            icon: 'ScanText',
-          },
-          {
-            title: '评论采集',
-            description: '批量采集评论数据，支持后续评论挖掘与需求分析',
-            url: '/xiaohongshu/comments',
-            icon: 'MessageCircle',
-          },
-          {
-            title: '客资采集',
-            description: '从评论数据中挖掘高意向客户线索，导出客资名单',
-            url: '/xiaohongshu/leads',
-            icon: 'UserCheck',
-          },
-          {
-            title: '关键词洞察',
-            description: '批量做关键词挖掘、搜索词分析与选题规划',
-            url: '/xiaohongshu/keywords',
-            icon: 'Search',
-          },
-          {
-            title: '竞品监控',
-            description: '自动监控对标账号内容更新与爆款趋势',
-            url: '/xiaohongshu/monitoring',
-            icon: 'Radar',
-          },
-          {
-            title: '去水印下载',
-            description: '一键下载图文和视频素材，便于二次分析',
-            url: '/xiaohongshu/downloader',
-            icon: 'Download',
-          },
-        ],
-      },
-      {
-        title: '抖音',
-        icon: 'Clapperboard',
-        children: [
-          {
-            title: '视频采集',
-            description: '按关键词、作者和话题快速采集视频数据与搜索结果数据',
-            url: '/douyin/scraper',
-            icon: 'Database',
-          },
-          {
-            title: '视频逐字稿',
-            description: '一键提取抖音口播逐字稿，带时间戳分句节奏稿',
-            url: '/douyin/transcript',
-            icon: 'AudioLines',
-          },
-          {
-            title: '图文文案提取',
-            description: '对封面和合集图做 OCR，把商品卡片和教程文字提出来',
-            url: '/douyin/image-text',
-            icon: 'ScanText',
-          },
-          {
-            title: '评论采集',
-            description: '批量采集评论数据，支持后续评论挖掘与需求分析',
-            url: '/douyin/comments',
-            icon: 'MessageCircle',
-          },
-          {
-            title: '客资采集',
-            description: '从评论数据中挖掘高意向客户线索，导出客资名单',
-            url: '/douyin/leads',
-            icon: 'UserCheck',
-          },
-          {
-            title: '关键词洞察',
-            description: '批量做关键词挖掘、搜索词分析与选题规划',
-            url: '/douyin/keywords',
-            icon: 'Search',
-          },
-          {
-            title: '竞品监控',
-            description: '自动监控竞品账号内容更新，识别增长动作',
-            url: '/douyin/monitoring',
-            icon: 'Radar',
-          },
-          {
-            title: '去水印下载',
-            description: '提取原始 MP4 直链，无水印保存视频和图文素材',
-            url: '/douyin/downloader',
-            icon: 'Download',
-          },
-        ],
-      },
-      {
-        title: '生态',
-        icon: 'Workflow',
-        children: [
-          {
-            title: '飞书集成',
-            description: '采集数据、评论数据和监控结果自动同步飞书多维表格',
-            url: '/features/feishu-integration',
-            icon: 'Table2',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: '资源',
-    icon: 'Library',
-    children: [
-      {
-        title: '博客',
-        description: '内容营销方法、案例与实战指南',
-        url: '/blog',
-        icon: 'BookText',
-      },
-      {
-        title: '教程',
-        description: '从零开始的产品使用教程与最佳实践',
-        url: 'https://my.feishu.cn/wiki/TczWwrrGmiDRw3kWeojcXd5CnHh?from=from_copylink',
-        icon: 'GraduationCap',
-        target: '_blank',
-      },
-      {
-        title: '福利中心',
-        description: '领取试用与使用奖励',
-        url: '/welfare?entry=header_nav',
-        icon: 'Gift',
-      },
-      {
-        title: '更新日志',
-        description: '查看产品版本发布与功能改进记录',
-        url: '/updates',
-        icon: 'History',
-      },
-      {
-        title: '伙伴计划',
-        description: '联盟营销、推广链接与佣金提现',
-        url: '/referral',
-        icon: 'Handshake',
-      },
-    ],
-  },
-  { title: '下载', url: '/download', icon: 'Download' },
-  { title: '定价', url: '/pricing', icon: 'CreditCard' },
-];
+function getNavItems(): NavItem[] {
+  return [
+    {
+      title: m['site.header.core_features'](),
+      icon: 'LayoutGrid',
+      children: [
+        {
+          title: m['site.header.xiaohongshu'](),
+          icon: 'BookOpen',
+          children: [
+            {
+              title: m['site.header.note_scraping'](),
+              description: m['site.header.note_scraping_desc'](),
+              url: '/xiaohongshu/scraper',
+              icon: 'Database',
+            },
+            {
+              title: m['site.header.video_transcript'](),
+              description: m['site.header.xhs_video_transcript_desc'](),
+              url: '/xiaohongshu/transcript',
+              icon: 'AudioLines',
+            },
+            {
+              title: m['site.header.image_text'](),
+              description: m['site.header.xhs_image_text_desc'](),
+              url: '/xiaohongshu/image-text',
+              icon: 'ScanText',
+            },
+            {
+              title: m['site.header.comment_scraping'](),
+              description: m['site.header.comment_scraping_desc'](),
+              url: '/xiaohongshu/comments',
+              icon: 'MessageCircle',
+            },
+            {
+              title: m['site.header.lead_scraping'](),
+              description: m['site.header.lead_scraping_desc'](),
+              url: '/xiaohongshu/leads',
+              icon: 'UserCheck',
+            },
+            {
+              title: m['site.header.keyword_insights'](),
+              description: m['site.header.keyword_insights_desc'](),
+              url: '/xiaohongshu/keywords',
+              icon: 'Search',
+            },
+            {
+              title: m['site.header.competitor_monitoring'](),
+              description: m['site.header.xhs_competitor_monitoring_desc'](),
+              url: '/xiaohongshu/monitoring',
+              icon: 'Radar',
+            },
+            {
+              title: m['site.header.watermark_free_download'](),
+              description: m['site.header.xhs_download_desc'](),
+              url: '/xiaohongshu/downloader',
+              icon: 'Download',
+            },
+          ],
+        },
+        {
+          title: m['site.header.douyin'](),
+          icon: 'Clapperboard',
+          children: [
+            {
+              title: m['site.header.video_scraping'](),
+              description: m['site.header.douyin_video_scraping_desc'](),
+              url: '/douyin/scraper',
+              icon: 'Database',
+            },
+            {
+              title: m['site.header.video_transcript'](),
+              description: m['site.header.douyin_video_transcript_desc'](),
+              url: '/douyin/transcript',
+              icon: 'AudioLines',
+            },
+            {
+              title: m['site.header.image_text'](),
+              description: m['site.header.douyin_image_text_desc'](),
+              url: '/douyin/image-text',
+              icon: 'ScanText',
+            },
+            {
+              title: m['site.header.comment_scraping'](),
+              description: m['site.header.comment_scraping_desc'](),
+              url: '/douyin/comments',
+              icon: 'MessageCircle',
+            },
+            {
+              title: m['site.header.lead_scraping'](),
+              description: m['site.header.lead_scraping_desc'](),
+              url: '/douyin/leads',
+              icon: 'UserCheck',
+            },
+            {
+              title: m['site.header.keyword_insights'](),
+              description: m['site.header.keyword_insights_desc'](),
+              url: '/douyin/keywords',
+              icon: 'Search',
+            },
+            {
+              title: m['site.header.competitor_monitoring'](),
+              description: m['site.header.douyin_competitor_monitoring_desc'](),
+              url: '/douyin/monitoring',
+              icon: 'Radar',
+            },
+            {
+              title: m['site.header.watermark_free_download'](),
+              description: m['site.header.douyin_download_desc'](),
+              url: '/douyin/downloader',
+              icon: 'Download',
+            },
+          ],
+        },
+        {
+          title: m['site.header.ecosystem'](),
+          icon: 'Workflow',
+          children: [
+            {
+              title: m['site.header.feishu_integration'](),
+              description: m['site.header.feishu_integration_desc'](),
+              url: '/features/feishu-integration',
+              icon: 'Table2',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: m['site.header.resources'](),
+      icon: 'Library',
+      children: [
+        {
+          title: m['site.header.blog'](),
+          description: m['site.header.blog_desc'](),
+          url: '/blog',
+          icon: 'BookText',
+        },
+        {
+          title: m['site.header.tutorials'](),
+          description: m['site.header.tutorials_desc'](),
+          url: 'https://my.feishu.cn/wiki/TczWwrrGmiDRw3kWeojcXd5CnHh?from=from_copylink',
+          icon: 'GraduationCap',
+          target: '_blank',
+        },
+        {
+          title: m['site.header.rewards'](),
+          description: m['site.header.rewards_desc'](),
+          url: '/welfare?entry=header_nav',
+          icon: 'Gift',
+        },
+        {
+          title: m['site.header.updates'](),
+          description: m['site.header.updates_desc'](),
+          url: '/updates',
+          icon: 'History',
+        },
+        {
+          title: m['site.header.partner_program'](),
+          description: m['site.header.partner_program_desc'](),
+          url: '/referral',
+          icon: 'Handshake',
+        },
+      ],
+    },
+    { title: m['site.header.download'](), url: '/download', icon: 'Download' },
+    { title: m['site.header.pricing'](), url: '/pricing', icon: 'CreditCard' },
+  ];
+}
 
 const navIconMap: Record<string, LucideIcon> = {
   AudioLines,
@@ -376,6 +378,7 @@ function MenuItemLink({ item }: { item: NavItem }) {
 }
 
 function DesktopNav() {
+  const navItems = getNavItems();
   return (
     <nav className="hidden flex-1 items-center justify-center lg:flex">
       <ul className="flex items-center gap-1">
@@ -407,6 +410,7 @@ function DesktopNav() {
 }
 
 function MobileNav({ closeMenu }: { closeMenu: () => void }) {
+  const navItems = getNavItems();
   return (
     <nav className="space-y-2 px-4 pt-4 pb-6 lg:hidden">
       {navItems.map((item) => (
@@ -493,7 +497,7 @@ function HeaderAuthAction({
 
   return (
     <Link href="/sign-in" className={loginClassName} onClick={onSignInClick}>
-      登录
+      {m['site.header.sign_in']()}
     </Link>
   );
 }

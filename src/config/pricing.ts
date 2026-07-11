@@ -74,7 +74,7 @@ export const pricingCatalog: Record<string, PricingProduct> = {
     description: 'MediaClaw 个人版月付',
     type: PaymentType.ONE_TIME,
     fulfillment: 'credential',
-    priceInCents: 5900,
+    priceInCents: 4900,
     currency: 'cny',
     credits: 180,
     creditsValidDays: 30,

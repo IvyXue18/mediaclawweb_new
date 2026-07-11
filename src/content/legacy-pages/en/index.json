@@ -301,7 +301,7 @@
             "name": "yearly",
             "title": "Yearly",
             "is_featured": true,
-            "label": "Save 60%"
+            "label": "Save 50%"
           },
           {
             "name": "credits",
@@ -357,11 +357,11 @@
               "In-extension timestamped video transcripts and image copy extraction"
             ],
             "interval": "one-time",
-            "amount": 5900,
+            "amount": 4900,
             "currency": "CNY",
             "credits": 180,
             "valid_days": 30,
-            "price": "¥59",
+            "price": "¥49",
             "unit": "/ mo",
             "is_featured": true,
             "is_popular": true,
@@ -568,7 +568,7 @@
             "price": "¥24",
             "unit": "/ mo",
             "price_total": "¥288 per year",
-            "tip": "Save 60% vs monthly",
+            "tip": "Save 50% vs monthly",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],

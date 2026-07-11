@@ -413,7 +413,7 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
       badge: 'New user setup path',
       flowTitle: 'Get started in 3 steps',
       flowHint:
-        'Start with Step 1 to install the extension, then claim or buy an activation code and follow the tutorial.',
+        'Start with Step 1 to install the extension, then choose the free version or buy an activation code and follow the tutorial.',
       currentBadge: 'Current step',
       nextBadge: 'Next step',
       steps: [
@@ -431,8 +431,6 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
           title: 'Choose free or activate',
           description:
             'Use the free version first, or buy an activation code to unlock paid collection, Feishu sync, and AI workflows.',
-          action: 'Claim trial',
-          href: '/welfare?source=onboarding&entry=download_page',
           icon: KeyRound,
         },
         {
@@ -472,8 +470,6 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
         title: '选择免费版或激活码',
         description:
           '基础采集可以先使用免费版；需要批量增强、飞书同步或 AI 分析时，建议直接购买激活码。',
-        action: '领取试用',
-        href: '/welfare?source=onboarding&entry=download_page',
         icon: KeyRound,
       },
       {
@@ -3155,49 +3151,31 @@ function DownloadOnboardingGuide({ section }: { section: LegacySection }) {
                         </p>
                       </div>
                     </div>
-                    {step.href ? (
+                    {step.id === 'activate' ? (
                       <div className="grid shrink-0 gap-2 md:w-[23rem]">
-                        {step.id === 'activate' ? (
-                          <>
-                            <Link
-                              href="/pricing?source=onboarding&entry=download_page"
-                              className="inline-flex h-10 w-full items-center justify-center rounded-lg border border-amber-300/80 bg-amber-300 px-4 text-sm font-bold text-slate-950 shadow-md shadow-amber-500/15 transition-colors hover:bg-amber-200"
-                            >
-                              {buyLabel}
-                            </Link>
-                            <p className="text-muted-foreground text-center text-sm leading-6">
-                              {/[一-龥]/.test(copy.badge) ? (
-                                <>
-                                  也可以先
-                                  <Link
-                                    href="/pricing?source=onboarding&entry=free_version"
-                                    className="text-foreground mx-1 font-medium underline-offset-4 hover:underline"
-                                  >
-                                    使用免费版
-                                  </Link>
-                                  ，或
-                                </>
-                              ) : (
-                                <>
-                                  You can also
-                                  <Link
-                                    href="/pricing?source=onboarding&entry=free_version"
-                                    className="text-foreground mx-1 font-medium underline-offset-4 hover:underline"
-                                  >
-                                    use the free version
-                                  </Link>
-                                  or
-                                </>
-                              )}
-                              <Link
-                                href={step.href}
-                                className="text-primary ml-1 font-medium underline-offset-4 hover:underline"
-                              >
-                                {step.action}
-                              </Link>
-                            </p>
-                          </>
-                        ) : step.external ? (
+                        <Link
+                          href="/pricing?source=onboarding&entry=download_page"
+                          className="inline-flex h-10 w-full items-center justify-center rounded-lg border border-amber-300/80 bg-amber-300 px-4 text-sm font-bold text-slate-950 shadow-md shadow-amber-500/15 transition-colors hover:bg-amber-200"
+                        >
+                          {buyLabel}
+                        </Link>
+                        <p className="text-muted-foreground text-center text-sm leading-6">
+                          {/[一-龥]/.test(copy.badge)
+                            ? '也可以先'
+                            : 'You can also'}
+                          <Link
+                            href="/pricing?source=onboarding&entry=free_version"
+                            className="text-foreground mx-1 font-medium underline-offset-4 hover:underline"
+                          >
+                            {/[一-龥]/.test(copy.badge)
+                              ? '使用免费版'
+                              : 'use the free version'}
+                          </Link>
+                        </p>
+                      </div>
+                    ) : step.href ? (
+                      <div className="grid shrink-0 gap-2 md:w-[23rem]">
+                        {step.external ? (
                           <a
                             href={step.href}
                             target="_blank"

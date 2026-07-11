@@ -33,7 +33,7 @@
             "name": "yearly",
             "title": "年付",
             "is_featured": true,
-            "label": "省 60%"
+            "label": "省 50%"
           },
           {
             "name": "credits",
@@ -89,11 +89,11 @@
               "插件内提取视频带时间戳口播稿，提取配图文案"
             ],
             "interval": "one-time",
-            "amount": 5900,
+            "amount": 4900,
             "currency": "CNY",
             "credits": 180,
             "valid_days": 30,
-            "price": "¥59",
+            "price": "¥49",
             "unit": "/ 月",
             "is_featured": true,
             "is_popular": true,
@@ -300,7 +300,7 @@
             "price": "¥24",
             "unit": "/ 月",
             "price_total": "年度合计 ¥288",
-            "tip": "对比月付立省 60%",
+            "tip": "对比月付立省 50%",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],
