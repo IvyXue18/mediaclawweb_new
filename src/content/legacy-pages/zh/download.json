@@ -13,7 +13,10 @@
         "title": "下载并安装 MediaClaw",
         "description": "MediaClaw 是你进行社媒数据运营的得力助手。我们提供官方商店安装和离线安装两种方式，建议优先选择商店安装以获得自动更新和更好的安全性。",
         "market_tab_title": "商店安装 (推荐)",
+        "market_tab_description": "自动更新，推荐优先选择",
         "package_tab_title": "离线安装 (安装包)",
+        "package_tab_description": "商店无法访问时，下载 CRX 安装包",
+        "package_tab_badge": "备用方式",
         "market_items": [
           {
             "title": "Chrome 应用商店",

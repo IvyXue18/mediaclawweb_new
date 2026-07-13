@@ -68,6 +68,7 @@ yarn-error.log*
 /data/
 /drizzle/
 src/config/db/schema.ts
+.neon
 
 # npm (project uses pnpm)
 package-lock.json

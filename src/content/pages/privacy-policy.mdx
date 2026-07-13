@@ -1,17 +1,17 @@
 export const meta = {
   title: 'Privacy Policy',
-  description: 'Mediaclaw Extension Privacy Policy',
+  description: 'MediaClaw Website and Extension Privacy Policy',
   created_at: '2026-03-07',
 };
 
 # MediaClaw Privacy Policy
 
-Updated: March 7, 2026
+Updated: July 13, 2026
 Effective: March 7, 2026
 
-Thank you for using **MediaClaw** (hereinafter referred to as "the Extension"). This policy explains how we collect, use, store, and protect your information when you use the Extension.
+Thank you for using the **MediaClaw website and browser extension** (collectively, "MediaClaw"). This policy explains how we collect, use, store, and protect your information when you use MediaClaw.
 
-If you do not agree with this policy, please stop using and uninstall the Extension.
+If you do not agree with this policy, please stop using the website and uninstall the Extension.
 
 ---
 
@@ -65,12 +65,25 @@ The Extension stores the following runtime data locally:
 
 When you click "Export CSV" or "Download attachments," the Extension generates files locally using the browser's download capability. This action is explicitly triggered by you; files are saved to your local device and do not pass through our servers.
 
-### 1.6 Information We Do Not Collect
+### 1.6 Website Analytics and Attribution
+
+When you visit the MediaClaw website or perform key product actions, we collect limited analytics and attribution data, which may include:
+
+- A randomly generated anonymous browser ID and session ID
+- Page path, landing page, and referring website origin/path
+- Campaign parameters such as `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `source`, `ref`, and `via`
+- A normalized acquisition channel and attribution confidence
+- Key events such as page views, pricing or download actions, registration, checkout, and payment success
+- Account ID after you sign in, where needed to connect product activity with registration or payment results
+
+MediaClaw stores first-touch and last-non-direct attribution context in browser local storage and a first-party cookie for up to 90 days. An attribution snapshot may also be stored with an order when checkout begins. This is used to understand product performance and campaign effectiveness, connect acquisition sources with registrations and revenue, prevent abuse, and improve MediaClaw. We do not use third-party advertising cookies for this purpose and do not sell this data to advertisers.
+
+### 1.7 Information We Do Not Collect
 
 - **No collection** of bank card numbers, payment passwords, or other financially sensitive information
 - **No collection** of login passwords for any platform
 - **No capture** of browser cookies (the `chrome.cookies` API is not called)
-- **No anonymous analytics** or behavioral data reporting of any kind
+- **No recording** of full keystrokes, mouse movements, scrolling sessions, or page DOM replays
 - **No collection** of any personal information unrelated to the Extension's functionality
 
 ---
@@ -84,6 +97,7 @@ Information we collect is used only for the following purposes:
 - **Collection feature support**: Executing collection logic in your currently active Xiaohongshu tab and caching results locally
 - **Export and download**: Responding to your explicit actions to generate CSV files or download attachments locally
 - **Troubleshooting**: Using local sync history to help you diagnose sync failures
+- **Product analytics and attribution**: Measuring website and product performance and connecting acquisition sources with registrations, orders, and revenue
 
 ---
 
@@ -103,12 +117,16 @@ The following data is stored in your browser extension's local storage (`chrome.
 
 You can delete all local data via the extension's built-in cleanup function, browser extension data clearing, or by directly uninstalling the Extension.
 
+The website also stores attribution context in browser local storage and a first-party cookie for up to 90 days. You can remove it by clearing site data for the MediaClaw website.
+
 ### 3.2 Server-Side Storage
 
-We store only the minimum necessary information on our backend servers:
+We store the minimum information necessary to operate and improve MediaClaw on our backend servers:
 
 - Activation code / order number status (valid / expired / frozen)
 - Device UUID binding associations and most recent verification time
+- Limited analytics event records, including anonymous/session identifiers, page and campaign attribution data, event type, and event time
+- Registration, order, and payment attribution snapshots used to calculate conversion and revenue by source
 
 **Sync relay data (Lark Base configuration + collected payload) is handled on a "process and forward" basis and is not retained long-term in our server-side database.**
 
@@ -170,6 +188,7 @@ In accordance with applicable laws and regulations, you have the following right
 - **Right to restrict processing**: You may stop the sync function and use collected results locally only; data will not leave your device
 - **Authorization release request**: If device binding slots are exhausted due to a device change or browser reinstallation, you may contact us to manually release a slot
 - **Right to withdraw consent**: You may uninstall the Extension and clear extension data at any time to withdraw your consent to this policy
+- **Website data controls**: You may clear MediaClaw website data in your browser; you may also contact us to request access to or deletion of server-side data that can reasonably be associated with you, subject to legal retention requirements
 
 ---
 

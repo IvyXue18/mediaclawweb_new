@@ -13,7 +13,10 @@
         "title": "Download and Install MediaClaw",
         "description": "MediaClaw is your powerful assistant for social media data operations. Install the extension first, choose the free version or buy an activation code, then follow the tutorial for your first collection.",
         "market_tab_title": "Store Installation (Recommended)",
+        "market_tab_description": "Automatic updates—the recommended option",
         "package_tab_title": "Offline Installation (CRX/ZIP)",
+        "package_tab_description": "Download the CRX package when stores are unavailable",
+        "package_tab_badge": "Alternative",
         "market_items": [
           {
             "title": "Chrome Web Store",

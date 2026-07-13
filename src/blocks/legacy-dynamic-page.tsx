@@ -266,7 +266,10 @@ type LegacySection = {
   groups?: Array<{ name: string; title: string; label?: string }>;
   features?: LegacyItem[];
   market_tab_title?: string;
+  market_tab_description?: string;
   package_tab_title?: string;
+  package_tab_description?: string;
+  package_tab_badge?: string;
   market_items?: LegacyDownloadItem[];
   package_items?: LegacyDownloadItem[];
   steps_title?: string;
@@ -3224,25 +3227,42 @@ function DownloadInstallOptions({ section }: { section: LegacySection }) {
       defaultValue="market"
       data-download-install-tabs
     >
-      <TabsList className="bg-muted/50 mb-8 grid h-auto min-h-14 w-full grid-cols-2 rounded-xl p-1 backdrop-blur-sm">
+      <TabsList className="mb-8 grid h-auto w-full grid-cols-1 gap-3 bg-transparent p-0 sm:grid-cols-2">
         <TabsTrigger
           value="market"
-          className="data-active:bg-background gap-2 rounded-lg py-3 text-base data-active:shadow-lg"
+          className="border-border/70 bg-card/70 hover:border-primary/50 hover:bg-primary/5 data-active:border-primary data-active:bg-primary/10 data-active:ring-primary/20 h-auto min-h-24 justify-start gap-4 rounded-xl border px-5 py-4 text-left whitespace-normal shadow-sm transition-all data-active:shadow-lg data-active:ring-2"
           data-download-market-tab
         >
-          <Globe className="size-4" />
-          <span className="truncate">
-            {section.market_tab_title || '商店安装'}
+          <span className="bg-primary/10 text-primary ring-primary/15 flex size-11 shrink-0 items-center justify-center rounded-xl ring-1">
+            <Globe className="size-5" />
+          </span>
+          <span className="min-w-0">
+            <span className="text-foreground block text-base font-bold">
+              {section.market_tab_title || '商店安装'}
+            </span>
+            <span className="text-muted-foreground mt-1 block text-xs leading-5 font-normal">
+              {section.market_tab_description || '自动更新，推荐优先选择'}
+            </span>
           </span>
         </TabsTrigger>
         <TabsTrigger
           value="package"
-          className="data-active:bg-background gap-2 rounded-lg py-3 text-base data-active:shadow-lg"
+          className="border-border/70 bg-card/70 hover:border-primary/50 hover:bg-primary/5 data-active:border-primary data-active:bg-primary/10 data-active:ring-primary/20 relative h-auto min-h-24 justify-start gap-4 rounded-xl border px-5 py-4 text-left whitespace-normal shadow-sm transition-all data-active:shadow-lg data-active:ring-2"
           data-download-package-tab
         >
-          <Download className="size-4" />
-          <span className="truncate">
-            {section.package_tab_title || '离线安装'}
+          <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 ring-1 ring-amber-500/20 dark:text-amber-400">
+            <Download className="size-5" />
+          </span>
+          <span className="min-w-0 pr-14">
+            <span className="text-foreground block text-base font-bold">
+              {section.package_tab_title || '离线安装'}
+            </span>
+            <span className="text-muted-foreground mt-1 block text-xs leading-5 font-normal">
+              {section.package_tab_description || '商店无法访问时使用安装包'}
+            </span>
+          </span>
+          <span className="absolute top-3 right-3 rounded-full bg-amber-500/15 px-2 py-1 text-[11px] leading-none font-bold text-amber-700 dark:text-amber-300">
+            {section.package_tab_badge || '备用方式'}
           </span>
         </TabsTrigger>
       </TabsList>

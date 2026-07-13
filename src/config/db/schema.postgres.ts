@@ -136,6 +136,11 @@ export const eventLog = table(
     utmSource: text('utm_source').notNull().default(''),
     utmMedium: text('utm_medium').notNull().default(''),
     utmCampaign: text('utm_campaign').notNull().default(''),
+    utmContent: text('utm_content').notNull().default(''),
+    utmTerm: text('utm_term').notNull().default(''),
+    channel: text('channel').notNull().default(''),
+    landingPage: text('landing_page').notNull().default(''),
+    attributionConfidence: text('attribution_confidence').notNull().default(''),
     locale: text('locale').notNull().default(''),
     propertiesJson: text('properties_json'),
     occurredAt: timestamp('occurred_at').defaultNow().notNull(),
@@ -490,6 +495,21 @@ export const order = table(
     variantId: text('variant_id'),
     seatCount: integer('seat_count').notNull().default(1),
     priceRuleSnapshot: text('price_rule_snapshot'),
+    attributionAnonymousId: text('attribution_anonymous_id')
+      .notNull()
+      .default(''),
+    attributionSessionId: text('attribution_session_id').notNull().default(''),
+    attributionChannel: text('attribution_channel').notNull().default(''),
+    attributionSource: text('attribution_source').notNull().default(''),
+    attributionMedium: text('attribution_medium').notNull().default(''),
+    attributionCampaign: text('attribution_campaign').notNull().default(''),
+    attributionContent: text('attribution_content').notNull().default(''),
+    attributionReferrer: text('attribution_referrer').notNull().default(''),
+    attributionLandingPage: text('attribution_landing_page')
+      .notNull()
+      .default(''),
+    attributionConfidence: text('attribution_confidence').notNull().default(''),
+    attributionSnapshot: text('attribution_snapshot'),
   },
   (table) => [
     index('idx_order_user_status_payment_type').on(

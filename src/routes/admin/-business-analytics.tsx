@@ -33,6 +33,20 @@ type TopItem = {
   value?: number;
 };
 
+type AttributionChannel = {
+  channel: string;
+  visitors: number;
+  paidUsers: number;
+  paidOrders: number;
+  revenueByCurrency: RevenueBucket[];
+};
+
+type AttributionCampaign = {
+  name: string;
+  paidOrders: number;
+  revenueByCurrency: RevenueBucket[];
+};
+
 type AdminAnalyticsSummary = {
   range: {
     type: string;
@@ -63,6 +77,11 @@ type AdminAnalyticsSummary = {
     paidAmount: number;
     paidAmountByCurrency: RevenueBucket[];
     averageOrderAmount: number;
+  };
+  attribution: {
+    model: string;
+    channels: AttributionChannel[];
+    topCampaigns: AttributionCampaign[];
   };
   welfare: {
     rewardUsers: number;
@@ -254,6 +273,94 @@ function TopList({
         )}
       </CardContent>
     </Card>
+  );
+}
+
+function AttributionBreakdown({
+  channels,
+  campaigns,
+}: {
+  channels: AttributionChannel[];
+  campaigns: AttributionCampaign[];
+}) {
+  return (
+    <div className="grid gap-4 xl:grid-cols-2">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">
+            {m['admin.analytics.attribution.channels.title']()}
+          </CardTitle>
+          <p className="text-muted-foreground text-sm">
+            {m['admin.analytics.attribution.channels.description']()}
+          </p>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {channels.length ? (
+            channels.slice(0, 10).map((item) => (
+              <div
+                key={item.channel}
+                className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b pb-3 text-sm last:border-0 last:pb-0"
+              >
+                <div className="min-w-0">
+                  <p className="truncate font-medium">{item.channel}</p>
+                  <p className="text-muted-foreground text-xs">
+                    {m['admin.analytics.attribution.channels.funnel']({
+                      visitors: formatInteger(item.visitors),
+                      users: formatInteger(item.paidUsers),
+                      orders: formatInteger(item.paidOrders),
+                    })}
+                  </p>
+                </div>
+                <span className="font-medium">
+                  {formatRevenue(item.revenueByCurrency)}
+                </span>
+              </div>
+            ))
+          ) : (
+            <p className="text-muted-foreground text-sm">
+              {m['admin.analytics.common.empty']()}
+            </p>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">
+            {m['admin.analytics.attribution.campaigns.title']()}
+          </CardTitle>
+          <p className="text-muted-foreground text-sm">
+            {m['admin.analytics.attribution.campaigns.description']()}
+          </p>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {campaigns.length ? (
+            campaigns.map((item) => (
+              <div
+                key={item.name}
+                className="flex items-center justify-between gap-4 border-b pb-3 text-sm last:border-0 last:pb-0"
+              >
+                <div className="min-w-0">
+                  <p className="truncate font-medium">{item.name}</p>
+                  <p className="text-muted-foreground text-xs">
+                    {m['admin.analytics.attribution.campaigns.orders']({
+                      count: formatInteger(item.paidOrders),
+                    })}
+                  </p>
+                </div>
+                <span className="font-medium">
+                  {formatRevenue(item.revenueByCurrency)}
+                </span>
+              </div>
+            ))
+          ) : (
+            <p className="text-muted-foreground text-sm">
+              {m['admin.analytics.common.empty']()}
+            </p>
+          )}
+        </CardContent>
+      </Card>
+    </div>
   );
 }
 
@@ -474,6 +581,16 @@ export function BusinessAnalyticsPanel({
             icon={Gift}
           />
         </div>
+      </Section>
+
+      <Section
+        title={m['admin.analytics.sections.attribution.title']()}
+        description={m['admin.analytics.sections.attribution.description']()}
+      >
+        <AttributionBreakdown
+          channels={data.attribution.channels}
+          campaigns={data.attribution.topCampaigns}
+        />
       </Section>
 
       <Section

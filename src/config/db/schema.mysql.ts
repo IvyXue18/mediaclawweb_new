@@ -133,6 +133,13 @@ export const eventLog = table(
     utmSource: varchar('utm_source', { length: 120 }).notNull().default(''),
     utmMedium: varchar('utm_medium', { length: 120 }).notNull().default(''),
     utmCampaign: varchar('utm_campaign', { length: 120 }).notNull().default(''),
+    utmContent: varchar('utm_content', { length: 120 }).notNull().default(''),
+    utmTerm: varchar('utm_term', { length: 120 }).notNull().default(''),
+    channel: varchar('channel', { length: 120 }).notNull().default(''),
+    landingPage: text('landing_page').notNull().default(''),
+    attributionConfidence: varchar('attribution_confidence', { length: 40 })
+      .notNull()
+      .default(''),
     locale: varchar('locale', { length: 20 }).notNull().default(''),
     propertiesJson: longtext('properties_json'),
     occurredAt: timestamp('occurred_at').defaultNow().notNull(),
@@ -478,6 +485,35 @@ export const order = table(
     variantId: varchar191('variant_id'),
     seatCount: int('seat_count').notNull().default(1),
     priceRuleSnapshot: text('price_rule_snapshot'),
+    attributionAnonymousId: varchar191('attribution_anonymous_id')
+      .notNull()
+      .default(''),
+    attributionSessionId: varchar191('attribution_session_id')
+      .notNull()
+      .default(''),
+    attributionChannel: varchar('attribution_channel', { length: 120 })
+      .notNull()
+      .default(''),
+    attributionSource: varchar('attribution_source', { length: 120 })
+      .notNull()
+      .default(''),
+    attributionMedium: varchar('attribution_medium', { length: 120 })
+      .notNull()
+      .default(''),
+    attributionCampaign: varchar('attribution_campaign', { length: 120 })
+      .notNull()
+      .default(''),
+    attributionContent: varchar('attribution_content', { length: 120 })
+      .notNull()
+      .default(''),
+    attributionReferrer: text('attribution_referrer').notNull().default(''),
+    attributionLandingPage: text('attribution_landing_page')
+      .notNull()
+      .default(''),
+    attributionConfidence: varchar('attribution_confidence', { length: 40 })
+      .notNull()
+      .default(''),
+    attributionSnapshot: longtext('attribution_snapshot'),
   },
   (table) => [
     index('idx_order_user_status_payment_type').on(

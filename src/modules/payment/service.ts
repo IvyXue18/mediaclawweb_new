@@ -38,6 +38,7 @@ import {
   type NewSubscription,
   type UpdateSubscription,
 } from '@/modules/subscriptions/service';
+import type { AttributionEnvelope } from '@/lib/analytics-attribution';
 import { getSnowId, getUniSeq, getUuid } from '@/lib/hash';
 import { recordServerAnalyticsEvent } from '@/lib/server-analytics';
 
@@ -491,6 +492,7 @@ export async function createCheckout(params: {
   variantId?: string | null;
   seatCount?: number;
   priceRuleSnapshot?: string | null;
+  attribution?: AttributionEnvelope | null;
 }): Promise<CheckoutSession> {
   const {
     userId,
@@ -507,6 +509,7 @@ export async function createCheckout(params: {
     variantId,
     seatCount,
     priceRuleSnapshot,
+    attribution,
   } = params;
   const pm = await getPaymentManager();
   const orderNo = getUniSeq('ORD');
@@ -576,6 +579,17 @@ export async function createCheckout(params: {
       variantId: variantId || null,
       seatCount: Math.max(1, Math.floor(Number(seatCount || 1))),
       priceRuleSnapshot: priceRuleSnapshot || null,
+      attributionAnonymousId: attribution?.anonymousId || '',
+      attributionSessionId: attribution?.sessionId || '',
+      attributionChannel: attribution?.lastTouch.channel || '',
+      attributionSource: attribution?.lastTouch.source || '',
+      attributionMedium: attribution?.lastTouch.medium || '',
+      attributionCampaign: attribution?.lastTouch.campaign || '',
+      attributionContent: attribution?.lastTouch.content || '',
+      attributionReferrer: attribution?.lastTouch.referrer || '',
+      attributionLandingPage: attribution?.lastTouch.landingPage || '',
+      attributionConfidence: attribution?.lastTouch.confidence || '',
+      attributionSnapshot: attribution ? JSON.stringify(attribution) : null,
       paymentType: paymentOrder.type || 'one-time',
       paymentProvider: session.provider,
       paymentSessionId: session.checkoutInfo.sessionId,
@@ -831,8 +845,18 @@ export async function handleCheckoutSuccess(session: any, provider: string) {
     await recordServerAnalyticsEvent({
       eventName: 'payment_success',
       source: 'server',
+      anonymousId: existingOrder.attributionAnonymousId,
+      sessionId: existingOrder.attributionSessionId,
       userId: existingOrder.userId,
       orderNo: existingOrder.orderNo,
+      referrer: existingOrder.attributionReferrer,
+      utmSource: existingOrder.attributionSource,
+      utmMedium: existingOrder.attributionMedium,
+      utmCampaign: existingOrder.attributionCampaign,
+      utmContent: existingOrder.attributionContent,
+      channel: existingOrder.attributionChannel,
+      landingPage: existingOrder.attributionLandingPage,
+      attributionConfidence: existingOrder.attributionConfidence,
       properties: {
         productId: existingOrder.productId,
         productName: existingOrder.productName,

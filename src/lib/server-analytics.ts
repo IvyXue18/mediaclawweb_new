@@ -22,6 +22,11 @@ type ServerAnalyticsEvent = {
   utmSource?: string | null;
   utmMedium?: string | null;
   utmCampaign?: string | null;
+  utmContent?: string | null;
+  utmTerm?: string | null;
+  channel?: string | null;
+  landingPage?: string | null;
+  attributionConfidence?: string | null;
   locale?: string | null;
   properties?: AnalyticsProperties;
   occurredAt?: Date;
@@ -56,6 +61,11 @@ export async function recordServerAnalyticsEvent(event: ServerAnalyticsEvent) {
         utmSource: trimValue(event.utmSource, 120),
         utmMedium: trimValue(event.utmMedium, 120),
         utmCampaign: trimValue(event.utmCampaign, 120),
+        utmContent: trimValue(event.utmContent, 120),
+        utmTerm: trimValue(event.utmTerm, 120),
+        channel: trimValue(event.channel, 120),
+        landingPage: trimValue(event.landingPage, 500),
+        attributionConfidence: trimValue(event.attributionConfidence, 40),
         locale: trimValue(event.locale, 20),
         propertiesJson: JSON.stringify(event.properties || {}),
         occurredAt: event.occurredAt || new Date(),

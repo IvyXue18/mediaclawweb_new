@@ -514,6 +514,24 @@ storage (R2), AI (Replicate/Gemini/Fal), and analytics are configured at
 — same-named env vars still work as fallbacks, but database values win.
 Keep `.env.example` minimal; don't add provider keys to it.
 
+## GitHub Authentication in Codex
+
+The GitHub CLI credential for this workspace is stored in the macOS Keychain. A
+sandboxed Codex command may be unable to read that credential and can therefore
+report `invalid token`, `no oauth token found`, or an empty result even when the
+GitHub login is valid.
+
+- Never conclude that the GitHub login or token has expired from a sandboxed
+  `gh auth status` result alone.
+- Before suggesting `gh auth logout`, `gh auth login`, or replacing the token,
+  rerun `gh auth status` and `gh api user` with normal system permissions
+  (`sandbox_permissions=require_escalated`).
+- Treat successful normal-permission checks as authoritative. Only recommend
+  reauthentication when those checks also fail.
+- Git HTTPS credentials may be available through macOS Keychain even when the
+  sandbox cannot access them; distinguish an execution-environment limitation
+  from credential revocation.
+
 ## Critical Rules
 
 1. **Don't import between modules** (except the documented payment→credits/subscriptions dependency)

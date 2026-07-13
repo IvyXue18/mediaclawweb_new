@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { and, eq, gte, inArray, isNull, lt } from 'drizzle-orm';
+import { and, count, eq, gte, inArray, isNull, lt, sql } from 'drizzle-orm';
 
 import { getAuth } from '@/core/auth';
 import { db } from '@/core/db';
@@ -88,18 +88,6 @@ function eventRangeWhere(start: Date | null, end: Date | null) {
   return and(gte(eventLog.occurredAt, start), lt(eventLog.occurredAt, end));
 }
 
-function actorId(row: {
-  id: string;
-  userId: string;
-  clientUuid: string;
-  anonymousId: string;
-  sessionId: string;
-}) {
-  return (
-    row.userId || row.clientUuid || row.anonymousId || row.sessionId || row.id
-  );
-}
-
 function rate(numerator: number, denominator: number) {
   return denominator > 0 ? numerator / denominator : 0;
 }
@@ -156,22 +144,32 @@ async function GET({ request }: { request: Request }) {
     await requireAdmin(request);
 
     const { range, start, end } = resolveRange(request);
+    const eventActor = sql<string>`coalesce(
+      nullif(${eventLog.userId}, ''),
+      nullif(${eventLog.clientUuid}, ''),
+      nullif(${eventLog.anonymousId}, ''),
+      nullif(${eventLog.sessionId}, ''),
+      ${eventLog.id}
+    )`;
     const eventRows = await safeRead(
       'event_log',
       () =>
         db()
           .select({
-            id: eventLog.id,
             eventName: eventLog.eventName,
             source: eventLog.source,
-            anonymousId: eventLog.anonymousId,
-            userId: eventLog.userId,
-            clientUuid: eventLog.clientUuid,
-            sessionId: eventLog.sessionId,
-            occurredAt: eventLog.occurredAt,
+            channel: eventLog.channel,
+            actor: eventActor,
+            eventCount: count(),
           })
           .from(eventLog)
-          .where(eventRangeWhere(start, end)),
+          .where(eventRangeWhere(start, end))
+          .groupBy(
+            eventLog.eventName,
+            eventLog.source,
+            eventLog.channel,
+            eventActor
+          ),
       []
     );
 
@@ -180,14 +178,14 @@ async function GET({ request }: { request: Request }) {
       eventRows.forEach((row) => {
         if (row.eventName !== eventName) return;
         if (source && row.source !== source) return;
-        values.add(actorId(row));
+        values.add(row.actor);
       });
       return values;
     };
 
-    const pageViews = eventRows.filter(
-      (row) => row.eventName === 'page_view'
-    ).length;
+    const pageViews = eventRows
+      .filter((row) => row.eventName === 'page_view')
+      .reduce((total, row) => total + Number(row.eventCount || 0), 0);
     const visitors = actorSet('page_view').size;
     const signUpUsers = actorSet('sign_up_success').size;
     const checkoutCreatedUsers = actorSet('checkout_created').size;
@@ -215,9 +213,11 @@ async function GET({ request }: { request: Request }) {
       'extension'
     ).size;
     const featureUsedActors = actorSet('feature_used', 'extension');
-    const featureUseEvents = eventRows.filter(
-      (row) => row.source === 'extension' && row.eventName === 'feature_used'
-    ).length;
+    const featureUseEvents = eventRows
+      .filter(
+        (row) => row.source === 'extension' && row.eventName === 'feature_used'
+      )
+      .reduce((total, row) => total + Number(row.eventCount || 0), 0);
 
     const paidRows = await safeRead(
       'paid orders',
@@ -232,6 +232,9 @@ async function GET({ request }: { request: Request }) {
             paymentCurrency: order.paymentCurrency,
             paidAt: order.paidAt,
             createdAt: order.createdAt,
+            attributionChannel: order.attributionChannel,
+            attributionCampaign: order.attributionCampaign,
+            attributionContent: order.attributionContent,
           })
           .from(order)
           .where(and(eq(order.status, 'paid'), isNull(order.deletedAt))),
@@ -268,6 +271,95 @@ async function GET({ request }: { request: Request }) {
       (total, item) => total + item.amount,
       0
     );
+    const attributionMap = new Map<
+      string,
+      {
+        visitors: Set<string>;
+        paidUsers: Set<string>;
+        paidOrders: number;
+        revenue: Map<string, number>;
+      }
+    >();
+    const getAttributionBucket = (channel: string) => {
+      const name = channel || 'unattributed';
+      const current = attributionMap.get(name) || {
+        visitors: new Set<string>(),
+        paidUsers: new Set<string>(),
+        paidOrders: 0,
+        revenue: new Map<string, number>(),
+      };
+      attributionMap.set(name, current);
+      return current;
+    };
+    eventRows.forEach((row) => {
+      if (row.eventName !== 'page_view') return;
+      getAttributionBucket(row.channel).visitors.add(row.actor);
+    });
+    periodPaidRows.forEach((row) => {
+      const bucket = getAttributionBucket(row.attributionChannel);
+      bucket.paidUsers.add(row.userId);
+      bucket.paidOrders += 1;
+      const currency = currencyCode(row);
+      bucket.revenue.set(
+        currency,
+        (bucket.revenue.get(currency) || 0) + amountCents(row)
+      );
+    });
+    const attributionChannels = Array.from(attributionMap.entries())
+      .map(([channel, item]) => ({
+        channel,
+        visitors: item.visitors.size,
+        paidUsers: item.paidUsers.size,
+        paidOrders: item.paidOrders,
+        revenueByCurrency: Array.from(item.revenue.entries()).map(
+          ([currency, amount]) => ({ currency, amount })
+        ),
+      }))
+      .sort((a, b) => {
+        const aRevenue = a.revenueByCurrency.reduce(
+          (total, item) => total + item.amount,
+          0
+        );
+        const bRevenue = b.revenueByCurrency.reduce(
+          (total, item) => total + item.amount,
+          0
+        );
+        return bRevenue - aRevenue || b.visitors - a.visitors;
+      });
+    const campaignMap = new Map<
+      string,
+      { paidOrders: number; revenue: Map<string, number> }
+    >();
+    periodPaidRows.forEach((row) => {
+      const campaign = row.attributionCampaign || row.attributionContent;
+      if (!campaign) return;
+      const key = `${row.attributionChannel || 'unattributed'} / ${campaign}`;
+      const current = campaignMap.get(key) || {
+        paidOrders: 0,
+        revenue: new Map<string, number>(),
+      };
+      current.paidOrders += 1;
+      const currency = currencyCode(row);
+      current.revenue.set(
+        currency,
+        (current.revenue.get(currency) || 0) + amountCents(row)
+      );
+      campaignMap.set(key, current);
+    });
+    const topCampaigns = Array.from(campaignMap.entries())
+      .map(([name, item]) => ({
+        name,
+        paidOrders: item.paidOrders,
+        revenueByCurrency: Array.from(item.revenue.entries()).map(
+          ([currency, amount]) => ({ currency, amount })
+        ),
+      }))
+      .sort(
+        (a, b) =>
+          b.revenueByCurrency.reduce((total, item) => total + item.amount, 0) -
+          a.revenueByCurrency.reduce((total, item) => total + item.amount, 0)
+      )
+      .slice(0, 10);
 
     const rewardRows = await safeRead(
       'benefit rewards',
@@ -471,6 +563,11 @@ async function GET({ request }: { request: Request }) {
         averageOrderAmount: periodPaidRows.length
           ? paidAmount / periodPaidRows.length
           : 0,
+      },
+      attribution: {
+        model: 'last_non_direct',
+        channels: attributionChannels,
+        topCampaigns,
       },
       welfare: {
         rewardUsers,

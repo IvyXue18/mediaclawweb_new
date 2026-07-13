@@ -1,3 +1,15 @@
+import {
+  ATTRIBUTION_COOKIE_NAME,
+  ATTRIBUTION_MAX_AGE_DAYS,
+  ATTRIBUTION_STORAGE_KEY,
+  deriveAttributionTouch,
+  mergeAttributionState,
+  parseAttributionEnvelope,
+  serializeAttributionEnvelope,
+  type AttributionEnvelope,
+  type AttributionState,
+} from '@/lib/analytics-attribution';
+
 type AnalyticsProperties = Record<string, unknown>;
 
 const ANONYMOUS_ID_KEY = 'mc_anonymous_id';
@@ -50,6 +62,36 @@ function currentSearchParam(name: string) {
   return new URLSearchParams(window.location.search).get(name) || '';
 }
 
+function persistAttributionEnvelope(envelope: AttributionEnvelope) {
+  const value = serializeAttributionEnvelope(envelope);
+  writeStorage(ATTRIBUTION_STORAGE_KEY, value);
+  const maxAge = ATTRIBUTION_MAX_AGE_DAYS * 24 * 60 * 60;
+  const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+  document.cookie = `${ATTRIBUTION_COOKIE_NAME}=${value}; path=/; max-age=${maxAge}; SameSite=Lax${secure}`;
+}
+
+function captureCurrentAttribution(
+  anonymousId: string,
+  sessionId: string
+): AttributionEnvelope {
+  const previous = parseAttributionEnvelope(
+    readStorage(ATTRIBUTION_STORAGE_KEY)
+  );
+  const touch = deriveAttributionTouch({
+    pageUrl: window.location.href,
+    referrer: document.referrer,
+    userAgent: window.navigator.userAgent,
+  });
+  const state: AttributionState = mergeAttributionState(previous, touch);
+  const envelope: AttributionEnvelope = {
+    ...state,
+    anonymousId,
+    sessionId,
+  };
+  persistAttributionEnvelope(envelope);
+  return envelope;
+}
+
 export function getCurrentAnalyticsContext() {
   if (typeof window === 'undefined') {
     return {
@@ -60,17 +102,34 @@ export function getCurrentAnalyticsContext() {
       utmSource: '',
       utmMedium: '',
       utmCampaign: '',
+      utmContent: '',
+      utmTerm: '',
+      channel: '',
+      landingPage: '',
+      attributionConfidence: '',
+      attribution: null,
     };
   }
 
+  const anonymousId = getAnonymousId();
+  const sessionId = getSessionId();
+  const attribution = captureCurrentAttribution(anonymousId, sessionId);
+  const lastTouch = attribution.lastTouch;
+
   return {
-    anonymousId: getAnonymousId(),
-    sessionId: getSessionId(),
+    anonymousId,
+    sessionId,
     pagePath: `${window.location.pathname}${window.location.search}`,
-    referrer: document.referrer || '',
-    utmSource: currentSearchParam('utm_source'),
-    utmMedium: currentSearchParam('utm_medium'),
-    utmCampaign: currentSearchParam('utm_campaign'),
+    referrer: lastTouch.referrer || document.referrer || '',
+    utmSource: lastTouch.source || currentSearchParam('utm_source'),
+    utmMedium: lastTouch.medium || currentSearchParam('utm_medium'),
+    utmCampaign: lastTouch.campaign || currentSearchParam('utm_campaign'),
+    utmContent: lastTouch.content || currentSearchParam('utm_content'),
+    utmTerm: lastTouch.term || currentSearchParam('utm_term'),
+    channel: lastTouch.channel,
+    landingPage: lastTouch.landingPage,
+    attributionConfidence: lastTouch.confidence,
+    attribution,
   };
 }
 
@@ -97,6 +156,11 @@ export function recordAnalyticsEventSafe(
         utmSource: context.utmSource,
         utmMedium: context.utmMedium,
         utmCampaign: context.utmCampaign,
+        utmContent: context.utmContent,
+        utmTerm: context.utmTerm,
+        channel: context.channel,
+        landingPage: context.landingPage,
+        attributionConfidence: context.attributionConfidence,
         properties,
       }),
     }).catch(() => {});

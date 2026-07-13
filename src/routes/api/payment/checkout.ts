@@ -11,6 +11,11 @@ import {
   partnerBusinessId,
 } from '@/modules/partners/service';
 import { createCheckout } from '@/modules/payment/service';
+import {
+  ATTRIBUTION_COOKIE_NAME,
+  parseAttributionEnvelope,
+} from '@/lib/analytics-attribution';
+import { getCookieFromHeader } from '@/lib/cookie';
 import { enforceMinIntervalRateLimit } from '@/lib/rate-limit';
 import { respData, respErr } from '@/lib/resp';
 import { recordServerAnalyticsEvent } from '@/lib/server-analytics';
@@ -164,6 +169,12 @@ async function POST({ request }: { request: Request }) {
     const chargeAmount = testAmount > 0 ? testAmount : baseAmount;
     const defaultRedirectPath = '/settings/payments';
     const clientip = clientIpFromHeaders(request.headers);
+    const attribution = parseAttributionEnvelope(
+      getCookieFromHeader(
+        request.headers.get('cookie'),
+        ATTRIBUTION_COOKIE_NAME
+      )
+    );
 
     // Build success/cancel URLs — only accept same-origin redirects.
     const baseUrl = envConfigs.app_url || 'http://localhost:3000';
@@ -249,14 +260,26 @@ async function POST({ request }: { request: Request }) {
       variantId: partnerRow ? partnerVariantId : null,
       seatCount: partnerRow ? seatCount : 1,
       priceRuleSnapshot: partnerPriceRuleSnapshot,
+      attribution,
     });
 
     const checkoutUrl = checkout.checkoutInfo.checkoutUrl;
     await recordServerAnalyticsEvent({
       eventName: 'checkout_created',
       source: 'server',
+      anonymousId: attribution?.anonymousId,
+      sessionId: attribution?.sessionId,
       userId: session.user.id,
       pagePath: safeRedirectPath,
+      referrer: attribution?.lastTouch.referrer,
+      utmSource: attribution?.lastTouch.source,
+      utmMedium: attribution?.lastTouch.medium,
+      utmCampaign: attribution?.lastTouch.campaign,
+      utmContent: attribution?.lastTouch.content,
+      utmTerm: attribution?.lastTouch.term,
+      channel: attribution?.lastTouch.channel,
+      landingPage: attribution?.lastTouch.landingPage,
+      attributionConfidence: attribution?.lastTouch.confidence,
       properties: {
         productId: product.productId,
         productName: product.productName,
@@ -271,6 +294,7 @@ async function POST({ request }: { request: Request }) {
         amount: chargeAmount,
         currency: product.currency,
         redirect: safeRedirectPath,
+        attribution,
       },
     });
     return respData({ checkoutUrl, checkout_url: checkoutUrl });
