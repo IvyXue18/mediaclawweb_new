@@ -5,6 +5,7 @@ import { z } from 'zod';
 
 import { authClient, signIn, useSession } from '@/core/auth/client';
 import { Link, useRouter } from '@/core/i18n/navigation';
+import { resolveLoginIdentifier } from '@/lib/auth-identifier';
 import {
   DEFAULT_AUTH_REDIRECT_PATH,
   getSafeAuthCallbackPath,
@@ -30,7 +31,7 @@ import {
 } from './-auth-layout';
 
 const signInSchema = z.object({
-  email: z.string().email(m['common.sign.email_placeholder']()),
+  email: z.string().trim().min(1, m['common.sign.login_identifier_required']()),
   password: z.string().min(1),
 });
 
@@ -96,8 +97,9 @@ function SignInPage() {
     onSubmit: async ({ value }) => {
       setError('');
       try {
+        const loginEmail = resolveLoginIdentifier(value.email);
         const result: any = await signIn.email({
-          email: value.email,
+          email: loginEmail,
           password: value.password,
         });
         if (result.error) {
@@ -109,10 +111,10 @@ function SignInPage() {
             (status === 403 && /not verified/i.test(msg))
           ) {
             const verifyPath = `/verify-email?sent=1&email=${encodeURIComponent(
-              value.email
+              loginEmail
             )}&callbackUrl=${encodeURIComponent(afterLoginUrl)}`;
             void authClient.sendVerificationEmail({
-              email: value.email,
+              email: loginEmail,
               callbackURL: localizeHref(afterLoginUrl),
             });
             router.push(verifyPath);
@@ -195,10 +197,12 @@ function SignInPage() {
                   {(field) => (
                     <TextField
                       field={field}
-                      label={m['common.sign.email_title']()}
-                      type="email"
+                      label={m['common.sign.login_identifier_title']()}
+                      type="text"
                       required
-                      placeholder={m['common.sign.email_placeholder']()}
+                      placeholder={m[
+                        'common.sign.login_identifier_placeholder'
+                      ]()}
                       inputClassName={authInputClassName}
                     />
                   )}

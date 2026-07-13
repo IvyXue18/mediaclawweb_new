@@ -6,7 +6,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { Coins, MoreHorizontal, Shield } from 'lucide-react';
+import { Coins, KeyRound, MoreHorizontal, Shield } from 'lucide-react';
 import { toast } from 'sonner';
 
 import {
@@ -16,6 +16,7 @@ import {
   pageQuery,
   type PageResult,
 } from '@/lib/api-client';
+import { formatLoginIdentifier } from '@/lib/auth-identifier';
 import { m } from '@/paraglide/messages.js';
 import { DataTable, type Column } from '@/components/data-table';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -77,6 +78,11 @@ function UsersPage() {
   );
   const [creditsAmount, setCreditsAmount] = useState('');
   const [creditsDesc, setCreditsDesc] = useState('');
+  const [passwordUser, setPasswordUser] = useState<User | null>(null);
+  const [passwordForm, setPasswordForm] = useState({
+    newPassword: '',
+    confirmPassword: '',
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearch(search), 300);
@@ -129,6 +135,11 @@ function UsersPage() {
     setCreditsDesc('');
   }
 
+  function openPasswordDialog(u: User) {
+    setPasswordUser(u);
+    setPasswordForm({ newPassword: '', confirmPassword: '' });
+  }
+
   const creditsMutation = useMutation({
     mutationFn: (vars: {
       userId: string;
@@ -178,6 +189,30 @@ function UsersPage() {
     onError: (e: Error) => toast.error(e.message),
   });
 
+  const passwordMutation = useMutation({
+    mutationFn: () => {
+      if (!passwordUser) {
+        throw new Error(m['admin.users.reset_password_missing_user']());
+      }
+      if (passwordForm.newPassword.length < 6) {
+        throw new Error(m['admin.users.reset_password_invalid']());
+      }
+      if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+        throw new Error(m['admin.users.reset_password_mismatch']());
+      }
+      return apiPost(`/api/admin/users/${passwordUser.id}/password`, {
+        newPassword: passwordForm.newPassword,
+        confirmPassword: passwordForm.confirmPassword,
+      });
+    },
+    onSuccess: () => {
+      toast.success(m['admin.users.reset_password_success']());
+      setPasswordUser(null);
+      queryClient.invalidateQueries({ queryKey: ['admin-users'] });
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
   const removeRoleMutation = useMutation({
     mutationFn: (roleId: string) =>
       apiDelete(
@@ -220,7 +255,7 @@ function UsersPage() {
     },
     {
       header: m['admin.users.email_col'](),
-      cell: (u) => u.email,
+      cell: (u) => formatLoginIdentifier(u.email),
     },
     {
       header: m['admin.users.credits_col'](),
@@ -259,6 +294,10 @@ function UsersPage() {
             <DropdownMenuItem onClick={() => openRoleDialog(u)}>
               <Shield className="size-4" />
               {m['admin.users.manage_roles_title']()}
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => openPasswordDialog(u)}>
+              <KeyRound className="size-4" />
+              {m['admin.users.reset_password_title']()}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -419,6 +458,75 @@ function UsersPage() {
               {creditsMutation.isPending
                 ? m['admin.users.credits_submitting']()
                 : m['admin.users.credits_submit']()}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={!!passwordUser}
+        onOpenChange={(v) => !v && setPasswordUser(null)}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{m['admin.users.reset_password_title']()}</DialogTitle>
+            <DialogDescription>
+              {passwordUser
+                ? m['admin.users.reset_password_description']({
+                    name:
+                      passwordUser.name ||
+                      formatLoginIdentifier(passwordUser.email),
+                  })
+                : ''}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="space-y-1.5">
+              <label className="text-sm font-medium">
+                {m['admin.users.reset_password_new_label']()}
+              </label>
+              <Input
+                type="password"
+                value={passwordForm.newPassword}
+                onChange={(e) =>
+                  setPasswordForm({
+                    ...passwordForm,
+                    newPassword: e.target.value,
+                  })
+                }
+                placeholder={m['admin.users.reset_password_new_placeholder']()}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-sm font-medium">
+                {m['admin.users.reset_password_confirm_label']()}
+              </label>
+              <Input
+                type="password"
+                value={passwordForm.confirmPassword}
+                onChange={(e) =>
+                  setPasswordForm({
+                    ...passwordForm,
+                    confirmPassword: e.target.value,
+                  })
+                }
+                placeholder={m[
+                  'admin.users.reset_password_confirm_placeholder'
+                ]()}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setPasswordUser(null)}>
+              {m['admin.roles.cancel']()}
+            </Button>
+            <Button
+              onClick={() => passwordMutation.mutate()}
+              disabled={passwordMutation.isPending}
+            >
+              {passwordMutation.isPending
+                ? m['admin.users.reset_password_submitting']()
+                : m['admin.users.reset_password_submit']()}
             </Button>
           </DialogFooter>
         </DialogContent>

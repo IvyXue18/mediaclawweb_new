@@ -10,6 +10,7 @@ import { Copy, KeyRound, MoreHorizontal, Plus } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { apiGet, apiPatch, apiPost, type PageResult } from '@/lib/api-client';
+import { formatLoginIdentifier } from '@/lib/auth-identifier';
 import {
   credentialIssueTypeLabel,
   credentialPlanLabel,
@@ -191,6 +192,11 @@ function AdminCredentialsPage() {
     maxBindings: '',
     notes: '',
   });
+  const [passwordRow, setPasswordRow] = useState<CredentialRow | null>(null);
+  const [passwordForm, setPasswordForm] = useState({
+    newPassword: '',
+    confirmPassword: '',
+  });
   const [form, setForm] = useState({
     code: '',
     ownerEmail: '',
@@ -347,6 +353,29 @@ function AdminCredentialsPage() {
     onError: (error: Error) => toast.error(error.message),
   });
 
+  const passwordMutation = useMutation({
+    mutationFn: () => {
+      if (!passwordRow?.ownerUserId) {
+        throw new Error(m['admin.users.reset_password_missing_user']());
+      }
+      if (passwordForm.newPassword.length < 6) {
+        throw new Error(m['admin.users.reset_password_invalid']());
+      }
+      if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+        throw new Error(m['admin.users.reset_password_mismatch']());
+      }
+      return apiPost(`/api/admin/users/${passwordRow.ownerUserId}/password`, {
+        newPassword: passwordForm.newPassword,
+        confirmPassword: passwordForm.confirmPassword,
+      });
+    },
+    onSuccess: () => {
+      toast.success(m['admin.users.reset_password_success']());
+      setPasswordRow(null);
+    },
+    onError: (error: Error) => toast.error(error.message),
+  });
+
   function applyCredentialPreset(preset: CredentialPreset) {
     setForm((current) => ({
       ...current,
@@ -367,6 +396,11 @@ function AdminCredentialsPage() {
       maxBindings: String(row.maxBindings || 1),
       notes: '',
     });
+  }
+
+  function openPasswordDialog(row: CredentialRow) {
+    setPasswordRow(row);
+    setPasswordForm({ newPassword: '', confirmPassword: '' });
   }
 
   function handleIssueTypeChange(issueType: CredentialIssueType) {
@@ -435,7 +469,7 @@ function AdminCredentialsPage() {
             {row.ownerName || m['admin.credentials.unclaimed']()}
           </div>
           <div className="text-muted-foreground text-xs">
-            {row.ownerEmail || row.ownerUserId || '-'}
+            {formatLoginIdentifier(row.ownerEmail) || row.ownerUserId || '-'}
           </div>
         </div>
       ),
@@ -492,6 +526,11 @@ function AdminCredentialsPage() {
             <DropdownMenuItem onClick={() => openRechargeDialog(row)}>
               {m['admin.credentials.action_recharge']()}
             </DropdownMenuItem>
+            {row.ownerUserId && (
+              <DropdownMenuItem onClick={() => openPasswordDialog(row)}>
+                {m['admin.credentials.action_reset_owner_password']()}
+              </DropdownMenuItem>
+            )}
             {STATUS_ACTIONS.map((status) => (
               <DropdownMenuItem
                 key={status}
@@ -907,6 +946,96 @@ function AdminCredentialsPage() {
               onClick={() => rechargeMutation.mutate()}
             >
               {m['admin.credentials.recharge_submit']()}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={!!passwordRow}
+        onOpenChange={(nextOpen) => {
+          if (!nextOpen) setPasswordRow(null);
+        }}
+      >
+        <DialogContent className="sm:max-w-xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <KeyRound className="size-5" />
+              {m['admin.users.reset_password_title']()}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-2">
+            <div className="grid gap-2">
+              <Label htmlFor="passwordUser">
+                {m['admin.credentials.owner_col']()}
+              </Label>
+              <Input
+                id="passwordUser"
+                value={
+                  passwordRow
+                    ? `${passwordRow.ownerName || m['admin.credentials.unclaimed']()} / ${
+                        formatLoginIdentifier(passwordRow.ownerEmail) ||
+                        passwordRow.ownerUserId ||
+                        '-'
+                      }`
+                    : ''
+                }
+                readOnly
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="newPassword">
+                {m['admin.users.reset_password_new_label']()}
+              </Label>
+              <Input
+                id="newPassword"
+                type="password"
+                value={passwordForm.newPassword}
+                onChange={(event) =>
+                  setPasswordForm({
+                    ...passwordForm,
+                    newPassword: event.target.value,
+                  })
+                }
+                placeholder={m['admin.users.reset_password_new_placeholder']()}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="confirmPassword">
+                {m['admin.users.reset_password_confirm_label']()}
+              </Label>
+              <Input
+                id="confirmPassword"
+                type="password"
+                value={passwordForm.confirmPassword}
+                onChange={(event) =>
+                  setPasswordForm({
+                    ...passwordForm,
+                    confirmPassword: event.target.value,
+                  })
+                }
+                placeholder={m[
+                  'admin.users.reset_password_confirm_placeholder'
+                ]()}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setPasswordRow(null)}
+            >
+              {m['admin.credentials.cancel']()}
+            </Button>
+            <Button
+              type="button"
+              disabled={passwordMutation.isPending}
+              onClick={() => passwordMutation.mutate()}
+            >
+              {passwordMutation.isPending
+                ? m['admin.users.reset_password_submitting']()
+                : m['admin.users.reset_password_submit']()}
             </Button>
           </DialogFooter>
         </DialogContent>
