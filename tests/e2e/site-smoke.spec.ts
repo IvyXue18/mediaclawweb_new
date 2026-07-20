@@ -395,6 +395,9 @@ for (const item of pages) {
         .toBe(233);
     }
     if ('pricingCards' in item) {
+      await expect(page.locator('body')).toContainText(
+        '从采集分析，到选题创作的一站式内容工作流'
+      );
       await expect(
         page.locator('#pricing [data-pricing-group-tabs]')
       ).toBeVisible();
@@ -417,6 +420,17 @@ for (const item of pages) {
         })
         .toBe('true');
       await expect(page.locator('#pricing')).toContainText(/年付(?:立)?省/);
+      await expect(page.locator('[data-table-group-row]')).toHaveCount(3);
+      await expect(page.locator('[data-table-subgroup-row]')).toHaveCount(8);
+      await expect(page.locator('[data-desktop-data-table]')).toContainText(
+        '把内容拿回来：采集、下载、筛选与提取'
+      );
+      await expect(page.locator('[data-desktop-data-table]')).toContainText(
+        '把内容研究透：赛道、对标、选题与创作'
+      );
+      await expect(page.locator('[data-desktop-data-table]')).toContainText(
+        '飞书多维表格同步、协作与 AI 模板'
+      );
     }
     await expect(page.locator('body')).not.toContainText(
       /Internal Server Error|Application error|This page could not be found/i

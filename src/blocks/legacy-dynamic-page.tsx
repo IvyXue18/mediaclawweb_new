@@ -1996,9 +1996,29 @@ function isDataTableGroupRow(row: Record<string, string>) {
   return Boolean(row.section_title);
 }
 
+function isDataTableSubgroupRow(row: Record<string, string>) {
+  return Boolean(row.subsection_title);
+}
+
+const planComparisonColumnWidths: Record<string, string> = {
+  feature: '28%',
+  free: '14%',
+  pro: '14%',
+  team: '14%',
+  note: '30%',
+};
+
+function isPlanComparisonTable(columns: Array<{ key: string }>) {
+  return (
+    columns.length === 5 &&
+    columns.every((column) => planComparisonColumnWidths[column.key])
+  );
+}
+
 function DataTableBlock({ section }: { section: LegacySection }) {
   const columns = normalizeTableColumns(section);
   const rows = section.rows || [];
+  const hasPlanComparisonLayout = isPlanComparisonTable(columns);
 
   return (
     <section
@@ -2016,7 +2036,22 @@ function DataTableBlock({ section }: { section: LegacySection }) {
             className="hidden overflow-x-auto md:block"
             data-desktop-data-table
           >
-            <table className="min-w-full border-collapse text-sm">
+            <table
+              className={cn(
+                'min-w-full border-collapse text-sm',
+                hasPlanComparisonLayout && 'table-fixed'
+              )}
+            >
+              {hasPlanComparisonLayout ? (
+                <colgroup>
+                  {columns.map((column) => (
+                    <col
+                      key={column.key}
+                      style={{ width: planComparisonColumnWidths[column.key] }}
+                    />
+                  ))}
+                </colgroup>
+              ) : null}
               <thead>
                 <tr className="border-border/60 border-b">
                   {columns.map((column) => (
@@ -2051,6 +2086,26 @@ function DataTableBlock({ section }: { section: LegacySection }) {
                         {row.section_description ? (
                           <p className="text-muted-foreground mt-1 text-xs">
                             {row.section_description}
+                          </p>
+                        ) : null}
+                      </td>
+                    </tr>
+                  ) : isDataTableSubgroupRow(row) ? (
+                    <tr
+                      key={index}
+                      className="border-border/50 bg-muted/25 border-b"
+                      data-table-subgroup-row
+                    >
+                      <td
+                        colSpan={columns.length}
+                        className="px-4 py-4 text-left"
+                      >
+                        <p className="text-foreground text-sm font-semibold">
+                          {row.subsection_title}
+                        </p>
+                        {row.subsection_description ? (
+                          <p className="text-muted-foreground mt-1 text-xs">
+                            {row.subsection_description}
                           </p>
                         ) : null}
                       </td>
@@ -2102,6 +2157,21 @@ function DataTableBlock({ section }: { section: LegacySection }) {
                   {row.section_description ? (
                     <p className="text-muted-foreground mt-1 text-xs">
                       {row.section_description}
+                    </p>
+                  ) : null}
+                </div>
+              ) : isDataTableSubgroupRow(row) ? (
+                <div
+                  key={rowIndex}
+                  className="bg-muted/25 px-3 py-4"
+                  data-mobile-data-subgroup
+                >
+                  <p className="text-foreground text-sm font-semibold">
+                    {row.subsection_title}
+                  </p>
+                  {row.subsection_description ? (
+                    <p className="text-muted-foreground mt-1 text-xs">
+                      {row.subsection_description}
                     </p>
                   ) : null}
                 </div>
