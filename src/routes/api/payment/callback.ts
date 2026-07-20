@@ -68,7 +68,11 @@ function withOrderStateParams({
 
 export async function GET({ request }: { request: Request }) {
   const url = new URL(request.url);
-  const orderNo = url.searchParams.get('order_no');
+  // ZPay's return notification supplies out_trade_no itself and documents
+  // that return_url query parameters are not preserved. Keep order_no for
+  // other providers and older checkout URLs.
+  const orderNo =
+    url.searchParams.get('order_no') || url.searchParams.get('out_trade_no');
   const redirect = url.searchParams.get('redirect');
   const fallback = `${envConfigs.app_url}/settings/payments`;
   let callbackError = false;

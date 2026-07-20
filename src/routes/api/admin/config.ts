@@ -15,7 +15,7 @@ async function GET({ request }: { request: Request }) {
     if (!isAdmin) return respErr('Forbidden');
 
     // Masked + protected-keys-stripped view — never send raw configs to a client.
-    const configs = await getAdminConfigs();
+    const configs = await getAdminConfigs({ bypassCache: true });
     return respData(configs);
   } catch (error: any) {
     return respErr(error.message || 'Internal error');

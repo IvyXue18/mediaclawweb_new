@@ -31,6 +31,7 @@ async function GET({ request }: { request: Request }) {
     const offset = (page - 1) * pageSize;
 
     const transactionType = searchParams.get('transactionType');
+    const credentialCode = searchParams.get('credentialCode')?.trim();
     const search = searchParams.get('search');
 
     const conditions: SQL[] = [
@@ -50,6 +51,9 @@ async function GET({ request }: { request: Request }) {
       conditions.push(inArray(credit.transactionType, ['consume', 'expense']));
     } else if (transactionType) {
       conditions.push(eq(credit.transactionType, transactionType));
+    }
+    if (credentialCode) {
+      conditions.push(eq(credit.credentialCode, credentialCode));
     }
     if (search) {
       conditions.push(

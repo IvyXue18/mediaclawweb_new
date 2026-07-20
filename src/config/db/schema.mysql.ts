@@ -449,6 +449,7 @@ export const order = table(
     discountCode: varchar191('discount_code'),
     discountAmount: int('discount_amount'),
     discountCurrency: varchar('discount_currency', { length: 10 }),
+    deductionReservationKey: varchar191('deduction_reservation_key'),
     paymentEmail: varchar191('payment_email'),
     paymentAmount: int('payment_amount'),
     paymentCurrency: varchar('payment_currency', { length: 10 }),
@@ -485,6 +486,9 @@ export const order = table(
     variantId: varchar191('variant_id'),
     seatCount: int('seat_count').notNull().default(1),
     priceRuleSnapshot: text('price_rule_snapshot'),
+    starterBrowserInstallHash: varchar191('starter_browser_install_hash')
+      .notNull()
+      .default(''),
     attributionAnonymousId: varchar191('attribution_anonymous_id')
       .notNull()
       .default(''),
@@ -526,6 +530,14 @@ export const order = table(
       table.paymentProvider
     ),
     index('idx_order_created_at').on(table.createdAt),
+    index('idx_order_starter_browser').on(
+      table.starterBrowserInstallHash,
+      table.productId,
+      table.status
+    ),
+    uniqueIndex('uq_order_deduction_reservation').on(
+      table.deductionReservationKey
+    ),
   ]
 );
 
@@ -1105,3 +1117,49 @@ export type NewTicketMessage = typeof ticketMessage.$inferInsert;
 
 // ─── Custom tables ───────────────────────────────────────────────────────────
 // Add your own tables below this line.
+
+// Account analysis keeps the human-readable report and only the representative
+// evidence index needed by the report. Full scraped-note media stays in the
+// extension/data pool instead of being duplicated here.
+export const accountStyleProfile = table(
+  'account_style_profile',
+  {
+    id: varchar191('id').primaryKey(),
+    userId: varchar191('user_id')
+      .notNull()
+      .references(() => user.id),
+    platform: varchar('platform', { length: 50 }).notNull(),
+    platformBloggerId: varchar191('platform_blogger_id').notNull(),
+    bloggerName: varchar('blogger_name', { length: 255 }),
+    bloggerUrl: text('blogger_url'),
+    sourceType: varchar('source_type', { length: 50 })
+      .notNull()
+      .default('standard'),
+    sampleCount: int('sample_count').notNull().default(0),
+    detailSampleCount: int('detail_sample_count').notNull().default(0),
+    commentSampleCount: int('comment_sample_count').notNull().default(0),
+    confidenceLevel: varchar('confidence_level', { length: 20 })
+      .notNull()
+      .default('medium'),
+    profileJson: longtext('profile_json').notNull(),
+    editableJson: longtext('editable_json').notNull(),
+    sampleSummaryJson: longtext('sample_summary_json').notNull(),
+    lastAnalyzedAt: timestamp('last_analyzed_at').defaultNow().notNull(),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex('account_style_profile_user_platform_blogger_unique').on(
+      table.userId,
+      table.platform,
+      table.platformBloggerId
+    ),
+    index('idx_account_style_profile_user_updated').on(
+      table.userId,
+      table.updatedAt
+    ),
+  ]
+);
+
+export type AccountStyleProfile = typeof accountStyleProfile.$inferSelect;
+export type NewAccountStyleProfile = typeof accountStyleProfile.$inferInsert;

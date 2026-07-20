@@ -9,9 +9,9 @@ test('blog category archive renders the migrated listing instead of a placeholde
 
   expect(response?.status()).toBeLessThan(500);
   await expect(page.locator('#blog [data-blog-category-nav]')).toBeVisible();
-  await expect
-    .poll(() => page.locator('#blog [data-blog-category-link]').count())
-    .toBeGreaterThan(1);
+  await expect(
+    page.locator('#blog [data-blog-category-link]').nth(1)
+  ).toBeVisible();
 
   const categoryLink = page.locator('#blog [data-blog-category-link]').nth(1);
   const categoryLabel = (
@@ -26,9 +26,7 @@ test('blog category archive renders the migrated listing instead of a placeholde
     page.locator('#blog [data-blog-category-link][data-active="true"]')
   ).toContainText(categoryLabel);
   await expect(page.locator('#blog [data-blog-grid]')).toBeVisible();
-  await expect
-    .poll(() => page.locator('#blog [data-blog-card]').count())
-    .toBeGreaterThan(0);
+  await expect(page.locator('#blog [data-blog-card]').first()).toBeVisible();
   await expect(
     page
       .locator('#blog [data-blog-card-tag]')
@@ -52,9 +50,7 @@ test('blog category archive keeps the old card grid usable on mobile', async ({
 
   await expect(page.locator('#blog [data-blog-category-nav]')).toBeVisible();
   await expect(page.locator('#blog [data-blog-grid]')).toBeVisible();
-  await expect
-    .poll(() => page.locator('#blog [data-blog-card]').count())
-    .toBeGreaterThan(0);
+  await expect(page.locator('#blog [data-blog-card]').first()).toBeVisible();
   await expect
     .poll(() =>
       page.evaluate(

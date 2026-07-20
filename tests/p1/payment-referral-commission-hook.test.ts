@@ -142,17 +142,17 @@ describe('payment referral commission hook', () => {
     mocks.orderRow = buildOrder();
     mocks.getCredentialByCode.mockResolvedValue({
       id: 'credential-1',
-      code: 'ACT-TRIAL-0000',
+      code: 'ACT-PERSONAL-0000',
       ownerUserId: 'invitee-1',
-      planCode: 'trial',
-      durationPreset: 'trial',
+      planCode: 'pro-monthly',
+      durationPreset: '3m',
       maxBindings: 1,
       expiresAt: new Date('2026-07-10T23:59:59.999Z'),
       status: 'active',
     });
     mocks.rechargeCredential.mockResolvedValue({
       id: 'credential-1',
-      code: 'ACT-TRIAL-0000',
+      code: 'ACT-PERSONAL-0000',
     });
     mocks.processReferralCommissionForPaidOrder.mockResolvedValue(undefined);
   });
@@ -201,7 +201,7 @@ describe('payment referral commission hook', () => {
     mocks.orderRow = buildOrder({
       orderNo: 'ORDER-RECHARGE-1',
       credentialAction: 'recharge',
-      credentialCode: 'ACT-TRIAL-0000',
+      credentialCode: 'ACT-PERSONAL-0000',
       creditsAmount: 180,
       creditsValidDays: 30,
     });
@@ -214,6 +214,52 @@ describe('payment referral commission hook', () => {
         credits: 180,
         durationDays: 30,
         orderNo: 'ORDER-RECHARGE-1',
+      })
+    );
+  });
+
+  it('keeps membership tier and device limits unchanged for credit packs', async () => {
+    mocks.orderRow = buildOrder({
+      orderNo: 'ORDER-CREDITS-1',
+      productId: 'credits-team-3000',
+      credentialAction: 'recharge',
+      credentialCode: 'ACT-PERSONAL-0000',
+      creditsAmount: 2500,
+      creditsValidDays: 0,
+    });
+
+    await handleCheckoutSuccess(successSession, 'zpay');
+
+    expect(mocks.rechargeCredential).toHaveBeenCalledWith(
+      expect.objectContaining({
+        id: 'credential-1',
+        credits: 2500,
+        durationDays: 0,
+        maxBindings: undefined,
+        planCode: 'pro-monthly',
+        durationPreset: '3m',
+      })
+    );
+  });
+
+  it('rejects a cross-tier recharge during paid-order fulfillment', async () => {
+    mocks.orderRow = buildOrder({
+      orderNo: 'ORDER-CROSS-TIER-1',
+      productId: 'team-1m',
+      credentialAction: 'recharge',
+      credentialCode: 'ACT-PERSONAL-0000',
+      creditsAmount: 700,
+      creditsValidDays: 30,
+    });
+
+    await handleCheckoutSuccess(successSession, 'zpay');
+
+    expect(mocks.rechargeCredential).not.toHaveBeenCalled();
+    expect(mocks.dbUpdates).toContainEqual(
+      expect.objectContaining({
+        credentialSyncStatus: 'failed',
+        credentialSyncError:
+          'credential plan tier does not match renewal product',
       })
     );
   });

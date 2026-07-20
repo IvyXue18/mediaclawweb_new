@@ -15,6 +15,7 @@ import { useTheme } from 'next-themes';
 import { signOut } from '@/core/auth/client';
 import { useRouter } from '@/core/i18n/navigation';
 import { localeNames } from '@/config/locale';
+import { formatLoginIdentifier } from '@/lib/auth-identifier';
 import { prepareThemeStableNavigation } from '@/lib/theme-transition';
 import { m } from '@/paraglide/messages.js';
 import { getLocale, locales, setLocale } from '@/paraglide/runtime.js';
@@ -53,6 +54,7 @@ export function UserMenu({
 }) {
   const router = useRouter();
   const locale = getLocale();
+  const identifier = formatLoginIdentifier(email);
   const { theme, setTheme } = useTheme();
   const { isMobile } = useSidebar();
 
@@ -87,7 +89,7 @@ export function UserMenu({
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{name}</span>
                 <span className="text-foreground/70 truncate text-xs">
-                  {email}
+                  {identifier}
                 </span>
               </div>
               <EllipsisVerticalIcon className="ml-auto size-4" />
@@ -111,7 +113,7 @@ export function UserMenu({
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-medium">{name}</span>
                     <span className="text-muted-foreground truncate text-xs">
-                      {email}
+                      {identifier}
                     </span>
                   </div>
                 </div>

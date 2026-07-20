@@ -47,6 +47,18 @@ async function POST({ request }: { request: Request }) {
       installId: body?.installId,
     });
 
+    if (body?.entryPoint === 'starter_claim' && !result.alreadyCompleted) {
+      await recordServerAnalyticsEvent({
+        eventName: 'trial_survey_complete',
+        source: 'server',
+        userId: user.id,
+        properties: {
+          credentialId: body?.rewardCredentialId,
+          surveySource: body?.surveySource,
+        },
+      });
+    }
+
     return respData(result);
   } catch (error: any) {
     if (userId) {

@@ -4,6 +4,7 @@ import { getAuth } from '@/core/auth';
 import { getConfig } from '@/modules/config/service';
 import { getUserPlan } from '@/modules/invite-codes/service';
 import { hasPermission } from '@/modules/rbac/service';
+import { formatLoginIdentifier } from '@/lib/auth-identifier';
 import { respData, respErr } from '@/lib/resp';
 
 async function GET({ request }: { request: Request }) {
@@ -30,7 +31,7 @@ async function GET({ request }: { request: Request }) {
     return respData({
       id: session.user.id,
       name: session.user.name,
-      email: session.user.email,
+      email: formatLoginIdentifier(session.user.email),
       image: session.user.image,
       plan,
       trialEndsAt: trialEndsAt?.toISOString() || null,

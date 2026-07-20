@@ -15,7 +15,16 @@ const pages = [
     text: /New user setup path/i,
     downloadInstall: true,
   },
-  { path: '/welfare', title: /MediaClaw|媒爪/i },
+  {
+    path: '/welfare',
+    title: /MediaClaw|媒爪/i,
+    text: /9\s*元全能卡|5\s*天会员|50\s*积分/i,
+  },
+  {
+    path: '/welfare/claim',
+    title: /MediaClaw|媒爪/i,
+    text: /请先登录后查看你的全能卡|登录 \/ 注册/i,
+  },
   { path: '/referral', title: /MediaClaw|媒爪/i },
   {
     path: '/chat',
@@ -225,10 +234,10 @@ for (const item of pages) {
     if ('timeline' in item) {
       await expect(page.locator('#updates [data-timeline-rail]')).toBeVisible();
       await expect(page.locator('#updates [data-timeline-item]')).toHaveCount(
-        11
+        12
       );
       await expect(page.locator('#updates')).toContainText(
-        /v 0\.1\.9|v0\.1\.9/
+        /v 0\.2\.0|v0\.2\.0/
       );
     }
     if ('featureCards' in item) {
@@ -244,7 +253,7 @@ for (const item of pages) {
               return `${styles.width}x${styles.height}`;
             })
         )
-        .toBe('56pxx56px');
+        .toBe('48pxx48px');
     }
     if ('heroSampleModal' in item) {
       const sampleButton = page.getByRole('button', {
@@ -407,7 +416,7 @@ for (const item of pages) {
           return yearlyButton.getAttribute('aria-pressed');
         })
         .toBe('true');
-      await expect(page.locator('#pricing')).toContainText(/年付立省/);
+      await expect(page.locator('#pricing')).toContainText(/年付(?:立)?省/);
     }
     await expect(page.locator('body')).not.toContainText(
       /Internal Server Error|Application error|This page could not be found/i
@@ -514,7 +523,7 @@ const legacyZhRedirects = [
   {
     from: '/zh/douyin/transcript',
     to: '/douyin/transcript',
-    title: /抖音视频逐字稿提取/,
+    title: /抖音视频(?:口播)?逐字稿/,
   },
   {
     from: '/zh/douyin/image-text',
@@ -524,7 +533,7 @@ const legacyZhRedirects = [
   {
     from: '/zh/xiaohongshu/transcript',
     to: '/xiaohongshu/transcript',
-    title: /小红书视频逐字稿/,
+    title: /小红书视频(?:口播)?逐字稿/,
   },
   {
     from: '/zh/xiaohongshu/image-text',

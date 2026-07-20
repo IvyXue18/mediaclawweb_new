@@ -47,11 +47,92 @@ const PAGE_SIZE = 20;
 
 // Localize enum-ish values coming from the ledger. Falls back to the raw
 // value when no message exists for it (unknown scenes from new features).
-function enumLabel(prefix: 'type' | 'scene', value?: string | null): string {
+function enumLabel(
+  prefix: 'type' | 'scene' | 'status',
+  value?: string | null
+): string {
   if (!value) return '—';
   const key = `settings.credits.${prefix}_${value}`;
   const translated = tDynamic(key);
   return translated === key ? value : translated;
+}
+
+function descriptionLabel(value?: string | null): string {
+  const description = String(value || '').trim();
+  if (!description) return '—';
+
+  const exactLabels: Record<string, () => string> = {
+    'Video transcript extraction': () =>
+      m['settings.credits.description.video_transcript_extract'](),
+    'Single note rewrite': () =>
+      m['settings.credits.description.single_note_rewrite'](),
+    'Single note breakdown': () =>
+      m['settings.credits.description.single_note_breakdown'](),
+    'Account style analysis': () =>
+      m['settings.credits.description.account_style_analysis'](),
+    'Release reserved credential credits': () =>
+      m['settings.credits.description.release_reserved'](),
+    'Grant credit': () => m['settings.credits.description.grant'](),
+  };
+  const exact = exactLabels[description];
+  if (exact) return exact();
+
+  const parameterizedLabels: Array<{
+    prefix: string;
+    render: (target: string) => string;
+  }> = [
+    {
+      prefix: 'Account style analysis for ',
+      render: (target) =>
+        m['settings.credits.description.account_style_analysis_for']({
+          target,
+        }),
+    },
+    {
+      prefix: 'Keyword opportunity analysis for ',
+      render: (target) =>
+        m['settings.credits.description.keyword_opportunity_for']({ target }),
+    },
+    {
+      prefix: 'Keyword insight analysis for ',
+      render: (target) =>
+        m['settings.credits.description.keyword_insight_for']({ target }),
+    },
+    {
+      prefix: 'Benchmark account discovery for ',
+      render: (target) =>
+        m['settings.credits.description.benchmark_discovery_for']({ target }),
+    },
+    {
+      prefix: 'Public opinion scan for ',
+      render: (target) =>
+        m['settings.credits.description.public_opinion_scan_for']({ target }),
+    },
+    {
+      prefix: 'Monitor scan for douyin:',
+      render: (target) =>
+        m['settings.credits.description.monitor_douyin_for']({ target }),
+    },
+    {
+      prefix: 'Monitor scan for xiaohongshu:',
+      render: (target) =>
+        m['settings.credits.description.monitor_xiaohongshu_for']({ target }),
+    },
+    {
+      prefix: 'Manual recharge credits for credential ',
+      render: (code) =>
+        m['settings.credits.description.manual_recharge_for']({ code }),
+    },
+  ];
+
+  for (const item of parameterizedLabels) {
+    if (description.startsWith(item.prefix)) {
+      const target = description.slice(item.prefix.length).trim();
+      if (target) return item.render(target);
+    }
+  }
+
+  return description;
 }
 
 function parseMetadata(row: CreditRow): Record<string, unknown> | null {
@@ -78,6 +159,9 @@ function resolveRemaining(row: CreditRow): number | null {
       row.transactionType
     )
   ) {
+    return row.remainingCredits;
+  }
+  if (!meta && Number.isFinite(row.remainingCredits)) {
     return row.remainingCredits;
   }
   return null;
@@ -155,7 +239,7 @@ function CreditDetailDialog({
             />
             <DetailField
               label={m['settings.credits.description_col']()}
-              value={row.description || '—'}
+              value={descriptionLabel(row.description)}
             />
             <DetailField
               label={m['settings.credits.credits']()}
@@ -171,7 +255,7 @@ function CreditDetailDialog({
             />
             <DetailField
               label={m['settings.credits.status']()}
-              value={row.status || '—'}
+              value={enumLabel('status', row.status)}
             />
             {row.credentialCode && (
               <DetailField
@@ -213,6 +297,7 @@ function CreditDetailDialog({
 }
 
 function CreditsPage() {
+  const { credentialCode } = Route.useSearch();
   const [tab, setTab] = useState<Tab>('all');
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
@@ -238,13 +323,14 @@ function CreditsPage() {
   const balanceLoaded = !balanceQuery.isPending;
 
   const query = useQuery({
-    queryKey: ['user-credits', page, tab, debouncedSearch],
+    queryKey: ['user-credits', page, tab, debouncedSearch, credentialCode],
     queryFn: () => {
       const params = new URLSearchParams({
         page: String(page),
         pageSize: String(PAGE_SIZE),
       });
       if (tab !== 'all') params.set('transactionType', tab);
+      if (credentialCode) params.set('credentialCode', credentialCode);
       if (debouncedSearch) params.set('search', debouncedSearch);
       return apiGet<PageResult<CreditRow>>(`/api/user/credits?${params}`);
     },
@@ -275,9 +361,9 @@ function CreditsPage() {
       cell: (r) => (
         <span
           className="block max-w-[280px] truncate"
-          title={r.description || ''}
+          title={descriptionLabel(r.description)}
         >
-          {r.description || '—'}
+          {descriptionLabel(r.description)}
         </span>
       ),
     },
@@ -417,5 +503,11 @@ function CreditsPage() {
 }
 
 export const Route = createFileRoute('/settings/credits')({
+  validateSearch: (search: Record<string, unknown>) => ({
+    credentialCode:
+      typeof search.credentialCode === 'string' && search.credentialCode.trim()
+        ? search.credentialCode.trim()
+        : undefined,
+  }),
   component: CreditsPage,
 });

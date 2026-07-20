@@ -43,7 +43,10 @@ function durationPresetFromDays(days?: number): '1m' | '3m' | '1y' | null {
 function buildDefaultPricingProducts(): string {
   const products = Object.fromEntries(
     Object.values(pricingCatalog)
-      .filter((product) => product.priceInCents > 0)
+      .filter(
+        (product) =>
+          product.priceInCents > 0 && product.productId !== 'trial-starter'
+      )
       .map((product) => [
         product.productId,
         {
@@ -335,9 +338,15 @@ export function getSettingGroups(): SettingGroup[] {
       tab: 'pricing',
     },
     {
-      name: 'benefit_channel_survey',
-      title: 'Channel Survey Reward',
-      description: 'Channel survey reward duration and credits',
+      name: 'benefit_starter_card',
+      title: 'Starter Card',
+      description: 'Paid starter-card price and entitlements',
+      tab: 'benefits',
+    },
+    {
+      name: 'benefit_starter_survey',
+      title: 'Starter Survey Bonus',
+      description: 'Post-purchase survey availability extension',
       tab: 'benefits',
     },
     {
@@ -1358,44 +1367,55 @@ export function getSettings(): Setting[] {
 
     // ─── Benefits / Channel Survey ────────────────────────────────────
     {
-      name: 'benefit_channel_survey_enabled',
-      title: 'Enable channel survey reward',
+      name: 'benefit_starter_card_enabled',
+      title: 'Enable starter card',
       type: 'switch',
-      group: 'benefit_channel_survey',
+      group: 'benefit_starter_card',
       tab: 'benefits',
       defaultValue: 'true',
     },
     {
-      name: 'benefit_channel_survey_new_duration_days',
-      title: 'Channel survey: new trial days',
+      name: 'benefit_starter_card_price_cents',
+      title: 'Starter card price (cents)',
       type: 'number',
-      group: 'benefit_channel_survey',
+      group: 'benefit_starter_card',
       tab: 'benefits',
+      tip: '900 = ¥9. The same amount is used for the first-subscription deduction.',
+      defaultValue: '900',
+    },
+    {
+      name: 'benefit_starter_card_duration_days',
+      title: 'Starter card membership days',
+      type: 'number',
+      group: 'benefit_starter_card',
+      tab: 'benefits',
+      defaultValue: '5',
+    },
+    {
+      name: 'benefit_starter_card_credits',
+      title: 'Starter card credits',
+      type: 'number',
+      group: 'benefit_starter_card',
+      tab: 'benefits',
+      tip: 'Starter-card credits never expire.',
+      defaultValue: '50',
+    },
+    {
+      name: 'benefit_starter_survey_enabled',
+      title: 'Enable post-purchase survey bonus',
+      type: 'switch',
+      group: 'benefit_starter_survey',
+      tab: 'benefits',
+      defaultValue: 'true',
+    },
+    {
+      name: 'benefit_starter_survey_bonus_days',
+      title: 'Post-purchase survey bonus days',
+      type: 'number',
+      group: 'benefit_starter_survey',
+      tab: 'benefits',
+      tip: 'Extends the active paid starter card. The survey no longer grants credits or free trial codes.',
       defaultValue: '2',
-    },
-    {
-      name: 'benefit_channel_survey_new_credits',
-      title: 'Channel survey: new trial credits',
-      type: 'number',
-      group: 'benefit_channel_survey',
-      tab: 'benefits',
-      defaultValue: '10',
-    },
-    {
-      name: 'benefit_channel_survey_existing_duration_days',
-      title: 'Channel survey: existing code extra days',
-      type: 'number',
-      group: 'benefit_channel_survey',
-      tab: 'benefits',
-      defaultValue: '2',
-    },
-    {
-      name: 'benefit_channel_survey_existing_credits',
-      title: 'Channel survey: existing code extra credits',
-      type: 'number',
-      group: 'benefit_channel_survey',
-      tab: 'benefits',
-      defaultValue: '10',
     },
 
     // ─── Benefits / Experience Feedback ───────────────────────────────
@@ -1408,32 +1428,17 @@ export function getSettings(): Setting[] {
       defaultValue: 'true',
     },
     {
-      name: 'benefit_experience_feedback_new_duration_days',
-      title: 'Experience feedback: new trial days',
+      name: 'benefit_experience_feedback_duration_days',
+      title: 'Experience feedback extra days',
       type: 'number',
       group: 'benefit_experience_feedback',
       tab: 'benefits',
-      defaultValue: '3',
+      tip: 'Extends an active activation code. This reward no longer creates a free trial code.',
+      defaultValue: '5',
     },
     {
-      name: 'benefit_experience_feedback_new_credits',
-      title: 'Experience feedback: new trial credits',
-      type: 'number',
-      group: 'benefit_experience_feedback',
-      tab: 'benefits',
-      defaultValue: '0',
-    },
-    {
-      name: 'benefit_experience_feedback_existing_duration_days',
-      title: 'Experience feedback: existing code extra days',
-      type: 'number',
-      group: 'benefit_experience_feedback',
-      tab: 'benefits',
-      defaultValue: '3',
-    },
-    {
-      name: 'benefit_experience_feedback_existing_credits',
-      title: 'Experience feedback: existing code extra credits',
+      name: 'benefit_experience_feedback_credits',
+      title: 'Experience feedback extra credits',
       type: 'number',
       group: 'benefit_experience_feedback',
       tab: 'benefits',

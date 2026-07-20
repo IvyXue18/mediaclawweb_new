@@ -284,11 +284,20 @@ export async function createCredential(params: {
   variantId?: string | null;
   notes?: string | null;
   totalCredits?: number | null;
+  /**
+   * Expiry for granted credits. Defaults to the credential's expiresAt;
+   * pass null explicitly for credits that never expire (e.g. starter card).
+   */
+  creditExpiresAt?: Date | null;
 }) {
   const owner = await findUserByEmail(params.ownerEmail);
   const code = (params.code || generateActivationCode()).trim().toUpperCase();
   const now = new Date();
   const totalCredits = Math.floor(Number(params.totalCredits || 0));
+  const creditExpiresAt =
+    params.creditExpiresAt === undefined
+      ? params.expiresAt || null
+      : params.creditExpiresAt;
 
   const created = await db().transaction(async (tx: any) => {
     const [credentialRow] = await tx
@@ -318,7 +327,7 @@ export async function createCredential(params: {
         orderNo: params.sourceOrderNo || null,
         totalCredits,
         usedCredits: 0,
-        expiresAt: params.expiresAt || null,
+        expiresAt: creditExpiresAt,
         status: params.status || 'active',
         activatedAt: owner ? now : null,
       });
@@ -330,7 +339,7 @@ export async function createCredential(params: {
         ownerEmail: owner?.email || params.ownerEmail || '',
         orderNo: params.sourceOrderNo || null,
         credits: totalCredits,
-        expiresAt: params.expiresAt || null,
+        expiresAt: creditExpiresAt,
         description: params.notes || 'Credential issued',
       });
     }

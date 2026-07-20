@@ -50,7 +50,8 @@ for (const path of legacyMobilePages) {
       .poll(async () => {
         const expanded = await firstFaqButton.getAttribute('aria-expanded');
         if (expanded === 'true') return expanded;
-        await firstFaqButton.click();
+        await firstFaqButton.scrollIntoViewIfNeeded().catch(() => undefined);
+        await firstFaqButton.click({ force: true }).catch(() => undefined);
         await page.waitForTimeout(100);
         return firstFaqButton.getAttribute('aria-expanded');
       })

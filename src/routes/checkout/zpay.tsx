@@ -14,7 +14,7 @@ import { toast } from 'sonner';
 
 import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
-import { apiGet } from '@/lib/api-client';
+import { apiGet, apiPost } from '@/lib/api-client';
 import { createQrSvg } from '@/lib/qr-code';
 import { getLocale } from '@/paraglide/runtime.js';
 import { Footer } from '@/blocks/footer';
@@ -41,6 +41,7 @@ type ZpaySearch = {
 type PaymentStatusData = {
   orderNo?: string;
   status?: string;
+  productId?: string | null;
   credentialAction?: string;
   credentialSyncStatus?: string | null;
   credentialSyncError?: string | null;
@@ -165,6 +166,16 @@ function isCredentialFulfilled(data?: PaymentStatusData | null) {
   );
 }
 
+function isStarterCardPayment(data?: PaymentStatusData | null) {
+  return data?.productId === 'trial-starter';
+}
+
+function starterClaimHref(orderNo?: string) {
+  return `/welfare/claim${
+    orderNo ? `?order_no=${encodeURIComponent(orderNo)}` : ''
+  }`;
+}
+
 function shouldPollPaymentStatus(data?: PaymentStatusData | null) {
   if (data?.status !== 'paid') return true;
   if (!hasCredentialFulfillment(data)) return false;
@@ -269,6 +280,12 @@ function ZpayCheckoutPage() {
       ),
     onSuccess: (data) => {
       if (data.status === 'paid') {
+        if (isStarterCardPayment(data)) {
+          window.location.href = starterClaimHref(
+            data.orderNo || search.order_no
+          );
+          return;
+        }
         if (isCredentialFulfilled(data)) {
           setGuideShown(true);
           setGuideOpen(true);
@@ -286,6 +303,19 @@ function ZpayCheckoutPage() {
     },
     onError: () => {
       toast.error('检查支付状态失败，请稍后重试');
+    },
+  });
+
+  const cancelPayment = useMutation({
+    mutationFn: () =>
+      apiPost<{ canceled: boolean; status: string }>('/api/payment/cancel', {
+        order_no: search.order_no,
+      }),
+    onSuccess: (data) => {
+      window.location.href = data.status === 'paid' ? callbackHref : cancelHref;
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || '取消订单失败，请稍后重试');
     },
   });
 
@@ -310,20 +340,50 @@ function ZpayCheckoutPage() {
         rewardCredentialCode: latestStatus.credentialCode,
       }
     : null;
+  const paymentContact = guideEnglish
+    ? {
+        action: 'Need help installing? Scan to contact us',
+        title: 'Get installation help',
+        description:
+          'Add us on WeChat for help downloading, installing, and activating MediaClaw. You can also get product updates and practical usage tips.',
+        qrImage: '/wechat.png',
+        qrAlt: 'MediaClaw installation support WeChat QR code',
+        note: 'Scan with WeChat and mention “Purchased” plus your order email.',
+        close: 'Got it',
+      }
+    : {
+        action: '下载安装遇到问题？扫码答疑',
+        title: '扫码获取 MediaClaw 专属支持',
+        description:
+          '我们将为你提供插件下载激活答疑，持续提供版本更新、功能上新与实战用法交流支持。',
+        qrImage: '/wechat.png',
+        qrAlt: 'MediaClaw 专属支持微信二维码',
+        note: '请使用微信扫码添加，备注「已购买」',
+        close: '知道了',
+      };
   const credentialSyncMessage = publicCredentialSyncMessage(
     latestStatus?.credentialSyncError
   );
 
   useEffect(() => {
+    if (latestStatus?.status === 'paid' && isStarterCardPayment(latestStatus)) {
+      window.location.href = starterClaimHref(
+        latestStatus.orderNo || search.order_no
+      );
+      return;
+    }
     if (guideShown || !isCredentialFulfilled(latestStatus)) return;
     setGuideShown(true);
     setGuideOpen(true);
   }, [
     guideShown,
+    latestStatus?.orderNo,
+    latestStatus?.productId,
     latestStatus?.credentialAction,
     latestStatus?.credentialCode,
     latestStatus?.credentialSyncStatus,
     latestStatus?.status,
+    search.order_no,
   ]);
 
   return (
@@ -476,12 +536,17 @@ function ZpayCheckoutPage() {
                     我已完成支付
                   </button>
 
-                  <Link
-                    href={cancelHref}
+                  <button
+                    type="button"
                     className={buttonVariants({ variant: 'outline' })}
+                    disabled={!search.order_no || cancelPayment.isPending}
+                    onClick={() => cancelPayment.mutate()}
                   >
+                    {cancelPayment.isPending ? (
+                      <LoaderCircle className="size-4 animate-spin" />
+                    ) : null}
                     取消
-                  </Link>
+                  </button>
                 </div>
 
                 {paid ? (
@@ -509,6 +574,7 @@ function ZpayCheckoutPage() {
         task={guideTask}
         title={paymentGuideTitle(latestStatus, guideEnglish)}
         description={paymentGuideDescription(latestStatus, guideEnglish)}
+        contact={paymentContact}
         onCopyCode={(code) =>
           handleCopy(
             code,

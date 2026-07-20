@@ -18,6 +18,7 @@ import {
 } from '@/core/payment/types';
 import { envConfigs } from '@/config';
 import { credential, credit, order, subscription } from '@/config/db/schema';
+import { getCredentialPlanTier, getPricingProduct } from '@/config/pricing';
 import { getAllConfigs } from '@/modules/config/service';
 import {
   createCredential,
@@ -165,26 +166,48 @@ async function issueCredentialForPaidOrder(
   const existing = await getCredentialBySourceOrderNo(paidOrder.orderNo);
   if (existing?.code) return existing.code;
 
-  const durationPreset = getCredentialDurationPreset(paidOrder);
-  const expiresAt = getCredentialExpiresAt(
-    durationPreset,
-    Number(paidOrder.creditsValidDays || 0)
-  );
+  const issueSpec = resolveCredentialIssueSpec(paidOrder);
   const created = await createCredential({
     ownerEmail: paidOrder.userEmail,
     sourceOrderNo: paidOrder.orderNo,
-    planCode: paidOrder.productId || 'unknown',
-    durationPreset,
-    maxBindings: getCredentialMaxBindings(paidOrder),
-    expiresAt,
+    planCode: issueSpec.planCode,
+    durationPreset: issueSpec.durationPreset,
+    maxBindings: issueSpec.maxBindings,
+    expiresAt: issueSpec.expiresAt,
     notes: `paid issue from order ${paidOrder.orderNo}`,
     totalCredits:
       paidOrder.creditsAmount && paidOrder.creditsAmount > 0
         ? paidOrder.creditsAmount
         : null,
+    creditExpiresAt: issueSpec.creditsNeverExpire ? null : undefined,
   });
 
   return created.code;
+}
+
+export function resolveCredentialIssueSpec(
+  paidOrder: typeof order.$inferSelect
+) {
+  // Starter card (9 元全能卡) orders carry issuance overrides in the snapshot:
+  // membership lasts snapshot.durationDays, credential planCode is 'trial',
+  // and granted credits never expire (creditsValidDays stays 0).
+  const snapshot = parsePriceRuleSnapshot(paidOrder.priceRuleSnapshot);
+  const snapshotDurationDays = Math.max(0, Number(snapshot.durationDays || 0));
+  const snapshotPlanCode = String(snapshot.planCode || '').trim();
+  const creditsNeverExpire = snapshot.creditsNeverExpire === true;
+
+  const durationPreset = getCredentialDurationPreset(paidOrder);
+  const expiresAt = getCredentialExpiresAt(
+    durationPreset,
+    snapshotDurationDays || Number(paidOrder.creditsValidDays || 0)
+  );
+  return {
+    planCode: snapshotPlanCode || paidOrder.productId || 'unknown',
+    durationPreset: snapshotPlanCode === 'trial' ? 'trial' : durationPreset,
+    maxBindings: getCredentialMaxBindings(paidOrder),
+    expiresAt,
+    creditsNeverExpire,
+  };
 }
 
 async function rechargeCredentialForPaidOrder(
@@ -196,21 +219,27 @@ async function rechargeCredentialForPaidOrder(
   const existing = await getCredentialByCode(code);
   if (!existing) throw new Error('Activation code not found');
 
+  const product = getPricingProduct(String(paidOrder.productId || ''));
+  const isCreditsOnly = product?.fulfillment === 'credits_only';
+  if (!isCreditsOnly) {
+    const targetTier = product?.credentialTier;
+    const existingTier = getCredentialPlanTier(existing);
+    if (!targetTier || targetTier === 'trial' || existingTier !== targetTier) {
+      throw new Error('credential plan tier does not match renewal product');
+    }
+  }
+
   const durationPreset = getCredentialDurationPreset(paidOrder);
   await rechargeCredential({
     id: existing.id,
     credits: paidOrder.creditsAmount || 0,
     durationDays: paidOrder.creditsValidDays || 0,
     orderNo: paidOrder.orderNo,
-    maxBindings: getCredentialMaxBindings(paidOrder),
-    planCode:
-      paidOrder.productId && paidOrder.productId.startsWith('credits-')
-        ? existing.planCode
-        : paidOrder.productId,
-    durationPreset:
-      paidOrder.productId && paidOrder.productId.startsWith('credits-')
-        ? existing.durationPreset
-        : durationPreset,
+    maxBindings: isCreditsOnly
+      ? undefined
+      : getCredentialMaxBindings(paidOrder),
+    planCode: isCreditsOnly ? existing.planCode : paidOrder.productId,
+    durationPreset: isCreditsOnly ? existing.durationPreset : durationPreset,
     status: 'active',
     notes: `paid recharge from order ${paidOrder.orderNo}`,
   });
@@ -227,12 +256,14 @@ async function ensurePaidOrderCredentialIssueLedger(
   const credits = Math.floor(Number(paidOrder.creditsAmount || 0));
   if (credits <= 0) return false;
 
+  const snapshot = parsePriceRuleSnapshot(paidOrder.priceRuleSnapshot);
   const result = await ensureCredentialIssueCreditLedgerForOrder({
     orderNo: paidOrder.orderNo,
     credentialCode: credentialCode || paidOrder.credentialCode,
     userId: paidOrder.userId,
     userEmail: paidOrder.userEmail,
     credits,
+    ...(snapshot.creditsNeverExpire === true ? { expiresAt: null } : {}),
     description: `paid issue from order ${paidOrder.orderNo}`,
   });
 
@@ -460,13 +491,18 @@ async function getPaymentManager(): Promise<PaymentManager> {
     c('zpay_enabled') === 'true' || c('default_payment_provider') === 'zpay';
   const zpayPid = c('zpay_pid') || envConfigs.zpay_pid;
   const zpayPkey = c('zpay_pkey') || envConfigs.zpay_pkey;
+  // The public callback/checkout origin is deployment-specific. In particular,
+  // staging may intentionally share the production database, whose persisted
+  // app_url still points at the production site. Prefer the worker's own URL so
+  // a staging checkout and its webhook stay on the staging deployment.
+  const zpayAppUrl = envConfigs.app_url || c('app_url');
   if (zpayEnabled && zpayPid && zpayPkey) {
     const isDefault = c('default_payment_provider') === 'zpay';
     manager.addProvider(
       new ZpayProvider({
         pid: zpayPid,
         pkey: zpayPkey,
-        appUrl: c('app_url') || envConfigs.app_url,
+        appUrl: zpayAppUrl,
       }),
       isDefault
     );
@@ -476,6 +512,35 @@ async function getPaymentManager(): Promise<PaymentManager> {
 }
 
 // --- Checkout ---
+
+export const DEDUCTION_RESERVATION_CONFLICT_CODE =
+  'DEDUCTION_RESERVATION_CONFLICT';
+
+export class DeductionReservationConflictError extends Error {
+  code = DEDUCTION_RESERVATION_CONFLICT_CODE;
+
+  constructor() {
+    super('starter deduction is already reserved by another checkout');
+    this.name = 'DeductionReservationConflictError';
+  }
+}
+
+function isDeductionReservationUniqueError(error: any) {
+  const code = String(error?.code || error?.cause?.code || '');
+  const constraint = String(
+    error?.constraint || error?.cause?.constraint || ''
+  );
+  const message = String(error?.message || error?.cause?.message || '');
+  const isUniqueError =
+    code === '23505' ||
+    code === 'ER_DUP_ENTRY' ||
+    code.startsWith('SQLITE_CONSTRAINT');
+
+  return (
+    isUniqueError &&
+    `${constraint} ${message}`.toLowerCase().includes('deduction_reservation')
+  );
+}
 
 export async function createCheckout(params: {
   userId: string;
@@ -492,6 +557,10 @@ export async function createCheckout(params: {
   variantId?: string | null;
   seatCount?: number;
   priceRuleSnapshot?: string | null;
+  starterBrowserInstallHash?: string | null;
+  discountCode?: string | null;
+  discountAmount?: number;
+  deductionReservationKey?: string | null;
   attribution?: AttributionEnvelope | null;
 }): Promise<CheckoutSession> {
   const {
@@ -509,6 +578,10 @@ export async function createCheckout(params: {
     variantId,
     seatCount,
     priceRuleSnapshot,
+    starterBrowserInstallHash,
+    discountCode,
+    discountAmount,
+    deductionReservationKey,
     attribution,
   } = params;
   const pm = await getPaymentManager();
@@ -552,54 +625,123 @@ export async function createCheckout(params: {
       `${envConfigs.app_url}/settings/payments?canceled=1`,
   };
 
-  const session = await pm.createPayment({
-    order: providerOrder,
-    provider,
-  });
+  if (!resolvedProvider) {
+    throw new Error('payment provider is not configured');
+  }
 
-  await db()
-    .insert(order)
-    .values({
-      id: getUuid(),
-      orderNo,
-      userId,
-      userEmail: userEmail || '',
-      status: OrderStatus.CREATED,
-      amount: paymentOrder.price?.amount || 0,
-      currency: paymentOrder.price?.currency || 'usd',
-      productId: paymentOrder.productId || '',
-      productName: productName || null,
-      planName: planName || null,
-      creditsAmount: credits ?? null,
-      creditsValidDays: creditsValidDays ?? null,
-      credentialAction: credentialAction || 'none',
-      credentialSyncStatus: 'pending',
-      credentialCode: credentialCode || null,
-      partnerId: partnerId || null,
-      variantId: variantId || null,
-      seatCount: Math.max(1, Math.floor(Number(seatCount || 1))),
-      priceRuleSnapshot: priceRuleSnapshot || null,
-      attributionAnonymousId: attribution?.anonymousId || '',
-      attributionSessionId: attribution?.sessionId || '',
-      attributionChannel: attribution?.lastTouch.channel || '',
-      attributionSource: attribution?.lastTouch.source || '',
-      attributionMedium: attribution?.lastTouch.medium || '',
-      attributionCampaign: attribution?.lastTouch.campaign || '',
-      attributionContent: attribution?.lastTouch.content || '',
-      attributionReferrer: attribution?.lastTouch.referrer || '',
-      attributionLandingPage: attribution?.lastTouch.landingPage || '',
-      attributionConfidence: attribution?.lastTouch.confidence || '',
-      attributionSnapshot: attribution ? JSON.stringify(attribution) : null,
-      paymentType: paymentOrder.type || 'one-time',
+  const orderId = getUuid();
+  const baseOrder = {
+    id: orderId,
+    orderNo,
+    userId,
+    userEmail: userEmail || '',
+    status: OrderStatus.PENDING,
+    amount: paymentOrder.price?.amount || 0,
+    currency: paymentOrder.price?.currency || 'usd',
+    productId: paymentOrder.productId || '',
+    productName: productName || null,
+    planName: planName || null,
+    creditsAmount: credits ?? null,
+    creditsValidDays: creditsValidDays ?? null,
+    credentialAction: credentialAction || 'none',
+    credentialSyncStatus: 'pending',
+    credentialCode: credentialCode || null,
+    partnerId: partnerId || null,
+    variantId: variantId || null,
+    seatCount: Math.max(1, Math.floor(Number(seatCount || 1))),
+    priceRuleSnapshot: priceRuleSnapshot || null,
+    starterBrowserInstallHash: starterBrowserInstallHash || '',
+    discountCode: discountCode || null,
+    discountAmount: discountAmount || null,
+    discountCurrency: discountAmount
+      ? paymentOrder.price?.currency || 'cny'
+      : null,
+    deductionReservationKey: deductionReservationKey || null,
+    attributionAnonymousId: attribution?.anonymousId || '',
+    attributionSessionId: attribution?.sessionId || '',
+    attributionChannel: attribution?.lastTouch.channel || '',
+    attributionSource: attribution?.lastTouch.source || '',
+    attributionMedium: attribution?.lastTouch.medium || '',
+    attributionCampaign: attribution?.lastTouch.campaign || '',
+    attributionContent: attribution?.lastTouch.content || '',
+    attributionReferrer: attribution?.lastTouch.referrer || '',
+    attributionLandingPage: attribution?.lastTouch.landingPage || '',
+    attributionConfidence: attribution?.lastTouch.confidence || '',
+    attributionSnapshot: attribution ? JSON.stringify(attribution) : null,
+    paymentType: paymentOrder.type || 'one-time',
+    paymentProvider: resolvedProvider,
+    paymentSessionId: null,
+    checkoutInfo: '',
+    checkoutResult: null,
+    checkoutUrl: null,
+    description: paymentOrder.description || '',
+  };
+
+  const reservesDeduction = Boolean(deductionReservationKey);
+  if (reservesDeduction) {
+    try {
+      await db().insert(order).values(baseOrder);
+    } catch (error) {
+      if (isDeductionReservationUniqueError(error)) {
+        throw new DeductionReservationConflictError();
+      }
+      throw error;
+    }
+  }
+
+  try {
+    const session = await pm.createPayment({
+      order: providerOrder,
+      provider,
+    });
+
+    const checkoutSessionFields = {
       paymentProvider: session.provider,
       paymentSessionId: session.checkoutInfo.sessionId,
       checkoutInfo: JSON.stringify(session.checkoutInfo),
       checkoutResult: JSON.stringify(session.checkoutResult),
       checkoutUrl: session.checkoutInfo.checkoutUrl,
-      description: paymentOrder.description || '',
-    });
+    };
 
-  return session;
+    if (reservesDeduction) {
+      await db()
+        .update(order)
+        .set(checkoutSessionFields)
+        .where(eq(order.id, orderId));
+      await db()
+        .update(order)
+        .set({ status: OrderStatus.CREATED })
+        .where(
+          and(eq(order.id, orderId), eq(order.status, OrderStatus.PENDING))
+        );
+    } else {
+      await db()
+        .insert(order)
+        .values({
+          ...baseOrder,
+          ...checkoutSessionFields,
+          status: OrderStatus.CREATED,
+        });
+    }
+
+    return session;
+  } catch (error) {
+    if (reservesDeduction) {
+      await db()
+        .update(order)
+        .set({
+          status: OrderStatus.FAILED,
+          deductionReservationKey: null,
+          paymentResult: JSON.stringify({
+            reason: 'checkout_creation_failed',
+          }),
+        })
+        .where(
+          and(eq(order.id, orderId), eq(order.status, OrderStatus.PENDING))
+        );
+    }
+    throw error;
+  }
 }
 
 // --- Payment callback (return_url) ---
@@ -620,9 +762,33 @@ export async function handlePaymentCallback(orderNo: string) {
   const provider = pm.getProvider(existingOrder.paymentProvider);
   if (!provider) return;
 
-  const session = await provider.getPaymentSession({
+  let session = await provider.getPaymentSession({
     sessionId: existingOrder.paymentSessionId || existingOrder.orderNo,
   });
+
+  // ZPay supports querying by either the merchant order number or its own
+  // platform trade number. Some channels expose the paid state sooner through
+  // the latter, so use the trade number saved from MAPI as a safe fallback.
+  if (
+    provider instanceof ZpayProvider &&
+    session.paymentStatus !== PaymentStatus.SUCCESS &&
+    existingOrder.checkoutResult
+  ) {
+    try {
+      const checkoutResult = JSON.parse(existingOrder.checkoutResult) as {
+        trade_no?: string;
+      };
+      const tradeNo = String(checkoutResult.trade_no || '').trim();
+      if (tradeNo && tradeNo !== existingOrder.orderNo) {
+        session = await provider.getPaymentSessionByTradeNo({
+          tradeNo,
+          orderNo: existingOrder.orderNo,
+        });
+      }
+    } catch {
+      // Invalid historical checkout payload: keep the merchant-order result.
+    }
+  }
 
   // Reuse the same atomic success handler as the webhook so that
   // subscriptions are created and credits granted on synchronous return too.
@@ -732,8 +898,10 @@ export async function handleCheckoutSuccess(session: any, provider: string) {
       invoiceUrl: paymentInfo?.invoiceUrl || null,
       paymentUserName: paymentInfo?.paymentUserName || null,
       paymentUserId: paymentInfo?.paymentUserId || null,
-      discountCode: paymentInfo?.discountCode || null,
-      discountAmount: paymentInfo?.discountAmount || null,
+      discountCode:
+        paymentInfo?.discountCode || existingOrder.discountCode || null,
+      discountAmount:
+        paymentInfo?.discountAmount || existingOrder.discountAmount || null,
     };
 
     // Atomically claim the paid transition, then create subscription/grant credits.
@@ -873,6 +1041,33 @@ export async function handleCheckoutSuccess(session: any, provider: string) {
             : undefined,
       },
     });
+    if (existingOrder.productId === 'trial-starter') {
+      await recordServerAnalyticsEvent({
+        eventName: 'trial_card_paid',
+        source: 'server',
+        userId: existingOrder.userId,
+        orderNo: existingOrder.orderNo,
+        properties: {
+          amount: existingOrder.amount,
+          currency: existingOrder.currency,
+        },
+      });
+    }
+    if (
+      (orderUpdate.discountCode || existingOrder.discountCode) ===
+      'trial_deduction'
+    ) {
+      await recordServerAnalyticsEvent({
+        eventName: 'trial_deduction_used',
+        source: 'server',
+        userId: existingOrder.userId,
+        orderNo: existingOrder.orderNo,
+        properties: {
+          discountAmount:
+            orderUpdate.discountAmount || existingOrder.discountAmount || 0,
+        },
+      });
+    }
   } else if (
     session.paymentStatus === PaymentStatus.FAILED ||
     session.paymentStatus === PaymentStatus.CANCELED
@@ -881,9 +1076,15 @@ export async function handleCheckoutSuccess(session: any, provider: string) {
       .update(order)
       .set({
         status: OrderStatus.FAILED,
+        deductionReservationKey: null,
         paymentResult: JSON.stringify(session.paymentResult),
       })
-      .where(eq(order.id, existingOrder.id));
+      .where(
+        and(
+          eq(order.id, existingOrder.id),
+          inArray(order.status, [OrderStatus.CREATED, OrderStatus.PENDING])
+        )
+      );
   }
 }
 
@@ -1142,6 +1343,72 @@ export async function findOrderByOrderNo(orderNo: string) {
     .limit(1);
 
   return row ?? null;
+}
+
+export async function cancelPendingCheckout(params: {
+  userId: string;
+  orderNo: string;
+  reason?: 'user_canceled' | 'checkout_replaced';
+}) {
+  const orderNo = String(params.orderNo || '').trim();
+  if (!orderNo) throw new Error('order_no is required');
+
+  let existingOrder = await findOrderByOrderNo(orderNo);
+  if (!existingOrder || existingOrder.userId !== params.userId) {
+    throw new Error('order not found');
+  }
+
+  if (
+    existingOrder.status !== OrderStatus.CREATED &&
+    existingOrder.status !== OrderStatus.PENDING
+  ) {
+    return {
+      canceled: false,
+      orderNo,
+      status: existingOrder.status,
+    };
+  }
+
+  // Reconcile once before canceling so a payment that already reached the
+  // provider is fulfilled instead of being overwritten by a local cancel.
+  try {
+    await handlePaymentCallback(orderNo);
+  } catch (error: any) {
+    console.warn(
+      'payment status sync before cancel failed:',
+      error?.message || error
+    );
+  }
+
+  existingOrder = (await findOrderByOrderNo(orderNo)) || existingOrder;
+  if (existingOrder.status === OrderStatus.PAID) {
+    return { canceled: false, orderNo, status: OrderStatus.PAID };
+  }
+
+  await db()
+    .update(order)
+    .set({
+      status: OrderStatus.FAILED,
+      deductionReservationKey: null,
+      paymentResult: JSON.stringify({
+        reason: params.reason || 'user_canceled',
+      }),
+    })
+    .where(
+      and(
+        eq(order.id, existingOrder.id),
+        eq(order.userId, params.userId),
+        inArray(order.status, [OrderStatus.CREATED, OrderStatus.PENDING]),
+        isNull(order.deletedAt)
+      )
+    );
+
+  const canceledOrder = await findOrderByOrderNo(orderNo);
+  return {
+    canceled: canceledOrder?.status === OrderStatus.FAILED,
+    orderNo,
+    status: canceledOrder?.status || existingOrder.status,
+  };
 }
 
 export async function repairOrderPayment(

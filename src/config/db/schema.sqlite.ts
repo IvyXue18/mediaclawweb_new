@@ -677,6 +677,7 @@ export const order = table(
     discountCode: text('discount_code'),
     discountAmount: integer('discount_amount'),
     discountCurrency: text('discount_currency'),
+    deductionReservationKey: text('deduction_reservation_key'),
     paymentEmail: text('payment_email'),
     paymentAmount: integer('payment_amount'),
     paymentCurrency: text('payment_currency'),
@@ -718,6 +719,9 @@ export const order = table(
     variantId: text('variant_id'),
     seatCount: integer('seat_count').notNull().default(1),
     priceRuleSnapshot: text('price_rule_snapshot'),
+    starterBrowserInstallHash: text('starter_browser_install_hash')
+      .notNull()
+      .default(''),
     attributionAnonymousId: text('attribution_anonymous_id')
       .notNull()
       .default(''),
@@ -745,6 +749,14 @@ export const order = table(
       table.paymentProvider
     ),
     index('idx_order_created_at').on(table.createdAt),
+    index('idx_order_starter_browser').on(
+      table.starterBrowserInstallHash,
+      table.productId,
+      table.status
+    ),
+    uniqueIndex('uq_order_deduction_reservation').on(
+      table.deductionReservationKey
+    ),
   ]
 );
 
@@ -1413,6 +1425,55 @@ export type NewTicketMessage = typeof ticketMessage.$inferInsert;
 
 // ─── Custom tables ───────────────────────────────────────────────────────────
 // Add your own tables below this line.
+
+// Account analysis keeps the human-readable report and only the representative
+// evidence index needed by the report. Full scraped-note media stays in the
+// extension/data pool instead of being duplicated here.
+export const accountStyleProfile = table(
+  'account_style_profile',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id),
+    platform: text('platform').notNull(),
+    platformBloggerId: text('platform_blogger_id').notNull(),
+    bloggerName: text('blogger_name'),
+    bloggerUrl: text('blogger_url'),
+    sourceType: text('source_type').notNull().default('standard'),
+    sampleCount: integer('sample_count').notNull().default(0),
+    detailSampleCount: integer('detail_sample_count').notNull().default(0),
+    commentSampleCount: integer('comment_sample_count').notNull().default(0),
+    confidenceLevel: text('confidence_level').notNull().default('medium'),
+    profileJson: text('profile_json').notNull().default('{}'),
+    editableJson: text('editable_json').notNull().default('{}'),
+    sampleSummaryJson: text('sample_summary_json').notNull().default('{}'),
+    lastAnalyzedAt: integer('last_analyzed_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    uniqueIndex('account_style_profile_user_platform_blogger_unique').on(
+      table.userId,
+      table.platform,
+      table.platformBloggerId
+    ),
+    index('idx_account_style_profile_user_updated').on(
+      table.userId,
+      table.updatedAt
+    ),
+  ]
+);
+
+export type AccountStyleProfile = typeof accountStyleProfile.$inferSelect;
+export type NewAccountStyleProfile = typeof accountStyleProfile.$inferInsert;
 
 // ─── Invite Codes ────────────────────────────────────────────────────────────
 
