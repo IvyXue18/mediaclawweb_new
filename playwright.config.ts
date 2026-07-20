@@ -9,6 +9,7 @@ const reuseExistingServer =
 
 export default defineConfig({
   testDir: './tests/e2e',
+  workers: 3,
   timeout: 60_000,
   expect: {
     timeout: 10_000,
@@ -25,6 +26,8 @@ export default defineConfig({
         url: baseURL,
         reuseExistingServer,
         timeout: 120_000,
+        stdout: 'ignore',
+        stderr: 'ignore',
       },
   projects: [
     {

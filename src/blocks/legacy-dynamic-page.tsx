@@ -85,7 +85,13 @@ import { toast } from 'sonner';
 
 import { useSession } from '@/core/auth/client';
 import { Link, useRouter } from '@/core/i18n/navigation';
+import {
+  getCredentialPlanTier,
+  getPricingProduct,
+  type CredentialPlanTier,
+} from '@/config/pricing';
 import { apiGet, apiPost, type PageResult } from '@/lib/api-client';
+import { getBrowserInstallId } from '@/lib/browser-install-id';
 import { recordAnalyticsEventSafe } from '@/lib/client-analytics';
 import { credentialPlanLabel } from '@/lib/credential-plan-display';
 import { cn } from '@/lib/utils';
@@ -381,6 +387,7 @@ type UserCredentialSummary = {
   id?: string;
   code?: string;
   planCode?: string | null;
+  maxBindings?: number | null;
   status?: string | null;
   expiresAt?: string | Date | null;
 };
@@ -416,7 +423,7 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
       badge: 'New user setup path',
       flowTitle: 'Get started in 3 steps',
       flowHint:
-        'Start with Step 1 to install the extension, then choose the free version or buy an activation code and follow the tutorial.',
+        'Install the extension, then buy a full activation code or the ¥9 new-user All-in-One Card and follow the tutorial.',
       currentBadge: 'Current step',
       nextBadge: 'Next step',
       steps: [
@@ -431,9 +438,9 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
         {
           id: 'activate',
           number: '02',
-          title: 'Choose free or activate',
+          title: 'Choose an activation option',
           description:
-            'Use the free version first, or buy an activation code to unlock paid collection, Feishu sync, and AI workflows.',
+            'Buy a full activation code, or try the ¥9 All-in-One Card if you are a new user. The free version remains available permanently.',
           icon: KeyRound,
         },
         {
@@ -455,7 +462,7 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
     badge: '新用户上手路径',
     flowTitle: '3 步完成上手',
     flowHint:
-      '先完成插件安装，再选择免费使用或购买激活码，并按教程完成首次采集。',
+      '先完成插件安装，再购买正式版激活码或新用户 9 元全能卡，并按教程完成首次采集。',
     currentBadge: '当前步骤',
     nextBadge: '后续步骤',
     steps: [
@@ -470,9 +477,9 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
       {
         id: 'activate',
         number: '02',
-        title: '选择免费版或激活码',
+        title: '购买正式激活码或 9 元全能卡',
         description:
-          '基础采集可以先使用免费版；需要批量增强、飞书同步或 AI 分析时，建议直接购买激活码。',
+          '需要完整功能可购买正式版激活码；新用户也可以先体验 9 元全能卡。暂不升级，也可永久使用免费版。',
         icon: KeyRound,
       },
       {
@@ -3039,9 +3046,8 @@ function DownloadBlock({ section }: { section: LegacySection }) {
 
 function DownloadOnboardingGuide({ section }: { section: LegacySection }) {
   const copy = getOnboardingCopy(section);
-  const buyLabel = /[一-龥]/.test(copy.badge)
-    ? '购买激活码'
-    : 'Buy activation code';
+  const isChinese = /[一-龥]/.test(copy.badge);
+  const buyLabel = isChinese ? '购买正式版激活码' : 'Buy activation code';
 
   return (
     <div className="mx-auto max-w-6xl" data-download-onboarding-guide>
@@ -3162,17 +3168,29 @@ function DownloadOnboardingGuide({ section }: { section: LegacySection }) {
                         >
                           {buyLabel}
                         </Link>
-                        <p className="text-muted-foreground text-center text-sm leading-6">
-                          {/[一-龥]/.test(copy.badge)
-                            ? '也可以先'
-                            : 'You can also'}
+                        <p className="text-muted-foreground flex flex-wrap items-center justify-center gap-x-1 text-center text-sm leading-6">
+                          <span>
+                            {isChinese
+                              ? '新用户可体验'
+                              : 'New users can try the'}
+                          </span>
+                          <Link
+                            href="/welfare?source=onboarding&entry=download_page"
+                            className="text-primary font-semibold underline-offset-4 hover:underline"
+                            data-starter-card-entry
+                          >
+                            {isChinese ? '9 元全能卡' : '¥9 All-in-One Card'}
+                          </Link>
+                          <span>
+                            {isChinese
+                              ? '，也可永久使用'
+                              : ', or keep using the'}
+                          </span>
                           <Link
                             href="/pricing?source=onboarding&entry=free_version"
-                            className="text-foreground mx-1 font-medium underline-offset-4 hover:underline"
+                            className="text-foreground font-medium underline-offset-4 hover:underline"
                           >
-                            {/[一-龥]/.test(copy.badge)
-                              ? '使用免费版'
-                              : 'use the free version'}
+                            {isChinese ? '免费版' : 'free version permanently'}
                           </Link>
                         </p>
                       </div>
@@ -3227,7 +3245,7 @@ function DownloadInstallOptions({ section }: { section: LegacySection }) {
       defaultValue="market"
       data-download-install-tabs
     >
-      <TabsList className="mb-8 grid h-auto w-full grid-cols-1 gap-3 bg-transparent p-0 sm:grid-cols-2">
+      <TabsList className="mb-8 grid h-auto w-full grid-cols-1 gap-3 bg-transparent p-0 group-data-horizontal/tabs:!h-auto sm:grid-cols-2">
         <TabsTrigger
           value="market"
           className="border-border/70 bg-card/70 hover:border-primary/50 hover:bg-primary/5 data-active:border-primary data-active:bg-primary/10 data-active:ring-primary/20 h-auto min-h-24 justify-start gap-4 rounded-xl border px-5 py-4 text-left whitespace-normal shadow-sm transition-all data-active:shadow-lg data-active:ring-2"
@@ -3521,6 +3539,29 @@ function credentialOptionLabel(credential: UserCredentialSummary) {
   return `${code} · ${plan} · ${expiresAt}`;
 }
 
+function usableCredentialsForCheckout(
+  item: LegacyItem | null,
+  credentials: UserCredentialSummary[]
+) {
+  const active = credentials.filter(
+    (credential) => credential.status === 'active' && credential.code
+  );
+  if (!item) return active;
+  if (isCreditPackItem(item)) {
+    return active.filter(
+      (credential) => getCredentialPlanTier(credential) !== 'trial'
+    );
+  }
+
+  const targetTier = item.product_id
+    ? getPricingProduct(item.product_id)?.credentialTier
+    : null;
+  if (!targetTier || targetTier === 'trial') return [];
+  return active.filter(
+    (credential) => getCredentialPlanTier(credential) === targetTier
+  );
+}
+
 function PricingBlock({ section }: { section: LegacySection }) {
   const router = useRouter();
   const { data: session, isPending: sessionPending } = useSession();
@@ -3541,20 +3582,25 @@ function PricingBlock({ section }: { section: LegacySection }) {
     [group, section.items]
   );
   const selectedCredentials = useMemo(() => {
-    const active = credentials.filter(
-      (credential) => credential.status === 'active' && credential.code
-    );
-    if (!isCreditPackItem(checkoutItem)) return active;
-    return active.filter(
-      (credential) =>
-        String(credential.planCode || '')
-          .trim()
-          .toLowerCase() !== 'trial'
-    );
+    return usableCredentialsForCheckout(checkoutItem, credentials);
   }, [checkoutItem, credentials]);
   const checkoutNeedsCredential =
     Boolean(checkoutItem) &&
     (isCreditPackItem(checkoutItem) || checkoutMode === 'recharge');
+  const checkoutCredentialTier = useMemo<CredentialPlanTier | null>(() => {
+    if (!checkoutItem?.product_id || isCreditPackItem(checkoutItem))
+      return null;
+    return getPricingProduct(checkoutItem.product_id)?.credentialTier || null;
+  }, [checkoutItem]);
+  const renewalUnavailable =
+    checkoutMode === 'recharge' &&
+    !isCreditPackItem(checkoutItem) &&
+    !credentialsLoading &&
+    selectedCredentials.length === 0;
+  const noMatchingCredentialMessage =
+    checkoutCredentialTier === 'team'
+      ? copy('no_team_credentials', '暂无团队版激活码，请选择新购激活码')
+      : copy('no_personal_credentials', '暂无个人版激活码，请选择新购激活码');
 
   async function loadCredentials(item: LegacyItem, mode: CheckoutMode) {
     if (!session?.user) return;
@@ -3566,14 +3612,7 @@ function PricingBlock({ section }: { section: LegacySection }) {
         '/api/user/get-credentials?page=1&pageSize=100&status=active'
       );
       const rows = result?.items || [];
-      const usableRows = isCreditPackItem(item)
-        ? rows.filter(
-            (credential) =>
-              String(credential.planCode || '')
-                .trim()
-                .toLowerCase() !== 'trial'
-          )
-        : rows;
+      const usableRows = usableCredentialsForCheckout(item, rows);
       setCredentials(rows);
       setSelectedCredentialCode(usableRows[0]?.code || '');
     } catch (error: any) {
@@ -3882,75 +3921,100 @@ function PricingBlock({ section }: { section: LegacySection }) {
           </DialogHeader>
 
           {checkoutItem && !isCreditPackItem(checkoutItem) ? (
-            <div className="grid grid-cols-2 gap-2">
-              <Button
-                type="button"
-                variant={checkoutMode === 'issue' ? 'default' : 'outline'}
-                onClick={() => switchCheckoutMode('issue')}
-              >
-                {copy('purchase_mode_new', '新购激活码')}
-              </Button>
-              <Button
-                type="button"
-                variant={checkoutMode === 'recharge' ? 'default' : 'outline'}
-                onClick={() => switchCheckoutMode('recharge')}
-              >
-                {copy('purchase_mode_renew', '续费已有码')}
-              </Button>
+            <div className="space-y-2">
+              <div className="grid grid-cols-2 gap-2">
+                <Button
+                  type="button"
+                  variant={checkoutMode === 'issue' ? 'default' : 'outline'}
+                  onClick={() => switchCheckoutMode('issue')}
+                >
+                  {copy('purchase_mode_new', '新购激活码')}
+                </Button>
+                <Button
+                  type="button"
+                  variant={checkoutMode === 'recharge' ? 'default' : 'outline'}
+                  onClick={() => switchCheckoutMode('recharge')}
+                >
+                  {copy('purchase_mode_renew', '续费已有码')}
+                </Button>
+              </div>
+              <p className="text-muted-foreground text-xs leading-5">
+                {copy(
+                  'checkout_modal_description_plan',
+                  '个人版只能续费个人版，团队版只能续费团队版。'
+                )}
+              </p>
             </div>
           ) : null}
 
           {checkoutNeedsCredential ? (
             <div className="space-y-4 rounded-lg border bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900/50">
-              <div className="space-y-2">
-                <Label htmlFor="credential-select">
-                  {copy('select_credential', '选择已有激活码')}
-                </Label>
-                <select
-                  id="credential-select"
-                  className="border-input bg-background h-9 w-full rounded-lg border px-3 text-sm"
-                  value={selectedCredentialCode}
-                  disabled={credentialsLoading || !selectedCredentials.length}
-                  onChange={(event) =>
-                    setSelectedCredentialCode(event.target.value)
-                  }
-                >
-                  {selectedCredentials.length ? (
-                    selectedCredentials.map((credential) => (
-                      <option key={credential.code} value={credential.code}>
-                        {credentialOptionLabel(credential)}
-                      </option>
-                    ))
-                  ) : (
-                    <option value="">
-                      {credentialsLoading
-                        ? `${copy('processing', '处理中')}...`
-                        : isCreditPackItem(checkoutItem)
-                          ? copy(
-                              'no_formal_credentials',
-                              '暂无可用正式会员激活码'
-                            )
-                          : copy('no_credentials', '暂无可用激活码')}
-                    </option>
-                  )}
-                </select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="credential-code">
-                  {copy('custom_input', '手动输入激活码')}
-                </Label>
-                <Input
-                  id="credential-code"
-                  value={customCredentialCode}
-                  placeholder={copy(
-                    'custom_credential_placeholder',
-                    'ACT-XXXX-XXXX-XXXX'
-                  )}
-                  onChange={(event) =>
-                    setCustomCredentialCode(event.target.value)
-                  }
-                />
-              </div>
+              {renewalUnavailable ? (
+                <div className="space-y-3 text-sm">
+                  <p className="text-muted-foreground">
+                    {noMatchingCredentialMessage}
+                  </p>
+                  <Button
+                    type="button"
+                    className="w-full"
+                    onClick={() => switchCheckoutMode('issue')}
+                  >
+                    {copy('purchase_mode_new', '新购激活码')}
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <div className="space-y-2">
+                    <Label htmlFor="credential-select">
+                      {copy('select_credential', '选择已有激活码')}
+                    </Label>
+                    <select
+                      id="credential-select"
+                      className="border-input bg-background h-9 w-full rounded-lg border px-3 text-sm"
+                      value={selectedCredentialCode}
+                      disabled={
+                        credentialsLoading || !selectedCredentials.length
+                      }
+                      onChange={(event) =>
+                        setSelectedCredentialCode(event.target.value)
+                      }
+                    >
+                      {selectedCredentials.length ? (
+                        selectedCredentials.map((credential) => (
+                          <option key={credential.code} value={credential.code}>
+                            {credentialOptionLabel(credential)}
+                          </option>
+                        ))
+                      ) : (
+                        <option value="">
+                          {credentialsLoading
+                            ? `${copy('processing', '处理中')}...`
+                            : copy(
+                                'no_formal_credentials',
+                                '暂无可用正式会员激活码'
+                              )}
+                        </option>
+                      )}
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="credential-code">
+                      {copy('custom_input', '手动输入激活码')}
+                    </Label>
+                    <Input
+                      id="credential-code"
+                      value={customCredentialCode}
+                      placeholder={copy(
+                        'custom_credential_placeholder',
+                        'ACT-XXXX-XXXX-XXXX'
+                      )}
+                      onChange={(event) =>
+                        setCustomCredentialCode(event.target.value)
+                      }
+                    />
+                  </div>
+                </>
+              )}
             </div>
           ) : null}
 
@@ -3965,7 +4029,9 @@ function PricingBlock({ section }: { section: LegacySection }) {
             </Button>
             <Button
               type="button"
-              disabled={checkoutLoading || credentialsLoading}
+              disabled={
+                checkoutLoading || credentialsLoading || renewalUnavailable
+              }
               onClick={confirmCheckout}
             >
               {checkoutLoading ? (
@@ -4429,21 +4495,6 @@ function getInitialChannelSurveyForm(
     platform: survey?.platform_options?.[0]?.value || '',
     useCases: [],
   };
-}
-
-function getBrowserInstallId() {
-  if (typeof window === 'undefined') return '';
-
-  const key = 'mediaclaw_browser_install_id';
-  const existing = window.localStorage.getItem(key);
-  if (existing) return existing;
-
-  const next =
-    typeof window.crypto?.randomUUID === 'function'
-      ? window.crypto.randomUUID()
-      : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-  window.localStorage.setItem(key, next);
-  return next;
 }
 
 function getCurrentPath(fallback = '/welfare') {

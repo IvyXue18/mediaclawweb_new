@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { PaymentStatus } from '@/core/payment/types';
+import { PaymentEventType, PaymentStatus } from '@/core/payment/types';
 import { ZpayProvider } from '@/core/payment/zpay';
 
 describe('ZpayProvider', () => {
@@ -132,5 +132,91 @@ describe('ZpayProvider', () => {
       order_no: 'ORDER-ZPAY-PAID',
       buyer: 'buyer@example.com',
     });
+  });
+
+  it('can query a paid order by the ZPay platform trade number', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        code: 1,
+        trade_no: 'ZPAY-TRADE-PAID',
+        out_trade_no: 'ORDER-ZPAY-PAID',
+        money: '9.00',
+        status: 1,
+      }),
+    });
+    vi.stubGlobal('fetch', fetchMock);
+
+    const provider = new ZpayProvider({
+      pid: '1001',
+      pkey: 'secret',
+    });
+    const session = await provider.getPaymentSessionByTradeNo({
+      tradeNo: 'ZPAY-TRADE-PAID',
+      orderNo: 'ORDER-ZPAY-PAID',
+    });
+
+    const queryUrl = new URL(fetchMock.mock.calls[0][0]);
+    expect(queryUrl.searchParams.get('trade_no')).toBe('ZPAY-TRADE-PAID');
+    expect(queryUrl.searchParams.get('out_trade_no')).toBeNull();
+    expect(session.paymentStatus).toBe(PaymentStatus.SUCCESS);
+    expect(session.metadata.order_no).toBe('ORDER-ZPAY-PAID');
+  });
+
+  it('does not trust a paid trade lookup that omits the bound merchant order number', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          code: 1,
+          trade_no: 'ZPAY-TRADE-PAID',
+          money: '9.00',
+          status: 1,
+        }),
+      })
+    );
+
+    const provider = new ZpayProvider({
+      pid: '1001',
+      pkey: 'secret',
+    });
+    const session = await provider.getPaymentSessionByTradeNo({
+      tradeNo: 'ZPAY-TRADE-PAID',
+      orderNo: 'ORDER-ZPAY-PAID',
+    });
+
+    expect(session.paymentStatus).toBe(PaymentStatus.PROCESSING);
+  });
+
+  it('accepts a keyed callback signature when ZPay normalizes a literal plus to a space', async () => {
+    const provider = new ZpayProvider({
+      pid: '1001',
+      pkey: 'secret',
+    });
+    const params = {
+      pid: '1001',
+      trade_no: '2026071923001491441423118761',
+      out_trade_no: 'ORDER-ZPAY-PLUS',
+      type: 'alipay',
+      name: '5 天会员 + 50 积分',
+      money: '9.00',
+      trade_status: 'TRADE_SUCCESS',
+      sign_type: 'MD5',
+    };
+    const sign = provider.sign({
+      ...params,
+      name: params.name.replace(/\+/g, ' '),
+    });
+    const url = new URL('https://mediaclaw.example/api/payment/notify/zpay');
+    Object.entries({ ...params, sign }).forEach(([key, value]) => {
+      url.searchParams.set(key, value);
+    });
+
+    const event = await provider.getPaymentEvent({ req: new Request(url) });
+
+    expect(event.eventType).toBe(PaymentEventType.CHECKOUT_SUCCESS);
+    expect(event.paymentSession?.paymentStatus).toBe(PaymentStatus.SUCCESS);
+    expect(event.paymentSession?.metadata?.order_no).toBe('ORDER-ZPAY-PLUS');
   });
 });

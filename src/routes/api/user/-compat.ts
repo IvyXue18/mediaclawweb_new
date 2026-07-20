@@ -18,6 +18,7 @@ import { getConfig } from '@/modules/config/service';
 import { listCredentials } from '@/modules/credentials/service';
 import { getUserPlan } from '@/modules/invite-codes/service';
 import { hasPermission } from '@/modules/rbac/service';
+import { formatLoginIdentifier } from '@/lib/auth-identifier';
 import { respData, respErr, respPage } from '@/lib/resp';
 
 export async function requireUser(request: Request) {
@@ -65,6 +66,7 @@ export async function userCreditsResponse(request: Request) {
       isNull(credit.deletedAt) as unknown as SQL,
     ];
     const transactionType = searchParams.get('transactionType');
+    const credentialCode = searchParams.get('credentialCode')?.trim();
     const search = searchParams.get('search');
 
     if (transactionType === 'grant') {
@@ -80,6 +82,9 @@ export async function userCreditsResponse(request: Request) {
       conditions.push(inArray(credit.transactionType, ['consume', 'expense']));
     } else if (transactionType) {
       conditions.push(eq(credit.transactionType, transactionType));
+    }
+    if (credentialCode) {
+      conditions.push(eq(credit.credentialCode, credentialCode));
     }
     if (search) {
       conditions.push(
@@ -136,7 +141,7 @@ export async function userInfoResponse(request: Request) {
     return respData({
       id: user.id,
       name: user.name,
-      email: user.email,
+      email: formatLoginIdentifier(user.email),
       image: user.image,
       plan,
       trialEndsAt: trialEndsAt?.toISOString() || null,

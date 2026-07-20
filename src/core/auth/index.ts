@@ -10,6 +10,7 @@ import { VerifyEmail } from '@/core/email/templates/verify-email';
 import { AUTH_SECRET_PLACEHOLDER, envConfigs } from '@/config';
 import * as schema from '@/config/db/schema';
 import { getAllConfigs } from '@/modules/config/service';
+import { getPhoneFromAuthEmail } from '@/lib/auth-identifier';
 import { getCookieFromCtx, getHeaderValue } from '@/lib/cookie';
 import { getUuid } from '@/lib/hash';
 
@@ -235,6 +236,15 @@ export function getAuth(configs?: Record<string, string>) {
     databaseHooks: {
       user: {
         create: {
+          before: async (newUser: any) => {
+            if (!getPhoneFromAuthEmail(newUser?.email)) return;
+            return {
+              data: {
+                ...newUser,
+                emailVerified: true,
+              },
+            };
+          },
           after: async (createdUser: any, context: any) => {
             try {
               if (!createdUser?.id) return;
@@ -326,6 +336,7 @@ export function getAuth(configs?: Record<string, string>) {
               token: string;
             }) => {
               try {
+                if (getPhoneFromAuthEmail(user?.email)) return;
                 const key = String(user?.email || '').toLowerCase();
                 const now = Date.now();
                 const last = recentVerificationEmailSentAt.get(key) || 0;

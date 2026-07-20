@@ -4,6 +4,7 @@ import { LogOutIcon, SettingsIcon, ShieldIcon } from 'lucide-react';
 
 import { signOut } from '@/core/auth/client';
 import { Link, useRouter } from '@/core/i18n/navigation';
+import { formatLoginIdentifier } from '@/lib/auth-identifier';
 import { m } from '@/paraglide/messages.js';
 import { useUserPermissions } from '@/hooks/use-user-permissions';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -29,6 +30,7 @@ export function SiteUserMenu({
   const router = useRouter();
   const { data } = useUserPermissions();
   const isAdmin = data?.isAdmin === true;
+  const identifier = formatLoginIdentifier(email);
 
   async function handleSignOut() {
     await signOut();
@@ -58,7 +60,7 @@ export function SiteUserMenu({
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{name}</span>
                 <span className="text-muted-foreground truncate text-xs">
-                  {email}
+                  {identifier}
                 </span>
               </div>
             </div>

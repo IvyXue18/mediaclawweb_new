@@ -12,7 +12,7 @@
     "precf:build": "node scripts/db-setup.mjs",
     "cf:build": "NITRO_PRESET=cloudflare_module vite build",
     "indexnow:submit": "node scripts/indexnow-submit.mjs",
-    "cf:deploy": "sh -c 'set -a && [ -f .env.production ] && . ./.env.production; set +a && pnpm cf:build && wrangler deploy && pnpm indexnow:submit'",
+    "cf:deploy": "sh scripts/cf-deploy.sh",
     "dev:preview": "pnpm cf:build && node scripts/dev-preview-proxy.mjs",
     "postinstall": "mkdir -p data && (test -f src/config/db/schema.ts || node scripts/db-setup.mjs)",
     "db:setup": "node scripts/db-setup.mjs",

@@ -7,6 +7,11 @@ import { authClient, signIn, signUp, useSession } from '@/core/auth/client';
 import { useRouter } from '@/core/i18n/navigation';
 import { apiPost } from '@/lib/api-client';
 import {
+  normalizePhoneIdentifier,
+  resolveLoginIdentifier,
+  usesPhoneAuthEmailDomain,
+} from '@/lib/auth-identifier';
+import {
   DEFAULT_AUTH_REDIRECT_PATH,
   getSafeAuthCallbackPath,
 } from '@/lib/auth-redirect';
@@ -28,7 +33,17 @@ import {
 const signUpSchema = z
   .object({
     name: z.string().min(1),
-    email: z.string().email(m['common.sign.email_placeholder']()),
+    identifier: z
+      .string()
+      .trim()
+      .min(1, m['common.sign.login_identifier_required']())
+      .refine(
+        (value) =>
+          Boolean(normalizePhoneIdentifier(value)) ||
+          (z.email().safeParse(value).success &&
+            !usesPhoneAuthEmailDomain(value)),
+        m['common.sign.registration_identifier_invalid']()
+      ),
     password: z.string().min(8),
     confirmPassword: z.string().min(8),
     inviteCode: z.string(),
@@ -118,7 +133,7 @@ function SignUpPage() {
   const form = useForm({
     defaultValues: {
       name: '',
-      email: '',
+      identifier: '',
       password: '',
       confirmPassword: '',
       inviteCode: '',
@@ -132,6 +147,9 @@ function SignUpPage() {
         return;
       }
       try {
+        const phone = normalizePhoneIdentifier(value.identifier);
+        const authEmail = resolveLoginIdentifier(value.identifier);
+
         // Pre-validate invite code so we don't create an unredeemable account.
         if (inviteCodeRequired) {
           try {
@@ -146,7 +164,7 @@ function SignUpPage() {
 
         const result = await signUp.email({
           name: value.name,
-          email: value.email,
+          email: authEmail,
           password: value.password,
         });
         if (result.error) {
@@ -154,7 +172,7 @@ function SignUpPage() {
           return;
         }
         recordAnalyticsEventSafe('sign_up_success', {
-          authMethod: 'email',
+          authMethod: phone ? 'phone' : 'email',
           callbackUrl: afterLoginUrl,
           referralCode: referralCode || undefined,
         });
@@ -174,16 +192,30 @@ function SignUpPage() {
           } catch {}
         }
 
-        if (emailVerificationEnabled) {
+        if (emailVerificationEnabled && !phone) {
           const verifyPath = `/verify-email?sent=1&email=${encodeURIComponent(
-            value.email
+            authEmail
           )}&callbackUrl=${encodeURIComponent(afterLoginUrl)}`;
           void authClient.sendVerificationEmail({
-            email: value.email,
+            email: authEmail,
             callbackURL: localizeHref(afterLoginUrl),
           });
           router.push(verifyPath);
         } else {
+          // Email verification is a global Better Auth setting. Phone-backed
+          // accounts are marked verified by the server hook, but sign-up still
+          // skips auto-login while that global setting is enabled, so establish
+          // the session explicitly for phone registrations.
+          if (phone && emailVerificationEnabled) {
+            const loginResult = await signIn.email({
+              email: authEmail,
+              password: value.password,
+            });
+            if (loginResult.error) {
+              setError(loginResult.error.message || 'Sign in failed');
+              return;
+            }
+          }
           // Hard navigation so the destination reloads with a fresh session
           // cookie — a client push would let the guard read a stale (logged-out)
           // session store and bounce straight back to /sign-in.
@@ -267,14 +299,16 @@ function SignUpPage() {
                     />
                   )}
                 </form.Field>
-                <form.Field name="email">
+                <form.Field name="identifier">
                   {(field) => (
                     <TextField
                       field={field}
-                      label={m['common.sign.email_title']()}
-                      type="email"
+                      label={m['common.sign.login_identifier_title']()}
+                      type="text"
                       required
-                      placeholder={m['common.sign.email_placeholder']()}
+                      placeholder={m[
+                        'common.sign.login_identifier_placeholder'
+                      ]()}
                       inputClassName={authInputClassName}
                     />
                   )}

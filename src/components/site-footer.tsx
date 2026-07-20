@@ -8,7 +8,11 @@ import { LocaleSelector } from '@/components/locale-selector';
 export interface FooterColumn {
   title: string;
   /** external: open in a new tab. Off-site (http) hrefs always open in a new tab. */
-  links: { label: string; href: string; external?: boolean }[];
+  links?: { label: string; href: string; external?: boolean }[];
+  groups?: {
+    title: string;
+    links: { label: string; href: string; external?: boolean }[];
+  }[];
 }
 
 /** Off-site URLs render as plain <a>; internal paths use the locale-aware Link. */
@@ -46,42 +50,42 @@ export function SiteFooter({
           <div
             className={cn(
               'grid gap-x-8 gap-y-10 sm:gap-x-12',
-              columns.length <= 3
-                ? 'grid-cols-2 sm:grid-cols-3'
-                : columns.length === 4
-                  ? 'grid-cols-2 sm:grid-cols-4'
-                  : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'
+              columns.some((column) => column.groups)
+                ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6'
+                : columns.length <= 3
+                  ? 'grid-cols-2 sm:grid-cols-3'
+                  : columns.length === 4
+                    ? 'grid-cols-2 sm:grid-cols-4'
+                    : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'
             )}
           >
             {columns.map((col) => (
-              <div key={col.title} className="space-y-5">
+              <div
+                key={col.title}
+                className={cn(
+                  col.groups && 'col-span-2 sm:col-span-3 lg:col-span-3'
+                )}
+              >
                 <p className="text-[13px] font-semibold tracking-wide text-neutral-100">
                   {col.title}
                 </p>
-                <ul className="space-y-2">
-                  {col.links.map((link) => (
-                    <li key={link.label}>
-                      {isExternalHref(link.href) ? (
-                        <a
-                          href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm text-neutral-400 transition-colors hover:text-neutral-100"
-                        >
-                          {link.label}
-                        </a>
-                      ) : (
-                        <Link
-                          href={link.href}
-                          target={link.external ? '_blank' : undefined}
-                          className="text-sm text-neutral-400 transition-colors hover:text-neutral-100"
-                        >
-                          {link.label}
-                        </Link>
-                      )}
-                    </li>
-                  ))}
-                </ul>
+
+                {col.groups ? (
+                  <div className="mt-5 grid gap-8 sm:grid-cols-3 sm:gap-6">
+                    {col.groups.map((group) => (
+                      <div key={group.title}>
+                        <p className="mb-3 text-xs font-medium tracking-wide text-neutral-300">
+                          {group.title}
+                        </p>
+                        <FooterLinks links={group.links} />
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="mt-5">
+                    <FooterLinks links={col.links ?? []} />
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -125,5 +129,38 @@ export function SiteFooter({
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterLinks({
+  links,
+}: {
+  links: { label: string; href: string; external?: boolean }[];
+}) {
+  return (
+    <ul className="space-y-2">
+      {links.map((link) => (
+        <li key={`${link.label}-${link.href}`}>
+          {isExternalHref(link.href) ? (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-neutral-400 transition-colors hover:text-neutral-100"
+            >
+              {link.label}
+            </a>
+          ) : (
+            <Link
+              href={link.href}
+              target={link.external ? '_blank' : undefined}
+              className="text-sm text-neutral-400 transition-colors hover:text-neutral-100"
+            >
+              {link.label}
+            </Link>
+          )}
+        </li>
+      ))}
+    </ul>
   );
 }

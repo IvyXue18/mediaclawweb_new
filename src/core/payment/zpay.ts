@@ -148,20 +148,81 @@ export class ZpayProvider implements PaymentProvider {
   }: {
     sessionId: string;
   }): Promise<PaymentSession> {
+    return this.queryPaymentSession({
+      reference: sessionId,
+      queryKey: 'out_trade_no',
+      orderNo: sessionId,
+    });
+  }
+
+  async getPaymentSessionByTradeNo({
+    tradeNo,
+    orderNo,
+  }: {
+    tradeNo: string;
+    orderNo: string;
+  }): Promise<PaymentSession> {
+    return this.queryPaymentSession({
+      reference: tradeNo,
+      queryKey: 'trade_no',
+      orderNo,
+    });
+  }
+
+  private async queryPaymentSession({
+    reference,
+    queryKey,
+    orderNo,
+  }: {
+    reference: string;
+    queryKey: 'out_trade_no' | 'trade_no';
+    orderNo: string;
+  }): Promise<PaymentSession> {
     try {
       const url = new URL(this.queryUrl);
       url.searchParams.set('act', 'order');
       url.searchParams.set('pid', this.configs.pid);
       url.searchParams.set('key', this.configs.pkey);
-      url.searchParams.set('out_trade_no', sessionId);
+      url.searchParams.set(queryKey, reference);
 
       const response = await fetch(url.toString());
       const data = (await response.json()) as ZpayOrderQueryResponse;
       if (String(data.code) !== '1') {
-        return this.processingSession(sessionId, data);
+        console.warn('[Zpay] order query did not resolve', {
+          queryKey,
+          orderNo,
+          code: data.code,
+          message: data.msg,
+        });
+        return this.processingSession(orderNo, data);
+      }
+
+      // A trade-number lookup is used as the fallback for callbacks whose
+      // signature could not be reproduced. In that path the provider response
+      // itself must bind both identifiers; never fill a missing merchant order
+      // number from the untrusted callback request.
+      if (
+        queryKey === 'trade_no' &&
+        (String(data.trade_no || '').trim() !== reference ||
+          String(data.out_trade_no || '').trim() !== orderNo)
+      ) {
+        console.warn('[Zpay] trade lookup identity mismatch', {
+          orderNo,
+          returnedOrderNo: data.out_trade_no,
+          returnedTradeNo: data.trade_no,
+        });
+        return this.processingSession(orderNo, data);
       }
 
       const isPaid = String(data.status) === '1';
+      if (!isPaid) {
+        console.warn('[Zpay] order query returned unpaid', {
+          queryKey,
+          orderNo,
+          status: data.status,
+          returnedOrderNo: data.out_trade_no,
+        });
+      }
       const paymentAmount = Math.round(parseFloat(data.money || '0') * 100);
       return {
         provider: this.name,
@@ -178,19 +239,23 @@ export class ZpayProvider implements PaymentProvider {
           : undefined,
         paymentResult: {
           ...data,
-          out_trade_no: data.out_trade_no || sessionId,
+          out_trade_no: data.out_trade_no || orderNo,
         },
         metadata: {
-          order_no: data.out_trade_no || sessionId,
+          order_no: data.out_trade_no || orderNo,
           buyer: data.buyer,
           param: data.param,
         },
       };
     } catch (error: any) {
-      console.warn('Zpay order query fallback:', error?.message || error);
+      console.warn('[Zpay] order query failed', {
+        queryKey,
+        orderNo,
+        message: error?.message || String(error),
+      });
     }
 
-    return this.processingSession(sessionId);
+    return this.processingSession(orderNo);
   }
 
   private processingSession(
@@ -217,10 +282,29 @@ export class ZpayProvider implements PaymentProvider {
       throw new Error('Invalid Zpay pid');
     }
 
-    const receivedSign = params.sign;
+    const receivedSign = String(params.sign || '')
+      .trim()
+      .toLowerCase();
     const expectedSign = this.sign(params);
     if (receivedSign !== expectedSign) {
-      throw new Error('Invalid Zpay signature');
+      // ZPay callback parameters are form encoded, where `+` represents a
+      // space. Some channels sign after an extra decode pass, so a literal
+      // plus in a product name is signed as a space. This remains a keyed MD5
+      // verification; only the transport normalization differs.
+      const plusAsSpaceParams = Object.fromEntries(
+        Object.entries(params).map(([key, value]) => [
+          key,
+          value.replace(/\+/g, ' '),
+        ])
+      );
+      const plusAsSpaceSign = this.sign(plusAsSpaceParams);
+      if (receivedSign !== plusAsSpaceSign) {
+        throw new Error('Invalid Zpay signature');
+      }
+      console.warn(
+        '[Zpay] accepted callback signature using plus-as-space normalization',
+        { orderNo: params.out_trade_no }
+      );
     }
 
     const isPaid = params.trade_status === 'TRADE_SUCCESS';

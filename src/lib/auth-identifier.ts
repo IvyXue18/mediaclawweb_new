@@ -8,6 +8,13 @@ export function getPhoneAuthEmail(phone: string) {
   return `${phone}@${PHONE_AUTH_EMAIL_DOMAIN}`;
 }
 
+export function usesPhoneAuthEmailDomain(value?: string | null) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .endsWith(`@${PHONE_AUTH_EMAIL_DOMAIN}`);
+}
+
 export function normalizePhoneIdentifier(value: string) {
   const compact = value.trim().replace(/[\s()-]/g, '');
   if (/^1\d{10}$/.test(compact)) return compact;
@@ -27,7 +34,7 @@ export function resolveLoginIdentifier(value: string) {
 
 export function getPhoneFromAuthEmail(email?: string | null) {
   const match = String(email || '').match(
-    new RegExp(`^(\\d+)@${PHONE_AUTH_EMAIL_DOMAIN_PATTERN}$`, 'i')
+    new RegExp(`^(1\\d{10})@${PHONE_AUTH_EMAIL_DOMAIN_PATTERN}$`, 'i')
   );
   return match?.[1] || null;
 }

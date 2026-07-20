@@ -4,6 +4,7 @@ import {
   formatLoginIdentifier,
   getPhoneFromAuthEmail,
   resolveLoginIdentifier,
+  usesPhoneAuthEmailDomain,
 } from '@/lib/auth-identifier';
 
 describe('auth identifier helpers', () => {
@@ -30,5 +31,12 @@ describe('auth identifier helpers', () => {
       formatLoginIdentifier('18518257525@phone-auth.mediaclaw.local')
     ).toBe('18518257525');
     expect(formatLoginIdentifier('user@example.com')).toBe('user@example.com');
+  });
+
+  it('recognizes the reserved phone auth domain without accepting malformed phone aliases', () => {
+    expect(
+      usesPhoneAuthEmailDomain('18518257525@phone-auth.mediaclaw.local')
+    ).toBe(true);
+    expect(getPhoneFromAuthEmail('123@phone-auth.mediaclaw.local')).toBeNull();
   });
 });

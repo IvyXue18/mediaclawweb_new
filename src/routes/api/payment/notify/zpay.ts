@@ -1,7 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
 
-import { PaymentEventType, PaymentStatus } from '@/core/payment/types';
-import { ZpayProvider } from '@/core/payment/zpay';
+import {
+  PaymentEventType,
+  PaymentStatus,
+  type PaymentEvent,
+} from '@/core/payment/types';
+import { readZpayParams, ZpayProvider } from '@/core/payment/zpay';
 import { envConfigs } from '@/config';
 import { getAllConfigs } from '@/modules/config/service';
 import { handleCheckoutSuccess } from '@/modules/payment/service';
@@ -20,7 +24,47 @@ async function handleZpayNotify(request: Request) {
       pkey,
       appUrl: configs.app_url || envConfigs.app_url,
     });
-    const event = await provider.getPaymentEvent({ req: request });
+    let event: PaymentEvent;
+    try {
+      event = await provider.getPaymentEvent({ req: request });
+    } catch (error: any) {
+      // Some ZPay channels have been observed to send a paid notification
+      // whose signature cannot be reproduced from the decoded callback
+      // parameters. Never trust that notification directly: actively query
+      // ZPay with our merchant credentials and only accept its paid result.
+      if (error?.message !== 'Invalid Zpay signature') throw error;
+
+      const params = await readZpayParams(request);
+      const orderNo = String(params.out_trade_no || '').trim();
+      const tradeNo = String(params.trade_no || '').trim();
+      if (!orderNo || !tradeNo) throw error;
+
+      const verifiedSession = await provider.getPaymentSessionByTradeNo({
+        tradeNo,
+        orderNo,
+      });
+      const verifiedOrderNo = String(
+        verifiedSession.paymentResult?.out_trade_no ||
+          verifiedSession.metadata?.order_no ||
+          ''
+      ).trim();
+      if (
+        verifiedSession.paymentStatus !== PaymentStatus.SUCCESS ||
+        verifiedOrderNo !== orderNo
+      ) {
+        throw error;
+      }
+
+      console.warn(
+        '[Zpay Webhook] callback signature mismatch; accepted after active order verification',
+        { orderNo }
+      );
+      event = {
+        eventType: PaymentEventType.CHECKOUT_SUCCESS,
+        eventResult: verifiedSession.paymentResult,
+        paymentSession: verifiedSession,
+      };
+    }
     const orderNo = event.paymentSession?.metadata?.order_no;
     if (!orderNo) {
       throw new Error('order_no not found in metadata');

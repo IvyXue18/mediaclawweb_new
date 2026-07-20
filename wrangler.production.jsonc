@@ -29,4 +29,35 @@
       "id": "3450682c5069405b844c72754c6fa7ea",
     },
   ],
+  "env": {
+    "staging": {
+      "name": "mediaclawweb-staging",
+      "vars": {
+        "DATABASE_PROVIDER": "postgresql",
+        "VITE_APP_URL": "https://staging.mediaclaw.app",
+        "AUTH_URL": "https://staging.mediaclaw.app",
+        "VITE_APP_NAME": "MediaClaw",
+        "VITE_APP_DESCRIPTION": "MediaClaw helps teams capture, monitor, and operationalize social media intelligence.",
+        "VITE_DEFAULT_LOCALE": "zh",
+        "COZE_API_URL": "https://api.coze.cn/v1/workflow/run",
+        "COZE_WORKFLOW_ID_IMAGE_OCR": "7653316003980476435",
+        "DASHSCOPE_API_BASE_URL": "https://dashscope.aliyuncs.com/api/v1",
+        "DASHSCOPE_ASR_MODEL": "fun-asr",
+        "DASHSCOPE_ASR_POLL_INTERVAL_MS": "2500",
+        "DASHSCOPE_ASR_TIMEOUT_MS": "600000",
+      },
+      "routes": [
+        {
+          "pattern": "staging.mediaclaw.app",
+          "custom_domain": true,
+        },
+      ],
+      "hyperdrive": [
+        {
+          "binding": "HYPERDRIVE",
+          "id": "3450682c5069405b844c72754c6fa7ea",
+        },
+      ],
+    },
+  },
 }

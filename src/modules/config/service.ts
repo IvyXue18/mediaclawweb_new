@@ -1,8 +1,9 @@
-import { eq } from 'drizzle-orm';
+import { eq, inArray } from 'drizzle-orm';
 
 import { db } from '@/core/db';
 import { envConfigs } from '@/config';
 import { config } from '@/config/db/schema';
+import { resolvePricingProduct } from '@/config/pricing';
 import { decryptSecret, encryptSecret, isEncryptedSecret } from '@/lib/crypto';
 
 import { getSettings } from './settings';
@@ -17,6 +18,14 @@ let cachedConfigs: ConfigMap | null = null;
 let cacheTime = 0;
 const CACHE_TTL = 3600_000; // 1 hour
 
+function isCloudflareWorkerRuntime() {
+  const runtimeGlobal = globalThis as typeof globalThis & {
+    __CF_ENV__?: unknown;
+    __env__?: unknown;
+  };
+  return Boolean(runtimeGlobal.__CF_ENV__ || runtimeGlobal.__env__);
+}
+
 /**
  * Get all configs from database.
  */
@@ -24,7 +33,13 @@ export async function getDbConfigs(
   options: ConfigReadOptions = {}
 ): Promise<ConfigMap> {
   const now = Date.now();
-  if (!options.bypassCache && cachedConfigs && now - cacheTime < CACHE_TTL) {
+  // A Worker deployment can serve consecutive requests from different
+  // isolates. Invalidating a module-level cache after an admin save only
+  // clears the current isolate, leaving other isolates stale for up to an
+  // hour. Read the small config table directly on Workers; retain the cache
+  // for the single-process local/node runtime.
+  const useMemoryCache = !options.bypassCache && !isCloudflareWorkerRuntime();
+  if (useMemoryCache && cachedConfigs && now - cacheTime < CACHE_TTL) {
     return cachedConfigs;
   }
 
@@ -55,8 +70,10 @@ export async function getDbConfigs(
       }
     }
 
-    cachedConfigs = result;
-    cacheTime = now;
+    if (useMemoryCache) {
+      cachedConfigs = result;
+      cacheTime = now;
+    }
     return result;
   } catch {
     return {};
@@ -90,6 +107,22 @@ const PROTECTED_CONFIG_KEYS: ReadonlySet<string> = new Set([
   'db_schema',
   'db_singleton_enabled',
   'db_max_connections',
+]);
+
+/**
+ * Removed benefit-center fields kept only as read fallbacks during migration.
+ * They must not reappear in the Custom tab after being removed from settings.
+ */
+const LEGACY_BENEFIT_CONFIG_KEYS: ReadonlySet<string> = new Set([
+  'benefit_channel_survey_enabled',
+  'benefit_channel_survey_new_duration_days',
+  'benefit_channel_survey_new_credits',
+  'benefit_channel_survey_existing_duration_days',
+  'benefit_channel_survey_existing_credits',
+  'benefit_experience_feedback_new_duration_days',
+  'benefit_experience_feedback_new_credits',
+  'benefit_experience_feedback_existing_duration_days',
+  'benefit_experience_feedback_existing_credits',
 ]);
 
 /**
@@ -153,6 +186,31 @@ export async function saveConfigs(configs: ConfigMap) {
     return;
   }
 
+  const legacyKeysToRemove = new Set<string>();
+  if (
+    'benefit_starter_survey_enabled' in configs ||
+    'benefit_starter_survey_bonus_days' in configs
+  ) {
+    for (const key of LEGACY_BENEFIT_CONFIG_KEYS) {
+      if (key.startsWith('benefit_channel_survey_')) {
+        legacyKeysToRemove.add(key);
+      }
+    }
+  }
+  if (
+    'benefit_experience_feedback_duration_days' in configs ||
+    'benefit_experience_feedback_credits' in configs
+  ) {
+    for (const key of LEGACY_BENEFIT_CONFIG_KEYS) {
+      if (
+        key.startsWith('benefit_experience_feedback_') &&
+        key !== 'benefit_experience_feedback_enabled'
+      ) {
+        legacyKeysToRemove.add(key);
+      }
+    }
+  }
+
   await db().transaction(async (tx: any) => {
     for (const [name, value] of entries) {
       const [existing] = await tx
@@ -166,6 +224,11 @@ export async function saveConfigs(configs: ConfigMap) {
       } else {
         await tx.insert(config).values({ name, value });
       }
+    }
+    if (legacyKeysToRemove.size > 0) {
+      await tx
+        .delete(config)
+        .where(inArray(config.name, [...legacyKeysToRemove]));
     }
   });
 
@@ -200,6 +263,29 @@ export async function getAdminConfigs(
     result[name] =
       isSecretConfigKey(name) && value ? maskConfigValue(value) : value;
   }
+
+  // Present the effective current policy through the new benefits fields.
+  // Legacy keys remain readable by the domain services for migration, but are
+  // intentionally not registered as settings anymore.
+  const starter = resolvePricingProduct('trial-starter', configs);
+  if (starter) {
+    result.benefit_starter_card_enabled ??=
+      starter.status && starter.status !== 'active' ? 'false' : 'true';
+    result.benefit_starter_card_price_cents ??= String(starter.priceInCents);
+    result.benefit_starter_card_duration_days ??= String(
+      starter.durationDays || 0
+    );
+    result.benefit_starter_card_credits ??= String(starter.credits);
+  }
+  result.benefit_starter_survey_enabled ??=
+    configs.benefit_channel_survey_enabled || 'true';
+  result.benefit_starter_survey_bonus_days ??=
+    configs.benefit_channel_survey_existing_duration_days || '2';
+  result.benefit_experience_feedback_duration_days ??=
+    configs.benefit_experience_feedback_existing_duration_days || '5';
+  result.benefit_experience_feedback_credits ??=
+    configs.benefit_experience_feedback_existing_credits || '0';
+
   return result;
 }
 
@@ -217,6 +303,7 @@ function reservedConfigKeys(): Set<string> {
     ...getSettings().map((s) => s.name),
     ...Object.keys(envConfigs),
     ...PROTECTED_CONFIG_KEYS,
+    ...LEGACY_BENEFIT_CONFIG_KEYS,
   ]);
 }
 

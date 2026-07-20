@@ -21,7 +21,9 @@ test('download page keeps old-site onboarding structure usable on mobile', async
     page.locator('#download [data-download-store-card]')
   ).toHaveCount(2);
 
-  const packageTab = page.locator('#download [data-download-package-tab]');
+  const packageTab = page.getByRole('tab', {
+    name: /离线安装|Offline Installation/i,
+  });
   const packagePanel = page.locator('#download [data-download-package-panel]');
   await expect
     .poll(async () => {

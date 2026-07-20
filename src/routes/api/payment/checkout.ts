@@ -2,7 +2,11 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { getAuth } from '@/core/auth';
 import { envConfigs } from '@/config';
-import { resolvePricingProduct } from '@/config/pricing';
+import {
+  credentialTierLabel,
+  getCredentialPlanTier,
+  resolvePricingProduct,
+} from '@/config/pricing';
 import { getAllConfigs } from '@/modules/config/service';
 import { getCredentialByCode } from '@/modules/credentials/service';
 import {
@@ -10,7 +14,23 @@ import {
   isPartnerCurrentlyActive,
   partnerBusinessId,
 } from '@/modules/partners/service';
-import { createCheckout } from '@/modules/payment/service';
+import {
+  cancelPendingCheckout,
+  createCheckout,
+  DEDUCTION_RESERVATION_CONFLICT_CODE,
+} from '@/modules/payment/service';
+import {
+  expireStaleStarterDeductionOrders,
+  expireStaleStarterOrders,
+  getActiveStarterDeductionOrder,
+  getApplicableStarterDeduction,
+  getStarterBrowserInstallHash,
+  getStarterDeductionReservationKey,
+  getStarterStatus,
+  isPaidTrialCredential,
+  STARTER_DEDUCTION_CODE,
+  STARTER_PRODUCT_ID,
+} from '@/modules/starter/service';
 import {
   ATTRIBUTION_COOKIE_NAME,
   parseAttributionEnvelope,
@@ -48,7 +68,7 @@ function normalizeDevice(input: unknown) {
   return input === 'mobile' ? 'mobile' : 'pc';
 }
 
-async function POST({ request }: { request: Request }) {
+export async function POST({ request }: { request: Request }) {
   const limited = enforceMinIntervalRateLimit(request, {
     intervalMs: 1000,
     keyPrefix: 'checkout',
@@ -74,6 +94,7 @@ async function POST({ request }: { request: Request }) {
       credential_code,
       seats,
       device,
+      browser_install_id,
     } = body;
 
     if (!product_id || typeof product_id !== 'string') {
@@ -145,14 +166,57 @@ async function POST({ request }: { request: Request }) {
       if (selectedCredential.status !== 'active') {
         return respErr(`credential is ${selectedCredential.status}`);
       }
+      if (fulfillment === 'credential') {
+        const targetTier = product.credentialTier;
+        const existingTier = getCredentialPlanTier(selectedCredential);
+        if (
+          !targetTier ||
+          targetTier === 'trial' ||
+          existingTier !== targetTier
+        ) {
+          const label = targetTier ? credentialTierLabel(targetTier) : '同版本';
+          return respErr(`暂无${label}激活码，请选择新购激活码`);
+        }
+      }
       if (
         fulfillment === 'credits_only' &&
-        String(selectedCredential.planCode || '').toLowerCase() === 'trial'
+        String(selectedCredential.planCode || '').toLowerCase() === 'trial' &&
+        !isPaidTrialCredential(selectedCredential)
       ) {
         return respErr(
           'trial activation codes cannot buy credit packs; upgrade to a paid plan first'
         );
       }
+    }
+
+    // 9 元全能卡：每个账号限购一次；领取过任何试用（免费或付费）的账号不可购买。
+    const isStarterProduct = product.productId === STARTER_PRODUCT_ID;
+    if (isStarterProduct) {
+      if (partnerRow || credentialCode) {
+        return respErr('starter card does not support partner or recharge');
+      }
+      const starterStatus = await getStarterStatus(
+        session.user.id,
+        browser_install_id
+      );
+      if (!starterStatus.eligible) {
+        const pendingOrder = starterStatus.pendingOrder;
+        if (
+          starterStatus.reason === 'has_pending_order' &&
+          pendingOrder &&
+          ['created', 'pending'].includes(pendingOrder.status) &&
+          pendingOrder.checkoutUrl
+        ) {
+          return respData({
+            checkoutUrl: pendingOrder.checkoutUrl,
+            checkout_url: pendingOrder.checkoutUrl,
+            orderNo: pendingOrder.orderNo,
+            reused: true,
+          });
+        }
+        return respErr(`starter_not_eligible:${starterStatus.reason}`);
+      }
+      await expireStaleStarterOrders(session.user.id);
     }
 
     // Optional per-provider "test amount" override (admin-configured).
@@ -166,8 +230,63 @@ async function POST({ request }: { request: Request }) {
     const baseAmount = partnerRow
       ? product.priceInCents * seatCount
       : product.priceInCents;
-    const chargeAmount = testAmount > 0 ? testAmount : baseAmount;
-    const defaultRedirectPath = '/settings/payments';
+    let chargeAmount = testAmount > 0 ? testAmount : baseAmount;
+
+    // 9 元卡抵扣：持有效期内付费 trial 且未用过抵扣的用户，首次订阅套餐自动立减。
+    // 与其他优惠取最大力度、不叠加（当前 checkout 无其他用户侧折扣，直接应用）。
+    let discountCode: string | null = null;
+    let discountAmount = 0;
+    if (
+      fulfillment === 'credential' &&
+      !isStarterProduct &&
+      !partnerRow &&
+      !credentialCode &&
+      testAmount <= 0
+    ) {
+      await expireStaleStarterDeductionOrders(session.user.id);
+      const activeDeductionOrder = await getActiveStarterDeductionOrder(
+        session.user.id
+      );
+      if (activeDeductionOrder) {
+        if (
+          activeDeductionOrder.productId === product.productId &&
+          activeDeductionOrder.checkoutUrl
+        ) {
+          return respData({
+            checkoutUrl: activeDeductionOrder.checkoutUrl,
+            checkout_url: activeDeductionOrder.checkoutUrl,
+            orderNo: activeDeductionOrder.orderNo,
+            reused: true,
+          });
+        }
+
+        const replaced = await cancelPendingCheckout({
+          userId: session.user.id,
+          orderNo: activeDeductionOrder.orderNo,
+          reason: 'checkout_replaced',
+        });
+        if (!replaced.canceled) {
+          return respErr(
+            replaced.status === 'paid'
+              ? 'starter_deduction_already_used'
+              : 'starter_deduction_checkout_in_progress'
+          );
+        }
+      }
+
+      const deduction = await getApplicableStarterDeduction(session.user.id);
+      if (deduction > 0) {
+        discountAmount = Math.min(deduction, Math.max(chargeAmount - 1, 0));
+        if (discountAmount > 0) {
+          discountCode = STARTER_DEDUCTION_CODE;
+          chargeAmount -= discountAmount;
+        }
+      }
+    }
+
+    const defaultRedirectPath = isStarterProduct
+      ? '/welfare/claim'
+      : '/settings/payments';
     const clientip = clientIpFromHeaders(request.headers);
     const attribution = parseAttributionEnvelope(
       getCookieFromHeader(
@@ -205,7 +324,14 @@ async function POST({ request }: { request: Request }) {
           maxBindings: product.maxBindings || 1,
           currency: product.currency,
         })
-      : null;
+      : isStarterProduct
+        ? JSON.stringify({
+            planCode: product.grantPlanCode || 'trial',
+            durationDays: product.durationDays || 5,
+            creditsNeverExpire: product.creditsNeverExpire !== false,
+            maxBindings: product.maxBindings || 1,
+          })
+        : null;
     const credentialAction =
       fulfillment === 'credential'
         ? credentialCode
@@ -260,6 +386,14 @@ async function POST({ request }: { request: Request }) {
       variantId: partnerRow ? partnerVariantId : null,
       seatCount: partnerRow ? seatCount : 1,
       priceRuleSnapshot: partnerPriceRuleSnapshot,
+      starterBrowserInstallHash: isStarterProduct
+        ? getStarterBrowserInstallHash(browser_install_id)
+        : null,
+      discountCode,
+      discountAmount,
+      deductionReservationKey: discountCode
+        ? getStarterDeductionReservationKey(session.user.id)
+        : null,
       attribution,
     });
 
@@ -294,11 +428,24 @@ async function POST({ request }: { request: Request }) {
         amount: chargeAmount,
         currency: product.currency,
         redirect: safeRedirectPath,
+        discountCode: discountCode || undefined,
+        discountAmount: discountAmount || undefined,
         attribution,
       },
     });
+    if (isStarterProduct) {
+      await recordServerAnalyticsEvent({
+        eventName: 'trial_card_pay_click',
+        source: 'server',
+        userId: session.user.id,
+        properties: { productId: product.productId, amount: chargeAmount },
+      });
+    }
     return respData({ checkoutUrl, checkout_url: checkoutUrl });
   } catch (error: any) {
+    if (error?.code === DEDUCTION_RESERVATION_CONFLICT_CODE) {
+      return respErr('starter_deduction_checkout_in_progress');
+    }
     console.error('checkout error:', error);
     return respErr(error.message || 'Checkout failed');
   }

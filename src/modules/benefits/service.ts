@@ -1,4 +1,3 @@
-import { createHash } from 'node:crypto';
 import { and, count, desc, eq, like, or, type SQL } from 'drizzle-orm';
 
 import { db } from '@/core/db';
@@ -13,8 +12,13 @@ import {
   welfareFeedbackTask,
   welfareUsageSummary,
 } from '@/config/db/schema';
-import { getAllConfigs, type ConfigMap } from '@/modules/config/service';
+import {
+  getAllConfigs,
+  type ConfigMap,
+  type ConfigReadOptions,
+} from '@/modules/config/service';
 import { generateActivationCode } from '@/modules/credentials/service';
+import { hashBrowserInstallId } from '@/lib/browser-install-id.server';
 import { getUuid } from '@/lib/hash';
 import { recordServerAnalyticsEvent } from '@/lib/server-analytics';
 
@@ -22,6 +26,7 @@ export const CHANNEL_SURVEY_TASK_TYPE = 'channel_survey_trial';
 export const CHANNEL_SURVEY_REWARD_TASK_TYPE = 'channel_survey';
 export const EXPERIENCE_FEEDBACK_REWARD_TASK_TYPE = 'experience_feedback';
 export const WELFARE_FEEDBACK_TASK_TYPE = 'usage_feedback';
+const STARTER_CHANNEL_SURVEY_TASK_PREFIX = `${CHANNEL_SURVEY_TASK_TYPE}:starter:`;
 
 const DEFAULT_TRIAL_MAX_BINDINGS = 1;
 
@@ -45,11 +50,13 @@ type BenefitRewardConfig = Record<
   BenefitRewardTaskConfig
 >;
 
+// 免费试用已下线：new_trial_code 路径被 grantBenefitReward 阻断，newCredential
+// 规则仅作为历史配置保留。渠道调研奖励 = 给已购 9 元卡（或其他激活码）+2 天，不送积分。
 const DEFAULT_BENEFIT_REWARD_CONFIG: BenefitRewardConfig = {
   [CHANNEL_SURVEY_REWARD_TASK_TYPE]: {
     enabled: true,
-    newCredential: { durationDays: 2, credits: 10 },
-    existingCredential: { durationDays: 2, credits: 10 },
+    newCredential: { durationDays: 2, credits: 0 },
+    existingCredential: { durationDays: 2, credits: 0 },
   },
   [EXPERIENCE_FEEDBACK_REWARD_TASK_TYPE]: {
     enabled: true,
@@ -152,15 +159,6 @@ function sanitizeSurveyValue(value: string | null | undefined, max = 120) {
     .slice(0, max);
 }
 
-function hashBrowserInstallId(value: string | null | undefined) {
-  const normalized = sanitizeSurveyValue(value, 256);
-  if (!normalized) return '';
-
-  return createHash('sha256')
-    .update(`mediaclaw:welfare:v1:${normalized}`)
-    .digest('hex');
-}
-
 function safeStringify(value: unknown) {
   try {
     return JSON.stringify(value);
@@ -181,10 +179,15 @@ function parseJson(value: string | null | undefined): Record<string, unknown> {
 
 function readBooleanConfig(
   configs: ConfigMap,
-  key: string,
+  keys: string[],
   defaultValue: boolean
 ) {
-  const value = configs[key];
+  const value = keys
+    .map((key) => configs[key])
+    .find(
+      (candidate) =>
+        candidate !== undefined && candidate !== null && candidate !== ''
+    );
   if (value === undefined || value === null || value === '') {
     return defaultValue;
   }
@@ -193,68 +196,80 @@ function readBooleanConfig(
 
 function readNumberConfig(
   configs: ConfigMap,
-  key: string,
+  keys: string[],
   defaultValue: number
 ) {
-  const value = Number(configs[key]);
+  const raw = keys
+    .map((key) => configs[key])
+    .find(
+      (candidate) =>
+        candidate !== undefined && candidate !== null && candidate !== ''
+    );
+  const value = Number(raw);
   if (!Number.isFinite(value) || value < 0) return defaultValue;
   return Math.floor(value);
 }
 
-function getBenefitRewardConfigFromConfigs(
+export function getBenefitRewardConfigFromConfigs(
   configs: ConfigMap
 ): BenefitRewardConfig {
   return {
     [CHANNEL_SURVEY_REWARD_TASK_TYPE]: {
       enabled: readBooleanConfig(
         configs,
-        'benefit_channel_survey_enabled',
+        ['benefit_starter_survey_enabled', 'benefit_channel_survey_enabled'],
         DEFAULT_BENEFIT_REWARD_CONFIG.channel_survey.enabled
       ),
       newCredential: {
         durationDays: readNumberConfig(
           configs,
-          'benefit_channel_survey_new_duration_days',
+          [
+            'benefit_starter_survey_bonus_days',
+            'benefit_channel_survey_existing_duration_days',
+          ],
           DEFAULT_BENEFIT_REWARD_CONFIG.channel_survey.newCredential
             .durationDays
         ),
-        credits: readNumberConfig(
-          configs,
-          'benefit_channel_survey_new_credits',
-          DEFAULT_BENEFIT_REWARD_CONFIG.channel_survey.newCredential.credits
-        ),
+        // Historical deployments may still carry the old survey-credit config.
+        // The paid starter-card policy only extends validity; it never grants
+        // additional credits, so legacy values must not revive that reward.
+        credits: 0,
       },
       existingCredential: {
         durationDays: readNumberConfig(
           configs,
-          'benefit_channel_survey_existing_duration_days',
+          [
+            'benefit_starter_survey_bonus_days',
+            'benefit_channel_survey_existing_duration_days',
+          ],
           DEFAULT_BENEFIT_REWARD_CONFIG.channel_survey.existingCredential
             .durationDays
         ),
-        credits: readNumberConfig(
-          configs,
-          'benefit_channel_survey_existing_credits',
-          DEFAULT_BENEFIT_REWARD_CONFIG.channel_survey.existingCredential
-            .credits
-        ),
+        credits: 0,
       },
     },
     [EXPERIENCE_FEEDBACK_REWARD_TASK_TYPE]: {
       enabled: readBooleanConfig(
         configs,
-        'benefit_experience_feedback_enabled',
+        ['benefit_experience_feedback_enabled'],
         DEFAULT_BENEFIT_REWARD_CONFIG.experience_feedback.enabled
       ),
       newCredential: {
         durationDays: readNumberConfig(
           configs,
-          'benefit_experience_feedback_new_duration_days',
+          [
+            'benefit_experience_feedback_duration_days',
+            'benefit_experience_feedback_existing_duration_days',
+          ],
           DEFAULT_BENEFIT_REWARD_CONFIG.experience_feedback.newCredential
             .durationDays
         ),
         credits: readNumberConfig(
           configs,
-          'benefit_experience_feedback_new_credits',
+          [
+            'benefit_experience_feedback_credits',
+            'benefit_experience_feedback_existing_credits',
+          ],
           DEFAULT_BENEFIT_REWARD_CONFIG.experience_feedback.newCredential
             .credits
         ),
@@ -262,13 +277,19 @@ function getBenefitRewardConfigFromConfigs(
       existingCredential: {
         durationDays: readNumberConfig(
           configs,
-          'benefit_experience_feedback_existing_duration_days',
+          [
+            'benefit_experience_feedback_duration_days',
+            'benefit_experience_feedback_existing_duration_days',
+          ],
           DEFAULT_BENEFIT_REWARD_CONFIG.experience_feedback.existingCredential
             .durationDays
         ),
         credits: readNumberConfig(
           configs,
-          'benefit_experience_feedback_existing_credits',
+          [
+            'benefit_experience_feedback_credits',
+            'benefit_experience_feedback_existing_credits',
+          ],
           DEFAULT_BENEFIT_REWARD_CONFIG.experience_feedback.existingCredential
             .credits
         ),
@@ -277,8 +298,8 @@ function getBenefitRewardConfigFromConfigs(
   };
 }
 
-export async function getBenefitRewardConfig() {
-  return getBenefitRewardConfigFromConfigs(await getAllConfigs());
+export async function getBenefitRewardConfig(options: ConfigReadOptions = {}) {
+  return getBenefitRewardConfigFromConfigs(await getAllConfigs(options));
 }
 
 function getBenefitRewardLabel(taskType: BenefitRewardTaskType) {
@@ -302,6 +323,38 @@ async function getBenefitTaskByType(userId: string, taskType: string) {
 
 export async function getChannelSurveyTask(userId: string) {
   return getBenefitTaskByType(userId, CHANNEL_SURVEY_TASK_TYPE);
+}
+
+function getStarterChannelSurveyTaskType(credentialId: string) {
+  return `${STARTER_CHANNEL_SURVEY_TASK_PREFIX}${sanitizeSurveyValue(
+    credentialId,
+    80 - STARTER_CHANNEL_SURVEY_TASK_PREFIX.length
+  )}`;
+}
+
+export async function getStarterChannelSurveyTask(
+  userId: string,
+  credentialId: string
+) {
+  const normalizedCredentialId = sanitizeSurveyValue(credentialId, 80);
+  if (!normalizedCredentialId) return null;
+
+  const scopedTask = await getBenefitTaskByType(
+    userId,
+    getStarterChannelSurveyTaskType(normalizedCredentialId)
+  );
+  if (scopedTask) return scopedTask;
+
+  // Compatibility for starter surveys completed before they were scoped per
+  // paid credential. A legacy free-trial survey must not hide this form.
+  const legacyTask = await getChannelSurveyTask(userId);
+  if (
+    legacyTask?.entryPoint === 'starter_claim' &&
+    legacyTask.rewardCredentialId === normalizedCredentialId
+  ) {
+    return legacyTask;
+  }
+  return null;
 }
 
 export async function getExperienceFeedbackTask(userId: string) {
@@ -477,6 +530,20 @@ async function grantBenefitReward({
   const taskConfig = rewardConfigs[taskType];
   if (!taskConfig?.enabled) throw new Error('benefit_reward_disabled');
 
+  // 免费试用已下线：福利任务不再发放免费 trial 码。没有可延长的激活码时，
+  // 引导用户先购买 9 元全能卡（前端据此文案跳转福利中心购买入口）。
+  if (!selectedCredential) {
+    throw new Error('starter_purchase_required');
+  }
+
+  // 已过期的卡不能靠补填问卷复活。
+  if (
+    selectedCredential.expiresAt &&
+    selectedCredential.expiresAt.getTime() <= Date.now()
+  ) {
+    throw new Error('credential_expired');
+  }
+
   const rewardAction = selectedCredential
     ? 'extend_existing'
     : 'new_trial_code';
@@ -509,6 +576,7 @@ async function grantBenefitReward({
   try {
     let credentialId = '';
     let credentialCode = '';
+    let credentialExpiresAt: Date | null = null;
 
     if (selectedCredential) {
       const nextExpiresAt = extendExpiration(
@@ -527,6 +595,7 @@ async function grantBenefitReward({
 
       credentialId = updated.id;
       credentialCode = updated.code;
+      credentialExpiresAt = updated.expiresAt;
       await addCredentialCredits({
         credentialId,
         credentialCode,
@@ -562,6 +631,7 @@ async function grantBenefitReward({
 
       credentialId = created.id;
       credentialCode = created.code;
+      credentialExpiresAt = created.expiresAt;
       await addCredentialCredits({
         credentialId,
         credentialCode,
@@ -590,6 +660,7 @@ async function grantBenefitReward({
       rewardType: selectedCredential ? 'paid_extension' : 'trial_code',
       credentialId,
       credentialCode,
+      credentialExpiresAt,
     } as const;
   } catch (error: any) {
     await db()
@@ -641,7 +712,31 @@ export async function grantChannelSurveyReward(input: {
     throw new Error('channel survey is incomplete');
   }
 
-  const task = await getChannelSurveyTask(userId);
+  const credentials = await getUserManagedCredentials(userId);
+  const selectedCredential = selectedRewardCredentialId
+    ? credentials.find((item) => item.id === selectedRewardCredentialId)
+    : null;
+
+  if (
+    entryPoint === 'starter_claim' &&
+    (!selectedCredential ||
+      String(selectedCredential.planCode || '').toLowerCase() !== 'trial' ||
+      !String(selectedCredential.sourceOrderNo || '').trim())
+  ) {
+    throw new Error('starter_paid_trial_required');
+  }
+
+  if (credentials.length > 0 && !selectedRewardCredentialId) {
+    throw new Error('reward_credential_required');
+  }
+  if (selectedRewardCredentialId && !selectedCredential) {
+    throw new Error('reward_credential_not_found');
+  }
+
+  const isStarterClaim = entryPoint === 'starter_claim' && selectedCredential;
+  const task = isStarterClaim
+    ? await getStarterChannelSurveyTask(userId, selectedCredential.id)
+    : await getChannelSurveyTask(userId);
   if (task?.status === 'completed') {
     return {
       task,
@@ -652,17 +747,6 @@ export async function grantChannelSurveyReward(input: {
     };
   }
 
-  const credentials = await getUserManagedCredentials(userId);
-  const selectedCredential = selectedRewardCredentialId
-    ? credentials.find((item) => item.id === selectedRewardCredentialId)
-    : null;
-
-  if (credentials.length > 0 && !selectedRewardCredentialId) {
-    throw new Error('reward_credential_required');
-  }
-  if (selectedRewardCredentialId && !selectedCredential) {
-    throw new Error('reward_credential_not_found');
-  }
   if (!selectedCredential && browserInstallHash) {
     const existingTrialTask =
       await getChannelSurveyTrialTaskByBrowserInstallHash(browserInstallHash);
@@ -675,7 +759,9 @@ export async function grantChannelSurveyReward(input: {
     task ||
     (await createPendingBenefitTask({
       userId,
-      taskType: CHANNEL_SURVEY_TASK_TYPE,
+      taskType: isStarterClaim
+        ? getStarterChannelSurveyTaskType(selectedCredential.id)
+        : CHANNEL_SURVEY_TASK_TYPE,
       browserInstallHash,
     }));
 
@@ -766,6 +852,7 @@ export async function grantChannelSurveyReward(input: {
     rewardLedgerId: reward.ledger.id,
     rewardType: reward.rewardType,
     rewardCredentialCode: reward.credentialCode,
+    rewardCredentialExpiresAt: reward.credentialExpiresAt,
     alreadyCompleted: false,
   };
 }
