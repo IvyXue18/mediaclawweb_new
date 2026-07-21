@@ -11,7 +11,7 @@ if [ "$deploy_env" = "staging" ]; then
   export VITE_DEFAULT_LOCALE="zh"
 
   pnpm cf:build
-  node scripts/create-staging-wrangler-config.mjs
+  node scripts/create-wrangler-deploy-config.mjs staging
   wrangler deploy --config .wrangler/staging-wrangler.json
   exit 0
 fi
@@ -28,5 +28,6 @@ fi
 set +a
 
 pnpm cf:build
-wrangler deploy
+node scripts/create-wrangler-deploy-config.mjs production
+wrangler deploy --config .wrangler/production-wrangler.json
 pnpm indexnow:submit
