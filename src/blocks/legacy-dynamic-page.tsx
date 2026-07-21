@@ -423,7 +423,7 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
       badge: 'New user setup path',
       flowTitle: 'Get started in 3 steps',
       flowHint:
-        'Install the extension, then buy a full activation code or the ¥9 new-user All-in-One Card and follow the tutorial.',
+        'Install the extension, buy a full activation code when you need all features, then follow the tutorial.',
       currentBadge: 'Current step',
       nextBadge: 'Next step',
       steps: [
@@ -438,9 +438,9 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
         {
           id: 'activate',
           number: '02',
-          title: 'Choose an activation option',
+          title: 'Buy an activation code',
           description:
-            'Buy a full activation code, or try the ¥9 All-in-One Card if you are a new user. The free version remains available permanently.',
+            'Buy a full activation code when you need all features. The free version remains available permanently.',
           icon: KeyRound,
         },
         {
@@ -462,7 +462,7 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
     badge: '新用户上手路径',
     flowTitle: '3 步完成上手',
     flowHint:
-      '先完成插件安装，再购买正式版激活码或新用户 9 元全能卡，并按教程完成首次采集。',
+      '先完成插件安装，需要完整功能时购买正式版激活码，再按教程完成首次采集。',
     currentBadge: '当前步骤',
     nextBadge: '后续步骤',
     steps: [
@@ -477,9 +477,9 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
       {
         id: 'activate',
         number: '02',
-        title: '购买正式激活码或 9 元全能卡',
+        title: '购买正式版激活码',
         description:
-          '需要完整功能可购买正式版激活码；新用户也可以先体验 9 元全能卡。暂不升级，也可永久使用免费版。',
+          '需要完整功能可购买正式版激活码；暂不升级，也可永久使用免费版。',
         icon: KeyRound,
       },
       {
@@ -3241,20 +3241,8 @@ function DownloadOnboardingGuide({ section }: { section: LegacySection }) {
                         <p className="text-muted-foreground flex flex-wrap items-center justify-center gap-x-1 text-center text-sm leading-6">
                           <span>
                             {isChinese
-                              ? '新用户可体验'
-                              : 'New users can try the'}
-                          </span>
-                          <Link
-                            href="/welfare?source=onboarding&entry=download_page"
-                            className="text-primary font-semibold underline-offset-4 hover:underline"
-                            data-starter-card-entry
-                          >
-                            {isChinese ? '9 元全能卡' : '¥9 All-in-One Card'}
-                          </Link>
-                          <span>
-                            {isChinese
-                              ? '，也可永久使用'
-                              : ', or keep using the'}
+                              ? '暂不升级，也可永久使用'
+                              : 'Or keep using the'}
                           </span>
                           <Link
                             href="/pricing?source=onboarding&entry=free_version"
