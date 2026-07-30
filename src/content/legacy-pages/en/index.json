@@ -21,9 +21,9 @@
         "highlight_text": "10x Faster",
         "description": "One Chrome extension for Xiaohongshu and Douyin: scrape posts and videos, export comments, find benchmark accounts, expand long-tail keywords, monitor competitors, backfill image text or video transcripts, and sync everything to Lark Base.",
         "announcement": {
-          "badge": "V0.1.8 Update",
-          "title": "Markdown export, video transcripts, and image text extraction",
-          "url": "/updates"
+          "badge": "V0.2.0 Update",
+          "title": "New AI Workspace for research, ideas, and content creation",
+          "url": "/updates/v0.2.0"
         },
         "buttons": [
           {

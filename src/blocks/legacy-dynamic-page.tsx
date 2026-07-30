@@ -423,7 +423,7 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
       badge: 'New user setup path',
       flowTitle: 'Get started in 3 steps',
       flowHint:
-        'Install the extension, then buy a full activation code or the ¥9 new-user All-in-One Card and follow the tutorial.',
+        'Install the extension, buy a full activation code when you need all features, then follow the tutorial.',
       currentBadge: 'Current step',
       nextBadge: 'Next step',
       steps: [
@@ -438,9 +438,9 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
         {
           id: 'activate',
           number: '02',
-          title: 'Choose an activation option',
+          title: 'Buy an activation code',
           description:
-            'Buy a full activation code, or try the ¥9 All-in-One Card if you are a new user. The free version remains available permanently.',
+            'Buy a full activation code when you need all features. The free version remains available permanently.',
           icon: KeyRound,
         },
         {
@@ -462,7 +462,7 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
     badge: '新用户上手路径',
     flowTitle: '3 步完成上手',
     flowHint:
-      '先完成插件安装，再购买正式版激活码或新用户 9 元全能卡，并按教程完成首次采集。',
+      '先完成插件安装，需要完整功能时购买正式版激活码，再按教程完成首次采集。',
     currentBadge: '当前步骤',
     nextBadge: '后续步骤',
     steps: [
@@ -477,9 +477,9 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
       {
         id: 'activate',
         number: '02',
-        title: '购买正式激活码或 9 元全能卡',
+        title: '购买正式版激活码',
         description:
-          '需要完整功能可购买正式版激活码；新用户也可以先体验 9 元全能卡。暂不升级，也可永久使用免费版。',
+          '需要完整功能可购买正式版激活码；暂不升级，也可永久使用免费版。',
         icon: KeyRound,
       },
       {
@@ -1996,9 +1996,29 @@ function isDataTableGroupRow(row: Record<string, string>) {
   return Boolean(row.section_title);
 }
 
+function isDataTableSubgroupRow(row: Record<string, string>) {
+  return Boolean(row.subsection_title);
+}
+
+const planComparisonColumnWidths: Record<string, string> = {
+  feature: '28%',
+  free: '14%',
+  pro: '14%',
+  team: '14%',
+  note: '30%',
+};
+
+function isPlanComparisonTable(columns: Array<{ key: string }>) {
+  return (
+    columns.length === 5 &&
+    columns.every((column) => planComparisonColumnWidths[column.key])
+  );
+}
+
 function DataTableBlock({ section }: { section: LegacySection }) {
   const columns = normalizeTableColumns(section);
   const rows = section.rows || [];
+  const hasPlanComparisonLayout = isPlanComparisonTable(columns);
 
   return (
     <section
@@ -2016,7 +2036,22 @@ function DataTableBlock({ section }: { section: LegacySection }) {
             className="hidden overflow-x-auto md:block"
             data-desktop-data-table
           >
-            <table className="min-w-full border-collapse text-sm">
+            <table
+              className={cn(
+                'min-w-full border-collapse text-sm',
+                hasPlanComparisonLayout && 'table-fixed'
+              )}
+            >
+              {hasPlanComparisonLayout ? (
+                <colgroup>
+                  {columns.map((column) => (
+                    <col
+                      key={column.key}
+                      style={{ width: planComparisonColumnWidths[column.key] }}
+                    />
+                  ))}
+                </colgroup>
+              ) : null}
               <thead>
                 <tr className="border-border/60 border-b">
                   {columns.map((column) => (
@@ -2051,6 +2086,26 @@ function DataTableBlock({ section }: { section: LegacySection }) {
                         {row.section_description ? (
                           <p className="text-muted-foreground mt-1 text-xs">
                             {row.section_description}
+                          </p>
+                        ) : null}
+                      </td>
+                    </tr>
+                  ) : isDataTableSubgroupRow(row) ? (
+                    <tr
+                      key={index}
+                      className="border-border/50 bg-muted/25 border-b"
+                      data-table-subgroup-row
+                    >
+                      <td
+                        colSpan={columns.length}
+                        className="px-4 py-4 text-left"
+                      >
+                        <p className="text-foreground text-sm font-semibold">
+                          {row.subsection_title}
+                        </p>
+                        {row.subsection_description ? (
+                          <p className="text-muted-foreground mt-1 text-xs">
+                            {row.subsection_description}
                           </p>
                         ) : null}
                       </td>
@@ -2102,6 +2157,21 @@ function DataTableBlock({ section }: { section: LegacySection }) {
                   {row.section_description ? (
                     <p className="text-muted-foreground mt-1 text-xs">
                       {row.section_description}
+                    </p>
+                  ) : null}
+                </div>
+              ) : isDataTableSubgroupRow(row) ? (
+                <div
+                  key={rowIndex}
+                  className="bg-muted/25 px-3 py-4"
+                  data-mobile-data-subgroup
+                >
+                  <p className="text-foreground text-sm font-semibold">
+                    {row.subsection_title}
+                  </p>
+                  {row.subsection_description ? (
+                    <p className="text-muted-foreground mt-1 text-xs">
+                      {row.subsection_description}
                     </p>
                   ) : null}
                 </div>
@@ -3171,20 +3241,8 @@ function DownloadOnboardingGuide({ section }: { section: LegacySection }) {
                         <p className="text-muted-foreground flex flex-wrap items-center justify-center gap-x-1 text-center text-sm leading-6">
                           <span>
                             {isChinese
-                              ? '新用户可体验'
-                              : 'New users can try the'}
-                          </span>
-                          <Link
-                            href="/welfare?source=onboarding&entry=download_page"
-                            className="text-primary font-semibold underline-offset-4 hover:underline"
-                            data-starter-card-entry
-                          >
-                            {isChinese ? '9 元全能卡' : '¥9 All-in-One Card'}
-                          </Link>
-                          <span>
-                            {isChinese
-                              ? '，也可永久使用'
-                              : ', or keep using the'}
+                              ? '暂不升级，也可永久使用'
+                              : 'Or keep using the'}
                           </span>
                           <Link
                             href="/pricing?source=onboarding&entry=free_version"
@@ -3891,6 +3949,20 @@ function PricingBlock({ section }: { section: LegacySection }) {
                 </article>
               );
             })}
+          </div>
+          <div
+            className="text-muted-foreground mt-10 flex items-center justify-center gap-2 text-sm"
+            data-pricing-payment-security
+          >
+            <span>{copy('payment_secure_prefix', 'Secure payment via')}</span>
+            <img
+              src="/imgs/logos/alipay-logo.png"
+              alt="支付宝 Alipay"
+              className="h-5 w-auto object-contain"
+            />
+            {copy('payment_secure_suffix', '') ? (
+              <span>{copy('payment_secure_suffix', '')}</span>
+            ) : null}
           </div>
         </div>
       </section>

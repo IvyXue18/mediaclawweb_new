@@ -1,23 +1,28 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 
+const target = process.argv[2] || 'production';
 const generatedPath = '.output/server/wrangler.json';
-const outputPath = '.wrangler/staging-wrangler.json';
+const outputPath = `.wrangler/${target}-wrangler.json`;
 const generated = JSON.parse(readFileSync(generatedPath, 'utf8'));
-const staging = generated.env?.staging;
 
-if (!staging?.name) {
+if (!['production', 'staging'].includes(target)) {
+  throw new Error(`Unsupported Wrangler deploy target: ${target}`);
+}
+
+const environment = target === 'staging' ? generated.env?.staging : null;
+if (target === 'staging' && !environment?.name) {
   throw new Error('Missing env.staging in generated Wrangler config');
 }
 
 const config = {
   ...generated,
-  ...staging,
+  ...(environment || {}),
   vars: {
     ...(generated.vars || {}),
-    ...(staging.vars || {}),
+    ...(environment?.vars || {}),
   },
-  routes: staging.routes || [],
-  hyperdrive: staging.hyperdrive || generated.hyperdrive || [],
+  routes: environment?.routes || generated.routes || [],
+  hyperdrive: environment?.hyperdrive || generated.hyperdrive || [],
   main: '../.output/server/index.mjs',
   assets: generated.assets
     ? {
@@ -30,4 +35,4 @@ const config = {
 delete config.env;
 mkdirSync('.wrangler', { recursive: true });
 writeFileSync(outputPath, `${JSON.stringify(config, null, 2)}\n`);
-console.log(`Prepared staging Wrangler config: ${outputPath}`);
+console.log(`Prepared ${target} Wrangler config: ${outputPath}`);

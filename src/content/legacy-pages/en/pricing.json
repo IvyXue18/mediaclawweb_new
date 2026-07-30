@@ -11,7 +11,7 @@
         "id": "pricing-hero",
         "block": "page-hero",
         "title": "Simple, Transparent Pricing",
-        "description": "<span class=\"border-primary/30 bg-primary/10 text-primary mb-4 inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold\">One-time purchase per period. No auto-renewal. Pay as you go.</span><br/>Scraping is just step one — MediaClaw helps you build a full content creation workflow"
+        "description": "<span class=\"border-primary/30 bg-primary/10 text-primary mb-4 inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold\">One-time purchase per period. No auto-renewal. Pay as you go.</span><br/>An all-in-one content workflow from collection and analysis to ideation and creation"
       },
       "pricing": {
         "id": "pricing",
@@ -72,21 +72,24 @@
           },
           {
             "title": "Personal",
-            "description": "For creators and operators doing ongoing research, topic analysis, and content reviews",
+            "description": "For creators and operators doing ongoing content research, topic planning, and content creation",
             "label": "Most Popular",
             "features_title": "Everything in Free, plus:",
             "features": [
-              "Enhanced scraping on search and profile pages: batch-complete full text, tags, engagement, and media details",
-              "Batch filtering for low-follower viral posts and high-intent leads",
-              "Sync to Feishu AI templates for batch transcripts, topic analysis, and content rewriting",
+              "Enhanced collection on search and profile pages: batch-complete full text, tags, engagement, and media",
+              "Batch filtering for low-follower viral posts",
+              "Batch collection of high-intent leads from comments",
+              "Sync data to Lark Base and AI templates for batch processing",
               "Single browser device"
             ],
             "credits_title": "Includes 180 credits for:",
             "credits_features": [
-              "Competitor account monitoring and content daily reports",
-              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
-              "Batch scraping and sentiment analysis for brand keywords",
-              "In-extension timestamped video transcripts and image copy extraction"
+              "Niche and keyword analysis: find benchmark accounts, analyze topic directions, and expand search suggestions into long-tail demand",
+              "Account breakdowns: analyze topic choices, content structure, and expression patterns to produce actionable ideas",
+              "Account monitoring: track benchmark publishing activity and send follow-up digests",
+              "Viral post breakdowns: analyze content structure and generate multiple related ideas",
+              "In-extension video transcripts, timestamped spoken text, and image text extraction",
+              "Content creation: generate image-post copy or video scripts in a specified style"
             ],
             "interval": "one-time",
             "amount": 4900,
@@ -110,18 +113,22 @@
           },
           {
             "title": "Team",
-            "description": "For ops, brand, and MCN teams",
+            "description": "For brands, MCNs, agencies, and multi-person content teams",
             "features_title": "Everything in Personal, plus:",
             "features": [
-              "Multiple members sync data into one shared Feishu base",
-              "3 browser devices at the same time"
+              "3 browser devices at the same time",
+              "Multiple contributors sync collected data into one shared Lark Base",
+              "Centralize benchmark data, research reports, idea libraries, and content material",
+              "Run research across multiple accounts, niches, and projects"
             ],
-            "credits_title": "Includes 700 credits for:",
+            "credits_title": "Includes 700 shared team credits for:",
             "credits_features": [
-              "Competitor account monitoring and content daily reports",
-              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
-              "Batch scraping and sentiment analysis for brand keywords",
-              "In-extension timestamped video transcripts and image copy extraction"
+              "Niche and keyword analysis: find benchmark accounts, analyze topic directions, and expand search suggestions into long-tail demand",
+              "Account breakdowns: analyze topic choices, content structure, and expression patterns to produce actionable ideas",
+              "Account monitoring: track benchmark publishing activity and send follow-up digests",
+              "Viral post breakdowns: analyze content structure and generate multiple related ideas",
+              "In-extension video transcripts, timestamped spoken text, and image text extraction",
+              "Content creation: generate image-post copy or video scripts in a specified style"
             ],
             "interval": "one-time",
             "amount": 12900,
@@ -173,21 +180,24 @@
           },
           {
             "title": "Personal",
-            "description": "For creators and operators doing ongoing research, topic analysis, and content reviews",
+            "description": "For creators and operators doing ongoing content research, topic planning, and content creation",
             "label": "Most Popular",
             "features_title": "Everything in Free, plus:",
             "features": [
-              "Enhanced scraping on search and profile pages: batch-complete full text, tags, engagement, and media details",
-              "Batch filtering for low-follower viral posts and high-intent leads",
-              "Sync to Feishu AI templates for batch transcripts, topic analysis, and content rewriting",
+              "Enhanced collection on search and profile pages: batch-complete full text, tags, engagement, and media",
+              "Batch filtering for low-follower viral posts",
+              "Batch collection of high-intent leads from comments",
+              "Sync data to Lark Base and AI templates for batch processing",
               "Single browser device"
             ],
             "credits_title": "Includes 400 credits for:",
             "credits_features": [
-              "Competitor account monitoring and content daily reports",
-              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
-              "Batch scraping and sentiment analysis for brand keywords",
-              "In-extension timestamped video transcripts and image copy extraction"
+              "Niche and keyword analysis: find benchmark accounts, analyze topic directions, and expand search suggestions into long-tail demand",
+              "Account breakdowns: analyze topic choices, content structure, and expression patterns to produce actionable ideas",
+              "Account monitoring: track benchmark publishing activity and send follow-up digests",
+              "Viral post breakdowns: analyze content structure and generate multiple related ideas",
+              "In-extension video transcripts, timestamped spoken text, and image text extraction",
+              "Content creation: generate image-post copy or video scripts in a specified style"
             ],
             "interval": "one-time",
             "amount": 9900,
@@ -212,18 +222,22 @@
           },
           {
             "title": "Team",
-            "description": "For ops, brand, and MCN teams",
+            "description": "For brands, MCNs, agencies, and multi-person content teams",
             "features_title": "Everything in Personal, plus:",
             "features": [
-              "Multiple members sync data into one shared Feishu base",
-              "3 browser devices at the same time"
+              "3 browser devices at the same time",
+              "Multiple contributors sync collected data into one shared Lark Base",
+              "Centralize benchmark data, research reports, idea libraries, and content material",
+              "Run research across multiple accounts, niches, and projects"
             ],
-            "credits_title": "Includes 1500 credits for:",
+            "credits_title": "Includes 1500 shared team credits for:",
             "credits_features": [
-              "Competitor account monitoring and content daily reports",
-              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
-              "Batch scraping and sentiment analysis for brand keywords",
-              "In-extension timestamped video transcripts and image copy extraction"
+              "Niche and keyword analysis: find benchmark accounts, analyze topic directions, and expand search suggestions into long-tail demand",
+              "Account breakdowns: analyze topic choices, content structure, and expression patterns to produce actionable ideas",
+              "Account monitoring: track benchmark publishing activity and send follow-up digests",
+              "Viral post breakdowns: analyze content structure and generate multiple related ideas",
+              "In-extension video transcripts, timestamped spoken text, and image text extraction",
+              "Content creation: generate image-post copy or video scripts in a specified style"
             ],
             "interval": "one-time",
             "amount": 26800,
@@ -276,21 +290,24 @@
           },
           {
             "title": "Personal",
-            "description": "For creators and operators doing ongoing research, topic analysis, and content reviews",
+            "description": "For creators and operators doing ongoing content research, topic planning, and content creation",
             "label": "Most Popular",
             "features_title": "Everything in Free, plus:",
             "features": [
-              "Enhanced scraping on search and profile pages: batch-complete full text, tags, engagement, and media details",
-              "Batch filtering for low-follower viral posts and high-intent leads",
-              "Sync to Feishu AI templates for batch transcripts, topic analysis, and content rewriting",
+              "Enhanced collection on search and profile pages: batch-complete full text, tags, engagement, and media",
+              "Batch filtering for low-follower viral posts",
+              "Batch collection of high-intent leads from comments",
+              "Sync data to Lark Base and AI templates for batch processing",
               "Single browser device"
             ],
             "credits_title": "Includes 1500 credits for:",
             "credits_features": [
-              "Competitor account monitoring and content daily reports",
-              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
-              "Batch scraping and sentiment analysis for brand keywords",
-              "In-extension timestamped video transcripts and image copy extraction"
+              "Niche and keyword analysis: find benchmark accounts, analyze topic directions, and expand search suggestions into long-tail demand",
+              "Account breakdowns: analyze topic choices, content structure, and expression patterns to produce actionable ideas",
+              "Account monitoring: track benchmark publishing activity and send follow-up digests",
+              "Viral post breakdowns: analyze content structure and generate multiple related ideas",
+              "In-extension video transcripts, timestamped spoken text, and image text extraction",
+              "Content creation: generate image-post copy or video scripts in a specified style"
             ],
             "interval": "one-time",
             "amount": 28800,
@@ -316,18 +333,22 @@
           },
           {
             "title": "Team",
-            "description": "For ops, brand, and MCN teams",
+            "description": "For brands, MCNs, agencies, and multi-person content teams",
             "features_title": "Everything in Personal, plus:",
             "features": [
-              "Multiple members sync data into one shared Feishu base",
-              "3 browser devices at the same time"
+              "3 browser devices at the same time",
+              "Multiple contributors sync collected data into one shared Lark Base",
+              "Centralize benchmark data, research reports, idea libraries, and content material",
+              "Run research across multiple accounts, niches, and projects"
             ],
-            "credits_title": "Includes 5000 credits for:",
+            "credits_title": "Includes 5000 shared team credits for:",
             "credits_features": [
-              "Competitor account monitoring and content daily reports",
-              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
-              "Batch scraping and sentiment analysis for brand keywords",
-              "In-extension timestamped video transcripts and image copy extraction"
+              "Niche and keyword analysis: find benchmark accounts, analyze topic directions, and expand search suggestions into long-tail demand",
+              "Account breakdowns: analyze topic choices, content structure, and expression patterns to produce actionable ideas",
+              "Account monitoring: track benchmark publishing activity and send follow-up digests",
+              "Viral post breakdowns: analyze content structure and generate multiple related ideas",
+              "In-extension video transcripts, timestamped spoken text, and image text extraction",
+              "Content creation: generate image-post copy or video scripts in a specified style"
             ],
             "interval": "one-time",
             "amount": 68800,
@@ -352,14 +373,15 @@
           },
           {
             "title": "Emergency Top-Up Pack",
-            "description": "For temporarily boosting AI analysis and monitoring quota",
+            "description": "For a few extra account studies, viral breakdowns, or content generations",
             "label": "Most Popular",
             "features": [
               "200 AI credits",
-              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
-              "Batch scraping and sentiment analysis for brand keywords",
-              "In-extension video transcripts and image copy extraction",
-              "Only tops up credits for existing paid members; does not unlock membership features or extend the usage period",
+              "Use for account research, viral post breakdowns, and related idea generation",
+              "Use for account monitoring, transcripts, benchmark discovery, topic analysis, and long-tail demand expansion",
+              "Use for content adaptation in a specified account style",
+              "Must be linked to a paid membership activation code",
+              "Does not unlock membership features or extend the membership period",
               "Credits are frozen (not cleared) when membership expires and reactivate after renewal"
             ],
             "interval": "one-time",
@@ -384,13 +406,14 @@
           },
           {
             "title": "Creator Pack",
-            "description": "For solo creators and operators who analyze topics and process material at volume",
+            "description": "For individual creators who continuously research accounts, build ideas, and generate content",
             "features": [
               "1000 AI credits",
-              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
-              "Batch scraping and sentiment analysis for brand keywords",
-              "In-extension video transcripts and image copy extraction",
-              "Only tops up credits for existing paid members; does not unlock membership features or extend the usage period",
+              "Use for account research, viral post breakdowns, and related idea generation",
+              "Use for account monitoring, transcripts, benchmark discovery, topic analysis, and long-tail demand expansion",
+              "Use for content adaptation in a specified account style",
+              "Must be linked to a paid membership activation code",
+              "Does not unlock membership features or extend the membership period",
               "Credits are frozen (not cleared) when membership expires and reactivate after renewal"
             ],
             "interval": "one-time",
@@ -414,14 +437,15 @@
           },
           {
             "title": "Multi-Line Team Pack",
-            "description": "For teams running continuous analysis and monitoring across projects and members",
+            "description": "For teams concentrating research, monitoring, and content production across accounts and projects",
             "label": "High Volume",
             "features": [
               "2500 AI credits",
-              "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
-              "Batch scraping and sentiment analysis for brand keywords",
-              "In-extension video transcripts and image copy extraction",
-              "Only tops up credits for existing paid members; does not unlock membership features or extend the usage period",
+              "Use for account research, viral post breakdowns, and related idea generation",
+              "Use for account monitoring, transcripts, benchmark discovery, topic analysis, and long-tail demand expansion",
+              "Use for content adaptation in a specified account style",
+              "Must be linked to a paid membership activation code",
+              "Does not unlock membership features or extend the membership period",
               "Credits are frozen (not cleared) when membership expires and reactivate after renewal"
             ],
             "interval": "one-time",
@@ -450,7 +474,7 @@
         "id": "comparison",
         "block": "data-table",
         "title": "Compare All Features",
-        "description": "From scraping to growth — one table shows everything MediaClaw can do",
+        "description": "From content collection and material processing to AI research, creation, and team collaboration — see the complete MediaClaw workflow",
         "columns": [
           {
             "key": "feature",
@@ -476,160 +500,230 @@
         ],
         "rows": [
           {
-            "section_title": "Scraping Is Just Step One",
-            "section_description": "Basic scraping is free forever; batch and filtering power unlocks as you upgrade"
+            "section_title": "Bring Content Back: Collect, Download, Filter, and Extract",
+            "section_description": "Move from saving individual posts to building datasets, surfacing high-value content, and turning video and images into analyzable text"
           },
           {
-            "feature": "Single-post scraping / watermark-free download",
+            "subsection_title": "Single-item collection",
+            "subsection_description": "See one valuable item and save it completely"
+          },
+          {
+            "feature": "Deep single-post collection",
             "free": "✓",
             "pro": "✓",
             "team": "✓",
-            "note": "Save high-value content, free basic use forever"
+            "note": "Collect the title, body, creator, and engagement data for high-value posts"
           },
           {
-            "feature": "Single-post comment scraping / lead filtering",
+            "feature": "Single-post comments and leads",
             "free": "✓",
             "pro": "✓",
             "team": "✓",
-            "note": "Save high-value comments and high-potential leads, free forever"
+            "note": "Save comments, user profiles, and potential lead information"
           },
           {
-            "feature": "Watermark-free images, videos, and covers per post",
+            "feature": "Watermark-free media downloads",
             "free": "✓",
             "pro": "✓",
             "team": "✓",
-            "note": "Save the right material, free basic use forever"
+            "note": "Download images, video, audio, and covers for archiving and creative reference"
           },
           {
-            "feature": "Batch scraping with detail enrichment",
+            "subsection_title": "Build datasets in batches",
+            "subsection_description": "Expand from one post to a body of research samples"
+          },
+          {
+            "feature": "Batch creator-profile collection",
             "free": "Basic list",
             "pro": "Full support",
             "team": "Full support",
-            "note": "Full text, tags, engagement, and media completed in one pass"
+            "note": "Pull a benchmark account's content history and engagement performance"
           },
           {
-            "feature": "Sort and filter by publish time, location, likes, comments, saves",
+            "feature": "Batch keyword-search collection",
+            "free": "Basic list",
+            "pro": "Full support",
+            "team": "Full support",
+            "note": "Build content datasets around niches, products, and audience needs"
+          },
+          {
+            "feature": "Batch detail enrichment",
+            "free": "—",
+            "pro": "✓",
+            "team": "✓",
+            "note": "Complete text, tags, engagement, and media; up to 300 items per run with deduplication and batched progress saves"
+          },
+          {
+            "feature": "Batch comment collection",
+            "free": "—",
+            "pro": "✓",
+            "team": "✓",
+            "note": "Collect comments, user information, and linked post data at scale"
+          },
+          {
+            "subsection_title": "Clean and filter",
+            "subsection_description": "Find the material worth studying in large content and comment datasets"
+          },
+          {
+            "feature": "Publish-time, location, and engagement filters",
             "free": "✓",
             "pro": "✓",
             "team": "✓",
-            "note": "Quickly surface the posts worth reading from search results"
+            "note": "Sort and filter by time, location, likes, comments, and saves"
           },
           {
             "feature": "Low-follower viral post filtering",
             "free": "—",
             "pro": "✓",
             "team": "✓",
-            "note": "Find viral posts ordinary accounts can replicate, not just big accounts"
+            "note": "Find standout content from smaller accounts that is easier to learn from"
           },
           {
-            "feature": "Batch scraping of creator profiles",
-            "free": "Basic list",
-            "pro": "✓",
-            "team": "✓",
-            "note": "Quickly pull a benchmark account's content history"
-          },
-          {
-            "feature": "Batch scraping of keyword search pages",
-            "free": "Basic list",
-            "pro": "✓",
-            "team": "✓",
-            "note": "Research content around niche, product, and audience keywords"
-          },
-          {
-            "feature": "Batch comment scraping and lead filtering",
+            "feature": "High-intent lead filtering",
             "free": "—",
             "pro": "✓",
             "team": "✓",
-            "note": "Discover needs, pain points, and honest feedback in comments — find people with real intent"
+            "note": "Identify pricing questions, link requests, consultations, and partnership intent"
           },
           {
-            "section_title": "Understand Your Niche, Benchmark, Find Topics",
-            "section_description": "AI analysis features, powered by credits"
+            "subsection_title": "Extract material",
+            "subsection_description": "Turn video and images into text that can be read, searched, and analyzed"
+          },
+          {
+            "feature": "Video transcript extraction",
+            "free": "—",
+            "pro": "✓ Uses credits",
+            "team": "✓ Shared credits",
+            "note": "Extract timestamped spoken text for faster reading and video breakdowns"
+          },
+          {
+            "feature": "Image text and OCR extraction",
+            "free": "—",
+            "pro": "✓ Uses credits",
+            "team": "✓ Shared credits",
+            "note": "Extract text from image posts, posters, and screenshots"
+          },
+          {
+            "section_title": "Research Content Deeply: Niches, Benchmarks, Ideas, and Creation",
+            "section_description": "Assess opportunities, study accounts and viral posts, save reusable ideas and styles, then create image-post copy or video scripts"
+          },
+          {
+            "subsection_title": "Find a direction",
+            "subsection_description": "Use trends, search demand, and audience feedback to find content directions worth pursuing"
           },
           {
             "feature": "Niche opportunity assessment",
             "free": "—",
             "pro": "✓ Uses credits",
-            "team": "✓ Uses credits",
-            "note": "Judge whether a direction is worth pursuing long-term"
+            "team": "✓ Shared credits",
+            "note": "Analyze demand, competition, and topic distribution to judge whether a direction is worth pursuing"
           },
           {
-            "feature": "Automated benchmark account analysis",
+            "feature": "Long-tail demand analysis",
             "free": "—",
             "pro": "✓ Uses credits",
-            "team": "✓ Uses credits",
-            "note": "See what content your competitors ride for traffic"
+            "team": "✓ Shared credits",
+            "note": "Expand search suggestions and group demand to uncover underserved topics"
           },
           {
-            "feature": "Long-tail demand keyword analysis",
+            "feature": "Keyword sentiment scan",
             "free": "—",
             "pro": "✓ Uses credits",
-            "team": "✓ Uses credits",
-            "note": "Dig up demand keywords others haven't systematically covered"
+            "team": "✓ Shared credits",
+            "note": "Analyze trends, needs, sentiment risks, product signals, and recommended actions"
           },
           {
-            "feature": "Benchmark monitoring / content daily reports",
+            "subsection_title": "Research benchmarks",
+            "subsection_description": "Find benchmark accounts, study recurring patterns, break down viral posts, and track what changes"
+          },
+          {
+            "feature": "Automatic benchmark discovery",
             "free": "—",
             "pro": "✓ Uses credits",
-            "team": "✓ Uses credits",
-            "note": "Track competitors' new content and performance as readable topic reports"
+            "team": "✓ Shared credits",
+            "note": "Find accounts that repeatedly produce high-performing content in the current niche"
           },
           {
-            "section_title": "From Content to Material",
-            "section_description": "Break viral content down into material you can use directly"
-          },
-          {
-            "feature": "Video transcripts",
+            "feature": "Account breakdowns",
             "free": "—",
             "pro": "✓ Uses credits",
-            "team": "✓ Uses credits",
-            "note": "Break down a competitor video in 30 seconds"
+            "team": "✓ Shared credits",
+            "note": "Analyze positioning, topic choices, structure, and expression patterns to produce actionable ideas"
           },
           {
-            "feature": "Image / OCR copy extraction",
+            "feature": "Viral post breakdowns",
             "free": "—",
             "pro": "✓ Uses credits",
-            "team": "✓ Uses credits",
-            "note": "Extract text from image notes, posters, and comment screenshots"
+            "team": "✓ Shared credits",
+            "note": "Analyze a post's structure and expression, then generate multiple related ideas"
           },
           {
-            "feature": "Script structure analysis",
+            "feature": "Account monitoring and follow-up digests",
             "free": "—",
             "pro": "✓ Uses credits",
-            "team": "✓ Uses credits",
-            "note": "Break down titles, hooks, selling points, and conversion points"
+            "team": "✓ Shared credits",
+            "note": "Track benchmark publishing activity and send follow-up digests"
           },
           {
-            "feature": "Rewriting / adaptation",
-            "free": "—",
-            "pro": "✓ Uses credits",
-            "team": "✓ Uses credits",
-            "note": "Adapt viral content to your industry and voice"
+            "subsection_title": "Save ideas and styles",
+            "subsection_description": "Turn research findings into reusable topics and creation rules"
           },
           {
-            "section_title": "Data Ownership and Collaboration",
-            "section_description": "Your data belongs to you — never locked inside the extension"
-          },
-          {
-            "feature": "Feishu base sync",
+            "feature": "Idea library",
             "free": "—",
             "pro": "✓",
-            "team": "Shared team base",
-            "note": "Your data belongs to you, not locked inside the extension"
+            "team": "✓",
+            "note": "Save ideas produced by research and breakdowns as an actionable content backlog"
           },
           {
-            "feature": "CSV / Markdown export",
+            "feature": "Creation styles",
+            "free": "—",
+            "pro": "✓",
+            "team": "✓",
+            "note": "Save account breakdowns as reusable positioning, structure, and expression rules"
+          },
+          {
+            "subsection_title": "Create image-post copy and video scripts",
+            "subsection_description": "Generate editable content from research findings, target ideas, and specified styles"
+          },
+          {
+            "feature": "Image-post content creation",
+            "free": "—",
+            "pro": "✓ Uses credits",
+            "team": "✓ Shared credits",
+            "note": "Generate image-post copy from research findings, a target idea, and a specified style"
+          },
+          {
+            "feature": "Video script creation",
+            "free": "—",
+            "pro": "✓ Uses credits",
+            "team": "✓ Shared credits",
+            "note": "Generate spoken-video copy or scripts from research findings and a specified style"
+          },
+          {
+            "section_title": "Data Ownership and Team Collaboration",
+            "section_description": "Export or sync data into your own tools for ongoing individual and team use"
+          },
+          {
+            "feature": "CSV and Markdown export",
             "free": "✓",
             "pro": "✓",
             "team": "✓",
-            "note": "Connects seamlessly with your own knowledge base"
+            "note": "Export structured data and content text into your spreadsheets, knowledge bases, and AI tools"
           },
           {
-            "feature": "Online devices",
+            "feature": "Lark Base sync, collaboration, and AI templates",
+            "free": "—",
+            "pro": "✓",
+            "team": "✓ Shared base",
+            "note": "Sync data to Lark and process it with AI templates; datasets over 500 items are automatically segmented"
+          },
+          {
+            "feature": "Simultaneous online devices",
             "free": "1",
             "pro": "1",
             "team": "3",
-            "note": "Personal use and team collaboration kept separate"
+            "note": "Free and Personal suit individual use; Team supports multi-device collaboration"
           }
         ]
       },
@@ -732,6 +826,8 @@
     "checkout_step_provider": "Connecting to payment channel",
     "checkout_step_redirect": "Opening the QR checkout page",
     "checkout_keep_open": "This usually takes a few seconds. Please keep this window open.",
+    "payment_secure_prefix": "Secure payment via",
+    "payment_secure_suffix": "",
     "credentials_load_failed": "Failed to load activation codes",
     "checkout_failed": "Failed to create the payment order",
     "credits_unit": "credits"
