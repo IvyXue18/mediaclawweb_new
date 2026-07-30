@@ -1,0 +1,49 @@
+export const meta = {
+  title: '批量导出图片，图文拆解更深、团队协作更灵活',
+  description:
+    '数据池新增图片批量导出；单篇图文拆解新增视觉结构与封面标题分析；团队版支持多飞书表格同步；同时修复批量同步、导出和补采误带入其他页面缓存的问题。',
+  date: '2026-07-29',
+  tags: ['图片导出', '图文拆解', '团队版', '账号分析', '任务恢复'],
+  version: '0.2.1',
+};
+
+MediaClaw V0.2.1 带来图片批量导出、更深的图文拆解和团队版多表格同步，同时修复了跨页面缓存误同步的问题。
+
+<div className="not-prose space-y-4">
+    <div className="inline-flex rounded-full border border-amber-400/70 bg-amber-400/10 px-3 py-1 text-sm font-semibold text-amber-300">新增</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">批量导出图片</h3>
+            <p className="text-muted-foreground">数据池新增图片批量导出，支持仅导出封面，或将封面与正文配图一起打包下载。单张图片下载失败不会影响整批任务。</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">图文内容深度拆解</h3>
+            <p className="text-muted-foreground">单篇图文拆解新增图片文字、视觉结构、封面与标题分析，帮助你看清每一页承担的作用，以及图文之间如何配合。</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">团队版多表格同步</h3>
+            <p className="text-muted-foreground">团队版支持配置多个飞书表格，可根据成员或业务线切换同步目标。不同激活码的表格配置相互隔离，减少数据同步错表。</p>
+        </div>
+    </div>
+
+    <div className="inline-flex rounded-full border border-emerald-400/70 bg-emerald-400/10 px-3 py-1 text-sm font-semibold text-emerald-300">优化</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">账号分析增加视觉维度</h3>
+            <p className="text-muted-foreground">账号分析现在同时支持图文和视频素材，并结合正文、逐字稿、封面和视觉表现，归纳账号的选题、标题、内容结构与视觉风格。</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">AI 任务更容易控制和恢复</h3>
+            <p className="text-muted-foreground">账号分析支持中途终止；刷新或重新打开插件后，可继续查看和恢复正在执行的分析、拆解与改写任务，减少重复执行和重复扣费。</p>
+        </div>
+    </div>
+
+    <div className="inline-flex rounded-full border border-rose-400/70 bg-rose-400/10 px-3 py-1 text-sm font-semibold text-rose-300">修复</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">修复不同页面缓存混入同步的问题</h3>
+            <p className="text-muted-foreground">批量同步、导出和详情补采会严格限定在当前页面的数据范围内，不再误带入其他页面的缓存记录。</p>
+        </div>
+    </div>
+
+</div>

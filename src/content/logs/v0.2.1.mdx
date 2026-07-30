@@ -1,0 +1,55 @@
+export const meta = {
+  title: 'Bulk Image Export, Deeper Post Breakdowns, More Flexible Teams',
+  description:
+    'The data pool now supports bulk image export; single-post breakdowns add visual structure and cover/title analysis; the Team plan supports multiple Feishu sheet targets; plus a fix for cross-page cache leaking into sync.',
+  date: '2026-07-29',
+  tags: [
+    'Image Export',
+    'Post Breakdown',
+    'Team Plan',
+    'Account Analysis',
+    'Task Recovery',
+  ],
+  version: '0.2.1',
+};
+
+MediaClaw V0.2.1 adds bulk image export, deeper single-post breakdowns, and multi-sheet syncing for the Team plan, and fixes a cross-page cache issue affecting sync.
+
+<div className="not-prose space-y-4">
+    <div className="inline-flex rounded-full border border-amber-400/70 bg-amber-400/10 px-3 py-1 text-sm font-semibold text-amber-300">Added</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Bulk image export</h3>
+            <p className="text-muted-foreground">The data pool now supports bulk image export, letting you export covers only or bundle covers with body images into a single download. A failed single-image download won't affect the rest of the batch.</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Deeper post breakdowns</h3>
+            <p className="text-muted-foreground">Single-post breakdown now includes on-image text, visual structure, and cover/title analysis, showing what role each page plays and how the images and copy work together.</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Multi-sheet sync for the Team plan</h3>
+            <p className="text-muted-foreground">The Team plan now supports configuring multiple Feishu sheets, so you can switch sync targets by member or business line. Sheet configurations are isolated per activation code, reducing mis-synced data.</p>
+        </div>
+    </div>
+
+    <div className="inline-flex rounded-full border border-emerald-400/70 bg-emerald-400/10 px-3 py-1 text-sm font-semibold text-emerald-300">Improved</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">A visual dimension in account analysis</h3>
+            <p className="text-muted-foreground">Account analysis now supports both image-post and video material, combining body text, transcripts, covers, and visual performance to summarize an account's topics, titles, content structure, and visual style.</p>
+        </div>
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Easier to control and resume AI tasks</h3>
+            <p className="text-muted-foreground">Account analysis can now be stopped mid-run. After refreshing or reopening the extension, you can resume viewing and continue in-progress analysis, breakdown, and rewrite tasks, cutting down on repeated runs and repeated credit charges.</p>
+        </div>
+    </div>
+
+    <div className="inline-flex rounded-full border border-rose-400/70 bg-rose-400/10 px-3 py-1 text-sm font-semibold text-rose-300">Fixed</div>
+    <div className="space-y-3">
+        <div className="rounded-lg border bg-muted/30 p-4">
+            <h3 className="mb-2 text-base font-semibold">Fixed cross-page cache leaking into sync</h3>
+            <p className="text-muted-foreground">Batch sync, export, and detail backfill are now strictly scoped to the current page's data, so cached records from other pages are no longer pulled in by mistake.</p>
+        </div>
+    </div>
+
+</div>

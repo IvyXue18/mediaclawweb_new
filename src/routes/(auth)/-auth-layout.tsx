@@ -7,6 +7,8 @@ import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
 import { Button, buttonVariants } from '@/components/ui/button';
 
+import { AuthProductStory } from './-auth-product-story';
+
 type AuthMode = 'sign-in' | 'sign-up';
 
 // The auth card is intentionally always light (see AuthPageShell), but the
@@ -82,19 +84,6 @@ function BrandMark({ className }: { className?: string }) {
   );
 }
 
-function ProductPreview() {
-  return (
-    <aside className="relative hidden min-h-[660px] overflow-hidden bg-slate-950 lg:block">
-      <img
-        src="/imgs/features/1-v20260424.webp"
-        alt="MediaClaw 在小红书页面右侧弹出采集侧边栏"
-        className="absolute inset-0 size-full object-cover object-right opacity-95"
-      />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.72),rgba(2,6,23,0.2)_42%,rgba(2,6,23,0.08)),radial-gradient(circle_at_28%_28%,rgba(219,60,163,0.22),transparent_42%)]" />
-    </aside>
-  );
-}
-
 export function AuthPageShell({
   mode,
   switchQuery,
@@ -108,8 +97,8 @@ export function AuthPageShell({
 
   return (
     <div className="min-h-svh bg-[#fbfafc] text-slate-950">
-      <div className="mx-auto flex min-h-svh w-full max-w-6xl items-center px-0 py-0 sm:px-6 sm:py-8 lg:px-8">
-        <section className="grid min-h-svh w-full overflow-hidden bg-white shadow-none sm:min-h-[680px] sm:rounded-[34px] sm:border sm:border-slate-200/80 sm:shadow-[0_28px_90px_rgba(15,23,42,0.09)] lg:grid-cols-[440px_minmax(0,1fr)]">
+      <div className="mx-auto flex min-h-svh w-full max-w-[1120px] items-center px-0 py-0 sm:px-6 sm:py-8 lg:px-8">
+        <section className="grid min-h-svh w-full overflow-hidden bg-white shadow-none sm:min-h-[720px] sm:rounded-[34px] sm:border sm:border-slate-200/80 sm:shadow-[0_28px_90px_rgba(15,23,42,0.09)] lg:grid-cols-[440px_minmax(0,1fr)]">
           <main className="flex min-h-svh flex-col px-6 py-6 sm:min-h-[680px] sm:px-10 sm:py-8 lg:px-12">
             <div className="flex items-center justify-between">
               <Link href="/" className="flex items-center gap-3">
@@ -150,7 +139,7 @@ export function AuthPageShell({
             </div>
           </main>
 
-          <ProductPreview />
+          <AuthProductStory />
         </section>
       </div>
     </div>

@@ -826,6 +826,8 @@
     "checkout_step_provider": "正在连接支付通道",
     "checkout_step_redirect": "即将打开扫码支付页面",
     "checkout_keep_open": "通常需要几秒钟，请不要关闭当前窗口",
+    "payment_secure_prefix": "通过",
+    "payment_secure_suffix": "安全支付",
     "credentials_load_failed": "激活码列表加载失败",
     "checkout_failed": "支付订单创建失败",
     "credits_unit": "积分"

@@ -3950,6 +3950,20 @@ function PricingBlock({ section }: { section: LegacySection }) {
               );
             })}
           </div>
+          <div
+            className="text-muted-foreground mt-10 flex items-center justify-center gap-2 text-sm"
+            data-pricing-payment-security
+          >
+            <span>{copy('payment_secure_prefix', 'Secure payment via')}</span>
+            <img
+              src="/imgs/logos/alipay-logo.png"
+              alt="支付宝 Alipay"
+              className="h-5 w-auto object-contain"
+            />
+            {copy('payment_secure_suffix', '') ? (
+              <span>{copy('payment_secure_suffix', '')}</span>
+            ) : null}
+          </div>
         </div>
       </section>
 

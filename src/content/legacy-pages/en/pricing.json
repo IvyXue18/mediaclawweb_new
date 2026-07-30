@@ -826,6 +826,8 @@
     "checkout_step_provider": "Connecting to payment channel",
     "checkout_step_redirect": "Opening the QR checkout page",
     "checkout_keep_open": "This usually takes a few seconds. Please keep this window open.",
+    "payment_secure_prefix": "Secure payment via",
+    "payment_secure_suffix": "",
     "credentials_load_failed": "Failed to load activation codes",
     "checkout_failed": "Failed to create the payment order",
     "credits_unit": "credits"
