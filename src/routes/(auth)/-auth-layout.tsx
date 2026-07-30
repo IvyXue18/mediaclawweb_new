@@ -165,7 +165,7 @@ export function AuthSocialButton({
       className={cn(
         'h-11 w-full rounded-full text-sm font-semibold',
         prominent
-          ? 'border-slate-950 bg-slate-950 text-white hover:bg-slate-800 hover:text-white'
+          ? 'border-slate-300 bg-white text-slate-950 shadow-sm hover:bg-slate-50 hover:text-slate-950 dark:border-slate-300 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-50 dark:hover:text-slate-950'
           : 'border-slate-200 bg-white text-slate-950 hover:bg-slate-50'
       )}
     >
