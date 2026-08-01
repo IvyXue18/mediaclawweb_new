@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { ArrowLeft, Github, Mail } from 'lucide-react';
+import { ArrowLeft, Github, LoaderCircle, Mail } from 'lucide-react';
 
 import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
@@ -150,11 +150,15 @@ export function AuthSocialButton({
   provider,
   onClick,
   prominent,
+  loading = false,
+  disabled = false,
   children,
 }: {
   provider: 'google' | 'github';
   onClick: () => void;
   prominent?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
   children: ReactNode;
 }) {
   return (
@@ -162,6 +166,8 @@ export function AuthSocialButton({
       variant="outline"
       type="button"
       onClick={onClick}
+      disabled={disabled || loading}
+      aria-busy={loading}
       className={cn(
         'h-11 w-full rounded-full text-sm font-semibold',
         prominent
@@ -170,13 +176,17 @@ export function AuthSocialButton({
       )}
     >
       <span className="flex size-6 items-center justify-center rounded-full bg-white text-slate-950">
-        {provider === 'google' ? (
+        {loading ? (
+          <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />
+        ) : provider === 'google' ? (
           <GoogleIcon className="size-5" />
         ) : (
           <Github className="size-4" />
         )}
       </span>
-      {children}
+      <span aria-live="polite">
+        {loading ? m['common.loading']() : children}
+      </span>
     </Button>
   );
 }

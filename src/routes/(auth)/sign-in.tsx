@@ -41,6 +41,9 @@ function SignInPage() {
   // Set right before we navigate so the already-signed-in effect doesn't also fire.
   const navigatingRef = useRef(false);
   const [error, setError] = useState('');
+  const [socialPending, setSocialPending] = useState<
+    'google' | 'github' | null
+  >(null);
 
   // redirect: client protocol, goes through auth-callback
   // callbackUrl: web page URL, goes directly after login
@@ -135,7 +138,22 @@ function SignInPage() {
   });
 
   async function handleSocial(provider: 'google' | 'github') {
-    await signIn.social({ provider, callbackURL: afterLoginUrl });
+    if (socialPending) return;
+    setError('');
+    setSocialPending(provider);
+    try {
+      const result = await signIn.social({
+        provider,
+        callbackURL: afterLoginUrl,
+      });
+      if (result?.error) {
+        setError(result.error.message || m['common.error.message']());
+        setSocialPending(null);
+      }
+    } catch (err: any) {
+      setError(err?.message || m['common.error.message']());
+      setSocialPending(null);
+    }
   }
 
   return (
@@ -169,6 +187,8 @@ function SignInPage() {
                   <AuthSocialButton
                     provider="google"
                     prominent
+                    loading={socialPending === 'google'}
+                    disabled={socialPending !== null}
                     onClick={() => handleSocial('google')}
                   >
                     {m['common.sign.google_continue']()}
@@ -177,6 +197,8 @@ function SignInPage() {
                 {githubEnabled && (
                   <AuthSocialButton
                     provider="github"
+                    loading={socialPending === 'github'}
+                    disabled={socialPending !== null}
                     onClick={() => handleSocial('github')}
                   >
                     {m['common.sign.github_continue']()}
@@ -259,12 +281,13 @@ function SignInPage() {
                     {(isSubmitting) => (
                       <Button
                         type="submit"
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || socialPending !== null}
+                        aria-busy={isSubmitting}
                         className="h-11 w-full rounded-full bg-[#db3ca3] text-sm font-semibold text-white shadow-sm shadow-pink-500/10 hover:bg-[#c92f94]"
                       >
                         <EmailButtonContent>
                           {isSubmitting
-                            ? '...'
+                            ? m['common.loading']()
                             : m['common.sign.email_sign_in']()}
                         </EmailButtonContent>
                       </Button>

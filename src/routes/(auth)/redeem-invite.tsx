@@ -22,6 +22,7 @@ function RedeemInvitePage() {
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
   const [checking, setChecking] = useState(true);
 
   // Must be signed in; if no invite is actually needed, leave.
@@ -89,8 +90,16 @@ function RedeemInvitePage() {
   }
 
   async function handleSignOut() {
-    await signOut();
-    router.push('/sign-in');
+    if (signingOut) return;
+    setError('');
+    setSigningOut(true);
+    try {
+      await signOut();
+      router.push('/sign-in');
+    } catch (err: any) {
+      setError(err?.message || m['common.error.message']());
+      setSigningOut(false);
+    }
   }
 
   if (isPending || checking) {
@@ -137,16 +146,26 @@ function RedeemInvitePage() {
                   />
                 </Field>
                 <Field>
-                  <Button type="submit" disabled={loading}>
-                    {loading ? '...' : m['common.sign.redeem_submit']()}
+                  <Button
+                    type="submit"
+                    disabled={loading || signingOut}
+                    aria-busy={loading}
+                  >
+                    {loading
+                      ? m['common.loading']()
+                      : m['common.sign.redeem_submit']()}
                   </Button>
                   <FieldDescription className="text-center">
                     <button
                       type="button"
                       onClick={handleSignOut}
+                      disabled={loading || signingOut}
+                      aria-busy={signingOut}
                       className="underline underline-offset-4"
                     >
-                      {m['common.sign.sign_out_title']()}
+                      {signingOut
+                        ? m['common.loading']()
+                        : m['common.sign.sign_out_title']()}
                     </button>
                   </FieldDescription>
                 </Field>

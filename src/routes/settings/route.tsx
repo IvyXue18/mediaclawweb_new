@@ -9,8 +9,10 @@ import {
   Sparkles,
 } from 'lucide-react';
 
+import { useSession } from '@/core/auth/client';
 import { envConfigs } from '@/config';
 import { m } from '@/paraglide/messages.js';
+import { useTicketAttention } from '@/hooks/use-ticket-attention';
 import { SupportWidget } from '@/blocks/support-widget';
 import { AppLayout } from '@/components/app-layout';
 
@@ -19,6 +21,13 @@ export const Route = createFileRoute('/settings')({
 });
 
 function SettingsLayout() {
+  const { data: session } = useSession();
+  const ticketAttention = useTicketAttention(
+    'user',
+    !!session?.user,
+    session?.user.id
+  );
+  const hasTicketReply = (ticketAttention.data?.total ?? 0) > 0;
   const group = m['common.systems.settings']();
   const navItems = [
     {
@@ -62,6 +71,8 @@ function SettingsLayout() {
       href: '/settings/tickets',
       label: m['settings.nav.tickets'](),
       icon: LifeBuoy,
+      attention: hasTicketReply,
+      attentionLabel: m['settings.nav.ticket_reply_alert'](),
     },
     { href: '/', label: m['common.systems.home'](), icon: Home, newTab: true },
   ];

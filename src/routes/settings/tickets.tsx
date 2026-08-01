@@ -12,6 +12,7 @@ import { tDynamic } from '@/core/i18n/dynamic';
 import { apiGet, apiPatch, apiPost, type PageResult } from '@/lib/api-client';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
+import { SupportContactDialog } from '@/blocks/support-contact-dialog';
 import { DataTable, type Column } from '@/components/data-table';
 import {
   ImageUploader,
@@ -278,7 +279,7 @@ function TicketsPage() {
 
   return (
     <div className="space-y-6 p-6">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold">
             {m['settings.tickets.title']()}
@@ -287,10 +288,17 @@ function TicketsPage() {
             {m['settings.tickets.description']()}
           </p>
         </div>
-        <Button onClick={() => setCreateOpen(true)} className="gap-2">
-          <Plus className="size-4" />
-          {m['settings.tickets.create_button']()}
-        </Button>
+        <div className="flex flex-wrap items-center gap-2">
+          <SupportContactDialog />
+          <Button
+            variant="outline"
+            onClick={() => setCreateOpen(true)}
+            className="gap-2"
+          >
+            <Plus className="size-4" />
+            {m['settings.tickets.create_button']()}
+          </Button>
+        </div>
       </div>
 
       <Card>

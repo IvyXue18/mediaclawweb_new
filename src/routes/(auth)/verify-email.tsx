@@ -65,6 +65,7 @@ function VerifyEmailPage() {
   const [callbackUrl, setCallbackUrl] = useState<string | null>(null);
   const [paramsReady, setParamsReady] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [checkingVerification, setCheckingVerification] = useState(false);
   const [cooldownSeconds, setCooldownSeconds] = useState(0);
   const lastSessionCheckAtRef = useRef(0);
 
@@ -212,18 +213,28 @@ function VerifyEmailPage() {
   };
 
   const handleContinue = () => {
+    if (checkingVerification) return;
     if (session?.user) {
       hardNavigateToNextUrl();
       return;
     }
     void (async () => {
-      await checkSessionAndRedirect();
-      const { data } = await authClient.getSession();
-      if (data?.user) {
-        hardNavigateToNextUrl();
-      } else {
-        // User hasn't verified yet — show a toast instead of redirecting
-        toast.error(m['common.sign.verify_email_not_verified_yet']());
+      setCheckingVerification(true);
+      try {
+        await checkSessionAndRedirect();
+        const { data } = await authClient.getSession();
+        if (data?.user) {
+          hardNavigateToNextUrl();
+        } else {
+          // User hasn't verified yet — show a toast instead of redirecting
+          toast.error(m['common.sign.verify_email_not_verified_yet']());
+        }
+      } catch (error) {
+        toast.error(
+          error instanceof Error ? error.message : m['common.error.message']()
+        );
+      } finally {
+        setCheckingVerification(false);
       }
     })();
   };
@@ -267,10 +278,11 @@ function VerifyEmailPage() {
               <Button
                 type="button"
                 className="w-full"
-                disabled={isPending}
+                disabled={isPending || checkingVerification}
+                aria-busy={isPending || checkingVerification}
                 onClick={handleContinue}
               >
-                {isPending ? (
+                {isPending || checkingVerification ? (
                   <Loader2 size={16} className="animate-spin" />
                 ) : (
                   m['common.sign.verify_email_continue']()

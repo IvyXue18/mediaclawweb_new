@@ -33,8 +33,27 @@ export interface NavItem {
   icon: LucideIcon;
   group?: string;
   newTab?: boolean;
+  /** Show a red attention dot beside this navigation item. */
+  attention?: boolean;
+  attentionLabel?: string;
   /** Sub-items render as a collapsible group under this item. */
   items?: NavSubItem[];
+}
+
+function NavAttention({ item }: { item: NavItem }) {
+  if (!item.attention) return null;
+
+  return (
+    <>
+      <span
+        className="bg-destructive ml-auto size-2 shrink-0 rounded-full"
+        aria-hidden="true"
+      />
+      {item.attentionLabel && (
+        <span className="sr-only">{item.attentionLabel}</span>
+      )}
+    </>
+  );
 }
 
 export function AppSidebar({
@@ -170,8 +189,9 @@ export function AppSidebar({
                         >
                           <Icon />
                           <span>{item.label}</span>
+                          <NavAttention item={item} />
                           <ChevronRight
-                            className={`text-muted-foreground ml-auto size-4 shrink-0 transition-transform ${
+                            className={`text-muted-foreground ${item.attention ? '' : 'ml-auto'} size-4 shrink-0 transition-transform ${
                               open ? 'rotate-90' : ''
                             }`}
                           />
@@ -204,6 +224,7 @@ export function AppSidebar({
                         >
                           <Icon />
                           <span>{item.label}</span>
+                          <NavAttention item={item} />
                         </SidebarMenuButton>
                       </Link>
                     </SidebarMenuItem>
@@ -229,6 +250,7 @@ export function AppSidebar({
                 <SidebarMenuButton tooltip={item.label} isActive={isActive}>
                   <Icon />
                   <span>{item.label}</span>
+                  <NavAttention item={item} />
                 </SidebarMenuButton>
               );
               return (
