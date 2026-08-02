@@ -1,0 +1,86 @@
+export const meta = {
+  title: "How to Export Douyin Comments to Excel — and Why They Don't All Load",
+  description:
+    'Export Douyin video comments to Excel/CSV in bulk, understand why comments never fully load, and filter high-intent leads by keyword — free Chrome extension.',
+  created_at: '2026-07-31',
+  author_name: 'MediaClaw Team',
+  author_image: '/logo.png',
+  // Cover intentionally empty: the zh cover has Chinese text and doesn't fit the English page. blog-card renders gracefully without an image; add an English cover later.
+  image: '',
+  tags: ['Douyin', 'Comment scraping', 'Export comments', 'Lead generation'],
+};
+
+Likes and saves tell you whether a video is still being pushed, but the comment section tells you what viewers are actually thinking. Someone who stops to type a comment usually has a clearer emotion, judgment, or need — they're asking where to buy, questioning whether it works, or naming a price they expect. Export those comments and read them together, and what you get is demand, objections, and leads.
+
+## Why export Douyin comments at all
+
+A single comment carries far more signal than a like. But Douyin's comment section loads one row at a time — a few hundred per video, thousands across ten videos — and reading them by hand is both impossible and misleading: you can't tell which signal is a shared, recurring problem and which is a one-off. Export the comments into a table and you can finally filter, sort, and cluster them by theme — turning "users seem to care about price" into "37 comments are asking how much it costs."
+
+## How to export Douyin comments to Excel or CSV
+
+[MediaClaw](/douyin/comments) is a browser extension — install it and you're ready to go on both Douyin and Xiaohongshu:
+
+1. Open the Douyin video you want, and use the extension to collect the post, checking the option to pull its comments along with it.
+2. Export the result straight to CSV, or sync it to a Lark (Feishu) Base — the two paths suit different kinds of follow-up analysis.
+3. If you're not on Lark, drop the exported Markdown into Claude, Kimi, or DeepSeek and let the AI cluster it for you.
+
+<DocImage
+  src="/imgs/features/1-v20260513.png"
+  alt="MediaClaw exporting full Douyin comment data to Excel with Lark sync"
+  caption="Collected comments export to Excel / CSV in one click, with clean structured fields (comment text, region, likes), and can sync to a Lark Base for team analysis"
+/>
+
+## Why Douyin comments never all load
+
+This is the part people trip on the most — and it's the same on Xiaohongshu.
+
+Comments are **lazy-loaded**: they only appear as you scroll down, section by section, and a scraper can't grab what hasn't loaded yet. So scrolling the comment section fully before you collect is what decides whether you get them all.
+
+Two more things to expect:
+
+- The extension has a **cap on how many comments it detects in one pass** — up to about 500 per video, so the tens of thousands on a viral video won't come out in a single run. Collect in batches if you need to.
+- The web version already orders comments **semi-randomly** (top-liked or newest float up). In practice, a random few hundred is usually enough to surface the vast majority of the real problems — more isn't always better. Sample a few hundred from high-volume videos; pull everything from smaller ones.
+
+## Filter Douyin comments for high-intent leads
+
+If the goal is acquisition, the most valuable comments are the ones already signaling intent to buy. Use the [lead keyword filter](/douyin/leads) to set your own terms — "how to buy," "how much," "where to get it," "drop a link," "any discount" — and the system automatically pulls the matching comments into a separate lead file, with the comment text and the commenter's profile link, ready to hand to your DM follow-up team.
+
+<DocImage
+  src="/imgs/features/1-v20260425.webp"
+  alt="MediaClaw filtering high-intent Douyin leads by keyword and IP region during comment collection"
+  caption="Preset your lead keywords (buy / how much / drop a link / discount, etc.) and matching high-intent comments are flagged automatically as you collect — you can also layer on an IP-region filter"
+/>
+
+This step compresses thousands of comments into a few dozen worth chasing — the highest-ROI move in the whole comment workflow.
+
+<DocImage
+  src="/imgs/features/10-v20260424.webp"
+  alt="MediaClaw lead result table with comment text, commenter profile, and matched keyword columns"
+  caption="After collection, comments are auto-tagged by matched keyword (any / buy / how much) as high-intent leads, with comment text, profile link, and IP region in one table — exportable or sync to Lark (example shows Xiaohongshu; Douyin uses the same table structure)"
+/>
+
+## FAQ
+
+**Is Douyin comment collection free? Do I need to log in?**
+
+Comment collection is free and unlimited. It runs as a Chrome extension inside your own browser and only collects what you can already see on the Douyin web page.
+
+**How many Douyin comments can I export at once?**
+
+Up to about 500 per video, per pass — check the extension's on-screen count. Comments are lazy-loaded, so scroll the section fully before collecting; batch it for very large videos.
+
+**What fields do exported Douyin comments include?**
+
+Typically the comment text, commenter nickname, commenter profile link, and like count — exportable to CSV or synced to a Lark Base (exact fields as shown in the extension).
+
+**Which platforms are supported?**
+
+Both Douyin and Xiaohongshu, with the same collection, export, and lead-filtering flow.
+
+**Can I collect comments on private Douyin accounts?**
+
+Only within the platform's visibility limits — if you can't see it on the Douyin web page, the tool can't pull it either.
+
+## Wrapping up
+
+Exporting Douyin comments in bulk comes down to three things: scroll to load the comments before collecting, export them into a table you can filter, and use keyword filtering to pull high-intent leads out on their own. Once collected, comments also feed sentiment clustering and topic mining — see [how to export comments and mine viral topics with AI](/blog/xiaohongshu-comment-topic-mining). Want to export Douyin comments for review or lead generation? [Install MediaClaw](/download) for free — you can run a full collect-to-export on one video in minutes.

@@ -1628,6 +1628,7 @@
   "blog.no_posts": "No posts yet — check back soon.",
   "blog.back_to_blog": "Back to blog",
   "blog.related_posts": "Related posts",
+  "blog.on_this_page": "On this page",
   "blog.tag_count": "{count} tags",
   "blog.read_more": "Read more",
   "landing.nav.blog": "Blog",

@@ -17,6 +17,8 @@ import {
  * local posts via the pure helpers below.
  */
 export const BLOG_POST_SLUGS = [
+  'douyin-comment-export',
+  'xiaohongshu-ai-benchmark-to-draft',
   'how-to-copy-viral-short-videos',
   'local-business-xiaohongshu-marketing',
   'low-follower-viral-content',
