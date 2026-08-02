@@ -372,8 +372,28 @@ for (const item of pages) {
       await expect
         .poll(() => page.locator('[data-blog-detail-tag]').count())
         .toBeGreaterThan(0);
-      await expect(page.locator('[data-blog-detail-cover]')).toBeVisible();
+      await expect(page.locator('[data-blog-detail-cover]')).toHaveCount(0);
       await expect(page.locator('[data-blog-detail-article]')).toBeVisible();
+      await expect(page.locator('[data-blog-toc]')).toBeVisible();
+      await expect
+        .poll(() => page.locator('[data-blog-toc] a').count())
+        .toBeGreaterThan(0);
+      await expect
+        .poll(() =>
+          page
+            .locator('[data-blog-detail-article]')
+            .evaluate((element) => element.getBoundingClientRect().top)
+        )
+        .toBeLessThan(620);
+      await expect
+        .poll(() =>
+          page
+            .locator('[data-blog-detail-title]')
+            .evaluate((element) =>
+              parseFloat(getComputedStyle(element).fontSize)
+            )
+        )
+        .toBeGreaterThanOrEqual(48);
       await expect(page.locator('[data-blog-related-desktop]')).toBeVisible();
       await expect
         .poll(() =>
@@ -382,17 +402,9 @@ for (const item of pages) {
             .count()
         )
         .toBeGreaterThan(0);
-      await expect
-        .poll(() =>
-          page
-            .locator('[data-blog-related-desktop] [data-blog-related-image]')
-            .first()
-            .evaluate((element) => {
-              const rect = element.getBoundingClientRect();
-              return Math.round((rect.width / rect.height) * 100);
-            })
-        )
-        .toBe(233);
+      await expect(
+        page.locator('[data-blog-related-desktop] [data-blog-related-image]')
+      ).toHaveCount(0);
     }
     if ('pricingCards' in item) {
       await expect(page.locator('body')).toContainText(

@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Free RedNote（Xiaohongshu） Scraper Chrome Extension | MediaClaw",
-    "description": "RedNote scraper Chrome extension: scrape Xiaohongshu posts, data and creator profiles. Export to CSV/Markdown, or sync to Lark Base.",
+    "title": "RedNote Scraper Chrome Extension – Export Posts & Profiles | MediaClaw",
+    "description": "Scrape RedNote/Xiaohongshu posts, creator profiles and search results in Chrome. Export to CSV, Excel or Markdown, or sync your research to Lark Base—no code required.",
     "keywords": "RedNote scraper, red note scraper, Xiaohongshu scraper, RedNote scraper Chrome extension, export Xiaohongshu to Excel, no-code scraper, RedNote data export, best free rednote scraper"
   },
   "page": {
@@ -35,7 +35,7 @@
             "title": "Post Scraper"
           }
         ],
-        "title": "RedNote Scraper: Batch Export to CSV/Excel",
+        "title": "RedNote Scraper for Posts, Profiles and Search Results",
         "description": "Scrape public RedNote (Xiaohongshu) posts, creator profiles, and keyword search results with a free no-code Chrome extension. One-click export to CSV/Excel or Markdown, or sync to Lark Base.",
         "buttons": [
           {

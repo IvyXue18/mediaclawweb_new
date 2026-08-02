@@ -1628,6 +1628,7 @@
   "blog.no_posts": "暂无文章,敬请期待。",
   "blog.back_to_blog": "返回博客",
   "blog.related_posts": "相关文章",
+  "blog.on_this_page": "本页目录",
   "blog.tag_count": "{count} 个标签",
   "blog.read_more": "阅读全文",
   "landing.nav.blog": "博客",

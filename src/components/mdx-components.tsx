@@ -10,6 +10,7 @@ import type { MDXComponents } from 'mdx/types';
 
 import { cn } from '@/lib/utils';
 import { resolveStaticVideoPoster } from '@/lib/video-posters';
+import { getLocale } from '@/paraglide/runtime.js';
 
 export const mdxComponents: MDXComponents = {
   h1: ({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) => (
@@ -140,6 +141,47 @@ export const mdxComponents: MDXComponents = {
   hr: ({ className, ...props }: HTMLAttributes<HTMLHRElement>) => (
     <hr className={cn('border-border my-8', className)} {...props} />
   ),
+  DocImage: ({
+    src,
+    alt,
+    caption,
+    captionEn,
+    width,
+    height,
+    frame = true,
+  }: {
+    src: string;
+    alt?: string;
+    caption?: string;
+    captionEn?: string;
+    width?: number;
+    height?: number;
+    frame?: boolean;
+  }) => {
+    const text = getLocale() === 'en' ? (captionEn ?? caption) : caption;
+
+    return (
+      <figure className="my-6">
+        <img
+          src={src}
+          alt={alt || text || ''}
+          loading="lazy"
+          width={width}
+          height={height}
+          style={width ? { maxWidth: `${width}px` } : undefined}
+          className={cn(
+            'mx-auto max-w-full',
+            frame && 'border-border rounded-xl border'
+          )}
+        />
+        {text ? (
+          <figcaption className="text-muted-foreground mt-2 text-center text-xs">
+            {text}
+          </figcaption>
+        ) : null}
+      </figure>
+    );
+  },
   Video: ({
     className,
     poster,

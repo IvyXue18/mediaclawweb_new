@@ -33,7 +33,7 @@ export function BlogCard({
           width={640}
           height={360}
           loading="lazy"
-          className="aspect-video w-full object-cover object-center"
+          className="aspect-video w-full shrink-0 object-cover object-center"
         />
       )}
       <div className="flex flex-1 flex-col gap-3 p-6">
