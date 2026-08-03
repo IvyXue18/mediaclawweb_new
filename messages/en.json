@@ -908,7 +908,7 @@
   "admin.credentials.unclaimed": "Unclaimed",
   "admin.credentials.pending_activation": "Pending first activation",
   "admin.credentials.empty": "No activation codes yet",
-  "admin.credentials.search_placeholder": "Search code, order, or partner",
+  "admin.credentials.search_placeholder": "Search code, order, partner, user name, or email",
   "admin.credentials.filter_all": "All",
   "admin.credentials.copy_code": "Copy activation code",
   "admin.credentials.code_copied": "Activation code copied",
