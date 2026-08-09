@@ -1,0 +1,54 @@
+export const meta = {
+  title: '我的创作档案与采集稳定性优化',
+  description:
+    '新增「我的创作档案」，优化账号、搜索、评论及详情补采，并修复作者误识别和批量采集信息串位。',
+  date: '2026-08-09',
+  tags: ['我的创作档案', '采集稳定性', '作者识别'],
+  version: '0.2.3',
+};
+
+MediaClaw V0.2.3 更新：
+
+<div className="not-prose space-y-4">
+  <div className="inline-flex rounded-full border border-amber-400/70 bg-amber-400/10 px-3 py-1 text-sm font-semibold text-amber-300">
+    新增
+  </div>
+  <div className="space-y-3">
+    <div className="bg-muted/30 rounded-lg border p-4">
+      <h3 className="mb-2 text-base font-semibold">新增「我的创作档案」</h3>
+      <p className="text-muted-foreground">
+        可保存产品服务、目标人群、核心卖点、转化目标和表达边界。创作时可按任务启用或停用档案；历史内容会保留生成时使用的档案版本。
+      </p>
+    </div>
+  </div>
+  <div className="inline-flex rounded-full border border-sky-400/70 bg-sky-400/10 px-3 py-1 text-sm font-semibold text-sky-300">
+    优化
+  </div>
+  <div className="space-y-3">
+    <div className="bg-muted/30 rounded-lg border p-4">
+      <p className="text-muted-foreground">
+        账号、搜索和评论采集，减少未达数量提前结束的情况。
+      </p>
+    </div>
+    <div className="bg-muted/30 rounded-lg border p-4">
+      <p className="text-muted-foreground">
+        详情补采或失败重试后，可更稳定地返回原来的账号页或搜索页。
+      </p>
+    </div>
+  </div>
+  <div className="inline-flex rounded-full border border-emerald-400/70 bg-emerald-400/10 px-3 py-1 text-sm font-semibold text-emerald-300">
+    修复
+  </div>
+  <div className="space-y-3">
+    <div className="bg-muted/30 rounded-lg border p-4">
+      <p className="text-muted-foreground">
+        修复长昵称、评论区用户或“作者”标识被误识别为笔记作者的问题。
+      </p>
+    </div>
+    <div className="bg-muted/30 rounded-lg border p-4">
+      <p className="text-muted-foreground">
+        修复多个博主和关键词批量采集的时候，昵称和标题串位情况。
+      </p>
+    </div>
+  </div>
+</div>
