@@ -181,6 +181,12 @@
         "description": "继续完善你的小红书内容创作工作流",
         "links": [
           {
+            "title": "小红书账号分析",
+            "description": "先梳理账号定位、内容主题和代表笔记，再选择重点监控对象。",
+            "url": "/xiaohongshu/account-analysis",
+            "icon": "UserSearch"
+          },
+          {
             "title": "小红书笔记采集",
             "description": "把监控命中内容回流到样本库，持续做竞品内容分析。",
             "url": "/xiaohongshu/scraper",

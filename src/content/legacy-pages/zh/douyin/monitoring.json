@@ -181,6 +181,12 @@
         "description": "继续完善你的抖音竞品情报与执行闭环",
         "links": [
           {
+            "title": "抖音账号分析工具",
+            "description": "先拆解重点账号的选题、开头和表达规律，再通过监控持续验证。",
+            "url": "/douyin/account-analysis",
+            "icon": "UserSearch"
+          },
+          {
             "title": "抖音视频采集",
             "description": "将命中内容回流到样本库，持续做结构化拆解分析。",
             "url": "/douyin/scraper",

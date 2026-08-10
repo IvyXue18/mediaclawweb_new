@@ -10,6 +10,10 @@ export function Footer() {
           title: m['site.header.xiaohongshu'](),
           links: [
             {
+              label: m['site.header.account_analysis'](),
+              href: '/xiaohongshu/account-analysis',
+            },
+            {
               label: m['site.header.note_scraping'](),
               href: '/xiaohongshu/scraper',
             },
@@ -46,6 +50,10 @@ export function Footer() {
         {
           title: m['site.header.douyin'](),
           links: [
+            {
+              label: m['site.header.account_analysis'](),
+              href: '/douyin/account-analysis',
+            },
             {
               label: m['site.header.video_scraping'](),
               href: '/douyin/scraper',

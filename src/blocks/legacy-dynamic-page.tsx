@@ -1657,9 +1657,9 @@ function FeatureCards({ section }: { section: LegacySection }) {
                     className="border-border/60 mb-6 aspect-[16/10] w-full rounded-xl border object-cover"
                   />
                 ) : null}
-                <h2 className="text-foreground mb-3 text-lg font-semibold tracking-tight">
+                <h3 className="text-foreground mb-3 text-lg font-semibold tracking-tight">
                   {item.title}
-                </h2>
+                </h3>
                 <RichText className="text-muted-foreground leading-7">
                   {item.description}
                 </RichText>
@@ -1750,9 +1750,9 @@ function FeatureMatrixBlock({ section }: { section: LegacySection }) {
                     </span>
                   ) : null}
                 </div>
-                <h2 className="text-base font-semibold text-neutral-950 dark:text-white">
+                <h3 className="text-base font-semibold text-neutral-950 dark:text-white">
                   {item.title}
-                </h2>
+                </h3>
                 {item.description ? (
                   <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-300">
                     {item.description}
@@ -1850,9 +1850,9 @@ function FeaturesTabBlock({ section }: { section: LegacySection }) {
                     <SmartIcon name={activeItem.icon} className="size-7" />
                   </div>
                 ) : null}
-                <h2 className="text-2xl font-bold text-neutral-950 md:text-3xl dark:text-white">
+                <h3 className="text-2xl font-bold text-neutral-950 md:text-3xl dark:text-white">
                   {activeItem.title}
-                </h2>
+                </h3>
                 <p className="text-muted-foreground text-lg leading-relaxed">
                   {activeItem.description}
                 </p>
@@ -1909,9 +1909,9 @@ function FeaturesScroll({ section }: { section: LegacySection }) {
                     <SmartIcon name={item.icon} className="size-8" />
                   </div>
                 ) : null}
-                <h2 className="text-foreground text-3xl font-bold tracking-normal">
+                <h3 className="text-foreground text-3xl font-bold tracking-normal">
                   {item.title}
-                </h2>
+                </h3>
                 <p className="text-muted-foreground text-xl leading-relaxed">
                   {item.description}
                 </p>

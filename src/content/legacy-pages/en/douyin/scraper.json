@@ -333,6 +333,12 @@
         "description": "Complete your Douyin data and content operations workflow.",
         "links": [
           {
+            "title": "Douyin Account Analyzer",
+            "description": "Turn public profile videos into positioning, recurring patterns, spoken delivery, and source-backed ideas.",
+            "url": "/douyin/account-analysis",
+            "icon": "UserSearch"
+          },
+          {
             "title": "Comment Scraper",
             "description": "Batch-scrape comment data and user profiles for content analysis.",
             "url": "/douyin/comments",

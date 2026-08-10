@@ -204,6 +204,12 @@
         "description": "Complete your Douyin competitive intelligence workflow.",
         "links": [
           {
+            "title": "Douyin Account Analyzer",
+            "description": "Analyze priority creators first, then use monitoring to validate their topics, openings, and delivery patterns over time.",
+            "url": "/douyin/account-analysis",
+            "icon": "UserSearch"
+          },
+          {
             "title": "Video Scraper",
             "description": "Deep-dive into flagged competitor content with full data extraction.",
             "url": "/douyin/scraper",

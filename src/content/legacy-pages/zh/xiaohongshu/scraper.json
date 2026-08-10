@@ -222,6 +222,12 @@
         "description": "继续完善你的小红书内容创作工作流",
         "links": [
           {
+            "title": "小红书账号分析",
+            "description": "用主页与笔记样本比较博主定位、内容规律和公开互动表现。",
+            "url": "/xiaohongshu/account-analysis",
+            "icon": "UserSearch"
+          },
+          {
             "title": "小红书评论采集工具",
             "description": "批量抓取评论内容与用户数据，为内容分析和选题提供数据支撑。",
             "url": "/xiaohongshu/comments",
