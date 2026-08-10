@@ -899,7 +899,7 @@
   "admin.credentials.unclaimed": "未绑定",
   "admin.credentials.pending_activation": "待首次激活",
   "admin.credentials.empty": "暂无激活码",
-  "admin.credentials.search_placeholder": "搜索激活码、订单或渠道",
+  "admin.credentials.search_placeholder": "搜索激活码、订单、渠道、用户昵称或邮箱",
   "admin.credentials.filter_all": "全部",
   "admin.credentials.copy_code": "复制激活码",
   "admin.credentials.code_copied": "激活码已复制",

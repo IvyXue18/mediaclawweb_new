@@ -32,6 +32,7 @@ async function GET({ request }: { request: Request }) {
       page,
       pageSize,
       search: searchParams.get('search'),
+      searchOwner: true,
       status: searchParams.get('status'),
     });
     return respPage(result.items, result.total);

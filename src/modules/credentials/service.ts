@@ -216,24 +216,45 @@ export async function listCredentials(params: {
   page: number;
   pageSize: number;
   search?: string | null;
+  searchOwner?: boolean;
   status?: string | null;
   ownerUserId?: string | null;
 }) {
-  const { page, pageSize, search, status, ownerUserId } = params;
+  const { page, pageSize, search, searchOwner, status, ownerUserId } = params;
   const offset = (page - 1) * pageSize;
   const conditions: SQL[] = [isNull(credential.deletedAt) as unknown as SQL];
 
   if (status && status !== 'all')
     conditions.push(eq(credential.status, status));
   if (ownerUserId) conditions.push(eq(credential.ownerUserId, ownerUserId));
-  if (search) {
-    conditions.push(
-      or(
-        like(credential.code, `%${search}%`),
-        like(credential.sourceOrderNo, `%${search}%`),
-        like(credential.partnerId, `%${search}%`)
-      )!
-    );
+  const normalizedSearch = search?.trim().slice(0, 200);
+  if (normalizedSearch) {
+    const pattern = `%${normalizedSearch}%`;
+    const searchConditions: SQL[] = [
+      like(credential.code, pattern),
+      like(credential.sourceOrderNo, pattern),
+      like(credential.partnerId, pattern),
+    ];
+
+    if (searchOwner) {
+      const ownerPattern = `%${normalizedSearch.toLowerCase()}%`;
+      searchConditions.push(
+        inArray(
+          credential.ownerUserId,
+          db()
+            .select({ id: user.id })
+            .from(user)
+            .where(
+              or(
+                sql`lower(${user.name}) like ${ownerPattern}`,
+                sql`lower(${user.email}) like ${ownerPattern}`
+              )
+            )
+        ) as unknown as SQL
+      );
+    }
+
+    conditions.push(or(...searchConditions)!);
   }
 
   const where = and(...conditions);
