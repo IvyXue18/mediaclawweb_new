@@ -291,6 +291,12 @@
         "description": "Complete your Xiaohongshu content operations workflow.",
         "links": [
           {
+            "title": "Xiaohongshu Account Analyzer",
+            "description": "Compare creator positioning, content patterns, and public engagement evidence.",
+            "url": "/xiaohongshu/account-analysis",
+            "icon": "UserSearch"
+          },
+          {
             "title": "Comment Scraper",
             "description": "Batch-scrape comment data and user profiles for content analysis.",
             "url": "/xiaohongshu/comments",

@@ -21,6 +21,7 @@ import {
   Search,
   Table2,
   UserCheck,
+  UserSearch,
   Workflow,
   X,
   type LucideIcon,
@@ -54,6 +55,12 @@ function getNavItems(): NavItem[] {
           title: m['site.header.xiaohongshu'](),
           icon: 'BookOpen',
           children: [
+            {
+              title: m['site.header.account_analysis'](),
+              description: m['site.header.xhs_account_analysis_desc'](),
+              url: '/xiaohongshu/account-analysis',
+              icon: 'UserSearch',
+            },
             {
               title: m['site.header.note_scraping'](),
               description: m['site.header.note_scraping_desc'](),
@@ -108,6 +115,12 @@ function getNavItems(): NavItem[] {
           title: m['site.header.douyin'](),
           icon: 'Clapperboard',
           children: [
+            {
+              title: m['site.header.account_analysis'](),
+              description: m['site.header.douyin_account_analysis_desc'](),
+              url: '/douyin/account-analysis',
+              icon: 'UserSearch',
+            },
             {
               title: m['site.header.video_scraping'](),
               description: m['site.header.douyin_video_scraping_desc'](),
@@ -234,6 +247,7 @@ const navIconMap: Record<string, LucideIcon> = {
   Search,
   Table2,
   UserCheck,
+  UserSearch,
   Workflow,
 };
 
