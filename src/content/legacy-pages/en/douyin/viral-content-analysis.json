@@ -1,0 +1,369 @@
+{
+  "metadata": {
+    "title": "Douyin Viral Video Analysis | MediaClaw",
+    "description": "Find low-follower Douyin hits, then analyze titles, covers, opening hooks, timed transcripts, comment signals, and reusable video ideas.",
+    "keywords": "Douyin viral video analysis, Douyin content analysis, low-follower viral videos, Douyin video breakdown, short video content analysis, Douyin script analysis"
+  },
+  "page": {
+    "title": "Douyin Viral Video Analysis",
+    "show_sections": [
+      "hero",
+      "core",
+      "report",
+      "fields",
+      "compare",
+      "scenarios",
+      "boundaries",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "hero",
+        "label": "Douyin Viral Video Analysis",
+        "breadcrumbs": [
+          { "title": "Home", "url": "/" },
+          { "title": "Douyin" },
+          { "title": "Viral Video Analysis" }
+        ],
+        "title": "Douyin Viral Video Analysis: Find Low-Follower Hits and See Why They Work",
+        "highlight_text": "Why They Work",
+        "description": "Start with low-follower videos that earned unusually strong public engagement. Then bring the title, cover, timed transcript, script sections, and public comments into one evidence-backed report. MediaClaw helps you decide which methods are worth adapting.",
+        "buttons": [
+          {
+            "title": "Install for free",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Read the video breakdown guide",
+            "url": "/docs/viral-research/single-post-breakdown",
+            "icon": "BookOpen",
+            "variant": "outline"
+          }
+        ],
+        "image": {
+          "src": "/imgs/docs/viral-research/single-post-breakdown/03-拆解报告概览.webp",
+          "alt": "MediaClaw Douyin breakdown overview showing the source video, core takeaway, topic count, and cover-and-title section",
+          "width": 1600,
+          "height": 1172
+        }
+      },
+      "core": {
+        "id": "core",
+        "block": "features-scroll",
+        "subtitle": "Complete workflow",
+        "title": "How to analyze viral Douyin videos from discovery to shootable ideas",
+        "description": "Short-video analysis should not stop at views and likes. Narrow the sample, complete the transcript and feedback evidence, then decide which hooks and storytelling methods fit your own content.",
+        "items": [
+          {
+            "title": "1. Search your niche for recent high-like videos",
+            "description": "Search Douyin for an industry, product, or concrete problem. Combine the publish-date filter with sorting by likes, then set a minimum-like threshold before collecting candidate videos.",
+            "icon": "Search",
+            "image": {
+              "src": "/imgs/docs/viral-research/recent-hits/02-抖音搜索筛选-douyin.webp",
+              "alt": "Douyin search results filtered by recency and likes before MediaClaw collects candidate videos",
+              "width": 1600,
+              "height": 748
+            },
+            "button": {
+              "title": "See the recent-hit workflow",
+              "url": "/docs/viral-research/recent-hits"
+            }
+          },
+          {
+            "title": "2. Use low-follower filters to find smaller-account hits",
+            "description": "Set a follower ceiling to find smaller creators whose individual videos earned unusually high likes. Douyin search can sort only by likes, so compare publish dates and reopen the source video before making a judgment.",
+            "icon": "Filter",
+            "image": {
+              "src": "/imgs/docs/viral-research/low-follower-viral/02-抖音筛选低粉爆款-douyin.webp",
+              "alt": "MediaClaw follower ceiling used to find low-follower, high-like Douyin videos",
+              "width": 1600,
+              "height": 861
+            },
+            "button": {
+              "title": "See the low-follower workflow",
+              "url": "/docs/viral-research/low-follower-viral"
+            }
+          },
+          {
+            "title": "3. Complete the transcript and start a video breakdown",
+            "description": "Choose a video worth studying from your research library. MediaClaw adds the spoken transcript, organizes it by time and section, and can include public comments when you need audience feedback.",
+            "icon": "AudioLines",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/02-确认素材与重点关注.webp",
+              "alt": "MediaClaw breakdown dialog confirming the Douyin transcript, comment signals, and optional research focus",
+              "width": 810,
+              "height": 1480
+            }
+          },
+          {
+            "title": "4. Review the script structure and choose the next step",
+            "description": "The report marks the three-second hook, script sections, information flow, turns, proof, and interaction design. Reopen the source video to verify the context, then save a series idea or start a new script.",
+            "icon": "Brain",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/05-口播拆解时间轴.webp",
+              "alt": "MediaClaw Douyin voiceover breakdown showing the opening hook, actual technique, reason to keep watching, and timed structure",
+              "width": 1600,
+              "height": 1256
+            },
+            "button": {
+              "title": "Read the single-video breakdown guide",
+              "url": "/docs/viral-research/single-post-breakdown"
+            }
+          }
+        ]
+      },
+      "report": {
+        "id": "report",
+        "block": "features-scroll",
+        "subtitle": "Single-video report",
+        "title": "What should a Douyin viral video analysis examine?",
+        "description": "A useful short-video report must point back to the source video, title and cover, full transcript, and public comments. A topic summary alone is not enough.",
+        "className": "bg-background",
+        "items": [
+          {
+            "title": "Title, cover, and click expectation",
+            "description": "Compare the original cover and title to identify the first visual signal, the promise being made, and why the target audience may choose to click.",
+            "icon": "Image",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/04-封面与标题分析.webp",
+              "alt": "Douyin breakdown of the cover's visual focus, the title's promise, target audience, and reason to click",
+              "width": 1600,
+              "height": 1221
+            }
+          },
+          {
+            "title": "Voiceover structure and information flow",
+            "description": "Follow the timeline through the opening, methods, examples, turns, and close, checking the source words, actual technique, reason to keep watching, and unresolved questions.",
+            "icon": "AudioLines",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/05-口播拆解完整逐字稿.webp",
+              "alt": "Expanded source transcript in a MediaClaw Douyin breakdown for checking voiceover structure against the original content",
+              "width": 1600,
+              "height": 1182
+            }
+          },
+          {
+            "title": "Comment signals and unmet needs",
+            "description": "Group public comments into agreement, questions, objections, and unmet needs to see what the video validated, where its persuasion fell short, and which topic gaps remain.",
+            "icon": "MessageSquareText",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/06-评论区原始评论.webp",
+              "alt": "Expanded source comments in a MediaClaw Douyin breakdown for checking comment signals against public evidence",
+              "width": 1600,
+              "height": 1099
+            }
+          },
+          {
+            "title": "How one video becomes a repeatable series",
+            "description": "Create distinct ideas by going deeper, changing the use case, or transferring the hook and development method. Choose a direction before drafting a new script instead of copying the transcript.",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/07-延伸出的批量选题.webp",
+              "alt": "MediaClaw expands a Douyin breakdown into distinct video topics by going deeper, changing the situation, or transferring the method",
+              "width": 1600,
+              "height": 1252
+            }
+          }
+        ]
+      },
+      "fields": {
+        "id": "fields",
+        "block": "data-table",
+        "title": "What evidence supports each Douyin video insight?",
+        "description": "High likes show a public response; they do not prove that a hook, script line, or shot caused it. Keep time codes and source evidence attached to each conclusion.",
+        "columns": [
+          { "key": "dimension", "title": "Dimension" },
+          { "key": "evidence", "title": "Primary evidence" },
+          { "key": "output", "title": "Defensible conclusion" }
+        ],
+        "rows": [
+          {
+            "dimension": "Sample value",
+            "evidence": "Publish date, follower count, likes, and public comments",
+            "output": "Whether the video deserves deeper analysis, not whether it is automatically reproducible"
+          },
+          {
+            "dimension": "Click expectation",
+            "evidence": "Title, cover, target audience, and content promise",
+            "output": "Visual focus, information gap, and reason to click"
+          },
+          {
+            "dimension": "Script structure",
+            "evidence": "Timed transcript, sections, examples, and turns",
+            "output": "Information flow, reasoning method, and pacing"
+          },
+          {
+            "dimension": "Comment signals",
+            "evidence": "Agreement, questions, objections, and unmet needs in public comments",
+            "output": "Validated value, persuasion gaps, and follow-up questions"
+          },
+          {
+            "dimension": "Method transfer",
+            "evidence": "Effective source methods, creator conditions, and expanded topics",
+            "output": "What to borrow, replace, or treat as non-transferable"
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "subtitle": "Three distinct research jobs",
+        "title": "Low-follower discovery, single-video analysis, and account analysis",
+        "description": "Viral video analysis connects finding candidates with studying one video. Account analysis asks which topics and formats remain stable across a creator's body of work.",
+        "columns": [
+          { "key": "step", "title": "Module" },
+          { "key": "question", "title": "Question answered" },
+          { "key": "result", "title": "Primary output" },
+          { "key": "next", "title": "Next step" }
+        ],
+        "rows": [
+          {
+            "step": "Recent / low-follower discovery",
+            "question": "Which videos deserve further research?",
+            "result": "Candidate videos and public engagement metrics",
+            "next": "Open the source video and verify it manually"
+          },
+          {
+            "step": "Single-video breakdown",
+            "question": "What method does this video actually use?",
+            "result": "Title, cover, transcript, script, comments, and new topics",
+            "next": "Save an idea or start a script"
+          },
+          {
+            "step": "Account analysis",
+            "question": "Which video methods work consistently for this creator?",
+            "result": "Positioning, topics, formats, language, and visual system",
+            "next": "Build a reference and monitor it over time"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "features",
+        "title": "When is Douyin viral video analysis useful?",
+        "items": [
+          {
+            "title": "Find attainable examples for a new account",
+            "description": "Study videos from creators near your scale that clearly outperformed, reducing the execution gap created by copying top-tier production.",
+            "icon": "TrendingUp"
+          },
+          {
+            "title": "Review spoken scripts and story structure",
+            "description": "Break the complete transcript down by time and discuss the hook, flow, examples, and close instead of saving only a headline.",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "Expand one video into a series",
+            "description": "Keep an effective hook or development method while changing the audience, problem, situation, and evidence to create shootable follow-ups.",
+            "icon": "Route"
+          }
+        ]
+      },
+      "boundaries": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "Analysis limits",
+        "title": "What Douyin viral video analysis cannot prove",
+        "description": "Public data and structured analysis improve judgment, but they cannot prove platform-algorithm causality or guarantee the same result from the same hook or script.",
+        "items": [
+          {
+            "title": "High likes are not the same as reproducibility",
+            "description": "Account authority, paid promotion, trends, creator persona, and timing can all affect results. Separate script methods from external conditions.",
+            "icon": "TriangleAlert"
+          },
+          {
+            "title": "Conclusions must remain traceable",
+            "description": "Claims about titles, covers, scripts, and comments should point back to the source video, time code, and public evidence. Label inferences that cannot be verified.",
+            "icon": "FileSearch"
+          },
+          {
+            "title": "Research public content only",
+            "description": "MediaClaw does not provide platform-internal data, private-account information, or undisclosed audience profiles. Follow platform rules and applicable law.",
+            "icon": "ShieldCheck"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Douyin viral video analysis FAQ",
+        "items": [
+          {
+            "question": "Is Douyin viral video analysis based only on likes?",
+            "answer": "No. Douyin search can sort by likes, but you should also review publish date, creator size, the source video, the full transcript, and public comments. A like threshold only narrows the sample."
+          },
+          {
+            "question": "What is a low-follower viral video on Douyin?",
+            "answer": "It generally means a video from a smaller creator that earned unusually high likes relative to the account or comparable videos. Thresholds differ by niche, so MediaClaw lets you set your own follower ceiling and like floor."
+          },
+          {
+            "question": "Can MediaClaw extract a complete Douyin transcript?",
+            "answer": "Yes. The spoken transcript is added back to the collected record and can be reviewed, copied, exported, synced, and used as evidence in the later single-video breakdown."
+          },
+          {
+            "question": "Does the analysis cover the first three seconds?",
+            "answer": "Yes. It combines the opening transcript, first frame, captions, and later payoff to interpret the hook. This is an evidence-based explanation, not proof that one shot caused the result."
+          },
+          {
+            "question": "Does a breakdown generate the same script?",
+            "answer": "The analysis first produces methods, evidence, and distinct follow-up topics. After choosing a direction, add your own cases, viewpoint, delivery, and production constraints rather than copying the transcript."
+          },
+          {
+            "question": "Why should I still reopen the original video?",
+            "answer": "A transcript cannot fully represent visuals, tone, editing, trend context, or comment atmosphere. Source links let you verify every important conclusion in its real context."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "What to do after analyzing a Douyin viral video",
+        "description": "Complete the transcript, validate public feedback, or move back to the account level to see whether a pattern is consistent.",
+        "links": [
+          {
+            "title": "Douyin Account Analysis",
+            "description": "Move from one strong video to the full account and identify topics and formats that persist.",
+            "url": "/douyin/account-analysis",
+            "icon": "UserSearch"
+          },
+          {
+            "title": "Douyin Scraper",
+            "description": "Collect public videos, search results, and creator-page samples for research.",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Douyin Transcript Extractor",
+            "description": "Complete the spoken content and time sections for hook and script analysis.",
+            "url": "/douyin/transcript",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "Douyin Comment Export",
+            "description": "Use public comments to validate resonance, questions, and objections.",
+            "url": "/douyin/comments",
+            "icon": "MessageCircle"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "block": "cta",
+        "title": "Run your first Douyin viral video analysis",
+        "description": "Install MediaClaw, use one query to find a video worth studying, and build a single-video report from the title, cover, transcript, and public comment evidence.",
+        "buttons": [
+          {
+            "title": "Install for free",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

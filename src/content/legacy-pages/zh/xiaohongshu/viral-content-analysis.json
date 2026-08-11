@@ -1,0 +1,397 @@
+{
+  "metadata": {
+    "title": "小红书爆款分析｜找低粉爆文，拆解爆款笔记 | MediaClaw",
+    "description": "筛选小红书低粉高互动爆文，结合标题、封面、正文、配图文字和评论，拆解爆款笔记结构，并扩展可执行选题。",
+    "keywords": "小红书爆款分析, 小红书低粉爆文, 小红书爆款笔记分析, 小红书爆款拆解, 小红书爆款分析工具, 小红书爆款内容"
+  },
+  "page": {
+    "title": "小红书爆款分析",
+    "show_sections": [
+      "hero",
+      "core",
+      "report",
+      "fields",
+      "compare",
+      "scenarios",
+      "boundaries",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "hero",
+        "label": "小红书爆款分析工具",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "小红书"
+          },
+          {
+            "title": "爆款分析"
+          }
+        ],
+        "title": "小红书爆款分析：找到低粉爆文，拆清笔记为什么有效",
+        "highlight_text": "为什么有效",
+        "description": "先从关键词搜索结果中筛出低粉高互动笔记，再把标题、正文、封面、配图文字和评论放进同一份单篇拆解报告。MediaClaw 保留原文与互动证据，帮助你区分可借鉴的方法和无法复制的条件。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "查看单篇拆解教程",
+            "url": "/docs/viral-research/single-post-breakdown",
+            "icon": "BookOpen",
+            "variant": "outline"
+          }
+        ],
+        "image": {
+          "src": "/imgs/docs/getting-started/first-draft/03-获得单篇拆解报告.webp",
+          "alt": "MediaClaw 小红书单篇爆款拆解报告，展示原笔记、核心结论、标题与封面分析",
+          "width": 1600,
+          "height": 1163
+        }
+      },
+      "core": {
+        "id": "core",
+        "block": "features-scroll",
+        "subtitle": "完整工作流",
+        "title": "小红书爆款分析怎么做？从发现样本到形成可写选题",
+        "description": "爆款分析不是只看点赞数。先缩小样本，再补齐原始内容、生成可复核报告，最后决定哪些方法值得进入自己的创作。",
+        "items": [
+          {
+            "title": "1. 按赛道词寻找近期高互动笔记",
+            "description": "在小红书搜索行业词、产品词或具体问题，结合发布时间、最多点赞、最多收藏或最多评论缩小范围，再设置互动门槛采集候选笔记。",
+            "icon": "Search",
+            "image": {
+              "src": "/imgs/docs/viral-research/recent-hits/02-小红书搜索筛选-xiaohongshu.webp",
+              "alt": "小红书搜索结果按时间和互动排序，MediaClaw 设置采集门槛寻找近期爆款",
+              "width": 1600,
+              "height": 796
+            },
+            "button": {
+              "title": "查看近期爆款教程",
+              "url": "/docs/viral-research/recent-hits"
+            }
+          },
+          {
+            "title": "2. 用低粉高互动减少大号权重干扰",
+            "description": "开启低粉爆款筛选并设置粉丝数上限，找出账号体量较小、单篇互动却明显突出的笔记。阈值应根据赛道调整，结果用于建立候选样本，不代表内容一定可复制。",
+            "icon": "Filter",
+            "image": {
+              "src": "/imgs/docs/viral-research/low-follower-viral/02-小红书筛选低粉爆款-xiaohongshu.webp",
+              "alt": "MediaClaw 在小红书搜索页设置粉丝上限，筛选低粉高互动爆款笔记",
+              "width": 1600,
+              "height": 860
+            },
+            "button": {
+              "title": "查看低粉爆款教程",
+              "url": "/docs/viral-research/low-follower-viral"
+            }
+          },
+          {
+            "title": "3. 从数据池发起单篇拆解",
+            "description": "选中值得研究的笔记发起拆解。图文会结合正文、封面和配图证据；视频笔记可补充逐字稿；需要验证反馈时再纳入公开评论。",
+            "icon": "FileSearch",
+            "image": {
+              "src": "/imgs/docs/getting-started/first-draft/02b-研究内容为什么有效.webp",
+              "alt": "MediaClaw AI 工作台中的小红书单篇内容研究入口与待拆解作品",
+              "width": 1189,
+              "height": 866
+            }
+          },
+          {
+            "title": "4. 查看报告并选择下一步",
+            "description": "报告把核心结论、标题与封面、内容结构、视觉表达、评论反馈和延伸选题放在同一条证据链中。你可以打开原文复核，再收藏选题或直接进入创作。",
+            "icon": "Brain",
+            "image": {
+              "src": "/imgs/docs/getting-started/first-draft/03-获得单篇拆解报告.webp",
+              "alt": "MediaClaw 小红书爆款笔记拆解报告总览和来源证据",
+              "width": 1600,
+              "height": 1163
+            },
+            "button": {
+              "title": "查看单篇拆解教程",
+              "url": "/docs/viral-research/single-post-breakdown"
+            }
+          }
+        ]
+      },
+      "report": {
+        "id": "report",
+        "block": "features-scroll",
+        "subtitle": "单篇拆解报告",
+        "title": "小红书爆款笔记分析重点看什么？",
+        "description": "一份可用的报告必须能回到原笔记和公开互动证据，而不是只输出“情绪价值高”“标题吸引人”这类空泛结论。",
+        "className": "bg-background",
+        "items": [
+          {
+            "title": "标题、封面与第一屏",
+            "description": "判断标题用了什么人群、场景、利益、冲突或悬念，封面如何补充信息，第一段又如何兑现点击前的预期。",
+            "icon": "Image",
+            "image": {
+              "src": "/imgs/docs/getting-started/first-draft/03-获得单篇拆解报告.webp",
+              "alt": "小红书单篇拆解报告中的标题、封面和第一屏分析",
+              "width": 1600,
+              "height": 1163
+            }
+          },
+          {
+            "title": "正文/逐字稿与信息推进",
+            "description": "图文笔记按正文段落和配图文字核对信息推进，视频笔记沿口播时间轴拆开结构；还可以展开完整原文，检查拆解结论是否有原始内容支持。",
+            "icon": "Layers",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/05-口播拆解完整逐字稿.webp",
+              "alt": "MediaClaw 小红书单篇拆解报告展开完整逐字稿，用于核对内容结构与原始口播证据",
+              "width": 1600,
+              "height": 1182
+            }
+          },
+          {
+            "title": "评论反馈与未满足问题",
+            "description": "区分共鸣、追问、反对、补充和行动意向，并展开被纳入分析的原评论，核对读者真正接住了什么、原笔记还留下哪些问题。",
+            "icon": "MessageSquareText",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/06-评论区原始评论.webp",
+              "alt": "MediaClaw 小红书单篇拆解报告展开原始评论，核对评论信号与公开互动证据",
+              "width": 1600,
+              "height": 1099
+            }
+          },
+          {
+            "title": "从原方法扩展可写选题",
+            "description": "围绕把原题讲深、替换使用场景、迁移表达方法三个方向扩展选题，并明确保留了什么、改变了什么，避免生成与原文同题同构的仿写。",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/docs/getting-started/first-draft/05-单篇拆解扩展选题.webp",
+              "alt": "MediaClaw 根据小红书单篇拆解扩展三类新选题并保留来源区别",
+              "width": 1600,
+              "height": 1262
+            }
+          }
+        ]
+      },
+      "fields": {
+        "id": "fields",
+        "block": "data-table",
+        "title": "小红书爆款拆解：从哪些证据得到什么结论？",
+        "description": "爆款数据只能证明作品获得了公开互动，不能单独证明因果。每个判断都应保留来源字段和适用边界。",
+        "columns": [
+          {
+            "key": "dimension",
+            "title": "分析维度"
+          },
+          {
+            "key": "evidence",
+            "title": "主要证据"
+          },
+          {
+            "key": "output",
+            "title": "可形成的结论"
+          }
+        ],
+        "rows": [
+          {
+            "dimension": "样本价值",
+            "evidence": "发布时间、粉丝量、点赞、收藏与评论",
+            "output": "是否值得进入深度拆解，而非直接判断可复制"
+          },
+          {
+            "dimension": "点击动机",
+            "evidence": "标题、封面、首图与第一段",
+            "output": "人群、场景、利益点和信息缺口"
+          },
+          {
+            "dimension": "内容结构",
+            "evidence": "正文段落、配图文字、案例与转折",
+            "output": "信息顺序、论证方式和阅读节奏"
+          },
+          {
+            "dimension": "互动反馈",
+            "evidence": "公开评论中的共鸣、追问、反对与补充",
+            "output": "被验证的需求和仍未回答的问题"
+          },
+          {
+            "dimension": "可迁移方法",
+            "evidence": "原文做法、作者条件与扩展选题",
+            "output": "可以借鉴、必须替换和无法复制的部分"
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "subtitle": "三个不同任务",
+        "title": "低粉爆款发现、单篇拆解和账号分析有什么区别？",
+        "description": "爆款分析页连接“找样本”和“研究一篇内容”；账号分析解决的是长期规律，不能用一篇爆款替代。",
+        "columns": [
+          {
+            "key": "step",
+            "title": "模块"
+          },
+          {
+            "key": "question",
+            "title": "解决的问题"
+          },
+          {
+            "key": "result",
+            "title": "主要产出"
+          },
+          {
+            "key": "next",
+            "title": "下一步"
+          }
+        ],
+        "rows": [
+          {
+            "step": "近期/低粉爆款发现",
+            "question": "哪些笔记值得继续研究？",
+            "result": "候选样本与公开互动指标",
+            "next": "打开原文人工复核"
+          },
+          {
+            "step": "单篇爆款拆解",
+            "question": "这篇内容具体用了什么方法？",
+            "result": "标题、结构、视觉、评论与扩展选题",
+            "next": "收藏选题或进入创作"
+          },
+          {
+            "step": "账号分析",
+            "question": "这个账号哪些方法长期稳定有效？",
+            "result": "定位、选题地图、视觉与语言系统",
+            "next": "建立风格参考并持续监控"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "features",
+        "title": "哪些场景适合做小红书爆款分析？",
+        "items": [
+          {
+            "title": "新号寻找可学样本",
+            "description": "优先研究账号体量接近但单篇明显跑出的笔记，减少只学头部大号造成的执行落差。",
+            "icon": "TrendingUp"
+          },
+          {
+            "title": "团队复盘内容方法",
+            "description": "把原笔记、拆解结论和评论证据放在一起讨论，避免只凭截图、印象或一句“这个很爆”做判断。",
+            "icon": "FolderKanban"
+          },
+          {
+            "title": "从一篇扩展系列选题",
+            "description": "保留已经有效的表达方法，替换人群、问题、场景和自己的证据，形成真正能继续创作的新方向。",
+            "icon": "Route"
+          }
+        ]
+      },
+      "boundaries": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "分析边界",
+        "title": "小红书爆款分析不能替你证明什么？",
+        "description": "公开数据和结构化拆解可以提高判断质量，但不能证明平台算法因果，也不能保证使用同一方法就会获得相同结果。",
+        "items": [
+          {
+            "title": "高互动不等于可复制",
+            "description": "账号权重、投放、热点、作者经历和发布时间都会影响结果，必须先区分内容方法与外部条件。",
+            "icon": "TriangleAlert"
+          },
+          {
+            "title": "报告结论必须可回溯",
+            "description": "标题、结构、视觉和评论判断应能回到原笔记及公开证据；无法验证的推断要明确标注。",
+            "icon": "FileSearch"
+          },
+          {
+            "title": "只研究公开可见内容",
+            "description": "不提供平台后台数据、私密账号信息或未公开的人群画像，并应遵守平台规则及适用法律。",
+            "icon": "ShieldCheck"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "小红书爆款分析常见问题",
+        "items": [
+          {
+            "question": "小红书爆款分析只看点赞数吗？",
+            "answer": "不是。点赞只能说明一种公开互动，还要结合发布时间、收藏、评论、作者粉丝体量、内容主题和原文结构判断。筛选指标用于缩小样本，不能替代人工复核。"
+          },
+          {
+            "question": "什么是小红书低粉爆款？",
+            "answer": "通常指作者粉丝体量较小，但某篇笔记的公开互动明显高于其体量或同类样本。不同赛道差异很大，MediaClaw 允许你自己设置粉丝上限和互动门槛，不使用统一阈值冒充标准答案。"
+          },
+          {
+            "question": "小红书图文笔记可以分析配图文字吗？",
+            "answer": "可以。对已采集的图文笔记提取封面和配图文字后，结果会作为内容证据参与查看、导出和后续拆解，帮助补齐正文区没有呈现的信息。"
+          },
+          {
+            "question": "视频笔记也能做单篇拆解吗？",
+            "answer": "可以。视频笔记可以先补全逐字稿，再结合标题、开头、内容结构、表达节奏、画面和评论反馈形成拆解报告。"
+          },
+          {
+            "question": "爆款拆解会直接生成一篇仿写稿吗？",
+            "answer": "拆解首先输出方法、证据和扩展选题。你选择合适的选题后才进入创作，并应加入自己的案例、观点和表达边界，而不是复制原文。"
+          },
+          {
+            "question": "为什么还需要打开原笔记复核？",
+            "answer": "报告帮助组织证据，但无法替代对原文语境、作者条件、热点背景和评论氛围的判断。保留原文链接是为了让每个关键结论都能被检查。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "完成小红书爆款分析后的下一步",
+        "description": "继续补齐原始材料、验证评论需求，或回到账号层面判断这是不是稳定规律。",
+        "links": [
+          {
+            "title": "小红书账号分析",
+            "description": "从一篇爆款回到整个账号，判断哪些内容方法长期稳定。",
+            "url": "/xiaohongshu/account-analysis",
+            "icon": "UserSearch"
+          },
+          {
+            "title": "小红书笔记采集",
+            "description": "采集公开笔记、搜索结果和博主主页样本，准备完整研究材料。",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "小红书配图文案提取",
+            "description": "提取封面和配图文字，补齐图文笔记的关键信息。",
+            "url": "/xiaohongshu/image-text",
+            "icon": "ScanText"
+          },
+          {
+            "title": "小红书评论采集",
+            "description": "从代表笔记的公开评论中验证共鸣、疑问和未满足需求。",
+            "url": "/xiaohongshu/comments",
+            "icon": "MessageCircle"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "block": "cta",
+        "title": "开始第一次小红书爆款分析",
+        "description": "安装 MediaClaw，先从一个赛道词筛出值得研究的笔记，再用真实内容和互动证据完成单篇拆解。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

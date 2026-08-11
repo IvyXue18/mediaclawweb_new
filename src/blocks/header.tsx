@@ -20,6 +20,7 @@ import {
   ScanText,
   Search,
   Table2,
+  TrendingUp,
   UserCheck,
   UserSearch,
   Workflow,
@@ -60,6 +61,12 @@ function getNavItems(): NavItem[] {
               description: m['site.header.xhs_account_analysis_desc'](),
               url: '/xiaohongshu/account-analysis',
               icon: 'UserSearch',
+            },
+            {
+              title: m['site.header.viral_content_analysis'](),
+              description: m['site.header.xhs_viral_content_analysis_desc'](),
+              url: '/xiaohongshu/viral-content-analysis',
+              icon: 'TrendingUp',
             },
             {
               title: m['site.header.note_scraping'](),
@@ -120,6 +127,13 @@ function getNavItems(): NavItem[] {
               description: m['site.header.douyin_account_analysis_desc'](),
               url: '/douyin/account-analysis',
               icon: 'UserSearch',
+            },
+            {
+              title: m['site.header.viral_content_analysis'](),
+              description:
+                m['site.header.douyin_viral_content_analysis_desc'](),
+              url: '/douyin/viral-content-analysis',
+              icon: 'TrendingUp',
             },
             {
               title: m['site.header.video_scraping'](),
@@ -246,6 +260,7 @@ const navIconMap: Record<string, LucideIcon> = {
   ScanText,
   Search,
   Table2,
+  TrendingUp,
   UserCheck,
   UserSearch,
   Workflow,

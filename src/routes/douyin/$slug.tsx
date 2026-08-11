@@ -15,6 +15,7 @@ import enMonitoringPage from '@/content/legacy-pages/en/douyin/monitoring.json';
 import enScraperPage from '@/content/legacy-pages/en/douyin/scraper.json';
 import enTranscriptPage from '@/content/legacy-pages/en/douyin/transcript.json';
 import zhAccountAnalysisPage from '@/content/legacy-pages/zh/douyin/account-analysis.json';
+import enViralContentAnalysisPage from '@/content/legacy-pages/en/douyin/viral-content-analysis.json';
 import zhCommentsPage from '@/content/legacy-pages/zh/douyin/comments.json';
 import zhDownloaderPage from '@/content/legacy-pages/zh/douyin/downloader.json';
 import zhImageTextPage from '@/content/legacy-pages/zh/douyin/image-text.json';
@@ -23,6 +24,7 @@ import zhLeadsPage from '@/content/legacy-pages/zh/douyin/leads.json';
 import zhMonitoringPage from '@/content/legacy-pages/zh/douyin/monitoring.json';
 import zhScraperPage from '@/content/legacy-pages/zh/douyin/scraper.json';
 import zhTranscriptPage from '@/content/legacy-pages/zh/douyin/transcript.json';
+import zhViralContentAnalysisPage from '@/content/legacy-pages/zh/douyin/viral-content-analysis.json';
 
 import {
   getLocalizedLegacyData,
@@ -41,6 +43,10 @@ const pages: Record<string, LocalizedLegacyPages> = {
   monitoring: { en: enMonitoringPage, zh: zhMonitoringPage },
   scraper: { en: enScraperPage, zh: zhScraperPage },
   transcript: { en: enTranscriptPage, zh: zhTranscriptPage },
+  'viral-content-analysis': {
+    en: enViralContentAnalysisPage,
+    zh: zhViralContentAnalysisPage,
+  },
 };
 
 export const Route = createFileRoute('/douyin/$slug')({
