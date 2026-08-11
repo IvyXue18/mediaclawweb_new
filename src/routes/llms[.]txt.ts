@@ -8,6 +8,18 @@ const STATIC_PAGES: { path: string; title: string; description: string }[] = [
   { path: '', title: 'Home', description: 'Landing page' },
   { path: '/pricing', title: 'Pricing', description: 'Pricing plans' },
   { path: '/blog', title: 'Blog', description: 'Blog posts and articles' },
+  {
+    path: '/xiaohongshu/viral-content-analysis',
+    title: 'Xiaohongshu Viral Post Analysis',
+    description:
+      'Find low-follower RedNote hits and analyze titles, structure, visuals, public comments, and reusable topic methods',
+  },
+  {
+    path: '/douyin/viral-content-analysis',
+    title: 'Douyin Viral Video Analysis',
+    description:
+      'Find low-follower Douyin hits and analyze titles, covers, opening hooks, timed transcripts, and public comment signals',
+  },
 ];
 
 export const Route = createFileRoute('/llms.txt')({

@@ -217,6 +217,12 @@
         "description": "继续完善你的小红书内容创作工作流",
         "links": [
           {
+            "title": "小红书爆款分析",
+            "description": "把高价值搜索词变成低粉爆款样本，并继续完成单篇证据拆解。",
+            "url": "/xiaohongshu/viral-content-analysis",
+            "icon": "TrendingUp"
+          },
+          {
             "title": "小红书笔记采集",
             "description": "围绕扩词结果批量采集样本内容，快速沉淀可分析数据。",
             "url": "/xiaohongshu/scraper",

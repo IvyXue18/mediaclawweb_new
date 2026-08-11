@@ -10,6 +10,10 @@ export function Footer() {
           title: m['site.header.xiaohongshu'](),
           links: [
             {
+              label: m['site.header.viral_content_analysis'](),
+              href: '/xiaohongshu/viral-content-analysis',
+            },
+            {
               label: m['site.header.note_scraping'](),
               href: '/xiaohongshu/scraper',
             },
@@ -46,6 +50,10 @@ export function Footer() {
         {
           title: m['site.header.douyin'](),
           links: [
+            {
+              label: m['site.header.viral_content_analysis'](),
+              href: '/douyin/viral-content-analysis',
+            },
             {
               label: m['site.header.video_scraping'](),
               href: '/douyin/scraper',
