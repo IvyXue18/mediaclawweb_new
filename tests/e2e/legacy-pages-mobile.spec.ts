@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 
 const legacyMobilePages = [
+  '/xiaohongshu/viral-content-analysis',
+  '/douyin/viral-content-analysis',
   '/xiaohongshu/scraper',
   '/xiaohongshu/comments',
   '/xiaohongshu/downloader',
@@ -32,13 +34,25 @@ for (const path of legacyMobilePages) {
       500
     );
     await expect(page.locator('#hero')).toBeVisible();
-    await expect
-      .poll(() =>
-        page
-          .locator('#hero')
-          .evaluate((element) => getComputedStyle(element).minHeight)
-      )
-      .toBe('0px');
+    if (path.endsWith('/viral-content-analysis')) {
+      await expect
+        .poll(() =>
+          page
+            .locator('#hero')
+            .evaluate((element) =>
+              parseFloat(getComputedStyle(element).minHeight)
+            )
+        )
+        .toBeGreaterThan(500);
+    } else {
+      await expect
+        .poll(() =>
+          page
+            .locator('#hero')
+            .evaluate((element) => getComputedStyle(element).minHeight)
+        )
+        .toBe('0px');
+    }
     await expect(page.locator('#faq')).toBeVisible();
     await expect(page.locator('#cta')).toBeVisible();
 

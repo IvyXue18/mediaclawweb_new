@@ -239,6 +239,12 @@
         "description": "Complete your Douyin content planning and execution workflow.",
         "links": [
           {
+            "title": "Douyin Viral Video Analysis",
+            "description": "Turn promising queries into low-follower video samples and evidence-backed script breakdowns.",
+            "url": "/douyin/viral-content-analysis",
+            "icon": "TrendingUp"
+          },
+          {
             "title": "Video Scraper",
             "description": "Scrape videos matching top keywords to validate content opportunity.",
             "url": "/douyin/scraper",

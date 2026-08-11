@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 
 const legacyDesktopPages = [
+  '/xiaohongshu/viral-content-analysis',
+  '/douyin/viral-content-analysis',
   '/xiaohongshu/scraper',
   '/xiaohongshu/comments',
   '/xiaohongshu/downloader',
@@ -81,7 +83,7 @@ for (const path of legacyDesktopPages) {
         )
         .toBeGreaterThan(0);
     } else {
-      await expect(page.locator('[data-feature-grid]')).toBeVisible();
+      await expect(page.locator('[data-feature-grid]').first()).toBeVisible();
       await expect
         .poll(() =>
           page

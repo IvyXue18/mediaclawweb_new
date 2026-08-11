@@ -239,6 +239,12 @@
         "description": "Complete your Xiaohongshu content operations workflow.",
         "links": [
           {
+            "title": "Xiaohongshu Viral Post Analysis",
+            "description": "Turn promising search terms into low-follower post samples and evidence-backed breakdowns.",
+            "url": "/xiaohongshu/viral-content-analysis",
+            "icon": "TrendingUp"
+          },
+          {
             "title": "Post Scraper",
             "description": "Scrape posts matching your top keywords to build a sample content library.",
             "url": "/xiaohongshu/scraper",
