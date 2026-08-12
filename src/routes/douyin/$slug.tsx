@@ -5,6 +5,7 @@ import {
   LegacyDynamicPage,
   type LegacyPageData,
 } from '@/blocks/legacy-dynamic-page';
+import enAccountAnalysisPage from '@/content/legacy-pages/en/douyin/account-analysis.json';
 import enCommentsPage from '@/content/legacy-pages/en/douyin/comments.json';
 import enDownloaderPage from '@/content/legacy-pages/en/douyin/downloader.json';
 import enImageTextPage from '@/content/legacy-pages/en/douyin/image-text.json';
@@ -14,6 +15,7 @@ import enMonitoringPage from '@/content/legacy-pages/en/douyin/monitoring.json';
 import enScraperPage from '@/content/legacy-pages/en/douyin/scraper.json';
 import enTranscriptPage from '@/content/legacy-pages/en/douyin/transcript.json';
 import enViralContentAnalysisPage from '@/content/legacy-pages/en/douyin/viral-content-analysis.json';
+import zhAccountAnalysisPage from '@/content/legacy-pages/zh/douyin/account-analysis.json';
 import zhCommentsPage from '@/content/legacy-pages/zh/douyin/comments.json';
 import zhDownloaderPage from '@/content/legacy-pages/zh/douyin/downloader.json';
 import zhImageTextPage from '@/content/legacy-pages/zh/douyin/image-text.json';
@@ -32,6 +34,7 @@ import {
 } from '../-legacy-page-route';
 
 const pages: Record<string, LocalizedLegacyPages> = {
+  'account-analysis': { en: enAccountAnalysisPage, zh: zhAccountAnalysisPage },
   comments: { en: enCommentsPage, zh: zhCommentsPage },
   downloader: { en: enDownloaderPage, zh: zhDownloaderPage },
   'image-text': { en: enImageTextPage, zh: zhImageTextPage },

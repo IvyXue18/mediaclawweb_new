@@ -9,10 +9,22 @@ const STATIC_PAGES: { path: string; title: string; description: string }[] = [
   { path: '/pricing', title: 'Pricing', description: 'Pricing plans' },
   { path: '/blog', title: 'Blog', description: 'Blog posts and articles' },
   {
+    path: '/xiaohongshu/account-analysis',
+    title: 'Xiaohongshu Account Analyzer',
+    description:
+      'Research public RedNote creator profiles, content patterns, and engagement signals',
+  },
+  {
     path: '/xiaohongshu/viral-content-analysis',
     title: 'Xiaohongshu Viral Post Analysis',
     description:
       'Find low-follower RedNote hits and analyze titles, structure, visuals, public comments, and reusable topic methods',
+  },
+  {
+    path: '/douyin/account-analysis',
+    title: 'Douyin Account Analyzer',
+    description:
+      'Research public Douyin creator videos, transcripts, content patterns, and engagement signals',
   },
   {
     path: '/douyin/viral-content-analysis',

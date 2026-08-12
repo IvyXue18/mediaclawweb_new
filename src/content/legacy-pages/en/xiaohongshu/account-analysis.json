@@ -1,0 +1,406 @@
+{
+  "metadata": {
+    "title": "Xiaohongshu Account Analyzer｜Find Competitors and Content Patterns | MediaClaw",
+    "description": "Use the MediaClaw Xiaohongshu account analyzer to find benchmark creators, collect public profile samples, and analyze positioning, topics, headlines, voice, visuals, and reusable ideas.",
+    "keywords": "Xiaohongshu account analyzer, Xiaohongshu account analysis, RedNote account analyzer, Xiaohongshu competitor analysis, Xiaohongshu creator analysis, RedNote profile analysis"
+  },
+  "page": {
+    "title": "Xiaohongshu Account Analysis",
+    "show_sections": [
+      "hero",
+      "core",
+      "report",
+      "fields",
+      "compare",
+      "scenarios",
+      "boundaries",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "hero",
+        "label": "Xiaohongshu Account Analyzer",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Xiaohongshu"
+          },
+          {
+            "title": "Account Analysis"
+          }
+        ],
+        "title": "Xiaohongshu Account Analyzer: Find Benchmark Creators and Decode Their Content System",
+        "highlight_text": "Decode Their Content System",
+        "description": "Reverse-engineer benchmark Xiaohongshu creators from proven posts, collect at least 50 public samples, and let MediaClaw stratify the evidence. The final account analysis covers positioning, topics, headlines, voice, visuals, and new ideas linked to source posts.",
+        "buttons": [
+          {
+            "title": "Get Started",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "image": {
+          "src": "/imgs/features/content-analysis-workflow-v20260719.png",
+          "alt": "MediaClaw workflow showing a Xiaohongshu account analysis report, keyword research, and saved content ideas",
+          "width": 2146,
+          "height": 1384
+        }
+      },
+      "core": {
+        "id": "core",
+        "block": "features-scroll",
+        "subtitle": "Core workflow",
+        "title": "How does the Xiaohongshu account analyzer work?",
+        "description": "MediaClaw connects four modules that find candidates, prepare evidence, run the analysis, and preserve the report—it is more than a profile viewer.",
+        "items": [
+          {
+            "title": "1. Find benchmark Xiaohongshu creators from proven posts",
+            "description": "Search a niche term and MediaClaw organizes strong posts and recurring authors, then adds public profile details, representative work, recommendation rationale, and low-follower/high-engagement signals. Use the shortlist to decide who deserves deeper review.",
+            "icon": "UserSearch",
+            "image": {
+              "src": "/imgs/docs/benchmark/find-accounts/03-找对标账号洞察结果.webp",
+              "alt": "MediaClaw benchmark account results with candidate creators, representative Xiaohongshu posts, and recommendation rationale",
+              "width": 1600,
+              "height": 1840
+            }
+          },
+          {
+            "title": "2. Collect profile posts and start account analysis",
+            "description": "Open a target creator profile and collect at least 50 public posts. The creator card keeps available profile, follower, and engagement fields, and the existing dataset can start the breakdown without rebuilding your research from scratch.",
+            "icon": "Database",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/01-采集账号数据并拆解.webp",
+              "alt": "Starting a Xiaohongshu account breakdown from an already collected creator profile in MediaClaw",
+              "width": 990,
+              "height": 1004
+            }
+          },
+          {
+            "title": "3. Stratify the sample, with manual control",
+            "description": "The system selects high-engagement, representative, and comparison posts from the collected set. Review and adjust the sample before analysis so irrelevant content does not dilute the findings.",
+            "icon": "Filter",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/02-数据分层筛选笔记可以手动调整.webp",
+              "alt": "MediaClaw sample confirmation screen for a Xiaohongshu account analysis with manually adjustable post selection",
+              "width": 916,
+              "height": 1272
+            }
+          },
+          {
+            "title": "4. Run in the background and keep every report",
+            "description": "The workflow organizes samples, enriches representative posts, extracts transcripts, compares engagement tiers, clusters content frameworks, and generates ideas. Progress stays visible, and completed creator files live in the AI workbench.",
+            "icon": "Brain",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/03-拆解中级拆解后报告.webp",
+              "alt": "MediaClaw Xiaohongshu account analysis progress panel showing transcript, engagement comparison, clustering, and idea generation steps",
+              "width": 958,
+              "height": 1178
+            }
+          }
+        ]
+      },
+      "report": {
+        "id": "report",
+        "block": "features-scroll",
+        "subtitle": "Inside the report",
+        "title": "What is inside a Xiaohongshu account analysis report?",
+        "description": "A real report moves from positioning and topics through headlines, visuals, and voice, then produces ideas ready to pursue. The same evidence-led structure supports both Xiaohongshu creator analysis and Xiaohongshu competitor analysis.",
+        "className": "bg-background",
+        "items": [
+          {
+            "title": "Positioning and topic map",
+            "description": "Define the audience, core value, and content boundaries first, then group representative posts by problem, scenario, audience, or recurring series. Evidence helps separate durable directions from one-off hits.",
+            "icon": "Route",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/05-拆解报告-选题归类.webp",
+              "alt": "MediaClaw account breakdown report showing the core account definition, topic map, and source materials",
+              "width": 1600,
+              "height": 1187
+            }
+          },
+          {
+            "title": "Headline and opening patterns",
+            "description": "Compare the headline structures, keywords, emotional tension, and openings repeated across strong posts. The report turns those patterns into reusable principles instead of copying individual titles.",
+            "icon": "Text",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/07-标题规律.webp",
+              "alt": "MediaClaw account breakdown report showing headline patterns and representative title samples",
+              "width": 1600,
+              "height": 1220
+            }
+          },
+          {
+            "title": "Cover and visual system",
+            "description": "Analyze cover composition, the main subject, text hierarchy, color, and information density, then connect those choices to representative posts and the account's recognizable visual identity.",
+            "icon": "Image",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/06-账号封面视觉分析.webp",
+              "alt": "MediaClaw account breakdown report showing the cover visual system and representative posts",
+              "width": 1600,
+              "height": 1218
+            }
+          },
+          {
+            "title": "Voice and interaction language",
+            "description": "Summarize recurring tone, sentence patterns, narrative rhythm, and interaction prompts, including how the creator builds trust, opens information gaps, and invites continued reading or discussion.",
+            "icon": "MessageSquareText",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/08-语言规律.webp",
+              "alt": "MediaClaw account breakdown report showing voice, sentence, and interaction-language patterns",
+              "width": 1600,
+              "height": 1338
+            }
+          },
+          {
+            "title": "Writable ideas with source evidence",
+            "description": "Expand new directions from the account framework, show what was retained and what changed, and attach real source posts plus headline options. Save strong ideas or move directly into creation.",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/09-可复用直接可写的选题.webp",
+              "alt": "MediaClaw account breakdown report showing writable idea cards with source posts and creation actions",
+              "width": 1600,
+              "height": 1205
+            }
+          }
+        ]
+      },
+      "fields": {
+        "id": "fields",
+        "block": "data-table",
+        "title": "Xiaohongshu account analysis: from post evidence to actionable conclusions",
+        "description": "A RedNote profile analysis should not stop at abstract labels. Positioning, topic, and style conclusions should trace back to the public posts included in the sample.",
+        "columns": [
+          {
+            "key": "dimension",
+            "title": "Dimension"
+          },
+          {
+            "key": "evidence",
+            "title": "Primary evidence"
+          },
+          {
+            "key": "output",
+            "title": "Research output"
+          }
+        ],
+        "rows": [
+          {
+            "dimension": "Positioning and audience",
+            "evidence": "Profile bio, pinned posts, and recurring themes",
+            "output": "Core audience, scenarios, and long-term value"
+          },
+          {
+            "dimension": "Topic structure",
+            "evidence": "High-, medium-, and low-engagement posts plus topic clusters",
+            "output": "Durable pillars, one-off directions, and representative posts"
+          },
+          {
+            "dimension": "Headlines and openings",
+            "evidence": "Headline formulas, benefits, tension, and opening structure",
+            "output": "Recurring hooks and transferable headline patterns"
+          },
+          {
+            "dimension": "Content and visuals",
+            "evidence": "Covers, colors, hierarchy, carousel length, or video duration",
+            "output": "Visual system, information density, and production demands"
+          },
+          {
+            "dimension": "Voice and writable ideas",
+            "evidence": "Captions, transcripts, interaction language, and source posts",
+            "output": "Voice rules, adaptation principles, and executable ideas"
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "subtitle": "Four different jobs",
+        "title": "Xiaohongshu account analysis vs profile scraping and competitor monitoring",
+        "description": "Account analysis sits in the middle: it needs benchmark creators and post evidence upstream, then feeds content ideas and ongoing competitor validation downstream.",
+        "columns": [
+          {
+            "key": "step",
+            "title": "Module"
+          },
+          {
+            "key": "question",
+            "title": "Question answered"
+          },
+          {
+            "key": "result",
+            "title": "Primary output"
+          },
+          {
+            "key": "next",
+            "title": "Next step"
+          }
+        ],
+        "rows": [
+          {
+            "step": "Find benchmark accounts",
+            "question": "Who in this niche deserves deeper study?",
+            "result": "Candidate creators, representative posts, rationale",
+            "next": "Review the public profile"
+          },
+          {
+            "step": "Collect profile posts",
+            "question": "What has this creator actually published?",
+            "result": "Public profile fields and historical post sample",
+            "next": "Confirm the analysis sample"
+          },
+          {
+            "step": "Analyze the account",
+            "question": "Which content methods repeat and hold up?",
+            "result": "Positioning, topics, hooks, visuals, voice, and ideas",
+            "next": "Save an idea or start creating"
+          },
+          {
+            "step": "Monitor the account",
+            "question": "What changed after the report was created?",
+            "result": "New posts, threshold matches, and daily reports",
+            "next": "Validate and refresh the research"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "features",
+        "title": "When should you analyze a Xiaohongshu or RedNote creator?",
+        "items": [
+          {
+            "title": "Entering a new niche",
+            "description": "Study a relevant creator set before choosing your own audience, topic mix, formats, and differentiated angle.",
+            "icon": "Route"
+          },
+          {
+            "title": "Reviewing benchmark creators",
+            "description": "Use a meaningful post history to see which themes repeatedly perform instead of overreacting to one viral outlier.",
+            "icon": "TrendingUp"
+          },
+          {
+            "title": "Building a shared research library",
+            "description": "Export or sync creator profiles, representative posts, and comment evidence for content, growth, and partnership teams to review together.",
+            "icon": "FolderKanban"
+          }
+        ]
+      },
+      "boundaries": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "Data boundaries",
+        "title": "What are the data boundaries for RedNote profile analysis?",
+        "description": "A Xiaohongshu account analyzer should improve content research with public, traceable evidence—not access private data or make unsupported conclusions about a creator.",
+        "items": [
+          {
+            "title": "Public pages only",
+            "description": "The workflow does not provide private accounts, creator dashboards, contact details, or information the platform does not make public.",
+            "icon": "ShieldCheck"
+          },
+          {
+            "title": "Separate facts from inference",
+            "description": "Profile fields and engagement counts are evidence. Positioning and content patterns are research conclusions that should be tested across more samples.",
+            "icon": "FileSearch"
+          },
+          {
+            "title": "Use data responsibly",
+            "description": "Use collected information only for authorized research, operations, and content review while following platform rules and applicable laws.",
+            "icon": "CheckCircle"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Xiaohongshu Account Analysis FAQ",
+        "items": [
+          {
+            "question": "What is the difference between profile scraping and account analysis?",
+            "answer": "Profile scraping organizes public account information and historical posts into a usable sample. Account analysis uses that evidence to examine positioning, recurring themes, publishing patterns, and engagement signals. Collection prepares the data; analysis structures the research."
+          },
+          {
+            "question": "How do I find the right competitor accounts to analyze?",
+            "answer": "Start with keywords and content themes closest to your business. Notice which creators repeatedly appear in useful results, then filter by audience, category, format, and account stage rather than choosing only the biggest profiles."
+          },
+          {
+            "question": "How many posts do I need for an account analysis?",
+            "answer": "Start by collecting at least 50 public posts from the target profile. The system selects high-engagement, representative, and comparison samples, and you can adjust the selection before analysis. A tiny sample can make one unusual post look like a stable strategy."
+          },
+          {
+            "question": "Do I need enhanced collection before starting an account breakdown?",
+            "answer": "You can collect the initial profile-post set without enhanced collection. After you start the breakdown, the workflow enriches selected representative posts with the details and transcripts needed for analysis."
+          },
+          {
+            "question": "How long does a full account analysis take?",
+            "answer": "A first complete analysis typically takes about 10-20 minutes, depending on sample size and how much evidence needs enrichment. The task can continue in the background, and the progress panel shows the current step."
+          },
+          {
+            "question": "Can this show an account's private audience demographics?",
+            "answer": "No. This page does not provide creator-dashboard demographics. Public profiles, themes, and comments can suggest audience signals, but those are research inferences—not exact audience statistics."
+          },
+          {
+            "question": "What should I do after finishing an account analysis?",
+            "answer": "Add priority creators to monitoring, save representative posts to your research library, and validate demand through comments and keywords. This turns a one-time report into an ongoing topic, creation, and review workflow."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "What to do after Xiaohongshu account analysis",
+        "description": "Move from discovery to evidence, validation, and ongoing tracking with the right tool for each step.",
+        "links": [
+          {
+            "title": "Xiaohongshu Viral Post Analysis",
+            "description": "Find low-follower hits and break down the title, structure, visuals, and public feedback in one post.",
+            "url": "/xiaohongshu/viral-content-analysis",
+            "icon": "TrendingUp"
+          },
+          {
+            "title": "Xiaohongshu Keyword Research",
+            "description": "Use niche keywords and search demand to find candidate creators and themes.",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "Xiaohongshu Post Scraper",
+            "description": "Collect public profile posts in bulk to build a comparable content sample.",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Xiaohongshu Comment Scraper",
+            "description": "Validate audience needs and objections in public comments on representative posts.",
+            "url": "/xiaohongshu/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "Xiaohongshu Competitor Monitoring",
+            "description": "Track important creators and engagement changes to test your findings over time.",
+            "url": "/xiaohongshu/monitoring",
+            "icon": "Radar"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "block": "cta",
+        "title": "Start your first Xiaohongshu competitor analysis",
+        "description": "Install the MediaClaw Xiaohongshu account analyzer, collect a set of public creators and posts, and build a repeatable account research workflow.",
+        "buttons": [
+          {
+            "title": "Install Free Extension",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

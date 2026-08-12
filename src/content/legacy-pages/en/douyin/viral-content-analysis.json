@@ -33,15 +33,9 @@
         "description": "Start with low-follower videos that earned unusually strong public engagement. Then bring the title, cover, timed transcript, script sections, and public comments into one evidence-backed report. MediaClaw helps you decide which methods are worth adapting.",
         "buttons": [
           {
-            "title": "Install for free",
+            "title": "Get Started",
             "url": "/download",
             "icon": "Download"
-          },
-          {
-            "title": "Read the video breakdown guide",
-            "url": "/docs/viral-research/single-post-breakdown",
-            "icon": "BookOpen",
-            "variant": "outline"
           }
         ],
         "image": {
@@ -67,10 +61,6 @@
               "alt": "Douyin search results filtered by recency and likes before MediaClaw collects candidate videos",
               "width": 1600,
               "height": 748
-            },
-            "button": {
-              "title": "See the recent-hit workflow",
-              "url": "/docs/viral-research/recent-hits"
             }
           },
           {
@@ -82,10 +72,6 @@
               "alt": "MediaClaw follower ceiling used to find low-follower, high-like Douyin videos",
               "width": 1600,
               "height": 861
-            },
-            "button": {
-              "title": "See the low-follower workflow",
-              "url": "/docs/viral-research/low-follower-viral"
             }
           },
           {
@@ -108,10 +94,6 @@
               "alt": "MediaClaw Douyin voiceover breakdown showing the opening hook, actual technique, reason to keep watching, and timed structure",
               "width": 1600,
               "height": 1256
-            },
-            "button": {
-              "title": "Read the single-video breakdown guide",
-              "url": "/docs/viral-research/single-post-breakdown"
             }
           }
         ]

@@ -1,0 +1,406 @@
+{
+  "metadata": {
+    "title": "小红书账号分析工具｜自动找对标账号、拆解选题与内容风格 | MediaClaw",
+    "description": "使用 MediaClaw 小红书账号分析工具，从爆款笔记反推小红书对标账号，批量采集公开主页样本，完成博主与竞品账号分析，拆解定位、选题、标题、语言和视觉规律。",
+    "keywords": "小红书账号分析, 小红书账号分析工具, 小红书对标账号, 小红书对标账号分析, 小红书博主分析, 小红书竞品账号分析, 小红书账号数据分析"
+  },
+  "page": {
+    "title": "小红书账号分析",
+    "show_sections": [
+      "hero",
+      "core",
+      "report",
+      "fields",
+      "compare",
+      "scenarios",
+      "boundaries",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "hero",
+        "label": "小红书账号分析工具",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "小红书"
+          },
+          {
+            "title": "账号分析"
+          }
+        ],
+        "title": "小红书账号分析：找到对标账号，拆出可复用的内容方法",
+        "highlight_text": "可复用的内容方法",
+        "description": "从赛道爆款反推小红书对标账号，采集至少 50 条公开作品并自动分层取样。MediaClaw 会继续补全逐字稿、聚类选题，拆解账号定位、标题、语言与视觉系统，最后给出带来源证据的可写选题。",
+        "buttons": [
+          {
+            "title": "我要使用",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "image": {
+          "src": "/imgs/features/content-analysis-workflow-v20260719.png",
+          "alt": "MediaClaw 小红书账号分析报告、关键词策略与选题沉淀工作流界面",
+          "width": 2146,
+          "height": 1384
+        }
+      },
+      "core": {
+        "id": "core",
+        "block": "features-scroll",
+        "subtitle": "核心功能",
+        "title": "小红书账号分析怎么做？从找对标账号到生成报告",
+        "description": "MediaClaw 把发现对象、准备样本、执行分析和管理报告串成四个连续模块，而不只是展示主页数据。",
+        "items": [
+          {
+            "title": "1. 从赛道爆款反推小红书对标账号",
+            "description": "搜索一个赛道词后，MediaClaw 会整理高表现作品及反复出现的作者，补充公开主页信息、代表作品、推荐理由与低粉高互动信号。先缩小候选范围，再人工确认谁真正值得研究。",
+            "icon": "UserSearch",
+            "image": {
+              "src": "/imgs/docs/benchmark/find-accounts/03-找对标账号洞察结果.webp",
+              "alt": "MediaClaw 根据小红书搜索结果整理候选对标账号、代表作品和推荐理由",
+              "width": 1600,
+              "height": 1840
+            }
+          },
+          {
+            "title": "2. 采集主页作品，直接启动账号分析",
+            "description": "打开目标博主主页，先采集至少 50 条公开作品。账号信息卡会保留主页信息、粉丝和赞藏等公开字段；已有数据可以直接用于拆解，不需要重新准备一套资料。",
+            "icon": "Database",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/01-采集账号数据并拆解.webp",
+              "alt": "小红书博主页采集完成后，从博主信息卡启动账号拆解",
+              "width": 990,
+              "height": 1004
+            }
+          },
+          {
+            "title": "3. 自动分层选样，也允许手动调整",
+            "description": "系统会从已采集作品中选择高互动、典型和对照样本；开始前你可以检查并调整参与分析的作品。这样既保留自动化效率，也避免无关内容稀释结论。",
+            "icon": "Filter",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/02-数据分层筛选笔记可以手动调整.webp",
+              "alt": "MediaClaw 小红书账号拆解确认分析样本界面，可手动调整入选作品",
+              "width": 916,
+              "height": 1272
+            }
+          },
+          {
+            "title": "4. 后台完成分析，进度和报告都有记录",
+            "description": "分析会依次整理样本、补全代表作品、提取逐字稿、比较高低互动、聚类内容框架并生成选题。任务可在后台继续运行，完成后的账号档案进入 AI 工作台统一管理。",
+            "icon": "Brain",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/03-拆解中级拆解后报告.webp",
+              "alt": "MediaClaw 小红书账号拆解进度面板，展示逐字稿、互动比较、聚类和选题生成步骤",
+              "width": 958,
+              "height": 1178
+            }
+          }
+        ]
+      },
+      "report": {
+        "id": "report",
+        "block": "features-scroll",
+        "subtitle": "分析报告",
+        "title": "小红书账号分析报告包含哪五个维度？",
+        "description": "真实报告从账号定位和选题，逐层分析标题、视觉与语言，再形成可以立即推进的选题。这套结构同时适合小红书博主分析和小红书竞品账号分析。",
+        "className": "bg-background",
+        "items": [
+          {
+            "title": "账号定位与选题地图",
+            "description": "先总结目标人群、核心价值和内容边界，再把代表作品按问题、场景、人群或栏目归类。报告同时保留高表现证据，帮助区分稳定方向和偶然爆款。",
+            "icon": "Route",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/05-拆解报告-选题归类.webp",
+              "alt": "MediaClaw 账号拆解报告中的账号核心定义、选题地图与右侧分析素材",
+              "width": 1600,
+              "height": 1187
+            }
+          },
+          {
+            "title": "标题与开头规律",
+            "description": "比较高表现内容反复使用的标题结构、关键词、情绪张力和开头方式，提炼能被团队理解和复用的表达公式，而不是照搬某一条标题。",
+            "icon": "Text",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/07-标题规律.webp",
+              "alt": "MediaClaw 账号拆解报告中的标题规律和代表标题样本",
+              "width": 1600,
+              "height": 1220
+            }
+          },
+          {
+            "title": "封面与视觉系统",
+            "description": "分析封面构图、人物主体、文字层级、配色和信息密度，并结合代表作品说明视觉如何承接选题，让账号长期保持统一辨识度。",
+            "icon": "Image",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/06-账号封面视觉分析.webp",
+              "alt": "MediaClaw 账号拆解报告中的封面视觉系统和代表作品",
+              "width": 1600,
+              "height": 1218
+            }
+          },
+          {
+            "title": "语言与互动话术",
+            "description": "总结账号常用的语气、句式、叙事节奏和互动话术，说明它如何建立信任、制造信息缺口并推动读者继续阅读或参与讨论。",
+            "icon": "MessageSquareText",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/08-语言规律.webp",
+              "alt": "MediaClaw 账号拆解报告中的语言风格、句式与互动话术",
+              "width": 1600,
+              "height": 1338
+            }
+          },
+          {
+            "title": "带来源证据的可写选题",
+            "description": "根据账号内容框架扩展新选题，说明沿用了什么、改变了什么，并附真实来源作品和标题备选。满意的方向可以收藏到选题库或直接进入创作。",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/09-可复用直接可写的选题.webp",
+              "alt": "MediaClaw 账号拆解报告中带来源样本、改写角度与创作操作的可写选题",
+              "width": 1600,
+              "height": 1205
+            }
+          }
+        ]
+      },
+      "fields": {
+        "id": "fields",
+        "block": "data-table",
+        "title": "小红书账号数据分析：从样本证据到可执行结论",
+        "description": "这类报告不能只输出抽象标签；定位、选题和风格结论都应当能回到参与分析的公开作品。",
+        "columns": [
+          {
+            "key": "dimension",
+            "title": "分析维度"
+          },
+          {
+            "key": "evidence",
+            "title": "主要证据"
+          },
+          {
+            "key": "output",
+            "title": "可形成的结论"
+          }
+        ],
+        "rows": [
+          {
+            "dimension": "定位与人群",
+            "evidence": "主页简介、置顶内容与长期重复主题",
+            "output": "核心受众、典型场景、长期提供的价值"
+          },
+          {
+            "dimension": "选题结构",
+            "evidence": "高、中、低互动作品与主题聚类",
+            "output": "稳定选题支柱、偶发方向和代表作品"
+          },
+          {
+            "dimension": "标题与开头",
+            "evidence": "标题句式、利益点、冲突点与内容开场",
+            "output": "反复使用的钩子及可迁移标题结构"
+          },
+          {
+            "dimension": "内容与视觉",
+            "evidence": "封面、配色、文字层级、图文页数或视频时长",
+            "output": "视觉系统、信息密度和制作资源要求"
+          },
+          {
+            "dimension": "语言与可写选题",
+            "evidence": "正文、逐字稿、互动话术与真实来源样本",
+            "output": "语气规律、改写原则和下一批可执行选题"
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "subtitle": "不要混为一个功能",
+        "title": "小红书账号分析、主页采集和竞品监控有什么区别？",
+        "description": "账号分析位于工作流中间：上游需要小红书对标账号和内容样本，下游才能形成选题并通过竞品监控持续验证。",
+        "columns": [
+          {
+            "key": "step",
+            "title": "模块"
+          },
+          {
+            "key": "question",
+            "title": "解决的问题"
+          },
+          {
+            "key": "result",
+            "title": "主要产出"
+          },
+          {
+            "key": "next",
+            "title": "下一步"
+          }
+        ],
+        "rows": [
+          {
+            "step": "找对标账号",
+            "question": "这个赛道里，谁值得继续研究？",
+            "result": "候选账号、代表作品、推荐理由",
+            "next": "打开主页人工复核"
+          },
+          {
+            "step": "主页作品采集",
+            "question": "这个账号过去具体发布了什么？",
+            "result": "公开账号字段与历史作品样本",
+            "next": "确认分析样本"
+          },
+          {
+            "step": "账号拆解",
+            "question": "哪些内容方法被反复验证？",
+            "result": "定位、选题、标题、视觉、语言与新选题",
+            "next": "收藏选题或进入创作"
+          },
+          {
+            "step": "账号监控",
+            "question": "这些账号最近又出现了什么变化？",
+            "result": "更新记录、命中作品与日报",
+            "next": "持续验证并更新报告"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "features",
+        "title": "哪些账号适合做小红书对标账号分析？",
+        "items": [
+          {
+            "title": "进入一个新赛道",
+            "description": "先研究一组同赛道账号，确认人群、主题和内容形式，再决定自己的差异化切口。",
+            "icon": "Route"
+          },
+          {
+            "title": "复盘对标博主",
+            "description": "用一段时间的笔记样本判断哪些主题反复有效，避免只盯一篇偶然爆款。",
+            "icon": "TrendingUp"
+          },
+          {
+            "title": "建立团队研究库",
+            "description": "把账号资料、代表内容和评论证据导出或同步，供运营、内容与投放团队共同复盘。",
+            "icon": "FolderKanban"
+          }
+        ]
+      },
+      "boundaries": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "数据边界",
+        "title": "小红书博主分析应遵守哪些数据边界？",
+        "description": "博主研究的目标是基于公开样本提高内容判断质量，不是获取私密数据或替用户做无证据推断。",
+        "items": [
+          {
+            "title": "仅处理公开可见页面",
+            "description": "不提供私密账号、后台经营数据、联系方式或平台未公开信息。",
+            "icon": "ShieldCheck"
+          },
+          {
+            "title": "区分事实与判断",
+            "description": "主页字段和互动指标是事实证据；账号定位与内容规律属于分析结论，应结合更多样本持续验证。",
+            "icon": "FileSearch"
+          },
+          {
+            "title": "遵守平台与使用规范",
+            "description": "仅将数据用于获授权的研究、运营和内容复盘，并遵守平台规则及适用法律。",
+            "icon": "CheckCircle"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "小红书账号分析常见问题",
+        "items": [
+          {
+            "question": "小红书账号分析和主页采集有什么区别？",
+            "answer": "主页采集负责把公开账号信息与历史笔记整理成可用样本；账号分析进一步围绕定位、内容主题、更新节奏和互动表现组织这些证据。前者是数据准备，后者是研究过程。"
+          },
+          {
+            "question": "怎样找到值得分析的对标账号？",
+            "answer": "先从与你业务最接近的关键词和内容主题搜索，观察反复出现在高质量结果中的账号，再根据受众、品类、内容形式和账号阶段筛选，而不是只选择粉丝最多的博主。"
+          },
+          {
+            "question": "分析一个账号需要多少篇笔记？",
+            "answer": "建议先从目标主页采集至少 50 条公开作品。系统会从中选择高互动、典型和对照样本，你也可以在开始分析前手动调整。样本太少容易把单篇偶然表现误认为稳定规律。"
+          },
+          {
+            "question": "账号拆解需要开启采集增强吗？",
+            "answer": "第一步采集账号主页作品时可以不开启采集增强。启动拆解后，系统会根据分层样本补全代表作品详情、逐字稿等分析所需材料。"
+          },
+          {
+            "question": "生成一份账号分析报告需要多久？",
+            "answer": "首次完整分析通常需要约 10-20 分钟，具体取决于样本数量和需要补全的材料。任务可以在后台推进，进度面板会显示当前正在执行的步骤。"
+          },
+          {
+            "question": "可以分析小红书账号的粉丝画像吗？",
+            "answer": "本页不提供平台后台级粉丝画像。你可以基于公开主页、内容主题和公开评论观察受众信号，但应把它视为研究推断，而不是精确的人群统计。"
+          },
+          {
+            "question": "账号分析完成后，下一步做什么？",
+            "answer": "把关键账号加入持续监控，把代表笔记放入内容样本库，并从评论和关键词中验证需求。这样账号研究才能继续进入选题、创作与复盘。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "完成账号拆解后的下一步",
+        "description": "从发现、取样、验证到持续跟踪，使用最匹配的工具进入下一步。",
+        "links": [
+          {
+            "title": "小红书爆款分析",
+            "description": "筛出低粉高互动笔记，再拆解单篇标题、结构、视觉和公开反馈。",
+            "url": "/xiaohongshu/viral-content-analysis",
+            "icon": "TrendingUp"
+          },
+          {
+            "title": "小红书关键词洞察",
+            "description": "从赛道词和用户搜索需求找到候选账号与内容方向。",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "小红书笔记采集",
+            "description": "批量采集公开主页笔记，建立可比较的账号内容样本。",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "小红书评论采集",
+            "description": "从代表笔记的公开评论中验证受众需求和反馈。",
+            "url": "/xiaohongshu/comments",
+            "icon": "MessageCircle"
+          },
+          {
+            "title": "小红书竞品监控",
+            "description": "持续追踪重点账号更新与互动变化，验证分析结论。",
+            "url": "/xiaohongshu/monitoring",
+            "icon": "Radar"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "block": "cta",
+        "title": "开始第一次小红书对标账号分析",
+        "description": "安装 MediaClaw 小红书账号分析工具，先采集一组公开账号与内容样本，再逐步建立自己的账号研究流程。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

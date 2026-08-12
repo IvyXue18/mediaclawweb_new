@@ -40,15 +40,9 @@
         "description": "先在抖音搜索结果中筛出低粉高赞视频，再把标题与封面、完整逐字稿、脚本段落和评论反馈放进同一份单篇拆解报告。MediaClaw 保留原视频与互动证据，帮助你判断哪些方法值得迁移。",
         "buttons": [
           {
-            "title": "免费安装插件",
+            "title": "我要使用",
             "url": "/download",
             "icon": "Download"
-          },
-          {
-            "title": "查看单篇拆解教程",
-            "url": "/docs/viral-research/single-post-breakdown",
-            "icon": "BookOpen",
-            "variant": "outline"
           }
         ],
         "image": {
@@ -74,10 +68,6 @@
               "alt": "抖音搜索结果按半年内和最多点赞筛选，MediaClaw 设置采集门槛寻找近期爆款",
               "width": 1600,
               "height": 748
-            },
-            "button": {
-              "title": "查看近期爆款教程",
-              "url": "/docs/viral-research/recent-hits"
             }
           },
           {
@@ -89,10 +79,6 @@
               "alt": "MediaClaw 在抖音搜索页设置粉丝上限，筛选低粉高赞爆款视频",
               "width": 1600,
               "height": 861
-            },
-            "button": {
-              "title": "查看低粉爆款教程",
-              "url": "/docs/viral-research/low-follower-viral"
             }
           },
           {
@@ -115,10 +101,6 @@
               "alt": "MediaClaw 抖音视频口播拆解，展示开场钩子、实际做法、留人理由和带时间点的口播结构",
               "width": 1600,
               "height": 1256
-            },
-            "button": {
-              "title": "查看单篇拆解教程",
-              "url": "/docs/viral-research/single-post-breakdown"
             }
           }
         ]

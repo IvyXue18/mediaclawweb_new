@@ -1,7 +1,9 @@
 import { expect, test } from '@playwright/test';
 
 const legacyDesktopPages = [
+  '/xiaohongshu/account-analysis',
   '/xiaohongshu/viral-content-analysis',
+  '/douyin/account-analysis',
   '/douyin/viral-content-analysis',
   '/xiaohongshu/scraper',
   '/xiaohongshu/comments',

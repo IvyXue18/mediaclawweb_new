@@ -1,7 +1,9 @@
 import { expect, test } from '@playwright/test';
 
 const legacyMobilePages = [
+  '/xiaohongshu/account-analysis',
   '/xiaohongshu/viral-content-analysis',
+  '/douyin/account-analysis',
   '/douyin/viral-content-analysis',
   '/xiaohongshu/scraper',
   '/xiaohongshu/comments',
@@ -34,7 +36,10 @@ for (const path of legacyMobilePages) {
       500
     );
     await expect(page.locator('#hero')).toBeVisible();
-    if (path.endsWith('/viral-content-analysis')) {
+    if (
+      path.endsWith('/account-analysis') ||
+      path.endsWith('/viral-content-analysis')
+    ) {
       await expect
         .poll(() =>
           page

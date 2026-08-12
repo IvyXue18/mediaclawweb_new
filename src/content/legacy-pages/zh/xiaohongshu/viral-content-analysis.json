@@ -40,15 +40,9 @@
         "description": "先从关键词搜索结果中筛出低粉高互动笔记，再把标题、正文、封面、配图文字和评论放进同一份单篇拆解报告。MediaClaw 保留原文与互动证据，帮助你区分可借鉴的方法和无法复制的条件。",
         "buttons": [
           {
-            "title": "免费安装插件",
+            "title": "我要使用",
             "url": "/download",
             "icon": "Download"
-          },
-          {
-            "title": "查看单篇拆解教程",
-            "url": "/docs/viral-research/single-post-breakdown",
-            "icon": "BookOpen",
-            "variant": "outline"
           }
         ],
         "image": {
@@ -74,10 +68,6 @@
               "alt": "小红书搜索结果按时间和互动排序，MediaClaw 设置采集门槛寻找近期爆款",
               "width": 1600,
               "height": 796
-            },
-            "button": {
-              "title": "查看近期爆款教程",
-              "url": "/docs/viral-research/recent-hits"
             }
           },
           {
@@ -89,10 +79,6 @@
               "alt": "MediaClaw 在小红书搜索页设置粉丝上限，筛选低粉高互动爆款笔记",
               "width": 1600,
               "height": 860
-            },
-            "button": {
-              "title": "查看低粉爆款教程",
-              "url": "/docs/viral-research/low-follower-viral"
             }
           },
           {
@@ -115,10 +101,6 @@
               "alt": "MediaClaw 小红书爆款笔记拆解报告总览和来源证据",
               "width": 1600,
               "height": 1163
-            },
-            "button": {
-              "title": "查看单篇拆解教程",
-              "url": "/docs/viral-research/single-post-breakdown"
             }
           }
         ]

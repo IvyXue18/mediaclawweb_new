@@ -33,15 +33,9 @@
         "description": "Start with low-follower posts that earned unusually strong public engagement. Then bring the title, body, cover, image text, and comments into one evidence-backed report. MediaClaw helps you separate reusable content methods from conditions you cannot copy.",
         "buttons": [
           {
-            "title": "Install for free",
+            "title": "Get Started",
             "url": "/download",
             "icon": "Download"
-          },
-          {
-            "title": "Read the post breakdown guide",
-            "url": "/docs/viral-research/single-post-breakdown",
-            "icon": "BookOpen",
-            "variant": "outline"
           }
         ],
         "image": {
@@ -67,10 +61,6 @@
               "alt": "Xiaohongshu search results filtered by recency and engagement before MediaClaw collects candidate posts",
               "width": 1600,
               "height": 796
-            },
-            "button": {
-              "title": "See the recent-hit workflow",
-              "url": "/docs/viral-research/recent-hits"
             }
           },
           {
@@ -82,10 +72,6 @@
               "alt": "MediaClaw follower ceiling used to find low-follower, high-engagement Xiaohongshu posts",
               "width": 1600,
               "height": 860
-            },
-            "button": {
-              "title": "See the low-follower workflow",
-              "url": "/docs/viral-research/low-follower-viral"
             }
           },
           {
@@ -108,10 +94,6 @@
               "alt": "MediaClaw Xiaohongshu post breakdown with source evidence and analysis conclusions",
               "width": 1600,
               "height": 1163
-            },
-            "button": {
-              "title": "Read the single-post breakdown guide",
-              "url": "/docs/viral-research/single-post-breakdown"
             }
           }
         ]

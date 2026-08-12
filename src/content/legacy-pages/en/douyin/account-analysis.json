@@ -1,0 +1,416 @@
+{
+  "metadata": {
+    "title": "Douyin Account Analyzer｜Find Competitors and Decode Viral Videos | MediaClaw",
+    "description": "Use the MediaClaw Douyin account analyzer to find benchmark creators, collect public video samples, extract transcripts, and analyze positioning, topics, hooks, voice, and visual patterns.",
+    "keywords": "Douyin account analyzer, Douyin account analysis, Douyin competitor analysis, Douyin creator analysis, Douyin profile analysis, Douyin video analysis"
+  },
+  "page": {
+    "title": "Douyin Account Analysis",
+    "show_sections": [
+      "hero",
+      "core",
+      "report",
+      "fields",
+      "compare",
+      "scenarios",
+      "boundaries",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "hero",
+        "label": "Douyin Account Analyzer",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Douyin"
+          },
+          {
+            "title": "Account Analysis"
+          }
+        ],
+        "title": "Douyin Account Analyzer: Find Benchmark Creators and Decode Viral Video Patterns",
+        "highlight_text": "Decode Viral Video Patterns",
+        "description": "Reverse-engineer benchmark Douyin creators from strong videos, collect at least 50 public samples, and let MediaClaw stratify the evidence. The final account analysis compares positioning, topics, openings, transcripts, voice, visuals, and new video ideas linked to source posts.",
+        "buttons": [
+          {
+            "title": "Get Started",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "image": {
+          "src": "/imgs/features/content-analysis-workflow-v20260719.png",
+          "alt": "MediaClaw Douyin account analysis report, video idea, and content creation workflow",
+          "width": 2146,
+          "height": 1384
+        }
+      },
+      "core": {
+        "id": "core",
+        "block": "features-scroll",
+        "subtitle": "Core workflow",
+        "title": "How does the Douyin account analyzer work?",
+        "description": "MediaClaw connects creator discovery, public video collection, sample confirmation, transcript enrichment, and report generation instead of stopping at profile totals.",
+        "items": [
+          {
+            "title": "1. Find benchmark Douyin creators through strong videos",
+            "description": "Search an industry, product, or content term, then combine time and engagement filters to surface recent strong videos. Recurring creators and low-follower/high-engagement signals help narrow the shortlist before manual review.",
+            "icon": "UserSearch",
+            "image": {
+              "src": "/imgs/docs/viral-research/recent-hits/02-抖音搜索筛选-douyin.webp",
+              "alt": "Douyin search results filtered by time and likes to find high-performing videos and benchmark creators",
+              "width": 1600,
+              "height": 748
+            }
+          },
+          {
+            "title": "2. Collect public profile videos and start account analysis",
+            "description": "Open a target Douyin profile, set the loading limit, like threshold, and topic filter, then collect at least 50 public videos. Profile fields, publish dates, engagement, and video links become a reviewable account sample.",
+            "icon": "Database",
+            "image": {
+              "src": "/imgs/docs/collect/account-posts/01-douyin-account-filter.webp",
+              "alt": "MediaClaw collection filters for public videos on a Douyin creator profile",
+              "width": 812,
+              "height": 1540
+            }
+          },
+          {
+            "title": "3. Stratify the video sample, with manual control",
+            "description": "The system selects high-engagement, representative, and low-engagement comparison videos. Review and adjust the sample before analysis so ads, off-topic posts, or one-off hits do not distort the findings.",
+            "icon": "Filter",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/02-数据分层筛选笔记可以手动调整.webp",
+              "alt": "MediaClaw sample confirmation screen for a Douyin account analysis with manually adjustable videos",
+              "width": 916,
+              "height": 1272
+            }
+          },
+          {
+            "title": "4. Enrich transcripts and generate the report in the background",
+            "description": "The workflow organizes samples, enriches representative videos, extracts transcripts, compares engagement tiers, clusters content frameworks, and generates video ideas. Progress remains visible and completed creator files stay in the AI workbench.",
+            "icon": "Brain",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/03-拆解中级拆解后报告.webp",
+              "alt": "MediaClaw Douyin account analysis progress showing transcripts, engagement comparison, clustering, and idea generation",
+              "width": 958,
+              "height": 1178
+            }
+          }
+        ]
+      },
+      "report": {
+        "id": "report",
+        "block": "features-scroll",
+        "subtitle": "Inside the report",
+        "title": "Which video patterns appear in a Douyin account analysis report?",
+        "description": "A real report moves from positioning and topics through openings, visual presentation, and spoken language, then produces video ideas ready to pursue. Every conclusion stays connected to public source videos.",
+        "className": "bg-background",
+        "items": [
+          {
+            "title": "Account positioning and video topic map",
+            "description": "Define the audience, core value, and content boundaries first, then group representative videos by problem, scenario, audience, or recurring series. Engagement evidence separates durable pillars from one-off hits.",
+            "icon": "Route",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/05-拆解报告-选题归类.webp",
+              "alt": "MediaClaw Douyin account analysis report showing core positioning, video topic map, and source materials",
+              "width": 1600,
+              "height": 1187
+            }
+          },
+          {
+            "title": "Titles, openings, and video hooks",
+            "description": "Compare title structures, problem framing, promised outcomes, and recurring openings across strong videos. Transcript evidence shows how the creator earns attention early without reducing the pattern to a copied title.",
+            "icon": "Text",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/07-标题规律.webp",
+              "alt": "MediaClaw Douyin account analysis report showing title, opening, and hook patterns",
+              "width": 1600,
+              "height": 1220
+            }
+          },
+          {
+            "title": "Video visuals and on-camera presentation",
+            "description": "Analyze on-camera presence, settings, subtitle hierarchy, cover information, and recurring formats, then connect those choices to representative videos and a consistent visual identity.",
+            "icon": "Video",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/06-账号封面视觉分析.webp",
+              "alt": "MediaClaw Douyin account analysis report showing the video visual system and representative posts",
+              "width": 1600,
+              "height": 1218
+            }
+          },
+          {
+            "title": "Spoken voice and script expression",
+            "description": "Use public video transcripts to summarize tone, sentence patterns, narrative rhythm, and interaction prompts, including how the creator builds trust, opens information gaps, and invites continued viewing.",
+            "icon": "AudioLines",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/08-语言规律.webp",
+              "alt": "MediaClaw Douyin account analysis report showing spoken voice, sentence, and interaction patterns",
+              "width": 1600,
+              "height": 1338
+            }
+          },
+          {
+            "title": "Shootable video ideas with source evidence",
+            "description": "Expand new video directions from the account framework, explain what was retained and what changed, and attach source videos, title options, and a recommended output format. Save strong ideas or move into creation.",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/docs/benchmark/account-research/09-可复用直接可写的选题.webp",
+              "alt": "MediaClaw Douyin account analysis report with source-backed video ideas and creation actions",
+              "width": 1600,
+              "height": 1205
+            }
+          }
+        ]
+      },
+      "fields": {
+        "id": "fields",
+        "block": "data-table",
+        "title": "Douyin account analysis: inputs, evidence, and actionable conclusions",
+        "description": "Useful Douyin creator analysis or Douyin profile analysis goes beyond followers and total likes. Positioning, viral patterns, and expression rules should trace back to specific public videos.",
+        "columns": [
+          {
+            "key": "dimension",
+            "title": "Dimension"
+          },
+          {
+            "key": "evidence",
+            "title": "Primary evidence"
+          },
+          {
+            "key": "output",
+            "title": "Research output"
+          }
+        ],
+        "rows": [
+          {
+            "dimension": "Positioning and audience",
+            "evidence": "Profile bio, pinned videos, and recurring themes",
+            "output": "Core audience, scenarios, and sustained value"
+          },
+          {
+            "dimension": "Topics and strong samples",
+            "evidence": "Publish dates, engagement tiers, and topic clusters",
+            "output": "Durable pillars, recent opportunities, and outliers"
+          },
+          {
+            "dimension": "Titles and openings",
+            "evidence": "Video titles, transcript openings, problems, and outcomes",
+            "output": "Recurring entry points, hooks, and transferable title structures"
+          },
+          {
+            "dimension": "Visuals and format",
+            "evidence": "Covers, on-camera presence, subtitles, setting, duration, and format",
+            "output": "Visual system, information density, and production requirements"
+          },
+          {
+            "dimension": "Voice and video ideas",
+            "evidence": "Full transcripts, interaction language, and source videos",
+            "output": "Voice rules, adaptation principles, and next video ideas"
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "subtitle": "Five different jobs",
+        "title": "Douyin account analysis vs video scraping, transcripts, and monitoring",
+        "description": "Account analysis sits in the middle: benchmark creators, public video samples, and transcript evidence feed the report; new ideas and monitoring continue the workflow downstream.",
+        "columns": [
+          {
+            "key": "step",
+            "title": "Module"
+          },
+          {
+            "key": "question",
+            "title": "Question answered"
+          },
+          {
+            "key": "result",
+            "title": "Primary output"
+          },
+          {
+            "key": "next",
+            "title": "Next step"
+          }
+        ],
+        "rows": [
+          {
+            "step": "Find benchmark creators",
+            "question": "Who in this niche deserves deeper study?",
+            "result": "Candidate creators, strong videos, and filtering rationale",
+            "next": "Review the public profile"
+          },
+          {
+            "step": "Collect profile videos",
+            "question": "What has this creator actually published?",
+            "result": "Public profile fields and historical video sample",
+            "next": "Confirm the analysis scope"
+          },
+          {
+            "step": "Extract transcripts",
+            "question": "What does each video say and how does it unfold?",
+            "result": "Searchable, comparable spoken text",
+            "next": "Run account analysis"
+          },
+          {
+            "step": "Analyze the account",
+            "question": "Which video methods repeat and hold up?",
+            "result": "Positioning, topics, hooks, visuals, voice, and ideas",
+            "next": "Save an idea or start creating"
+          },
+          {
+            "step": "Monitor the account",
+            "question": "What changed after the report was created?",
+            "result": "New videos, threshold matches, and daily reports",
+            "next": "Validate and refresh the research"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "features",
+        "title": "When should you analyze a benchmark Douyin account?",
+        "items": [
+          {
+            "title": "Entering a new niche",
+            "description": "Study a relevant creator set and recent strong videos before choosing your audience, topic mix, formats, and differentiated angle.",
+            "icon": "Route"
+          },
+          {
+            "title": "Reviewing competitors and creators",
+            "description": "Use a meaningful video history to see which topics and openings repeatedly perform instead of overreacting to one viral outlier.",
+            "icon": "TrendingUp"
+          },
+          {
+            "title": "Building a shared video playbook",
+            "description": "Preserve creator profiles, representative videos, transcripts, and analysis evidence for growth, script, and media teams to review together.",
+            "icon": "FolderKanban"
+          }
+        ]
+      },
+      "boundaries": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "Data boundaries",
+        "title": "What are the data boundaries for Douyin creator analysis?",
+        "description": "The goal is better video research with public, traceable evidence—not access to private data or unsupported conclusions about a creator.",
+        "items": [
+          {
+            "title": "Public pages only",
+            "description": "The workflow does not provide private accounts, creator dashboards, contact details, or information the platform does not make public.",
+            "icon": "ShieldCheck"
+          },
+          {
+            "title": "Separate facts from inference",
+            "description": "Profile fields and engagement counts are evidence. Positioning, audience, and video patterns are conclusions that should be tested across more samples.",
+            "icon": "FileSearch"
+          },
+          {
+            "title": "Use data responsibly",
+            "description": "Use collected information only for authorized research, operations, and content review while following platform rules and applicable laws.",
+            "icon": "CheckCircle"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Douyin Account Analysis FAQ",
+        "items": [
+          {
+            "question": "What is the difference between Douyin profile scraping and account analysis?",
+            "answer": "Profile scraping organizes public account fields and historical videos into a usable sample. Account analysis compares positioning, topics, openings, voice, visuals, and engagement differences. Collection prepares the evidence; analysis turns it into content conclusions."
+          },
+          {
+            "question": "How do I find the right benchmark Douyin accounts?",
+            "answer": "Start with niche terms and content themes close to your business. Combine publish-time and engagement filters to find recent strong videos, then review recurring creators, low-follower/high-engagement accounts, and creators at a comparable stage."
+          },
+          {
+            "question": "How many videos do I need for a Douyin account analysis?",
+            "answer": "Start by collecting at least 50 public videos from the target profile. The system selects high-engagement, representative, and low-engagement comparison samples, and you can adjust the selection before analysis."
+          },
+          {
+            "question": "Do I need to extract every transcript first?",
+            "answer": "No. After account analysis starts, the workflow enriches selected representative videos with the details and transcripts needed for comparison. Use the separate transcript tool when you only need a small set of specified videos."
+          },
+          {
+            "question": "Can an account be analyzed if its videos have no spoken narration?",
+            "answer": "Public titles, topics, visual format, duration, and engagement can still provide evidence, but voice and script conclusions will be limited by the available text. The report should keep observed facts separate from hypotheses."
+          },
+          {
+            "question": "How long does a full Douyin account analysis take?",
+            "answer": "A first complete analysis typically takes about 10-20 minutes, depending on sample size and how much public video evidence needs enrichment. The task can continue in the background while the progress panel shows the current step."
+          },
+          {
+            "question": "Can this reveal private audience demographics?",
+            "answer": "No. This page does not provide creator-dashboard demographics. Public profiles, video themes, and comments can suggest audience signals, but those are research inferences—not exact audience statistics."
+          },
+          {
+            "question": "What should I do after finishing an account analysis?",
+            "answer": "Add priority creators to monitoring, preserve representative videos and transcripts in your research library, and validate demand through comments and keywords. This turns a report into an ongoing video idea, script, and review workflow."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "What to do after Douyin account analysis",
+        "description": "Continue from discovery and public video collection to transcripts and ongoing monitoring with the right Douyin tool.",
+        "links": [
+          {
+            "title": "Douyin Viral Video Analysis",
+            "description": "Find low-follower hits and break down hooks, transcripts, pacing, visuals, and public feedback.",
+            "url": "/douyin/viral-content-analysis",
+            "icon": "TrendingUp"
+          },
+          {
+            "title": "Douyin Keyword Research",
+            "description": "Use niche terms and search demand to find candidate creators and video directions.",
+            "url": "/douyin/keywords",
+            "icon": "Search"
+          },
+          {
+            "title": "Douyin Video Scraper",
+            "description": "Collect public profile videos in bulk to build a comparable creator sample.",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Douyin Video Transcript",
+            "description": "Extract spoken text from representative videos to compare openings, scripts, and delivery.",
+            "url": "/douyin/transcript",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "Douyin Competitor Monitoring",
+            "description": "Track important creators and engagement changes to test your findings over time.",
+            "url": "/douyin/monitoring",
+            "icon": "Radar"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "block": "cta",
+        "title": "Start your first Douyin competitor analysis",
+        "description": "Install the MediaClaw Douyin account analyzer, collect a set of public creators and video samples, and build a repeatable video research workflow.",
+        "buttons": [
+          {
+            "title": "Install Free Extension",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}
