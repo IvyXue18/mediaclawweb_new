@@ -29,7 +29,8 @@
             "url": "/"
           },
           {
-            "title": "抖音"
+            "title": "抖音",
+            "url": "/douyin"
           },
           {
             "title": "账号分析"
@@ -221,7 +222,7 @@
         "id": "compare",
         "block": "data-table",
         "subtitle": "不要混为一个功能",
-        "title": "抖音账号分析、视频采集、逐字稿和竞品监控有什么区别？",
+        "title": "抖音账号分析、视频采集、逐字稿和对标账号监控有什么区别？",
         "description": "账号分析位于工作流中间：上游需要抖音对标账号、公开视频和逐字稿证据，下游才能形成新选题并通过监控持续验证。",
         "columns": [
           {
@@ -390,7 +391,7 @@
             "icon": "AudioLines"
           },
           {
-            "title": "抖音竞品监控",
+            "title": "抖音对标账号监控",
             "description": "持续追踪重点账号更新和互动变化，验证分析结论。",
             "url": "/douyin/monitoring",
             "icon": "Radar"

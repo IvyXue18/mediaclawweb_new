@@ -1,6 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { createReferralRelation } from '@/modules/referral/service';
+import {
+  createReferralRelation,
+  getInviteeDiscount,
+} from '@/modules/referral/service';
 
 const fixedDate = new Date('2026-06-18T08:00:00.000Z');
 
@@ -12,6 +15,10 @@ const dbState = vi.hoisted(() => ({
   updateValues: [] as any[],
 }));
 
+const serviceMocks = vi.hoisted(() => ({
+  getAllConfigs: vi.fn(),
+}));
+
 vi.mock('@/config', () => ({
   envConfigs: {
     app_url: 'https://mediaclaw.example',
@@ -19,7 +26,7 @@ vi.mock('@/config', () => ({
 }));
 
 vi.mock('@/modules/config/service', () => ({
-  getAllConfigs: vi.fn(),
+  getAllConfigs: (...args: any[]) => serviceMocks.getAllConfigs(...args),
 }));
 
 vi.mock('@/lib/hash', () => ({
@@ -95,6 +102,10 @@ describe('referral relation service', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     resetDbState();
+    serviceMocks.getAllConfigs.mockResolvedValue({
+      referral_enabled: 'true',
+      referral_invitee_discount: '10',
+    });
   });
 
   it('creates a relation and increments invitee count for a valid code', async () => {
@@ -149,5 +160,29 @@ describe('referral relation service', () => {
     expect(result).toBeNull();
     expect(dbState.insertedRelation).toBeNull();
     expect(dbState.updateValues).toHaveLength(0);
+  });
+
+  it('returns the configured discount for an active invitee before first order', async () => {
+    dbState.existingRelation = {
+      id: 'relation-1',
+      refereeId: 'invitee-1',
+      status: 'active',
+      hasFirstOrder: false,
+    };
+    dbState.selectCalls = 1;
+
+    await expect(getInviteeDiscount('invitee-1')).resolves.toBe(10);
+  });
+
+  it('does not discount an invitee whose first order is already complete', async () => {
+    dbState.existingRelation = {
+      id: 'relation-1',
+      refereeId: 'invitee-1',
+      status: 'active',
+      hasFirstOrder: true,
+    };
+    dbState.selectCalls = 1;
+
+    await expect(getInviteeDiscount('invitee-1')).resolves.toBe(0);
   });
 });

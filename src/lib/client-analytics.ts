@@ -166,3 +166,27 @@ export function recordAnalyticsEventSafe(
     }).catch(() => {});
   } catch {}
 }
+
+// The events endpoint rate-limits to one request per 50ms per
+// (source, eventName, anonymousId), so bursts of same-named events — several
+// impressions from one menu open, for example — need spacing or the tail is
+// dropped. Callers with bursty events should queue instead of firing directly.
+const QUEUE_INTERVAL_MS = 160;
+const queue: Array<() => void> = [];
+let queueTimer: ReturnType<typeof setTimeout> | null = null;
+
+function drainQueue() {
+  const send = queue.shift();
+  send?.();
+  queueTimer = queue.length ? setTimeout(drainQueue, QUEUE_INTERVAL_MS) : null;
+}
+
+export function queueAnalyticsEventSafe(
+  eventName: string,
+  properties: AnalyticsProperties = {},
+  options: { source?: string; pagePath?: string } = {}
+) {
+  if (typeof window === 'undefined' || !eventName) return;
+  queue.push(() => recordAnalyticsEventSafe(eventName, properties, options));
+  if (!queueTimer) queueTimer = setTimeout(drainQueue, 0);
+}

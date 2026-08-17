@@ -54,7 +54,7 @@ const platforms: FeatureCard[] = [
   {
     title: '小红书能力集',
     description:
-      '笔记采集 · 评论采集 · 客资采集 · 赛道策略 · 找对标账号 · 竞品监控 · 去水印下载',
+      '笔记采集 · 评论采集 · 评论区截流 · 赛道策略 · 找对标账号 · 对标账号监控 · 去水印下载',
     icon: BookOpen,
     image: '/imgs/features/platform-xiaohongshu.webp',
     alt: 'MediaClaw 小红书爆款笔记数据采集与运营增强插件功能概览',
@@ -63,7 +63,7 @@ const platforms: FeatureCard[] = [
   {
     title: '抖音能力集',
     description:
-      '视频采集 · 评论采集 · 搜索采集 · 赛道策略 · 找对标账号 · 竞品监控',
+      '视频采集 · 评论采集 · 搜索采集 · 赛道策略 · 找对标账号 · 对标账号监控',
     icon: Clapperboard,
     image: '/imgs/features/platform-douyin.webp',
     alt: 'MediaClaw 抖音爆款短视频数据提取与客资获取插件概览',
@@ -144,7 +144,7 @@ const capabilities: FeatureCard[] = [
     href: '/xiaohongshu/keywords',
   },
   {
-    title: '竞品监控与内容预警',
+    title: '对标账号监控与内容预警',
     description:
       '订阅对标账号动态，自动监控内容更新和互动变化，命中规则后即时提醒。',
     icon: Radar,
@@ -369,7 +369,7 @@ const faqs = [
   ],
   [
     '目前支持哪些平台？',
-    '当前已支持小红书与抖音，覆盖笔记/视频采集、评论客资、赛道机会判断、找对标账号、关键词洞察与竞品监控等能力。',
+    '当前已支持小红书与抖音，覆盖笔记/视频采集、评论客资、赛道机会判断、找对标账号、关键词洞察与对标账号监控等能力。',
   ],
   [
     'MediaClaw 可以免费使用吗？',
@@ -477,7 +477,7 @@ function HeroSection({ onPlay }: { onPlay: () => void }) {
           <span className="mt-3 block text-[#db3ca3]">10倍提效</span>
         </h1>
         <p className="mx-auto mt-7 max-w-3xl text-lg leading-8 font-semibold text-slate-500 sm:text-xl">
-          覆盖小红书与抖音两大平台：笔记/视频采集、评论客资、赛道机会判断、找对标账号、长尾需求分析、竞品监控与飞书协同。重复工作交出去，让自己回归创作与增长。
+          覆盖小红书与抖音两大平台：笔记/视频采集、评论客资、赛道机会判断、找对标账号、长尾需求分析、对标账号监控与飞书协同。重复工作交出去，让自己回归创作与增长。
         </p>
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link

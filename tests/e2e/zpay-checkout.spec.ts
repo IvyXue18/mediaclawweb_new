@@ -89,6 +89,7 @@ test('zpay checkout shows qr handoff and redirects after manual paid check', asy
     .poll(() => statusRequests)
     .toBeGreaterThan(requestsBeforeManualCheck);
   await expect(page.getByText('支付成功，激活码已发放')).toBeVisible();
+  await expect(page.locator('[data-zpay-paid-redirect]')).toHaveCount(0);
 
   await page.locator('[data-activation-contact-trigger]').click();
   await expect(page.locator('[data-activation-contact-dialog]')).toBeVisible();

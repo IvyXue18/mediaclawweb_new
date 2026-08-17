@@ -4,6 +4,7 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { tDynamic } from '@/core/i18n/dynamic';
 import { apiGet, type PageResult } from '@/lib/api-client';
+import { formatLoginIdentifier } from '@/lib/auth-identifier';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
 import { DataTable, type Column } from '@/components/data-table';
@@ -85,7 +86,11 @@ function PaymentsPage() {
     },
     {
       header: m['admin.payments.user'](),
-      cell: (o) => <span className="text-sm">{o.userEmail || o.userId}</span>,
+      cell: (o) => (
+        <span className="text-sm">
+          {formatLoginIdentifier(o.userEmail) || o.userId}
+        </span>
+      ),
     },
     {
       header: m['admin.payments.amount'](),
@@ -156,6 +161,7 @@ function PaymentsPage() {
             emptyText={m['admin.payments.no_payments']()}
             search={search}
             onSearchChange={setSearch}
+            searchPlaceholder={m['admin.payments.search_placeholder']()}
             onRefresh={() => query.refetch()}
             loading={query.isFetching}
           />

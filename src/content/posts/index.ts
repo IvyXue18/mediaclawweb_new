@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 
-import { baseLocale } from '@/paraglide/runtime.js';
+import { baseLocale, locales } from '@/paraglide/runtime.js';
 import {
   frontmatterList,
   frontmatterString,
@@ -17,6 +17,9 @@ import {
  * local posts via the pure helpers below.
  */
 export const BLOG_POST_SLUGS = [
+  'douyin-comment-export',
+  'douyin-data-collection',
+  'xiaohongshu-ai-benchmark-to-draft',
   'how-to-copy-viral-short-videos',
   'local-business-xiaohongshu-marketing',
   'low-follower-viral-content',
@@ -176,6 +179,16 @@ export function loadLocalPost(
     ...mod,
     meta: resolvePostMeta(postPath, mod.meta),
   };
+}
+
+export function getLocalPostLocales(slug: string): (typeof locales)[number][] {
+  if (!BLOG_POST_SLUGS.includes(slug as (typeof BLOG_POST_SLUGS)[number])) {
+    return [];
+  }
+
+  return locales.filter(
+    (locale) => `/src/content/posts/${slug}.${locale}.mdx` in postModules
+  );
 }
 
 function localPostToItem(slug: string, meta: BlogPostMeta): BlogPost {

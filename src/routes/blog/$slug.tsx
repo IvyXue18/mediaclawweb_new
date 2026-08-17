@@ -17,6 +17,7 @@ import { MarkdownContent } from '@/components/markdown-content';
 import { mdxComponents } from '@/components/mdx-components';
 import {
   formatPostDate,
+  getLocalPostLocales,
   loadLocalPost,
   type BlogPost,
   type BlogPostDetail,
@@ -27,6 +28,7 @@ import {
   getBlogPostCategoryLabels,
   normalizeBlogCategorySlug,
 } from './-blog-list';
+import { BlogToc } from './-blog-toc';
 
 export const Route = createFileRoute('/blog/$slug')({
   loader: async ({ params }) => {
@@ -39,12 +41,16 @@ export const Route = createFileRoute('/blog/$slug')({
     return {
       locale,
       post,
+      availableLocales:
+        post.source === 'local' ? getLocalPostLocales(post.slug) : [baseLocale],
       relatedPosts: getRelatedPosts(posts, post),
     };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-    const { locale, post } = loaderData;
+    const { locale, post, availableLocales } = loaderData;
+    const isLocaleAvailable = availableLocales.includes(locale);
+    const canonicalLocale = isLocaleAvailable ? locale : baseLocale;
     const urlFor = (loc: string) =>
       localizeUrl(`${envConfigs.app_url}/blog/${post.slug}`, {
         locale: loc as (typeof locales)[number],
@@ -53,10 +59,13 @@ export const Route = createFileRoute('/blog/$slug')({
       meta: [
         { title: `${post.title} | ${envConfigs.app_name}` },
         { name: 'description', content: post.description },
+        ...(!isLocaleAvailable
+          ? [{ name: 'robots', content: 'noindex,follow' }]
+          : []),
       ],
       links: [
-        { rel: 'canonical', href: urlFor(locale) },
-        ...locales.map((loc) => ({
+        { rel: 'canonical', href: urlFor(canonicalLocale) },
+        ...availableLocales.map((loc) => ({
           rel: 'alternate',
           hrefLang: loc,
           href: urlFor(loc),
@@ -113,7 +122,7 @@ function BlogPostPage() {
     <div className="bg-background text-foreground flex min-h-screen flex-col">
       <Header />
       <main className="flex-1" data-blog-detail>
-        <section className="bg-muted/20 border-border/60 border-b px-6 py-16 md:px-8 md:py-24">
+        <section className="px-4 pt-24 pb-12 sm:px-6 md:px-8 md:pt-24 md:pb-16">
           <div className="mx-auto w-full max-w-7xl">
             <nav
               className="text-muted-foreground flex flex-wrap items-center gap-2 text-sm"
@@ -130,127 +139,110 @@ function BlogPostPage() {
               <span className="text-foreground line-clamp-1">{post.title}</span>
             </nav>
 
-            <header
-              className="border-border bg-background/80 mt-10 rounded-2xl border p-6 text-center shadow-sm md:mt-12 md:p-10"
-              data-blog-detail-hero
+            <div
+              className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] xl:grid-cols-[minmax(0,1fr)_20rem] xl:gap-14"
+              data-blog-detail-layout
             >
-              <h1
-                className="mx-auto max-w-4xl text-3xl leading-tight font-bold text-balance md:text-5xl"
-                data-blog-detail-title
-              >
-                {post.title}
-              </h1>
-              {post.description && (
-                <p className="text-muted-foreground mx-auto mt-5 max-w-3xl text-base leading-7 md:text-lg">
-                  {post.description}
-                </p>
-              )}
+              <div className="min-w-0">
+                <header className="max-w-5xl" data-blog-detail-hero>
+                  <h1
+                    className="text-foreground text-4xl leading-[1.1] font-bold tracking-tight text-balance lg:text-5xl"
+                    data-blog-detail-title
+                  >
+                    {post.title}
+                  </h1>
+                  {post.description && (
+                    <p className="text-muted-foreground mt-5 max-w-4xl text-lg leading-8">
+                      {post.description}
+                    </p>
+                  )}
 
-              <div
-                className="text-muted-foreground mt-6 flex flex-wrap items-center justify-center gap-3 text-sm"
-                data-blog-detail-meta
-              >
-                <span className="bg-muted/60 border-border inline-flex items-center gap-2 rounded-full border px-3 py-1.5">
-                  <Calendar className="size-4" aria-hidden="true" />
-                  {formattedDate}
-                </span>
-                {tags?.length ? (
-                  <span className="bg-muted/60 border-border inline-flex items-center gap-2 rounded-full border px-3 py-1.5">
-                    <Tag className="size-4" aria-hidden="true" />
-                    {m['blog.tag_count']({ count: tags.length })}
-                  </span>
-                ) : null}
-                {(post.authorName || post.authorImage) && (
-                  <span className="bg-muted/60 border-border inline-flex items-center gap-2 rounded-full border px-3 py-1.5">
-                    {post.authorImage && (
-                      <img
-                        src={post.authorImage}
-                        alt={post.authorName || ''}
-                        width={20}
-                        height={20}
-                        className="size-5 rounded-full object-cover"
-                      />
-                    )}
-                    {post.authorName}
-                  </span>
-                )}
-              </div>
-
-              {tags?.length ? (
-                <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
-                  {tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="bg-primary/10 text-primary rounded-full px-3 py-1 text-xs font-medium"
-                      data-blog-detail-tag
-                    >
-                      #{tag}
+                  <div
+                    className="text-muted-foreground mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm"
+                    data-blog-detail-meta
+                  >
+                    <span className="inline-flex items-center gap-2">
+                      <Calendar className="size-4" aria-hidden="true" />
+                      {formattedDate}
                     </span>
-                  ))}
-                </div>
-              ) : null}
-            </header>
+                    {tags?.length ? (
+                      <span className="inline-flex items-center gap-2">
+                        <Tag className="size-4" aria-hidden="true" />
+                        {m['blog.tag_count']({ count: tags.length })}
+                      </span>
+                    ) : null}
+                    {(post.authorName || post.authorImage) && (
+                      <span className="inline-flex items-center gap-2">
+                        {post.authorImage && (
+                          <img
+                            src={post.authorImage}
+                            alt={post.authorName || ''}
+                            width={20}
+                            height={20}
+                            className="size-5 rounded-full object-cover"
+                          />
+                        )}
+                        {post.authorName}
+                      </span>
+                    )}
+                  </div>
 
-            {post.image && (
-              <div className="border-border bg-card mx-auto mt-8 max-w-5xl overflow-hidden rounded-2xl border">
-                <img
-                  src={post.image}
-                  alt={post.title}
-                  className="h-full max-h-[420px] w-full object-cover object-center"
-                  data-blog-detail-cover
-                />
+                  {tags?.length ? (
+                    <div className="mt-4 flex flex-wrap items-center gap-2">
+                      {tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-muted-foreground/70 text-xs"
+                          data-blog-detail-tag
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
+                </header>
+
+                <article
+                  className="border-border [&_img]:border-border [&_td]:border-border [&_th]:border-border [&_th]:bg-muted [&>blockquote:first-child]:border-primary/70 [&>blockquote:first-child]:text-foreground/80 [&>div>blockquote:first-child]:border-primary/70 [&>div>blockquote:first-child]:text-foreground/80 mt-10 w-full border-t pt-8 text-[16px] leading-7 [&_img]:my-6 [&_img]:w-full [&_img]:rounded-xl [&_img]:border [&_img]:object-cover [&_table]:my-6 [&_table]:w-full [&_table]:overflow-hidden [&_table]:rounded-lg [&_td]:border [&_td]:p-3 [&_th]:border [&_th]:p-3 [&>blockquote:first-child]:mt-0 [&>blockquote:first-child]:mb-6 [&>blockquote:first-child]:py-1 [&>blockquote:first-child]:text-base [&>blockquote:first-child]:leading-8 [&>blockquote:first-child]:not-italic [&>div>blockquote:first-child]:mt-0 [&>div>blockquote:first-child]:mb-6 [&>div>blockquote:first-child]:py-1 [&>div>blockquote:first-child]:text-base [&>div>blockquote:first-child]:leading-8 [&>div>blockquote:first-child]:not-italic"
+                  data-blog-detail-article
+                >
+                  {LocalContent ? (
+                    <MDXProvider components={mdxComponents}>
+                      <LocalContent />
+                    </MDXProvider>
+                  ) : (
+                    <MarkdownContent content={post.content || ''} />
+                  )}
+                </article>
+
+                {relatedPosts.length ? (
+                  <div
+                    className="border-border mt-12 border-t pt-8 lg:hidden"
+                    data-blog-related-mobile
+                  >
+                    <RelatedPostsList
+                      title={m['blog.related_posts']()}
+                      posts={relatedPosts}
+                      locale={locale}
+                    />
+                  </div>
+                ) : null}
               </div>
-            )}
-          </div>
-        </section>
 
-        <section className="px-6 py-10 md:px-8 md:py-14">
-          <div
-            className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-10"
-            data-blog-detail-layout
-          >
-            <article
-              className="[&_img]:border-border [&_td]:border-border [&_th]:border-border [&_th]:bg-muted mx-auto w-full max-w-4xl text-[15px] leading-7 [&_img]:my-6 [&_img]:w-full [&_img]:rounded-xl [&_img]:border [&_img]:object-cover [&_table]:my-6 [&_table]:w-full [&_table]:overflow-hidden [&_table]:rounded-lg [&_td]:border [&_td]:p-3 [&_th]:border [&_th]:p-3"
-              data-blog-detail-article
-            >
-              {LocalContent ? (
-                <MDXProvider components={mdxComponents}>
-                  <LocalContent />
-                </MDXProvider>
-              ) : (
-                <MarkdownContent content={post.content || ''} />
-              )}
-            </article>
-
-            {relatedPosts.length ? (
-              <aside
-                className="hidden lg:block"
-                data-blog-related-desktop
-                aria-label={m['blog.related_posts']()}
-              >
-                <div className="sticky top-24">
-                  <RelatedPostsList
-                    title={m['blog.related_posts']()}
-                    posts={relatedPosts}
-                    locale={locale}
-                    compact
-                  />
+              <aside className="hidden lg:block" data-blog-related-desktop>
+                <div className="sticky top-24 space-y-8">
+                  <BlogToc title={m['blog.on_this_page']()} />
+                  {relatedPosts.length ? (
+                    <RelatedPostsList
+                      title={m['blog.related_posts']()}
+                      posts={relatedPosts}
+                      locale={locale}
+                      compact
+                    />
+                  ) : null}
                 </div>
               </aside>
-            ) : null}
-
-            {relatedPosts.length ? (
-              <div
-                className="border-border mt-4 border-t pt-8 lg:hidden"
-                data-blog-related-mobile
-              >
-                <RelatedPostsList
-                  title={m['blog.related_posts']()}
-                  posts={relatedPosts}
-                  locale={locale}
-                />
-              </div>
-            ) : null}
+            </div>
           </div>
         </section>
       </main>
@@ -272,43 +264,39 @@ function RelatedPostsList({
 }) {
   return (
     <section
-      className="border-border bg-card rounded-xl border p-4"
+      className={
+        compact
+          ? 'border-border border-t pt-6'
+          : 'border-border bg-card rounded-xl border p-4'
+      }
       data-blog-related-list
     >
       <h2 className="text-sm font-semibold tracking-wide uppercase">{title}</h2>
-      <div className="mt-4 space-y-3">
+      <div className={compact ? 'mt-2' : 'mt-4 space-y-3'}>
         {posts.map((post) => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
             className={[
-              'border-border/70 hover:bg-muted/50 group rounded-lg border transition-colors',
-              compact ? 'block overflow-hidden' : 'flex gap-3 p-3',
+              'hover:text-foreground group transition-colors',
+              compact
+                ? 'border-border/60 text-muted-foreground block border-b py-3 last:border-b-0'
+                : 'border-border/70 hover:bg-muted/50 flex gap-3 rounded-lg border p-3',
             ].join(' ')}
             data-blog-related-card
           >
-            {post.image ? (
+            {post.image && !compact ? (
               <img
                 src={post.image}
                 alt={post.title}
                 loading="lazy"
-                className={[
-                  'object-cover object-center',
-                  compact
-                    ? 'aspect-[21/9] w-full'
-                    : 'size-16 shrink-0 rounded-md',
-                ].join(' ')}
+                className="size-16 shrink-0 rounded-md object-cover object-center"
                 data-blog-related-image
               />
-            ) : (
-              <div
-                className={[
-                  'bg-muted shrink-0',
-                  compact ? 'aspect-[21/9] w-full' : 'size-16 rounded-md',
-                ].join(' ')}
-              />
-            )}
-            <div className={compact ? 'p-3' : 'min-w-0 flex-1'}>
+            ) : !compact ? (
+              <div className="bg-muted size-16 shrink-0 rounded-md" />
+            ) : null}
+            <div className={compact ? '' : 'min-w-0 flex-1'}>
               <h3 className="line-clamp-2 text-sm font-semibold group-hover:underline">
                 {post.title}
               </h3>

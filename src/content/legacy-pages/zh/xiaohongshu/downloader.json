@@ -29,7 +29,8 @@
             "url": "/"
           },
           {
-            "title": "小红书"
+            "title": "小红书",
+            "url": "/xiaohongshu"
           },
           {
             "title": "去水印下载"
@@ -213,7 +214,7 @@
             "icon": "Search"
           },
           {
-            "title": "小红书竞品监控",
+            "title": "小红书对标账号监控",
             "description": "监控命中后第一时间下载新内容素材。",
             "url": "/xiaohongshu/monitoring",
             "icon": "Radar"

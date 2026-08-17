@@ -1,12 +1,12 @@
 {
   "metadata": {
-    "title": "加入 MediaClaw 伙伴计划 — 赚取 30% 推广返佣",
-    "description": "分享 MediaClaw，助力创作者与团队提效，同时赚取丰厚返佣。立即加入我们的推广伙伴计划，实现流量变现。",
+    "title": "加入 MediaClaw 伙伴计划 — 赚取 20% 推广返佣",
+    "description": "分享 MediaClaw，好友首购享 10% 优惠，您可获得 20% 推广返佣。立即加入伙伴计划，实现流量变现。",
     "keywords": "MediaClaw伙伴计划, 推广返佣, 联盟营销, 流量变现, 推荐奖励, 创作者工具分享"
   },
   "page": {
     "title": "加入 MediaClaw 伙伴计划",
-    "description": "分享 MediaClaw，助力创作者提效，同时赚取丰厚返佣。",
+    "description": "分享 MediaClaw，好友首购享 10% 优惠，您可获得 20% 推广返佣。",
     "show_sections": ["hero", "mechanism", "rules", "cta"],
     "sections": {
       "hero": {
@@ -14,7 +14,7 @@
         "block": "hero",
         "title": "加入 MediaClaw 伙伴计划",
         "highlight_text": "伙伴计划",
-        "description": "邀请好友使用 MediaClaw，我们将把每一笔交易的收益分享给您。不仅能帮助他人提升数据采集效率，更能为您带来长久、可观的项目收入。",
+        "description": "邀请好友使用 MediaClaw：好友首购享 10% 优惠，您可从其首单和后续符合条件的续费订单中获得 20% 佣金。",
         "image": {
           "src": "/imgs/features/V20260623.png",
           "alt": "MediaClaw 伙伴计划返佣面板预览",

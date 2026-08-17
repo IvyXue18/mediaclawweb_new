@@ -548,19 +548,6 @@ function ZpayCheckoutPage() {
                     取消
                   </button>
                 </div>
-
-                {paid ? (
-                  <Link
-                    href={callbackHref}
-                    className={buttonVariants({
-                      variant: 'secondary',
-                      className: 'mt-3 w-fit',
-                    })}
-                    data-zpay-paid-redirect
-                  >
-                    支付已确认，查看订单
-                  </Link>
-                ) : null}
               </section>
             </div>
           </div>

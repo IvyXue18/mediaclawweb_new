@@ -145,6 +145,7 @@ describe('starter deduction checkout concurrency', () => {
     expect(rejected).toHaveLength(1);
     expect((rejected[0] as PromiseRejectedResult).reason).toMatchObject({
       code: DEDUCTION_RESERVATION_CONFLICT_CODE,
+      reservationKey: 'user-1:trial_deduction',
     });
     expect(mocks.createPayment).toHaveBeenCalledTimes(1);
     expect(mocks.rows).toHaveLength(1);

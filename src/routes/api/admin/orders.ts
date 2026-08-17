@@ -1,11 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { and, count, desc, eq, like, type SQL } from 'drizzle-orm';
+import { and, count, desc, eq, type SQL } from 'drizzle-orm';
 
 import { getAuth } from '@/core/auth';
 import { db } from '@/core/db';
-import { order } from '@/config/db/schema';
+import { order, user } from '@/config/db/schema';
 import { hasPermission } from '@/modules/rbac/service';
 import { respErr, respPage } from '@/lib/resp';
+
+import { buildAdminOrderSearchCondition } from './-order-search';
 
 async function GET({ request }: { request: Request }) {
   try {
@@ -31,13 +33,15 @@ async function GET({ request }: { request: Request }) {
     const conditions: SQL[] = [];
     if (status) conditions.push(eq(order.status, status));
     if (paymentType) conditions.push(eq(order.paymentType, paymentType));
-    if (search) conditions.push(like(order.orderNo, `%${search}%`));
+    const searchCondition = buildAdminOrderSearchCondition(search);
+    if (searchCondition) conditions.push(searchCondition);
 
     const where = conditions.length > 0 ? and(...conditions) : undefined;
 
     const [totalResult] = await db()
       .select({ count: count() })
       .from(order)
+      .leftJoin(user, eq(order.userId, user.id))
       .where(where);
     const total = totalResult.count;
 
@@ -58,6 +62,7 @@ async function GET({ request }: { request: Request }) {
         paidAt: order.paidAt,
       })
       .from(order)
+      .leftJoin(user, eq(order.userId, user.id))
       .where(where)
       .orderBy(desc(order.createdAt))
       .limit(pageSize)

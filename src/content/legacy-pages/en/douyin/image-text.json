@@ -14,7 +14,7 @@
         "label": "Douyin image text OCR tool",
         "breadcrumbs": [
           { "title": "Home", "url": "/" },
-          { "title": "Douyin" },
+          { "title": "Douyin", "url": "/douyin" },
           { "title": "Image Text Extraction" }
         ],
         "title": "Pull the text out of Douyin carousel images, all at once",

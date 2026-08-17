@@ -13,6 +13,8 @@ const mocks = vi.hoisted(() => ({
   expireStaleStarterDeductionOrders: vi.fn(),
   getActiveStarterDeductionOrder: vi.fn(),
   getApplicableStarterDeduction: vi.fn(),
+  getInviteeDiscount: vi.fn(),
+  getInviteeDiscountReservationKey: vi.fn(),
   getStarterBrowserInstallHash: vi.fn(),
   getStarterDeductionReservationKey: vi.fn(),
   analyticsEvents: [] as any[],
@@ -46,6 +48,16 @@ vi.mock('@/modules/payment/service', () => ({
   createCheckout: (...args: any[]) => mocks.createCheckout(...args),
   cancelPendingCheckout: (...args: any[]) =>
     mocks.cancelPendingCheckout(...args),
+}));
+
+vi.mock('@/modules/referral/service', () => ({
+  applyDiscount: (amount: number, discountRate: number) =>
+    discountRate > 0 && discountRate < 100
+      ? Math.floor((amount * (100 - discountRate)) / 100)
+      : amount,
+  getInviteeDiscount: (...args: any[]) => mocks.getInviteeDiscount(...args),
+  getInviteeDiscountReservationKey: (...args: any[]) =>
+    mocks.getInviteeDiscountReservationKey(...args),
 }));
 
 vi.mock('@/modules/starter/service', () => ({
@@ -109,6 +121,10 @@ describe('current checkout route starter-card contract', () => {
     mocks.expireStaleStarterDeductionOrders.mockResolvedValue(undefined);
     mocks.getActiveStarterDeductionOrder.mockResolvedValue(null);
     mocks.getApplicableStarterDeduction.mockResolvedValue(0);
+    mocks.getInviteeDiscount.mockResolvedValue(0);
+    mocks.getInviteeDiscountReservationKey.mockReturnValue(
+      'user-1:referral_invitee_discount'
+    );
     mocks.getStarterBrowserInstallHash.mockReturnValue('browser-hash-1');
     mocks.getStarterDeductionReservationKey.mockReturnValue(
       'user-1:trial_deduction'
@@ -248,7 +264,54 @@ describe('current checkout route starter-card contract', () => {
         discountAmount: 900,
         deductionReservationKey: 'user-1:trial_deduction',
         paymentOrder: expect.objectContaining({
-          price: { amount: 4000, currency: 'cny' },
+          price: { amount: 5000, currency: 'cny' },
+        }),
+      })
+    );
+  });
+
+  it('applies the 10% invitee discount to an eligible annual first order', async () => {
+    mocks.getInviteeDiscount.mockResolvedValue(10);
+
+    await POST({ request: request({ product_id: 'pro-yearly' }) });
+
+    const input = mocks.createCheckout.mock.calls[0][0];
+    expect(input).toMatchObject({
+      discountCode: 'referral_invitee_10',
+      discountAmount: 2990,
+      deductionReservationKey: 'user-1:referral_invitee_discount',
+      paymentOrder: {
+        price: { amount: 26910, currency: 'cny' },
+        metadata: { invitee_discount_rate: 10 },
+      },
+    });
+  });
+
+  it('uses the larger invitee discount without consuming the starter deduction', async () => {
+    mocks.getInviteeDiscount.mockResolvedValue(10);
+    mocks.getActiveStarterDeductionOrder.mockResolvedValue({
+      orderNo: 'ORDER-STARTER-DISCOUNT-1',
+      productId: 'pro-yearly',
+      status: 'created',
+      checkoutUrl: 'https://pay.example/ORDER-STARTER-DISCOUNT-1',
+      discountAmount: 900,
+    });
+    mocks.getApplicableStarterDeduction.mockResolvedValue(900);
+
+    await POST({ request: request({ product_id: 'pro-yearly' }) });
+
+    expect(mocks.cancelPendingCheckout).toHaveBeenCalledWith({
+      userId: 'user-1',
+      orderNo: 'ORDER-STARTER-DISCOUNT-1',
+      reason: 'checkout_replaced',
+    });
+    expect(mocks.createCheckout).toHaveBeenCalledWith(
+      expect.objectContaining({
+        discountCode: 'referral_invitee_10',
+        discountAmount: 2990,
+        deductionReservationKey: 'user-1:referral_invitee_discount',
+        paymentOrder: expect.objectContaining({
+          price: { amount: 26910, currency: 'cny' },
         }),
       })
     );
@@ -301,7 +364,7 @@ describe('current checkout route starter-card contract', () => {
         discountAmount: 900,
         paymentOrder: expect.objectContaining({
           productId: 'pro-1m',
-          price: { amount: 4000, currency: 'cny' },
+          price: { amount: 5000, currency: 'cny' },
         }),
       })
     );
@@ -325,6 +388,25 @@ describe('current checkout route starter-card contract', () => {
     });
   });
 
+  it('returns a referral-specific conflict when another checkout reserves the invitee discount', async () => {
+    mocks.getInviteeDiscount.mockResolvedValue(10);
+    mocks.createCheckout.mockRejectedValue(
+      Object.assign(new Error('reservation conflict'), {
+        code: 'DEDUCTION_RESERVATION_CONFLICT',
+        reservationKey: 'user-1:referral_invitee_discount',
+      })
+    );
+
+    const response = await POST({
+      request: request({ product_id: 'pro-yearly' }),
+    });
+
+    await expect(response.json()).resolves.toMatchObject({
+      code: -1,
+      message: 'referral_invitee_checkout_in_progress',
+    });
+  });
+
   it('does not consume the deduction for a credential recharge', async () => {
     mocks.getApplicableStarterDeduction.mockResolvedValue(900);
 
@@ -342,7 +424,7 @@ describe('current checkout route starter-card contract', () => {
         discountCode: null,
         discountAmount: 0,
         paymentOrder: expect.objectContaining({
-          price: { amount: 4900, currency: 'cny' },
+          price: { amount: 5900, currency: 'cny' },
         }),
       })
     );

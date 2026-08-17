@@ -34,7 +34,7 @@
             "variant": "default"
           },
           {
-            "title": "Start Using",
+            "title": "Get Started",
             "icon": "Download",
             "url": "/download",
             "variant": "outline"
@@ -93,7 +93,7 @@
             "title": "Xiaohongshu (RedNote)",
             "description": "Post scraping · Comment scraping · Lead filtering · Niche strategy · Benchmark accounts · Competitor monitoring · Media download · Image text / video transcripts · Markdown export",
             "icon": "BookOpen",
-            "url": "/xiaohongshu/scraper",
+            "url": "/xiaohongshu",
             "target": "_self",
             "image": {
               "src": "/imgs/features/platform-xiaohongshu.webp",
@@ -104,7 +104,7 @@
             "title": "Douyin (TikTok China)",
             "description": "Video scraping · Comment scraping · Search scraping · Niche strategy · Benchmark accounts · Competitor monitoring · Video transcripts · Markdown export",
             "icon": "Clapperboard",
-            "url": "/douyin/scraper",
+            "url": "/douyin",
             "target": "_self",
             "image": {
               "src": "/imgs/features/platform-douyin.webp",
@@ -294,14 +294,13 @@
           },
           {
             "name": "monthly",
-            "title": "Quarterly",
-            "label": "Popular"
+            "title": "Quarterly"
           },
           {
             "name": "yearly",
             "title": "Yearly",
             "is_featured": true,
-            "label": "Save 50%"
+            "label": "Save 60%"
           },
           {
             "name": "credits",
@@ -341,7 +340,6 @@
           {
             "title": "Personal",
             "description": "For creators and operators doing ongoing research, topic analysis, and content reviews",
-            "label": "Most Popular",
             "features_title": "Everything in Free, plus:",
             "features": [
               "Enhanced scraping on search and profile pages: batch-complete full text, tags, engagement, and media details",
@@ -357,14 +355,13 @@
               "In-extension timestamped video transcripts and image copy extraction"
             ],
             "interval": "one-time",
-            "amount": 4900,
+            "amount": 5900,
             "currency": "CNY",
             "credits": 180,
             "valid_days": 30,
-            "price": "¥49",
+            "price": "¥59",
             "unit": "/ mo",
             "is_featured": true,
-            "is_popular": true,
             "payment_providers": ["zpay"],
             "button": {
               "title": "Buy Now",
@@ -392,11 +389,11 @@
               "In-extension timestamped video transcripts and image copy extraction"
             ],
             "interval": "one-time",
-            "amount": 12900,
+            "amount": 14900,
             "currency": "CNY",
             "credits": 700,
             "valid_days": 30,
-            "price": "¥129",
+            "price": "¥149",
             "unit": "/ mo",
             "is_featured": false,
             "payment_providers": ["zpay"],
@@ -442,7 +439,6 @@
           {
             "title": "Personal",
             "description": "For creators and operators doing ongoing research, topic analysis, and content reviews",
-            "label": "Most Popular",
             "features_title": "Everything in Free, plus:",
             "features": [
               "Enhanced scraping on search and profile pages: batch-complete full text, tags, engagement, and media details",
@@ -465,6 +461,7 @@
             "price": "¥33",
             "unit": "/ mo",
             "price_total": "¥99 per quarter",
+            "label": "Popular",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],
@@ -545,7 +542,6 @@
           {
             "title": "Personal",
             "description": "For creators and operators doing ongoing research, topic analysis, and content reviews",
-            "label": "Most Popular",
             "features_title": "Everything in Free, plus:",
             "features": [
               "Enhanced scraping on search and profile pages: batch-complete full text, tags, engagement, and media details",
@@ -561,14 +557,15 @@
               "In-extension timestamped video transcripts and image copy extraction"
             ],
             "interval": "one-time",
-            "amount": 28800,
+            "amount": 29900,
             "currency": "CNY",
             "credits": 1500,
             "valid_days": 365,
-            "price": "¥24",
+            "price": "¥25",
             "unit": "/ mo",
-            "price_total": "¥288 per year",
-            "tip": "Save 50% vs monthly",
+            "price_total": "¥299 per year",
+            "tip": "Save 60% vs monthly",
+            "label": "Popular",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],
@@ -598,14 +595,14 @@
               "In-extension timestamped video transcripts and image copy extraction"
             ],
             "interval": "one-time",
-            "amount": 68800,
+            "amount": 69900,
             "currency": "CNY",
             "credits": 5000,
             "valid_days": 365,
-            "price": "¥57",
+            "price": "¥58",
             "unit": "/ mo",
-            "price_total": "¥688 per year",
-            "tip": "Save 55% vs monthly",
+            "price_total": "¥699 per year",
+            "tip": "Save 60% vs monthly",
             "is_featured": false,
             "payment_providers": ["zpay"],
             "button": {
@@ -621,7 +618,6 @@
           {
             "title": "Emergency Top-Up Pack",
             "description": "For temporarily boosting AI analysis and monitoring quota",
-            "label": "Most Popular",
             "features": [
               "200 AI credits",
               "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
@@ -637,8 +633,7 @@
             "valid_days": 0,
             "price": "¥29",
             "unit": "",
-            "is_featured": true,
-            "is_popular": true,
+            "is_featured": false,
             "payment_providers": ["zpay"],
             "button": {
               "title": "Buy Credits",
@@ -653,6 +648,7 @@
           {
             "title": "Creator Pack",
             "description": "For solo creators and operators who analyze topics and process material at volume",
+            "label": "Most Popular",
             "features": [
               "1000 AI credits",
               "Auto-find benchmark accounts, analyze keyword topics, and expand search suggestions into a topic map",
@@ -668,7 +664,8 @@
             "valid_days": 0,
             "price": "¥79",
             "unit": "",
-            "is_featured": false,
+            "is_featured": true,
+            "is_popular": true,
             "payment_providers": ["zpay"],
             "button": {
               "title": "Buy Credits",

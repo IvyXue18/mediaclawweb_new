@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Douyin Video Transcript Extractor | MediaClaw",
-    "description": "Douyin script extractor: pull timestamped, sentence-level video transcripts in one click. Break down pacing, rewrite scripts with AI, batch via Lark",
+    "title": "Douyin Video Transcript Extractor – Video to Text with Timestamps",
+    "description": "Convert Douyin videos and voiceovers to full text transcripts with sentence-level timestamps. Extract scripts for hook analysis, rewrites, competitor research and batch content workflows.",
     "keywords": "douyin script extractor, douyin video transcript, douyin voiceover transcript, douyin video to text, short video script extraction, timestamped transcript, douyin benchmark breakdown, douyin pacing analysis, batch transcript extraction"
   },
   "page": {
@@ -28,13 +28,14 @@
             "url": "/"
           },
           {
-            "title": "Douyin"
+            "title": "Douyin",
+            "url": "/douyin"
           },
           {
             "title": "Video Transcript"
           }
         ],
-        "title": "Douyin Script Extractor: Timestamped Transcripts in One Click",
+        "title": "Convert Douyin Videos to Timestamped Text Transcripts",
         "description": "Trigger extraction right on the collected record, no video download and no ad-walled mini-program. You get two outputs: a full transcript for copying and feeding to AI, and a timestamped sentence-level script that shows the video's pacing and logic, how the hook is thrown, how the setup builds, where the turn lands, and how it closes. For volume, batch via Feishu.",
         "buttons": [
           {

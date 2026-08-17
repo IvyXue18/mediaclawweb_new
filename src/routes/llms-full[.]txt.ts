@@ -9,6 +9,18 @@ const STATIC_PAGES: { path: string; title: string; description: string }[] = [
   { path: '/pricing', title: 'Pricing', description: 'Pricing plans' },
   { path: '/blog', title: 'Blog', description: 'Blog posts and articles' },
   {
+    path: '/xiaohongshu',
+    title: 'Xiaohongshu (RedNote) Tools',
+    description:
+      'Platform hub: every RedNote capability for research, scraping, extraction, and monitoring in one workflow',
+  },
+  {
+    path: '/douyin',
+    title: 'Douyin Tools',
+    description:
+      'Platform hub: every Douyin capability for research, scraping, transcripts, and monitoring in one workflow',
+  },
+  {
     path: '/xiaohongshu/account-analysis',
     title: 'Xiaohongshu Account Analyzer',
     description:

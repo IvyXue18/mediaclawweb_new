@@ -26,14 +26,13 @@
           },
           {
             "name": "monthly",
-            "title": "Quarterly",
-            "label": "Popular"
+            "title": "Quarterly"
           },
           {
             "name": "yearly",
             "title": "Yearly",
             "is_featured": true,
-            "label": "Save 50%"
+            "label": "Save 60%"
           },
           {
             "name": "credits",
@@ -73,7 +72,6 @@
           {
             "title": "Personal",
             "description": "For creators and operators doing ongoing content research, topic planning, and content creation",
-            "label": "Most Popular",
             "features_title": "Everything in Free, plus:",
             "features": [
               "Enhanced collection on search and profile pages: batch-complete full text, tags, engagement, and media",
@@ -92,14 +90,13 @@
               "Content creation: generate image-post copy or video scripts in a specified style"
             ],
             "interval": "one-time",
-            "amount": 4900,
+            "amount": 5900,
             "currency": "CNY",
             "credits": 180,
             "valid_days": 30,
-            "price": "¥49",
+            "price": "¥59",
             "unit": "/ mo",
             "is_featured": true,
-            "is_popular": true,
             "payment_providers": ["zpay"],
             "button": {
               "title": "Buy Now",
@@ -131,11 +128,11 @@
               "Content creation: generate image-post copy or video scripts in a specified style"
             ],
             "interval": "one-time",
-            "amount": 12900,
+            "amount": 14900,
             "currency": "CNY",
             "credits": 700,
             "valid_days": 30,
-            "price": "¥129",
+            "price": "¥149",
             "unit": "/ mo",
             "is_featured": false,
             "payment_providers": ["zpay"],
@@ -181,7 +178,6 @@
           {
             "title": "Personal",
             "description": "For creators and operators doing ongoing content research, topic planning, and content creation",
-            "label": "Most Popular",
             "features_title": "Everything in Free, plus:",
             "features": [
               "Enhanced collection on search and profile pages: batch-complete full text, tags, engagement, and media",
@@ -207,6 +203,7 @@
             "price": "¥33",
             "unit": "/ mo",
             "price_total": "¥99 per quarter",
+            "label": "Popular",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],
@@ -291,7 +288,6 @@
           {
             "title": "Personal",
             "description": "For creators and operators doing ongoing content research, topic planning, and content creation",
-            "label": "Most Popular",
             "features_title": "Everything in Free, plus:",
             "features": [
               "Enhanced collection on search and profile pages: batch-complete full text, tags, engagement, and media",
@@ -310,14 +306,15 @@
               "Content creation: generate image-post copy or video scripts in a specified style"
             ],
             "interval": "one-time",
-            "amount": 28800,
+            "amount": 29900,
             "currency": "CNY",
             "credits": 1500,
             "valid_days": 365,
-            "price": "¥24",
+            "price": "¥25",
             "unit": "/ mo",
-            "price_total": "¥288 per year",
-            "tip": "Save 50% vs monthly",
+            "price_total": "¥299 per year",
+            "tip": "Save 60% vs monthly",
+            "label": "Popular",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],
@@ -351,14 +348,14 @@
               "Content creation: generate image-post copy or video scripts in a specified style"
             ],
             "interval": "one-time",
-            "amount": 68800,
+            "amount": 69900,
             "currency": "CNY",
             "credits": 5000,
             "valid_days": 365,
-            "price": "¥57",
+            "price": "¥58",
             "unit": "/ mo",
-            "price_total": "¥688 per year",
-            "tip": "Save 55% vs monthly",
+            "price_total": "¥699 per year",
+            "tip": "Save 60% vs monthly",
             "is_featured": false,
             "payment_providers": ["zpay"],
             "button": {
@@ -374,7 +371,6 @@
           {
             "title": "Emergency Top-Up Pack",
             "description": "For a few extra account studies, viral breakdowns, or content generations",
-            "label": "Most Popular",
             "features": [
               "200 AI credits",
               "Use for account research, viral post breakdowns, and related idea generation",
@@ -391,8 +387,7 @@
             "valid_days": 0,
             "price": "¥29",
             "unit": "",
-            "is_featured": true,
-            "is_popular": true,
+            "is_featured": false,
             "payment_providers": ["zpay"],
             "button": {
               "title": "Buy Credits",
@@ -407,6 +402,7 @@
           {
             "title": "Creator Pack",
             "description": "For individual creators who continuously research accounts, build ideas, and generate content",
+            "label": "Most Popular",
             "features": [
               "1000 AI credits",
               "Use for account research, viral post breakdowns, and related idea generation",
@@ -423,7 +419,8 @@
             "valid_days": 0,
             "price": "¥79",
             "unit": "",
-            "is_featured": false,
+            "is_featured": true,
+            "is_popular": true,
             "payment_providers": ["zpay"],
             "button": {
               "title": "Buy Credits",
@@ -468,7 +465,7 @@
             "group": "credits"
           }
         ],
-        "default_group": "monthly"
+        "default_group": "yearly"
       },
       "comparison": {
         "id": "comparison",

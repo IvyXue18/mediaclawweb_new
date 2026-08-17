@@ -16,7 +16,7 @@ import { ThemeProvider } from 'next-themes';
 import { envConfigs } from '@/config';
 import { getQueryClient } from '@/lib/query-client';
 import { THEME_TRANSITION_STORAGE_KEY } from '@/lib/theme-transition';
-import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
+import { getLocale } from '@/paraglide/runtime.js';
 import { FirstPartyAnalytics } from '@/components/analytics/first-party-analytics';
 import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 import { MicrosoftClarity } from '@/components/analytics/microsoft-clarity';
@@ -124,15 +124,6 @@ const getAnalyticsConfigs = createServerFn().handler(async () => {
 export const Route = createRootRoute({
   loader: () => getAnalyticsConfigs(),
   head: () => {
-    // head() runs on the SSR server AND again on the client during hydration.
-    // On the client, app_url falls back to the localhost dev default when
-    // VITE_APP_URL wasn't inlined into the client bundle at build — which would
-    // emit a second, localhost set of hreflang links. Prefer the live origin
-    // on the client so it always matches; the server uses the configured URL.
-    const appUrl =
-      (typeof window !== 'undefined' && window.location?.origin) ||
-      envConfigs.app_url ||
-      '';
     return {
       meta: [
         { charSet: 'utf-8' },
@@ -143,11 +134,6 @@ export const Route = createRootRoute({
       links: [
         { rel: 'icon', href: '/favicon.ico' },
         { rel: 'apple-touch-icon', href: '/logo.png' },
-        ...locales.map((loc) => ({
-          rel: 'alternate',
-          hrefLang: loc,
-          href: localizeUrl(`${appUrl}/`, { locale: loc }).href,
-        })),
       ],
     };
   },

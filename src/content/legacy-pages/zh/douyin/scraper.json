@@ -29,7 +29,8 @@
             "url": "/"
           },
           {
-            "title": "抖音"
+            "title": "抖音",
+            "url": "/douyin"
           },
           {
             "title": "视频采集"
@@ -252,6 +253,12 @@
         "title": "🤔 猜你感兴趣",
         "description": "继续完善你的抖音数据采集与复盘闭环",
         "links": [
+          {
+            "title": "抖音账号分析工具",
+            "description": "把主页视频样本转成账号定位、爆款规律、口播表达与可拍选题。",
+            "url": "/douyin/account-analysis",
+            "icon": "UserSearch"
+          },
           {
             "title": "抖音评论采集工具",
             "description": "批量抓取视频评论内容与用户数据，为内容分析提供数据底座。",

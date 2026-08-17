@@ -21,6 +21,8 @@ export const LOG_SLUGS = [
   'v0.1.9',
   'v0.2.0',
   'v0.2.1',
+  'v0.2.2',
+  'v0.2.3',
 ] as const;
 
 export type LogMeta = {
@@ -86,8 +88,8 @@ export function loadLocalLog(
 
   const logPath = [
     `/src/content/logs/${slug}.${locale}.mdx`,
-    `/src/content/logs/${slug}.${baseLocale}.mdx`,
     `/src/content/logs/${slug}.mdx`,
+    `/src/content/logs/${slug}.${baseLocale}.mdx`,
   ].find((candidate) => candidate in logModules);
   if (!logPath) return null;
 

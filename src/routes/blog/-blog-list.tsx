@@ -242,12 +242,12 @@ function LegacyBlogCard({ post, locale }: { post: BlogPost; locale: string }) {
     >
       <article className="border-border bg-card flex h-full w-full flex-col overflow-hidden rounded-xl border">
         {post.image ? (
-          <div>
+          <div className="bg-muted/20 aspect-video shrink-0 overflow-hidden">
             <img
               src={post.image}
               alt={post.title}
               loading="lazy"
-              className="aspect-16/9 h-full w-full object-cover object-center"
+              className="h-full w-full object-cover object-center"
               data-blog-card-image
             />
           </div>

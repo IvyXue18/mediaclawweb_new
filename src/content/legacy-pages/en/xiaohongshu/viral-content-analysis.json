@@ -25,7 +25,7 @@
         "label": "Xiaohongshu Viral Post Analysis",
         "breadcrumbs": [
           { "title": "Home", "url": "/" },
-          { "title": "Xiaohongshu" },
+          { "title": "Xiaohongshu", "url": "/xiaohongshu" },
           { "title": "Viral Post Analysis" }
         ],
         "title": "Xiaohongshu Viral Post Analysis: Find Low-Follower Hits and See Why They Work",

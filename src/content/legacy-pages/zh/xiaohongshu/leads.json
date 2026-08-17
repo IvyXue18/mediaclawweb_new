@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "title": "小红书客资采集工具_从评论区挖掘高意向客户并导出Excel | MediaClaw",
+    "title": "小红书评论区截流工具_从评论区挖掘高意向客户并导出Excel | MediaClaw",
     "description": "MediaClaw 支持先采集小红书评论数据，再从评论区做客资挖掘，通过关键词和 IP 属地自动筛选高意向客户线索。单篇笔记支持免费导出 Excel，并一键同步飞书协作跟进。",
-    "keywords": "小红书客资采集, 小红书评论区获客, 评论区客资挖掘, 评论客资采集, 高意向客户筛选, 免费导出Excel, 飞书客资同步, 私域转化"
+    "keywords": "小红书评论区截流, 小红书评论区获客, 评论区客资挖掘, 评论区截流, 高意向客户筛选, 免费导出Excel, 飞书客资同步, 私域转化"
   },
   "page": {
-    "title": "小红书客资采集",
+    "title": "小红书评论区截流",
     "show_sections": [
       "hero",
       "modes",
@@ -20,20 +20,21 @@
       "hero": {
         "id": "hero",
         "block": "page-hero",
-        "label": "小红书客资采集与评论挖掘工具",
+        "label": "小红书评论区截流与评论挖掘工具",
         "breadcrumbs": [
           {
             "title": "首页",
             "url": "/"
           },
           {
-            "title": "小红书"
+            "title": "小红书",
+            "url": "/xiaohongshu"
           },
           {
-            "title": "客资采集"
+            "title": "评论区截流"
           }
         ],
-        "title": "小红书评论区客资采集：挖掘高意向客户线索",
+        "title": "小红书评论区截流：挖掘高意向客户线索",
         "description": "先批量采集评论数据，再通过关键词与 IP 自动过滤高意向客资，单篇笔记免费导出 Excel，无缝同步飞书团队协作",
         "buttons": [
           {
@@ -184,7 +185,7 @@
             "icon": "Database"
           },
           {
-            "title": "小红书竞品监控",
+            "title": "小红书对标账号监控",
             "description": "订阅对标账号，一旦内容更新，自动推送飞书提醒。",
             "url": "/xiaohongshu/monitoring",
             "icon": "Radar"

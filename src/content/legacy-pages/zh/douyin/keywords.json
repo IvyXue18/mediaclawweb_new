@@ -28,7 +28,8 @@
             "url": "/"
           },
           {
-            "title": "抖音"
+            "title": "抖音",
+            "url": "/douyin"
           },
           {
             "title": "赛道策略"
@@ -235,7 +236,7 @@
             "icon": "MessageCircle"
           },
           {
-            "title": "抖音竞品监控",
+            "title": "抖音对标账号监控",
             "description": "追踪对标账号策略变化，快速发现新增关键词方向。",
             "url": "/douyin/monitoring",
             "icon": "Radar"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "MediaClaw 博客封面"
+  short_description: "先生成预览等待确认，再只走官网 API 上传 R2 并写回封面链接"
+  default_prompt: "Use $create-mediaclaw-blog-cover to create a reviewable MediaClaw blog cover and wait for my approval before publishing it."

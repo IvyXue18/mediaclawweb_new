@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Free Douyin Comment Scraper Chrome Extension | MediaClaw",
-    "description": "Scrape Douyin video comments with a free no-code Chrome extension. Capture text, time, likes, and users, then export comments to Excel/CSV or Lark Base.",
+    "title": "Douyin Comment Scraper – Export Comments to CSV/Excel | MediaClaw",
+    "description": "Collect Douyin video comments, replies, usernames, likes and timestamps in Chrome. Export to CSV or Excel for comment analysis, audience research and content planning.",
     "keywords": "Douyin comment scraper, export Douyin comments to Excel, Douyin comment scraper Chrome extension, Douyin comment analysis, TikTok China comments, no-code scraper"
   },
   "page": {
@@ -28,13 +28,14 @@
             "url": "/"
           },
           {
-            "title": "Douyin"
+            "title": "Douyin",
+            "url": "/douyin"
           },
           {
             "title": "Comment Scraper"
           }
         ],
-        "title": "Free Douyin Comment Scraper: Export Comments to Excel",
+        "title": "Douyin Comment Scraper for Comments and Replies",
         "description": "Collect public Douyin video comments from your browser. Capture text, timestamps, likes, and user fields, then export to Excel/CSV or Lark Base for sentiment analysis, lead research, and competitor monitoring.",
         "buttons": [
           {

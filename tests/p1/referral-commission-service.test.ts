@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
+  getReferralConfig,
   processReferralCommissionForPaidOrder,
   repairMissingReferralCommissions,
 } from '@/modules/referral/service';
@@ -136,6 +137,16 @@ describe('referral commission service', () => {
         'pro-1m': { fulfillment: 'credential' },
         'credits-100': { fulfillment: 'credits_only' },
       }),
+    });
+  });
+
+  it('uses the 20/20/10 partner-program defaults', async () => {
+    mocks.getAllConfigs.mockResolvedValue({});
+
+    await expect(getReferralConfig()).resolves.toMatchObject({
+      firstOrderRate: 20,
+      renewalRate: 20,
+      inviteeDiscount: 10,
     });
   });
 

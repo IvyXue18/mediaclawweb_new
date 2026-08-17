@@ -926,6 +926,9 @@ function openInNewTab(url: string, target?: string): boolean {
 
 type LegacyLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> & {
   href?: string;
+  /** Forwarded to the router Link. Breadcrumb parents pass `{ exact: true }` so an
+   * ancestor URL is not marked aria-current="page" on its child pages. */
+  activeOptions?: { exact?: boolean };
 };
 
 function LegacyLink({
@@ -933,6 +936,7 @@ function LegacyLink({
   target,
   className,
   children,
+  activeOptions,
   ...props
 }: LegacyLinkProps) {
   if (shouldUsePlainAnchor(href)) {
@@ -951,7 +955,13 @@ function LegacyLink({
   }
 
   return (
-    <Link href={href} target={target} className={className} {...props}>
+    <Link
+      href={href}
+      target={target}
+      className={className}
+      {...(activeOptions ? { activeOptions } : {})}
+      {...props}
+    >
       {children}
     </Link>
   );
@@ -1208,15 +1218,15 @@ function buildHeroActionLayout(section: LegacySection): HeroActionLayout {
       title: english ? 'Watch Demo' : '效果演示',
       icon: 'Play',
       action: 'open_video_modal',
-      variant: 'default',
+      variant: 'outline',
       video_title: videoSource?.video_title || section.video_title,
     },
     useButton: useSource
       ? {
           ...useSource,
-          title: english ? 'Start Using' : '我要使用',
+          title: english ? 'Get Started' : '我要使用',
           icon: useSource.icon || 'Download',
-          variant: 'outline',
+          variant: 'default',
         }
       : undefined,
     sampleButton,
@@ -1242,9 +1252,16 @@ function HeroActions({
   if (!layout.structured) {
     if (!section.buttons?.length) return null;
 
+    const english = sectionUsesEnglish(section);
+    const buttons = section.buttons.map((button) =>
+      (button.url || '').startsWith('/download')
+        ? { ...button, title: english ? 'Get Started' : '我要使用' }
+        : button
+    );
+
     return (
       <div className={rowClassName}>
-        {section.buttons.map((button, index) => (
+        {buttons.map((button, index) => (
           <ActionButton
             key={`${button.title || 'button'}-${index}`}
             button={button}
@@ -1259,6 +1276,15 @@ function HeroActions({
 
   return (
     <div className={rowClassName}>
+      {layout.useButton ? (
+        <ActionButton
+          button={layout.useButton}
+          onVideo={onVideo}
+          onSample={onSample}
+          className={actionClassName}
+        />
+      ) : null}
+
       {layout.demoButton ? (
         <div className="flex flex-col items-center gap-2">
           <ActionButton
@@ -1274,15 +1300,6 @@ function HeroActions({
             />
           ) : null}
         </div>
-      ) : null}
-
-      {layout.useButton ? (
-        <ActionButton
-          button={layout.useButton}
-          onVideo={onVideo}
-          onSample={onSample}
-          className={actionClassName}
-        />
       ) : null}
 
       {layout.extraButtons.length ? (
@@ -1431,6 +1448,7 @@ function PageHero({
                       <LegacyLink
                         href={crumb.url}
                         target={crumb.target}
+                        activeOptions={{ exact: true }}
                         className="hover:text-neutral-950 dark:hover:text-white"
                       >
                         {crumb.title}
@@ -1560,6 +1578,7 @@ function CompactPageHero({
                       <LegacyLink
                         href={crumb.url}
                         target={crumb.target || '_self'}
+                        activeOptions={{ exact: true }}
                         className="hover:text-foreground transition-colors"
                       >
                         {crumb.title}
@@ -3823,13 +3842,13 @@ function PricingBlock({ section }: { section: LegacySection }) {
                       : 'border-border/60 bg-card hover:border-border'
                   )}
                 >
-                  {isFeatured && (
+                  {isFeatured && item.label ? (
                     <div className="absolute top-6 right-6">
                       <div className="bg-primary text-primary-foreground rounded-full px-3 py-1 text-xs font-semibold">
-                        {item.label || '最受欢迎'}
+                        {item.label}
                       </div>
                     </div>
-                  )}
+                  ) : null}
 
                   <div className="flex flex-1 flex-col p-8">
                     <h3 className="text-foreground mb-2 text-2xl font-bold">
@@ -4182,170 +4201,6 @@ function TestimonialsBlock({ section }: { section: LegacySection }) {
               </article>
             ))}
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function resolveShowcaseGroup(
-  groups: LegacySection['groups'] = [],
-  requestedGroup?: string
-) {
-  const fallbackGroup = groups[0]?.name || 'all';
-  return groups.some((item) => item.name === requestedGroup)
-    ? requestedGroup || fallbackGroup
-    : fallbackGroup;
-}
-
-function ShowcasesBlock({
-  section,
-  initialGroup,
-}: {
-  section: LegacySection;
-  initialGroup?: string;
-}) {
-  const groups = useMemo(() => section.groups || [], [section.groups]);
-  const [group, setGroup] = useState(() =>
-    resolveShowcaseGroup(groups, initialGroup)
-  );
-  useEffect(() => {
-    setGroup(resolveShowcaseGroup(groups, initialGroup));
-  }, [groups, initialGroup]);
-  const items = useMemo(() => {
-    if (group === 'all') return section.items || [];
-    return (section.items || []).filter((item) => item.group === group);
-  }, [group, section.items]);
-
-  return (
-    <section
-      id={section.id}
-      className={cn('py-24 md:py-36', section.className)}
-    >
-      <div className="mx-auto mb-12 w-full max-w-6xl px-6 text-center">
-        {section.title ? (
-          <h2 className="mx-auto mb-6 max-w-full text-3xl font-bold text-pretty md:max-w-5xl lg:text-4xl">
-            {section.title}
-          </h2>
-        ) : null}
-        {section.description ? (
-          <RichText className="text-muted-foreground mx-auto mb-4 max-w-full text-base md:max-w-5xl">
-            {section.description}
-          </RichText>
-        ) : null}
-      </div>
-
-      <div className="mx-auto w-full max-w-6xl px-6">
-        {groups.length ? (
-          <div
-            data-showcase-groups
-            className="mb-12 flex flex-wrap justify-center gap-4"
-          >
-            {groups.map((item) => (
-              <a
-                key={item.name}
-                href={
-                  item.name === groups[0]?.name
-                    ? '#showcases'
-                    : `?group=${encodeURIComponent(item.name)}#showcases`
-                }
-                data-showcase-group-button={item.name}
-                aria-pressed={group === item.name}
-                className={cn(
-                  'relative rounded-lg px-3 py-1.5 text-sm font-medium transition-all hover:scale-105 active:scale-95',
-                  group === item.name
-                    ? 'text-primary ring-primary/30 bg-background ring-2 ring-inset'
-                    : 'border-border bg-background text-foreground hover:bg-accent hover:text-accent-foreground border'
-                )}
-                onClick={(event) => {
-                  event.preventDefault();
-                  setGroup(item.name);
-                  if (typeof window === 'undefined') return;
-                  const url = new URL(window.location.href);
-                  if (item.name === groups[0]?.name) {
-                    url.searchParams.delete('group');
-                  } else {
-                    url.searchParams.set('group', item.name);
-                  }
-                  url.hash = 'showcases';
-                  window.history.replaceState(
-                    null,
-                    '',
-                    `${url.pathname}${url.search}${url.hash}`
-                  );
-                }}
-              >
-                {item.title}
-              </a>
-            ))}
-          </div>
-        ) : null}
-        <div
-          data-showcase-grid
-          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
-        >
-          {items.map((item, index) => {
-            const hasButton = Boolean(item.button);
-            const content = (
-              <article
-                data-showcase-card
-                className="bg-card text-card-foreground dark:hover:shadow-primary/10 h-full overflow-hidden rounded-lg border p-0 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg"
-              >
-                {item.image?.src ? (
-                  <div
-                    data-showcase-image
-                    className="relative aspect-[16/10] w-full overflow-hidden"
-                  >
-                    <LegacyImageElement
-                      image={item.image}
-                      alt={item.image.alt || item.title || ''}
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
-                    />
-                  </div>
-                ) : null}
-                <div className="p-6">
-                  <h3 className="mb-2 line-clamp-1 text-xl font-semibold text-balance">
-                    {item.title}
-                  </h3>
-                  <p className="text-muted-foreground line-clamp-3 text-sm leading-6">
-                    {item.description}
-                  </p>
-                  {hasButton ? (
-                    <div className="mt-4">
-                      <ActionButton
-                        button={item.button || { title: '', url: '#' }}
-                        className="bg-primary hover:bg-primary/90 h-8 w-full border-0 px-3 py-1.5 text-sm font-medium text-white"
-                      />
-                    </div>
-                  ) : null}
-                </div>
-              </article>
-            );
-
-            if (hasButton || !item.url) {
-              return (
-                <div key={`${item.title || 'showcase'}-${index}`}>
-                  {content}
-                </div>
-              );
-            }
-            return (
-              <LegacyLink
-                key={`${item.title || 'showcase'}-${index}`}
-                href={item.url}
-                target={item.target}
-                className="block h-full"
-              >
-                {content}
-              </LegacyLink>
-            );
-          })}
-          {!items.length ? (
-            <div className="text-muted-foreground col-span-full text-center">
-              No items found in this category.
-            </div>
-          ) : null}
         </div>
       </div>
     </section>
@@ -5575,8 +5430,7 @@ function renderSection(
   section: LegacySection,
   onVideo: (button: LegacyButton) => void,
   onSample: (button: LegacyButton) => void,
-  fallbackPoster?: string,
-  initialShowcaseGroup?: string
+  fallbackPoster?: string
 ) {
   const block = section.block || section.id;
 
@@ -5633,10 +5487,6 @@ function renderSection(
       return <PricingBlock section={section} />;
     case 'testimonials':
       return <TestimonialsBlock section={section} />;
-    case 'showcases':
-      return (
-        <ShowcasesBlock section={section} initialGroup={initialShowcaseGroup} />
-      );
     case 'cta':
       return (
         <CtaBlock section={section} onVideo={onVideo} onSample={onSample} />
@@ -5646,13 +5496,7 @@ function renderSection(
   }
 }
 
-export function LegacyDynamicPage({
-  data,
-  initialShowcaseGroup,
-}: {
-  data: LegacyPageData;
-  initialShowcaseGroup?: string;
-}) {
+export function LegacyDynamicPage({ data }: { data: LegacyPageData }) {
   const [videoConfig, setVideoConfig] = useState<DemoVideoConfig | null>(null);
   const [sampleConfig, setSampleConfig] = useState<LegacyButton | null>(null);
   const sections = data.page?.sections;
@@ -5687,8 +5531,7 @@ export function LegacyDynamicPage({
                         )
                       ),
                     setSampleConfig,
-                    fallbackPoster,
-                    initialShowcaseGroup
+                    fallbackPoster
                   )}
                 </div>
               );

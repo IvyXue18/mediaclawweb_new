@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "title": "小红书竞品监控工具_自动监控对标账号内容更新并推送飞书 | MediaClaw",
-    "description": "24 小时自动监控小红书对标账号内容更新、互动数据变化和爆款动态，命中点赞、粉丝和时间窗口条件后自动 AI 总结并推送飞书，快速建立稳定的竞品监控预警机制。",
-    "keywords": "小红书竞品监控, 小红书对标账号监控, 小红书内容监控, 小红书爆款监控, 竞品分析, 飞书同步, 账号追踪, 自动化预警"
+    "title": "小红书对标账号监控工具_自动监控对标账号内容更新并推送飞书 | MediaClaw",
+    "description": "24 小时自动监控小红书对标账号内容更新、互动数据变化和爆款动态，命中点赞、粉丝和时间窗口条件后自动 AI 总结并推送飞书，快速建立稳定的对标账号监控预警机制。",
+    "keywords": "小红书对标账号监控, 小红书对标账号监控, 小红书内容监控, 小红书爆款监控, 竞品分析, 飞书同步, 账号追踪, 自动化预警"
   },
   "page": {
-    "title": "小红书竞品监控",
+    "title": "小红书对标账号监控",
     "show_sections": [
       "hero",
       "modes",
@@ -21,20 +21,21 @@
       "hero": {
         "id": "hero",
         "block": "page-hero",
-        "label": "小红书竞品监控与内容预警工具",
+        "label": "小红书对标账号监控与内容预警工具",
         "breadcrumbs": [
           {
             "title": "首页",
             "url": "/"
           },
           {
-            "title": "小红书"
+            "title": "小红书",
+            "url": "/xiaohongshu"
           },
           {
-            "title": "竞品监控"
+            "title": "对标账号监控"
           }
         ],
-        "title": "小红书竞品监控：自动追踪对标账号内容更新",
+        "title": "小红书对标账号监控：自动追踪对标账号内容更新",
         "description": "设一次规则，系统自动监控小红书对标账号发文、互动数据和爆款变化，结合 AI 洞察输出飞书日报，让团队第一时间发现竞品内容变化。",
         "buttons": [
           {
@@ -55,7 +56,7 @@
             "icon": "Radar",
             "image": {
               "src": "/imgs/features/8-v20260425.webp",
-              "alt": "MediaClaw 小红书竞品监控功能自动追踪对标账号更新并触发预警"
+              "alt": "MediaClaw 小红书对标账号监控功能自动追踪对标账号更新并触发预警"
             },
             "button": {
               "title": "免费下载使用",
@@ -103,7 +104,7 @@
       "scenarios": {
         "id": "scenarios",
         "block": "data-table",
-        "title": "竞品监控的典型应用场景",
+        "title": "对标账号监控的典型应用场景",
         "columns": [
           {
             "key": "role",
@@ -181,6 +182,12 @@
         "description": "继续完善你的小红书内容创作工作流",
         "links": [
           {
+            "title": "小红书账号分析",
+            "description": "先梳理账号定位、内容主题和代表笔记，再选择重点监控对象。",
+            "url": "/xiaohongshu/account-analysis",
+            "icon": "UserSearch"
+          },
+          {
             "title": "小红书笔记采集",
             "description": "把监控命中内容回流到样本库，持续做竞品内容分析。",
             "url": "/xiaohongshu/scraper",
@@ -209,7 +216,7 @@
       "cta": {
         "id": "cta",
         "title": "对标更新日报，明天开始发给你",
-        "description": "免费安装 MediaClaw，把小红书竞品监控接入你的日常内容情报流程。",
+        "description": "免费安装 MediaClaw，把小红书对标账号监控接入你的日常内容情报流程。",
         "buttons": [
           {
             "title": "免费安装插件",

@@ -1,12 +1,12 @@
 {
   "metadata": {
-    "title": "Join MediaClaw Partner Program — Earn 30% Commission",
-    "description": "Share MediaClaw and earn generous commissions. Join our affiliate program and monetize your influence with our leading scraper tool.",
+    "title": "Join MediaClaw Partner Program — Earn 20% Commission",
+    "description": "Share MediaClaw: friends get 10% off their first purchase, and you earn 20% referral commission.",
     "keywords": "MediaClaw partner program, affiliate program, earn commission, referral reward, monetization, social media tools"
   },
   "page": {
     "title": "Join MediaClaw Partner Program",
-    "description": "Share MediaClaw and earn generous commissions while helping creators improve efficiency.",
+    "description": "Share MediaClaw: friends get 10% off their first purchase, and you earn 20% referral commission.",
     "show_sections": ["hero", "mechanism", "rules", "cta"],
     "sections": {
       "hero": {
@@ -14,7 +14,7 @@
         "block": "hero",
         "title": "Join MediaClaw Partner Program",
         "highlight_text": "Partner Program",
-        "description": "Invite friends to use MediaClaw. We share our transaction revenue with you, building a sustainable income for you while helping others save time.",
+        "description": "Invite friends to MediaClaw: they get 10% off their first purchase, while you earn 20% commission on their first order and eligible renewals.",
         "image": {
           "src": "/imgs/features/V20260623.png",
           "alt": "MediaClaw Partner Program commission dashboard preview",

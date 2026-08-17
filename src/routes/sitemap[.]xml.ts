@@ -3,7 +3,11 @@ import { createFileRoute } from '@tanstack/react-router';
 import { envConfigs } from '@/config';
 import { baseLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
 import { getLocalLogs } from '@/content/logs';
-import { getLocalPosts, mergePosts } from '@/content/posts';
+import {
+  getLocalPostLocales,
+  getLocalPosts,
+  mergePosts,
+} from '@/content/posts';
 
 const STATIC_PATHS = [
   '',
@@ -11,16 +15,14 @@ const STATIC_PATHS = [
   '/download',
   '/blog',
   '/updates',
-  '/showcases',
   '/welfare',
   '/referral',
   '/docs',
   '/privacy-policy',
   '/terms-of-service',
   '/features/feishu-integration',
-  '/ai-image-generator',
-  '/ai-music-generator',
-  '/ai-video-generator',
+  '/xiaohongshu',
+  '/xiaohongshu/account-analysis',
   '/xiaohongshu/viral-content-analysis',
   '/xiaohongshu/scraper',
   '/xiaohongshu/comments',
@@ -30,6 +32,8 @@ const STATIC_PATHS = [
   '/xiaohongshu/downloader',
   '/xiaohongshu/image-text',
   '/xiaohongshu/transcript',
+  '/douyin',
+  '/douyin/account-analysis',
   '/douyin/viral-content-analysis',
   '/douyin/scraper',
   '/douyin/comments',
@@ -41,11 +45,12 @@ const STATIC_PATHS = [
   '/douyin/transcript',
 ];
 
+// No changefreq/priority: Google ignores both. Accurate canonical, hreflang and
+// lastmod plus real internal links are what matter.
 type Entry = {
   path: string;
+  availableLocales?: readonly (typeof locales)[number][];
   lastModified?: string;
-  changeFrequency: string;
-  priority: number;
 };
 
 function urlFor(path: string, locale: string): string {
@@ -55,22 +60,29 @@ function urlFor(path: string, locale: string): string {
 }
 
 function entryXml(e: Entry): string {
-  const alternates = locales
-    .map(
+  const availableLocales = e.availableLocales?.length
+    ? e.availableLocales
+    : locales;
+  const alternates = [
+    ...availableLocales.map(
       (loc) =>
         `    <xhtml:link rel="alternate" hreflang="${loc}" href="${urlFor(e.path, loc)}"/>`
+    ),
+    `    <xhtml:link rel="alternate" hreflang="x-default" href="${urlFor(e.path, baseLocale)}"/>`,
+  ].join('\n');
+
+  return availableLocales
+    .map((locale) =>
+      [
+        '  <url>',
+        `    <loc>${urlFor(e.path, locale)}</loc>`,
+        alternates,
+        e.lastModified ? `    <lastmod>${e.lastModified}</lastmod>` : null,
+        '  </url>',
+      ]
+        .filter(Boolean)
+        .join('\n')
     )
-    .join('\n');
-  return [
-    '  <url>',
-    `    <loc>${urlFor(e.path, baseLocale)}</loc>`,
-    alternates,
-    e.lastModified ? `    <lastmod>${e.lastModified}</lastmod>` : null,
-    `    <changefreq>${e.changeFrequency}</changefreq>`,
-    `    <priority>${e.priority}</priority>`,
-    '  </url>',
-  ]
-    .filter(Boolean)
     .join('\n');
 }
 
@@ -90,18 +102,15 @@ export const Route = createFileRoute('/sitemap.xml')({
         for (const path of STATIC_PATHS) {
           addEntry({
             path,
-            changeFrequency:
-              path === '/blog' || path === '/updates' ? 'daily' : 'weekly',
-            priority: path === '' ? 1 : 0.8,
+            availableLocales: path === '/welfare' ? [baseLocale] : locales,
           });
         }
 
         for (const log of getLocalLogs(baseLocale)) {
           addEntry({
             path: `/updates/${log.slug}`,
+            availableLocales: locales,
             lastModified: new Date(log.date).toISOString(),
-            changeFrequency: 'monthly',
-            priority: 0.6,
           });
         }
 
@@ -121,9 +130,11 @@ export const Route = createFileRoute('/sitemap.xml')({
           for (const post of posts) {
             addEntry({
               path: `/blog/${post.slug}`,
+              availableLocales:
+                post.source === 'local'
+                  ? getLocalPostLocales(post.slug)
+                  : [baseLocale],
               lastModified: post.createdAt,
-              changeFrequency: 'monthly',
-              priority: 0.6,
             });
           }
         } catch {
@@ -131,9 +142,8 @@ export const Route = createFileRoute('/sitemap.xml')({
           for (const post of getLocalPosts(baseLocale)) {
             addEntry({
               path: `/blog/${post.slug}`,
+              availableLocales: getLocalPostLocales(post.slug),
               lastModified: post.createdAt,
-              changeFrequency: 'monthly',
-              priority: 0.6,
             });
           }
         }

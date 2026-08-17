@@ -27,7 +27,8 @@
             "url": "/"
           },
           {
-            "title": "Xiaohongshu"
+            "title": "Xiaohongshu",
+            "url": "/xiaohongshu"
           },
           {
             "title": "Competitor Monitoring"
@@ -203,6 +204,12 @@
         "title": "Related Tools",
         "description": "Complete your Xiaohongshu content operations workflow.",
         "links": [
+          {
+            "title": "Xiaohongshu Account Analyzer",
+            "description": "Review positioning, recurring themes, and representative posts before choosing what to monitor.",
+            "url": "/xiaohongshu/account-analysis",
+            "icon": "UserSearch"
+          },
           {
             "title": "Post Scraper",
             "description": "Deep-dive into flagged competitor content with full data extraction.",

@@ -26,14 +26,13 @@
           },
           {
             "name": "monthly",
-            "title": "季付",
-            "label": "热门"
+            "title": "季付"
           },
           {
             "name": "yearly",
             "title": "年付",
             "is_featured": true,
-            "label": "省 50%"
+            "label": "省 60%"
           },
           {
             "name": "credits",
@@ -46,7 +45,7 @@
             "description": "适合个人用户，低频使用",
             "features": [
               "单篇笔记/视频深度采集，适合逐条保存高价值内容",
-              "单篇评论、客资采集",
+              "单篇评论、评论区截流",
               "搜索页、账号页基础列表采集",
               "本地数据池保存，支持 CSV、Markdown 导出",
               "无水印图片、视频、音频下载",
@@ -73,7 +72,6 @@
           {
             "title": "个人版",
             "description": "适合持续做内容研究、选题策划和内容创作的博主与运营",
-            "label": "最受欢迎",
             "features_title": "包含免费版全部能力，另支持：",
             "features": [
               "搜索页、账号页采集增强：批量补全正文、标签、互动数据和附件媒体",
@@ -92,14 +90,13 @@
               "内容创作：根据指定风格生成图文内容或视频稿"
             ],
             "interval": "one-time",
-            "amount": 4900,
+            "amount": 5900,
             "currency": "CNY",
             "credits": 180,
             "valid_days": 30,
-            "price": "¥49",
+            "price": "¥59",
             "unit": "/ 月",
             "is_featured": true,
-            "is_popular": true,
             "payment_providers": ["zpay"],
             "button": {
               "title": "选择购买",
@@ -131,11 +128,11 @@
               "内容创作：根据指定风格生成图文内容或视频稿"
             ],
             "interval": "one-time",
-            "amount": 12900,
+            "amount": 14900,
             "currency": "CNY",
             "credits": 700,
             "valid_days": 30,
-            "price": "¥129",
+            "price": "¥149",
             "unit": "/ 月",
             "is_featured": false,
             "payment_providers": ["zpay"],
@@ -154,7 +151,7 @@
             "description": "适合个人用户，低频使用",
             "features": [
               "单篇笔记/视频深度采集，适合逐条保存高价值内容",
-              "单篇评论、客资采集",
+              "单篇评论、评论区截流",
               "搜索页、账号页基础列表采集",
               "本地数据池保存，支持 CSV、Markdown 导出",
               "无水印图片、视频、音频下载",
@@ -181,7 +178,6 @@
           {
             "title": "个人版",
             "description": "适合持续做内容研究、选题策划和内容创作的博主与运营",
-            "label": "最受欢迎",
             "features_title": "包含免费版全部能力，另支持：",
             "features": [
               "搜索页、账号页采集增强：批量补全正文、标签、互动数据和附件媒体",
@@ -207,6 +203,7 @@
             "price": "¥33",
             "unit": "/ 月",
             "price_total": "季度合计 ¥99",
+            "label": "热门",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],
@@ -264,7 +261,7 @@
             "description": "适合个人用户，低频使用",
             "features": [
               "单篇笔记/视频深度采集，适合逐条保存高价值内容",
-              "单篇评论、客资采集",
+              "单篇评论、评论区截流",
               "搜索页、账号页基础列表采集",
               "本地数据池保存，支持 CSV、Markdown 导出",
               "无水印图片、视频、音频下载",
@@ -291,7 +288,6 @@
           {
             "title": "个人版",
             "description": "适合持续做内容研究、选题策划和内容创作的博主与运营",
-            "label": "最受欢迎",
             "features_title": "包含免费版全部能力，另支持：",
             "features": [
               "搜索页、账号页采集增强：批量补全正文、标签、互动数据和附件媒体",
@@ -310,14 +306,15 @@
               "内容创作：根据指定风格生成图文内容或视频稿"
             ],
             "interval": "one-time",
-            "amount": 28800,
+            "amount": 29900,
             "currency": "CNY",
             "credits": 1500,
             "valid_days": 365,
-            "price": "¥24",
+            "price": "¥25",
             "unit": "/ 月",
-            "price_total": "年度合计 ¥288",
-            "tip": "对比月付立省 50%",
+            "price_total": "年度合计 ¥299",
+            "tip": "对比月付立省 60%",
+            "label": "热门",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],
@@ -351,14 +348,14 @@
               "内容创作：根据指定风格生成图文内容或视频稿"
             ],
             "interval": "one-time",
-            "amount": 68800,
+            "amount": 69900,
             "currency": "CNY",
             "credits": 5000,
             "valid_days": 365,
-            "price": "¥57",
+            "price": "¥58",
             "unit": "/ 月",
-            "price_total": "年度合计 ¥688",
-            "tip": "对比月付立省 55%",
+            "price_total": "年度合计 ¥699",
+            "tip": "对比月付立省 60%",
             "is_featured": false,
             "payment_providers": ["zpay"],
             "button": {
@@ -374,7 +371,6 @@
           {
             "title": "紧急补量积分包",
             "description": "适合临时进行几次账号研究、爆款拆解或内容生成",
-            "label": "最受欢迎",
             "features": [
               "200 AI 积分",
               "可用于账号研究、单篇爆款拆解和延伸选题生成",
@@ -391,8 +387,7 @@
             "valid_days": 0,
             "price": "¥29",
             "unit": "",
-            "is_featured": true,
-            "is_popular": true,
+            "is_featured": false,
             "payment_providers": ["zpay"],
             "button": {
               "title": "购买积分",
@@ -407,6 +402,7 @@
           {
             "title": "创作者常用包",
             "description": "适合个人创作者持续研究账号、积累选题和生成内容",
+            "label": "最受欢迎",
             "features": [
               "1000 AI 积分",
               "可用于账号研究、单篇爆款拆解和延伸选题生成",
@@ -423,7 +419,8 @@
             "valid_days": 0,
             "price": "¥79",
             "unit": "",
-            "is_featured": false,
+            "is_featured": true,
+            "is_popular": true,
             "payment_providers": ["zpay"],
             "button": {
               "title": "购买积分",
@@ -468,7 +465,7 @@
             "group": "credits"
           }
         ],
-        "default_group": "monthly"
+        "default_group": "yearly"
       },
       "comparison": {
         "id": "comparison",
@@ -515,7 +512,7 @@
             "note": "采集标题、正文、作者及互动数据，适合逐条保存高价值内容"
           },
           {
-            "feature": "单篇评论与客资采集",
+            "feature": "单篇评论与评论区截流",
             "free": "✓",
             "pro": "✓",
             "team": "✓",

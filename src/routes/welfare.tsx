@@ -16,6 +16,7 @@ import { toast } from 'sonner';
 
 import { useSession } from '@/core/auth/client';
 import { Link } from '@/core/i18n/navigation';
+import { envConfigs } from '@/config';
 import { apiGet, apiPost } from '@/lib/api-client';
 import { getBrowserInstallId } from '@/lib/browser-install-id';
 import { recordAnalyticsEventSafe } from '@/lib/client-analytics';
@@ -23,6 +24,7 @@ import {
   researchExampleLinks,
   type ResearchEntryConfig,
 } from '@/lib/research-entry-config';
+import { baseLocale, getLocale, localizeUrl } from '@/paraglide/runtime.js';
 import { usePublicConfig } from '@/hooks/use-public-config';
 import { Footer } from '@/blocks/footer';
 import { Header } from '@/blocks/header';
@@ -155,15 +157,30 @@ const unlimitedCapabilities = [
 ];
 
 export const Route = createFileRoute('/welfare')({
-  head: () => ({
-    meta: [
-      { title: '全能卡 - MediaClaw 福利中心' },
-      {
-        name: 'description',
-        content: '付费全能体验卡，包含会员时长、AI 积分和首次订阅抵扣。',
-      },
-    ],
-  }),
+  loader: () => ({ locale: getLocale() }),
+  head: ({ loaderData }) => {
+    const locale = loaderData?.locale ?? baseLocale;
+    const canonicalUrl = localizeUrl(`${envConfigs.app_url}/welfare`, {
+      locale: baseLocale,
+    }).href;
+    return {
+      meta: [
+        { title: '全能卡 - MediaClaw 福利中心' },
+        {
+          name: 'description',
+          content: '付费全能体验卡，包含会员时长、AI 积分和首次订阅抵扣。',
+        },
+        ...(locale !== baseLocale
+          ? [{ name: 'robots', content: 'noindex,follow' }]
+          : []),
+      ],
+      links: [
+        { rel: 'canonical', href: canonicalUrl },
+        { rel: 'alternate', hrefLang: baseLocale, href: canonicalUrl },
+        { rel: 'alternate', hrefLang: 'x-default', href: canonicalUrl },
+      ],
+    };
+  },
   component: WelfarePage,
 });
 
@@ -243,7 +260,15 @@ function WelfarePage() {
   const referralRate =
     Number.isFinite(parsedReferralRate) && parsedReferralRate > 0
       ? parsedReferralRate
-      : 30;
+      : 20;
+  const parsedInviteeDiscount = Number.parseInt(
+    publicConfig?.referral_invitee_discount ?? '',
+    10
+  );
+  const inviteeDiscount =
+    Number.isFinite(parsedInviteeDiscount) && parsedInviteeDiscount > 0
+      ? parsedInviteeDiscount
+      : 10;
   const referralEnabled = publicConfig?.referral_enabled !== 'false';
 
   const action = getAction(status, !hydrated || isPending, product);
@@ -515,8 +540,7 @@ function WelfarePage() {
                         icon: HandCoins,
                         title: '佣金推荐',
                         badge: `${referralRate}% 返佣`,
-                        description:
-                          '邀请朋友使用 MediaClaw：朋友首购享折扣，你拿首单和续费返佣，满额即可提现。',
+                        description: `邀请朋友使用 MediaClaw：朋友首购享 ${inviteeDiscount}% 优惠，你拿首单和续费 ${referralRate}% 返佣，满额即可提现。`,
                         hint: '了解伙伴计划',
                         href: '/referral',
                       },

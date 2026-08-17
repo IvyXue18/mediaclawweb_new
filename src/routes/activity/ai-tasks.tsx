@@ -322,7 +322,7 @@ function AITasksPage() {
 
   return (
     <div className="space-y-6 p-6" data-ai-task-page>
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+      <div>
         <div>
           <h1 className="text-2xl font-bold">
             {m['activity.ai_tasks.title']()}
@@ -331,12 +331,6 @@ function AITasksPage() {
             {m['activity.ai_tasks.description']()}
           </p>
         </div>
-        <Link
-          href="/ai-image-generator"
-          className={buttonVariants({ variant: 'outline' })}
-        >
-          {m['activity.ai_tasks.open_generator']()}
-        </Link>
       </div>
 
       <div className="space-y-3">

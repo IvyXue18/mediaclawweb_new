@@ -419,18 +419,19 @@ the same files (SKILL.md open standard, agentskills.io). If your agent runtime
 doesn't auto-discover skills, read `.claude/skills/<name>/SKILL.md` and follow
 it when the task matches:
 
-| Skill               | When to use                                                                                                                         |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `quick-start`       | Build a complete SaaS project from a brief/reference URL                                                                            |
-| `clone-website`     | Clone/rebuild an existing website pixel-perfect                                                                                     |
-| `new-module`        | New backend service + API following the module pattern                                                                              |
-| `new-page`          | New dashboard page with API wiring + nav entry                                                                                      |
-| `new-static-page`   | Static MDX page (legal, about, etc.)                                                                                                |
-| `generate-image`    | AI-generate a decorative image for a page/block                                                                                     |
-| `security-scan`     | **Before every git commit** — secrets, vulns, ignore gaps                                                                           |
-| `launch-audit`      | Whole-project sweep on one axis — responsive, light/dark theme, SEO, performance (Lighthouse), or security; run `all` before deploy |
-| `sync-upstream`     | Pull latest template updates; local changes win on conflict                                                                         |
-| `deploy-cloudflare` | Deploy to Cloudflare Workers (D1 or Postgres+Hyperdrive + secrets + schema, idempotent)                                             |
+| Skill                         | When to use                                                                                                                         |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `quick-start`                 | Build a complete SaaS project from a brief/reference URL                                                                            |
+| `clone-website`               | Clone/rebuild an existing website pixel-perfect                                                                                     |
+| `new-module`                  | New backend service + API following the module pattern                                                                              |
+| `new-page`                    | New dashboard page with API wiring + nav entry                                                                                      |
+| `new-static-page`             | Static MDX page (legal, about, etc.)                                                                                                |
+| `generate-image`              | AI-generate a decorative image for a page/block                                                                                     |
+| `create-mediaclaw-blog-cover` | Create or revise a review-first blog cover, then publish the approved WebP only through the authenticated image API to R2           |
+| `security-scan`               | **Before every git commit** — secrets, vulns, ignore gaps                                                                           |
+| `launch-audit`                | Whole-project sweep on one axis — responsive, light/dark theme, SEO, performance (Lighthouse), or security; run `all` before deploy |
+| `sync-upstream`               | Pull latest template updates; local changes win on conflict                                                                         |
+| `deploy-cloudflare`           | Deploy to Cloudflare Workers (D1 or Postgres+Hyperdrive + secrets + schema, idempotent)                                             |
 
 **Database backends on Cloudflare Workers** (chosen by `wrangler.jsonc` `vars.DATABASE_PROVIDER`):
 

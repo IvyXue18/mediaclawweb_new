@@ -27,6 +27,14 @@ import {
 import { getAllConfigs } from '@/modules/config/service';
 import { getNonceStr, getUuid } from '@/lib/hash';
 
+const DEFAULT_REFERRAL_COMMISSION_RATE = 20;
+const DEFAULT_REFERRAL_INVITEE_DISCOUNT = 10;
+const INVITEE_DISCOUNT_RESERVATION_SUFFIX = 'referral_invitee_discount';
+
+export function getInviteeDiscountReservationKey(userId: string) {
+  return `${userId}:${INVITEE_DISCOUNT_RESERVATION_SUFFIX}`;
+}
+
 function normalizeCurrency(currency?: string | null) {
   return (currency || 'usd').toLowerCase();
 }
@@ -47,6 +55,12 @@ export function normalizeReferralCode(value?: string | null) {
 function parsePositiveInt(value: unknown, fallback: number) {
   const parsed = Number(value);
   return Number.isFinite(parsed) && parsed > 0 ? Math.floor(parsed) : fallback;
+}
+
+export function applyDiscount(amount: number, discountRate: number) {
+  return discountRate > 0 && discountRate < 100
+    ? Math.floor((amount * (100 - discountRate)) / 100)
+    : amount;
 }
 
 function productIsCreditsOnly(
@@ -246,6 +260,28 @@ export async function findReferralRelationByReferee(refereeId: string) {
   return relation || null;
 }
 
+export async function getInviteeDiscount(userId: string) {
+  const configs = await getAllConfigs();
+  if (configs.referral_enabled === 'false') return 0;
+
+  const discountRate = parsePositiveInt(
+    configs.referral_invitee_discount,
+    DEFAULT_REFERRAL_INVITEE_DISCOUNT
+  );
+  if (discountRate <= 0 || discountRate >= 100) return 0;
+
+  const relation = await findReferralRelationByReferee(userId);
+  if (
+    !relation ||
+    relation.status !== ReferralStatus.ACTIVE ||
+    relation.hasFirstOrder
+  ) {
+    return 0;
+  }
+
+  return discountRate;
+}
+
 export async function listReferralRelations(params: {
   userId: string;
   page: number;
@@ -363,8 +399,14 @@ export async function processReferralCommissionForPaidOrder(params: {
   }
 
   const rate = isFirstOrder
-    ? parsePositiveInt(configs.referral_first_order_rate, 30)
-    : parsePositiveInt(configs.referral_renewal_rate, 5);
+    ? parsePositiveInt(
+        configs.referral_first_order_rate,
+        DEFAULT_REFERRAL_COMMISSION_RATE
+      )
+    : parsePositiveInt(
+        configs.referral_renewal_rate,
+        DEFAULT_REFERRAL_COMMISSION_RATE
+      );
   if (rate <= 0) return null;
 
   const orderAmount = Number(params.paymentAmount || params.order.amount || 0);
@@ -781,9 +823,18 @@ export async function createWithdrawalRequest(params: {
 export async function getReferralConfig() {
   const configs = await getAllConfigs();
   return {
-    firstOrderRate: parsePositiveInt(configs.referral_first_order_rate, 30),
-    renewalRate: parsePositiveInt(configs.referral_renewal_rate, 5),
-    inviteeDiscount: parsePositiveInt(configs.referral_invitee_discount, 10),
+    firstOrderRate: parsePositiveInt(
+      configs.referral_first_order_rate,
+      DEFAULT_REFERRAL_COMMISSION_RATE
+    ),
+    renewalRate: parsePositiveInt(
+      configs.referral_renewal_rate,
+      DEFAULT_REFERRAL_COMMISSION_RATE
+    ),
+    inviteeDiscount: parsePositiveInt(
+      configs.referral_invitee_discount,
+      DEFAULT_REFERRAL_INVITEE_DISCOUNT
+    ),
     minSettlement: parsePositiveInt(configs.referral_min_settlement, 10000),
     lockDays: parsePositiveInt(configs.referral_lock_days, 7),
   };

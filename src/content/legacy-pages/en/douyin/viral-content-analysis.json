@@ -25,7 +25,7 @@
         "label": "Douyin Viral Video Analysis",
         "breadcrumbs": [
           { "title": "Home", "url": "/" },
-          { "title": "Douyin" },
+          { "title": "Douyin", "url": "/douyin" },
           { "title": "Viral Video Analysis" }
         ],
         "title": "Douyin Viral Video Analysis: Find Low-Follower Hits and See Why They Work",
