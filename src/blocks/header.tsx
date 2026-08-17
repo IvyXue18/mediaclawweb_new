@@ -245,12 +245,6 @@ function getNavItems(): NavItem[] {
           icon: 'BookText',
         },
         {
-          title: m['site.header.product_docs'](),
-          description: m['site.header.product_docs_desc'](),
-          url: '/docs',
-          icon: 'BookOpen',
-        },
-        {
           title: m['site.header.tutorials'](),
           description: m['site.header.tutorials_desc'](),
           url: 'https://my.feishu.cn/wiki/TczWwrrGmiDRw3kWeojcXd5CnHh?from=from_copylink',

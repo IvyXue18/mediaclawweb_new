@@ -114,7 +114,6 @@ export function Footer() {
     {
       title: m['site.footer.resources'](),
       links: [
-        { label: m['site.footer.product_docs'](), href: '/docs' },
         { label: m['site.footer.blog'](), href: '/blog' },
         {
           label: m['site.footer.tutorials'](),
