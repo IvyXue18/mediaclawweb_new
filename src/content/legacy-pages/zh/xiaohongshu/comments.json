@@ -28,7 +28,8 @@
             "url": "/"
           },
           {
-            "title": "小红书"
+            "title": "小红书",
+            "url": "/xiaohongshu"
           },
           {
             "title": "评论采集"
@@ -199,7 +200,7 @@
         "description": "继续完善你的小红书内容创作工作流",
         "links": [
           {
-            "title": "小红书客资采集",
+            "title": "小红书评论区截流",
             "description": "用关键词模板自动过滤高意向评论，导出可跟进客资名单。",
             "url": "/xiaohongshu/leads",
             "icon": "UserCheck"
@@ -217,7 +218,7 @@
             "icon": "Search"
           },
           {
-            "title": "小红书竞品监控",
+            "title": "小红书对标账号监控",
             "description": "订阅对标账号，一旦内容更新，自动推送飞书提醒。",
             "url": "/xiaohongshu/monitoring",
             "icon": "Radar"

@@ -28,7 +28,8 @@
             "url": "/"
           },
           {
-            "title": "抖音"
+            "title": "抖音",
+            "url": "/douyin"
           },
           {
             "title": "评论采集"
@@ -195,7 +196,7 @@
         "description": "继续完善你的抖音内容分析与运营工作流",
         "links": [
           {
-            "title": "抖音客资采集",
+            "title": "抖音评论区截流",
             "description": "用意向关键词模板自动过滤高意向评论，导出可跟进客资名单。",
             "url": "/douyin/leads",
             "icon": "UserCheck"
@@ -213,7 +214,7 @@
             "icon": "Search"
           },
           {
-            "title": "抖音竞品监控",
+            "title": "抖音对标账号监控",
             "description": "订阅对标账号动态，第一时间追踪高热内容变化。",
             "url": "/douyin/monitoring",
             "icon": "Radar"

@@ -29,7 +29,8 @@
             "url": "/"
           },
           {
-            "title": "Xiaohongshu"
+            "title": "Xiaohongshu",
+            "url": "/xiaohongshu"
           },
           {
             "title": "Account Analysis"
@@ -40,15 +41,9 @@
         "description": "Reverse-engineer benchmark Xiaohongshu creators from proven posts, collect at least 50 public samples, and let MediaClaw stratify the evidence. The final account analysis covers positioning, topics, headlines, voice, visuals, and new ideas linked to source posts.",
         "buttons": [
           {
-            "title": "Install Free Extension",
+            "title": "Get Started",
             "url": "/download",
             "icon": "Download"
-          },
-          {
-            "title": "Read Account Analysis Guide",
-            "url": "/docs/benchmark/account-research",
-            "icon": "BookOpen",
-            "variant": "outline"
           }
         ],
         "image": {
@@ -74,10 +69,6 @@
               "alt": "MediaClaw benchmark account results with candidate creators, representative Xiaohongshu posts, and recommendation rationale",
               "width": 1600,
               "height": 1840
-            },
-            "button": {
-              "title": "Read the benchmark discovery guide",
-              "url": "/docs/benchmark/find-accounts"
             }
           },
           {
@@ -89,10 +80,6 @@
               "alt": "Starting a Xiaohongshu account breakdown from an already collected creator profile in MediaClaw",
               "width": 990,
               "height": 1004
-            },
-            "button": {
-              "title": "Read the profile collection guide",
-              "url": "/docs/collect/account-posts"
             }
           },
           {
@@ -115,10 +102,6 @@
               "alt": "MediaClaw Xiaohongshu account analysis progress panel showing transcript, engagement comparison, clustering, and idea generation steps",
               "width": 958,
               "height": 1178
-            },
-            "button": {
-              "title": "Read the full account analysis guide",
-              "url": "/docs/benchmark/account-research"
             }
           }
         ]
@@ -373,6 +356,12 @@
         "title": "What to do after Xiaohongshu account analysis",
         "description": "Move from discovery to evidence, validation, and ongoing tracking with the right tool for each step.",
         "links": [
+          {
+            "title": "Xiaohongshu Viral Post Analysis",
+            "description": "Find low-follower hits and break down the title, structure, visuals, and public feedback in one post.",
+            "url": "/xiaohongshu/viral-content-analysis",
+            "icon": "TrendingUp"
+          },
           {
             "title": "Xiaohongshu Keyword Research",
             "description": "Use niche keywords and search demand to find candidate creators and themes.",

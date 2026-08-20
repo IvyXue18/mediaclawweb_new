@@ -28,7 +28,8 @@
             "url": "/"
           },
           {
-            "title": "Douyin"
+            "title": "Douyin",
+            "url": "/douyin"
           },
           {
             "title": "Video Scraper"

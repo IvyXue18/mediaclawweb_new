@@ -29,7 +29,8 @@
             "url": "/"
           },
           {
-            "title": "Douyin"
+            "title": "Douyin",
+            "url": "/douyin"
           },
           {
             "title": "Account Analysis"
@@ -40,15 +41,9 @@
         "description": "Reverse-engineer benchmark Douyin creators from strong videos, collect at least 50 public samples, and let MediaClaw stratify the evidence. The final account analysis compares positioning, topics, openings, transcripts, voice, visuals, and new video ideas linked to source posts.",
         "buttons": [
           {
-            "title": "Install Free Extension",
+            "title": "Get Started",
             "url": "/download",
             "icon": "Download"
-          },
-          {
-            "title": "Read Account Analysis Guide",
-            "url": "/docs/benchmark/account-research",
-            "icon": "BookOpen",
-            "variant": "outline"
           }
         ],
         "image": {
@@ -74,10 +69,6 @@
               "alt": "Douyin search results filtered by time and likes to find high-performing videos and benchmark creators",
               "width": 1600,
               "height": 748
-            },
-            "button": {
-              "title": "Read the recent hits guide",
-              "url": "/docs/viral-research/recent-hits"
             }
           },
           {
@@ -89,10 +80,6 @@
               "alt": "MediaClaw collection filters for public videos on a Douyin creator profile",
               "width": 812,
               "height": 1540
-            },
-            "button": {
-              "title": "Read the profile collection guide",
-              "url": "/docs/collect/account-posts"
             }
           },
           {
@@ -115,10 +102,6 @@
               "alt": "MediaClaw Douyin account analysis progress showing transcripts, engagement comparison, clustering, and idea generation",
               "width": 958,
               "height": 1178
-            },
-            "button": {
-              "title": "Read the full account analysis guide",
-              "url": "/docs/benchmark/account-research"
             }
           }
         ]
@@ -383,6 +366,12 @@
         "title": "What to do after Douyin account analysis",
         "description": "Continue from discovery and public video collection to transcripts and ongoing monitoring with the right Douyin tool.",
         "links": [
+          {
+            "title": "Douyin Viral Video Analysis",
+            "description": "Find low-follower hits and break down hooks, transcripts, pacing, visuals, and public feedback.",
+            "url": "/douyin/viral-content-analysis",
+            "icon": "TrendingUp"
+          },
           {
             "title": "Douyin Keyword Research",
             "description": "Use niche terms and search demand to find candidate creators and video directions.",

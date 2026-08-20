@@ -1,8 +1,8 @@
 {
   "metadata": {
     "title": "MediaClaw 社媒虾｜小红书与抖音数据采集、分析和内容创作工具",
-    "description": "MediaClaw 社媒虾帮助博主、运营团队采集小红书与抖音的内容、评论、账号和搜索结果相关的内容和数据，完成关键词研究、账号分析、选题创作与竞品监控，并导出 Excel/Markdown 或同步飞书。",
-    "keywords": "小红书数据采集, 小红书评论采集, 小红书客资挖掘, 小红书竞品监控, 小红书对标账号, 赛道机会判断, 抖音数据采集, 抖音评论采集, 抖音竞品监控, Markdown导出, 视频逐字稿, 配图文案, MediaClaw, 飞书同步"
+    "description": "MediaClaw 社媒虾帮助博主、运营团队采集小红书与抖音的内容、评论、账号和搜索结果相关的内容和数据，完成关键词研究、账号分析、选题创作与对标账号监控，并导出 Excel/Markdown 或同步飞书。",
+    "keywords": "小红书数据采集, 小红书评论采集, 小红书客资挖掘, 小红书对标账号监控, 小红书对标账号, 赛道机会判断, 抖音数据采集, 抖音评论采集, 抖音对标账号监控, Markdown导出, 视频逐字稿, 配图文案, MediaClaw, 飞书同步"
   },
   "page": {
     "show_sections": [
@@ -18,9 +18,9 @@
     "sections": {
       "hero": {
         "id": "hero",
-        "title": "从小红书与抖音数据采集，到选题、创作和持续复盘",
-        "highlight_text": "数据采集",
-        "description": "覆盖小红书与抖音两大平台：笔记/视频采集、评论客资、赛道机会判断、找对标账号、长尾需求分析、竞品监控、Markdown 导出与飞书协同。采集后还能补齐配图文字和视频逐字稿，让素材更适合复盘和 AI 整理。",
+        "title": "自媒体采集分析、AI选题创作一套搞定--10倍提效",
+        "highlight_text": "10倍提效",
+        "description": "覆盖小红书与抖音两大平台：笔记/视频采集、评论客资、赛道机会判断、找对标账号、长尾需求分析、对标账号监控、Markdown 导出与飞书协同。采集后还能补齐配图文字和视频逐字稿，让素材更适合复盘和 AI 整理。",
         "announcement": {
           "badge": "V0.2.0 已更新",
           "title": "全新 AI 工作台：采集研究、选题创作一站完成",
@@ -92,9 +92,9 @@
         "items": [
           {
             "title": "小红书能力集",
-            "description": "笔记采集 · 评论采集 · 客资采集 · 赛道策略 · 找对标账号 · 竞品监控 · 去水印下载 · 配图文案/视频逐字稿 · Markdown 导出",
+            "description": "笔记采集 · 评论采集 · 评论区截流 · 赛道策略 · 找对标账号 · 对标账号监控 · 去水印下载 · 配图文案/视频逐字稿 · Markdown 导出",
             "icon": "BookOpen",
-            "url": "/xiaohongshu/scraper",
+            "url": "/xiaohongshu",
             "target": "_self",
             "image": {
               "src": "/imgs/features/platform-xiaohongshu.webp",
@@ -103,9 +103,9 @@
           },
           {
             "title": "抖音能力集",
-            "description": "视频采集 · 评论采集 · 搜索采集 · 赛道策略 · 找对标账号 · 竞品监控 · 视频逐字稿 · Markdown 导出",
+            "description": "视频采集 · 评论采集 · 搜索采集 · 赛道策略 · 找对标账号 · 对标账号监控 · 视频逐字稿 · Markdown 导出",
             "icon": "Clapperboard",
-            "url": "/douyin/scraper",
+            "url": "/douyin",
             "target": "_self",
             "image": {
               "src": "/imgs/features/platform-douyin.webp",
@@ -229,7 +229,7 @@
             }
           },
           {
-            "title": "竞品监控与内容预警",
+            "title": "对标账号监控与内容预警",
             "description": "订阅对标账号动态，自动监控内容更新和互动变化，命中规则后即时提醒，帮助团队持续追踪竞品策略变化。",
             "icon": "Radar",
             "image": {
@@ -237,7 +237,7 @@
               "alt": "小红书与抖音竞争对手账号最新内容动态追踪与爆款内容自动化提醒设置"
             },
             "button": {
-              "title": "了解竞品监控",
+              "title": "了解对标账号监控",
               "url": "/xiaohongshu/monitoring"
             }
           },
@@ -295,14 +295,13 @@
           },
           {
             "name": "monthly",
-            "title": "季付",
-            "label": "热门"
+            "title": "季付"
           },
           {
             "name": "yearly",
             "title": "年付",
             "is_featured": true,
-            "label": "省 50%"
+            "label": "省 60%"
           },
           {
             "name": "credits",
@@ -315,7 +314,7 @@
             "description": "适合个人用户，低频使用",
             "features": [
               "单篇笔记/视频深度采集，适合逐条保存高价值内容",
-              "单篇评论、客资采集",
+              "单篇评论、评论区截流",
               "搜索页、账号页基础列表采集",
               "本地数据池保存，支持 CSV、Markdown 导出",
               "无水印图片、视频、音频下载",
@@ -342,7 +341,6 @@
           {
             "title": "个人版",
             "description": "适合持续做采集分析、选题创作复盘的博主和运营",
-            "label": "最受欢迎",
             "features_title": "包含免费版全部能力，另支持：",
             "features": [
               "搜索页、账号页采集增强：批量补全正文、标签、互动、附件媒体等详情数据",
@@ -358,14 +356,13 @@
               "插件内提取视频带时间戳口播稿，提取配图文案"
             ],
             "interval": "one-time",
-            "amount": 4900,
+            "amount": 5900,
             "currency": "CNY",
             "credits": 180,
             "valid_days": 30,
-            "price": "¥49",
+            "price": "¥59",
             "unit": "/ 月",
             "is_featured": true,
-            "is_popular": true,
             "payment_providers": ["zpay"],
             "button": {
               "title": "选择购买",
@@ -393,11 +390,11 @@
               "插件内提取视频带时间戳口播稿，提取配图文案"
             ],
             "interval": "one-time",
-            "amount": 12900,
+            "amount": 14900,
             "currency": "CNY",
             "credits": 700,
             "valid_days": 30,
-            "price": "¥129",
+            "price": "¥149",
             "unit": "/ 月",
             "is_featured": false,
             "payment_providers": ["zpay"],
@@ -416,7 +413,7 @@
             "description": "适合个人用户，低频使用",
             "features": [
               "单篇笔记/视频深度采集，适合逐条保存高价值内容",
-              "单篇评论、客资采集",
+              "单篇评论、评论区截流",
               "搜索页、账号页基础列表采集",
               "本地数据池保存，支持 CSV、Markdown 导出",
               "无水印图片、视频、音频下载",
@@ -443,7 +440,6 @@
           {
             "title": "个人版",
             "description": "适合持续做采集分析、选题创作复盘的博主和运营",
-            "label": "最受欢迎",
             "features_title": "包含免费版全部能力，另支持：",
             "features": [
               "搜索页、账号页采集增强：批量补全正文、标签、互动、附件媒体等详情数据",
@@ -466,6 +462,7 @@
             "price": "¥33",
             "unit": "/ 月",
             "price_total": "季度合计 ¥99",
+            "label": "热门",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],
@@ -519,7 +516,7 @@
             "description": "适合个人用户，低频使用",
             "features": [
               "单篇笔记/视频深度采集，适合逐条保存高价值内容",
-              "单篇评论、客资采集",
+              "单篇评论、评论区截流",
               "搜索页、账号页基础列表采集",
               "本地数据池保存，支持 CSV、Markdown 导出",
               "无水印图片、视频、音频下载",
@@ -546,7 +543,6 @@
           {
             "title": "个人版",
             "description": "适合持续做采集分析、选题创作复盘的博主和运营",
-            "label": "最受欢迎",
             "features_title": "包含免费版全部能力，另支持：",
             "features": [
               "搜索页、账号页采集增强：批量补全正文、标签、互动、附件媒体等详情数据",
@@ -562,14 +558,15 @@
               "插件内提取视频带时间戳口播稿，提取配图文案"
             ],
             "interval": "one-time",
-            "amount": 28800,
+            "amount": 29900,
             "currency": "CNY",
             "credits": 1500,
             "valid_days": 365,
-            "price": "¥24",
+            "price": "¥25",
             "unit": "/ 月",
-            "price_total": "年度合计 ¥288",
-            "tip": "对比月付立省 50%",
+            "price_total": "年度合计 ¥299",
+            "tip": "对比月付立省 60%",
+            "label": "热门",
             "is_featured": true,
             "is_popular": true,
             "payment_providers": ["zpay"],
@@ -599,14 +596,14 @@
               "插件内提取视频带时间戳口播稿，提取配图文案"
             ],
             "interval": "one-time",
-            "amount": 68800,
+            "amount": 69900,
             "currency": "CNY",
             "credits": 5000,
             "valid_days": 365,
-            "price": "¥57",
+            "price": "¥58",
             "unit": "/ 月",
-            "price_total": "年度合计 ¥688",
-            "tip": "对比月付立省 55%",
+            "price_total": "年度合计 ¥699",
+            "tip": "对比月付立省 60%",
             "is_featured": false,
             "payment_providers": ["zpay"],
             "button": {
@@ -622,7 +619,6 @@
           {
             "title": "紧急补量积分包",
             "description": "适合临时增加 AI 分析和监控额度",
-            "label": "最受欢迎",
             "features": [
               "200 AI 积分",
               "自动找对标账号、分析关键词选题、批量拓展搜索下拉词给出选题地图",
@@ -638,8 +634,7 @@
             "valid_days": 0,
             "price": "¥29",
             "unit": "",
-            "is_featured": true,
-            "is_popular": true,
+            "is_featured": false,
             "payment_providers": ["zpay"],
             "button": {
               "title": "购买积分",
@@ -654,6 +649,7 @@
           {
             "title": "创作者常用包",
             "description": "适合个人博主、运营持续大量分析选题和处理素材",
+            "label": "最受欢迎",
             "features": [
               "1000 AI 积分",
               "自动找对标账号、分析关键词选题、批量拓展搜索下拉词给出选题地图",
@@ -669,7 +665,8 @@
             "valid_days": 0,
             "price": "¥79",
             "unit": "",
-            "is_featured": false,
+            "is_featured": true,
+            "is_popular": true,
             "payment_providers": ["zpay"],
             "button": {
               "title": "购买积分",
@@ -796,7 +793,7 @@
           },
           {
             "question": "目前支持哪些平台？",
-            "answer": "当前已支持小红书与抖音双平台，覆盖笔记/视频采集、评论客资、赛道机会判断、找对标账号、关键词洞察与竞品监控等能力。"
+            "answer": "当前已支持小红书与抖音双平台，覆盖笔记/视频采集、评论客资、赛道机会判断、找对标账号、关键词洞察与对标账号监控等能力。"
           },
           {
             "question": "MediaClaw 可以免费使用吗？",

@@ -141,9 +141,13 @@ function ForgotPasswordPage() {
                   <Field>
                     <form.Subscribe selector={(s) => s.isSubmitting}>
                       {(isSubmitting) => (
-                        <Button type="submit" disabled={isSubmitting}>
+                        <Button
+                          type="submit"
+                          disabled={isSubmitting}
+                          aria-busy={isSubmitting}
+                        >
                           {isSubmitting
-                            ? '...'
+                            ? m['common.loading']()
                             : m['common.sign.send_reset_link']()}
                         </Button>
                       )}

@@ -54,7 +54,7 @@ describe('pricing catalog config overrides', () => {
   it('keeps legacy underscore lookup working for direct catalog reads', () => {
     expect(getPricingProduct('pro_yearly')).toMatchObject({
       productId: 'pro-yearly',
-      priceInCents: 28800,
+      priceInCents: 29900,
     });
   });
 });

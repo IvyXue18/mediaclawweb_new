@@ -518,10 +518,12 @@ export const DEDUCTION_RESERVATION_CONFLICT_CODE =
 
 export class DeductionReservationConflictError extends Error {
   code = DEDUCTION_RESERVATION_CONFLICT_CODE;
+  reservationKey?: string;
 
-  constructor() {
-    super('starter deduction is already reserved by another checkout');
+  constructor(reservationKey?: string) {
+    super('discount is already reserved by another checkout');
     this.name = 'DeductionReservationConflictError';
+    this.reservationKey = reservationKey;
   }
 }
 
@@ -683,7 +685,9 @@ export async function createCheckout(params: {
       await db().insert(order).values(baseOrder);
     } catch (error) {
       if (isDeductionReservationUniqueError(error)) {
-        throw new DeductionReservationConflictError();
+        throw new DeductionReservationConflictError(
+          deductionReservationKey || undefined
+        );
       }
       throw error;
     }

@@ -28,7 +28,8 @@
             "url": "/"
           },
           {
-            "title": "抖音"
+            "title": "抖音",
+            "url": "/douyin"
           },
           {
             "title": "赛道策略"
@@ -217,6 +218,12 @@
         "description": "继续完善你的抖音选题、采集与复盘工作流",
         "links": [
           {
+            "title": "抖音爆款分析",
+            "description": "把高价值搜索词变成低粉爆款样本，并继续拆解逐字稿和脚本结构。",
+            "url": "/douyin/viral-content-analysis",
+            "icon": "TrendingUp"
+          },
+          {
             "title": "抖音视频采集",
             "description": "围绕高价值关键词批量采集视频样本，做内容拆解与验证。",
             "url": "/douyin/scraper",
@@ -229,7 +236,7 @@
             "icon": "MessageCircle"
           },
           {
-            "title": "抖音竞品监控",
+            "title": "抖音对标账号监控",
             "description": "追踪对标账号策略变化，快速发现新增关键词方向。",
             "url": "/douyin/monitoring",
             "icon": "Radar"

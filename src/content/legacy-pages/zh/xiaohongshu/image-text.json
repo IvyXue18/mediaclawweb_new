@@ -14,7 +14,7 @@
         "label": "小红书图片文字 OCR 提取工具",
         "breadcrumbs": [
           { "title": "首页", "url": "/" },
-          { "title": "小红书" },
+          { "title": "小红书", "url": "/xiaohongshu" },
           { "title": "图文文案提取" }
         ],
         "title": "小红书图片文案提取工具：封面和配图 OCR 转文本",

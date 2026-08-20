@@ -11,8 +11,11 @@ import {
   Shield,
 } from 'lucide-react';
 
+import { useSession } from '@/core/auth/client';
 import { envConfigs } from '@/config';
 import { m } from '@/paraglide/messages.js';
+import { useTicketAttention } from '@/hooks/use-ticket-attention';
+import { useUserPermissions } from '@/hooks/use-user-permissions';
 import { AppLayout } from '@/components/app-layout';
 
 export const Route = createFileRoute('/admin')({
@@ -20,6 +23,14 @@ export const Route = createFileRoute('/admin')({
 });
 
 function AdminLayout() {
+  const { data: session } = useSession();
+  const permissionsQuery = useUserPermissions(!!session?.user);
+  const ticketAttention = useTicketAttention(
+    'admin',
+    permissionsQuery.data?.isAdmin === true,
+    session?.user.id
+  );
+  const hasPendingTickets = (ticketAttention.data?.total ?? 0) > 0;
   const group = m['common.systems.admin']();
   const navItems = [
     {
@@ -98,6 +109,8 @@ function AdminLayout() {
       label: m['admin.nav.tickets'](),
       icon: LifeBuoy,
       group,
+      attention: hasPendingTickets,
+      attentionLabel: m['admin.nav.ticket_alert'](),
     },
   ];
 

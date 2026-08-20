@@ -55,12 +55,6 @@ const pages = [
     blogDetail: true,
   },
   {
-    path: '/showcases',
-    title: /MediaClaw|媒爪/i,
-    text: /MediaClaw 数据采集案例|Data collection cases/i,
-    showcases: true,
-  },
-  {
     path: '/updates',
     title: /MediaClaw|媒爪/i,
     text: /更新日志|Product updates/i,
@@ -80,6 +74,98 @@ const pages = [
     heroSampleModal: true,
     featureCards: true,
     faqAccordion: true,
+  },
+  {
+    path: '/xiaohongshu/account-analysis',
+    title: /小红书账号分析工具|MediaClaw/i,
+    text: /小红书账号分析：找到对标账号，拆出\s*可复用的内容方法/i,
+    heroImage: true,
+    featureCards: true,
+    faqAccordion: true,
+    semanticHeadingHierarchy: true,
+    primaryKeyword: /小红书账号分析/i,
+  },
+  {
+    path: '/en/xiaohongshu/account-analysis',
+    title: /Xiaohongshu Account Analyzer|MediaClaw/i,
+    text: /Xiaohongshu Account Analyzer: Find Benchmark Creators and Decode Their Content System/i,
+    heroImage: true,
+    featureCards: true,
+    faqAccordion: true,
+    semanticHeadingHierarchy: true,
+    primaryKeyword: /Xiaohongshu Account Analyzer/i,
+  },
+  {
+    path: '/xiaohongshu/viral-content-analysis',
+    title: /小红书爆款分析|MediaClaw/i,
+    text: /小红书爆款分析：找到低粉爆文，拆清笔记\s*为什么有效/i,
+    heroImage: true,
+    heroImageSrc:
+      '/imgs/docs/getting-started/first-draft/03-获得单篇拆解报告.webp',
+    featureCards: true,
+    faqAccordion: true,
+    semanticHeadingHierarchy: true,
+    primaryKeyword: /小红书爆款分析/i,
+    reportHeadingCount: 4,
+  },
+  {
+    path: '/en/xiaohongshu/viral-content-analysis',
+    title: /Xiaohongshu Viral Post Analysis|MediaClaw/i,
+    text: /Xiaohongshu Viral Post Analysis: Find Low-Follower Hits and See Why They Work/i,
+    heroImage: true,
+    heroImageSrc:
+      '/imgs/docs/getting-started/first-draft/03-获得单篇拆解报告.webp',
+    featureCards: true,
+    faqAccordion: true,
+    semanticHeadingHierarchy: true,
+    primaryKeyword: /Xiaohongshu Viral Post Analysis/i,
+    reportHeadingCount: 4,
+  },
+  {
+    path: '/douyin/account-analysis',
+    title: /抖音账号分析工具|MediaClaw/i,
+    text: /抖音账号分析：找到对标账号，\s*拆清爆款视频规律/i,
+    heroImage: true,
+    featureCards: true,
+    faqAccordion: true,
+    semanticHeadingHierarchy: true,
+    primaryKeyword: /抖音账号分析/i,
+  },
+  {
+    path: '/en/douyin/account-analysis',
+    title: /Douyin Account Analyzer|MediaClaw/i,
+    text: /Douyin Account Analyzer: Find Benchmark Creators and Decode Viral Video Patterns/i,
+    heroImage: true,
+    featureCards: true,
+    faqAccordion: true,
+    semanticHeadingHierarchy: true,
+    primaryKeyword: /Douyin Account Analyzer/i,
+  },
+  {
+    path: '/douyin/viral-content-analysis',
+    title: /抖音爆款分析|MediaClaw/i,
+    text: /抖音爆款分析：找到低粉爆款，拆清视频\s*为什么有效/i,
+    heroImage: true,
+    heroImageSrc:
+      '/imgs/docs/viral-research/single-post-breakdown/03-拆解报告概览.webp',
+    featureCards: true,
+    faqAccordion: true,
+    semanticHeadingHierarchy: true,
+    primaryKeyword: /抖音爆款分析/i,
+    reportHeadingCount: 4,
+  },
+  {
+    path: '/en/douyin/viral-content-analysis',
+    title: /Douyin Viral Video Analysis|MediaClaw/i,
+    text: /Douyin Viral Video Analysis: Find Low-Follower Hits and See Why They Work/i,
+    heroImage: true,
+    heroImageSrc:
+      '/imgs/docs/viral-research/single-post-breakdown/03-拆解报告概览.webp',
+    featureCards: true,
+    faqAccordion: true,
+    semanticHeadingHierarchy: true,
+    primaryKeyword: /Douyin Viral Video Analysis/i,
+    reportHeadingCount: 4,
   },
 ];
 
@@ -116,6 +202,26 @@ for (const item of pages) {
             .evaluate((element) => getComputedStyle(element).minHeight)
         )
         .toBe('0px');
+    }
+    if ('heroImage' in item) {
+      await expect(page.locator('#hero img')).toBeVisible();
+      await expect(page.locator('#hero img')).toHaveAttribute(
+        'src',
+        'heroImageSrc' in item
+          ? item.heroImageSrc
+          : '/imgs/features/content-analysis-workflow-v20260719.png'
+      );
+    }
+    if ('semanticHeadingHierarchy' in item) {
+      await expect(page.locator('h1')).toHaveCount(1);
+      await expect(page.locator('h1')).toContainText(item.primaryKeyword);
+      await expect(page.locator('#value')).toHaveCount(0);
+      await expect(page.locator('#core h2')).toHaveCount(1);
+      await expect(page.locator('#core h3')).toHaveCount(4);
+      await expect(page.locator('#report h2')).toHaveCount(1);
+      await expect(page.locator('#report h3')).toHaveCount(
+        'reportHeadingCount' in item ? item.reportHeadingCount : 5
+      );
     }
     if ('testimonials' in item) {
       await expect(
@@ -288,47 +394,6 @@ for (const item of pages) {
         await expect(header).toContainText(label);
       }
     }
-    if ('showcases' in item) {
-      await expect(
-        page.locator('#showcases [data-showcase-groups]')
-      ).toBeVisible();
-      await expect(page.locator('#showcases [data-showcase-card]')).toHaveCount(
-        9
-      );
-      await expect(
-        page.locator('#showcases [data-showcase-image]')
-      ).toHaveCount(9);
-      await expect
-        .poll(() =>
-          page
-            .locator('#showcases [data-showcase-image]')
-            .first()
-            .evaluate((element) => {
-              const rect = element.getBoundingClientRect();
-              return Math.round((rect.width / rect.height) * 100);
-            })
-        )
-        .toBe(160);
-
-      const aiImageButton = page.locator(
-        '#showcases [data-showcase-group-button="ai-image"]'
-      );
-      await expect
-        .poll(async () => {
-          const active = await aiImageButton.getAttribute('aria-pressed');
-          if (active === 'true') return active;
-          await aiImageButton.click();
-          await page.waitForTimeout(100);
-          return aiImageButton.getAttribute('aria-pressed');
-        })
-        .toBe('true');
-      await expect(page.locator('#showcases [data-showcase-card]')).toHaveCount(
-        3
-      );
-      await expect(page.locator('#showcases')).toContainText(
-        /HeyBeauty|AI Wallpaper/
-      );
-    }
     if ('blogList' in item) {
       await expect(page.locator('#blog [data-blog-grid]')).toBeVisible();
       await expect(
@@ -351,6 +416,14 @@ for (const item of pages) {
             })
         )
         .toBe(178);
+      await expect
+        .poll(() =>
+          page
+            .locator('#blog [data-blog-card-image]')
+            .first()
+            .evaluate((element) => getComputedStyle(element).objectFit)
+        )
+        .toBe('cover');
       await expect
         .poll(() =>
           page

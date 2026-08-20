@@ -25,6 +25,19 @@ const ALLOWED_CLIENT_EVENTS = new Set([
   'trial_cta_clicked',
   'pricing_cta_clicked',
   'feature_used',
+  'nav_open',
+  'nav_platform_select',
+  'nav_feature_click',
+  'nav_more_expand',
+  'contextual_link_click',
+  'hub_primary_cta_click',
+  'hub_secondary_cta_click',
+  'hub_cross_platform_click',
+  'hub_scene_click',
+  'hub_feature_impression',
+  'hub_feature_click',
+  'hub_workflow_tab',
+  'hub_integration_click',
 ]);
 
 function allowedOrigin(request: Request) {

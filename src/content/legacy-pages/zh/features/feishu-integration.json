@@ -1,7 +1,7 @@
 {
   "metadata": {
     "title": "飞书多维表格集成 - 社媒数据自动同步 | MediaClaw",
-    "description": "将小红书与抖音采集数据、评论客资和竞品监控报告自动同步到飞书多维表格，团队实时共享。无需代码，安装插件即可使用。",
+    "description": "将小红书与抖音采集数据、评论客资和对标账号监控报告自动同步到飞书多维表格，团队实时共享。无需代码，安装插件即可使用。",
     "keywords": "飞书多维表格, 数据同步, Lark Base, 自动化运营, 飞书机器人, 效率办公"
   },
   "page": {
@@ -90,7 +90,7 @@
             "icon": "BellRing",
             "image": {
               "src": "/imgs/features/10-v20260425.webp",
-              "alt": "MediaClaw 将竞品监控日报推送到飞书并同步命中明细"
+              "alt": "MediaClaw 将对标账号监控日报推送到飞书并同步命中明细"
             },
             "button": {
               "title": "免费下载使用",
@@ -181,7 +181,7 @@
             "icon": "Database"
           },
           {
-            "title": "小红书客资采集",
+            "title": "小红书评论区截流",
             "description": "筛选高意向评论线索并推送到飞书。",
             "url": "/xiaohongshu/leads",
             "icon": "UserCheck"
@@ -193,7 +193,7 @@
             "icon": "Search"
           },
           {
-            "title": "小红书竞品监控",
+            "title": "小红书对标账号监控",
             "description": "自动追踪账号动态并每日推送飞书报告。",
             "url": "/xiaohongshu/monitoring",
             "icon": "Radar"
@@ -211,7 +211,7 @@
             "icon": "Clapperboard"
           },
           {
-            "title": "抖音客资采集",
+            "title": "抖音评论区截流",
             "description": "筛选高意向评论，支持销售跟进。",
             "url": "/douyin/leads",
             "icon": "UserCheck"
@@ -223,7 +223,7 @@
             "icon": "Search"
           },
           {
-            "title": "抖音竞品监控",
+            "title": "抖音对标账号监控",
             "description": "订阅竞品账号更新并在飞书接收提醒。",
             "url": "/douyin/monitoring",
             "icon": "Radar"

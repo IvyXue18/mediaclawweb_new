@@ -32,6 +32,7 @@ function withReleaseLogItems(data: LegacyPageData, locale: string) {
     ...data,
     page: {
       ...data.page,
+      title: data.page?.title || updates.title,
       show_sections: data.page?.show_sections || ['updates'],
       sections: {
         ...sections,

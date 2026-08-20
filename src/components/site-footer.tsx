@@ -7,6 +7,8 @@ import { LocaleSelector } from '@/components/locale-selector';
 
 export interface FooterColumn {
   title: string;
+  /** Makes the column heading itself the primary link, e.g. a platform Hub. */
+  titleHref?: string;
   /** external: open in a new tab. Off-site (http) hrefs always open in a new tab. */
   links?: { label: string; href: string; external?: boolean }[];
   groups?: {
@@ -56,7 +58,9 @@ export function SiteFooter({
                   ? 'grid-cols-2 sm:grid-cols-3'
                   : columns.length === 4
                     ? 'grid-cols-2 sm:grid-cols-4'
-                    : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'
+                    : columns.length === 6
+                      ? 'grid-cols-2 lg:grid-cols-6'
+                      : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'
             )}
           >
             {columns.map((col) => (
@@ -66,9 +70,18 @@ export function SiteFooter({
                   col.groups && 'col-span-2 sm:col-span-3 lg:col-span-3'
                 )}
               >
-                <p className="text-[13px] font-semibold tracking-wide text-neutral-100">
-                  {col.title}
-                </p>
+                {col.titleHref ? (
+                  <Link
+                    href={col.titleHref}
+                    className="inline-block text-[13px] font-semibold tracking-wide text-neutral-100 transition-colors hover:text-neutral-300"
+                  >
+                    {col.title}
+                  </Link>
+                ) : (
+                  <p className="text-[13px] font-semibold tracking-wide text-neutral-100">
+                    {col.title}
+                  </p>
+                )}
 
                 {col.groups ? (
                   <div className="mt-5 grid gap-8 sm:grid-cols-3 sm:gap-6">
@@ -119,9 +132,14 @@ export function SiteFooter({
 
         {/* Bottom bar */}
         <div className="mt-6 flex flex-col gap-3 border-t border-neutral-800 pt-5 sm:flex-row sm:items-center sm:justify-between">
-          <span className="text-sm text-neutral-400">
+          {/* The single brand-area home link (internal-link plan §4.2) — no extra
+              "back to home" rows elsewhere in the footer. */}
+          <Link
+            href="/"
+            className="text-sm text-neutral-400 transition-colors hover:text-neutral-100"
+          >
             {envConfigs.app_name}
-          </span>
+          </Link>
           <span className="text-sm text-neutral-400">
             {copyright ||
               `© ${year} ${envConfigs.app_name}. All rights reserved.`}

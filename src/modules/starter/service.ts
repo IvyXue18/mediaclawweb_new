@@ -245,6 +245,7 @@ export async function getActiveStarterDeductionOrder(userId: string) {
       productId: order.productId,
       status: order.status,
       checkoutUrl: order.checkoutUrl,
+      discountAmount: order.discountAmount,
       createdAt: order.createdAt,
     })
     .from(order)

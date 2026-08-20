@@ -29,7 +29,8 @@
             "url": "/"
           },
           {
-            "title": "小红书"
+            "title": "小红书",
+            "url": "/xiaohongshu"
           },
           {
             "title": "账号分析"
@@ -40,15 +41,9 @@
         "description": "从赛道爆款反推小红书对标账号，采集至少 50 条公开作品并自动分层取样。MediaClaw 会继续补全逐字稿、聚类选题，拆解账号定位、标题、语言与视觉系统，最后给出带来源证据的可写选题。",
         "buttons": [
           {
-            "title": "免费安装插件",
+            "title": "我要使用",
             "url": "/download",
             "icon": "Download"
-          },
-          {
-            "title": "查看账号拆解教程",
-            "url": "/docs/benchmark/account-research",
-            "icon": "BookOpen",
-            "variant": "outline"
           }
         ],
         "image": {
@@ -74,10 +69,6 @@
               "alt": "MediaClaw 根据小红书搜索结果整理候选对标账号、代表作品和推荐理由",
               "width": 1600,
               "height": 1840
-            },
-            "button": {
-              "title": "查看找对标账号教程",
-              "url": "/docs/benchmark/find-accounts"
             }
           },
           {
@@ -89,10 +80,6 @@
               "alt": "小红书博主页采集完成后，从博主信息卡启动账号拆解",
               "width": 990,
               "height": 1004
-            },
-            "button": {
-              "title": "查看主页采集教程",
-              "url": "/docs/collect/account-posts"
             }
           },
           {
@@ -115,10 +102,6 @@
               "alt": "MediaClaw 小红书账号拆解进度面板，展示逐字稿、互动比较、聚类和选题生成步骤",
               "width": 958,
               "height": 1178
-            },
-            "button": {
-              "title": "查看完整账号拆解教程",
-              "url": "/docs/benchmark/account-research"
             }
           }
         ]
@@ -239,8 +222,8 @@
         "id": "compare",
         "block": "data-table",
         "subtitle": "不要混为一个功能",
-        "title": "小红书账号分析、主页采集和竞品监控有什么区别？",
-        "description": "账号分析位于工作流中间：上游需要小红书对标账号和内容样本，下游才能形成选题并通过竞品监控持续验证。",
+        "title": "小红书账号分析、主页采集和对标账号监控有什么区别？",
+        "description": "账号分析位于工作流中间：上游需要小红书对标账号和内容样本，下游才能形成选题并通过对标账号监控持续验证。",
         "columns": [
           {
             "key": "step",
@@ -374,6 +357,12 @@
         "description": "从发现、取样、验证到持续跟踪，使用最匹配的工具进入下一步。",
         "links": [
           {
+            "title": "小红书爆款分析",
+            "description": "筛出低粉高互动笔记，再拆解单篇标题、结构、视觉和公开反馈。",
+            "url": "/xiaohongshu/viral-content-analysis",
+            "icon": "TrendingUp"
+          },
+          {
             "title": "小红书关键词洞察",
             "description": "从赛道词和用户搜索需求找到候选账号与内容方向。",
             "url": "/xiaohongshu/keywords",
@@ -392,7 +381,7 @@
             "icon": "MessageCircle"
           },
           {
-            "title": "小红书竞品监控",
+            "title": "小红书对标账号监控",
             "description": "持续追踪重点账号更新与互动变化，验证分析结论。",
             "url": "/xiaohongshu/monitoring",
             "icon": "Radar"

@@ -1,0 +1,351 @@
+{
+  "metadata": {
+    "title": "Xiaohongshu Viral Post Analysis | MediaClaw",
+    "description": "Find low-follower Xiaohongshu and RedNote hits, then analyze titles, covers, image text, structure, comments, and reusable content methods with MediaClaw.",
+    "keywords": "Xiaohongshu viral post analysis, RedNote viral post analysis, low-follower viral posts, Xiaohongshu content analysis, Xiaohongshu viral content analysis, RedNote post breakdown"
+  },
+  "page": {
+    "title": "Xiaohongshu Viral Post Analysis",
+    "show_sections": [
+      "hero",
+      "core",
+      "report",
+      "fields",
+      "compare",
+      "scenarios",
+      "boundaries",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "hero",
+        "label": "Xiaohongshu Viral Post Analysis",
+        "breadcrumbs": [
+          { "title": "Home", "url": "/" },
+          { "title": "Xiaohongshu", "url": "/xiaohongshu" },
+          { "title": "Viral Post Analysis" }
+        ],
+        "title": "Xiaohongshu Viral Post Analysis: Find Low-Follower Hits and See Why They Work",
+        "highlight_text": "Why They Work",
+        "description": "Start with low-follower posts that earned unusually strong public engagement. Then bring the title, body, cover, image text, and comments into one evidence-backed report. MediaClaw helps you separate reusable content methods from conditions you cannot copy.",
+        "buttons": [
+          {
+            "title": "Get Started",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "image": {
+          "src": "/imgs/docs/getting-started/first-draft/03-获得单篇拆解报告.webp",
+          "alt": "MediaClaw Xiaohongshu post analysis report showing the source post, core takeaway, title, and cover analysis",
+          "width": 1600,
+          "height": 1163
+        }
+      },
+      "core": {
+        "id": "core",
+        "block": "features-scroll",
+        "subtitle": "Complete workflow",
+        "title": "How to analyze viral Xiaohongshu posts from discovery to new topic ideas",
+        "description": "Viral post analysis is more than sorting by likes. Narrow the sample, preserve the original content, build a reviewable report, and decide which methods deserve a place in your own workflow.",
+        "items": [
+          {
+            "title": "1. Search your niche for recent high-engagement posts",
+            "description": "Search Xiaohongshu for a niche, product, or concrete problem. Use recency plus likes, saves, or comments to narrow the results, then set an engagement threshold before collecting candidates.",
+            "icon": "Search",
+            "image": {
+              "src": "/imgs/docs/viral-research/recent-hits/02-小红书搜索筛选-xiaohongshu.webp",
+              "alt": "Xiaohongshu search results filtered by recency and engagement before MediaClaw collects candidate posts",
+              "width": 1600,
+              "height": 796
+            }
+          },
+          {
+            "title": "2. Use low-follower filters to reduce creator-size bias",
+            "description": "Set a follower ceiling to find smaller creators whose individual posts performed unusually well. Tune the threshold to your niche: these results are research candidates, not proof that a format will repeat.",
+            "icon": "Filter",
+            "image": {
+              "src": "/imgs/docs/viral-research/low-follower-viral/02-小红书筛选低粉爆款-xiaohongshu.webp",
+              "alt": "MediaClaw follower ceiling used to find low-follower, high-engagement Xiaohongshu posts",
+              "width": 1600,
+              "height": 860
+            }
+          },
+          {
+            "title": "3. Start a single-post breakdown from your research library",
+            "description": "Choose a post worth studying. Image posts can combine captions, covers, and text extracted from images; video posts can add a transcript; public comments can be included when you need audience evidence.",
+            "icon": "FileSearch",
+            "image": {
+              "src": "/imgs/docs/getting-started/first-draft/02b-研究内容为什么有效.webp",
+              "alt": "MediaClaw AI workspace with Xiaohongshu posts ready for single-post analysis",
+              "width": 1189,
+              "height": 866
+            }
+          },
+          {
+            "title": "4. Review the evidence and choose the next step",
+            "description": "The report connects the core takeaway, title and cover, content structure, visual evidence, public feedback, and follow-up topic ideas. Reopen the source to verify the context, then save an idea or begin drafting.",
+            "icon": "Brain",
+            "image": {
+              "src": "/imgs/docs/getting-started/first-draft/03-获得单篇拆解报告.webp",
+              "alt": "MediaClaw Xiaohongshu post breakdown with source evidence and analysis conclusions",
+              "width": 1600,
+              "height": 1163
+            }
+          }
+        ]
+      },
+      "report": {
+        "id": "report",
+        "block": "features-scroll",
+        "subtitle": "Single-post report",
+        "title": "What should a Xiaohongshu viral post analysis examine?",
+        "description": "A useful report must point back to the original post and public engagement evidence. Generic conclusions such as “strong emotion” or “an attractive title” are not enough.",
+        "className": "bg-background",
+        "items": [
+          {
+            "title": "Title, cover, and first screen",
+            "description": "Identify the audience, situation, benefit, tension, or curiosity in the title; see how the cover adds information; then check whether the opening fulfills the promise that earned the click.",
+            "icon": "Image",
+            "image": {
+              "src": "/imgs/docs/getting-started/first-draft/03-获得单篇拆解报告.webp",
+              "alt": "Title, cover, and opening analysis in a Xiaohongshu post breakdown",
+              "width": 1600,
+              "height": 1163
+            }
+          },
+          {
+            "title": "Body or transcript structure and information flow",
+            "description": "For image posts, follow body sections and text embedded in images; for video posts, follow the timed voiceover structure. Expand the full source text to check whether each conclusion is supported by the original content.",
+            "icon": "Layers",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/05-口播拆解完整逐字稿.webp",
+              "alt": "Expanded source transcript in a MediaClaw Xiaohongshu breakdown for checking structure against the original voiceover",
+              "width": 1600,
+              "height": 1182
+            }
+          },
+          {
+            "title": "Public feedback and unanswered questions",
+            "description": "Separate resonance, questions, objections, additions, and action intent, then expand the original comments included in the analysis to verify what readers actually responded to and which needs remain open.",
+            "icon": "MessageSquareText",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/06-评论区原始评论.webp",
+              "alt": "Expanded source comments in a MediaClaw Xiaohongshu breakdown for checking comment signals against public evidence",
+              "width": 1600,
+              "height": 1099
+            }
+          },
+          {
+            "title": "New topics based on the underlying method",
+            "description": "Develop ideas by going deeper, changing the situation, or transferring the expression method. State what is retained and what changes so the result is not a close rewrite of the source.",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/docs/getting-started/first-draft/05-单篇拆解扩展选题.webp",
+              "alt": "MediaClaw expands a Xiaohongshu post analysis into distinct follow-up topic ideas",
+              "width": 1600,
+              "height": 1262
+            }
+          }
+        ]
+      },
+      "fields": {
+        "id": "fields",
+        "block": "data-table",
+        "title": "What evidence supports each Xiaohongshu post insight?",
+        "description": "Public engagement shows that a post received a response; it does not establish why. Each conclusion should retain its source fields and limits.",
+        "columns": [
+          { "key": "dimension", "title": "Dimension" },
+          { "key": "evidence", "title": "Primary evidence" },
+          { "key": "output", "title": "Defensible conclusion" }
+        ],
+        "rows": [
+          {
+            "dimension": "Sample value",
+            "evidence": "Publish date, follower count, likes, saves, and comments",
+            "output": "Whether the post deserves deeper analysis, not whether it is automatically reproducible"
+          },
+          {
+            "dimension": "Click motivation",
+            "evidence": "Title, cover, first image, and opening paragraph",
+            "output": "Audience, situation, benefit, and information gap"
+          },
+          {
+            "dimension": "Content structure",
+            "evidence": "Body sections, image text, examples, and turns",
+            "output": "Information order, reasoning method, and reading pace"
+          },
+          {
+            "dimension": "Audience feedback",
+            "evidence": "Resonance, questions, objections, and additions in public comments",
+            "output": "Validated needs and unanswered questions"
+          },
+          {
+            "dimension": "Transferable method",
+            "evidence": "Source method, creator conditions, and expanded topics",
+            "output": "What to borrow, replace, or treat as non-transferable"
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "subtitle": "Three distinct research jobs",
+        "title": "Low-follower discovery, single-post analysis, and account analysis",
+        "description": "Viral content analysis connects finding candidates with studying one post. Account analysis asks which patterns remain stable across a creator's body of work.",
+        "columns": [
+          { "key": "step", "title": "Module" },
+          { "key": "question", "title": "Question answered" },
+          { "key": "result", "title": "Primary output" },
+          { "key": "next", "title": "Next step" }
+        ],
+        "rows": [
+          {
+            "step": "Recent / low-follower discovery",
+            "question": "Which posts deserve further research?",
+            "result": "Candidate posts and public engagement metrics",
+            "next": "Open the source and verify it manually"
+          },
+          {
+            "step": "Single-post breakdown",
+            "question": "What method does this post actually use?",
+            "result": "Title, structure, visuals, comments, and new topics",
+            "next": "Save an idea or begin drafting"
+          },
+          {
+            "step": "Account analysis",
+            "question": "Which methods work consistently for this creator?",
+            "result": "Positioning, topic map, visual system, and language system",
+            "next": "Build a reference and monitor it over time"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "features",
+        "title": "When is Xiaohongshu viral post analysis useful?",
+        "items": [
+          {
+            "title": "Find attainable examples for a new account",
+            "description": "Study posts from creators near your scale that clearly outperformed, reducing the execution gap created by copying only top accounts.",
+            "icon": "TrendingUp"
+          },
+          {
+            "title": "Review content methods as a team",
+            "description": "Discuss the source post, analysis, and comment evidence together instead of relying on screenshots, memory, or a vague claim that something went viral.",
+            "icon": "FolderKanban"
+          },
+          {
+            "title": "Expand one post into a topic series",
+            "description": "Keep a proven expression method while changing the audience, problem, situation, and evidence to create genuinely new directions.",
+            "icon": "Route"
+          }
+        ]
+      },
+      "boundaries": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "Analysis limits",
+        "title": "What Xiaohongshu viral post analysis cannot prove",
+        "description": "Public data and structured analysis improve judgment, but they cannot prove platform-algorithm causality or guarantee the same outcome when a method is reused.",
+        "items": [
+          {
+            "title": "High engagement is not the same as reproducibility",
+            "description": "Account authority, paid promotion, trends, creator experience, and timing can all affect results. Separate content methods from external conditions.",
+            "icon": "TriangleAlert"
+          },
+          {
+            "title": "Conclusions must remain traceable",
+            "description": "Claims about titles, structure, visuals, and comments should point back to the source post and public evidence. Label inferences that cannot be verified.",
+            "icon": "FileSearch"
+          },
+          {
+            "title": "Research public content only",
+            "description": "MediaClaw does not provide platform-internal data, private-account information, or undisclosed audience profiles. Follow platform rules and applicable law.",
+            "icon": "ShieldCheck"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Xiaohongshu viral post analysis FAQ",
+        "items": [
+          {
+            "question": "Is Xiaohongshu viral post analysis based only on likes?",
+            "answer": "No. Likes are one public signal. Review publish date, saves, comments, creator size, topic, and source structure as well. Filters narrow the sample but do not replace manual verification."
+          },
+          {
+            "question": "What is a low-follower viral post on Xiaohongshu?",
+            "answer": "It generally means a post from a smaller creator that earned unusually strong public engagement relative to the account or comparable posts. Thresholds differ by niche, so MediaClaw lets you set your own follower ceiling and engagement floor."
+          },
+          {
+            "question": "Can MediaClaw analyze text inside Xiaohongshu images?",
+            "answer": "Yes. After extracting text from the cover and images of a collected post, that text can be reviewed, exported, and used as evidence in the later breakdown."
+          },
+          {
+            "question": "Can video posts be analyzed too?",
+            "answer": "Yes. Add a transcript first, then examine the title, opening, content structure, pacing, visuals, and public feedback in a single-post report."
+          },
+          {
+            "question": "Does a breakdown generate a close rewrite of the original post?",
+            "answer": "The analysis first produces methods, evidence, and distinct follow-up topics. After choosing a direction, add your own examples, perspective, and constraints rather than copying the source."
+          },
+          {
+            "question": "Why should I still reopen the original post?",
+            "answer": "A report organizes evidence but cannot replace the source context, creator conditions, trend background, or comment atmosphere. Source links keep important conclusions reviewable."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "What to do after analyzing a Xiaohongshu viral post",
+        "description": "Complete the source material, validate audience needs, or move back to the account level to see whether a pattern is consistent.",
+        "links": [
+          {
+            "title": "Xiaohongshu Account Analysis",
+            "description": "Move from one strong post to the full account and identify patterns that persist.",
+            "url": "/xiaohongshu/account-analysis",
+            "icon": "UserSearch"
+          },
+          {
+            "title": "Xiaohongshu Scraper",
+            "description": "Collect public posts, search results, and creator-page samples for research.",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "Xiaohongshu Image Text Extractor",
+            "description": "Extract text from covers and post images to complete the evidence.",
+            "url": "/xiaohongshu/image-text",
+            "icon": "ScanText"
+          },
+          {
+            "title": "Xiaohongshu Comment Export",
+            "description": "Use public comments to validate resonance, questions, and unmet needs.",
+            "url": "/xiaohongshu/comments",
+            "icon": "MessageCircle"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "block": "cta",
+        "title": "Run your first Xiaohongshu viral post analysis",
+        "description": "Install MediaClaw, use one niche query to find a post worth studying, and build a single-post report from real content and engagement evidence.",
+        "buttons": [
+          {
+            "title": "Install for free",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

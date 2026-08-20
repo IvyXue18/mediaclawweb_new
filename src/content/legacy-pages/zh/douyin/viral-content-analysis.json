@@ -1,0 +1,380 @@
+{
+  "metadata": {
+    "title": "抖音爆款分析｜找低粉爆款，拆解爆款视频 | MediaClaw",
+    "description": "筛选抖音低粉高赞视频，补全逐字稿与评论，拆解标题封面、开场钩子和口播结构，并扩展可拍选题。",
+    "keywords": "抖音爆款分析, 抖音爆款分析工具, 抖音低粉爆款, 抖音爆款视频分析, 抖音爆款拆解, 短视频爆款分析"
+  },
+  "page": {
+    "title": "抖音爆款分析",
+    "show_sections": [
+      "hero",
+      "core",
+      "report",
+      "fields",
+      "compare",
+      "scenarios",
+      "boundaries",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "hero",
+        "label": "抖音爆款分析工具",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "抖音",
+            "url": "/douyin"
+          },
+          {
+            "title": "爆款分析"
+          }
+        ],
+        "title": "抖音爆款分析：找到低粉爆款，拆清视频为什么有效",
+        "highlight_text": "为什么有效",
+        "description": "先在抖音搜索结果中筛出低粉高赞视频，再把标题与封面、完整逐字稿、脚本段落和评论反馈放进同一份单篇拆解报告。MediaClaw 保留原视频与互动证据，帮助你判断哪些方法值得迁移。",
+        "buttons": [
+          {
+            "title": "我要使用",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "image": {
+          "src": "/imgs/docs/viral-research/single-post-breakdown/03-拆解报告概览.webp",
+          "alt": "MediaClaw 抖音单篇拆解报告概览，展示原视频、核心结论、可写选题数和封面标题模块",
+          "width": 1600,
+          "height": 1172
+        }
+      },
+      "core": {
+        "id": "core",
+        "block": "features-scroll",
+        "subtitle": "完整工作流",
+        "title": "抖音爆款分析怎么做？从发现视频到形成可拍选题",
+        "description": "短视频爆款分析不能停在播放和点赞。先缩小样本，再补齐逐字稿、结构和评论证据，最后决定哪些钩子与表达方式适合自己的内容。",
+        "items": [
+          {
+            "title": "1. 按关键词寻找近期高赞视频",
+            "description": "在抖音搜索行业词、产品词或具体问题，结合发布时间和最多点赞缩小范围，再设置最低点赞门槛采集候选视频。",
+            "icon": "Search",
+            "image": {
+              "src": "/imgs/docs/viral-research/recent-hits/02-抖音搜索筛选-douyin.webp",
+              "alt": "抖音搜索结果按半年内和最多点赞筛选，MediaClaw 设置采集门槛寻找近期爆款",
+              "width": 1600,
+              "height": 748
+            }
+          },
+          {
+            "title": "2. 用低粉高赞寻找小体量样本",
+            "description": "开启低粉爆款筛选并设置粉丝数上限，找出账号体量较小、单条点赞却明显突出的作品。抖音搜索页只能按点赞排序，结果仍需结合发布时间和原视频人工复核。",
+            "icon": "Filter",
+            "image": {
+              "src": "/imgs/docs/viral-research/low-follower-viral/02-抖音筛选低粉爆款-douyin.webp",
+              "alt": "MediaClaw 在抖音搜索页设置粉丝上限，筛选低粉高赞爆款视频",
+              "width": 1600,
+              "height": 861
+            }
+          },
+          {
+            "title": "3. 补全逐字稿并发起单篇拆解",
+            "description": "从数据池选中值得研究的视频发起拆解。系统补全口播逐字稿，把内容按时间和段落组织，并在需要时结合公开评论理解观众反馈。",
+            "icon": "AudioLines",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/02-确认素材与重点关注.webp",
+              "alt": "MediaClaw 单篇拆解弹窗，确认抖音视频逐字稿、评论区信号和重点关注方向",
+              "width": 810,
+              "height": 1480
+            }
+          },
+          {
+            "title": "4. 查看口播结构并选择下一步",
+            "description": "报告标出前三秒钩子、脚本段落、信息推进、转折、论证和互动设计。你可以打开原视频复核，再收藏系列选题或进入视频稿创作。",
+            "icon": "Brain",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/05-口播拆解时间轴.webp",
+              "alt": "MediaClaw 抖音视频口播拆解，展示开场钩子、实际做法、留人理由和带时间点的口播结构",
+              "width": 1600,
+              "height": 1256
+            }
+          }
+        ]
+      },
+      "report": {
+        "id": "report",
+        "block": "features-scroll",
+        "subtitle": "单条视频拆解报告",
+        "title": "抖音爆款视频分析重点看什么？",
+        "description": "一份可用的短视频爆款分析必须回到原视频、标题封面、完整逐字稿和公开评论，不能只总结视频主题。",
+        "className": "bg-background",
+        "items": [
+          {
+            "title": "标题、封面与点击预期",
+            "description": "对照原始封面和标题，判断第一眼看见什么、标题承诺了什么，以及目标人群为什么可能愿意点开。",
+            "icon": "Image",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/04-封面与标题分析.webp",
+              "alt": "抖音单篇拆解报告中的封面视觉焦点、标题承诺、目标人群和点击理由",
+              "width": 1600,
+              "height": 1221
+            }
+          },
+          {
+            "title": "口播结构与信息推进",
+            "description": "沿时间轴拆开开场、方法、案例、转折和收束，逐段核对原话、实际做法、留人理由与尚未回答的问题。",
+            "icon": "AudioLines",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/05-口播拆解完整逐字稿.webp",
+              "alt": "MediaClaw 抖音单篇拆解报告展开完整逐字稿，用于核对口播结构与原始内容证据",
+              "width": 1600,
+              "height": 1182
+            }
+          },
+          {
+            "title": "评论区信号与未满足需求",
+            "description": "把公开评论按认同、追问、争议和未满足需求归类，判断内容验证了什么、说服力在哪里不足，以及还留下哪些选题缺口。",
+            "icon": "MessageSquareText",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/06-评论区原始评论.webp",
+              "alt": "MediaClaw 抖音单篇拆解报告展开原始评论，用于核对评论信号与公开互动证据",
+              "width": 1600,
+              "height": 1099
+            }
+          },
+          {
+            "title": "从一个视频扩展系列化选题",
+            "description": "围绕把原题讲深、替换使用场景、迁移钩子与展开方式扩展选题，并保留来源区别。选择方向后可进入视频稿创作，而不是复制原逐字稿。",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/docs/viral-research/single-post-breakdown/07-延伸出的批量选题.webp",
+              "alt": "MediaClaw 根据抖音单篇视频拆解，按讲深原题、替换场景和迁移方向扩展系列选题",
+              "width": 1600,
+              "height": 1252
+            }
+          }
+        ]
+      },
+      "fields": {
+        "id": "fields",
+        "block": "data-table",
+        "title": "抖音爆款拆解：从哪些证据得到什么结论？",
+        "description": "高点赞只能说明作品获得了公开互动，不能单独证明前三秒、脚本或某个镜头导致了结果。结论需要保留时间点和来源证据。",
+        "columns": [
+          {
+            "key": "dimension",
+            "title": "分析维度"
+          },
+          {
+            "key": "evidence",
+            "title": "主要证据"
+          },
+          {
+            "key": "output",
+            "title": "可形成的结论"
+          }
+        ],
+        "rows": [
+          {
+            "dimension": "样本价值",
+            "evidence": "发布时间、粉丝量、点赞与公开评论",
+            "output": "是否值得进入深度拆解，而非直接判断可复制"
+          },
+          {
+            "dimension": "点击预期",
+            "evidence": "标题、封面、目标人群与内容承诺",
+            "output": "视觉焦点、信息缺口和用户点开的理由"
+          },
+          {
+            "dimension": "脚本结构",
+            "evidence": "带时间点逐字稿、段落、案例与转折",
+            "output": "信息推进、论证方式和内容节奏"
+          },
+          {
+            "dimension": "评论信号",
+            "evidence": "公开评论中的认同、追问、争议与未满足需求",
+            "output": "被验证的价值、说服力缺口和后续问题"
+          },
+          {
+            "dimension": "方法迁移",
+            "evidence": "原作有效做法、作者条件与扩展选题",
+            "output": "可借鉴、必须替换和无法复现的部分"
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "subtitle": "三个不同任务",
+        "title": "低粉爆款发现、单条视频拆解和账号分析有什么区别？",
+        "description": "爆款分析页连接“找视频”和“研究一条内容”；账号分析解决的是长期选题和视频形式，不能用一条爆款替代。",
+        "columns": [
+          {
+            "key": "step",
+            "title": "模块"
+          },
+          {
+            "key": "question",
+            "title": "解决的问题"
+          },
+          {
+            "key": "result",
+            "title": "主要产出"
+          },
+          {
+            "key": "next",
+            "title": "下一步"
+          }
+        ],
+        "rows": [
+          {
+            "step": "近期/低粉爆款发现",
+            "question": "哪些视频值得继续研究？",
+            "result": "候选样本与公开互动指标",
+            "next": "打开原视频人工复核"
+          },
+          {
+            "step": "单条爆款拆解",
+            "question": "这条视频具体用了什么方法？",
+            "result": "标题封面、逐字稿、脚本、评论与选题",
+            "next": "收藏选题或进入创作"
+          },
+          {
+            "step": "账号分析",
+            "question": "这个账号哪些视频方法长期有效？",
+            "result": "定位、选题、视频形式、语言与视觉系统",
+            "next": "建立风格参考并持续监控"
+          }
+        ]
+      },
+      "scenarios": {
+        "id": "scenarios",
+        "block": "features",
+        "title": "哪些场景适合做抖音爆款分析？",
+        "items": [
+          {
+            "title": "新号寻找可拍样本",
+            "description": "优先研究账号体量接近但单条明显跑出的视频，减少照搬头部制作规格造成的执行落差。",
+            "icon": "TrendingUp"
+          },
+          {
+            "title": "复盘口播与脚本",
+            "description": "把完整逐字稿按时间拆开，讨论前三秒、信息推进、案例和收束，而不是只保存一句标题。",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "从一条扩展视频系列",
+            "description": "保留有效的钩子或展开方法，替换人群、问题、场景和自己的证据，形成后续可拍的视频方向。",
+            "icon": "Route"
+          }
+        ]
+      },
+      "boundaries": {
+        "id": "safety",
+        "block": "features",
+        "subtitle": "分析边界",
+        "title": "抖音爆款分析不能替你证明什么？",
+        "description": "公开数据和结构化拆解可以提高判断质量，但不能证明平台算法因果，也不能保证使用同一钩子或脚本就会获得相同结果。",
+        "items": [
+          {
+            "title": "高点赞不等于可复制",
+            "description": "账号权重、投放、热点、作者人设和发布时间都会影响结果，必须区分脚本方法与外部条件。",
+            "icon": "TriangleAlert"
+          },
+          {
+            "title": "报告结论必须可回溯",
+            "description": "标题封面、脚本和评论判断应能回到原视频、时间点与公开证据；无法验证的推断要明确标注。",
+            "icon": "FileSearch"
+          },
+          {
+            "title": "只研究公开可见内容",
+            "description": "不提供平台后台数据、私密账号信息或未公开的人群画像，并应遵守平台规则及适用法律。",
+            "icon": "ShieldCheck"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "抖音爆款分析常见问题",
+        "items": [
+          {
+            "question": "抖音爆款分析只看点赞数吗？",
+            "answer": "不是。抖音搜索页可以按点赞排序，但还要结合发布时间、作者粉丝体量、原视频、完整逐字稿和公开评论判断。点赞门槛只用于缩小样本。"
+          },
+          {
+            "question": "什么是抖音低粉爆款？",
+            "answer": "通常指作者粉丝体量较小，但某条视频点赞明显高于其体量或同类样本。不同赛道差异很大，MediaClaw 允许你设置自己的粉丝上限和点赞门槛。"
+          },
+          {
+            "question": "抖音爆款视频能提取完整逐字稿吗？",
+            "answer": "可以。对符合条件的视频提取口播逐字稿后，结果会回填采集记录，并可参与查看、复制、导出、同步和后续单篇拆解。"
+          },
+          {
+            "question": "视频拆解会分析前三秒吗？",
+            "answer": "会结合开场逐字稿、第一帧、字幕和后续兑现方式分析开头钩子，但结论是基于内容证据的解释，不代表能够证明某个镜头单独导致爆款。"
+          },
+          {
+            "question": "爆款拆解会直接生成同款脚本吗？",
+            "answer": "拆解首先输出方法、证据和扩展选题。你选择方向后才进入视频稿创作，并应加入自己的案例、观点、表达方式和拍摄条件，而不是复制原逐字稿。"
+          },
+          {
+            "question": "为什么还需要打开原视频复核？",
+            "answer": "逐字稿不能完整替代画面、语气、剪辑、热点背景和评论氛围。保留原视频链接是为了让每个关键结论都能回到真实语境中检查。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "完成抖音爆款分析后的下一步",
+        "description": "继续补齐逐字稿、验证评论反馈，或回到账号层面判断这是不是稳定规律。",
+        "links": [
+          {
+            "title": "抖音账号分析",
+            "description": "从一条爆款回到整个账号，判断哪些选题和视频形式长期稳定。",
+            "url": "/douyin/account-analysis",
+            "icon": "UserSearch"
+          },
+          {
+            "title": "抖音视频采集",
+            "description": "采集公开视频、搜索结果和账号主页样本，准备完整研究材料。",
+            "url": "/douyin/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "抖音视频逐字稿",
+            "description": "补全口播内容和时间段，为钩子与脚本拆解提供证据。",
+            "url": "/douyin/transcript",
+            "icon": "AudioLines"
+          },
+          {
+            "title": "抖音评论采集",
+            "description": "从代表视频的公开评论中验证共鸣、疑问和反对意见。",
+            "url": "/douyin/comments",
+            "icon": "MessageCircle"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "block": "cta",
+        "title": "开始第一次抖音爆款分析",
+        "description": "安装 MediaClaw，先从一个关键词筛出值得研究的视频，再用标题封面、逐字稿和评论证据完成单条拆解。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

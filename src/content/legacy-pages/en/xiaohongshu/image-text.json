@@ -14,7 +14,7 @@
         "label": "Xiaohongshu image text OCR tool",
         "breadcrumbs": [
           { "title": "Home", "url": "/" },
-          { "title": "Xiaohongshu" },
+          { "title": "Xiaohongshu", "url": "/xiaohongshu" },
           { "title": "Image Text Extraction" }
         ],
         "title": "Pull the value out of Xiaohongshu image cards, all at once",

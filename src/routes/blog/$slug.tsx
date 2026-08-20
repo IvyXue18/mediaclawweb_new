@@ -17,6 +17,7 @@ import { MarkdownContent } from '@/components/markdown-content';
 import { mdxComponents } from '@/components/mdx-components';
 import {
   formatPostDate,
+  getLocalPostLocales,
   loadLocalPost,
   type BlogPost,
   type BlogPostDetail,
@@ -40,12 +41,16 @@ export const Route = createFileRoute('/blog/$slug')({
     return {
       locale,
       post,
+      availableLocales:
+        post.source === 'local' ? getLocalPostLocales(post.slug) : [baseLocale],
       relatedPosts: getRelatedPosts(posts, post),
     };
   },
   head: ({ loaderData }) => {
     if (!loaderData) return {};
-    const { locale, post } = loaderData;
+    const { locale, post, availableLocales } = loaderData;
+    const isLocaleAvailable = availableLocales.includes(locale);
+    const canonicalLocale = isLocaleAvailable ? locale : baseLocale;
     const urlFor = (loc: string) =>
       localizeUrl(`${envConfigs.app_url}/blog/${post.slug}`, {
         locale: loc as (typeof locales)[number],
@@ -54,10 +59,13 @@ export const Route = createFileRoute('/blog/$slug')({
       meta: [
         { title: `${post.title} | ${envConfigs.app_name}` },
         { name: 'description', content: post.description },
+        ...(!isLocaleAvailable
+          ? [{ name: 'robots', content: 'noindex,follow' }]
+          : []),
       ],
       links: [
-        { rel: 'canonical', href: urlFor(locale) },
-        ...locales.map((loc) => ({
+        { rel: 'canonical', href: urlFor(canonicalLocale) },
+        ...availableLocales.map((loc) => ({
           rel: 'alternate',
           hrefLang: loc,
           href: urlFor(loc),

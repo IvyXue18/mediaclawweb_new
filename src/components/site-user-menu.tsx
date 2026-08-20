@@ -2,10 +2,11 @@
 
 import { LogOutIcon, SettingsIcon, ShieldIcon } from 'lucide-react';
 
-import { signOut } from '@/core/auth/client';
+import { signOut, useSession } from '@/core/auth/client';
 import { Link, useRouter } from '@/core/i18n/navigation';
 import { formatLoginIdentifier } from '@/lib/auth-identifier';
 import { m } from '@/paraglide/messages.js';
+import { useTicketAttention } from '@/hooks/use-ticket-attention';
 import { useUserPermissions } from '@/hooks/use-user-permissions';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -28,8 +29,15 @@ export function SiteUserMenu({
   image?: string | null;
 }) {
   const router = useRouter();
+  const { data: session } = useSession();
   const { data } = useUserPermissions();
   const isAdmin = data?.isAdmin === true;
+  const ticketAttention = useTicketAttention(
+    'admin',
+    isAdmin,
+    session?.user.id
+  );
+  const hasPendingTickets = (ticketAttention.data?.total ?? 0) > 0;
   const identifier = formatLoginIdentifier(email);
 
   async function handleSignOut() {
@@ -39,13 +47,19 @@ export function SiteUserMenu({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="focus-visible:ring-ring rounded-full outline-none focus-visible:ring-2">
+      <DropdownMenuTrigger className="focus-visible:ring-ring relative rounded-full outline-none focus-visible:ring-2">
         <Avatar className="size-9">
           <AvatarImage src={image || undefined} alt={name} />
           <AvatarFallback className="text-xs">
             {name.charAt(0).toUpperCase()}
           </AvatarFallback>
         </Avatar>
+        {hasPendingTickets && (
+          <span
+            className="bg-destructive ring-background absolute top-0 right-0 size-2.5 rounded-full ring-2"
+            aria-label={m['admin.nav.ticket_alert']()}
+          />
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="min-w-56" align="end" sideOffset={8}>
         <DropdownMenuGroup>
@@ -74,7 +88,13 @@ export function SiteUserMenu({
         {isAdmin && (
           <DropdownMenuItem render={<Link href="/admin" />}>
             <ShieldIcon className="size-4" />
-            {m['common.systems.admin']()}
+            <span className="flex-1">{m['common.systems.admin']()}</span>
+            {hasPendingTickets && (
+              <span
+                className="bg-destructive size-2 rounded-full"
+                aria-hidden="true"
+              />
+            )}
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />

@@ -20,6 +20,11 @@ import {
   DEDUCTION_RESERVATION_CONFLICT_CODE,
 } from '@/modules/payment/service';
 import {
+  applyDiscount,
+  getInviteeDiscount,
+  getInviteeDiscountReservationKey,
+} from '@/modules/referral/service';
+import {
   expireStaleStarterDeductionOrders,
   expireStaleStarterOrders,
   getActiveStarterDeductionOrder,
@@ -232,10 +237,32 @@ export async function POST({ request }: { request: Request }) {
       : product.priceInCents;
     let chargeAmount = testAmount > 0 ? testAmount : baseAmount;
 
-    // 9 元卡抵扣：持有效期内付费 trial 且未用过抵扣的用户，首次订阅套餐自动立减。
-    // 与其他优惠取最大力度、不叠加（当前 checkout 无其他用户侧折扣，直接应用）。
+    // 邀请首单优惠与 9 元卡抵扣取最大力度，不叠加。
     let discountCode: string | null = null;
     let discountAmount = 0;
+    let inviteeDiscountRate = 0;
+    if (
+      !partnerRow &&
+      testAmount <= 0 &&
+      product.currency.toUpperCase() === 'CNY'
+    ) {
+      inviteeDiscountRate = await getInviteeDiscount(session.user.id);
+      if (inviteeDiscountRate > 0) {
+        const discountedAmount = applyDiscount(
+          chargeAmount,
+          inviteeDiscountRate
+        );
+        const referralDiscountAmount = Math.max(
+          0,
+          chargeAmount - discountedAmount
+        );
+        if (referralDiscountAmount > 0) {
+          discountCode = `referral_invitee_${inviteeDiscountRate}`;
+          discountAmount = referralDiscountAmount;
+        }
+      }
+    }
+
     if (
       fulfillment === 'credential' &&
       !isStarterProduct &&
@@ -248,9 +275,12 @@ export async function POST({ request }: { request: Request }) {
         session.user.id
       );
       if (activeDeductionOrder) {
+        const referralDiscountIsLarger =
+          discountAmount > Number(activeDeductionOrder.discountAmount || 0);
         if (
           activeDeductionOrder.productId === product.productId &&
-          activeDeductionOrder.checkoutUrl
+          activeDeductionOrder.checkoutUrl &&
+          !referralDiscountIsLarger
         ) {
           return respData({
             checkoutUrl: activeDeductionOrder.checkoutUrl,
@@ -275,14 +305,19 @@ export async function POST({ request }: { request: Request }) {
       }
 
       const deduction = await getApplicableStarterDeduction(session.user.id);
-      if (deduction > 0) {
-        discountAmount = Math.min(deduction, Math.max(chargeAmount - 1, 0));
-        if (discountAmount > 0) {
+      const starterDiscountAmount = Math.min(
+        deduction,
+        Math.max(chargeAmount - 1, 0)
+      );
+      if (starterDiscountAmount > discountAmount) {
+        discountAmount = starterDiscountAmount;
+        if (starterDiscountAmount > 0) {
           discountCode = STARTER_DEDUCTION_CODE;
-          chargeAmount -= discountAmount;
         }
       }
     }
+
+    chargeAmount -= discountAmount;
 
     const defaultRedirectPath = isStarterProduct
       ? '/welfare/claim'
@@ -358,6 +393,9 @@ export async function POST({ request }: { request: Request }) {
         metadata: {
           ...(metadata && typeof metadata === 'object' ? metadata : {}),
           device: normalizeDevice(device),
+          invitee_discount_rate: discountCode?.startsWith('referral_invitee_')
+            ? inviteeDiscountRate
+            : 0,
           ...(clientip ? { clientip } : {}),
           ...(partnerRow
             ? {
@@ -391,9 +429,12 @@ export async function POST({ request }: { request: Request }) {
         : null,
       discountCode,
       discountAmount,
-      deductionReservationKey: discountCode
-        ? getStarterDeductionReservationKey(session.user.id)
-        : null,
+      deductionReservationKey:
+        discountCode === STARTER_DEDUCTION_CODE
+          ? getStarterDeductionReservationKey(session.user.id)
+          : discountCode?.startsWith('referral_invitee_')
+            ? getInviteeDiscountReservationKey(session.user.id)
+            : null,
       attribution,
     });
 
@@ -444,7 +485,13 @@ export async function POST({ request }: { request: Request }) {
     return respData({ checkoutUrl, checkout_url: checkoutUrl });
   } catch (error: any) {
     if (error?.code === DEDUCTION_RESERVATION_CONFLICT_CODE) {
-      return respErr('starter_deduction_checkout_in_progress');
+      return respErr(
+        String(error?.reservationKey || '').endsWith(
+          ':referral_invitee_discount'
+        )
+          ? 'referral_invitee_checkout_in_progress'
+          : 'starter_deduction_checkout_in_progress'
+      );
     }
     console.error('checkout error:', error);
     return respErr(error.message || 'Checkout failed');
