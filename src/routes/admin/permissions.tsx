@@ -41,7 +41,7 @@ interface Permission {
   title: string;
 }
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 50;
 
 const emptyForm = { code: '', resource: '', action: '', title: '' };
 

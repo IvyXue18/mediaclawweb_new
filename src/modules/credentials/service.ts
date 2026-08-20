@@ -212,6 +212,40 @@ export async function getUserCredentialBalance(
   return parseInt(String(result?.total || '0'), 10) || 0;
 }
 
+export async function getUserCredentialBalances(
+  userIds: string[],
+  database: ReturnType<typeof db> = db()
+): Promise<Map<string, number>> {
+  const uniqueUserIds = [...new Set(userIds.filter(Boolean))];
+  if (uniqueUserIds.length === 0) return new Map();
+
+  const now = new Date();
+  const rows = await database
+    .select({
+      userId: credentialCredit.userId,
+      total: sql<string>`coalesce(sum(case when ${credentialCredit.totalCredits} > ${credentialCredit.usedCredits} then ${credentialCredit.totalCredits} - ${credentialCredit.usedCredits} else 0 end), 0)`,
+    })
+    .from(credentialCredit)
+    .where(
+      and(
+        inArray(credentialCredit.userId, uniqueUserIds),
+        eq(credentialCredit.status, 'active'),
+        or(
+          isNull(credentialCredit.expiresAt),
+          gt(credentialCredit.expiresAt, now)
+        )
+      )
+    )
+    .groupBy(credentialCredit.userId);
+
+  return new Map(
+    rows.map((row: { userId: string | null; total: string }) => [
+      row.userId || '',
+      parseInt(String(row.total || '0'), 10) || 0,
+    ])
+  );
+}
+
 export async function listCredentials(params: {
   page: number;
   pageSize: number;

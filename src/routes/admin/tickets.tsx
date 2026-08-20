@@ -88,7 +88,7 @@ function AttachmentGrid({ urls }: { urls: string[] }) {
   );
 }
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 50;
 
 const STATUS_BADGE: Record<TicketStatus, 'default' | 'secondary' | 'outline'> =
   {

@@ -46,7 +46,7 @@ type PartnerRow = {
   createdAt: string;
 };
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 50;
 
 function statusVariant(
   status: string

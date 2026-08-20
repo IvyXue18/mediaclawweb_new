@@ -1,6 +1,7 @@
 import handler from '@tanstack/react-start/server-entry';
 
 import { envConfigs } from './config';
+import { withDbRequestScope } from './core/db';
 import { paraglideMiddleware } from './paraglide/server.js';
 
 // On Cloudflare Workers, stash the binding env (D1, ASSETS, …) on globalThis
@@ -136,30 +137,32 @@ async function proxyLocalApiRequest(req: Request, origin: string) {
 export default {
   async fetch(req: Request): Promise<Response> {
     await ensureCloudflareEnv();
-    const url = new URL(req.url);
-    const isApiRequest = url.pathname.startsWith('/api/');
-    const host = req.headers.get('host') || '';
-    const proxyOrigin = envConfigs.local_api_proxy_origin;
+    return withDbRequestScope(async () => {
+      const url = new URL(req.url);
+      const isApiRequest = url.pathname.startsWith('/api/');
+      const host = req.headers.get('host') || '';
+      const proxyOrigin = envConfigs.local_api_proxy_origin;
 
-    if (isApiRequest && proxyOrigin && isLocalHost(host)) {
-      return proxyLocalApiRequest(req, proxyOrigin);
-    }
+      if (isApiRequest && proxyOrigin && isLocalHost(host)) {
+        return proxyLocalApiRequest(req, proxyOrigin);
+      }
 
-    const response = isApiRequest
-      ? await handler.fetch(req)
-      : await paraglideMiddleware(req, () => handler.fetch(req));
+      const response = isApiRequest
+        ? await handler.fetch(req)
+        : await paraglideMiddleware(req, () => handler.fetch(req));
 
-    if (!isPreviewHost(host)) {
-      return response;
-    }
+      if (!isPreviewHost(host)) {
+        return response;
+      }
 
-    const headers = new Headers(response.headers);
-    headers.set('X-Robots-Tag', 'noindex, nofollow');
+      const headers = new Headers(response.headers);
+      headers.set('X-Robots-Tag', 'noindex, nofollow');
 
-    return new Response(response.body, {
-      status: response.status,
-      statusText: response.statusText,
-      headers,
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers,
+      });
     });
   },
 };

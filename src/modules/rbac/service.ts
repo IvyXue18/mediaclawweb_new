@@ -1,4 +1,4 @@
-import { and, desc, eq, gt, inArray, isNull, or } from 'drizzle-orm';
+import { and, desc, eq, gt, isNull, or } from 'drizzle-orm';
 
 import { matchAnyPermission, matchPermission, ROLES } from '@/core/auth/rbac';
 import { db } from '@/core/db';
@@ -174,27 +174,17 @@ export async function getUserPermissionCodes(
 ): Promise<string[]> {
   const now = new Date();
 
-  // Get user's active roles
-  const roles = await db()
-    .select({ roleId: userRole.roleId })
+  const perms = await db()
+    .select({ code: permission.code })
     .from(userRole)
+    .innerJoin(rolePermission, eq(userRole.roleId, rolePermission.roleId))
+    .innerJoin(permission, eq(rolePermission.permissionId, permission.id))
     .where(
       and(
         eq(userRole.userId, userId),
         or(isNull(userRole.expiresAt), gt(userRole.expiresAt, now))
       )
     );
-
-  if (roles.length === 0) return [];
-
-  const roleIds = roles.map((r: any) => r.roleId);
-
-  // Get permissions for those roles
-  const perms = await db()
-    .select({ code: permission.code })
-    .from(rolePermission)
-    .innerJoin(permission, eq(rolePermission.permissionId, permission.id))
-    .where(inArray(rolePermission.roleId, roleIds));
 
   // Deduplicate
   return [...new Set(perms.map((p: any) => p.code))] as string[];

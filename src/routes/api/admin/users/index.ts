@@ -4,8 +4,8 @@ import { and, count, desc, like, or, type SQL } from 'drizzle-orm';
 import { getAuth } from '@/core/auth';
 import { db } from '@/core/db';
 import { user } from '@/config/db/schema';
-import { getUserCredentialBalance } from '@/modules/credentials/service';
-import { getBalance } from '@/modules/credits/service';
+import { getUserCredentialBalances } from '@/modules/credentials/service';
+import { getBalances } from '@/modules/credits/service';
 import { hasPermission } from '@/modules/rbac/service';
 import { respErr, respPage } from '@/lib/resp';
 
@@ -22,7 +22,7 @@ async function GET({ request }: { request: Request }) {
     const page = Math.max(1, parseInt(searchParams.get('page') || '1'));
     const pageSize = Math.min(
       100,
-      Math.max(1, parseInt(searchParams.get('pageSize') || '10'))
+      Math.max(1, parseInt(searchParams.get('pageSize') || '50'))
     );
     const offset = (page - 1) * pageSize;
     const search = searchParams.get('search');
@@ -35,41 +35,40 @@ async function GET({ request }: { request: Request }) {
     }
     const where = conditions.length > 0 ? and(...conditions) : undefined;
 
-    const [totalResult] = await db()
-      .select({ count: count() })
-      .from(user)
-      .where(where);
+    const database = db();
+    const [[totalResult], users] = await Promise.all([
+      database.select({ count: count() }).from(user).where(where),
+      database
+        .select({
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          image: user.image,
+          createdAt: user.createdAt,
+        })
+        .from(user)
+        .where(where)
+        .orderBy(desc(user.createdAt))
+        .limit(pageSize)
+        .offset(offset),
+    ]);
     const total = totalResult.count;
 
-    const users = await db()
-      .select({
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        image: user.image,
-        createdAt: user.createdAt,
-      })
-      .from(user)
-      .where(where)
-      .orderBy(desc(user.createdAt))
-      .limit(pageSize)
-      .offset(offset);
-
-    const withCredits = await Promise.all(
-      users.map(async (u: (typeof users)[number]) => {
-        const [walletBalance, credentialBalance] = await Promise.all([
-          getBalance(u.id),
-          getUserCredentialBalance(u.id),
-        ]);
-
-        return {
-          ...u,
-          credits: walletBalance + credentialBalance,
-          walletBalance,
-          credentialBalance,
-        };
-      })
-    );
+    const userIds = users.map((u: (typeof users)[number]) => u.id);
+    const [walletBalances, credentialBalances] = await Promise.all([
+      getBalances(userIds, database),
+      getUserCredentialBalances(userIds, database),
+    ]);
+    const withCredits = users.map((u: (typeof users)[number]) => {
+      const walletBalance = walletBalances.get(u.id) || 0;
+      const credentialBalance = credentialBalances.get(u.id) || 0;
+      return {
+        ...u,
+        credits: walletBalance + credentialBalance,
+        walletBalance,
+        credentialBalance,
+      };
+    });
 
     return respPage(withCredits, total);
   } catch (error: any) {

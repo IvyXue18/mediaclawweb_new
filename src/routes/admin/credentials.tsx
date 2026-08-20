@@ -77,7 +77,7 @@ type UserOption = {
   image?: string | null;
 };
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 50;
 const STATUS_ACTIONS = ['active', 'frozen', 'revoked'] as const;
 const STATUS_FILTERS = ['all', 'active', 'frozen', 'revoked'] as const;
 

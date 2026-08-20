@@ -1,3 +1,5 @@
+import { AsyncLocalStorage } from 'node:async_hooks';
+
 import { envConfigs } from '@/config';
 
 import { createDb } from './create-db';
@@ -14,8 +16,18 @@ const isCloudflareWorker =
 const TCP_PROVIDERS = ['postgresql', 'postgres', 'mysql'];
 
 let dbInstance: any = null;
+const requestDbStorage = new AsyncLocalStorage<{ instance?: any }>();
+
+export function withDbRequestScope<T>(callback: () => T): T {
+  return requestDbStorage.run({}, callback);
+}
 
 export function db() {
+  const requestStore =
+    isCloudflareWorker && TCP_PROVIDERS.includes(envConfigs.database_provider)
+      ? requestDbStorage.getStore()
+      : undefined;
+  if (requestStore?.instance) return requestStore.instance;
   if (dbInstance) return dbInstance;
 
   const instance = createDb({
@@ -27,7 +39,9 @@ export function db() {
     db_max_connections: envConfigs.db_max_connections,
   });
 
-  if (
+  if (requestStore) {
+    requestStore.instance = instance;
+  } else if (
     !isCloudflareWorker ||
     !TCP_PROVIDERS.includes(envConfigs.database_provider)
   ) {

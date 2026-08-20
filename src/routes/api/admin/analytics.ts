@@ -219,8 +219,17 @@ async function GET({ request }: { request: Request }) {
       )
       .reduce((total, row) => total + Number(row.eventCount || 0), 0);
 
-    const paidRows = await safeRead(
-      'paid orders',
+    const paidTimestamp = sql<Date>`coalesce(${order.paidAt}, ${order.createdAt})`;
+    const paidBaseWhere = and(
+      eq(order.status, 'paid'),
+      isNull(order.deletedAt)
+    );
+    const paidPeriodWhere =
+      start && end
+        ? and(paidBaseWhere, gte(paidTimestamp, start), lt(paidTimestamp, end))
+        : paidBaseWhere;
+    const periodPaidRows = await safeRead(
+      'period paid orders',
       () =>
         db()
           .select({
@@ -237,25 +246,34 @@ async function GET({ request }: { request: Request }) {
             attributionContent: order.attributionContent,
           })
           .from(order)
-          .where(and(eq(order.status, 'paid'), isNull(order.deletedAt))),
+          .where(paidPeriodWhere),
       []
     );
-    const periodPaidRows = paidRows.filter((row) =>
-      inPeriod(row.paidAt || row.createdAt, start, end)
+    const paidHistoryRows = await safeRead(
+      'paid order history',
+      () =>
+        db()
+          .select({
+            userId: order.userId,
+            orderCount: count(),
+            firstPaidAt: sql<Date>`min(${paidTimestamp})`,
+            lastPaidAt: sql<Date>`max(${paidTimestamp})`,
+          })
+          .from(order)
+          .where(paidBaseWhere)
+          .groupBy(order.userId),
+      []
     );
     const paidUsers = new Set(periodPaidRows.map((row) => row.userId)).size;
     const totalOrdersByUser = new Map<string, number>();
     const firstPaidAtByUser = new Map<string, Date>();
-    paidRows.forEach((row) => {
-      totalOrdersByUser.set(
-        row.userId,
-        (totalOrdersByUser.get(row.userId) || 0) + 1
-      );
-      const paidAt = asDate(row.paidAt || row.createdAt);
-      if (!paidAt) return;
-      const current = firstPaidAtByUser.get(row.userId);
-      if (!current || paidAt < current)
-        firstPaidAtByUser.set(row.userId, paidAt);
+    const lastPaidAtByUser = new Map<string, Date>();
+    paidHistoryRows.forEach((row) => {
+      totalOrdersByUser.set(row.userId, Number(row.orderCount || 0));
+      const firstPaidAt = asDate(row.firstPaidAt);
+      const lastPaidAt = asDate(row.lastPaidAt);
+      if (firstPaidAt) firstPaidAtByUser.set(row.userId, firstPaidAt);
+      if (lastPaidAt) lastPaidAtByUser.set(row.userId, lastPaidAt);
     });
     const periodPaidUserIds = Array.from(
       new Set(periodPaidRows.map((row) => row.userId))
@@ -403,12 +421,8 @@ async function GET({ request }: { request: Request }) {
     let formalCredentialUsers = 0;
     rewardUsersByFirstAt.forEach((firstRewardAt, userId) => {
       if (
-        paidRows.some(
-          (row) =>
-            row.userId === userId &&
-            (asDate(row.paidAt || row.createdAt)?.getTime() || 0) >=
-              firstRewardAt.getTime()
-        )
+        (lastPaidAtByUser.get(userId)?.getTime() || 0) >=
+        firstRewardAt.getTime()
       ) {
         convertedPaidUsers += 1;
       }
