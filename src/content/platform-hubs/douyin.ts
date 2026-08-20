@@ -114,7 +114,7 @@ export const zhDouyinHub: PlatformHubContent = {
       href: '/douyin/scraper',
       icon: 'database',
       image: {
-        src: '/imgs/docs/collect/single-post/01-抖音采集单篇作品-clean.webp',
+        src: '/imgs/docs/collect/single-post/01-抖音采集单篇作品-clean.webp?v=20260821',
         width: 387,
         height: 226,
         position: 'bottom',
@@ -211,7 +211,7 @@ export const zhDouyinHub: PlatformHubContent = {
         '下载原始素材并按主题或项目整理',
       ],
       image: {
-        src: '/imgs/docs/collect/search-results/01-douyin-native-filter.webp',
+        src: '/imgs/docs/collect/search-results/01-douyin-native-filter.webp?v=20260821',
         alt: 'MediaClaw 抖音搜索结果筛选与批量采集界面',
         width: 1600,
         height: 885,
@@ -247,7 +247,7 @@ export const zhDouyinHub: PlatformHubContent = {
         '围绕已验证信号整理选题、结构和初稿',
       ],
       image: {
-        src: '/imgs/docs/getting-started/core-interface/12-创作结果.webp',
+        src: '/imgs/docs/getting-started/core-interface/12-创作结果.webp?v=20260821',
         alt: '基于抖音研究素材生成的内容初稿',
         width: 1600,
         height: 1320,
@@ -418,7 +418,7 @@ export const enDouyinHub: PlatformHubContent = {
         'Download source media and organize it by project or topic',
       ],
       image: {
-        src: '/imgs/docs/collect/search-results/01-douyin-native-filter.webp',
+        src: '/imgs/docs/collect/search-results/01-douyin-native-filter.webp?v=20260821',
         alt: 'MediaClaw Douyin search-result filtering and batch collection',
         width: 1600,
         height: 885,
@@ -454,7 +454,7 @@ export const enDouyinHub: PlatformHubContent = {
         'Turn validated signals into topic ideas, structures and drafts',
       ],
       image: {
-        src: '/imgs/docs/getting-started/core-interface/12-创作结果.webp',
+        src: '/imgs/docs/getting-started/core-interface/12-创作结果.webp?v=20260821',
         alt: 'Content draft produced from Douyin research assets',
         width: 1600,
         height: 1320,
@@ -524,7 +524,7 @@ export const enDouyinHub: PlatformHubContent = {
       href: '/douyin/scraper',
       icon: 'database',
       image: {
-        src: '/imgs/docs/collect/single-post/01-抖音采集单篇作品-clean.webp',
+        src: '/imgs/docs/collect/single-post/01-抖音采集单篇作品-clean.webp?v=20260821',
         width: 387,
         height: 226,
         position: 'bottom',

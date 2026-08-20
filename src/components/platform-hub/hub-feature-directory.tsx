@@ -32,13 +32,13 @@ const featureImages: Record<
     height: 1187,
   },
   scraper: {
-    src: '/imgs/docs/collect/single-post/01-小红书采集一批笔记-clean.webp',
+    src: '/imgs/docs/collect/single-post/01-小红书采集一批笔记-clean.webp?v=20260821',
     width: 800,
     height: 554,
     position: 'bottom',
   },
   comments: {
-    src: '/imgs/docs/collect/comments/01-采集单篇作品评论.webp',
+    src: '/imgs/docs/collect/comments/01-采集单篇作品评论.webp?v=20260821',
     width: 798,
     height: 786,
   },
@@ -48,12 +48,12 @@ const featureImages: Record<
     height: 1200,
   },
   'image-text': {
-    src: '/imgs/docs/collect/image-text/01-image-to-text-extract.webp',
+    src: '/imgs/docs/collect/image-text/01-image-to-text-extract.webp?v=20260821',
     width: 1600,
     height: 1025,
   },
   transcript: {
-    src: '/imgs/docs/collect/transcript/01-xiaohongshu-video-to-transcript.webp',
+    src: '/imgs/docs/collect/transcript/01-xiaohongshu-video-to-transcript.webp?v=20260821',
     width: 1600,
     height: 978,
   },
@@ -63,7 +63,7 @@ const featureImages: Record<
     height: 694,
   },
   monitoring: {
-    src: '/imgs/docs/benchmark/monitoring/04-收到的日报消息.webp',
+    src: '/imgs/docs/benchmark/monitoring/04-收到的日报消息.webp?v=20260821',
     width: 1600,
     height: 1152,
   },

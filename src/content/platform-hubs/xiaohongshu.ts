@@ -194,7 +194,7 @@ export const zhXiaohongshuHub: PlatformHubContent = {
         '下载原始素材并按主题或项目整理',
       ],
       image: {
-        src: '/imgs/docs/collect/search-results/01-xiaohongshu-native-filter.webp',
+        src: '/imgs/docs/collect/search-results/01-xiaohongshu-native-filter.webp?v=20260821',
         alt: 'MediaClaw 小红书搜索结果筛选与批量采集界面',
         width: 1600,
         height: 880,
@@ -396,7 +396,7 @@ export const enXiaohongshuHub: PlatformHubContent = {
         'Download source media and organize it by project or topic',
       ],
       image: {
-        src: '/imgs/docs/collect/search-results/01-xiaohongshu-native-filter.webp',
+        src: '/imgs/docs/collect/search-results/01-xiaohongshu-native-filter.webp?v=20260821',
         alt: 'MediaClaw RedNote search-result filtering and batch collection',
         width: 1600,
         height: 880,
