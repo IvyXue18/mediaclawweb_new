@@ -43,7 +43,7 @@ interface InviteCodeRow {
   createdAt: string;
 }
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 50;
 
 const inviteCodeSchema = z.object({
   count: z.coerce.number().min(1),

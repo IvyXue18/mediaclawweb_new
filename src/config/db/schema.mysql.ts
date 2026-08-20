@@ -147,6 +147,7 @@ export const eventLog = table(
   },
   (table) => [
     index('idx_event_log_event_occurred').on(table.eventName, table.occurredAt),
+    index('idx_event_log_occurred_at').on(table.occurredAt),
     index('idx_event_log_user_occurred').on(table.userId, table.occurredAt),
     index('idx_event_log_anonymous_occurred').on(
       table.anonymousId,
@@ -530,6 +531,12 @@ export const order = table(
       table.paymentProvider
     ),
     index('idx_order_created_at').on(table.createdAt),
+    index('idx_order_admin_status_created').on(table.status, table.createdAt),
+    index('idx_order_admin_payment_created').on(
+      table.paymentType,
+      table.createdAt
+    ),
+    index('idx_order_status_paid_at').on(table.status, table.paidAt),
     index('idx_order_starter_browser').on(
       table.starterBrowserInstallHash,
       table.productId,
@@ -589,6 +596,14 @@ export const subscription = table(
       table.paymentProvider
     ),
     index('idx_subscription_created_at').on(table.createdAt),
+    index('idx_subscription_admin_status_created').on(
+      table.status,
+      table.createdAt
+    ),
+    index('idx_subscription_admin_interval_created').on(
+      table.interval,
+      table.createdAt
+    ),
   ]
 );
 
@@ -627,6 +642,11 @@ export const credit = table(
     ),
     index('idx_credit_order_no').on(table.orderNo),
     index('idx_credit_subscription_no').on(table.subscriptionNo),
+    index('idx_credit_admin_status_type_created').on(
+      table.status,
+      table.transactionType,
+      table.createdAt
+    ),
   ]
 );
 
@@ -655,6 +675,15 @@ export const credential = table(
     index('idx_credential_owner_status').on(table.ownerUserId, table.status),
     index('idx_credential_source_order').on(table.sourceOrderNo),
     index('idx_credential_partner').on(table.partnerId, table.variantId),
+    index('idx_credential_admin_deleted_created').on(
+      table.deletedAt,
+      table.createdAt
+    ),
+    index('idx_credential_admin_deleted_status_created').on(
+      table.deletedAt,
+      table.status,
+      table.createdAt
+    ),
   ]
 );
 

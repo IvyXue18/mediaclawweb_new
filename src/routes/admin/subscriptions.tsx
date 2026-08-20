@@ -26,7 +26,7 @@ interface Subscription {
   createdAt: string;
 }
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 50;
 
 const TABS = ['all', 'month', 'year'] as const;
 type Tab = (typeof TABS)[number];

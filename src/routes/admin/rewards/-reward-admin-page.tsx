@@ -49,7 +49,7 @@ type RewardRow = {
   updatedAt?: string | number | Date | null;
 };
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 50;
 
 type SurveyDetail = {
   platform?: string;
