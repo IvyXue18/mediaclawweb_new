@@ -1,0 +1,123 @@
+export const meta = {
+  title: '持续监控对标账号',
+  description:
+    '设置监控条件，把账号加入监控列表并查看近期更新、执行记录和报告。',
+};
+
+账号监控用于持续发现对标账号前一天发布的新作品，并在观察期内判断是否达到你设置的点赞阈值。它适合跟踪少量重点账号，不适合无差别加入大量主页。
+
+## 效果演示
+
+<DocVideo
+  src="https://media.mediaclaw.app/videos/docs/benchmark/monitoring/00-monitoring-results-demo.mp4"
+  caption="账号监控效果演示"
+  captionEn="Account monitoring results demo"
+/>
+
+## 配置教程
+
+<DocVideo
+  src="https://media.mediaclaw.app/videos/docs/benchmark/monitoring/00-monitoring-setup-config.mp4"
+  caption="对标监控配置演示"
+  captionEn="Benchmark monitoring configuration walkthrough"
+/>
+
+## 加入监控
+
+1. 打开要跟踪的抖音或小红书账号主页。
+2. 打开 MediaClaw，进入账号监控。
+3. 确认当前账号名称与主页链接正确。
+4. 点击 **加入监控**。
+5. 回到监控列表，检查账号是否已经出现；需要立即验证时，可点击 **立即执行扫描**。
+
+<PlatformExampleTabs
+  douyinCaption="在抖音博主主页打开 MediaClaw 对标监控标签，点击纳入监控"
+  douyinCaptionEn="On a Douyin creator's profile, open the Benchmark Monitoring tab in MediaClaw and click Add to Monitoring"
+  douyinSrc="/imgs/docs/benchmark/monitoring/02-纳入抖音账号-douyin.webp"
+  xiaohongshuCaption="在小红书博主主页打开 MediaClaw 对标监控标签，点击纳入监控"
+  xiaohongshuCaptionEn="On a Xiaohongshu creator's profile, open the Benchmark Monitoring tab in MediaClaw and click Add to Monitoring"
+  xiaohongshuSrc="/imgs/docs/benchmark/monitoring/02-纳入小红书账号-xiaohongshu.webp"
+/>
+
+6. 还有另一个加入方式，从博主页采集后，从博主信息卡选择监控
+
+<DocImage
+  src="/imgs/docs/benchmark/monitoring/03-在博主信息卡纳入监控.webp"
+  caption="在博主信息卡点击铃铛图标，直接将当前博主卡纳入监控"
+  captionEn="Click the bell icon on a creator info card to add that creator to monitoring directly"
+  width={520}
+  height={232}
+/>
+
+## 设置监控规则
+
+在插件设置的 **账号监控规则** 中配置：
+
+- **执行时点**：每天固定什么时间扫描订阅监控的账号并发送分析报告
+- **发布时间范围**：当前固定查找前一天发布的作品。
+- **观察期**：可选 24、48 或 72 小时。
+- **点赞筛选**：观察期内超过该值的作品视为潜在爆款并进入汇报。如果为 0，则意味着所有更新内容都会汇报；不为 0，表示从发布到执行扫描时点，对标账号的更新内容需要达到点赞数值才会汇报。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/benchmark/monitoring/01-监控规则和通知设置.webp',
+      caption: '账号监控规则：执行时点、观察期、点赞筛选与飞书机器人通知',
+      captionEn:
+        'Account monitoring rules: run time, observation window, like threshold, and Feishu bot notifications',
+      width: 882,
+      height: 1584,
+    },
+    {
+      src: '/imgs/docs/benchmark/monitoring/04-收到的日报消息.webp',
+      caption: '通过飞书机器人收到的监控日报，含命中作品和可执行内容策略',
+      captionEn:
+        'A monitoring daily report received via the Feishu bot, including matched posts and actionable content strategy',
+      width: 1600,
+      height: 1152,
+    },
+  ]}
+/>
+
+- **通知webhook**：
+  详情可参考飞书官方教程[自定义机器人使用指南](https://open.feishu.cn/document/client-docs/bot-v3/add-custom-bot)。
+  这里把核心步骤贴出来：拉一个飞书群，然后添加一个自定义机器人，复制出它的 webhook 链接。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/benchmark/monitoring/05-飞书群设置.webp',
+      caption: '点击群右上角的更多菜单，进入设置',
+      captionEn: 'Click the group’s top-right menu and open Settings',
+      width: 1600,
+      height: 1063,
+    },
+    {
+      src: '/imgs/docs/benchmark/monitoring/05-找到群机器人.webp',
+      caption: '在群设置中找到群机器人入口',
+      captionEn: 'Find the Group Bots entry in group settings',
+      width: 1600,
+      height: 1030,
+    },
+  ]}
+/>
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/benchmark/monitoring/06-选择自定义机器人.webp',
+      caption: '选择添加自定义机器人（通过 Webhook 推送消息）',
+      captionEn: 'Choose to add a Custom Bot (pushes messages via webhook)',
+      width: 1600,
+      height: 908,
+    },
+    {
+      src: '/imgs/docs/benchmark/monitoring/06-复制webhook.webp',
+      caption: '复制机器人的 Webhook 地址，填入插件设置',
+      captionEn:
+        'Copy the bot’s webhook URL and paste it into the extension settings',
+      width: 1600,
+      height: 1125,
+    },
+  ]}
+/>

@@ -1,0 +1,82 @@
+export const meta = {
+  title: '视频转文字：提取视频逐字稿',
+  description: '把抖音和小红书视频转成完整逐字稿与分句节奏稿。',
+};
+
+采集到值得拆解的视频后，可以直接在数据池里提取口播内容，不需要先下载视频，也不需要把链接复制到其他工具。提取结果会回填到原记录，之后可以继续查看、复制、导出或同步飞书。
+
+<DocImage
+  src="/imgs/docs/collect/transcript/01-xiaohongshu-video-to-transcript.webp"
+  caption="小红书笔记页的视频逐字稿结果，包含完整逐字稿与分句节奏稿"
+  captionEn="The transcript panel on a Xiaohongshu note, showing both the full transcript and the sentence-timed script"
+/>
+
+该能力同时支持抖音和小红书视频，提取后会得到两份结果：
+
+- **完整逐字稿**：适合通读、检索、归档和交给 AI 继续处理。
+- **分句节奏稿**：保留每句话的起止时间，适合观察开头钩子、铺垫、转折和结尾引导分别用了多久。
+
+<Callout type="note">
+  需要先采集作品详情，让记录中带有可访问的视频或音频链接和视频时长。只有列表摘要、没有补齐详情的记录，无法提取或进入批量选择。
+</Callout>
+
+## 提取单条视频逐字稿文案
+
+1. 打开一篇小红书视频笔记或抖音视频，先将作品采集到数据池。
+2. 在数据池中找到这条视频记录，点击**提取视频逐字稿**。
+3. 确认弹窗中的视频时长和预计积分消耗，再开始提取。
+4. 提取期间可以继续浏览其他内容；记录上的按钮会显示**视频逐字稿提取中**。
+5. 完成后会自动打开结果弹窗。以后也可以点击记录上的**查看视频逐字稿**重新打开。
+
+<DocImage
+  src="/imgs/docs/collect/transcript/02-extract-single-video-transcript.webp"
+  caption="数据池记录行的『提取视频逐字稿』按钮"
+  captionEn="The Extract video transcript button on a data-pool record row"
+  width={520}
+  height={255}
+/>
+
+## 批量批量多条视频逐字稿文案
+
+当前页面至少有 2 条可提取的视频时，数据池工具栏会出现**逐字稿 N**入口。批量任务适合一次处理一批已经采集完整的对标视频。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/transcript/03-batch-extract-transcript.webp',
+      caption: '数据池工具栏中的『逐字稿 N』入口',
+      captionEn: "The 'Transcript N' entry in the data-pool toolbar",
+      width: 940,
+      height: 650,
+    },
+    {
+      src: '/imgs/docs/collect/transcript/03-batch-extract-transcript-confirm.webp',
+      caption: '批量提取弹窗：勾选视频并确认预计积分消耗',
+      captionEn:
+        'The batch extraction dialog — select videos and confirm the estimated credit cost',
+      width: 900,
+      height: 808,
+    },
+  ]}
+/>
+
+1. 点击**逐字稿 N**，打开批量提取弹窗。
+2. 勾选要处理的视频。列表会逐条显示视频时长和预计积分，一次可选择 2～20 条。
+3. 核对总预计积分和当前余额，点击**确认提取**。
+4. 任务会在后台继续执行；关闭侧栏不会中断。再次打开侧栏可以查看已完成、失败和等待中的数量。
+5. 成功结果会自动写回对应记录；失败的记录可以回到数据池单独重试。
+
+批量列表只显示**已采集详情、能计算时长、尚未提取且当前不在处理中的视频**。某条视频没有出现在列表时，先确认它是否已采集完整，以及记录中是否有视频时长和原始媒体链接。
+
+## 查看、复制和继续使用
+
+在结果弹窗中，可以分别复制**完整逐字稿**和**分句节奏稿**。也可以导出 CSV、Markdown 或同步飞书，不需要再手动粘贴回去。
+
+逐字稿来自语音识别，遇到人名、品牌名、方言、背景音乐或多人重叠说话时，仍建议结合原视频人工校对。
+
+## 提取失败怎么办
+
+- 提示没有视频或音频链接：重新打开作品详情页，补采完整作品数据后再试。
+- 任务长时间处理中：先等待状态更新；如果稍后按钮变为**重新提取视频逐字稿**，再次点击时会优先续查已有任务，不需要重新上传媒体。
+- 提示未识别到有效语音：检查视频是否以音乐、环境音或无声画面为主。
+- 服务或网络报错：记录会显示**重新提取视频逐字稿**，可以稍后重试；仍无法完成时，将作品链接和页面上的失败提示一起反馈。

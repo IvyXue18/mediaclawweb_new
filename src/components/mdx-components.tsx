@@ -24,6 +24,7 @@ import { Link } from '@/core/i18n/navigation';
 import { cn } from '@/lib/utils';
 import { resolveStaticVideoPoster } from '@/lib/video-posters';
 import { getLocale } from '@/paraglide/runtime.js';
+import { PlatformExampleTabs } from '@/components/docs/platform-example-tabs';
 
 // Headings get a stable, content-derived id so the "on this page" TOC
 // (DocToc) can scroll-spy and deep-link into sections without a build-time
@@ -164,16 +165,19 @@ export const mdxComponents: MDXComponents = {
     children,
     ...props
   }: HTMLAttributes<HTMLHeadingElement>) => (
-    <h1
-      id={id ?? slugify(children)}
-      className={cn(
-        'text-foreground mt-6 mb-2 text-xl font-semibold tracking-tight md:text-2xl',
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </h1>
+    PlatformExampleTabs,
+    (
+      <h1
+        id={id ?? slugify(children)}
+        className={cn(
+          'text-foreground mt-6 mb-2 text-xl font-semibold tracking-tight md:text-2xl',
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </h1>
+    )
   ),
   h2: ({
     className,

@@ -1,0 +1,90 @@
+export const meta = {
+  title: '采集搜索结果作品',
+  description: '从平台搜索结果页批量采集某个关键词下的作品样本。',
+};
+
+打开小红书平台的首页搜索页面，或抖音平台的精选页，插件会自动识别并跳转到搜索页tab。
+
+<Callout type="note">
+  需要先搜索一个关键词并<u>点击搜索按钮</u>
+  。插件会识别到当前页面的搜索词，接下来就可以进行采集。
+</Callout>
+
+<PlatformExampleTabs
+  douyinCaption="抖音精选搜索页"
+  douyinCaptionEn="Douyin search results page"
+  douyinSrc="/imgs/docs/getting-started/core-interface/04-侧边栏抖音精选搜索页-douyin.webp"
+  xiaohongshuCaption="小红书主页搜索页"
+  xiaohongshuCaptionEn="Xiaohongshu search results page"
+  xiaohongshuSrc="/imgs/docs/getting-started/core-interface/04-侧边栏小红书搜索页-xiaohongshu.webp"
+/>
+
+## 筛选条件
+
+抖音和小红书搜索页都有各自的原生筛选条件，再配上 Mediaclaw 的插件，可以做到更细致的筛选。
+
+<PlatformExampleTabs
+  douyinCaption="抖音搜索页原生筛选面板"
+  douyinCaptionEn="Douyin search page native filter panel"
+  douyinSrc="/imgs/docs/collect/search-results/01-douyin-native-filter.webp"
+  xiaohongshuCaption="小红书搜索页原生筛选面板"
+  xiaohongshuCaptionEn="Xiaohongshu search page native filter panel"
+  xiaohongshuSrc="/imgs/docs/collect/search-results/01-xiaohongshu-native-filter.webp"
+/>
+
+> 小红书
+
+- 排序依据：可以按照最新、最多点赞、最多评论、最多收藏等来进行排序，从而在前排就采集到对应指标最好的一批笔记，不需要很大量采集；
+- 笔记类型：可以筛选只采集图文还是视频笔记；
+- 发布时间：采集一天、一周、还是半年内发布的笔记，很多时候加上半年内，可以让判断更接近近期的趋势；
+- 搜索范围：用的比较少；
+- 位置距离：对于做同城的商家很有用，可以只筛选同城笔记来看，更聚焦本地需求；
+
+> 抖音
+
+- 排序依据：可以按照最新发布、最高点赞来筛选；
+- 发布时间：采集一天、一周、还是半年内发布的笔记，很多时候加上半年内，可以让判断更接近近期的趋势；
+- 视频时长：1min 以下，1-5min，5min 以上，可以按照时长来筛选长短视频
+- 搜索范围：用的比较少；
+- 内容形式：可以筛选只采集图文还是视频；
+
+> 插件
+
+1. <u>关键词笔记加载上限</u>
+   ：不是最终采集的数量，是初步扫描的数量，在此基础上，还需要满足下面的筛选条件。
+2. <u>点赞筛选</u>：在加载出来的笔记中，筛选点赞达到 X 以上的笔记。
+3. 采集增强：基础采集只能获取页面可见内容，采集增强会自动逐条打开笔记去采集更详细的数据，比如页正文、互动数据、图文视频链接等详情。同时支持补采账号数据和评论内容、客资等。
+
+- 附加采集博主粉丝数和赞藏数：会打开每一篇作者账号主页进行采集，耗时更长。
+- <mark>
+    低粉爆款：在拿到博主粉丝数的基础上，结合点赞数的筛选，就可以达到筛出低粉爆款的作用。
+  </mark>
+- 附加采集评论：会滚动加载指定数量的评论，作为参考信息的一部分。还可以筛选评论区中的高潜客资，详情看[查客资筛选](/docs/reuse/content-assets)
+
+## 批量采集多个关键词搜索结果
+
+如果你想采集多个关键词的内容，比如批量关键词调研。
+此时不需要你一个个搜索点开这些博主的账号主页，只需要把收集到的账号主页链接链接填入批量采集中，Mediaclaw会自动打开每一个主页进行批量采集。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/search-results/02-batch-keyword-icon.webp',
+      caption: '搜索页的批量关键词操作图标',
+      captionEn: 'Batch-keyword icon on the search results page',
+      width: 894,
+      height: 1290,
+    },
+    {
+      src: '/imgs/docs/collect/search-results/02-batch-keyword-dialog.webp',
+      caption: '批量关键词弹窗，每行一个关键词',
+      captionEn: 'Batch-keyword dialog — one keyword per line',
+      width: 842,
+      height: 1098,
+    },
+  ]}
+/>
+
+<Callout type="danger">
+  但需要注意，一个搜索词已经是批量采集多篇笔记，多个词就是更大批的长期采集，具备一定账号风险，慎用。
+</Callout>

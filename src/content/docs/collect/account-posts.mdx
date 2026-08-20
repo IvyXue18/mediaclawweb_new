@@ -1,0 +1,74 @@
+export const meta = {
+  title: '采集账号主页作品',
+  description: '从一个账号主页批量采集公开作品，建立账号研究样本。',
+};
+
+打开一个账号主页，<u>博主账号页显示定位正确</u>，就可以配置条件筛选，进行采集。
+
+<PlatformExampleTabs
+  douyinCaption="抖音账号主页"
+  douyinCaptionEn="Douyin creator profile page"
+  douyinSrc="/imgs/docs/getting-started/core-interface/03-抖音账号页-douyin.webp"
+  xiaohongshuCaption="小红书博主账号主页"
+  xiaohongshuCaptionEn="Xiaohongshu creator profile page"
+  xiaohongshuSrc="/imgs/docs/getting-started/core-interface/03-小红书博主账号页-xiaohongshu.webp"
+/>
+
+## 筛选条件
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/account-posts/01-xiaohongshu-account-filter.webp',
+      caption: '小红书博主页采集筛选条件',
+      captionEn: 'Xiaohongshu filter settings for account collection',
+      width: 816,
+      height: 1544,
+    },
+    {
+      src: '/imgs/docs/collect/account-posts/01-douyin-account-filter.webp',
+      caption: '抖音账号页采集筛选条件',
+      captionEn: 'Douyin filter settings for account collection',
+      width: 812,
+      height: 1540,
+    },
+  ]}
+/>
+
+1. <u>博主笔记加载上限</u>
+   ：不是最终采集的数量，是初步扫描的数量，在此基础上，还需要满足下面的筛选条件。
+2. <u>点赞筛选</u>：在加载出来的笔记中，筛选点赞达到 X 以上的笔记。
+3. <u>笔记内容主题筛选</u>
+   ：也就是根据关键词去匹配笔记的标题，正文，标签，看是否有命中的。非常适合在一大堆笔记中寻找特定主题的内容。如果没有开启采集增强，则只在标题中匹配。
+4. 采集增强：基础采集只能获取页面可见内容，采集增强会自动逐条打开笔记去采集更详细的数据，比如页正文、互动数据、图文视频链接等详情。同时支持补采账号数据和评论内容、客资等。
+
+- 附加采集博主粉丝数和赞藏数：会打开每一篇作者账号主页进行采集，耗时更长。
+- 附加采集评论：会滚动加载指定数量的评论，作为参考信息的一部分。还可以筛选评论区中的高潜客资，详情看[查客资筛选](/docs/reuse/content-assets)
+
+## 批量采集多个博主主页
+
+如果你想采集多个对标账号的内容，就可以用批量采集多个博主作品的能力。
+此时不需要你一个个点开这些博主的账号主页，只需要把收集到的账号主页链接链接填入批量采集中，Mediaclaw会自动打开每一个主页进行批量采集。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/account-posts/02-batch-collect-icon.webp',
+      caption: '笔记详情页的批量采集图标',
+      captionEn: 'Batch-collect icon on the note detail page',
+      width: 828,
+      height: 1210,
+    },
+    {
+      src: '/imgs/docs/collect/account-posts/02-batch-collect-dialog.webp',
+      caption: '批量采集弹窗，粘贴链接列表（每行一个）',
+      captionEn: 'Batch-collect dialog — paste links, one per line',
+      width: 782,
+      height: 1066,
+    },
+  ]}
+/>
+
+<Callout type="danger">
+  但需要注意，一个账号主页已经是批量采集多篇笔记，多个账号就是更大批的长期采集，具备一定账号风险，慎用。
+</Callout>

@@ -60,7 +60,11 @@ const pages = [
     text: /更新日志|Product updates/i,
     timeline: true,
   },
-  { path: '/docs', title: /介绍|MediaClaw|媒爪/i },
+  {
+    path: '/docs',
+    title: /介绍|MediaClaw|媒爪/i,
+    docsDownload: true,
+  },
   {
     path: '/docs/foo/bar',
     title: /MediaClaw|媒爪/i,
@@ -306,6 +310,14 @@ for (const item of pages) {
       ).toContainText(
         /查看安装及使用教程|Installation and Usage Guide|tutorial/i
       );
+    }
+    if ('docsDownload' in item) {
+      const downloadLink = page.locator('[data-docs-download-link]');
+      await expect(downloadLink).toBeVisible();
+      await expect(downloadLink).toContainText(/我要使用|Get Started/i);
+      await expect(downloadLink).toHaveAttribute('href', /\/download$/);
+      await downloadLink.click();
+      await expect(page).toHaveURL(/\/download(?:[?#]|$)/);
     }
     if ('chatComposer' in item) {
       await expect(page.locator('[data-chat-composer]')).toBeVisible();

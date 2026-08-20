@@ -1,0 +1,84 @@
+export const meta = {
+  title: '同步数据到飞书多维表格',
+  description: '选择数据池记录并同步到已配置的飞书多维表格。',
+};
+
+同步飞书适合把采集结果放到飞书表格存档，或者交给团队继续筛选、研究和生产。
+
+<Callout type="note">
+  飞书同步需要完成激活码鉴权，可前往官网[购买激活码](https://mediaclaw.app/pricing)。没有激活码时，先使用[导出到本地](/docs/collect/export-local)。
+</Callout>
+## 前置条件 首次使用前必须先完成[飞书模板配置](/docs/settings/feishu-template)
+
+## 操作步骤
+
+1. 点击数据池工具栏中的 **同步飞书**。
+
+<DocImage
+  src="/imgs/docs/collect/feishu-sync/01-同步按钮.webp"
+  caption="数据池工具栏中的「同步飞书」按钮"
+  captionEn="The Sync to Feishu button in the data pool toolbar"
+  width={520}
+  height={70}
+/>
+
+2. 如果插件提示“这些数据还可以更完整”，选择处理方式：
+   - **先补采增强，再同步**：推荐。会先补正文、标签、媒体链接、作者信息或评论，再发起同步。
+   - **直接同步当前数据**：保留现有字段，不等待补采。
+
+<DocImage
+  src="/imgs/docs/collect/feishu-sync/02-同步前数据完整性检查.webp"
+  caption="同步前的数据完整性检查"
+  captionEn="Data completeness check before syncing"
+  width={480}
+  height={371}
+/>
+
+3. 确认同步范围：
+   - 默认是“仅同步当前页面缓存区未同步数据“，可以避免同步太多重复数据过去，适合大部分情况使用。
+   - 可以选择“同步当前缓存区全部数据“，也就是说不管是否之前同步过，只要还在数据池中的数据，都会被全部同步。
+
+<DocImage
+  src="/imgs/docs/collect/feishu-sync/03-两种同步范围选择.webp"
+  caption="选择仅同步未同步数据，或同步当前缓存区的全部数据"
+  captionEn="Choose whether to sync only unsynced records or all records in the current cache"
+  width={440}
+  height={518}
+/>
+
+4. 等待同步完成，再到飞书多维表格检查对应数据表。
+
+## 数据会进入哪张表
+
+插件会根据采集类型写入已配置的表：
+
+- 单篇作品 → 单笔记表
+- 搜索结果作品 → 关键词笔记表
+- 博主资料 → 博主信息表
+- 博主主页作品 → 博主笔记表
+- 命中规则的评论 → 客资表
+- 账号监控命中的作品 → 监控表
+
+<DocImage
+  src="/imgs/docs/collect/feishu-sync/04-数据表对应关系.webp"
+  caption="不同采集类型与飞书数据表的对应关系"
+  captionEn="How each collection type maps to a Feishu data table"
+  width={640}
+  height={507}
+/>
+
+表名可以修改，但必须与飞书多维表格里的实际数据表名称完全一致。
+
+## 查看结果和继续排查
+
+同步结束后，先看成功、失败和跳过数量。右上角的执行明细会保存同步记录；部分任务可以复制调试链接，方便定位服务端处理情况。
+
+<Callout type="note">
+  同步成功只代表数据已经写入目标表，不代表所有字段都有值。字段是否完整，仍取决于同步前是否采集到了对应内容。
+</Callout>
+
+如果同步失败：请务必按照常见问题[常见问题](/docs/reference/faq)的几个步骤依次排查，99% 的问题已覆盖。
+
+## 配置与使用的区别
+
+[飞书模板配置](/docs/settings/feishu-template)负责建立目标表格、表名和通知 Webhook；本页负责把数据池里的实际记录发起同步。配置通常只做一次，日常同步可以重复执行。

@@ -1,5 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
+import { getAllDocSlugs } from '@/content/docs/registry';
+
 type SearchDoc = {
   id: string;
   title: string;
@@ -17,6 +19,18 @@ const mdxFiles = import.meta.glob('/src/content/**/*.{md,mdx}', {
   query: '?raw',
   import: 'default',
 }) as Record<string, unknown>;
+
+const registeredDocSlugs = new Set(getAllDocSlugs());
+
+function isSearchableMdxPath(path: string) {
+  const prefix = '/src/content/docs/';
+  if (!path.startsWith(prefix)) return true;
+  const slug = path
+    .slice(prefix.length)
+    .replace(/\.(zh|en)\.mdx?$/, '')
+    .replace(/\.mdx?$/, '');
+  return registeredDocSlugs.has(slug);
+}
 
 function titleFromLegacy(data: any) {
   return (
@@ -42,6 +56,7 @@ function urlFromPath(path: string) {
     .replace(/^\/src\/content\/legacy-pages\/(?:zh|en)\//, '/')
     .replace(/^\/src\/content\//, '/')
     .replace(/\.(zh|en)\.mdx?$/, '')
+    .replace(/\.mdx?$/, '')
     .replace(/\.json$/, '')
     .replace(/\/index$/, '/');
 }
@@ -54,28 +69,30 @@ function docs(): SearchDoc[] {
     url: urlFromPath(path),
   }));
 
-  const mdx = Object.entries(mdxFiles).map(([path, raw]) => {
-    const content =
-      typeof raw === 'string'
-        ? raw
-        : typeof (raw as any)?.default === 'string'
-          ? (raw as any).default
-          : String(raw || '');
-    const title =
-      content.match(/^#\s+(.+)$/m)?.[1]?.trim() ||
-      path
-        .split('/')
-        .pop()
-        ?.replace(/\.(zh|en)\.mdx?$/, '')
-        .replace(/-/g, ' ') ||
-      'Document';
-    return {
-      id: path,
-      title,
-      content: stripMarkdown(content),
-      url: urlFromPath(path),
-    };
-  });
+  const mdx = Object.entries(mdxFiles)
+    .filter(([path]) => isSearchableMdxPath(path))
+    .map(([path, raw]) => {
+      const content =
+        typeof raw === 'string'
+          ? raw
+          : typeof (raw as any)?.default === 'string'
+            ? (raw as any).default
+            : String(raw || '');
+      const title =
+        content.match(/^#\s+(.+)$/m)?.[1]?.trim() ||
+        path
+          .split('/')
+          .pop()
+          ?.replace(/\.(zh|en)\.mdx?$/, '')
+          .replace(/-/g, ' ') ||
+        'Document';
+      return {
+        id: path,
+        title,
+        content: stripMarkdown(content),
+        url: urlFromPath(path),
+      };
+    });
 
   return [...legacy, ...mdx];
 }

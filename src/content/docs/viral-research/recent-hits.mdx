@@ -1,0 +1,49 @@
+export const meta = {
+  title: '找近期爆款',
+  description: '查看账号或赛道近期发布的高互动作品，减少被长期累计数据误导。',
+};
+
+近期爆款回答的是“最近一段时间，哪些内容正在获得反馈”。判断时要同时看发布时间和互动表现，不能只按历史总点赞排序。
+
+## 从账号主页找
+
+1. 打开目标账号主页。作品都按照发布时间倒序来排列的，抖音可以筛选具体时段，小红书不行。
+2. 再按点赞指标筛选数据较好的。还可以按主题筛选。
+
+<PlatformExampleTabs
+  douyinCaption="在抖音博主主页用日期筛选定位近期作品，MediaClaw 账号页可设置点赞门槛与笔记主题筛选"
+  douyinCaptionEn="On a Douyin creator's profile, use the date filter to narrow to recent posts; MediaClaw's profile tab lets you set a like threshold and note topic filter"
+  douyinSrc="/imgs/docs/viral-research/recent-hits/01-抖音账号爆款筛选-douyin.webp"
+  xiaohongshuCaption="小红书博主主页没有原生日期筛选，可在 MediaClaw 博主页设置点赞门槛与笔记主题筛选"
+  xiaohongshuCaptionEn="Xiaohongshu profiles have no native date filter; use MediaClaw's profile tab to set a like threshold and note topic filter instead"
+  xiaohongshuSrc="/imgs/docs/viral-research/recent-hits/01-小红书账号爆款筛选-xiaohongshu.webp"
+/>
+
+## 从关键词搜索找
+
+1. 在平台搜索目标关键词，并先使用平台原生的发布时间、热度排序筛选。
+2. 打开 MediaClaw 采集当前搜索结果。
+3. 设置最低互动门槛，避免低相关样本占满数据池。
+
+<PlatformExampleTabs
+  douyinCaption="在抖音搜索结果按最多点赞、半年内排序，MediaClaw 搜索页设置采集点赞门槛"
+  douyinCaptionEn="On Douyin search results, sort by most likes within the last six months; MediaClaw's search tab sets the collection like threshold"
+  douyinSrc="/imgs/docs/viral-research/recent-hits/02-抖音搜索筛选-douyin.webp"
+  xiaohongshuCaption="在小红书搜索结果按最多点赞、半年内排序，MediaClaw 搜索页设置采集点赞门槛"
+  xiaohongshuCaptionEn="On Xiaohongshu search results, sort by most likes within the last six months; MediaClaw's search tab sets the collection like threshold"
+  xiaohongshuSrc="/imgs/docs/viral-research/recent-hits/02-小红书搜索筛选-xiaohongshu.webp"
+/>
+
+## 如何判断“近期”
+
+近期没有统一天数，应跟内容更新速度匹配：
+
+- 热点和消费决策类内容，可重点看近一周内或者一天内。
+- 教程和常青需求，可扩展到近半年内。
+- 更新频率低的垂类账号，应使用更长窗口，避免样本太少。
+
+## 判断时注意
+
+- 发布时间越新，互动量尚未完全累积，不能直接与更早作品比较总量。
+- 账号粉丝体量、投放、热点事件都会影响数据。
+- 搜索结果不是平台全量数据库，只代表当前关键词和当前页面能看到的样本。

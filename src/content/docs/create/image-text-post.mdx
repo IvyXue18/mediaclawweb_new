@@ -1,0 +1,20 @@
+export const meta = {
+  title: '生成图文稿',
+  description: '基于选题和已研究的表达风格，生成一篇可直接使用的图文初稿。',
+};
+
+选定一个选题后，结合已保存的创作风格，生成一篇图文初稿。图文稿和视频稿共用同一套飞书 AI"二创改写仿写"机制——AI 会在改写结果中标注每篇稿件**适合形式：图文还是视频**，这一页只说明图文这一分支怎么用，完整的解构 → 改写 → 衍生选题流程见[用逐字稿进行二创](/docs/create/transcript-remix)。
+
+## 适用场景与前置条件
+
+已经从[选题库](/docs/topics/library)选定一个选题，并完成[飞书模板 AI 字段](/docs/settings/feishu-template)的配置。如果需要按某个账号的表达风格生成，先完成[账号研究](/docs/benchmark/account-research)并保存创作风格。
+
+## 如何理解输出
+
+当二创改写仿写判断"适合形式：图文"时，输出会包含：新标题、切入角度说明、配文全文、3-5 个关键词标签。直接复制配文即可用作图文笔记正文，配图可参考原笔记或使用[下载无水印素材](/docs/collect/no-watermark)获取的素材重新处理。
+
+<ImagePlaceholder caption="图文稿生成结果截图，待补充" />
+
+## 下一步
+
+内容确认后，可以[同步飞书多维表格](/docs/collect/feishu-sync)或[导出](/docs/reuse/export)沉淀下来。

@@ -17,7 +17,6 @@ const STATIC_PATHS = [
   '/updates',
   '/welfare',
   '/referral',
-  '/docs',
   '/privacy-policy',
   '/terms-of-service',
   '/features/feishu-integration',

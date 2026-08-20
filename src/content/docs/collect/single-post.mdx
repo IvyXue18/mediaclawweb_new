@@ -1,0 +1,50 @@
+export const meta = {
+  title: '采集单篇爆款',
+  description: '打开一篇小红书笔记或抖音视频，获取它的正文、媒体和基础数据。',
+};
+
+建议第一次使用 MediaClaw 时，从单篇开始。只需要打开一篇内容，<u>作品详情页显示定位正确</u>，就可以点击采集按钮。
+
+<PlatformExampleTabs
+  douyinCaption="抖音作品详情页"
+  douyinCaptionEn="Douyin post detail page"
+  douyinSrc="/imgs/docs/getting-started/core-interface/02-抖音作品详情页-douyin.webp"
+  xiaohongshuCaption="小红书作品详情页"
+  xiaohongshuCaptionEn="Xiaohongshu note detail page"
+  xiaohongshuSrc="/imgs/docs/getting-started/core-interface/02-小红书笔记详情页-xiaohongshu.webp"
+/>
+
+采集成功后，数据会出现在插件的数据池中，包含正文、图片、视频、点赞评论等基础数据。确认数据无误后，可以导出到本地，或同步到飞书。
+也可以继续下载附件素材、提取视频逐字稿或者图片文案，拆解这篇内容。
+
+## 附加采集配置
+
+附加采集指的是除了基础内容和数据，还需要额外采集哪些内容。
+
+- 附加采集博主粉丝数和赞藏数：会打开账号主页进行采集
+- 附加采集评论：会滚动评论区进行采集指定数量的评论（**这里只采集页面可见的评论，被折叠的多级评论不会自动展开**）
+
+## 批量采集单篇笔记
+
+有时候用户会有同时采集多篇内容详情的需要。例如 MCN 或者品牌团队，拿到了博主达人已经发出去的笔记链接，进行效果汇总。
+
+此时不需要你一篇篇点开去采集，只需要把收集到的笔记链接填入批量采集中，Mediaclaw会自动打开每一篇进行采集。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/single-post/01-小红书采集一批笔记.webp',
+      caption: '笔记详情页的批量采集图标',
+      captionEn: 'Batch-collect icon on the note detail page',
+      width: 800,
+      height: 554,
+    },
+    {
+      src: '/imgs/docs/collect/single-post/01-输入框.webp',
+      caption: '批量采集弹窗，粘贴链接列表（每行一个）',
+      captionEn: 'Batch-collect dialog — paste links, one per line',
+      width: 694,
+      height: 836,
+    },
+  ]}
+/>

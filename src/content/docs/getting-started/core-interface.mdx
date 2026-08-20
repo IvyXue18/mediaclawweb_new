@@ -1,0 +1,210 @@
+export const meta = {
+  title: '熟悉核心界面',
+  description: '认识侧边栏和 AI 工作台。',
+};
+
+MediaClaw 的核心界面分为两部分。
+
+- 侧边栏负责发起采集和分析任务，暂存原始数据；
+- AI工作台负责深度内容研究、选题与创作。
+
+## Part1：侧边栏
+
+### 1.主页和平台选择
+
+若浏览器当前打开的页面不是支持的社交平台页面，默认会调到插件主页。可以点击跳转到对应平台。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/getting-started/core-interface/01-主页平台选择区.webp',
+      caption: '主页平台选择区',
+      captionEn: 'Homepage platform selector',
+      width: 848,
+      height: 1484,
+    },
+    {
+      src: '/imgs/docs/getting-started/core-interface/01-左上角也可以选择平台.webp',
+      caption: '左上角也可以选择平台',
+      captionEn: 'You can also switch platforms from the top-left corner',
+      width: 844,
+      height: 1494,
+    },
+  ]}
+/>
+
+### 2.单条作品详情页
+
+打开一条笔记或者视频页面，插件会自动识别跳转到笔记/作品详情页。
+
+<PlatformExampleTabs
+  douyinCaption="抖音作品详情页"
+  douyinCaptionEn="Douyin post detail page"
+  douyinSrc="/imgs/docs/getting-started/core-interface/02-抖音作品详情页-douyin.webp"
+  xiaohongshuCaption="小红书作品详情页"
+  xiaohongshuCaptionEn="Xiaohongshu note detail page"
+  xiaohongshuSrc="/imgs/docs/getting-started/core-interface/02-小红书笔记详情页-xiaohongshu.webp"
+/>
+
+### 3.博主账号页
+
+打开一个账号的主页，插件会自动识别并跳转到博主账号页。
+
+<PlatformExampleTabs
+  douyinCaption="抖音账号主页"
+  douyinCaptionEn="Douyin creator profile page"
+  douyinSrc="/imgs/docs/getting-started/core-interface/03-抖音账号页-douyin.webp"
+  xiaohongshuCaption="小红书博主账号主页"
+  xiaohongshuCaptionEn="Xiaohongshu creator profile page"
+  xiaohongshuSrc="/imgs/docs/getting-started/core-interface/03-小红书博主账号页-xiaohongshu.webp"
+/>
+
+### 4.搜索页
+
+打开小红书平台的首页搜索页面，或抖音平台的精选页，插件会自动识别并跳转到搜索页tab。
+
+<Callout type="note">
+  需要先搜索一个关键词并<u>点击搜索按钮</u>
+  。插件会识别到当前页面的搜索词，接下来就可以进行采集。
+</Callout>
+
+<PlatformExampleTabs
+  douyinCaption="抖音精选搜索页"
+  douyinCaptionEn="Douyin search results page"
+  douyinSrc="/imgs/docs/getting-started/core-interface/04-侧边栏抖音精选搜索页-douyin.webp"
+  xiaohongshuCaption="小红书主页搜索页"
+  xiaohongshuCaptionEn="Xiaohongshu search results page"
+  xiaohongshuSrc="/imgs/docs/getting-started/core-interface/04-侧边栏小红书搜索页-xiaohongshu.webp"
+/>
+
+### 5.对标监控页
+
+支持监控小红书/抖音对标账号的内容更新。打开一个账号的主页，插件侧边栏切换到对标监控tab，可以发起对标监控任务，或查看运行情况。
+
+<PlatformExampleTabs
+  douyinCaption="抖音对标账号监控"
+  douyinCaptionEn="Douyin benchmark account monitoring"
+  douyinSrc="/imgs/docs/getting-started/core-interface/05-抖音对标账号监控-douyin.webp"
+  xiaohongshuCaption="小红书对标账号监控"
+  xiaohongshuCaptionEn="Xiaohongshu benchmark account monitoring"
+  xiaohongshuSrc="/imgs/docs/getting-started/core-interface/05-小红书对标账号监控-xiaohongshu.webp"
+/>
+
+### 6.系统配置页
+
+插件的运行配置，都在这里控制。分为授权区域和参数设置区域。
+
+<Callout type="note">
+  本小节主要带大家熟悉页面，详细的插件配置参数说明可以查看[插件参数配置详情](/docs/settings/plugin)
+</Callout>
+
+<DocImage
+  src="/imgs/docs/getting-started/core-interface/06-系统配置页.webp"
+  caption="系统配置页"
+  captionEn="System settings page"
+/>
+
+### 7.执行明细页
+
+插件采集、监控任务的执行明细都在这里，方便排查问题。当遇到采集，同步，监控失败等情况，需要协助管理员排查问题的时候，可能会用到。
+
+<DocImage
+  src="/imgs/docs/getting-started/core-interface/07-执行明细页.webp"
+  caption="执行明细页"
+  captionEn="Execution log page"
+/>
+
+## Part2：AI 工作台
+
+入口：
+
+<DocImage
+  src="/imgs/docs/getting-started/core-interface/08-AI工作台入口.webp"
+  caption="AI 工作台入口"
+  captionEn="AI workspace entry point"
+  width={520}
+  height={196}
+/>
+
+AI 工作台包含三个区域：
+
+### 1.内容研究
+
+查看账号研究和单篇拆解任务。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/getting-started/core-interface/09-账号拆解.webp',
+      caption: '账号拆解',
+      captionEn: 'Account breakdown',
+      width: 1280,
+      height: 805,
+    },
+    {
+      src: '/imgs/docs/getting-started/core-interface/09-单篇爆款拆解.webp',
+      caption: '单篇爆款拆解',
+      captionEn: 'Single viral post breakdown',
+      width: 1600,
+      height: 1030,
+    },
+  ]}
+/>
+
+### 2.选题库
+
+保存你主动选择、准备继续创作的选题。
+
+<DocImage
+  src="/imgs/docs/getting-started/core-interface/10-选题库，选题卡.webp"
+  caption="选题库、选题卡"
+  captionEn="Topic library and topic cards"
+/>
+
+<DocImage
+  src="/imgs/docs/getting-started/core-interface/11-创作页面.webp"
+  caption="创作页面"
+  captionEn="Creation page"
+/>
+
+### 3.内容创作
+
+从账号研究、单篇拆解或选题库进入图文和视频创作。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/getting-started/core-interface/11-创作中进度.webp',
+      caption: '创作改写初稿中',
+      captionEn: 'Draft rewrite in progress',
+      width: 1600,
+      height: 889,
+    },
+    {
+      src: '/imgs/docs/getting-started/core-interface/11-已完成的创作.webp',
+      caption: '已完成的初稿列表',
+      captionEn: 'Completed draft list',
+      width: 1600,
+      height: 949,
+    },
+  ]}
+/>
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/getting-started/core-interface/12-创作结果.webp',
+      caption: '创作结果',
+      captionEn: 'Creation result',
+      width: 1600,
+      height: 1320,
+    },
+    {
+      src: '/imgs/docs/getting-started/core-interface/12-创作结果口播逐字稿.webp',
+      caption: '创作结果口播逐字稿',
+      captionEn: 'Creation result — voiceover transcript',
+      width: 1600,
+      height: 1269,
+    },
+  ]}
+/>
