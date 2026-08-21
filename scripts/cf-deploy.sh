@@ -21,6 +21,25 @@ if [ "$deploy_env" != "production" ]; then
   exit 1
 fi
 
+deploy_branch="$(git branch --show-current)"
+if [ "$deploy_branch" != "main" ]; then
+  echo "Production deploys are only allowed from main (current: ${deploy_branch:-detached HEAD})." >&2
+  exit 1
+fi
+
+if [ -n "$(git status --porcelain)" ]; then
+  echo "Production deploys require a clean main worktree." >&2
+  exit 1
+fi
+
+git fetch origin main
+deploy_head="$(git rev-parse HEAD)"
+origin_main_head="$(git rev-parse origin/main)"
+if [ "$deploy_head" != "$origin_main_head" ]; then
+  echo "Production deploys require main to match origin/main." >&2
+  exit 1
+fi
+
 set -a
 if [ -f .env.production ]; then
   . ./.env.production
