@@ -36,29 +36,33 @@ async function GET({ request }: { request: Request }) {
     const where = conditions.length > 0 ? and(...conditions) : undefined;
 
     const database = db();
-    const [[totalResult], users] = await Promise.all([
-      database.select({ count: count() }).from(user).where(where),
-      database
-        .select({
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          image: user.image,
-          createdAt: user.createdAt,
-        })
-        .from(user)
-        .where(where)
-        .orderBy(desc(user.createdAt))
-        .limit(pageSize)
-        .offset(offset),
-    ]);
+    // Hyperdrive uses a single connection for this request-scoped client.
+    // Keep its queries sequential instead of attempting to pipeline them.
+    const [totalResult] = await database
+      .select({ count: count() })
+      .from(user)
+      .where(where);
+    const users = await database
+      .select({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        image: user.image,
+        createdAt: user.createdAt,
+      })
+      .from(user)
+      .where(where)
+      .orderBy(desc(user.createdAt))
+      .limit(pageSize)
+      .offset(offset);
     const total = totalResult.count;
 
     const userIds = users.map((u: (typeof users)[number]) => u.id);
-    const [walletBalances, credentialBalances] = await Promise.all([
-      getBalances(userIds, database),
-      getUserCredentialBalances(userIds, database),
-    ]);
+    const walletBalances = await getBalances(userIds, database);
+    const credentialBalances = await getUserCredentialBalances(
+      userIds,
+      database
+    );
     const withCredits = users.map((u: (typeof users)[number]) => {
       const walletBalance = walletBalances.get(u.id) || 0;
       const credentialBalance = credentialBalances.get(u.id) || 0;
