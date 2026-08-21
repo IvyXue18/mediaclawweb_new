@@ -106,6 +106,7 @@ function CredentialsPage() {
   const [queryResult, setQueryResult] = useState<ClaimStatusData | null>(null);
   const [claimSuccess, setClaimSuccess] = useState(false);
   const [message, setMessage] = useState('');
+  const [freezeTarget, setFreezeTarget] = useState<CredentialRow | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearch(search), 300);
@@ -187,6 +188,7 @@ function CredentialsPage() {
     mutationFn: (credentialId: string) =>
       apiPost(`/api/user/credentials/${credentialId}`, { action: 'freeze' }),
     onSuccess: () => {
+      setFreezeTarget(null);
       toast.success(m['settings.credentials.messages.freeze_success']());
       queryClient.invalidateQueries({ queryKey: ['user-credentials'] });
     },
@@ -318,7 +320,7 @@ function CredentialsPage() {
               size="sm"
               className="gap-1.5"
               disabled={disabled}
-              onClick={() => freezeMutation.mutate(row.id)}
+              onClick={() => setFreezeTarget(row)}
             >
               {isFreezing ? (
                 <Loader2 className="size-3.5 animate-spin" />
@@ -494,6 +496,51 @@ function CredentialsPage() {
               {claimMutation.isPending
                 ? m['settings.credentials.claim.buttons.claiming']()
                 : m['settings.credentials.claim.buttons.confirm']()}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={!!freezeTarget}
+        onOpenChange={(nextOpen) => {
+          if (!nextOpen && !freezeMutation.isPending) setFreezeTarget(null);
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {m['settings.credentials.freeze_confirm.title']()}
+            </DialogTitle>
+            <DialogDescription>
+              {m['settings.credentials.freeze_confirm.description']({
+                code: freezeTarget?.code || '',
+              })}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              disabled={freezeMutation.isPending}
+              onClick={() => setFreezeTarget(null)}
+            >
+              {m['settings.credentials.freeze_confirm.cancel']()}
+            </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              disabled={freezeMutation.isPending || !freezeTarget}
+              onClick={() =>
+                freezeTarget && freezeMutation.mutate(freezeTarget.id)
+              }
+            >
+              {freezeMutation.isPending ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : null}
+              {freezeMutation.isPending
+                ? m['settings.credentials.buttons.processing']()
+                : m['settings.credentials.freeze_confirm.confirm']()}
             </Button>
           </DialogFooter>
         </DialogContent>
