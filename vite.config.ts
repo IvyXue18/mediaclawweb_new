@@ -77,7 +77,11 @@ export default defineConfig({
     paraglideVitePlugin({
       project: './project.inlang',
       outdir: './src/paraglide',
-      outputStructure: 'message-modules',
+      // Rolldown cannot currently resolve Paraglide's string-literal message
+      // exports through the message-modules `export *` chain. It treats valid
+      // `m['namespace.key']` calls as undefined and emits `(void 0)()` in the
+      // browser bundle. A single locale index keeps those exports visible.
+      outputStructure: 'locale-modules',
       cookieName: 'PARAGLIDE_LOCALE',
       strategy: ['url', 'cookie', 'baseLocale'],
       urlPatterns: [

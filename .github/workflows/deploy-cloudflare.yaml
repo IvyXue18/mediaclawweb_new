@@ -45,7 +45,7 @@ jobs:
           set -a
           [ -f .env.production ] && . ./.env.production
           set +a
-          pnpm cf:build
+          pnpm cf:build:checked
           node scripts/create-wrangler-deploy-config.mjs production
 
       - name: Deploy with Wrangler

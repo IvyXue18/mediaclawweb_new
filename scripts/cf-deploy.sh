@@ -10,7 +10,7 @@ if [ "$deploy_env" = "staging" ]; then
   export VITE_APP_NAME="MediaClaw"
   export VITE_DEFAULT_LOCALE="zh"
 
-  pnpm cf:build
+  pnpm cf:build:checked
   node scripts/create-wrangler-deploy-config.mjs staging
   wrangler deploy --config .wrangler/staging-wrangler.json
   exit 0
@@ -46,7 +46,7 @@ if [ -f .env.production ]; then
 fi
 set +a
 
-pnpm cf:build
+pnpm cf:build:checked
 node scripts/create-wrangler-deploy-config.mjs production
 wrangler deploy --config .wrangler/production-wrangler.json
 # IndexNow submission is best-effort: a rejected/misconfigured key (e.g. 403)
