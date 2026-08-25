@@ -226,7 +226,15 @@ async function GET({ request }: { request: Request }) {
     );
     const paidPeriodWhere =
       start && end
-        ? and(paidBaseWhere, gte(paidTimestamp, start), lt(paidTimestamp, end))
+        ? and(
+            paidBaseWhere,
+            // `paidTimestamp` is a raw SQL expression, so Drizzle cannot infer
+            // the dialect-specific Date encoder for bound parameters. Encode
+            // range values with the timestamp column explicitly (ISO for
+            // Postgres/MySQL, epoch milliseconds for SQLite/D1).
+            gte(paidTimestamp, sql.param(start, order.paidAt)),
+            lt(paidTimestamp, sql.param(end, order.paidAt))
+          )
         : paidBaseWhere;
     const periodPaidRows = await safeRead(
       'period paid orders',
