@@ -1,0 +1,67 @@
+export const meta = {
+  title: 'Agent 采集约束放宽，多环境安装与工作流稳定性升级',
+  description:
+    'Agent 支持按用途和目标数量规划分批采集，并在 Windows、macOS 和 Linux 上通过同一条提示词安装，同时优化数据复用、连接状态、视频逐字稿和选题生成。',
+  date: '2026-08-27',
+  tags: ['MediaClaw Agent', '跨平台安装', '视频逐字稿', '选题生成'],
+  version: '0.3.1',
+};
+
+MediaClaw V0.3.1 更新：
+
+<div className="not-prose space-y-4">
+  <div className="inline-flex rounded-full border border-amber-400/70 bg-amber-400/10 px-3 py-1 text-sm font-semibold text-amber-300">
+    新增
+  </div>
+  <div className="space-y-3">
+    <div className="bg-muted/30 rounded-lg border p-4">
+      <h3 className="mb-2 text-base font-semibold">Agent 采集约束放款</h3>
+      <p className="text-muted-foreground">
+        在对话中告诉 Agent 采集用途和目标数量，它会先列出采集范围和分批方案；需要连续采集多批时会先请你确认风险，再按照原目标继续。
+      </p>
+    </div>
+    <div className="bg-muted/30 rounded-lg border p-4">
+      <h3 className="mb-2 text-base font-semibold">Agent 安装支持多环境设备</h3>
+      <p className="text-muted-foreground">
+        现在可以在 Windows、macOS 和 Linux 上使用同一条提示词安装 Agent。安装过程会自动适配当前电脑，升级后继续使用原来的设备配对。
+      </p>
+    </div>
+  </div>
+
+<div className="inline-flex rounded-full border border-sky-400/70 bg-sky-400/10 px-3 py-1 text-sm font-semibold text-sky-300">
+  优化
+</div>
+<div className="space-y-3">
+  <div className="bg-muted/30 rounded-lg border p-4">
+    <h3 className="mb-2 text-base font-semibold">优先复用已有分析和采集数据</h3>
+    <p className="text-muted-foreground">
+      让 Agent
+      分析账号或单篇内容时，会先查找已有报告、数据池记录和逐字稿，缺少什么再补充采集，减少重复等待和重复采集。
+    </p>
+  </div>
+  <div className="bg-muted/30 rounded-lg border p-4">
+    <h3 className="mb-2 text-base font-semibold">Agent 安装和连接更顺畅</h3>
+    <p className="text-muted-foreground">
+      插件会更清楚地显示待批准、已配对和已连接状态。遇到已经安装但当前对话无法使用的情况，可以直接修复并继续，不需要反复卸载。
+    </p>
+  </div>
+  <div className="bg-muted/30 rounded-lg border p-4">
+    <h3 className="mb-2 text-base font-semibold">视频逐字稿提取更稳定</h3>
+    <p className="text-muted-foreground">
+      提升抖音视频完整口播音轨的识别和批量逐字稿回填稳定性；视频没有有效口播时会给出明确说明，减少空结果和重复处理。
+    </p>
+  </div>
+</div>
+
+  <div className="inline-flex rounded-full border border-rose-400/70 bg-rose-400/10 px-3 py-1 text-sm font-semibold text-rose-300">
+    修复
+  </div>
+  <div className="space-y-3">
+    <div className="bg-muted/30 rounded-lg border p-4">
+      <h3 className="mb-2 text-base font-semibold">减少“换一批选题”的重复内容</h3>
+      <p className="text-muted-foreground">
+        单篇拆解重新生成选题时，会避开上一批已经出现的主题和相似角度，并自动补齐近、中、远三组选题。
+      </p>
+    </div>
+  </div>
+</div>

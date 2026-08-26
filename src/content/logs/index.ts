@@ -24,6 +24,7 @@ export const LOG_SLUGS = [
   'v0.2.2',
   'v0.2.3',
   'v0.3.0',
+  'v0.3.1',
 ] as const;
 
 export type LogMeta = {
