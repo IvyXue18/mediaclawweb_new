@@ -465,7 +465,7 @@
             "group": "credits"
           }
         ],
-        "default_group": "yearly"
+        "default_group": "monthly"
       },
       "comparison": {
         "id": "comparison",
