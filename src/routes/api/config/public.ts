@@ -50,7 +50,7 @@ function isEmailSendingConfigured(configs: Record<string, string>): boolean {
 }
 
 async function GET({ request }: { request: Request }) {
-  const configs = await getAllConfigs();
+  const configs = await getAllConfigs({ bypassCache: true });
   const result = filterPublicConfigs(configs, publicKeys);
   const emailConfigured = isEmailSendingConfigured(configs);
   result.password_reset_enabled =

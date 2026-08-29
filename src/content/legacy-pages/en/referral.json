@@ -1,12 +1,12 @@
 {
   "metadata": {
-    "title": "Join MediaClaw Partner Program — Earn 20% Commission",
-    "description": "Share MediaClaw: friends get 10% off their first purchase, and you earn 20% referral commission.",
+    "title": "Join MediaClaw Partner Program — {{firstOrderRate}}% First Order / {{renewalRate}}% Renewal Commission",
+    "description": "Share MediaClaw: friends get {{inviteeDiscount}}% off their first purchase, while you earn {{firstOrderRate}}% first-order and {{renewalRate}}% renewal commission.",
     "keywords": "MediaClaw partner program, affiliate program, earn commission, referral reward, monetization, social media tools"
   },
   "page": {
     "title": "Join MediaClaw Partner Program",
-    "description": "Share MediaClaw: friends get 10% off their first purchase, and you earn 20% referral commission.",
+    "description": "Share MediaClaw: friends get {{inviteeDiscount}}% off their first purchase, while you earn {{firstOrderRate}}% first-order and {{renewalRate}}% renewal commission.",
     "show_sections": ["hero", "mechanism", "rules", "cta"],
     "sections": {
       "hero": {
@@ -14,19 +14,7 @@
         "block": "hero",
         "title": "Join MediaClaw Partner Program",
         "highlight_text": "Partner Program",
-        "description": "Invite friends to MediaClaw: they get 10% off their first purchase, while you earn 20% commission on their first order and eligible renewals.",
-        "image": {
-          "src": "/imgs/features/V20260623.png",
-          "alt": "MediaClaw Partner Program commission dashboard preview",
-          "width": 2654,
-          "height": 1738
-        },
-        "image_invert": {
-          "src": "/imgs/features/V20260623.png",
-          "alt": "MediaClaw Partner Program commission dashboard preview",
-          "width": 2654,
-          "height": 1738
-        },
+        "description": "Invite friends to MediaClaw: they get {{inviteeDiscount}}% off their first purchase, while you earn {{firstOrderRate}}% first-order and {{renewalRate}}% renewal commission.",
         "buttons": [
           {
             "title": "Join and Share",
@@ -64,7 +52,20 @@
         "block": "faq",
         "title": "Commission Rules",
         "description": "Transparent rules to ensure every referral reward is processed accurately",
-        "items": []
+        "items": [
+          {
+            "question": "What is the first-order commission rate?",
+            "answer": "When an invitee makes their first purchase, the referrer earns {{firstOrderRate}}% of the order amount."
+          },
+          {
+            "question": "What is the renewal commission rate?",
+            "answer": "The referrer earns {{renewalRate}}% commission on eligible renewal orders from the invitee."
+          },
+          {
+            "question": "What discount does the invitee receive?",
+            "answer": "The invitee receives {{inviteeDiscount}}% off their first purchase."
+          }
+        ]
       },
       "cta": {
         "id": "cta",

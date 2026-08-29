@@ -1,12 +1,12 @@
 {
   "metadata": {
-    "title": "加入 MediaClaw 伙伴计划 — 赚取 20% 推广返佣",
-    "description": "分享 MediaClaw，好友首购享 10% 优惠，您可获得 20% 推广返佣。立即加入伙伴计划，实现流量变现。",
+    "title": "加入 MediaClaw 伙伴计划 — 首单 {{firstOrderRate}}% / 续费 {{renewalRate}}% 返佣",
+    "description": "分享 MediaClaw，好友首购享 {{inviteeDiscount}}% 优惠，您可获得首单 {{firstOrderRate}}%、续费 {{renewalRate}}% 推广返佣。立即加入伙伴计划，实现流量变现。",
     "keywords": "MediaClaw伙伴计划, 推广返佣, 联盟营销, 流量变现, 推荐奖励, 创作者工具分享"
   },
   "page": {
     "title": "加入 MediaClaw 伙伴计划",
-    "description": "分享 MediaClaw，好友首购享 10% 优惠，您可获得 20% 推广返佣。",
+    "description": "分享 MediaClaw，好友首购享 {{inviteeDiscount}}% 优惠，您可获得首单 {{firstOrderRate}}%、续费 {{renewalRate}}% 推广返佣。",
     "show_sections": ["hero", "mechanism", "rules", "cta"],
     "sections": {
       "hero": {
@@ -14,19 +14,7 @@
         "block": "hero",
         "title": "加入 MediaClaw 伙伴计划",
         "highlight_text": "伙伴计划",
-        "description": "邀请好友使用 MediaClaw：好友首购享 10% 优惠，您可从其首单和后续符合条件的续费订单中获得 20% 佣金。",
-        "image": {
-          "src": "/imgs/features/V20260623.png",
-          "alt": "MediaClaw 伙伴计划返佣面板预览",
-          "width": 2654,
-          "height": 1738
-        },
-        "image_invert": {
-          "src": "/imgs/features/V20260623.png",
-          "alt": "MediaClaw 伙伴计划返佣面板预览",
-          "width": 2654,
-          "height": 1738
-        },
+        "description": "邀请好友使用 MediaClaw：好友首购享 {{inviteeDiscount}}% 优惠，您可获得首单 {{firstOrderRate}}%、续费 {{renewalRate}}% 佣金。",
         "buttons": [
           {
             "title": "立即参与并分享",
@@ -64,7 +52,20 @@
         "block": "faq",
         "title": "返佣规则",
         "description": "透明的返佣机制，确保每一份推广收益都能准确到账",
-        "items": []
+        "items": [
+          {
+            "question": "首单返佣比例是多少？",
+            "answer": "被邀请人首次购买后，邀请人可获得订单金额 {{firstOrderRate}}% 的佣金。"
+          },
+          {
+            "question": "续费返佣比例是多少？",
+            "answer": "被邀请人后续符合条件的续费订单，邀请人可获得 {{renewalRate}}% 的佣金。"
+          },
+          {
+            "question": "被邀请人可以获得什么优惠？",
+            "answer": "被邀请人首次购买可享受 {{inviteeDiscount}}% 优惠。"
+          }
+        ]
       },
       "cta": {
         "id": "cta",

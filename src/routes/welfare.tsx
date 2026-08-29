@@ -20,6 +20,7 @@ import { envConfigs } from '@/config';
 import { apiGet, apiPost } from '@/lib/api-client';
 import { getBrowserInstallId } from '@/lib/browser-install-id';
 import { recordAnalyticsEventSafe } from '@/lib/client-analytics';
+import { resolveReferralConfig } from '@/lib/referral-config';
 import {
   researchExampleLinks,
   type ResearchEntryConfig,
@@ -253,23 +254,8 @@ function WelfarePage() {
   }
 
   const publicConfig = usePublicConfig().data;
-  const parsedReferralRate = Number.parseInt(
-    publicConfig?.referral_first_order_rate ?? '',
-    10
-  );
-  const referralRate =
-    Number.isFinite(parsedReferralRate) && parsedReferralRate > 0
-      ? parsedReferralRate
-      : 20;
-  const parsedInviteeDiscount = Number.parseInt(
-    publicConfig?.referral_invitee_discount ?? '',
-    10
-  );
-  const inviteeDiscount =
-    Number.isFinite(parsedInviteeDiscount) && parsedInviteeDiscount > 0
-      ? parsedInviteeDiscount
-      : 10;
-  const referralEnabled = publicConfig?.referral_enabled !== 'false';
+  const referralConfig = resolveReferralConfig(publicConfig ?? {});
+  const referralEnabled = referralConfig.enabled;
 
   const action = getAction(status, !hydrated || isPending, product);
   const sceneLinks: Record<SceneLinkKey, string> = {
@@ -539,8 +525,8 @@ function WelfarePage() {
                       {
                         icon: HandCoins,
                         title: '佣金推荐',
-                        badge: `${referralRate}% 返佣`,
-                        description: `邀请朋友使用 MediaClaw：朋友首购享 ${inviteeDiscount}% 优惠，你拿首单和续费 ${referralRate}% 返佣，满额即可提现。`,
+                        badge: `首单 ${referralConfig.firstOrderRate}% 返佣`,
+                        description: `邀请朋友使用 MediaClaw：朋友首购享 ${referralConfig.inviteeDiscount}% 优惠，你拿首单 ${referralConfig.firstOrderRate}%、续费 ${referralConfig.renewalRate}% 返佣，满额即可提现。`,
                         hint: '了解伙伴计划',
                         href: '/referral',
                       },

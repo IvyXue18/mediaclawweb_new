@@ -150,6 +150,51 @@ describe('referral commission service', () => {
     });
   });
 
+  it('honors configured zero rates instead of falling back to defaults', async () => {
+    mocks.getAllConfigs.mockResolvedValue({
+      referral_first_order_rate: '0',
+      referral_renewal_rate: '0',
+      referral_invitee_discount: '0',
+    });
+
+    await expect(getReferralConfig()).resolves.toMatchObject({
+      firstOrderRate: 0,
+      renewalRate: 0,
+      inviteeDiscount: 0,
+    });
+  });
+
+  it('marks a zero-rate first order so later orders use the renewal rate', async () => {
+    mocks.getAllConfigs.mockResolvedValue({
+      referral_first_order_rate: '0',
+      referral_renewal_rate: '5',
+      pricing_products: JSON.stringify({
+        'pro-1m': { fulfillment: 'credential' },
+      }),
+    });
+
+    const result = await processReferralCommissionForPaidOrder({
+      order: {
+        orderNo: 'ORDER-ZERO-RATE',
+        userId: 'invitee-1',
+        productId: 'pro-1m',
+        amount: 10000,
+        currency: 'CNY',
+      },
+    });
+
+    expect(result).toBeNull();
+    expect(dbState.insertedCommission).toBeNull();
+    expect(dbState.updateValues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          hasFirstOrder: true,
+          firstOrderNo: 'ORDER-ZERO-RATE',
+        }),
+      ])
+    );
+  });
+
   it('creates a pending first-order commission and marks the relation', async () => {
     const result = await processReferralCommissionForPaidOrder({
       order: {

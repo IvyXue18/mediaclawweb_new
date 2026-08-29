@@ -31,7 +31,7 @@ const publicKeys = [
 
 async function POST() {
   try {
-    const configs = await getAllConfigs();
+    const configs = await getAllConfigs({ bypassCache: true });
     return respData(filterPublicConfigs(configs, publicKeys));
   } catch (error: any) {
     return respErr(error.message || 'get configs failed');
