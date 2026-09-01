@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Douyin Scraper – Export Videos, Profiles & Search Data | MediaClaw",
-    "description": "Scrape Douyin videos, creator profiles, search results and metadata in Chrome. Export to CSV, Excel or Markdown, extract transcripts, or sync your research to Lark Base—no code required.",
+    "title": "Free Douyin Scraper Chrome Extension | MediaClaw",
+    "description": "Douyin scraper Chrome extension: batch scrape videos, creator profiles with no code. Export to Export to CSV/Markdown, or sync to Lark Base.",
     "keywords": "Douyin scraper, Douyin scraper Chrome extension, no-code Douyin scraper, export Douyin to Excel, Douyin video scraper, Douyin video transcript, Markdown export"
   },
   "page": {
@@ -35,7 +35,7 @@
             "title": "Video Scraper"
           }
         ],
-        "title": "Douyin Scraper for Videos, Profiles and Search Results",
+        "title": "Douyin Scraper Chrome Extension: Batch Export to CSV/Excel",
         "description": "A free no-code Douyin scraper Chrome extension. Batch extract videos, creator profiles, and search results, export to CSV/Excel or Markdown, backfill video transcripts, and spot competitor trends.",
         "buttons": [
           {

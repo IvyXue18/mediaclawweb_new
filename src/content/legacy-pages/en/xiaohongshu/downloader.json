@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Xiaohongshu Video & Image Downloader – No Watermark | MediaClaw",
-    "description": "Download Xiaohongshu (RedNote) videos, images, covers and Live Photos without watermarks. Batch-save original-quality media with the MediaClaw Chrome extension.",
+    "title": "Xiaohongshu Downloader - No Watermarks | MediaClaw",
+    "description": "Batch-download Xiaohongshu (RedNote) images and videos in original quality without watermarks. Build a visual reference library. Free Chrome extension.",
     "keywords": "Xiaohongshu downloader, no watermark, batch download, RedNote images, save video, content assets"
   },
   "page": {
@@ -35,7 +35,7 @@
             "title": "Downloader"
           }
         ],
-        "title": "Download Xiaohongshu Videos and Images Without Watermarks",
+        "title": "Download Xiaohongshu Images & Videos Without Watermarks",
         "description": "Batch-save post images and videos in original quality — no watermarks, no quality loss. Build visual reference libraries for content analysis and creative planning.",
         "buttons": [
           {
