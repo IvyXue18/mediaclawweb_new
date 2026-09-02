@@ -104,6 +104,7 @@ import {
 import { Footer } from '@/blocks/footer';
 import { Header } from '@/blocks/header';
 import { ActivationCodeGuideDialog } from '@/components/activation-code-guide-dialog';
+import { TestimonialWall } from '@/components/testimonial-wall';
 import { Badge } from '@/components/ui/badge';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -119,6 +120,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { testimonialGroups } from '@/content/testimonial-wall';
 
 export type LegacyPageData = {
   metadata?: {
@@ -4169,7 +4171,7 @@ function TestimonialsBlock({ section }: { section: LegacySection }) {
                 data-testimonial-card
                 className="bg-card/25 ring-foreground/[0.07] flex h-full flex-col justify-end gap-6 rounded-[var(--radius)] border border-transparent p-8 ring-1"
               >
-                <p className='text-foreground w-full text-left text-balance before:mr-1 before:content-["\201C"] after:ml-1 after:content-["\201D"]'>
+                <p className="text-foreground w-full text-left text-balance before:mr-1 before:content-['“'] after:ml-1 after:content-['”']">
                   {item.quote || item.description}
                 </p>
                 <div className="mt-6 flex items-center gap-3">
@@ -4204,6 +4206,25 @@ function TestimonialsBlock({ section }: { section: LegacySection }) {
         </div>
       </div>
     </section>
+  );
+}
+
+function TestimonialWallBlock({ section }: { section: LegacySection }) {
+  return (
+    <div className={cn('py-16 md:py-24', section.className)}>
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+        <TestimonialWall
+          id={section.id}
+          eyebrow={section.label || '真实用户反馈'}
+          title={section.title || '好不好用，看看他们怎么说'}
+          description={
+            section.description ||
+            '有人用它完成采集和分析，也有人把它推荐给朋友。'
+          }
+          groups={testimonialGroups}
+        />
+      </div>
+    </div>
   );
 }
 
@@ -5487,6 +5508,8 @@ function renderSection(
       return <PricingBlock section={section} />;
     case 'testimonials':
       return <TestimonialsBlock section={section} />;
+    case 'testimonial-wall':
+      return <TestimonialWallBlock section={section} />;
     case 'cta':
       return (
         <CtaBlock section={section} onVideo={onVideo} onSample={onSample} />

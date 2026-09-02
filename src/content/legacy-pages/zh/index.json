@@ -7,11 +7,11 @@
   "page": {
     "show_sections": [
       "hero",
+      "testimonials",
       "platforms",
       "introduce",
       "benefits",
       "pricing",
-      "testimonials",
       "faq",
       "cta"
     ],
@@ -161,58 +161,45 @@
       "benefits": {
         "block": "features-scroll",
         "title": "核心能力与业务价值",
-        "description": "把采集、赛道策略、对标发现、监控、协作和诊断追踪合并到一个工作流里。",
+        "description": "从发现机会、采集样本、分析规律到 AI 创作、Agent 自动接力与团队交付，一套完成。",
         "items": [
           {
-            "title": "笔记/视频深度提取",
-            "description": "一键抓取标题、正文、互动数据、配图与视频信息，核心数据字段完整保留，便于后续分析复盘。",
+            "title": "笔记、视频与账号批量采集",
+            "description": "覆盖小红书与抖音的作品详情、搜索结果和账号主页，批量保存正文、作者、互动数据与原始素材，快速建立完整样本池。",
             "icon": "Database",
             "image": {
               "src": "/imgs/features/1-V20260706.png",
-              "alt": "使用 MediaClaw 一键批量导出小红书笔记与抖音视频详细内容互动数据"
+              "alt": "MediaClaw 批量采集小红书笔记、抖音视频、账号资料和互动数据"
             },
             "button": {
-              "title": "了解笔记采集",
-              "url": "/xiaohongshu/scraper"
+              "title": "开始采集",
+              "url": "/download"
             }
           },
           {
-            "title": "Markdown 导出与原数据补齐",
-            "description": "数据池可导出 Markdown；采集记录可补齐图文配图文字和视频逐字稿，结果进入复制、CSV/Markdown 导出和飞书同步。",
-            "icon": "FileText",
+            "title": "爆款内容分析",
+            "description": "筛选低粉爆款与近期高增长内容，拆解标题、封面、钩子、内容结构和评论反馈，把有效信号沉淀为可继续验证的选题。",
+            "icon": "TrendingUp",
             "image": {
-              "src": "/imgs/features/9-v20260424.webp",
-              "alt": "MediaClaw 将采集记录导出为 Markdown，并补齐图文配图文字和视频逐字稿"
+              "src": "/imgs/docs/viral-research/single-post-breakdown/03-拆解报告概览.webp",
+              "alt": "MediaClaw 爆款内容分析报告，拆解标题、封面、内容结构和评论信号"
             },
             "button": {
-              "title": "查看 V0.1.8 更新",
-              "url": "/updates"
+              "title": "了解爆款分析",
+              "url": "/xiaohongshu/viral-content-analysis"
             }
           },
           {
-            "title": "博主主页批量采集",
-            "description": "批量拉取博主资料与历史内容，自动翻页采集，帮助你快速完成账号横向评估。",
+            "title": "对标账号深度拆解",
+            "description": "从账号定位、内容主题、标题和语言规律到公开表现，生成结构化拆解报告，找到值得借鉴的策略与内容机会。",
             "icon": "Users",
             "image": {
-              "src": "/imgs/features/2-v20260309.webp",
-              "alt": "MediaClaw 博主主页全量历史内容自动化下拉收集与导出工具"
+              "src": "/imgs/auth-story/account-report.webp",
+              "alt": "MediaClaw 对标账号深度拆解报告，展示账号定位、内容主题与表现规律"
             },
             "button": {
-              "title": "了解主页采集",
-              "url": "/xiaohongshu/scraper"
-            }
-          },
-          {
-            "title": "评论采集与客资挖掘",
-            "description": "批量采集评论数据并筛选高意向词，快速定位潜在客户线索与高价值讨论主题。",
-            "icon": "MessageCircle",
-            "image": {
-              "src": "/imgs/features/10-v20260424.webp",
-              "alt": "小红书与抖音评论采集下载工具及高意向潜在客户意向词自动筛选"
-            },
-            "button": {
-              "title": "小红书评论采集工具",
-              "url": "/xiaohongshu/comments"
+              "title": "了解账号分析",
+              "url": "/xiaohongshu/account-analysis"
             }
           },
           {
@@ -229,55 +216,68 @@
             }
           },
           {
-            "title": "对标账号监控与内容预警",
-            "description": "订阅对标账号动态，自动监控内容更新和互动变化，命中规则后即时提醒，帮助团队持续追踪竞品策略变化。",
+            "title": "图文文案与视频逐字稿提取",
+            "description": "识别配图文字并提取带时间戳的视频逐字稿，把图片和视频变成可检索、可分析、可继续创作的文本资产。",
+            "icon": "ScanText",
+            "image": {
+              "src": "/imgs/features/image-text-writeback-v20260629.webp",
+              "alt": "MediaClaw 从小红书和抖音图文、视频中提取配图文案与逐字稿"
+            },
+            "button": {
+              "title": "了解内容提取",
+              "url": "/xiaohongshu/image-text"
+            }
+          },
+          {
+            "title": "评论洞察与客资筛选",
+            "description": "批量采集评论并按意向词、地区和上下文筛选公开线索，同时识别用户需求、高价值讨论和选题信号。",
+            "icon": "MessageCircle",
+            "image": {
+              "src": "/imgs/features/10-v20260424.webp",
+              "alt": "MediaClaw 采集小红书与抖音评论并筛选高意向客资和内容需求"
+            },
+            "button": {
+              "title": "了解评论客资",
+              "url": "/xiaohongshu/leads"
+            }
+          },
+          {
+            "title": "AI 选题与初稿创作",
+            "description": "基于真实爆款、账号和评论样本生成选题、内容结构与初稿，让创作建立在已验证的数据和用户需求上。",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/auth-story/draft-result.webp",
+              "alt": "MediaClaw 基于真实社媒样本生成选题、内容结构与口播初稿"
+            },
+            "button": {
+              "title": "查看创作流程",
+              "url": "/docs/getting-started/first-draft"
+            }
+          },
+          {
+            "title": "Agent 自动接力",
+            "description": "从 Codex 或 WorkBuddy 直接描述目标，让 Agent 调用采集、分析与创作能力，自动衔接从找样本到交付结果的重复步骤。",
+            "icon": "Bot",
+            "image": {
+              "src": "/imgs/features/2-20260816.webp",
+              "alt": "MediaClaw Agent 接管小红书与抖音采集、分析和内容创作工作流"
+            },
+            "button": {
+              "title": "了解 Agent 工作流",
+              "url": "/docs/create/agent-workflow"
+            }
+          },
+          {
+            "title": "对标监控与团队协作",
+            "description": "持续跟踪对标账号更新和互动变化，命中规则后自动提醒，并把数据、报告与内容资产同步到飞书团队空间。",
             "icon": "Radar",
             "image": {
-              "src": "/imgs/features/12-v20260424.webp",
-              "alt": "小红书与抖音竞争对手账号最新内容动态追踪与爆款内容自动化提醒设置"
+              "src": "/imgs/docs/benchmark/monitoring/04-收到的日报消息.webp",
+              "alt": "MediaClaw 对标账号监控日报与飞书团队协作提醒"
             },
             "button": {
-              "title": "了解对标账号监控",
+              "title": "了解对标监控",
               "url": "/xiaohongshu/monitoring"
-            }
-          },
-          {
-            "title": "无水印素材下载",
-            "description": "支持图文与视频素材批量下载，方便后续做内容拆解、素材沉淀与复用。",
-            "icon": "Download",
-            "image": {
-              "src": "/imgs/features/13-v20260424.webp",
-              "alt": "小红书优质图文与超清短视频素材高清无水印一键批量下载器"
-            },
-            "button": {
-              "title": "了解素材下载",
-              "url": "/xiaohongshu/downloader"
-            }
-          },
-          {
-            "title": "采集增强与诊断追踪",
-            "description": "基础采集后可继续补采详情、账号指标、评论和客资；遇到采集不足或同步失败，可复制脱敏诊断信息定位具体阶段。",
-            "icon": "Activity",
-            "image": {
-              "src": "/imgs/features/1-v20260424.webp",
-              "alt": "MediaClaw 执行历史与复制诊断信息帮助定位采集数量不足、评论漏采和飞书同步失败"
-            },
-            "button": {
-              "title": "查看更新日志",
-              "url": "/updates"
-            }
-          },
-          {
-            "title": "飞书多维表同步与协作",
-            "description": "采集结果一键同步飞书多维表，团队成员实时共享，减少手工搬运与对齐成本。",
-            "icon": "Table2",
-            "image": {
-              "src": "/imgs/features/14-v20260424.webp",
-              "alt": "Mediaclaw 支持一键将获取的小红书抖音详细数据同步向飞书多维表格实现团队在线云协作"
-            },
-            "button": {
-              "title": "了解飞书协作",
-              "url": "/features/feishu-integration"
             }
           }
         ],
@@ -714,65 +714,10 @@
       },
       "testimonials": {
         "id": "testimonials",
-        "block": "testimonials",
-        "title": "用户怎么说",
-        "description": "来自真实用户的一线反馈。",
-        "items": [
-          {
-            "name": "Dayou",
-            "role": "MCN团队运营",
-            "quote": "我平时是做内容流量的，之前靠扣子工作流蛮多人在小红书抖音推，你这个产品比之前的好用太多了。",
-            "image": {
-              "src": "/logo.png",
-              "alt": "MediaClaw 真实用户（MCN 团队内容运营）的产品对比评价"
-            }
-          },
-          {
-            "name": "liberté",
-            "role": "文旅自媒体操盘手",
-            "quote": "我试了好方便！比以前配置容易很多。",
-            "image": {
-              "src": "/logo.png",
-              "alt": "MediaClaw 真实用户（文旅项目自媒体操盘）的易用性评价"
-            }
-          },
-          {
-            "name": "诗诗",
-            "role": "副业-营养师",
-            "quote": "太好用了！我已经夸了一上午了哈哈哈哈。",
-            "image": {
-              "src": "/logo.png",
-              "alt": "MediaClaw 真实用户（副业是营养师自媒体）的易用性评价"
-            }
-          },
-          {
-            "name": "木一",
-            "role": "教培行业自媒体矩阵运营",
-            "quote": "哇这个好好用啊，正是我需要的！感觉快成功了哈哈哈",
-            "image": {
-              "src": "/logo.png",
-              "alt": "MediaClaw 真实用户（教培行业自媒体矩阵运营）的需求匹配评价"
-            }
-          },
-          {
-            "name": "Jane",
-            "role": "新媒体从业者",
-            "quote": "真的很好上手哎！现在的功能挺不错，用得好爽。",
-            "image": {
-              "src": "/logo.png",
-              "alt": "MediaClaw 真实用户（新媒体从业者）的上手体验评价"
-            }
-          },
-          {
-            "name": "ZSJ",
-            "role": "品牌运营",
-            "quote": "用上了挺好的，怎么续费。",
-            "image": {
-              "src": "/logo.png",
-              "alt": "MediaClaw 真实用户（品牌运营）的效率提升评价"
-            }
-          }
-        ]
+        "block": "testimonial-wall",
+        "label": "真实用户反馈",
+        "title": "好不好用，看看他们怎么说",
+        "description": "有人用它完成采集和分析，也有人把它带进自己的业务、推荐给朋友。下面都是用户实际使用后的反馈。"
       },
       "faq": {
         "id": "faq",

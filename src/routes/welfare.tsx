@@ -29,8 +29,10 @@ import { baseLocale, getLocale, localizeUrl } from '@/paraglide/runtime.js';
 import { usePublicConfig } from '@/hooks/use-public-config';
 import { Footer } from '@/blocks/footer';
 import { Header } from '@/blocks/header';
+import { TestimonialWall } from '@/components/testimonial-wall';
 import { Button } from '@/components/ui/button';
 import zhFeishuPage from '@/content/legacy-pages/zh/features/feishu-integration.json';
+import { testimonialGroups } from '@/content/testimonial-wall';
 
 type StarterStatus = {
   eligible: boolean;
@@ -68,12 +70,7 @@ type ExperiencePoint = {
   inlineLink?: boolean;
 };
 
-const feishuTemplateUrl =
-  zhFeishuPage.page.sections.hero.buttons.find(
-    (button) => button.title === '获取飞书模板'
-  )?.url || '';
-
-const experienceScenes: Array<{
+type ExperienceScene = {
   eyebrow: string;
   title: string;
   description: string;
@@ -82,7 +79,14 @@ const experienceScenes: Array<{
   imageAlt: string;
   imagePosition: string;
   imageFit?: string;
-}> = [
+};
+
+const feishuTemplateUrl =
+  zhFeishuPage.page.sections.hero.buttons.find(
+    (button) => button.title === '获取飞书模板'
+  )?.url || '';
+
+const experienceScenes: ExperienceScene[] = [
   {
     eyebrow: '先把内容拿回来',
     title: '无限量采集/下载',
@@ -111,7 +115,7 @@ const experienceScenes: Array<{
     eyebrow: '再把数据用起来',
     title: '采集只是第一步，把数据变成选题和成稿',
     description:
-      '不用停在表格和素材文件夹里，MediaClaw 还能继续帮你分析、拆解和创作。',
+      '不用停在表格和素材文件夹里，继续在 AI 工作台完成分析、拆解、选题和创作。',
     points: [
       {
         text: '批量分析自己或对标账号的真实作品，提炼高表现选题、标题公式和内容结构',
@@ -124,9 +128,9 @@ const experienceScenes: Array<{
         linkLabel: '查看示例',
       },
       {
-        text: '从一个关键词分析近半年内容趋势，拓展长尾词，看见真实搜索需求',
+        text: '从一个关键词判断赛道机会、拓展长尾需求并扫描舆情，也能继续寻找对标账号',
       },
-      { text: '沉淀可复用的账号风格，辅助生成自己的图文稿和视频脚本' },
+      { text: '沉淀可复用的账号风格，在 AI 工作台生成自己的图文稿和视频脚本' },
     ],
     image: '/imgs/features/content-analysis-workflow-v20260719.png',
     imageAlt: 'MediaClaw 将账号分析结果沉淀为选题库和内容创作工作流',
@@ -147,6 +151,31 @@ const experienceScenes: Array<{
     imageAlt: 'MediaClaw 对标账号监控报告与飞书内容日报',
     imagePosition: 'object-center',
   },
+  {
+    eyebrow: '需要自动化时',
+    title: '接入 Codex / WorkBuddy，让 Agent 自动接力',
+    description:
+      '不用先判断该点哪个功能。直接说清目标，让你常用的 Agent 调用 MediaClaw，把研究、采集、分析和交付串起来。',
+    points: [
+      {
+        text: '用自然语言发起任务，Agent 会先检查已有数据、研究报告、选题和稿件，避免重复采集',
+      },
+      {
+        text: '证据不足时再调用浏览器插件补采，继续完成趋势判断、账号策略、选题、策划和成稿',
+      },
+      {
+        text: '可结合 Agent 客户端已授权的品牌手册、本地资料和历史稿件；读取已有资产分析和创作不额外消耗 MediaClaw 积分',
+      },
+      {
+        text: '本机配对后使用；激活码、Cookie 和模型密钥无需交给 Agent，积分与批量操作仍由你确认',
+      },
+    ],
+    image: '/imgs/features/2-20260816.webp',
+    imageAlt:
+      'MediaClaw Agent 接管：从 Codex 发起评论采集与选题分析，并生成结构化报告',
+    imagePosition: 'object-center',
+    imageFit: 'object-cover',
+  },
 ];
 
 const unlimitedCapabilities = [
@@ -155,6 +184,13 @@ const unlimitedCapabilities = [
   '详情补全',
   '导出数据',
   '同步飞书',
+];
+
+const advancedCapabilities = [
+  '插件内 AI 分析与创作',
+  '账号监控',
+  '视频逐字稿',
+  '长尾需求与舆情',
 ];
 
 export const Route = createFileRoute('/welfare')({
@@ -169,7 +205,8 @@ export const Route = createFileRoute('/welfare')({
         { title: '全能卡 - MediaClaw 福利中心' },
         {
           name: 'description',
-          content: '付费全能体验卡，包含会员时长、AI 积分和首次订阅抵扣。',
+          content:
+            '付费全能体验卡，包含会员时长、AI 积分、Agent 接入和首次订阅抵扣。',
         },
         ...(locale !== baseLocale
           ? [{ name: 'robots', content: 'noindex,follow' }]
@@ -382,10 +419,11 @@ function WelfarePage() {
                 5 天内全能卡可以体验到
               </span>
               <h2 className="mt-3 text-3xl font-black tracking-tight md:text-4xl">
-                从采集下载，到分析创作，再到持续增长
+                从采集下载、分析创作，到 Agent 接力
               </h2>
               <p className="text-muted-foreground mt-4 text-base leading-7 md:text-lg">
-                先满足眼前最需要的采集和下载，再把拿到的数据变成下一条内容和下一个机会。
+                先采集和下载，再把数据变成内容与机会；需要自动化时，继续交给
+                Agent 接力。
               </p>
             </div>
 
@@ -462,31 +500,71 @@ function WelfarePage() {
               ))}
             </div>
 
-            <div className="border-primary/20 bg-primary/6 mt-12 rounded-3xl border p-6 md:mt-16 md:p-8">
-              <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-                <div>
-                  <p className="text-sm font-black tracking-[0.12em]">
-                    体验期间不限量
-                  </p>
-                  <p className="text-muted-foreground mt-2 text-sm">
-                    基础采集和同步不消耗积分，放心跑完整个工作流。
-                  </p>
+            <div className="mt-12 grid gap-4 md:mt-16 lg:grid-cols-2">
+              <div className="border-border/80 bg-card rounded-2xl border p-6 shadow-sm md:p-7">
+                <div className="flex items-start gap-4">
+                  <span className="bg-primary/10 text-primary flex size-11 shrink-0 items-center justify-center rounded-xl">
+                    <ShieldCheck className="size-5" />
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-black tracking-tight">
+                      基础能力不限量
+                    </h3>
+                    <p className="text-muted-foreground mt-1.5 text-sm leading-6">
+                      体验期内，基础采集、补全、导出和同步不消耗积分。
+                    </p>
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-2.5">
+                <ul className="border-border/70 mt-6 grid border-t sm:grid-cols-2">
                   {unlimitedCapabilities.map((capability) => (
-                    <span
-                      className="border-primary/15 bg-background inline-flex items-center gap-1.5 rounded-full border px-3 py-2 text-sm font-bold shadow-sm"
+                    <li
+                      className="border-border/60 flex items-center gap-2 border-b py-3 text-sm font-bold sm:odd:pr-4 sm:even:pl-4"
                       key={capability}
                     >
-                      <Check className="text-primary size-3.5" />
+                      <Check className="text-primary size-3.5 shrink-0" />
                       {capability}
-                    </span>
+                    </li>
                   ))}
+                </ul>
+              </div>
+
+              <div className="border-border/80 bg-card rounded-2xl border p-6 shadow-sm md:p-7">
+                <div className="flex items-start gap-4">
+                  <span className="bg-primary/10 text-primary flex size-11 shrink-0 items-center justify-center rounded-xl">
+                    <Sparkles className="size-5" />
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-black tracking-tight">
+                      进阶能力按需使用
+                    </h3>
+                    <p className="text-muted-foreground mt-1.5 text-sm leading-6">
+                      执行前会展示预计消耗；剩余额度不会因体验结束而清零，续费后可继续使用。
+                    </p>
+                  </div>
                 </div>
+                <ul className="border-border/70 mt-6 grid border-t sm:grid-cols-2">
+                  {advancedCapabilities.map((capability) => (
+                    <li
+                      className="border-border/60 flex items-center gap-2 border-b py-3 text-sm font-bold sm:odd:pr-4 sm:even:pl-4"
+                      key={capability}
+                    >
+                      <Check className="text-primary size-3.5 shrink-0" />
+                      {capability}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
         </section>
+
+        <TestimonialWall
+          className="mt-12 md:mt-16"
+          eyebrow="真实用户反馈"
+          title="好不好用，看看他们怎么说"
+          description="有人用它完成采集和分析，也有人把它带进自己的业务、推荐给朋友。下面都是用户实际使用后的反馈。"
+          groups={testimonialGroups}
+        />
 
         <section className="mt-12 md:mt-16">
           <div className="mx-auto max-w-3xl text-center">

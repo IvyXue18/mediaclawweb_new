@@ -160,58 +160,45 @@
       "benefits": {
         "block": "features-scroll",
         "title": "Core Capabilities",
-        "description": "Scraping, niche strategy, benchmark discovery, monitoring, collaboration, and diagnostics — unified in one extension.",
+        "description": "Discover opportunities, collect samples, analyze patterns, create with AI, orchestrate with agents, and deliver with your team — all in one workflow.",
         "items": [
           {
-            "title": "Deep Post & Video Extraction",
-            "description": "One-click scrape of titles, body text, engagement metrics, images, and video URLs. All structured data fields preserved for downstream analysis.",
+            "title": "Batch Post, Video & Account Collection",
+            "description": "Collect public RedNote and Douyin post details, search results, and creator profiles in batches, preserving text, authors, engagement metrics, and source media in one research dataset.",
             "icon": "Database",
             "image": {
               "src": "/imgs/features/1-V20260706.png",
-              "alt": "MediaClaw one-click batch export of Xiaohongshu post and Douyin video content with full engagement data"
+              "alt": "MediaClaw batch-collecting RedNote posts, Douyin videos, creator profiles, and engagement data"
             },
             "button": {
-              "title": "Learn about post scraping",
-              "url": "/xiaohongshu/scraper"
+              "title": "Start collecting",
+              "url": "/download"
             }
           },
           {
-            "title": "Markdown Export & Source Data Backfill",
-            "description": "Export your data pool as Markdown, then backfill image text or video transcripts on collected records. Completed text flows into copy, CSV/Markdown export, and Lark sync.",
-            "icon": "FileText",
+            "title": "Viral Content Analysis",
+            "description": "Find low-follower breakouts and recent high-growth posts, then analyze titles, covers, hooks, structure, and comment signals to surface topics worth validating.",
+            "icon": "TrendingUp",
             "image": {
-              "src": "/imgs/features/9-v20260424.webp",
-              "alt": "MediaClaw exporting scraped records as Markdown and backfilling image text or video transcripts"
+              "src": "/imgs/docs/viral-research/single-post-breakdown/03-拆解报告概览.webp",
+              "alt": "MediaClaw viral content analysis report covering titles, covers, content structure, and comment signals"
             },
             "button": {
-              "title": "See V0.1.8 update",
-              "url": "/updates"
+              "title": "Explore viral analysis",
+              "url": "/xiaohongshu/viral-content-analysis"
             }
           },
           {
-            "title": "Profile Batch Scraping",
-            "description": "Auto-scroll through creator profiles to scrape their full post history. Filter by engagement to quickly benchmark competitor accounts.",
+            "title": "Deep Competitor Account Analysis",
+            "description": "Turn positioning, content themes, title and language patterns, and public performance into a structured account report with reusable strategy and topic opportunities.",
             "icon": "Users",
             "image": {
-              "src": "/imgs/features/2-v20260309.webp",
-              "alt": "MediaClaw auto-scrolling creator profile page to batch-scrape historical posts for account benchmarking"
+              "src": "/imgs/auth-story/account-report.webp",
+              "alt": "MediaClaw competitor account report showing positioning, content themes, and performance patterns"
             },
             "button": {
-              "title": "Learn about profile scraping",
-              "url": "/xiaohongshu/scraper"
-            }
-          },
-          {
-            "title": "Comment Lead Filtering",
-            "description": "Batch-export comments and filter by intent keywords to surface high-value leads. Export clean prospect lists for sales follow-up.",
-            "icon": "MessageCircle",
-            "image": {
-              "src": "/imgs/features/10-v20260424.webp",
-              "alt": "MediaClaw comment scraper with keyword filtering to identify and export high-intent user leads from Xiaohongshu and Douyin"
-            },
-            "button": {
-              "title": "Learn about comment scraping",
-              "url": "/xiaohongshu/comments"
+              "title": "Explore account analysis",
+              "url": "/xiaohongshu/account-analysis"
             }
           },
           {
@@ -228,55 +215,68 @@
             }
           },
           {
-            "title": "Competitor Account Monitoring",
-            "description": "Subscribe to competitor accounts for automatic tracking. Get AI-summarized daily alerts pushed to Lark when new content matches your rules.",
+            "title": "Image Text & Video Transcript Extraction",
+            "description": "Extract text from images and timestamped transcripts from videos, turning visual media into searchable, analyzable text assets ready for reuse.",
+            "icon": "ScanText",
+            "image": {
+              "src": "/imgs/features/image-text-writeback-v20260629.webp",
+              "alt": "MediaClaw extracting image text and video transcripts from RedNote and Douyin content"
+            },
+            "button": {
+              "title": "Explore content extraction",
+              "url": "/xiaohongshu/image-text"
+            }
+          },
+          {
+            "title": "Comment Insights & Lead Filtering",
+            "description": "Collect comments in batches, filter public leads by intent, region, and context, and uncover audience needs, valuable discussions, and new topic signals.",
+            "icon": "MessageCircle",
+            "image": {
+              "src": "/imgs/features/10-v20260424.webp",
+              "alt": "MediaClaw collecting RedNote and Douyin comments to identify high-intent leads and audience needs"
+            },
+            "button": {
+              "title": "Explore comment leads",
+              "url": "/xiaohongshu/leads"
+            }
+          },
+          {
+            "title": "AI Topic & First-Draft Creation",
+            "description": "Generate topics, content structures, and first drafts from real viral posts, account patterns, and comment samples, grounding creation in validated demand signals.",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/auth-story/draft-result.webp",
+              "alt": "MediaClaw generating topics, content structures, and first drafts from real social content samples"
+            },
+            "button": {
+              "title": "See the creation workflow",
+              "url": "/docs/getting-started/first-draft"
+            }
+          },
+          {
+            "title": "Agent-Orchestrated Workflows",
+            "description": "Describe a goal in Codex or WorkBuddy and let the agent connect collection, analysis, and creation steps from sample discovery to final delivery.",
+            "icon": "Bot",
+            "image": {
+              "src": "/imgs/features/2-20260816.webp",
+              "alt": "MediaClaw agent orchestrating RedNote and Douyin collection, analysis, and content creation"
+            },
+            "button": {
+              "title": "Explore agent workflows",
+              "url": "/docs/create/agent-workflow"
+            }
+          },
+          {
+            "title": "Competitor Monitoring & Team Delivery",
+            "description": "Track competitor updates and engagement changes, trigger alerts when rules match, and sync datasets, reports, and content assets into your team's Lark workspace.",
             "icon": "Radar",
             "image": {
-              "src": "/imgs/features/12-v20260424.webp",
-              "alt": "MediaClaw competitor monitoring dashboard automatically tracking Xiaohongshu and Douyin account updates with alert rules"
+              "src": "/imgs/docs/benchmark/monitoring/04-收到的日报消息.webp",
+              "alt": "MediaClaw competitor monitoring digest and Lark team notification"
             },
             "button": {
-              "title": "Learn about monitoring",
+              "title": "Explore monitoring",
               "url": "/xiaohongshu/monitoring"
-            }
-          },
-          {
-            "title": "Watermark-Free Media Download",
-            "description": "Batch-download images and videos in original quality without watermarks. Build a reusable visual reference library for your team.",
-            "icon": "Download",
-            "image": {
-              "src": "/imgs/features/13-v20260424.webp",
-              "alt": "MediaClaw batch downloading Xiaohongshu photos and videos without watermarks in original HD quality"
-            },
-            "button": {
-              "title": "Learn about media download",
-              "url": "/xiaohongshu/downloader"
-            }
-          },
-          {
-            "title": "Enhancement & Diagnostics",
-            "description": "Backfill post details, creator metrics, comments, and lead filters after list scraping. If a task collects too few records or sync fails, copy sanitized diagnostics to locate the exact stage.",
-            "icon": "Activity",
-            "image": {
-              "src": "/imgs/features/1-v20260424.webp",
-              "alt": "MediaClaw execution history and diagnostics copy for investigating low collection counts, comment gaps, and Lark sync failures"
-            },
-            "button": {
-              "title": "See updates",
-              "url": "/updates"
-            }
-          },
-          {
-            "title": "Lark Base Sync & Team Collaboration",
-            "description": "One-click sync scraped data to Lark Base. Your entire team can view, filter, and act on shared datasets in real time — no manual copy-paste relay.",
-            "icon": "Table2",
-            "image": {
-              "src": "/imgs/features/14-v20260424.webp",
-              "alt": "MediaClaw syncing scraped Xiaohongshu and Douyin data to Lark Base for real-time team collaboration and analysis"
-            },
-            "button": {
-              "title": "Learn about Lark sync",
-              "url": "/features/feishu-integration"
             }
           }
         ],
