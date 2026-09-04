@@ -29,10 +29,9 @@ import { baseLocale, getLocale, localizeUrl } from '@/paraglide/runtime.js';
 import { usePublicConfig } from '@/hooks/use-public-config';
 import { Footer } from '@/blocks/footer';
 import { Header } from '@/blocks/header';
-import { TestimonialWall } from '@/components/testimonial-wall';
+import { TestimonialWallSection } from '@/blocks/testimonial-wall';
 import { Button } from '@/components/ui/button';
 import zhFeishuPage from '@/content/legacy-pages/zh/features/feishu-integration.json';
-import { testimonialGroups } from '@/content/testimonial-wall';
 
 type StarterStatus = {
   eligible: boolean;
@@ -558,13 +557,7 @@ function WelfarePage() {
           </div>
         </section>
 
-        <TestimonialWall
-          className="mt-12 md:mt-16"
-          eyebrow="真实用户反馈"
-          title="好不好用，看看他们怎么说"
-          description="有人用它完成采集和分析，也有人把它带进自己的业务、推荐给朋友。下面都是用户实际使用后的反馈。"
-          groups={testimonialGroups}
-        />
+        <TestimonialWallSection className="mt-12 md:mt-16" />
 
         <section className="mt-12 md:mt-16">
           <div className="mx-auto max-w-3xl text-center">

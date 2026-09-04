@@ -103,8 +103,8 @@ import {
 } from '@/lib/video-posters';
 import { Footer } from '@/blocks/footer';
 import { Header } from '@/blocks/header';
+import { TestimonialWallSection } from '@/blocks/testimonial-wall';
 import { ActivationCodeGuideDialog } from '@/components/activation-code-guide-dialog';
-import { TestimonialWall } from '@/components/testimonial-wall';
 import { Badge } from '@/components/ui/badge';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -120,7 +120,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { testimonialGroups } from '@/content/testimonial-wall';
 
 export type LegacyPageData = {
   metadata?: {
@@ -4213,16 +4212,7 @@ function TestimonialWallBlock({ section }: { section: LegacySection }) {
   return (
     <div className={cn('py-16 md:py-24', section.className)}>
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
-        <TestimonialWall
-          id={section.id}
-          eyebrow={section.label || '真实用户反馈'}
-          title={section.title || '好不好用，看看他们怎么说'}
-          description={
-            section.description ||
-            '有人用它完成采集和分析，也有人把它推荐给朋友。'
-          }
-          groups={testimonialGroups}
-        />
+        <TestimonialWallSection id={section.id} />
       </div>
     </div>
   );

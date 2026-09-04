@@ -17,6 +17,7 @@ import {
   Library,
   Menu,
   MessageCircle,
+  MessageSquareQuote,
   Radar,
   ScanText,
   Search,
@@ -271,6 +272,11 @@ function getNavItems(): NavItem[] {
         },
       ],
     },
+    {
+      title: m['site.header.reviews'](),
+      url: '/customers',
+      icon: 'MessageSquareQuote',
+    },
     { title: m['site.header.download'](), url: '/download', icon: 'Download' },
     { title: m['site.header.pricing'](), url: '/pricing', icon: 'CreditCard' },
   ];
@@ -291,6 +297,7 @@ const navIconMap: Record<string, LucideIcon> = {
   LayoutGrid,
   Library,
   MessageCircle,
+  MessageSquareQuote,
   Radar,
   ScanText,
   Search,
@@ -696,7 +703,9 @@ function MenuItemLink({
 }
 
 function DesktopNav() {
-  const navItems = getNavItems();
+  // Download is a conversion action on desktop, so it lives beside the account
+  // controls rather than competing with the site's information architecture.
+  const navItems = getNavItems().filter((item) => item.url !== '/download');
   // The dropdown opens on CSS hover/focus, so "opened" is reported once per menu
   // per page view rather than on every pointer pass.
   const openedMenus = useRef(new Set<string>());
@@ -884,6 +893,16 @@ export function Header() {
           <DesktopNav />
 
           <div className="flex items-center gap-2 lg:gap-3">
+            <Link
+              href="/download"
+              aria-label={m['site.header.download']()}
+              className="border-border/60 hover:bg-accent/60 hidden size-10 shrink-0 items-center justify-center gap-2 rounded-full border text-sm font-semibold transition-colors lg:inline-flex xl:w-auto xl:px-4"
+            >
+              <Download className="size-4" aria-hidden="true" />
+              <span className="hidden xl:inline">
+                {m['site.header.download']()}
+              </span>
+            </Link>
             <div className="border-border/50 hidden items-center gap-2 border-l pl-3 lg:flex">
               <ThemeToggle />
               <LocaleSelector />

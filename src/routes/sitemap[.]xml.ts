@@ -13,6 +13,7 @@ const STATIC_PATHS = [
   '',
   '/pricing',
   '/download',
+  '/customers',
   '/blog',
   '/updates',
   '/welfare',
