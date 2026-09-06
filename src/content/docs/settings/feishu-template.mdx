@@ -213,20 +213,26 @@ export const meta = {
 
 进入插件 **监控任务 → 监控通知 → 飞书机器人通知**，把复制的 Webhook 粘贴到 **通知 Webhook** 字段。该字段独立自动保存，等待状态变为 **已保存** 即可，不影响上面的数据表连接。之后扫描发现潜在爆款、批量分析完成或余额不足时，系统都会通过这个机器人推送消息。
 
-<DocImage
-  src="/imgs/docs/settings/feishu-template/16-监控通知webhook字段.webp"
-  caption="账号监控规则下方的「监控通知 → 飞书机器人通知」，填入通知 Webhook"
-  captionEn="Under the account monitoring rules, fill the notification webhook in “Monitoring notification → Feishu bot notification”"
-  width={882}
-  height={1584}
-/>
-
-<DocImage
-  src="/imgs/docs/settings/feishu-template/17-收到的监控日报.webp"
-  caption="配置后通过飞书机器人收到的监控日报，含命中作品和可执行内容策略"
-  captionEn="The daily monitoring report received via the Feishu bot once configured, with matched posts and actionable content strategy"
-  width={1600}
-  height={1152}
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/settings/feishu-template/16-监控通知webhook字段.webp',
+      caption:
+        '账号监控规则下方的「监控通知 → 飞书机器人通知」，填入通知 Webhook',
+      captionEn:
+        'Under the account monitoring rules, fill the notification webhook in “Monitoring notification → Feishu bot notification”',
+      width: 882,
+      height: 1584,
+    },
+    {
+      src: '/imgs/docs/settings/feishu-template/17-收到的监控日报.webp',
+      caption: '配置后通过飞书机器人收到的监控日报，含命中作品和可执行内容策略',
+      captionEn:
+        'The daily monitoring report received via the Feishu bot once configured, with matched posts and actionable content strategy',
+      width: 1600,
+      height: 1152,
+    },
+  ]}
 />
 
 <Callout type="danger">
@@ -259,20 +265,24 @@ export const meta = {
 
 「封面图」这类字段用的是 **链接转附件** 字段捷径，把采集到的图片链接直接转成可预览的附件。打开字段配置，字段类型选 **链接转附件**，指定包含链接的来源字段，再点 **+ 关联账号**，在弹窗里填入字段捷径服务商的 API key（点输入框右侧的 ↗ 图标可跳到服务商页面获取）。
 
-<DocImage
-  src="/imgs/docs/settings/feishu-template/19-链接转附件字段配置.webp"
-  caption="字段类型选「链接转附件」，选好包含链接的字段，点「+ 关联账号」"
-  captionEn="Set the field type to Link-to-attachment, pick the source link field, then click “+ Link account”"
-  width={908}
-  height={980}
-/>
-
-<DocImage
-  src="/imgs/docs/settings/feishu-template/19-链接转附件关联账号.webp"
-  caption="在弹窗里填入字段捷径服务商的 API key"
-  captionEn="Paste the field-shortcut provider's API key in the dialog"
-  width={1098}
-  height={672}
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/settings/feishu-template/19-链接转附件字段配置.webp',
+      caption: '字段类型选「链接转附件」，选好包含链接的字段，点「+ 关联账号」',
+      captionEn:
+        'Set the field type to Link-to-attachment, pick the source link field, then click “+ Link account”',
+      width: 908,
+      height: 980,
+    },
+    {
+      src: '/imgs/docs/settings/feishu-template/19-链接转附件关联账号.webp',
+      caption: '在弹窗里填入字段捷径服务商的 API key',
+      captionEn: "Paste the field-shortcut provider's API key in the dialog",
+      width: 1098,
+      height: 672,
+    },
+  ]}
 />
 
 ### 视频转文字
@@ -468,20 +478,24 @@ export const meta = {
 
 在飞书模板里右键脚本分析 / 评论分析 / 二创改写任意一列 → **修改字段/列**，滚到底部打开 **关联账号 → + 关联账号**，把 **密钥 ARK_API_KEY**（第 3 步的 API Key）和 **接入点 ID**（ep- 开头）分别填进去。三个字段各关联一次。
 
-<DocImage
-  src="/imgs/docs/settings/feishu-template/28-文本字段深度思考关联账号.webp"
-  caption="字段配置底部打开「关联账号」，点「+ 关联账号」"
-  captionEn="At the bottom of the field config, turn on “Link account” and click “+ Link account”"
-  width={852}
-  height={934}
-/>
-
-<DocImage
-  src="/imgs/docs/settings/feishu-template/28-填入ARK-API-KEY和接入点.webp"
-  caption="分别填「密钥 ARK_API_KEY」和「接入点 ID」"
-  captionEn="Fill in ARK_API_KEY and the endpoint ID"
-  width={1120}
-  height={718}
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/settings/feishu-template/28-文本字段深度思考关联账号.webp',
+      caption: '字段配置底部打开「关联账号」，点「+ 关联账号」',
+      captionEn:
+        'At the bottom of the field config, turn on “Link account” and click “+ Link account”',
+      width: 852,
+      height: 934,
+    },
+    {
+      src: '/imgs/docs/settings/feishu-template/28-填入ARK-API-KEY和接入点.webp',
+      caption: '分别填「密钥 ARK_API_KEY」和「接入点 ID」',
+      captionEn: 'Fill in ARK_API_KEY and the endpoint ID',
+      width: 1120,
+      height: 718,
+    },
+  ]}
 />
 
 字段里的提示词是可以改的，改法和整列批量执行见[同步飞书批量分析和创作](/docs/create/feishu-batch)。
@@ -522,13 +536,3 @@ export const meta = {
   API Key / ARK_API_KEY
   不要放进公开文档、截图、代码仓库或共享聊天。怀疑泄露时，应立即到对应服务商控制台撤销并重新生成。
 </Callout>
-
-## 配置完成后怎么使用
-
-- [同步到飞书多维表格](/docs/collect/feishu-sync)：日常把数据池记录写入模板。
-- [视频转文字：提取逐字稿](/docs/collect/transcript)：补齐视频原始内容。
-- [从评论中发现选题](/docs/topics/comment-ideas)：把评论证据转成选题方向。
-- [持续监控对标账号](/docs/benchmark/monitoring)：配置监控规则和飞书机器人通知。
-- [同步飞书批量分析和创作](/docs/create/feishu-batch)：用这里配好的 AI 字段，对整列内容批量做脚本分析和二创改写。
-
-同步失败、写错表、字段缺失等问题，详见[常见问题](/docs/settings/faq)。
