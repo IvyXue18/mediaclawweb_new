@@ -149,8 +149,9 @@ export default defineConfig({
       },
       scheduledTasks: {
         // Cloudflare cron expressions use UTC. Sunday 18:15 UTC is
-        // Monday 02:15 in Asia/Shanghai.
-        '15 18 * * 0': ['referral:settle'],
+        // Monday 02:15 in Asia/Shanghai. Use SUN because Cloudflare numbers
+        // weekdays 1–7, unlike schedulers that accept 0 for Sunday.
+        '15 18 * * SUN': ['referral:settle'],
       },
       publicAssets: [
         {

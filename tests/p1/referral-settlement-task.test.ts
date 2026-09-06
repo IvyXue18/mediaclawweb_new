@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import task from '../../tasks/referral/settle';
@@ -24,6 +25,17 @@ describe('weekly referral settlement task', () => {
       frozen: 0,
       skipped: 0,
     });
+  });
+
+  it('uses an unambiguous Cloudflare-compatible Sunday schedule', () => {
+    const config = readFileSync(
+      new URL('../../vite.config.ts', import.meta.url),
+      'utf8'
+    );
+    expect(config).toMatch(
+      /['"]15 18 \* \* SUN['"]:\s*\[['"]referral:settle['"]\]/
+    );
+    expect(config).not.toContain("'15 18 * * 0'");
   });
 
   it('runs settlement inside a database request scope', async () => {
