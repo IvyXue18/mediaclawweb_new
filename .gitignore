@@ -66,7 +66,10 @@ yarn-error.log*
 
 # database
 /data/
-/drizzle/
+/drizzle/*
+!/drizzle/plugin-messages.config.ts
+!/drizzle/plugin-messages.schema.ts
+!/drizzle/postgres-plugin-messages/
 src/config/db/schema.ts
 .neon
 
