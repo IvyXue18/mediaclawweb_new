@@ -1,6 +1,7 @@
 import { Calendar } from 'lucide-react';
 
 import { Link } from '@/core/i18n/navigation';
+import { compareBlogCategoryEntries } from '@/lib/blog-category-order';
 import { Footer } from '@/blocks/footer';
 import { Header } from '@/blocks/header';
 import enBlogPage from '@/content/legacy-pages/en/blog.json';
@@ -112,7 +113,7 @@ function getBlogCategories(
     ? normalizeBlogCategorySlug(activeCategorySlug)
     : '';
   const categoryLinks = Array.from(counts.entries())
-    .sort(([, a], [, b]) => b.count - a.count || a.label.localeCompare(b.label))
+    .sort(compareBlogCategoryEntries)
     .slice(0, MAX_CATEGORY_LINKS)
     .map(([slug, category]) => ({
       label: category.label,
