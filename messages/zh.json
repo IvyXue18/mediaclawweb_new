@@ -1540,6 +1540,7 @@
   "site.header.view_all_platform_features": "查看{platform}全部功能",
   "site.header.ecosystem": "生态",
   "site.header.integrations": "集成",
+  "site.header.integrations_collaboration": "集成与协作",
   "site.header.category_research": "发现与判断",
   "site.header.category_data": "数据与素材",
   "site.header.category_extract": "提取与转化",

@@ -406,12 +406,11 @@ type OnboardingCopy = {
     description: string;
     action?: string;
     href?: string;
-    external?: boolean;
     icon: typeof Download;
   }>;
 };
 
-const TUTORIAL_URL = 'https://my.feishu.cn/wiki/ZIGqwGtF8i2Dkbk6S1HcZdZWnMd';
+const TUTORIAL_URL = '/docs';
 
 function getOnboardingCopy(section: LegacySection): OnboardingCopy {
   const isEnglish =
@@ -452,7 +451,6 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
             'Finish first-time setup and collection, then export data or sync it to Feishu.',
           action: 'View tutorial',
           href: TUTORIAL_URL,
-          external: true,
           icon: GraduationCap,
         },
       ],
@@ -491,7 +489,6 @@ function getOnboardingCopy(section: LegacySection): OnboardingCopy {
           '按教程完成首次配置与实操采集，把小红书/抖音数据导出或同步到飞书。',
         action: '看教程',
         href: TUTORIAL_URL,
-        external: true,
         icon: GraduationCap,
       },
     ],
@@ -3274,19 +3271,15 @@ function DownloadOnboardingGuide({ section }: { section: LegacySection }) {
                       </div>
                     ) : step.href ? (
                       <div className="grid shrink-0 gap-2 md:w-[23rem]">
-                        {step.external ? (
-                          <a
-                            href={step.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={buttonVariants({
-                              className:
-                                'w-full border-cyan-300/80 bg-cyan-300 text-slate-950 shadow-lg shadow-cyan-500/20 hover:bg-cyan-200 md:w-44',
-                            })}
-                          >
-                            {step.action}
-                          </a>
-                        ) : null}
+                        <Link
+                          href={step.href}
+                          className={buttonVariants({
+                            className:
+                              'w-full border-cyan-300/80 bg-cyan-300 text-slate-950 shadow-lg shadow-cyan-500/20 hover:bg-cyan-200 md:w-44',
+                          })}
+                        >
+                          {step.action}
+                        </Link>
                       </div>
                     ) : null}
                   </div>
@@ -3483,16 +3476,15 @@ function DownloadInstallOptions({ section }: { section: LegacySection }) {
 
               {section.video_button ? (
                 <div className="border-border/50 mt-6 flex justify-center border-t pt-6">
-                  <a
+                  <Link
                     href={section.video_button.url || '#'}
-                    target={section.video_button.target || '_blank'}
-                    rel="noopener noreferrer"
+                    target={section.video_button.target}
                     className="bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-bold transition-all"
                     data-download-video-link
                   >
                     <Play className="size-5" />
                     {section.video_button.title}
-                  </a>
+                  </Link>
                 </div>
               ) : null}
             </div>

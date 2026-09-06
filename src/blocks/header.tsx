@@ -25,7 +25,6 @@ import {
   TrendingUp,
   UserCheck,
   UserSearch,
-  Workflow,
   X,
   type LucideIcon,
 } from 'lucide-react';
@@ -59,6 +58,8 @@ type NavItem = {
   platform?: 'xiaohongshu' | 'douyin';
   /** Marks the tabbed "core features" menu that shows a single platform at a time. */
   platformSwitch?: boolean;
+  /** Shared capabilities stay visible below either platform's feature list. */
+  sharedCategory?: NavCategory;
 };
 
 type NavCategory = {
@@ -75,7 +76,7 @@ function featureIdFromUrl(url?: string) {
 /** Nav categories mirror the platform hub's scene structure
  * (src/content/platform-hubs/*.ts): same category names, same feature
  * membership, same order. Two hub scenes are intentionally absent — "Agent 接入"
- * has no feature pages yet, and Feishu lives in the Integrations menu. */
+ * has no feature pages yet, and Feishu lives in the shared section below the tabs. */
 function getPlatformCategories(
   platform: 'xiaohongshu' | 'douyin'
 ): NavCategory[] {
@@ -220,20 +221,17 @@ function getNavItems(): NavItem[] {
           categories: getPlatformCategories('douyin'),
         },
       ],
-    },
-    {
-      // Integrations live in their own top-level menu, separate from the core
-      // feature set. Feishu today; Codex, workbuddy and others land here next.
-      title: m['site.header.integrations'](),
-      icon: 'Workflow',
-      children: [
-        {
-          title: m['site.header.feishu_integration'](),
-          description: m['site.header.feishu_integration_desc'](),
-          url: '/features/feishu-integration',
-          icon: 'Table2',
-        },
-      ],
+      sharedCategory: {
+        title: m['site.header.integrations_collaboration'](),
+        children: [
+          {
+            title: m['site.header.feishu_integration'](),
+            description: m['site.header.feishu_integration_desc'](),
+            url: '/features/feishu-integration',
+            icon: 'Table2',
+          },
+        ],
+      },
     },
     {
       title: m['site.header.resources'](),
@@ -244,13 +242,6 @@ function getNavItems(): NavItem[] {
           description: m['site.header.blog_desc'](),
           url: '/blog',
           icon: 'BookText',
-        },
-        {
-          title: m['site.header.tutorials'](),
-          description: m['site.header.tutorials_desc'](),
-          url: 'https://my.feishu.cn/wiki/TczWwrrGmiDRw3kWeojcXd5CnHh?from=from_copylink',
-          icon: 'GraduationCap',
-          target: '_blank',
         },
         {
           title: m['site.header.rewards'](),
@@ -279,6 +270,11 @@ function getNavItems(): NavItem[] {
     },
     { title: m['site.header.download'](), url: '/download', icon: 'Download' },
     { title: m['site.header.pricing'](), url: '/pricing', icon: 'CreditCard' },
+    {
+      title: m['site.header.tutorials'](),
+      url: '/docs',
+      icon: 'GraduationCap',
+    },
   ];
 }
 
@@ -305,7 +301,6 @@ const navIconMap: Record<string, LucideIcon> = {
   TrendingUp,
   UserCheck,
   UserSearch,
-  Workflow,
 };
 
 function SmartIcon({ name, className }: { name?: string; className?: string }) {
@@ -522,7 +517,7 @@ function PlatformFeaturesPanel({ item }: { item: NavItem }) {
   const [active, setActive] = useState(0);
 
   return (
-    <div className="invisible absolute top-full left-1/2 z-50 mt-2 w-[min(44rem,calc(100vw-2rem))] -translate-x-1/2 translate-y-2 opacity-0 transition-all duration-200 group-focus-within/nav:visible group-focus-within/nav:translate-y-0 group-focus-within/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0 group-hover/nav:opacity-100">
+    <div className="invisible absolute top-full left-0 z-50 mt-2 w-[min(44rem,calc(100vw-2rem))] translate-y-2 opacity-0 transition-all duration-200 group-focus-within/nav:visible group-focus-within/nav:translate-y-0 group-focus-within/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0 group-hover/nav:opacity-100 2xl:left-1/2 2xl:-translate-x-1/2">
       {/* The panel closes when the pointer leaves it, so keep any overflow scrolling inside. */}
       <div className="border-border/60 bg-popover max-h-[calc(100vh-6rem)] overflow-y-auto rounded-2xl border p-3 shadow-2xl">
         <div className="border-border/60 mb-3 flex items-center gap-3 border-b pb-3">
@@ -568,6 +563,9 @@ function PlatformFeaturesPanel({ item }: { item: NavItem }) {
             />
           </div>
         ))}
+        {item.sharedCategory ? (
+          <SharedFeatureLinks category={item.sharedCategory} />
+        ) : null}
       </div>
     </div>
   );
@@ -624,11 +622,43 @@ function MobilePlatformFeatures({
           />
         </div>
       ))}
+      {item.sharedCategory ? (
+        <SharedFeatureLinks
+          category={item.sharedCategory}
+          onNavigate={onNavigate}
+        />
+      ) : null}
     </div>
   );
 }
 
-/** Simple list dropdown for menus without platform tabs (Integrations, Resources). */
+function SharedFeatureLinks({
+  category,
+  onNavigate,
+}: {
+  category: NavCategory;
+  onNavigate?: () => void;
+}) {
+  return (
+    <section
+      aria-label={category.title}
+      className="border-border/60 mt-3 grid gap-1 border-t pt-3 sm:grid-cols-[8rem_1fr] sm:items-center"
+    >
+      <div className="text-muted-foreground px-2 py-1 text-xs font-semibold">
+        {category.title}
+      </div>
+      <ul className="min-w-0 space-y-1">
+        {category.children.map((child) => (
+          <li key={child.title}>
+            <MenuItemLink item={child} onClick={onNavigate} />
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** Simple list dropdown for menus without platform tabs (Resources). */
 function DropdownPanel({ item }: { item: NavItem }) {
   return (
     <div className="invisible absolute top-full left-1/2 z-50 mt-2 w-[22rem] -translate-x-1/2 translate-y-2 opacity-0 transition-all duration-200 group-focus-within/nav:visible group-focus-within/nav:translate-y-0 group-focus-within/nav:opacity-100 group-hover/nav:visible group-hover/nav:translate-y-0 group-hover/nav:opacity-100">
@@ -716,7 +746,7 @@ function DesktopNav() {
   };
 
   return (
-    <nav className="hidden flex-1 items-center justify-center lg:flex">
+    <nav className="hidden flex-1 items-center justify-center xl:flex">
       <ul className="flex items-center gap-1">
         {navItems.map((item) => (
           <li key={item.title} className="group/nav relative">
@@ -754,7 +784,7 @@ function DesktopNav() {
 function MobileNav({ closeMenu }: { closeMenu: () => void }) {
   const navItems = getNavItems();
   return (
-    <nav className="space-y-2 px-4 pt-4 pb-6 lg:hidden">
+    <nav className="space-y-2 px-4 pt-4 pb-6 xl:hidden">
       {navItems.map((item) => (
         <div key={item.title} className="space-y-1">
           {item.children?.length ? (
@@ -896,14 +926,14 @@ export function Header() {
             <Link
               href="/download"
               aria-label={m['site.header.download']()}
-              className="border-border/60 hover:bg-accent/60 hidden size-10 shrink-0 items-center justify-center gap-2 rounded-full border text-sm font-semibold transition-colors lg:inline-flex xl:w-auto xl:px-4"
+              className="border-border/60 hover:bg-accent/60 hidden size-10 shrink-0 items-center justify-center gap-2 rounded-full border text-sm font-semibold transition-colors xl:inline-flex xl:w-auto xl:px-4"
             >
               <Download className="size-4" aria-hidden="true" />
               <span className="hidden xl:inline">
                 {m['site.header.download']()}
               </span>
             </Link>
-            <div className="border-border/50 hidden items-center gap-2 border-l pl-3 lg:flex">
+            <div className="border-border/50 hidden items-center gap-2 border-l pl-3 xl:flex">
               <ThemeToggle />
               <LocaleSelector />
               <HeaderAuthAction loginClassName="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-10 items-center justify-center rounded-full px-5 text-sm font-semibold shadow-lg shadow-primary/20 transition-colors" />
@@ -914,7 +944,7 @@ export function Header() {
               onClick={() => setIsMobileMenuOpen((open) => !open)}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMobileMenuOpen}
-              className="hover:bg-accent/50 flex size-10 items-center justify-center rounded-full transition-colors lg:hidden"
+              className="hover:bg-accent/50 flex size-10 items-center justify-center rounded-full transition-colors xl:hidden"
             >
               {isMobileMenuOpen ? (
                 <X className="size-5" />
@@ -926,7 +956,7 @@ export function Header() {
         </div>
 
         {isMobileMenuOpen ? (
-          <div className="border-border/50 max-h-[calc(100dvh-6rem)] overflow-y-auto border-t lg:hidden">
+          <div className="border-border/50 max-h-[calc(100dvh-6rem)] overflow-y-auto border-t xl:hidden">
             <MobileNav closeMenu={() => setIsMobileMenuOpen(false)} />
             <div className="border-border/50 flex items-center justify-between gap-4 border-t px-4 py-4">
               <div className="flex items-center gap-2">

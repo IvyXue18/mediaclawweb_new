@@ -118,7 +118,7 @@ export function Footer() {
         { label: m['site.footer.blog'](), href: '/blog' },
         {
           label: m['site.footer.tutorials'](),
-          href: 'https://my.feishu.cn/wiki/TczWwrrGmiDRw3kWeojcXd5CnHh?from=from_copylink',
+          href: '/docs',
         },
         { label: m['site.footer.rewards'](), href: '/welfare?entry=footer' },
         { label: m['site.footer.updates'](), href: '/updates' },

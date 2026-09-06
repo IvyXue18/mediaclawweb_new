@@ -1540,6 +1540,7 @@
   "site.header.view_all_platform_features": "See all {platform} features",
   "site.header.ecosystem": "Ecosystem",
   "site.header.integrations": "Integrations",
+  "site.header.integrations_collaboration": "Integrations & collaboration",
   "site.header.category_research": "Discover and decide",
   "site.header.category_data": "Data and media",
   "site.header.category_extract": "Extract and convert",
