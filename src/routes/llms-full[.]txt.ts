@@ -51,6 +51,10 @@ export const Route = createFileRoute('/llms-full.txt')({
     handlers: {
       GET: async () => {
         const { app_url, app_name, app_description } = envConfigs;
+        const origin = app_url.replace(/\/+$/, '');
+        const { getAllDocResources, renderDocMarkdown } =
+          await import('@/content/docs/markdown');
+        const docs = getAllDocResources(baseLocale);
 
         const lines: string[] = [
           `# ${app_name}`,
@@ -60,9 +64,16 @@ export const Route = createFileRoute('/llms-full.txt')({
           '## Pages',
           '',
           ...STATIC_PAGES.map(
-            (p) => `- [${p.title}](${app_url}${p.path}): ${p.description}`
+            (p) => `- [${p.title}](${origin}${p.path}): ${p.description}`
           ),
         ];
+
+        if (docs.length > 0) {
+          lines.push('', '## Documentation', '');
+          for (const doc of docs) {
+            lines.push(renderDocMarkdown(doc, origin), '---', '');
+          }
+        }
 
         let posts = getLocalPosts(baseLocale);
         try {
@@ -83,7 +94,7 @@ export const Route = createFileRoute('/llms-full.txt')({
 
             for (const post of posts) {
               lines.push(`### ${post.title}`, '');
-              lines.push(`URL: ${app_url}/blog/${post.slug}`);
+              lines.push(`URL: ${origin}/blog/${post.slug}`);
               if (post.description)
                 lines.push(`Description: ${post.description}`);
               lines.push('');
@@ -106,7 +117,7 @@ export const Route = createFileRoute('/llms-full.txt')({
             lines.push('', '## Blog Posts', '');
             for (const post of posts) {
               lines.push(`### ${post.title}`, '');
-              lines.push(`URL: ${app_url}/blog/${post.slug}`);
+              lines.push(`URL: ${origin}/blog/${post.slug}`);
               if (post.description)
                 lines.push(`Description: ${post.description}`);
               lines.push('', '---', '');

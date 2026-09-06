@@ -1,8 +1,9 @@
 export const meta = {
+  platform: 'both',
   title:
-    'Download Xiaohongshu (RedNote) Videos & Photos Without Watermark — Free, Unlimited, No Signup',
+    'Download Xiaohongshu & Douyin Videos & Photos Without Watermark — Free, Unlimited, No Signup',
   description:
-    'Batch download Xiaohongshu (RedNote) videos, HD images, and cover photos without watermark. Free, unlimited, no signup required.',
+    'Batch download Xiaohongshu (RedNote) and Douyin videos, HD images, and cover photos without watermark. Free, unlimited, no signup required.',
   created_at: '2026-04-30',
   author_name: 'MediaClaw Team',
   author_image: '/logo.png',
@@ -10,17 +11,20 @@ export const meta = {
     'https://media.mediaclaw.app/blog-covers/39f111b856bb4b8017178b41bc1e6d87.webp',
   tags: [
     'Xiaohongshu',
-    'RedNote',
+    'Douyin',
     'download without watermark',
     'watermark-free',
+    'asset download',
   ],
 };
 
-> This guide covers three approaches to downloading watermark-free content from Xiaohongshu (RedNote) — images, videos, and cover photos — so you can build a clean asset library fast.
+> This guide covers three approaches to downloading watermark-free content from Xiaohongshu (RedNote) and Douyin — images, videos, and cover photos — so you can build a clean asset library fast. The extraction principle is the same on both platforms; this post uses Xiaohongshu as the example and calls out where the watermark form differs.
 
-## 3 Ways to Download Xiaohongshu Content Without Watermark
+## 3 Ways to Download Content Without Watermark
 
 Xiaohongshu (RedNote) automatically adds a platform watermark and creator ID overlay whenever you save an image or video from the app. This is designed to protect original content and discourage direct reposts. It means any media you save via long-press or share-to-download will come with visible watermarks.
+
+Douyin's watermark takes a different form: a watermark carrying the user's Douyin ID that drifts slowly across the video frame, plus the Douyin logo in the bottom corner. Either way, a browser extension pulls the source file stored on the platform's servers — which has no watermark to begin with — rather than painting one out afterward.
 
 For casual browsing, watermarks are harmless. But if you're a content strategist, designer, or creator who needs clean assets for competitor analysis, visual references, or derivative content, watermarks become a real blocker:
 
@@ -64,7 +68,7 @@ Key advantages at a glance:
 
 ## How to Download Watermark-Free Xiaohongshu Content Step by Step
 
-Using [MediaClaw](/xiaohongshu/downloader) as an example — its media download feature is **completely free, unlimited, and requires no signup**. It covers virtually every type of visual asset in a Xiaohongshu post.
+Using MediaClaw as an example — its media download feature is **completely free, unlimited, and requires no signup**. It covers virtually every type of visual asset in a Xiaohongshu post or Douyin video ([Xiaohongshu downloader](/xiaohongshu/downloader), [Douyin downloader](/douyin/downloader)).
 
 **Downloading Xiaohongshu images without watermark:** Open any image-based post, and the extension automatically captures the HD source URLs for every image in the post. Whether it has 3 images or 18, all are exported at original resolution with no watermark — one click, batch download. No right-click-save-as, no quality loss.
 
@@ -115,8 +119,18 @@ Team members open Lark and see the latest competitor assets and data — no more
 | Post videos  | Editing technique breakdown, content pacing analysis, remix material          |
 | Cover images | Cover design reference, CTR A/B test benchmarks                               |
 
+## FAQ
+
+**Can I batch download watermark-free Douyin videos this way too?**
+
+Yes. The drifting Douyin-ID watermark on videos is also an overlay; [Douyin downloader](/douyin/downloader) pulls the source MP4 from the server with no watermark and no re-encoding. The steps match Xiaohongshu: open the video detail page, click export attachments — free, unlimited.
+
+**Can I download cover images from both Xiaohongshu and Douyin together?**
+
+Yes. Export attachments packages the current post's cover plus its images or video, on both platforms, at original resolution.
+
 ## Wrap Up
 
-Downloading watermark-free assets from Xiaohongshu (RedNote) — or any social platform — is fundamentally about extracting the original source files from the platform's servers. A browser extension is currently the best solution that balances quality, efficiency, and batch capability.
+Downloading watermark-free assets from Xiaohongshu (RedNote), Douyin — or any social platform — is fundamentally about extracting the original source files from the platform's servers. A browser extension is currently the best solution that balances quality, efficiency, and batch capability.
 
-If you regularly work with Xiaohongshu images, videos, or Live Photo assets, give MediaClaw's media download a try — **free, unlimited, no signup required**. Head to the [download page](/xiaohongshu/downloader) to install in one click, and spend the time you save on actual content creation.
+If you regularly work with Xiaohongshu or Douyin images, videos, or Live Photo assets, give MediaClaw's media download a try — **free, unlimited, no signup required**. Head to the [Xiaohongshu download page](/xiaohongshu/downloader) or [Douyin download page](/douyin/downloader) to install in one click, and spend the time you save on actual content creation.

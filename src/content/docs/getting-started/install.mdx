@@ -1,0 +1,74 @@
+export const meta = {
+  title: '安装与初始化',
+  description: '安装Mediaclaw浏览器插件，为采集与研究做好准备。',
+};
+
+## 适用浏览器环境
+
+请使用电脑端 [Chrome](https://www.google.com/intl/zh-CN/chrome/) 或 [Microsoft Edge](https://explore.microsoft.com/zh-cn/edge/download?form=MA13FJ) 浏览器。暂不支持手机和平板电脑使用。
+
+## 安装插件
+
+### 推荐 🌟 ：插件市场安装
+
+<Callout type="note">
+  一键安装更便捷，后续版本会自动更新，以下两种任选一个即可。
+</Callout>
+
+- [Chrome 插件市场安装](https://chromewebstore.google.com/detail/mediaclaw/ihclbgfnkclacfkbedkdnbpmkcdaccje)（PS：需要🧙‍♀️魔法上网）
+- [Edge 插件市场安装](https://microsoftedge.microsoft.com/addons/detail/mediaclaw-%E7%A4%BE%E5%AA%92%E8%99%BE%EF%BD%9C%E5%B0%8F%E7%BA%A2%E4%B9%A6%E6%8A%96%E9%9F%B3ai%E8%BF%90%E8%90%A5%E5%B7%A5/moalagonhjmhmoiaehciejkkingpajpl)
+
+### 备用：离线安装
+
+<Callout type="note">
+  以上两个插件市场都无法使用时，再用[离线安装包](/download)。
+</Callout>
+
+<DocImage
+  src="/imgs/docs/getting-started/install/01-下载离线安装包.webp"
+  caption="在下载页面获取离线安装包（CRX 文件）"
+  captionEn="Getting the offline install package (CRX file) from the download page"
+/>
+
+> 注意：离线安装后，每次产品更新需要手动安装最新版，用新的安装包拖过去覆盖旧的即可，<u>不需要卸载重装，避免重新配置参数</u>。
+
+1. 打开 `chrome://extensions/`
+2. 打开右上角的开发者模式
+3. 把安装包文件拖到该页面，安装完成后在插件栏置顶
+
+<DocVideo
+  src="https://media.mediaclaw.app/videos/docs/getting-started/install/01-offline-install-demo.mp4"
+  caption="离线安装录屏演示"
+  captionEn="Offline install screen recording"
+/>
+
+## 配置激活码
+
+> 需要完整功能可购买[正式版激活码](https://mediaclaw.app/pricing)；暂不升级，也可永久使用[免费版](https://mediaclaw.app/pricing)
+
+<DocImage
+  src="/imgs/docs/getting-started/install/02-在插件中配置激活码.webp"
+  caption="插件中配置激活码"
+  captionEn="Configuring the activation code in the extension"
+/>
+
+## 打开并登录社媒平台
+
+采集前，请先打开 Mediaclaw 当前支持的社媒平台网页版（小红/抖音），并<u>登录账号</u>。
+
+<PlatformExampleTabs
+  xiaohongshuCaption="在小红书页面登录账号、MediaClaw侧边栏"
+  xiaohongshuCaptionEn="MediaClaw sidebar after logging into Xiaohongshu"
+  xiaohongshuSrc="/imgs/docs/getting-started/install/03-小红书登录后页面-xiaohongshu.webp"
+  douyinCaption="在抖音页面登录账号、MediaClaw侧边栏"
+  douyinCaptionEn="MediaClaw sidebar after logging into Douyin"
+  douyinSrc="/imgs/docs/getting-started/install/03-抖音登录后页面-douyin.webp"
+/>
+
+> 本插件采集数据<u>完全模拟真实用户的操作行为，获取页面可见数据</u>，不涉及抓包、破解接口或绕过平台验证，对平台来说与普通用户使用没有区别，在合规性与账号安全上具备明显优势。
+
+<Callout type="danger">
+  不过仍需注意：长时间运行采集，或高频采集大量数据内容时，平台仍然可能判断操作频率异常，检测到是自动化操作从而对账号进行风控限制。建议控制采集数量和节奏，避免触发账号验证和限流。
+  此外若平台网页发生变化调整，产品需要更新适配后才能正常使用，请耐心等待修复。
+  <u>综上所述，不能保证完全没风险，建议用小号操作。</u>
+</Callout>

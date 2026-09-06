@@ -1,8 +1,9 @@
 export const meta = {
+  platform: 'both',
   title:
-    'How to Build a Xiaohongshu (RedNote) Competitor Monitoring System from Scratch',
+    'How to Build a Xiaohongshu & Douyin Competitor Monitoring System from Scratch',
   description:
-    'Track competitor accounts on Xiaohongshu automatically — from setting up monitoring rules to receiving daily Lark reports with AI-powered analysis.',
+    'Track competitor accounts on Xiaohongshu (RedNote) and Douyin automatically — from setting up monitoring rules to receiving daily Lark reports with AI-powered analysis.',
   created_at: '2026-05-07',
   author_name: 'MediaClaw Team',
   author_image: '/logo.png',
@@ -10,6 +11,7 @@ export const meta = {
     'https://media.mediaclaw.app/blog-covers/4540562bc6748e83abe143100d52de08.webp',
   tags: [
     'Xiaohongshu',
+    'Douyin',
     'competitor monitoring',
     'account tracking',
     'content alerts',
@@ -18,7 +20,7 @@ export const meta = {
 
 > Manually tracking competitors doesn't scale. This guide walks you through building a prioritized Xiaohongshu competitor monitoring system — from rule setup to automated Lark reports — so your team catches every important move from benchmark accounts.
 
-Anyone in content operations knows they should watch their competitors. But when it comes to **Xiaohongshu competitor monitoring**, the hardest part isn't starting — it's keeping up. Who posted? Which post is gaining traction? Is it worth responding to today?
+Anyone in content operations knows they should watch their competitors. But when it comes to **competitor monitoring**, the hardest part isn't starting — it's keeping up. Who posted? Which post is gaining traction? Is it worth responding to today? The monitoring logic is the same on Xiaohongshu and Douyin — this guide uses Xiaohongshu as the example; the only difference is whether your engagement threshold tracks likes and saves or plays and completion rate.
 
 Most teams already have a list of benchmark accounts. The problem is that the observation process is too fragmented: search, screenshot, bookmark, log, filter, repeat — with information scattered everywhere and no reliable alert pipeline.
 
@@ -38,7 +40,7 @@ If you're building this for the first time, start with your core competitors. Se
 
 Once your rules are clear, it's time to let automation take over the patrol: scan at set intervals, filter by conditions, and organize the results.
 
-If you're ready to put this into practice, [MediaClaw's](/xiaohongshu/monitoring) [competitor monitoring feature](/xiaohongshu/monitoring) handles the heavy lifting. The workflow is straightforward:
+If you're ready to put this into practice, MediaClaw's competitor monitoring feature ([Xiaohongshu](/xiaohongshu/monitoring), [Douyin](/douyin/monitoring)) handles the heavy lifting. The workflow is straightforward:
 
 <Video src="https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=4" />
 
@@ -82,10 +84,20 @@ A few practical use cases:
 
 In short, the monitoring rules and alert workflow don't distinguish between your accounts and others. Add them in, and having all the data in one view actually gives you a more complete picture.
 
+## FAQ
+
+### Can I track Douyin competitor accounts the same way?
+
+Yes. [Douyin account monitoring](/douyin/monitoring) uses the same subscription flow, filter rules, and daily Lark reports as Xiaohongshu. The difference is the threshold metric: Xiaohongshu usually sets a likes or saves threshold, Douyin leans on plays, completion rate, and follower gains. For the same competitors on both platforms, build a subscription for each and consolidate into one Feishu sheet to compare.
+
+### Do I need a separate monitor for my own accounts?
+
+No. The rules and reporting don't distinguish your accounts from competitors' — add your own to the same system and you can compare against competitors on one yardstick.
+
 ## Wrapping Up
 
-The real value of **Xiaohongshu competitor monitoring** is turning what used to be scattered, delayed, manual observation into a system that runs continuously and alerts you proactively.
+The real value of **competitor monitoring** is turning what used to be scattered, delayed, manual observation into a system that runs continuously and alerts you proactively.
 
-If you're ready to start, keep it small. [Install MediaClaw](/xiaohongshu/monitoring), subscribe to a few core competitor accounts, set a conservative filter, and run it for a few days to see the quality of what gets flagged.
+If you're ready to start, keep it small. [Install MediaClaw](/download), subscribe to a few core competitor accounts on Xiaohongshu or Douyin, set a conservative filter, and run it for a few days to see the quality of what gets flagged.
 
 Once your rules and results stabilize, gradually add more accounts. Getting the workflow right first matters more than maximizing coverage from day one.

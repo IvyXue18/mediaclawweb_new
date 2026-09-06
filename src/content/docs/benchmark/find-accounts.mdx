@@ -1,0 +1,58 @@
+export const meta = {
+  title: '爆款作品反推对标账号',
+  description: '从高互动作品和搜索样本反推值得继续研究的对标账号。',
+};
+
+当一个关键词下反复出现高互动作品时，可以先研究“哪些作者持续做出这些内容”，再决定要不要加入对标清单。MediaClaw 的 **找对标账号** 会基于当前搜索结果整理候选作者，并补充公开主页信息。
+
+## 操作步骤
+
+1. 在平台搜索一个与你的赛道、产品或用户问题直接相关的关键词。
+2. 打开 MediaClaw 的关键词策略区域，选择 **AI 洞察**。
+
+<DocImage
+  src="/imgs/docs/benchmark/find-accounts/01-搜索关键词并点击洞察.webp"
+  caption="在小红书搜索页打开 MediaClaw 侧边栏，切换到搜索页标签并点击洞察"
+  captionEn="Open the MediaClaw sidebar on the Xiaohongshu search page, switch to the Search tab, and click Insight"
+  width={1600}
+  height={515}
+/>
+
+3. 点击 **开始找对标账号**。插件会按“最多点赞”的排序准备搜索样本。
+
+<DocImage
+  src="/imgs/docs/benchmark/find-accounts/02-执行筛选.webp"
+  caption="点击开始找对标账号后，插件按最多点赞排序，采集关键词下高表现的搜索结果作为样本"
+  captionEn="After clicking Start, the extension sorts by Most Liked and collects the keyword's top-performing search results as samples"
+  width={1600}
+  height={832}
+/>
+
+4. 等待插件整理作品作者、统计重复出现情况，并打开部分候选账号主页补充简介、粉丝数和赞藏数据。
+5. 在结果中查看候选账号、代表作品、推荐理由和低粉高互动信号。
+
+<DocImage
+  src="/imgs/docs/benchmark/find-accounts/03-找对标账号洞察结果.webp"
+  caption="候选账号列表：推荐理由、代表作品与低粉高互动信号"
+  captionEn="Candidate account list: recommendation rationale, representative posts, and low-follower/high-engagement signals"
+  width={1600}
+  height={1840}
+/>
+
+## 如何筛选候选账号
+
+不要只看粉丝数，优先保留同时满足以下条件的账号：
+
+- 在当前关键词样本中出现不止一次。
+- 多篇代表作品的选题与目标赛道一致。
+- 账号定位清晰，内容不是偶然跨赛道爆发。
+- 粉丝体量不大但能持续获得互动，或同类方法在多个样本中重复出现。
+- 代表作品的表达方式与你的资源和制作能力相匹配。
+
+结果最多只用于缩小范围，不代表系统已经证明该账号值得模仿。建议点开代表作品和主页人工复核。 并且可以多刷新页面多次给出分析，因为小红书每次刷新笔记不太一样。
+
+## 分析失败时
+
+如果候选样本已经采集完成，但智能判断失败，插件会尽量保留已有候选和主页信息。可先检查网络、激活状态和积分，再使用已有进度继续生成判断，避免重复采集。
+
+结果支持复制文本或生成分享图，便于交给团队复核。

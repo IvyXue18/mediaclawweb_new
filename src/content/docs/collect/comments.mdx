@@ -1,0 +1,69 @@
+export const meta = {
+  title: '采集作品评论',
+  description: '采集笔记或视频下的评论内容，作为舆情、线索和选题的原始素材。',
+};
+
+## 采集单篇/多篇作品的评论
+
+<Callout type="note">
+  只会采集页面页面可见的一二级评论，不会主动展开采集多级评论
+</Callout>
+
+1. 打开单篇作品的详情页，或者账号页、搜索页
+2. 打开采集增强—附加采集评论
+3. 输入评论加载上限，只要加载出来就会采集到
+
+<DocVideo
+  src="https://media.mediaclaw.app/videos/docs/collect/comments/01-comments-demo.mp4"
+  caption="视频演示：采集笔记评论并同步到飞书"
+  captionEn="Demo: collecting note comments and syncing them to Feishu"
+/>
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/comments/01-采集单篇作品评论.webp',
+      caption: '采集单篇作品评论',
+      captionEn: 'Collecting comments from a single post',
+      width: 798,
+      height: 786,
+    },
+    {
+      src: '/imgs/docs/collect/comments/01-采集增强批量采集多篇评论.webp',
+      caption: '采集增强，批量采集多篇评论',
+      captionEn:
+        'Enhanced collection — batch-collecting comments from multiple posts',
+      width: 794,
+      height: 1440,
+    },
+  ]}
+/>
+
+## 定向筛选评论
+
+支持按照关键词和 IP 地址对评论进行更精细的筛选，
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/comments/02-配置评论筛选条件.webp',
+      caption: '配置评论筛选条件',
+      captionEn: 'Configuring comment filter conditions',
+      width: 824,
+      height: 1296,
+    },
+    {
+      src: '/imgs/docs/collect/comments/02-按关键词&IP 地址筛选.webp',
+      caption: '按关键词和 IP 地址筛选',
+      captionEn: 'Filtering by keyword and IP address',
+      width: 810,
+      height: 1272,
+    },
+  ]}
+/>
+
+<DocVideo
+  src="https://media.mediaclaw.app/videos/docs/collect/comments/02-lead-filter-demo.mp4"
+  caption="视频演示：按关键词和 IP 地址筛选评论中的客资"
+  captionEn="Demo: filtering comments for potential leads by keyword and IP address"
+/>

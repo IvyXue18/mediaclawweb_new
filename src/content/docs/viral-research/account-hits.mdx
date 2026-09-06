@@ -1,0 +1,62 @@
+export const meta = {
+  title: '找某个账号的爆款',
+  description: '在一个账号主页里筛出数据较好的内容。',
+};
+
+## 适用场景与前置条件
+
+- 已经锁定一个对标账号，想看它最近在发什么，以及历史作品中有哪些数据好的作品；或定期回看自己的账号。
+- 只想在一个赛道里横向找样本、还没有具体账号，用[按关键词找爆款](/docs/viral-research/keyword-hits)。
+
+<Callout type="note">
+  账号主页的作品默认按发布时间倒序排列。一个账号历史上很能打，不代表它最近还在起量。MediaClaw
+  用「加载上限 +
+  点赞门槛」替你在“这个号历史很能打”和“这个号最近在打什么”之间做区分：先按发布顺序扫最近的一批，再从中挑互动达标的。
+</Callout>
+
+## 操作步骤
+
+1. 打开目标账号主页，确认博主账号页显示定位正确。
+2. 平台侧先缩范围：抖音主页可以按发布年月筛（锁定某一年某一月）；小红书主页没有原生时间筛选。
+
+<PlatformExampleTabs
+  douyinCaption="抖音博主主页可按发布年月筛，MediaClaw 博主页设置点赞门槛与笔记主题筛选"
+  douyinCaptionEn="A Douyin creator's profile filters by publish year and month; MediaClaw's profile tab sets a like threshold and note topic filter"
+  douyinSrc="/imgs/docs/viral-research/account-hits/01-抖音账号爆款筛选-douyin.webp"
+  xiaohongshuCaption="小红书博主主页没有原生日期筛选，可在 MediaClaw 博主页设置点赞门槛与笔记主题筛选"
+  xiaohongshuCaptionEn="Xiaohongshu profiles have no native date filter; use MediaClaw's profile tab to set a like threshold and note topic filter instead"
+  xiaohongshuSrc="/imgs/docs/viral-research/account-hits/01-小红书账号爆款筛选-xiaohongshu.webp"
+/>
+
+3. 打开 MediaClaw 博主页 tab，设置采集条件：
+   - <u>博主笔记加载上限</u>：初步扫描的数量，不是最终采集数量。
+   - <u>点赞筛选</u>：在扫到的笔记里，只采点赞达到 X 以上的。
+   - <u>笔记内容主题筛选</u>：只保留标题/正文/标签命中某个关键词的笔记。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/account-posts/03-topic-filter-setting.webp',
+      caption: '填入关键词「黄酒」，筛选命中该主题的笔记',
+      captionEn: 'Enter the keyword "黄酒" to filter notes matching that topic',
+      width: 834,
+      height: 1892,
+    },
+    {
+      src: '/imgs/docs/collect/account-posts/03-topic-filter-matched-notes.webp',
+      caption: '博主主页中命中「黄酒」关键词的笔记',
+      captionEn: 'Notes on the creator page that match the "黄酒" keyword',
+      width: 848,
+      height: 1924,
+    },
+  ]}
+/>
+
+4. 采集，得到这个账号近期数据较好的一批作品。
+
+## 平台筛选和插件筛选怎么配合
+
+主页上有两层筛选，叠加使用、互不冲突：
+
+- **平台原生筛选**只对主页当前能加载出来的作品做排序或过滤（抖音可选发布年月，小红书主页没有）。它决定了插件能看到哪一批作品。
+- **插件筛选**以“主页当前能加载到的作品”为基准，在这批里再按点赞门槛、主题词二次筛。

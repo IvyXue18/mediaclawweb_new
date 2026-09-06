@@ -65,7 +65,7 @@
             "description": "在小红书搜索行业词、产品词或具体问题，结合发布时间、最多点赞、最多收藏或最多评论缩小范围，再设置互动门槛采集候选笔记。",
             "icon": "Search",
             "image": {
-              "src": "/imgs/docs/viral-research/recent-hits/02-小红书搜索筛选-xiaohongshu.webp",
+              "src": "/imgs/docs/viral-research/keyword-hits/01-小红书搜索筛选-xiaohongshu.webp",
               "alt": "小红书搜索结果按时间和互动排序，MediaClaw 设置采集门槛寻找近期爆款",
               "width": 1600,
               "height": 796

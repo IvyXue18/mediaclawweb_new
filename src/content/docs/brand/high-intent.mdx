@@ -1,0 +1,99 @@
+export const meta = {
+  title: '筛选高意向客资',
+  description:
+    '从已采集评论中按关键词和 IP 属地筛选出高意向客资，把上千条评论压缩成几十条可跟进线索。',
+};
+
+## 配置筛选规则
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/comments/02-配置评论筛选条件.webp',
+      caption: '在「评论客资筛选」中填写客资关键词和 IP 属地',
+      captionEn:
+        'Setting lead keywords and IP regions under comment lead filtering',
+      width: 824,
+      height: 1296,
+    },
+    {
+      src: '/imgs/docs/collect/comments/02-按关键词&IP 地址筛选.webp',
+      caption: '关键词与 IP 属地同时作为条件，命中项被单独标记',
+      captionEn:
+        'Keyword and IP region applied together; matches are flagged separately',
+      width: 810,
+      height: 1272,
+    },
+  ]}
+/>
+### 关键词筛选
+
+先抽看一批真实评论，记录用户实际会用的说法，再落成词表。词太宽噪音多，词太窄会漏掉同一种需求的不同表达。举例一些常见分类（最终需要按你的行业、具体笔记的评论表述调整）：
+
+- **询价类**：多少钱、多少米
+- **求购 / 求链接类**：怎么买、哪里买、求链接、有没有优惠、还有吗
+- **到店 / 同城类**：在哪个区、地址在哪、周末能约吗、今天能到店吗
+- ……
+
+命中任一关键词即通过关键词条件。
+
+### IP 属地筛选
+
+注意平台评论 IP 通常只到省 / 直辖市 / 特别行政区。北京、上海、天津、重庆可以直接按直辖市筛；成都、杭州、苏州这类地级市，只能先筛到对应省份再人工复核。
+所以它适合排除跨省噪音，不能用来断言用户就在某个市区。平台没有展示 IP 的评论无法参与 IP 条件。
+
+### 两种筛选条件的关系
+
+同时配置两类规则时，一条评论必须命中任一关键词**并且**属地与其中一个 IP 完全匹配，才算命中。只配置其中一类时，只按该类筛选。做本地生意建议两类一起用。
+
+## 采集并筛选
+
+1. 打开目标作品详情页，向下滚动把评论加载出来。
+2. 开启 **附加评论** 和 **评论客资筛选**。
+3. 采集单篇作品，或在搜索 / 账号采集增强里批量补采多篇作品的评论。
+4. 等插件按当前规则标出命中项。
+5. 导出或同步前，抽查评论原文、用户名称、发布时间和 IP 属地。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/comments/01-采集单篇作品评论.webp',
+      caption: '单篇作品：采集时勾选附加评论',
+      captionEn: 'Single post: check "attach comments" when collecting',
+      width: 798,
+      height: 786,
+    },
+    {
+      src: '/imgs/docs/collect/comments/01-采集增强批量采集多篇评论.webp',
+      caption: '采集增强：批量补采多篇作品的评论',
+      captionEn:
+        'Enhanced collection: batch-collecting comments from multiple posts',
+      width: 794,
+      height: 1440,
+    },
+  ]}
+/>
+
+<DocVideo
+  src="https://media.mediaclaw.app/videos/docs/brand/high-intent/01-high-intent-demo.mp4"
+  caption="视频演示：配置评论客资筛选关键词并采集，命中项写入客资表"
+  captionEn="Demo: configuring comment lead keywords, collecting, and writing matches to the leads table"
+/>
+
+## 导出与同步
+
+命中评论会单独形成一份客资清单。也可以[同步到飞书多维表格](/docs/collect/feishu-sync)：命中规则的评论会写入 **客资表**，团队在飞书里打标签、分配跟进人、记录沟通进度。
+
+<DocImage
+  src="/imgs/features/10-v20260424.webp"
+  caption="评论采集后按“命中关键词”（有没有 / 买 / 多少钱等）自动标出高意向客资，连同评论内容、用户主页链接、IP 属地进表，可导出或同步飞书"
+  captionEn="After collection, comments are auto-tagged by matched keyword (any / buy / how much) as high-intent leads, with comment text, profile link, and IP region in one table — exportable or sync to Lark (example shows Xiaohongshu; Douyin uses the same table structure)"
+  width={1200}
+  height={694}
+/>
+
+## 局限与合规
+
+<Callout type="danger">
+  评论客资筛选只是把「从评论里找线索」这一步自动化，命中关键词也不代表一定有购买意向；是否联系、如何沟通、是否符合平台规则和个人信息保护要求，都需要运营者自行判断。社媒虾只提供初步信号。
+</Callout>

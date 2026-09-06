@@ -1,0 +1,37 @@
+export const meta = {
+  title: '导出数据到本地',
+  description: '把当前数据池视图导出为 CSV、Markdown，或把媒体附件导出为 ZIP。',
+};
+
+## 可用格式
+
+- **CSV**：适合用 Excel、Numbers、数据分析工具继续筛选、排序和统计。
+- **Markdown**：适合放进笔记软件、知识库，或直接作为 AI 分析材料。
+- **仅封面**：把当前页面所有记录的封面图片打包下载。
+- **封面 + 配图**：把当前页面所有记录的封面图片和其他配图打包下载。
+
+<DocImage
+  src="/imgs/docs/collect/export-local/01-more-batch-actions-export.webp"
+  caption="数据池工具栏的『更多批量操作』菜单，包含导出数据和导出图片"
+  captionEn="The More batch actions menu in the data-pool toolbar, with data export and image export options"
+  width={480}
+  height={458}
+/>
+
+## 操作步骤
+
+1. 打开插件的数据池，先用平台、关键词或其他条件缩小范围。
+2. 确认当前列表就是需要导出的样本。
+3. 点击数据池工具栏里的 **更多批量操作**。
+4. 在 **导出数据** 下选择 CSV 或 Markdown；需要图片时，在 **导出图片** 下选择仅封面或封面 + 配图。
+5. 等待浏览器生成并下载文件。图片较多时，打包需要更长时间，请不要连续重复点击。
+
+## 导出后怎么用
+
+- 需要统计互动量、发布时间或账号分布时，优先使用 CSV。
+- 需要阅读正文、逐字稿、图片文案或交给 AI 继续分析时，优先使用 Markdown。
+- 需要做封面分析、视觉归档或内容复盘时，再单独导出图片。
+
+<Callout type="note">
+  导出的内容取决于记录里已经采集到的字段。若正文、配图、作者数据或评论缺失，请先对记录执行采集增强，再重新导出。
+</Callout>

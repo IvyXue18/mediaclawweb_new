@@ -1,0 +1,67 @@
+export const meta = {
+  title: '自动私信触达',
+  description:
+    '从已采集的评论中选择用户、编辑话术并最终确认后，插件自动逐个私信触达。',
+};
+
+<Callout type="danger">
+  1.
+  自动私信触达只是把人工联系动作自动化，仍需遵守平台规则，内容是否合规请自行把控。
+  2.
+  小红书和抖音账号主页的私信入口对未互关用户只允许发送一次信息，所以发送前务必核对收件人和话术内容。
+</Callout>
+
+## 选择待触达用户
+
+1. 在缓存区作品卡上点击「评论 N 条」或「筛选命中 N 条」，进入同一个评论与触达工作区。
+
+<DocImage
+  src="/imgs/docs/brand/handoff/01-采集评论后查看.webp"
+  caption="在缓存区作品卡上点击「评论 N 条」或「筛选命中 N 条」，进入评论与触达工作区"
+  captionEn="On a cached post card, click “N comments” or “N filter matches” to open the comment & outreach workspace"
+  width={500}
+  height={239}
+  frame={false}
+/>
+
+2. 在 **全部评论 / 筛选命中 / 未触达 / 已触达** 之间切换查看；已触达或历史失败的评论仍然可以重新选择。
+3. 勾选需要触达的评论，底部会显示按用户身份去重后的实际接收人数。
+4. 点击 **准备触达**。
+
+## 编辑话术并最终确认
+
+1. 弹窗会带入设置中保存的默认话术，可直接在本次任务里修改；只有勾选「同时保存为默认话术」才会覆盖设置中的默认值。
+2. 点击生成发送确认，确认页会展示：原选择评论数、去重后的实际接收人数、因重复或不可触达被跳过的人数、系统自动拆分的执行组数量。
+3. 核对无误后点击「确认发送」。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/brand/handoff/02-勾选需要触达的评论.webp',
+      caption: '评论与触达工作区：切换视图、勾选评论',
+      captionEn:
+        'Comment & outreach workspace: switch views and tick comments; the footer shows the deduplicated recipient count',
+      width: 778,
+      height: 1552,
+    },
+    {
+      src: '/imgs/docs/brand/handoff/03-编辑确认话术.webp',
+      caption: '编辑本次话术并生成发送确认：实际接收人数与执行组数',
+      captionEn:
+        'Edit the message and generate the send confirmation: platform, sending account, actual recipients, skipped count, and number of execution groups',
+      width: 820,
+      height: 848,
+    },
+  ]}
+/>
+
+## 自动执行与终止
+
+- 任务执行中随时可以点击「终止任务」；已经发出的消息无法撤回，尚未开始的用户会标记为未执行，之后可以重新选择再次发起。
+- 出现验证码、账号登录失效、平台风控提示，或发送后无法确认结果时，插件会立即停止当前任务剩余的全部用户，且不会自动重试。
+
+## 查看执行结果
+
+在「执行明细」的 **私信触达** 分区可以查看每个任务的平台、发送账号、开始/结束时间、成功/跳过/失败/结果不确定的人数、当前执行组进度和话术摘要。
+
+如果团队更习惯手动交付，也可以跳过自动触达，直接[导出到本地](/docs/collect/export-local)或[同步飞书多维表格](/docs/collect/feishu-sync)，交给人工联系。

@@ -108,6 +108,71 @@ export const config = table('config', {
   value: text('value'),
 });
 
+export const pluginMessage = table(
+  'plugin_message',
+  {
+    id: varchar191('id').primaryKey(),
+    title: varchar('title', { length: 180 }).notNull(),
+    summary: text('summary').notNull(),
+    bodyMarkdown: longtext('body_markdown').notNull(),
+    category: varchar('category', { length: 40 }).notNull().default('product'),
+    priority: varchar('priority', { length: 30 }).notNull().default('normal'),
+    status: varchar('status', { length: 30 }).notNull().default('draft'),
+    actionLabel: varchar('action_label', { length: 80 }).notNull().default(''),
+    actionUrl: text('action_url').notNull(),
+    audienceJson: longtext('audience_json').notNull(),
+    isPinned: boolean('is_pinned').notNull().default(false),
+    sortOrder: int('sort_order').notNull().default(0),
+    contentVersion: int('content_version').notNull().default(1),
+    startsAt: timestamp('starts_at'),
+    endsAt: timestamp('ends_at'),
+    publishedAt: timestamp('published_at'),
+    createdBy: varchar191('created_by').notNull().default(''),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    index('idx_plugin_message_status_window').on(
+      table.status,
+      table.startsAt,
+      table.endsAt
+    ),
+    index('idx_plugin_message_priority_sort').on(
+      table.priority,
+      table.sortOrder,
+      table.publishedAt
+    ),
+  ]
+);
+
+export const pluginMessageReceipt = table(
+  'plugin_message_receipt',
+  {
+    id: varchar191('id').primaryKey(),
+    messageId: varchar191('message_id')
+      .notNull()
+      .references(() => pluginMessage.id, { onDelete: 'cascade' }),
+    subjectKey: varchar191('subject_key').notNull(),
+    contentVersion: int('content_version').notNull().default(1),
+    firstImpressionAt: timestamp('first_impression_at'),
+    readAt: timestamp('read_at'),
+    dismissedAt: timestamp('dismissed_at'),
+    actionClickedAt: timestamp('action_clicked_at'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex('uq_plugin_message_receipt_subject').on(
+      table.messageId,
+      table.subjectKey
+    ),
+    index('idx_plugin_message_receipt_subject_read').on(
+      table.subjectKey,
+      table.readAt
+    ),
+  ]
+);
+
 export const eventLog = table(
   'event_log',
   {

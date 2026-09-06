@@ -51,6 +51,9 @@ export const Route = createFileRoute('/llms.txt')({
     handlers: {
       GET: async () => {
         const { app_url, app_name, app_description } = envConfigs;
+        const origin = app_url.replace(/\/+$/, '');
+        const { getAllDocResources } = await import('@/content/docs/markdown');
+        const docs = getAllDocResources(baseLocale);
 
         let posts = getLocalPosts(baseLocale);
         try {
@@ -77,15 +80,29 @@ export const Route = createFileRoute('/llms.txt')({
           '## Pages',
           '',
           ...STATIC_PAGES.map(
-            (p) => `- [${p.title}](${app_url}${p.path}): ${p.description}`
+            (p) => `- [${p.title}](${origin}${p.path}): ${p.description}`
           ),
         ];
+
+        if (docs.length > 0) {
+          lines.push(
+            '',
+            '## Documentation',
+            '',
+            `- [MediaClaw Documentation](${origin}/docs.md): Xiaohongshu and Douyin collection, research, topic discovery, creation, and Agent workflow guides`
+          );
+          for (const doc of docs) {
+            lines.push(
+              `- [${doc.title}](${origin}/docs/${doc.slug}.md): ${doc.description}`
+            );
+          }
+        }
 
         if (posts.length > 0) {
           lines.push('', '## Blog Posts', '');
           for (const post of posts) {
             lines.push(
-              `- [${post.title}](${app_url}/blog/${post.slug}): ${post.description}`
+              `- [${post.title}](${origin}/blog/${post.slug}): ${post.description}`
             );
           }
         }

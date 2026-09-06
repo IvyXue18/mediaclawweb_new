@@ -130,6 +130,83 @@ export const config = table('config', {
   value: text('value'),
 });
 
+export const pluginMessage = table(
+  'plugin_message',
+  {
+    id: text('id').primaryKey(),
+    title: text('title').notNull(),
+    summary: text('summary').notNull().default(''),
+    bodyMarkdown: text('body_markdown').notNull().default(''),
+    category: text('category').notNull().default('product'),
+    priority: text('priority').notNull().default('normal'),
+    status: text('status').notNull().default('draft'),
+    actionLabel: text('action_label').notNull().default(''),
+    actionUrl: text('action_url').notNull().default(''),
+    audienceJson: text('audience_json').notNull().default('{}'),
+    isPinned: integer('is_pinned', { mode: 'boolean' })
+      .notNull()
+      .default(false),
+    sortOrder: integer('sort_order').notNull().default(0),
+    contentVersion: integer('content_version').notNull().default(1),
+    startsAt: integer('starts_at', { mode: 'timestamp_ms' }),
+    endsAt: integer('ends_at', { mode: 'timestamp_ms' }),
+    publishedAt: integer('published_at', { mode: 'timestamp_ms' }),
+    createdBy: text('created_by').notNull().default(''),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    index('idx_plugin_message_status_window').on(
+      table.status,
+      table.startsAt,
+      table.endsAt
+    ),
+    index('idx_plugin_message_priority_sort').on(
+      table.priority,
+      table.sortOrder,
+      table.publishedAt
+    ),
+  ]
+);
+
+export const pluginMessageReceipt = table(
+  'plugin_message_receipt',
+  {
+    id: text('id').primaryKey(),
+    messageId: text('message_id')
+      .notNull()
+      .references(() => pluginMessage.id, { onDelete: 'cascade' }),
+    subjectKey: text('subject_key').notNull(),
+    contentVersion: integer('content_version').notNull().default(1),
+    firstImpressionAt: integer('first_impression_at', { mode: 'timestamp_ms' }),
+    readAt: integer('read_at', { mode: 'timestamp_ms' }),
+    dismissedAt: integer('dismissed_at', { mode: 'timestamp_ms' }),
+    actionClickedAt: integer('action_clicked_at', { mode: 'timestamp_ms' }),
+    createdAt: integer('created_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .notNull(),
+    updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+      .default(sqliteNowMs)
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [
+    uniqueIndex('uq_plugin_message_receipt_subject').on(
+      table.messageId,
+      table.subjectKey
+    ),
+    index('idx_plugin_message_receipt_subject_read').on(
+      table.subjectKey,
+      table.readAt
+    ),
+  ]
+);
+
 export const eventLog = table(
   'event_log',
   {

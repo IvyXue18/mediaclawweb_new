@@ -1,0 +1,137 @@
+export const meta = {
+  title: '用 Agent 结合知识库创作',
+  description:
+    '让 Agent 把 MediaClaw 的平台证据和你本地的品牌资料、历史稿件、笔记库组合起来，从模糊目标一路做到成稿。',
+};
+
+<Callout type="tip">
+  三条创作路里天花板和灵活性最高的一条，适合已经有自己数据积累的用户。Agent
+  同时读取 MediaClaw
+  的研究资产和你授权的**本地知识库**——品牌手册、产品文档、历史稿件、客户案例、访谈记录、Obsidian
+  或其他开放了读取接口的笔记——让平台数据和你自己的事实在同一个任务里合流，输出也不局限于一篇稿件。
+</Callout>
+
+## 什么时候走这条路
+
+- **目标还模糊**：只有一句"想做这个赛道"或一段旧口播稿，还没有具体选题——工作台的入口都从选题起，这种情况适合 Agent。
+- **要跨平台**：同一份研究要出小红书图文和抖音口播两版，让它一次说清各版的结构差异。
+- **想中途纠偏**：先看证据结论再定方向，不满意就调整，而不是等一篇写完再推翻。
+- **要长期资产**：把每次研究攒进本地库，之后不重采、不花积分就能复用。
+
+只想按固定流程快出一篇标准图文，用[在 AI 工作台创作](/docs/create/plugin-workbench)；一次要处理一批、还想自己改提示词，用[同步飞书批量分析和创作](/docs/create/feishu-batch)。
+
+## 前置条件
+
+- 已完成Agent的[安装、配对](/docs/agent/setup)，且确认连接正常。
+- 已把要用的资料整理成 Agent 可读的目录，见[连接你的知识库](/docs/agent/knowledge-base)。
+
+<DocImage
+  src="/imgs/docs/agent/prompt-examples/02-找对标账号.webp"
+  width={1600}
+  height={1166}
+  caption="这条路的形态：左侧 Agent 用 MediaClaw 采样和分析，右侧是它同步写进 Obsidian 知识库的选题笔记"
+  captionEn="What this path looks like: on the left the Agent samples and analyzes with MediaClaw; on the right is the topic note it writes into the Obsidian knowledge base"
+/>
+
+## 完整路径
+
+### 1. 身份、目标和可用资料
+
+不用指定工具名或采集命令。把这几件事说明白就够了——[任务案例](/docs/agent/prompt-examples#一个通用模板)里有一个可直接套用的模板：
+
+```plaintext
+背景：我是谁，服务谁，现在在做什么。
+目标：这次要做出什么决定、或交付什么东西。
+资料：允许使用哪些 MediaClaw 资产、哪些本地知识库目录，调用哪些已有 skill。
+顺序：先研究还是直接写；要不要我中途确认。
+输出：形式、数量、平台、长度、语气、要不要标注来源。
+边界：不能编造什么，哪些必须我人工确认。
+```
+
+一个填好的例子：
+
+```plaintext
+我在做一款面向独立创作者的效率工具，读者是每天要做选题和写稿的个体创作者。
+请先检查 MediaClaw 里已有的账号研究、单篇拆解和选题，必要时补充最小范围的真实数据；
+再读取 ./content-knowledge/00-brand 和 ./content-knowledge/06-published。
+先给出证据结论和 3 个选题，不要写全文。
+```
+
+### 2. 先要结论和选题，别直接要全文
+
+Agent 一上来就写全文，通常会写出一篇没有事实支撑的泛泛稿。先让它给证据结论和候选选题，你确认方向之后再往下走——**中途可以纠偏，是这条路和另外两条最大的差别。**
+
+### 3. 确认后再成稿
+
+选定一个方向后再说明成稿要求：平台、形式、长度、语气、要不要标签、标题给几个候选。
+
+```plaintext
+就用第 2 个选题，写成小红书图文稿：标题给 5 个候选。
+区分清楚哪些是平台样本里的事实、哪些是我们产品的事实、哪些是你的推断。
+不编造案例和数据，把仍需我补充的事实单独列出来。
+```
+
+如果要精确拆解一条视频再改成脚本，需要逐字稿——它会先给报价（每条多少积分、余额、有效期），你确认才提取。
+
+<DocImage
+  src="/imgs/docs/agent/prompt-examples/05-视频拆解.webp"
+  width={1600}
+  height={1627}
+  caption="要精确拆解需要逐字稿，它先给报价（16 积分／余额 40／有效期），你点确认才提取"
+  captionEn="A precise teardown needs the transcript, so it quotes first (16 credits / 40 balance / an expiry) and only extracts after you confirm"
+/>
+
+### 4. 需要时把结果写回本地
+
+用 Obsidian、Logseq 这类本地 Markdown 笔记做长期积累的话，可以让 Agent 把研究结论和稿件按 Markdown 存进指定目录。下次创作时这些内容又成了可读的资料。
+
+```plaintext
+把这次的证据结论、选题和最终稿件按 Markdown 存到 <路径>，文件名用选题标题，
+开头加一段大纲和来源清单。
+```
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/agent/prompt-examples/06-评论分析写入本地知识库.webp',
+      width: 1356,
+      height: 1078,
+      caption:
+        'Agent 把结论和明细写进指定的本地文档，写入前给出一个可审核的改动',
+      captionEn:
+        'The Agent files the conclusions and details into the given local document, showing a reviewable diff before writing',
+    },
+    {
+      src: '/imgs/docs/agent/prompt-examples/06-评论分析写入本地知识库-2.webp',
+      width: 1600,
+      height: 1191,
+      caption: '写好的知识库文档：开头是核心结论和新选题，后面是完整明细',
+      captionEn:
+        'The finished knowledge-base document: core conclusions and new topic ideas at the top, the full detail below',
+    },
+  ]}
+/>
+
+## 输出不局限于一篇稿件
+
+除了图文和视频稿，还可以要求 Agent 输出：
+
+- 一组系列选题或一份内容日历
+- 一份创作任务书，交给团队里的其他人执行
+- 同一篇内容的跨平台版本（小红书图文 / 抖音口播 / 公众号长文），并说明各版的结构差异
+- Markdown 或 HTML 的研究报告
+- 先给两三个方案做对比，再写选定的那个
+- ……
+
+## 怎么结合自己的业务
+
+这条路上"结合业务"靠的是**知识库的角色分工**，要在指令里说清楚，否则 Agent 会把三类信息混在一起：
+
+- **MediaClaw 提供平台证据**：真实样本、互动数据、评论、拆解结论——回答"平台上正在发生什么"。
+- **你的知识库提供事实和边界**：产品能力、真实案例、实测数据、品牌口径、历史表达——回答"我们能说什么、说过什么"。
+- **Agent 负责组合**：找出两者的交集，并明确标出哪些是它自己的推断。
+
+<Callout type="warning">
+  明确要求 Agent 区分"平台证据 / 我们的产品事实 /
+  它的推断"，并且不要补写资料里没有的产品能力。这一句写进指令和不写，结果差别很大。
+</Callout>

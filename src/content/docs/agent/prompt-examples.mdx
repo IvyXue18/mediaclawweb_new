@@ -1,0 +1,176 @@
+export const meta = {
+  title: 'Agent 任务案例',
+  description:
+    '六个真实任务：从一句话指令到最终结果，以及它中途停下来跟你确认的地方。',
+};
+
+下面每一条都是一次真实的运行：给出的指令可以直接复制，把 `<尖括号>` 里的内容换成你自己的。截图里保留了它采样、报价、确认和交付的完整过程。
+
+配套阅读：[Agent 是什么、接入后谁负责什么](/docs/agent/overview)、[安装、配对与升级](/docs/agent/setup)。
+
+## 一个通用模板
+
+```plaintext
+背景：我是谁，服务谁，现在在做什么。
+目标：这次要做出什么决定、或交付什么东西。
+资料：允许使用哪些 MediaClaw 资产、哪些本地知识库目录，调用哪些已有 skill。
+顺序：先研究还是直接写；要不要我中途确认。
+输出：形式、数量、平台、长度、语气、要不要标注来源。
+边界：不能编造什么，哪些必须我人工确认。
+```
+
+---
+
+## 1. 采集一批评论，读懂需求，转成选题
+
+**什么时候用**：你翻某条爆款的评论区，感觉里面全是选题，但一条条看没头绪。插件里"评论采集"和"评论分析"是分开的两步，还受单轮条数限制。
+
+```plaintext
+我发现这条笔记 <作品链接> 的评论区有很多用户提问和需求。
+帮我抓取至少 300 条评论，分析整个评论区的用户想法和需求，
+再告诉我有哪些可以切入的选题。
+```
+
+<DocImage
+  src="/imgs/docs/agent/prompt-examples/01-采集评论分析选题.webp"
+  width={1600}
+  height={1184}
+  caption="一句话指令 + 采集分析过程：322 条评论去重到 280 条，其中 35.4% 属明确需求"
+  captionEn="One-line prompt and the collect-and-analyze run: 322 comments deduped to 280, of which 35.4% are explicit needs"
+/>
+
+<DocImage
+  src="/imgs/docs/agent/prompt-examples/01-采集评论分析选题-2.webp"
+  width={1600}
+  height={1163}
+  caption="结果给出带优先级的选题清单，并导出为多页表格（Dashboard／主题分析／选题卡／高互动评论／原始评论）"
+  captionEn="The result is a prioritized list of topic ideas, exported as a multi-sheet workbook (Dashboard / Theme analysis / Topic cards / Top comments / Raw comments)"
+/>
+
+---
+
+## 2. 找低粉高赞的对标账号
+
+**什么时候用**：刚起号或换赛道，不想研究几十万粉的大博主——那些打法小账号照搬不了。你想知道同赛道里粉丝几百的号靠什么跑出来。
+
+```plaintext
+我做线香赛道，我刚起号，不想只研究几十万粉的大博主。
+帮我找这个赛道里的低粉高赞内容，分析它们靠什么跑出来，
+再给我一套适合小账号执行的选题方案。
+```
+
+<DocImage
+  src="/imgs/docs/agent/prompt-examples/02-找对标账号.webp"
+  width={1600}
+  height={1166}
+  caption="指令 + 结果：从 80 条样本里挑出 4 个低粉高赞小号，列出粉丝、代表作表现和最值得学的点，右侧是同步写入的知识库笔记"
+  captionEn="Prompt and result: four low-follower, high-like accounts pulled from an 80-post sample, each with follower count, top-post performance and what to learn — the right pane is the note it wrote into the knowledge base"
+/>
+
+---
+
+## 3. 跨平台主题调研
+
+**什么时候用**：你想知道某个工具或话题最近大家在讲什么新用法，但自己一条条刷小红书和抖音，容易把某个博主的个别演示当成"官方新功能"。
+
+```plaintext
+帮我查下小红书和抖音上最近 <关键词> 的最新教程有啥新玩法。
+```
+
+<DocImage
+  src="/imgs/docs/agent/prompt-examples/03-内容桌面调研.webp"
+  width={1600}
+  height={1556}
+  caption="指令 + 采样说明：先确认关键词指向，复用小红书已采样本、补采抖音"
+  captionEn="Prompt and sampling note: it first pins down which product the keyword means, reuses the existing Xiaohongshu sample and back-fills Douyin"
+/>
+
+<DocImage
+  src="/imgs/docs/agent/prompt-examples/03-内容桌面调研-2.webp"
+  width={1600}
+  height={1611}
+  caption="结果把最近的玩法归成 7 类，每类给代表内容和官方更新日志链接"
+  captionEn="The result groups recent patterns into 7 categories, each with example posts and a link to the official changelog"
+/>
+
+---
+
+## 4. 看某个话题今天的最新内容
+
+**什么时候用**：追一个热点，只想要"今天刚发的"，不要上个月的爆款混进来。
+
+```plaintext
+看下今天发布的 <关键词> 相关的小红书内容。
+```
+
+其实可以设置一个定时任务每天跑，相当于定时监控了。
+
+<DocImage
+  src="/imgs/docs/agent/prompt-examples/04-最新主题内容获取.webp"
+  width={1600}
+  height={1741}
+  caption="指令 + 结果：截至 23:48 扫到 80 条最新内容，按内容方向归类并列出当前表现靠前的作品"
+  captionEn="Prompt and result: 80 latest posts scanned as of 23:48, grouped by content direction with the current top performers listed"
+/>
+
+---
+
+## 5. 拆一条视频为什么留人，再改成你能拍的脚本
+
+**什么时候用**：看到一条完播明显很高的视频，想知道它开头怎么抓人、中间怎么不让人划走，并且想要一版自己能直接拍的脚本——不是照抄。
+
+```plaintext
+这条视频为什么能让人一直看下去？开头怎么说、后面怎么推进的，
+也帮我改成我能拍的脚本：<视频链接>
+```
+
+<DocImage
+  src="/imgs/docs/agent/prompt-examples/05-视频拆解.webp"
+  width={1600}
+  height={1627}
+  caption="要精确拆解需要逐字稿，它先给报价（16 积分／余额 40／有效期），你点确认才提取"
+  captionEn="A precise teardown needs the transcript, so it quotes first (16 credits / 40 balance / an expiry) and only extracts after you confirm"
+/>
+
+<DocImage
+  src="/imgs/docs/agent/prompt-examples/05-视频拆解-2.webp"
+  width={1600}
+  height={1599}
+  caption="拆出“自我诊断链”结构，并给一版换掉原作者身份、可直接拍的 90 秒脚本"
+  captionEn={
+    'It extracts the "self-diagnosis chain" structure and hands back a shoot-ready 90-second script that drops the original creator’s persona'
+  }
+/>
+
+---
+
+## 6. 把结论写回你自己的知识库
+
+**什么时候用**：这是 MediaClaw 单独做不到的一件事。你想让平台数据和你自己的资料放在一起——要么让它读你的库、找平台上有需求但你没写过的选题，要么把这次的分析直接落进你的本地文档长期留存。
+
+```plaintext
+把这些评论整理到 <你的知识库文件路径>，
+再分析获取到的 1000 条评论，把结论写到这个文档开头。
+```
+
+**它会做什么**：把 1000 条评论（含点赞、地区、时间、主页）整理进你指定的文档，并在开头写入核心结论、主题信号、分歧、未满足需求和内容机会。
+
+**你拿到什么**：一份留在你自己知识库里、可长期复用的分析。反过来也一样——让它先读你的库再研究，就能找出"平台上有真实需求、但你还没写过"的选题。
+
+<DocImage
+  src="/imgs/docs/agent/prompt-examples/06-评论分析写入本地知识库.webp"
+  width={1356}
+  height={1078}
+  caption="指令让它把 1000 条评论整理进指定文档、结论写在开头，写文件前给一个可审核的改动"
+  captionEn="The prompt asks it to file 1,000 comments into a given document with the conclusion up top; it shows a reviewable diff before writing"
+/>
+
+<DocImage
+  src="/imgs/docs/agent/prompt-examples/06-评论分析写入本地知识库-2.webp"
+  width={1600}
+  height={1191}
+  caption="写好的知识库文档：开头是核心结论和新选题，后面是完整 1000 条评论明细"
+  captionEn="The finished knowledge-base document: core conclusions and new topic ideas at the top, the full 1,000-comment table below"
+/>
+
+---

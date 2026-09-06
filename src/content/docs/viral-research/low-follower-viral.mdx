@@ -1,0 +1,71 @@
+export const meta = {
+  title: '找关键词低粉爆款',
+  description:
+    '筛出粉丝不多、却靠单篇内容打出高互动的作品，作为更可复刻的拆解样本。',
+};
+
+低粉爆款，指的是<u>账号粉丝不多、但单篇作品互动明显偏高</u>的作品。单独把这类样本筛出来，是因为大号的爆款里账号权重和粉丝基本盘占了很大一块，你照搬同样的选题不一定能起量；而低粉账号的爆款更接近“纯靠这一篇内容本身打出来的”——选题、封面、开头的贡献被放大，更值得拆解，也更能说明这个方向本身有真实需求。
+
+## 适用场景
+
+- 已经用关键词圈定了一个赛道，想在里面找**最不依赖账号体量**的爆款样本来拆解和复刻。
+- 只是想横向看这个赛道近期都在发什么、不在意账号大小，用[按关键词找爆款](/docs/viral-research/keyword-hits)就够了。
+- 已经锁定了某个账号，用[找某个账号的爆款](/docs/viral-research/account-hits)。
+
+## 操作步骤
+
+<Callout type="warning">
+  顺序别反：先用平台的点赞排序和插件的点赞门槛把候选压到前排一小批，再开低粉筛选。低粉筛选要逐个打开作者主页核对粉丝数，采集强度较高，所以采集量必须提前收窄。否则容易触发平台风控。
+</Callout>
+
+<PlatformExampleTabs
+  douyinCaption="抖音搜索结果按最多点赞、半年内排序；MediaClaw 搜索页设好点赞门槛后，勾选低粉爆款筛选并填写粉丝数上限"
+  douyinCaptionEn="Sort Douyin search results by most likes within six months; after setting the like threshold in MediaClaw's search tab, tick the low-follower filter and enter the follower cap"
+  douyinSrc="/imgs/docs/viral-research/low-follower-viral/02-抖音筛选低粉爆款-douyin.webp"
+  xiaohongshuCaption="小红书搜索结果按最多点赞、半年内排序（研究收藏类内容可切最多收藏）；MediaClaw 搜索页设好点赞门槛后，勾选低粉爆款筛选并填写粉丝数上限"
+  xiaohongshuCaptionEn="Sort Xiaohongshu search results by most likes within six months (switch to most collects for save-driven niches); after setting the like threshold in MediaClaw's search tab, tick the low-follower filter and enter the follower cap"
+  xiaohongshuSrc="/imgs/docs/viral-research/low-follower-viral/02-小红书筛选低粉爆款-xiaohongshu.webp"
+/>
+
+### 1. 平台原生筛选：把数据好的排到前排
+
+在小红书或抖音搜索目标赛道的关键词，用平台自带筛选面板：
+
+- **排序依据**统一选「最多点赞」——两个平台都支持，低粉爆款用点赞这个最通用的信号来找就够，不用纠结指标。平台会把点赞最高的一批排到前排，你只扫前排。
+- **发布时间**加「半年内」，把样本收敛到近期还在起效的内容。
+
+小红书如果专门研究收藏类的工具 / 教程内容，也可以改按最多收藏排，方法一样，只是把下一步的门槛换成收藏数。其余情况用点赞即可，更细的说明见[按关键词找爆款](/docs/viral-research/keyword-hits#平台原生筛选条件)。
+
+### 2. 插件点赞门槛：在前排里只采达标的
+
+打开 MediaClaw 搜索页 tab，设置采集条件：
+
+- <u>关键词笔记加载上限</u>
+  ：初步扫描的数量，不是最终采集数量。想把访问量压住，就设小一点、先扫前排。
+- <u>点赞门槛</u>：只采点赞达到 X
+  以上的。阈值按你所在赛道的爆款经验值定，宁可设高一点。
+
+### 3. 低粉爆款筛选：剔掉靠账号体量起量的
+
+- 在采集增强设置中开启 **低粉爆款筛选**。
+- 在 **粉丝数少于该值才采集** 中填写上限，例如 5000。
+
+### 4. 采集
+
+点「采集搜索结果」。三层叠加下来，得到的是这个词下近期点赞好、且作者粉丝在上限以内的一批样本。
+
+<DocVideo
+  src="https://media.mediaclaw.app/videos/docs/viral-research/low-follower-viral/01-low-follower-viral-demo.mp4"
+  caption="视频演示：在搜索页设好平台筛选与互动门槛，再开启低粉爆款筛选并采集"
+  captionEn="Demo: set the platform filter and interaction threshold on the search tab, then enable the low-follower filter and collect"
+/>
+
+## 怎么定粉丝数上限
+
+没有通用值，取决于你所在赛道的体量。如果不确定，可以参考下面的方法：
+
+- 先不开低粉筛选，正常按关键词采一批爆款，看这批作品作者的粉丝数大致分布。
+- 把上限设在**明显低于这个赛道头部账号量级**的位置：头部普遍几十万粉，就把上限压到 1 万以内；赛道本身偏小众，5000 甚至 1000 都合理。
+- 目的是筛掉“靠账号权重起量”的样本，不必纠结一个精确数字。
+
+也可以分两档跑：先设 1 万看有没有足够样本，再收紧到 3000 看更极端的案例。

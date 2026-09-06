@@ -12,6 +12,7 @@ import {
   experienceFeedbackResponse,
   order,
   referralWithdrawal,
+  user,
 } from '@/config/db/schema';
 import { hasPermission } from '@/modules/rbac/service';
 import { respData, respErr } from '@/lib/resp';
@@ -144,6 +145,51 @@ async function GET({ request }: { request: Request }) {
     await requireAdmin(request);
 
     const { range, start, end } = resolveRange(request);
+    const periodRegisteredRows = await safeRead(
+      'period registrations',
+      () =>
+        db()
+          .select({ id: user.id, createdAt: user.createdAt })
+          .from(user)
+          .where(rangeWhere(user, start, end)),
+      []
+    );
+    const periodCheckoutRows = await safeRead(
+      'period created orders',
+      () =>
+        db()
+          .select({
+            userId: order.userId,
+            status: order.status,
+            createdAt: order.createdAt,
+            paidAt: order.paidAt,
+          })
+          .from(order)
+          .where(and(isNull(order.deletedAt), rangeWhere(order, start, end))),
+      []
+    );
+    const registrationAtByUser = new Map(
+      periodRegisteredRows
+        .map((row) => [row.id, asDate(row.createdAt)] as const)
+        .filter((entry): entry is readonly [string, Date] => Boolean(entry[1]))
+    );
+    const signUpUsers = registrationAtByUser.size;
+    const checkoutCreatedUsers = new Set(
+      periodCheckoutRows.map((row) => row.userId)
+    ).size;
+    const signupToCheckoutUsers = new Set(
+      periodCheckoutRows
+        .filter((row) => {
+          const registeredAt = registrationAtByUser.get(row.userId);
+          const orderCreatedAt = asDate(row.createdAt);
+          return (
+            registeredAt &&
+            orderCreatedAt &&
+            orderCreatedAt.getTime() >= registeredAt.getTime()
+          );
+        })
+        .map((row) => row.userId)
+    ).size;
     const eventActor = sql<string>`coalesce(
       nullif(${eventLog.userId}, ''),
       nullif(${eventLog.clientUuid}, ''),
@@ -187,9 +233,6 @@ async function GET({ request }: { request: Request }) {
       .filter((row) => row.eventName === 'page_view')
       .reduce((total, row) => total + Number(row.eventCount || 0), 0);
     const visitors = actorSet('page_view').size;
-    const signUpUsers = actorSet('sign_up_success').size;
-    const checkoutCreatedUsers = actorSet('checkout_created').size;
-    const paymentSuccessUsers = actorSet('payment_success').size;
     const pricingViewUsers = actorSet('pricing_view').size;
     const downloadClickUsers = actorSet('download_click').size;
     const chromeStoreClickUsers = actorSet('chrome_store_click').size;
@@ -273,6 +316,15 @@ async function GET({ request }: { request: Request }) {
       []
     );
     const paidUsers = new Set(periodPaidRows.map((row) => row.userId)).size;
+    const checkoutToPaymentUsers = new Set(
+      periodCheckoutRows
+        .filter(
+          (row) =>
+            row.status === 'paid' &&
+            inPeriod(row.paidAt || row.createdAt, start, end)
+        )
+        .map((row) => row.userId)
+    ).size;
     const totalOrdersByUser = new Map<string, number>();
     const firstPaidAtByUser = new Map<string, Date>();
     const lastPaidAtByUser = new Map<string, Date>();
@@ -564,15 +616,18 @@ async function GET({ request }: { request: Request }) {
         visitors,
         signUpUsers,
         checkoutCreatedUsers,
-        paymentSuccessUsers,
+        paymentSuccessUsers: paidUsers,
         pricingViewUsers,
         downloadClickUsers,
         chromeStoreClickUsers,
         trialClaimStartedUsers,
         trialClaimSuccessUsers,
         visitorToSignupRate: rate(signUpUsers, visitors),
-        signupToCheckoutRate: rate(checkoutCreatedUsers, signUpUsers),
-        checkoutToPaymentRate: rate(paymentSuccessUsers, checkoutCreatedUsers),
+        signupToCheckoutRate: rate(signupToCheckoutUsers, signUpUsers),
+        checkoutToPaymentRate: rate(
+          checkoutToPaymentUsers,
+          checkoutCreatedUsers
+        ),
       },
       paid: {
         paidUsers,

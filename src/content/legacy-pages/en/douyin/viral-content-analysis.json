@@ -57,7 +57,7 @@
             "description": "Search Douyin for an industry, product, or concrete problem. Combine the publish-date filter with sorting by likes, then set a minimum-like threshold before collecting candidate videos.",
             "icon": "Search",
             "image": {
-              "src": "/imgs/docs/viral-research/recent-hits/02-抖音搜索筛选-douyin.webp",
+              "src": "/imgs/docs/viral-research/keyword-hits/01-抖音搜索筛选-douyin.webp",
               "alt": "Douyin search results filtered by recency and likes before MediaClaw collects candidate videos",
               "width": 1600,
               "height": 748

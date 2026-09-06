@@ -1,0 +1,67 @@
+export const meta = {
+  title: '图片转文字：提取配图文案',
+  description: '逐张识别抖音和小红书图文作品中的封面与配图文字。',
+};
+
+图文作品里的关键信息经常不在正文，而是做进封面、步骤卡、书单、价格表或商品参数图里。采集作品后，可以直接在数据池中对配图做文字识别，把原本只能阅读的图片内容变成可复制、可检索、可导出的文本。
+
+该能力同时支持抖音和小红书图文作品。MediaClaw 会按照作品中采集到的图片顺序逐张识别，并用“第 1 张图、第 2 张图……”整理结果；如果记录中只有封面可用，则会识别封面。
+
+<DocImage
+  src="/imgs/docs/collect/image-text/01-image-to-text-extract.webp"
+  caption="配图文案按图片顺序整理为『第 1 张图』『第 2 张图』……"
+  captionEn="Extracted image text is organized by picture order as 'Image 1', 'Image 2', and so on"
+/>
+
+<Callout type="note">
+  配图文案提取是会员能力，不按图片张数额外扣积分。能否使用以当前激活码的权益为准。
+</Callout>
+
+## 操作步骤
+
+1. 打开一篇小红书图文笔记或抖音图文作品，先将作品采集到数据池。
+2. 在数据池中找到这条图文记录，点击**提取配图文案**。
+3. 提取期间，记录上的按钮会显示**配图文案提取中**。图片越多，等待时间通常越长。
+4. 完成后会自动打开结果弹窗，识别内容按图片顺序合并展示。
+5. 点击配图文案右上角的复制按钮即可复制全部结果。以后也可以点击记录上的**查看配图文案**重新打开。
+
+<DocImage
+  src="/imgs/docs/collect/image-text/02-extract-image-text-button.webp"
+  caption="数据池图文记录行的『提取配图文案』按钮"
+  captionEn="The Extract image text button on a data-pool image-text record row"
+  width={520}
+  height={199}
+/>
+
+## 识别结果会保存在哪里
+
+提取结果会直接回填到原采集记录，不会创建一条重复数据。原记录中的标题、正文、作者和互动数据保持不变，新增的配图文案会一起参与后续复制、CSV / Markdown 导出和飞书同步。
+
+<DocImage
+  src="/imgs/features/image-text-writeback-v20260629.webp"
+  caption="提取后的多张配图文案随采集记录一起进入表格"
+  captionEn="Extracted text from multiple images stays with the collected record in the table"
+/>
+
+## 哪些内容需要人工检查
+
+图片识别会尽量保留原文，但以下情况仍建议对照原图复核：
+
+- 艺术字、竖排文字、低对比度小字或被贴纸遮挡的内容。
+- 商品价格、规格、日期和联系方式等不能出错的数字。
+- 多栏排版、表格和步骤卡的阅读顺序。
+- 同音品牌名、英文缩写和生僻专有名词。
+
+## 提取失败怎么办
+
+- 提示没有图片链接：重新打开作品详情页，补采完整作品数据后再试。
+- 只有封面、缺少后续配图：先确认原作品的图片是否已经全部加载，再重新采集详情。
+- 反复失败：将作品链接、弹窗下方的调试链接一起反馈给客服，方便定位具体图片。
+
+<DocImage
+  src="/imgs/docs/collect/image-text/03-debug-link.webp"
+  caption="提取失败时，可在结果弹窗底部复制调试信息"
+  captionEn="When extraction fails, copy the debug info from the bottom of the result dialog"
+  width={520}
+  height={328}
+/>

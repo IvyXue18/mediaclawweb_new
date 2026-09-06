@@ -57,7 +57,7 @@
             "description": "Search Xiaohongshu for a niche, product, or concrete problem. Use recency plus likes, saves, or comments to narrow the results, then set an engagement threshold before collecting candidates.",
             "icon": "Search",
             "image": {
-              "src": "/imgs/docs/viral-research/recent-hits/02-小红书搜索筛选-xiaohongshu.webp",
+              "src": "/imgs/docs/viral-research/keyword-hits/01-小红书搜索筛选-xiaohongshu.webp",
               "alt": "Xiaohongshu search results filtered by recency and engagement before MediaClaw collects candidate posts",
               "width": 1600,
               "height": 796

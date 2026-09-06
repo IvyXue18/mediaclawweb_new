@@ -65,7 +65,7 @@
             "description": "先搜索行业词、产品词或内容主题，结合发布时间与互动门槛整理近期高表现视频，再观察反复出现的作者和低粉高互动信号。先用视频表现缩小范围，再人工确认谁值得进入深度研究。",
             "icon": "UserSearch",
             "image": {
-              "src": "/imgs/docs/viral-research/recent-hits/02-抖音搜索筛选-douyin.webp",
+              "src": "/imgs/docs/viral-research/keyword-hits/01-抖音搜索筛选-douyin.webp",
               "alt": "抖音搜索结果按发布时间和点赞筛选高表现视频，寻找值得研究的对标账号",
               "width": 1600,
               "height": 748

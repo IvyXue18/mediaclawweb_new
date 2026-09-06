@@ -7,6 +7,13 @@ import type { DbConfig } from './types';
 const mysqlCompatProxyCache = new WeakMap<object, any>();
 const sqliteCompatProxyCache = new WeakMap<object, any>();
 
+export function getMysqlAffectedRows(result: unknown): number | undefined {
+  const header = Array.isArray(result) ? result[0] : result;
+  if (!header || typeof header !== 'object') return undefined;
+  const affectedRows = (header as { affectedRows?: unknown }).affectedRows;
+  return typeof affectedRows === 'number' ? affectedRows : undefined;
+}
+
 /**
  * Global fallback for Drizzle `.returning()` on dialects that don't support it (notably MySQL).
  */
@@ -39,7 +46,8 @@ function withMysqlCompat<T extends object>(dbInstance: T): T {
           typeof (target as any).returning !== 'function'
         ) {
           return async (..._args: any[]) => {
-            await (target as any);
+            const result = await (target as any);
+            if (getMysqlAffectedRows(result) === 0) return [];
             if (ctx.payload === undefined) return [];
             return Array.isArray(ctx.payload) ? ctx.payload : [ctx.payload];
           };

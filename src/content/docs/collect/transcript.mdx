@@ -1,0 +1,144 @@
+export const meta = {
+  title: '视频转文字：提取视频逐字稿',
+  description:
+    '把抖音和小红书视频转成文字：在插件里提取带时间戳的逐字稿，或用飞书模板的视频转文字字段整列批量转。',
+};
+
+<Callout type="note">
+  采集到值得拆解的视频后，可以直接把口播内容变成文字，不需要先下载视频，也不需要把链接复制到其他工具。有两条路径可选：**在插件里对采集记录直接提取**，或者**把数据同步到飞书模板、用「视频转文字」字段整列批量转**。
+</Callout>
+
+|              | 插件内提取                                 | 飞书模板「视频转文字」字段                                     |
+| ------------ | ------------------------------------------ | -------------------------------------------------------------- |
+| **识别精度** | 调用更新模型，多语种、方言、杂音识别更精准 | 第三方字段捷径对接阿里云百炼，遇到杂音和方言容易掉字错字       |
+| **输出形式** | 完整逐字稿 + 带时间戳的分句节奏稿          | 一整段平铺文字，没有时间戳                                     |
+| **批量**     | 数据池工具栏一键批量，一次 2～20 条        | 链接进表格后整列逐条自动转                                     |
+| **计费**     | 按视频时长扣插件积分                       | 用自己的 key，不消耗插件积分（服务商目前每月赠送 10 小时额度） |
+| **稳定性**   | 在插件内排队执行                           | 第三方字段有并发限制，高峰期容易报错，需要换时段重试           |
+| **前置条件** | 采集到作品详情即可                         | 需先配好飞书模板、同步数据，并填自己的 key                     |
+
+<Callout type="tip">
+  **建议：少量提取走插件，大量提取走飞书。**
+  插件识别更准，还多给一份带时间戳的分句稿，拿来拆节奏、喂给 AI
+  都更好用；一次要跑一大批时走飞书，配上自己的 key
+  不消耗插件积分，代价是没有时间戳、赶上高峰期要换个时段重试。
+</Callout>
+
+## 方法一：在插件里提取
+
+提取结果会回填到原记录，一次给两份：
+
+- **完整逐字稿**：适合通读、检索、归档和交给 AI 继续处理。
+- **分句节奏稿**：保留每句话的起止时间，适合观察开头钩子、铺垫、转折和结尾引导分别用了多久。
+
+<DocImage
+  src="/imgs/docs/collect/transcript/01-xiaohongshu-video-to-transcript.webp"
+  caption="小红书笔记页的视频逐字稿结果，包含完整逐字稿与分句节奏稿"
+  captionEn="The transcript panel on a Xiaohongshu note, showing both the full transcript and the sentence-timed script"
+/>
+
+### 提取单条视频逐字稿
+
+1. 打开一篇小红书视频笔记或抖音视频，先将作品采集到数据池。
+2. 在数据池中找到这条视频记录，点击**提取视频逐字稿**。
+3. 确认弹窗中的视频时长和预计积分消耗，再开始提取。
+4. 提取期间可以继续浏览其他内容；记录上的按钮会显示**视频逐字稿提取中**。
+5. 完成后会自动打开结果弹窗。以后也可以点击记录上的**查看视频逐字稿**重新打开。
+
+<DocImage
+  src="/imgs/docs/collect/transcript/02-extract-single-video-transcript.webp"
+  caption="数据池记录行的『提取视频逐字稿』按钮"
+  captionEn="The Extract video transcript button on a data-pool record row"
+  width={520}
+  height={255}
+/>
+
+### 批量提取多条视频逐字稿
+
+当前页面至少有 2 条可提取的视频时，数据池工具栏会出现**逐字稿 N**入口。批量任务适合一次处理一批已经采集完整的对标视频。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/transcript/03-batch-extract-transcript.webp',
+      caption: '数据池工具栏中的『逐字稿 N』入口',
+      captionEn: "The 'Transcript N' entry in the data-pool toolbar",
+      width: 940,
+      height: 650,
+    },
+    {
+      src: '/imgs/docs/collect/transcript/03-batch-extract-transcript-confirm.webp',
+      caption: '批量提取弹窗：勾选视频并确认预计积分消耗',
+      captionEn:
+        'The batch extraction dialog — select videos and confirm the estimated credit cost',
+      width: 900,
+      height: 808,
+    },
+  ]}
+/>
+
+1. 点击**逐字稿 N**，打开批量提取弹窗。
+2. 勾选要处理的视频。列表会逐条显示视频时长和预计积分，一次可选择 2～20 条。
+3. 核对总预计积分和当前余额，点击**确认提取**。
+4. 任务会在后台继续执行；关闭侧栏不会中断。再次打开侧栏可以查看已完成、失败和等待中的数量。
+5. 成功结果会自动写回对应记录；失败的记录可以回到数据池单独重试。
+
+批量列表只显示**已采集详情、能计算时长、尚未提取且当前不在处理中的视频**。某条视频没有出现在列表时，先确认它是否已采集完整，以及记录中是否有视频时长和原始媒体链接。
+
+### 查看、复制和继续使用
+
+在结果弹窗中，可以分别复制**完整逐字稿**和**分句节奏稿**。也可以导出 CSV、Markdown 或同步飞书，不需要再手动粘贴回去。
+
+逐字稿来自语音识别，遇到人名、品牌名、方言、背景音乐或多人重叠说话时，仍建议结合原视频人工校对。
+
+## 方法二：用飞书模板的「视频文案提取」字段
+
+这条路适合一次要处理一大批视频、并且能不嫌麻烦，自己配置key的用户。语音识别不在插件里跑，而是由飞书多维表格的第三方字段捷径对接阿里云百炼完成：把视频的原始文件链接同步进表格后，字段会对整列逐条转写。
+
+<DocImage
+  src="https://media.mediaclaw.app/blog-covers/23959730eb58ef0d6a1ee53bd0271338.png"
+  caption="模板里的「视频转文字」用的是飞书字段捷径『音频视频转文字』，识别由阿里云百炼完成，该模型目前每月赠送 10 小时免费额度"
+  captionEn="The template's video-to-text field is a Feishu field shortcut backed by Alibaba Cloud Bailian, with a free monthly quota from the provider"
+  width={1447}
+  height={960}
+/>
+
+### 操作步骤
+
+1. 按[飞书模板：功能与配置](/docs/settings/feishu-template)复制模板、移动到云盘、设置权限，并在插件里填好 base 链接，能够成功完成数据同步。
+2. 在模板的[视频转文字](/docs/settings/feishu-template#视频转文字)字段里，填入自己在阿里云百炼申请的key。
+3. 按[同步到飞书多维表格](/docs/collect/feishu-sync)把数据池记录写进模板。视频的**原始文件链接**会跟着一起写入，字段读的就是这一列。
+4. 视频转文案自动提取。
+
+<DocImage
+  src="https://media.mediaclaw.app/blog-covers/25d62b4a0aa7f5cb235fb09f6d70fc1e.png"
+  caption="链接进表格后，字段对整列逐条转写，结果写回同一行——但只有平铺文字，没有时间戳"
+  captionEn="Once the links are in the table, the field transcribes the whole column row by row — as flat text, without timestamps"
+  width={1396}
+  height={884}
+/>
+
+### 转不出来时怎么办
+
+这个字段捷径使用人数较多、有并发限制，多条同时提取时容易出错。遇到报错，点单元格右侧的重试按钮，或者换个时段再跑，一般刷新一下就能出来。
+
+<DocImageGrid
+  images={[
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/20.webp',
+      caption: '出现并发错误时查看具体单元格',
+      captionEn: 'Check the specific cell when a concurrency error appears',
+      width: 1486,
+      height: 400,
+    },
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/21.webp',
+      caption: '点击单元格右侧的重试按钮',
+      captionEn: 'Click the retry button on the right of the cell',
+      width: 1256,
+      height: 396,
+    },
+  ]}
+/>
+
+如果这批视频错字成本高，或者你要的就是节奏信息，改走[方法一](#方法一在插件里提取)在插件里重提一次，会更省事。

@@ -1,5 +1,7 @@
 import { expect, test, type Locator } from '@playwright/test';
 
+import { getAllDocSlugs } from '../../src/content/docs/registry';
+
 const pages = [
   { path: '/', title: /MediaClaw|媒爪/i, testimonials: true },
   { path: '/pricing', title: /MediaClaw|媒爪/i, pricingCards: true },
@@ -60,11 +62,16 @@ const pages = [
     text: /更新日志|Product updates/i,
     timeline: true,
   },
-  { path: '/docs', title: /介绍|MediaClaw|媒爪/i },
   {
-    path: '/docs/foo/bar',
-    title: /MediaClaw|媒爪/i,
-    text: /Nested documentation URLs are preserved/i,
+    path: '/docs',
+    title: /介绍|MediaClaw|媒爪/i,
+    docsDownload: true,
+  },
+  {
+    path: '/docs/collect/comments',
+    title: /采集作品评论.*MediaClaw/i,
+    text: /采集笔记或视频下的评论内容/i,
+    docsSeo: true,
   },
   {
     path: '/xiaohongshu/scraper',
@@ -306,6 +313,34 @@ for (const item of pages) {
       ).toContainText(
         /查看安装及使用教程|Installation and Usage Guide|tutorial/i
       );
+    }
+    if ('docsSeo' in item) {
+      await expect(page.locator('h1')).toHaveCount(1);
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+        'content',
+        /index,follow/
+      );
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+        'href',
+        'https://mediaclaw.app/docs/collect/comments'
+      );
+      await expect(
+        page.locator('link[rel="alternate"][type="text/markdown"]')
+      ).toHaveAttribute(
+        'href',
+        'https://mediaclaw.app/docs/collect/comments.md'
+      );
+      await expect(
+        page.locator('script[type="application/ld+json"]')
+      ).toHaveCount(2);
+    }
+    if ('docsDownload' in item) {
+      const downloadLink = page.locator('[data-docs-download-link]');
+      await expect(downloadLink).toBeVisible();
+      await expect(downloadLink).toContainText(/我要使用|Get Started/i);
+      await expect(downloadLink).toHaveAttribute('href', /\/download$/);
+      await downloadLink.click();
+      await expect(page).toHaveURL(/\/download(?:[?#]|$)/);
     }
     if ('chatComposer' in item) {
       await expect(page.locator('[data-chat-composer]')).toBeVisible();
@@ -652,3 +687,55 @@ for (const item of legacyZhRedirects) {
     await expect(page).toHaveTitle(item.title);
   });
 }
+
+test('documentation discovery resources expose every tutorial', async ({
+  request,
+}) => {
+  const slugs = getAllDocSlugs();
+  const [docsIndex, sampleDoc, llms, llmsFull, sitemap, robots] =
+    await Promise.all([
+      request.get('/docs.md'),
+      request.get('/docs/collect/comments.md'),
+      request.get('/llms.txt'),
+      request.get('/llms-full.txt'),
+      request.get('/sitemap.xml'),
+      request.get('/robots.txt'),
+    ]);
+
+  for (const response of [
+    docsIndex,
+    sampleDoc,
+    llms,
+    llmsFull,
+    sitemap,
+    robots,
+  ]) {
+    expect(response.status()).toBe(200);
+  }
+
+  expect(sampleDoc.headers()['content-type']).toContain('text/markdown');
+  expect(sampleDoc.headers().link).toContain(
+    '<https://mediaclaw.app/docs/collect/comments>; rel="canonical"'
+  );
+  expect(await sampleDoc.text()).toContain('# 采集作品评论');
+
+  const docsIndexText = await docsIndex.text();
+  const llmsText = await llms.text();
+  const llmsFullText = await llmsFull.text();
+  const sitemapText = await sitemap.text();
+  const robotsText = await robots.text();
+
+  for (const slug of slugs) {
+    expect(docsIndexText).toContain(`https://mediaclaw.app/docs/${slug}.md`);
+    expect(llmsText).toContain(`https://mediaclaw.app/docs/${slug}.md`);
+    expect(llmsFullText).toContain(
+      `Canonical: https://mediaclaw.app/docs/${slug}`
+    );
+    expect(sitemapText).toContain(
+      `<loc>https://mediaclaw.app/docs/${slug}</loc>`
+    );
+  }
+
+  expect(robotsText).toContain('User-Agent: OAI-SearchBot');
+  expect(robotsText).toContain('Sitemap: https://mediaclaw.app/sitemap.xml');
+});

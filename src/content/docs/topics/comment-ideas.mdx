@@ -1,0 +1,141 @@
+export const meta = {
+  title: '从评论问题中发现选题',
+  description:
+    '用单篇拆解、飞书模板 AI 分析或 Agent，把评论证据自动归类成候选选题。',
+};
+
+正文里没写清楚的问题，往往还留在评论区。先按[采集作品评论](/docs/collect/comments)把评论拿到手——这一步不重复说明；本页只讲拿到评论之后，怎么把它们变成选题。目前有三条方法，按你的工作方式选一条就够：单篇拆解自动归类、同步飞书模板跑 AI 分析、或者直接让 Agent 帮你读评论给选题。
+
+<Callout type="tip">
+  怎么选用哪种方法： - 只想深挖一篇代表作品、顺手要标题和大纲：方法一。 -
+  想固定跑一批笔记、需要团队协作和留痕：方法二。 -
+  想直接口述目标、不想在多个入口之间来回配置：方法三，前提是已完成 Agent
+  接入配对。
+</Callout>
+
+## 方法一：单篇拆解自动归类评论区信号
+
+<Callout type="note">
+  这种方式，一次只分析一篇作品，并且由于重点是单条爆款的整体拆解，评论只是其中一块，最多含
+  60 条，所以如果是专门做大量评论分析，可以跳过方法一，看后面两种。
+</Callout>
+
+1. 在作品卡片上点击拆解图标，进入[单篇拆解](/docs/viral-research/single-post-breakdown)，确认评论素材已经补全再开始拆解。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/viral-research/single-post-breakdown/01-单篇拆解入口.webp',
+      caption: '在已采集的作品卡片上点击拆解图标，开始单篇拆解',
+      captionEn:
+        'Click the breakdown icon on an already-collected post card to start a single-post breakdown',
+      width: 860,
+      height: 854,
+    },
+    {
+      src: '/imgs/docs/viral-research/single-post-breakdown/02-确认素材与重点关注.webp',
+      caption: '确认内容素材是否齐全，可填写重点关注方向',
+      captionEn:
+        'Confirm the content materials are complete and optionally note what to focus on — this costs 10 credits on success',
+      width: 810,
+      height: 1480,
+    },
+  ]}
+/>
+
+2. 查看报告里的**评论区信号**模块——系统会把评论自动归到认同、追问、争议、未满足需求四类，点开可以核对被纳入分析的原始评论。
+
+<DocImage
+  src="/imgs/docs/viral-research/single-post-breakdown/06-评论区原始评论.webp"
+  caption="点击查看原评论，核对被纳入分析的原始评论内容"
+  captionEn="Click to view the original comments included in the analysis"
+  width={1600}
+  height={1099}
+  frame={false}
+/>
+
+3. 查看**延伸出的批量选题**——系统按"把原题讲深""换个场景写""换个方向写"三种变化幅度各生成 3 个选题，标注沿用了什么、改了什么、和原作的区别，可以直接收藏到选题库或进入创作。
+
+<DocImage
+  src="/imgs/docs/viral-research/single-post-breakdown/07-延伸出的批量选题.webp"
+  caption="延伸出的批量选题，按三种变化幅度各生成 3 个新选题，附标题候选和成稿预期"
+  captionEn="The topics section generates 3 new topics for each of three variation levels, with candidate titles and the expected output format"
+  width={1600}
+  height={1252}
+/>
+
+## 方法二：同步飞书模板，用AI字段捷径批量分析评论
+
+<Callout type="note">
+  这条方法适合批量分析多篇笔记，方便团队内部的协作分享，也方便复核。
+</Callout>
+
+1. 采集一批或一篇作品，附加采集评论；详情演示可查看👉[采集作品评论](/docs/collect/comments)。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/comments/01-采集单篇作品评论.webp',
+      caption: '采集单篇作品评论',
+      captionEn: 'Collecting comments from a single post',
+      width: 798,
+      height: 786,
+    },
+    {
+      src: '/imgs/docs/collect/comments/01-采集增强批量采集多篇评论.webp',
+      caption: '采集增强，批量采集多篇评论',
+      captionEn:
+        'Enhanced collection — batch-collecting comments from multiple posts',
+      width: 794,
+      height: 1440,
+    },
+  ]}
+/>
+
+2. [同步到飞书多维表格](/docs/collect/feishu-sync)，评论会跟随所属作品记录写入对应数据表。
+
+3. 打开[飞书模板：功能与配置](/docs/settings/feishu-template)里**配置模板 AI 字段**一节，给**评论需求分析**字段配好自己的文本模型 Key，对整列评论跑一遍分析。模板自带的示例配置会给出需求归类、可延展的选题方向、以及选题依据引用的原评论——具体输出结构取决于你使用的提示词模板，最重要的是这块分析提示词可以自行调整。
+
+<DocImage
+  src="/imgs/docs/topics/comment-ideas/02-飞书表格评论分析输出结果.webp"
+  caption="评论需求分析字段的输出：用户需求按类型和频次归类、延展出可做的选题（附内容角度和目标受众）、每个选题标注来自哪几条评论"
+  captionEn="What the comment-analysis field returns: needs grouped by type and frequency, extendable topic ideas with their angle and audience, and each idea traced back to the comments it came from"
+  width={1600}
+  height={1080}
+/>
+
+<DocImage
+  src="/imgs/docs/topics/comment-ideas/03-飞书模板可修改分析提示词.webp"
+  caption="字段配置面板里的「输入指令」就是这段分析提示词，按①用户需求分析、②可扩展选题挖掘、③选题溯源三段写，可以照自己的业务改写"
+  captionEn="The field's input instruction is the analysis prompt — structured as user-needs analysis, extendable topic ideas, and topic tracing — and you can rewrite it for your own use case"
+  width={1600}
+  height={1152}
+/>
+
+## 方法三：结合 Agent 直接分析评论区
+
+不需要先手动采集、同步表格、配置 AI 字段——完成[接入 Agent](/docs/agent/setup)配对后，把作品链接和你想要的结果直接描述给 Agent，它会调用插件的采集能力抓评论、按评论 ID 去重、归类需求，直接给出结论和候选选题，甚至完整的分析报告。
+
+<DocImage
+  src="/imgs/docs/topics/comment-ideas/04-Agent抓取评论并分析选题.webp"
+  caption="在 Agent 里直接说明任务：抓取一条笔记至少 300 条评论，分析用户想法和需求，Agent 自动去重、归类并给出可切入的选题建议"
+  captionEn="Describe the task directly to the Agent: fetch at least 300 comments from a note and analyze user needs — the Agent dedupes, categorizes the signals, and proposes candidate topics"
+  width={1210}
+  height={790}
+/>
+
+可以直接照抄这句话开始：
+
+> 帮我打开这条笔记 &lt;作品链接&gt;，抓取至少 300 条评论，然后分析一下整个评论区的用户想法和需求，看看有没有我可以切入的选题。
+
+Agent 会说明已处理和去重后的评论数量、核心判断、主要需求信号分类，最后给出可以优先切入的候选选题；你确认方向后，可以让它继续展开成完整标题和大纲。
+
+**把整份报告存进本地知识库。** 如果你用 Obsidian、Logseq 这类本地 Markdown 笔记做长期积累，可以在分析跑完后补一句「把这份报告按 Markdown 存到我的 Obsidian 库 `<路径>`，文件名用笔记标题」。Agent 会把结论摘要、主题信号占比、代表性高赞评论、完整评论明细整理成一篇带大纲的笔记写到本地，之后可以离线检索、双链到相关选题，不必再回对话里翻。
+
+<DocImage
+  src="/imgs/docs/topics/comment-ideas/05-1000条评论分析写入本地知识库.webp"
+  caption="让 Agent 把 1000 条评论的完整分析写进本地 Obsidian 库：从结论摘要、主题信号占比到代表性高赞评论和完整评论明细，落成一篇带大纲的笔记"
+  captionEn="Have the Agent write the full 1,000-comment analysis into a local Obsidian vault — summary, topic-signal breakdown, representative top comments, and the full comment list as one outlined note"
+  width={1600}
+  height={1191}
+/>

@@ -1,5 +1,7 @@
 import {
   isValidElement,
+  useRef,
+  useState,
   type AnchorHTMLAttributes,
   type HTMLAttributes,
   type ReactNode,
@@ -10,6 +12,8 @@ import {
 } from 'react';
 import {
   AlertTriangle,
+  Check,
+  Copy,
   Film,
   ImageIcon,
   Info,
@@ -24,6 +28,7 @@ import { Link } from '@/core/i18n/navigation';
 import { cn } from '@/lib/utils';
 import { resolveStaticVideoPoster } from '@/lib/video-posters';
 import { getLocale } from '@/paraglide/runtime.js';
+import { PlatformExampleTabs } from '@/components/docs/platform-example-tabs';
 
 // Headings get a stable, content-derived id so the "on this page" TOC
 // (DocToc) can scroll-spy and deep-link into sections without a build-time
@@ -110,6 +115,62 @@ function Callout({
   );
 }
 
+// Fenced code blocks (```prompt text```) can run to hundreds of lines — capping
+// the height and scrolling internally keeps a long prompt from stretching the
+// article, while the copy button makes it usable as a copy/paste source.
+function CodeBlock({
+  className,
+  children,
+  ...props
+}: HTMLAttributes<HTMLPreElement>) {
+  const preRef = useRef<HTMLPreElement>(null);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    const text = preRef.current?.textContent ?? '';
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div className="group/code relative my-6">
+      <button
+        type="button"
+        onClick={handleCopy}
+        aria-label="复制"
+        className="border-border bg-background/90 text-muted-foreground hover:text-foreground absolute top-2 right-2 z-10 inline-flex items-center gap-1.5 rounded-md border px-2 py-1 text-xs opacity-0 backdrop-blur transition-opacity group-hover/code:opacity-100 focus-visible:opacity-100"
+      >
+        {copied ? (
+          <>
+            <Check className="size-3.5" />
+            已复制
+          </>
+        ) : (
+          <>
+            <Copy className="size-3.5" />
+            复制
+          </>
+        )}
+      </button>
+      <pre
+        ref={preRef}
+        className={cn(
+          'border-border bg-muted/40 text-foreground/90 max-h-[420px] overflow-auto rounded-xl border p-4 font-mono text-sm leading-6 whitespace-pre-wrap',
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </pre>
+    </div>
+  );
+}
+
 function MdxLink({
   className,
   href,
@@ -158,6 +219,7 @@ function MdxLink({
 
 export const mdxComponents: MDXComponents = {
   Callout,
+  PlatformExampleTabs,
   h1: ({
     className,
     id,
@@ -330,19 +392,32 @@ export const mdxComponents: MDXComponents = {
   ),
   td: ({ className, ...props }: TdHTMLAttributes<HTMLTableCellElement>) => (
     <td
-      className={cn('text-foreground/85 px-4 py-3 leading-6', className)}
-      {...props}
-    />
-  ),
-  code: ({ className, ...props }: HTMLAttributes<HTMLElement>) => (
-    <code
       className={cn(
-        'bg-muted text-foreground rounded px-[0.4rem] py-[0.2rem] font-mono text-sm',
+        'text-foreground/85 px-4 py-3 leading-6 first:whitespace-nowrap',
         className
       )}
       {...props}
     />
   ),
+  code: ({ className, ...props }: HTMLAttributes<HTMLElement>) => {
+    // Fenced code blocks (```lang) hand the language down as a
+    // `language-xxx` className on this inner <code> — the `pre` override
+    // above already supplies the block's background/border, so skip the
+    // inline-code pill styling here to avoid nesting two backgrounds.
+    if (/language-/.test(className ?? '')) {
+      return <code className={className} {...props} />;
+    }
+    return (
+      <code
+        className={cn(
+          'bg-muted text-foreground rounded px-[0.4rem] py-[0.2rem] font-mono text-sm',
+          className
+        )}
+        {...props}
+      />
+    );
+  },
+  pre: CodeBlock,
   kbd: ({ className, ...props }: HTMLAttributes<HTMLElement>) => (
     <kbd
       className={cn(

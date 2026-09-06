@@ -29,6 +29,8 @@ import { getNonceStr, getUuid } from '@/lib/hash';
 import { resolveReferralConfig } from '@/lib/referral-config';
 
 const INVITEE_DISCOUNT_RESERVATION_SUFFIX = 'referral_invitee_discount';
+const DEFAULT_UNCLAIMED_OWNER_EMAIL =
+  'system+unclaimed-credential@mediaclaw.local';
 
 export function getInviteeDiscountReservationKey(userId: string) {
   return `${userId}:${INVITEE_DISCOUNT_RESERVATION_SUFFIX}`;
@@ -122,6 +124,84 @@ export async function getOrCreateReferralAccount(userId: string) {
   return created;
 }
 
+export function buildReferralLink(inviteCode: string) {
+  return `${envConfigs.app_url.replace(/\/$/, '')}/?ref=${encodeURIComponent(inviteCode)}`;
+}
+
+export type ReferralExtensionLinkResult =
+  | {
+      ok: true;
+      inviteCode: string;
+      referralLink: string;
+    }
+  | {
+      ok: false;
+      reason:
+        | 'credential_unclaimed'
+        | 'referral_disabled'
+        | 'referral_unavailable';
+      message: string;
+    };
+
+export async function getReferralExtensionLink(
+  userId: string
+): Promise<ReferralExtensionLinkResult> {
+  const normalizedUserId = String(userId || '').trim();
+  if (!normalizedUserId) {
+    return {
+      ok: false,
+      reason: 'credential_unclaimed',
+      message: 'Activation code is not linked to a website account',
+    };
+  }
+
+  const [owner] = await db()
+    .select({ id: user.id, email: user.email })
+    .from(user)
+    .where(eq(user.id, normalizedUserId))
+    .limit(1);
+  const ownerEmail = String(owner?.email || '')
+    .trim()
+    .toLowerCase();
+  const unclaimedOwnerEmail = String(
+    process.env.CREDENTIAL_UNCLAIMED_OWNER_EMAIL ||
+      DEFAULT_UNCLAIMED_OWNER_EMAIL
+  )
+    .trim()
+    .toLowerCase();
+  if (!owner || !ownerEmail || ownerEmail === unclaimedOwnerEmail) {
+    return {
+      ok: false,
+      reason: 'credential_unclaimed',
+      message: 'Activation code is not linked to a website account',
+    };
+  }
+
+  const config = await getReferralConfig();
+  if (!config.enabled) {
+    return {
+      ok: false,
+      reason: 'referral_disabled',
+      message: 'Referral program is not available',
+    };
+  }
+
+  const account = await getOrCreateReferralAccount(normalizedUserId);
+  if (account.status !== ReferralStatus.ACTIVE) {
+    return {
+      ok: false,
+      reason: 'referral_unavailable',
+      message: 'Referral account is not active',
+    };
+  }
+
+  return {
+    ok: true,
+    inviteCode: account.inviteCode,
+    referralLink: buildReferralLink(account.inviteCode),
+  };
+}
+
 export async function getReferralOverview(userId: string) {
   const account = await getOrCreateReferralAccount(userId);
   const relations = await listReferralRelations({
@@ -149,7 +229,7 @@ export async function getReferralOverview(userId: string) {
     0,
     account.pendingCommission - withdrawingAmount
   );
-  const referralLink = `${envConfigs.app_url.replace(/\/$/, '')}/?ref=${encodeURIComponent(account.inviteCode)}`;
+  const referralLink = buildReferralLink(account.inviteCode);
 
   return {
     account,
@@ -939,21 +1019,47 @@ export async function processLockedCommissionsSettlement() {
       )
     );
 
+  let settled = 0;
+  let frozen = 0;
+  let skipped = 0;
+
   for (const commission of commissions) {
     const account = await getOrCreateReferralAccount(commission.referrerUserId);
     if (account.status !== ReferralStatus.ACTIVE) {
-      await db()
+      const frozenRows = await db()
         .update(referralCommission)
         .set({ status: 'frozen', updatedAt: new Date() })
-        .where(eq(referralCommission.id, commission.id));
+        .where(
+          and(
+            eq(referralCommission.id, commission.id),
+            or(
+              eq(referralCommission.status, 'locked'),
+              eq(referralCommission.status, 'pending')
+            )!
+          )
+        )
+        .returning({ id: referralCommission.id });
+      if (frozenRows.length > 0) frozen += 1;
+      else skipped += 1;
       continue;
     }
 
-    await db().transaction(async (tx: any) => {
-      await tx
+    const didSettle = await db().transaction(async (tx: any) => {
+      const claimedRows = await tx
         .update(referralCommission)
         .set({ status: 'settled', updatedAt: new Date() })
-        .where(eq(referralCommission.id, commission.id));
+        .where(
+          and(
+            eq(referralCommission.id, commission.id),
+            or(
+              eq(referralCommission.status, 'locked'),
+              eq(referralCommission.status, 'pending')
+            )!
+          )
+        )
+        .returning({ id: referralCommission.id });
+      if (claimedRows.length === 0) return false;
+
       await tx
         .update(referralAccount)
         .set({
@@ -962,10 +1068,15 @@ export async function processLockedCommissionsSettlement() {
           updatedAt: new Date(),
         })
         .where(eq(referralAccount.userId, commission.referrerUserId));
+
+      return true;
     });
+
+    if (didSettle) settled += 1;
+    else skipped += 1;
   }
 
-  return { processed: commissions.length };
+  return { processed: commissions.length, settled, frozen, skipped };
 }
 
 export async function processPendingReferralTasks() {

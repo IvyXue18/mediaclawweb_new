@@ -65,7 +65,7 @@
             "description": "Search an industry, product, or content term, then combine time and engagement filters to surface recent strong videos. Recurring creators and low-follower/high-engagement signals help narrow the shortlist before manual review.",
             "icon": "UserSearch",
             "image": {
-              "src": "/imgs/docs/viral-research/recent-hits/02-抖音搜索筛选-douyin.webp",
+              "src": "/imgs/docs/viral-research/keyword-hits/01-抖音搜索筛选-douyin.webp",
               "alt": "Douyin search results filtered by time and likes to find high-performing videos and benchmark creators",
               "width": 1600,
               "height": 748

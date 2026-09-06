@@ -1,0 +1,534 @@
+export const meta = {
+  title: '飞书模板：功能与配置',
+  description:
+    '了解 MediaClaw 飞书模板的数据表、AI 字段和通知能力，并完成首次连接配置。',
+};
+
+请大家耐心拿出 20min左右，飞书配置只做一次；日常使用同步功能请看[同步到飞书多维表格](/docs/collect/feishu-sync)。
+
+<Callout type="note">
+
+**完成标准清单**
+
+- 复制 MediaClaw 飞书模板
+- 把模板移动到云盘
+- 设置权限为「互联网获得链接的人可编辑」
+- 复制正确的 base 链接，填到插件偏好设置
+- 测试同步一条数据
+
+</Callout>
+
+## 确认你有同步权限
+
+飞书同步需要完成激活码鉴权，可[前往官网](https://mediaclaw.app/pricing)购买激活码。没有激活码时，可以先使用免费的采集和导出功能。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/01-确认同步权限.webp"
+  caption="数据池里的「批量导出数据」免费可用，「同步飞书」需要激活码"
+  captionEn="In the data pool, Batch Export works on the free plan; Sync to Feishu needs an activation code"
+  width={540}
+  height={340}
+/>
+
+## 视频版配置教程
+
+<DocVideo
+  src="https://media.mediaclaw.app/videos/docs/settings/feishu-template/02-feishu-sync-config.mp4"
+  caption="飞书同步数据配置完整演示"
+  captionEn="Full walkthrough of Feishu sync configuration"
+/>
+
+## 文字版配置教程
+
+### 1. 复制 MediaClaw 模板
+
+打开 [MediaClaw 飞书模板](https://my.feishu.cn/base/H9fAb5QYtagaLDsjgdPcaliGnyf?from=from_copylink)（也可以在插件的 **飞书归档目标配置 → 获取模版** 打开），点击右上角的 **使用该模板**，复制到你自己的飞书中。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/03-复制模板-使用该模板.webp"
+  caption="在飞书模板页右上角点击「使用该模板」"
+  captionEn="Click “Use this template” in the top-right of the template page"
+  width={1600}
+  height={693}
+/>
+
+### 2. 把模板移动到云盘
+
+复制好模板后，模板默认会被复制到「我的文档库」。请移动到 **云盘**。需要从文档库移动到 **云盘 → 我的文件夹**。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/04-移动到云盘菜单.webp"
+  caption="点击右上角「…」菜单，选择「移动到」"
+  captionEn="Open the “…” menu in the top-right and choose “Move to”"
+  width={1600}
+  height={616}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/05-从文档库移动到我的文件夹.webp"
+  caption="在「移动到」弹窗里选择 云盘 → 我的文件夹"
+  captionEn="In the Move to dialog, choose Cloud Drive → My Folder"
+  width={1600}
+  height={972}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/06-区分文档库和知识库.webp"
+  caption="放在「云盘」，不要放在知识库或文档库"
+  captionEn="Keep it under Cloud Drive — not Wiki or the Docs library"
+  width={550}
+  height={702}
+/>
+
+### 3. 设置权限为「互联网获得链接的人可编辑」
+
+模板权限必须设置成 **互联网获得链接的人可编辑**。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/07-设置互联网可编辑权限.webp"
+  caption="在「分享」里把链接权限设为「互联网获得链接的人 · 可编辑」"
+  captionEn="In Share, set link access to “Anyone on the internet with the link · Can edit”"
+  width={1600}
+  height={505}
+/>
+
+| 设置                          | 结果                              |
+| ----------------------------- | --------------------------------- |
+| 互联网获得链接的人 **可编辑** | ✅ 正确                           |
+| 互联网获得链接的人 **可阅读** | ❌ 无法写入数据                   |
+| **组织内**获得链接的人可编辑  | ❌ 插件以链接访问，非组织成员身份 |
+
+### 4. 复制链接，填到插件里
+
+复制模板链接，填到插件的 **偏好设置 → 飞书多维表格文档 URL**。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/08-复制链接填到插件URL.webp"
+  caption="从「分享」复制链接，粘贴到插件的「飞书多维表格文档 URL」"
+  captionEn="Copy the link from Share and paste it into the extension’s Feishu Base document URL field"
+  width={1600}
+  height={893}
+/>
+
+<Callout type="warning">
+  链接中间必须是 **base**，不能是 **wiki**。链接是 wiki
+  时，插件无法正常同步数据。说明模板还在知识库或文档库中，请先按照第2步操作移动到云盘。
+</Callout>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/09-链接必须是base不是wiki.webp"
+  caption="正确的链接形如 https://…feishu.cn/base/…"
+  captionEn="A correct link looks like https://…feishu.cn/base/…"
+  width={460}
+  height={413}
+/>
+
+### 5. 检查表名
+
+插件的 **飞书归档目标配置** 里有六类数据表名称，必须与飞书模板左侧的实际数据表名称一一对应：
+
+- 单笔记采集
+- 关键词笔记采集
+- 博主信息表
+- 博主笔记采集
+- 评论区客资采集
+- 监控内容表
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/10-检查表名一致.webp"
+  caption="插件里的六个表名要和飞书模板左侧的表名一一对应（顺序可以不同）"
+  captionEn="The six table names in the extension must match the tables in the Feishu template one-to-one (order can differ)"
+  width={1522}
+  height={1206}
+/>
+
+这几张数据表的名称和飞书模板的表名 **必须保持一致**（排列顺序可以不同），后续版本升级可能还会新增数据表。如果名称不一致，或你要改动某张表的名称，需要两边一起改、对应上，否则数据无法同步。
+
+<Callout type="danger">
+  表格里新增自己的字段不影响同步，但不要修改模板自带字段的名称和类型，改了以后数据可能写不进去。
+</Callout>
+
+### 6. 测试同步一条数据
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/11-测试同步一条数据.webp"
+  caption="数据池里点击「同步飞书」，同步成功后条目显示「已同步」"
+  captionEn="Click Sync to Feishu in the data pool; a synced item then shows the “Synced” status"
+  width={430}
+  height={646}
+/>
+
+1. 先用插件采集一条内容。
+2. 到数据池确认有记录。
+3. 点击 **同步飞书**。
+4. 打开飞书模板，确认表格里出现新数据。
+
+## 配置飞书通知（选用）
+
+如果需要接收账号监控日报、批量分析完成或余额不足等消息，需要单独配置一个飞书群机器人的 Webhook，填入插件 **监控任务 → 监控通知** 里的 **通知 Webhook**。该字段与上面的数据表连接分开保存，修改后会显示自动保存状态；不填写不影响普通表格同步。
+
+### 1. 建群并进入群机器人设置
+
+拉一个飞书群（只拉自己也可以），点击群右上角的更多菜单进入 **设置**，在设置里找到 **群机器人**。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/12-飞书群设置.webp"
+  caption="点击群右上角的更多菜单，进入设置"
+  captionEn="Click the group’s top-right menu and open Settings"
+  width={1600}
+  height={1063}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/13-找到群机器人.webp"
+  caption="在群设置中找到群机器人入口"
+  captionEn="Find the Group Bots entry in group settings"
+  width={1600}
+  height={1030}
+/>
+
+### 2. 添加自定义机器人并复制 Webhook
+
+点击 **添加机器人**，选择 **自定义机器人（通过 Webhook 推送消息）**，按提示填写名称和描述，完成后复制生成的 **Webhook 地址**。安全设置（关键词、IP 白名单、签名校验）保持默认即可。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/14-选择自定义机器人.webp"
+  caption="选择添加自定义机器人（通过 Webhook 推送消息）"
+  captionEn="Choose to add a Custom Bot (pushes messages via webhook)"
+  width={1600}
+  height={908}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/15-复制webhook.webp"
+  caption="复制机器人的 Webhook 地址"
+  captionEn="Copy the bot’s webhook URL"
+  width={1600}
+  height={1125}
+/>
+
+飞书官方对应说明见[自定义机器人使用指南](https://open.feishu.cn/document/client-docs/bot-v3/add-custom-bot)。
+
+### 3. 填入插件
+
+进入插件 **监控任务 → 监控通知 → 飞书机器人通知**，把复制的 Webhook 粘贴到 **通知 Webhook** 字段。该字段独立自动保存，等待状态变为 **已保存** 即可，不影响上面的数据表连接。之后扫描发现潜在爆款、批量分析完成或余额不足时，系统都会通过这个机器人推送消息。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/16-监控通知webhook字段.webp"
+  caption="账号监控规则下方的「监控通知 → 飞书机器人通知」，填入通知 Webhook"
+  captionEn="Under the account monitoring rules, fill the notification webhook in “Monitoring notification → Feishu bot notification”"
+  width={882}
+  height={1584}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/17-收到的监控日报.webp"
+  caption="配置后通过飞书机器人收到的监控日报，含命中作品和可执行内容策略"
+  captionEn="The daily monitoring report received via the Feishu bot once configured, with matched posts and actionable content strategy"
+  width={1600}
+  height={1152}
+/>
+
+<Callout type="danger">
+  Webhook
+  相当于群机器人发送凭证，不要公开到文档、截图、代码仓库或聊天群。泄露后应立即在飞书重新生成。
+</Callout>
+
+## 配置模板 AI 字段（选用）
+
+<Callout type="note">
+  飞书 AI
+  字段用于进一步分析和二创：视频转文字、脚本分析、评论分析、改写仿写。**普通数据同步不需要这些字段**——先把采集和同步跑通，确实要批量逐字稿、分析或改写时再配。免费额度和计费规则以服务商当前页面为准。
+</Callout>
+
+### 字段能力总览
+
+| 字段能力   | 用来做什么                   | 谁提供的能力                                                     | 免费额度                                   | 参数从哪拿                       |
+| ---------- | ---------------------------- | ---------------------------------------------------------------- | ------------------------------------------ | -------------------------------- |
+| 链接转附件 | 把图片链接转成附件，方便查看 | 第三方字段捷径（[Field Shortcut](https://fieldshortcut.com/zh)） | 约 500 次                                  | 字段捷径服务商官网充值后获取 key |
+| 视频转文字 | 提取视频口播内容             | 阿里云百炼（Paraformer 语音识别）                                | 每月 10 小时，每月 1 日发放、有效期 1 个月 | 阿里云百炼控制台 API Key         |
+| 文本生成   | 脚本分析、评论分析、二创改写 | 火山引擎豆包（Doubao-Seed-2.0-pro）                              | 每个模型赠送 50 万 Token                   | 火山方舟 API_KEY + 接入点 ID     |
+
+<DocVideo
+  src="https://media.mediaclaw.app/videos/docs/settings/feishu-template/18-feishu-ai-fields-config.mp4"
+  caption="飞书 AI 字段配置完整演示"
+  captionEn="Full walkthrough of configuring the Feishu AI fields"
+/>
+
+### 链接转附件
+
+「封面图」这类字段用的是 **链接转附件** 字段捷径，把采集到的图片链接直接转成可预览的附件。打开字段配置，字段类型选 **链接转附件**，指定包含链接的来源字段，再点 **+ 关联账号**，在弹窗里填入字段捷径服务商的 API key（点输入框右侧的 ↗ 图标可跳到服务商页面获取）。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/19-链接转附件字段配置.webp"
+  caption="字段类型选「链接转附件」，选好包含链接的字段，点「+ 关联账号」"
+  captionEn="Set the field type to Link-to-attachment, pick the source link field, then click “+ Link account”"
+  width={908}
+  height={980}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/19-链接转附件关联账号.webp"
+  caption="在弹窗里填入字段捷径服务商的 API key"
+  captionEn="Paste the field-shortcut provider's API key in the dialog"
+  width={1098}
+  height={672}
+/>
+
+### 视频转文字
+
+模板里的「视频文案提取 / 视频逐字稿提取」用的是飞书字段捷径 **音频视频转文字**，识别由 **阿里云百炼** 的 Paraformer 完成，目前录音文件识别每月赠送 10 小时免费额度。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/20-阿里云百炼语音识别免费额度.webp"
+  caption="阿里云百炼「Paraformer 语音识别」：录音文件识别每月赠送 36,000 秒（10 小时）"
+  captionEn="Alibaba Bailian Paraformer speech recognition: 36,000 free seconds (10 hours) per month for file transcription"
+  width={2464}
+  height={1924}
+/>
+
+**第 1 步 · 在阿里云百炼申请 API Key**
+
+1. 打开[阿里云百炼控制台](https://bailian.console.aliyun.com/)，登录后在首页 **常用功能 → API Key** 进入。
+2. 首次使用需要先完成 **实名认证**：账号面板会提示 **去认证**，进入账号中心 → 账号认证，选 **个人认证** 走完流程。
+3. 认证通过后回到 API Key 页面，点右上角 **创建 API Key**，创建后立即复制保存（只完整显示一次）。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/21-阿里云百炼首页apikey入口.webp"
+  caption="阿里云百炼首页「常用功能 → API Key」"
+  captionEn="Alibaba Bailian home → Common features → API Key"
+  width={3054}
+  height={1396}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/21-阿里云apikey页面.webp"
+  caption="账号未实名时，账号面板会出现「去认证」"
+  captionEn="Before real-name verification, the account panel shows “Verify now”"
+  width={3310}
+  height={1640}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/21-阿里云账号实名认证.webp"
+  caption="在账号认证页选择「个人认证」"
+  captionEn="Choose Personal verification on the account verification page"
+  width={3398}
+  height={1260}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/21-阿里云创建apikey.webp"
+  caption="认证后回到 API Key 页面，点右上角「创建 API Key」"
+  captionEn="After verifying, return to the API Key page and click “Create API Key”"
+  width={3412}
+  height={2066}
+/>
+
+**第 2 步 · 把 Key 填进模板字段**
+
+1. 在飞书模板里右键「视频文案提取」列 → **修改字段/列**。
+2. 字段类型确认是 **音频视频转文字**，音视频链接选 **视频链接** 字段。
+3. 打开 **关联账号**，点 **+ 关联账号**，填入刚复制的阿里云百炼 API Key。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/22-视频逐字稿字段修改字段列.webp"
+  caption="右键字段列，选「修改字段/列」"
+  captionEn="Right-click the field column and choose “Edit field/column”"
+  width={1280}
+  height={478}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/22-字段类型音视频转文字关联账号.webp"
+  caption="字段类型「音频视频转文字」，音视频链接选「视频链接」，点「+ 关联账号」"
+  captionEn="Field type “Audio/video to text”, source set to the Video link field, then “+ Link account”"
+  width={882}
+  height={970}
+/>
+
+配好后，整列会自动把视频口播转成文字：
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/23-视频转文字效果.webp"
+  caption="「视频文案提取」列自动输出口播文字"
+  captionEn="The transcription field fills the whole column automatically"
+  width={846}
+  height={256}
+/>
+
+### 文本生成
+
+脚本分析、评论分析、二创改写仿写这三个字段都用 **文本生成** 字段捷径，默认模型是火山引擎的 **Doubao-Seed-2.0-pro**，每个模型赠送 50 万 Token。三个字段的账号配置方式完全一样，申请一次凭证给三个字段共用即可。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/24-火山引擎模型50万token.webp"
+  caption="火山方舟每个模型赠送 50 万 Token 推理额度"
+  captionEn="Volcano Ark grants 500,000 free inference tokens per model"
+  width={2464}
+  height={1372}
+/>
+
+**第 1 步 · 注册火山引擎并实名认证**
+
+1. 打开[火山引擎官网](https://www.volcengine.com/)注册并登录。
+2. 在控制台右上角头像 → **账号管理 → 实名认证**，选 **个人认证** 完成认证。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/25-火山引擎注册.webp"
+  caption="火山引擎官网注册（手机号注册即可）"
+  captionEn="Sign up on the Volcano Engine site (phone number is enough)"
+  width={2930}
+  height={1658}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/25-火山引擎实名认证.webp"
+  caption="账号管理 → 实名认证，选「个人认证」"
+  captionEn="Account management → Real-name verification → Personal verification"
+  width={2938}
+  height={1656}
+/>
+
+**第 2 步 · 开通豆包模型并创建推理接入点**
+
+1. 打开[火山方舟控制台](https://console.volcengine.com/ark)，进入 **Doubao-Seed-2.0-pro** 模型页，点 **API 接入**，在「快捷 API 接入」的 STEP 2 里选择模型并点 **开通模型**（选 pro，不是 lite）。
+2. 到 **在线推理 → 自定义推理接入点**，点 **创建推理接入点**，填名称、推理模式选 **指定单一模型**，**添加模型** 选刚开通的 Doubao-Seed-2.0-pro。
+3. 接入模式选 **按 Token 付费**，点 **创建并接入**。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/26-火山引擎开通2.0大模型.webp"
+  caption="模型页「API 接入 → 快捷 API 接入」，选择模型并「开通模型」"
+  captionEn="On the model page, API access → Quick API access, pick the model and “Enable”"
+  width={2930}
+  height={1474}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/26-火山引擎创建推理点.webp"
+  caption="在线推理 → 自定义推理接入点 →「创建推理接入点」"
+  captionEn="Online inference → Custom endpoints → “Create endpoint”"
+  width={2926}
+  height={1388}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/26-火山引擎添加模型.webp"
+  caption="推理模式选「指定单一模型」，点「添加模型」"
+  captionEn="Set inference mode to “Single model” and click “Add model”"
+  width={2938}
+  height={1488}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/26-火山引擎添加所需模型.webp"
+  caption="选 Doubao-Seed-2.0-pro（截图里是 lite 示例）"
+  captionEn="Pick Doubao-Seed-2.0-pro (the screenshot shows lite)"
+  width={2936}
+  height={1496}
+/>
+
+**第 3 步 · 复制 API_KEY 和接入点 ID**
+
+创建成功后进入接入点详情：页面顶部的 **ID（ep- 开头）** 就是接入点 ID；在 **API 接入 → 选择 API Key** 点 **选择 API Key 并复制**，在弹窗里点某个 Key 的 **选择使用** 复制出 API Key。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/27-火山引擎开通模型并接入.webp"
+  caption="接入模式选「按 Token 付费」，点「创建并接入」"
+  captionEn="Choose “Pay per token” and click “Create and connect”"
+  width={2936}
+  height={1490}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/27-火山引擎复制接入点.webp"
+  caption="接入点详情页顶部的 ID（ep- 开头）就是接入点 ID"
+  captionEn="The ID at the top of the endpoint page (starts with ep-) is the endpoint ID"
+  width={2922}
+  height={1396}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/27-火山引擎复制apikey.webp"
+  caption="API 接入 → 选择 API Key，点「选择 API Key 并复制」"
+  captionEn="API access → Select API Key → “Select API Key and copy”"
+  width={2936}
+  height={1478}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/27-火山引擎选择使用复制key.webp"
+  caption="在弹窗里点某个 Key 的「选择使用」复制出 API Key"
+  captionEn="In the dialog, click “Use” on a key to copy the API Key"
+  width={2934}
+  height={1494}
+/>
+
+**第 4 步 · 填进模板字段**
+
+在飞书模板里右键脚本分析 / 评论分析 / 二创改写任意一列 → **修改字段/列**，滚到底部打开 **关联账号 → + 关联账号**，把 **密钥 ARK_API_KEY**（第 3 步的 API Key）和 **接入点 ID**（ep- 开头）分别填进去。三个字段各关联一次。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/28-文本字段深度思考关联账号.webp"
+  caption="字段配置底部打开「关联账号」，点「+ 关联账号」"
+  captionEn="At the bottom of the field config, turn on “Link account” and click “+ Link account”"
+  width={852}
+  height={934}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/28-填入ARK-API-KEY和接入点.webp"
+  caption="分别填「密钥 ARK_API_KEY」和「接入点 ID」"
+  captionEn="Fill in ARK_API_KEY and the endpoint ID"
+  width={1120}
+  height={718}
+/>
+
+字段里的提示词是可以改的，改法和整列批量执行见[同步飞书批量分析和创作](/docs/create/feishu-batch)。
+
+### 复制模板后：把测试账号换成自己的
+
+复制模板后，如果表头字段带橙色感叹号，说明该字段还在用模板自带的测试账号（会提示「该字段关联的账号出现异常」）。点感叹号，选 **重新配置**，按上面的步骤换成你自己申请的凭证。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/29-字段感叹号错误提示.webp"
+  caption="字段带感叹号 → 点「重新配置」换成自己的账号"
+  captionEn="A field with a warning icon → click “Reconfigure” and switch to your own account"
+  width={688}
+  height={356}
+/>
+
+### AI 输出是 Markdown？装个渲染插件
+
+脚本分析、评论分析这些字段的输出是 Markdown 源码，直接看不方便。在多维表格右上角 **插件** 入口打开插件市场，搜 **Markdown**，安装免费的 **Markdown 内容渲染**（点单元格实时渲染）。安装后从插件的 **…** 菜单选 **固定至侧边栏**，之后点任意单元格就能看到渲染效果。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/30-插件市场搜markdown.webp"
+  caption="插件市场搜「Markdown」，安装「Markdown 内容渲染」"
+  captionEn="Search “Markdown” in the plugin market and install “Markdown content rendering”"
+  width={2830}
+  height={1192}
+/>
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/30-markdown渲染固定侧边栏.webp"
+  caption="从插件「…」菜单选「固定至侧边栏」"
+  captionEn="From the plugin’s “…” menu, choose “Pin to sidebar”"
+  width={1064}
+  height={850}
+/>
+
+<Callout type="danger">
+  API Key / ARK_API_KEY
+  不要放进公开文档、截图、代码仓库或共享聊天。怀疑泄露时，应立即到对应服务商控制台撤销并重新生成。
+</Callout>
+
+## 配置完成后怎么使用
+
+- [同步到飞书多维表格](/docs/collect/feishu-sync)：日常把数据池记录写入模板。
+- [视频转文字：提取逐字稿](/docs/collect/transcript)：补齐视频原始内容。
+- [从评论中发现选题](/docs/topics/comment-ideas)：把评论证据转成选题方向。
+- [持续监控对标账号](/docs/benchmark/monitoring)：配置监控规则和飞书机器人通知。
+- [同步飞书批量分析和创作](/docs/create/feishu-batch)：用这里配好的 AI 字段，对整列内容批量做脚本分析和二创改写。
+
+同步失败、写错表、字段缺失等问题，详见[常见问题](/docs/settings/faq)。

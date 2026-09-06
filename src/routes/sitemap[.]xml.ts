@@ -2,6 +2,11 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
 import { baseLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
+import {
+  DOCS_PUBLISHED_AT,
+  findDocLeaf,
+  getAllDocSlugs,
+} from '@/content/docs/registry';
 import { getLocalLogs } from '@/content/logs';
 import {
   getLocalPostLocales,
@@ -18,7 +23,6 @@ const STATIC_PATHS = [
   '/updates',
   '/welfare',
   '/referral',
-  '/docs',
   '/privacy-policy',
   '/terms-of-service',
   '/features/feishu-integration',
@@ -104,6 +108,19 @@ export const Route = createFileRoute('/sitemap.xml')({
           addEntry({
             path,
             availableLocales: path === '/welfare' ? [baseLocale] : locales,
+          });
+        }
+
+        addEntry({
+          path: '/docs',
+          availableLocales: [baseLocale],
+          lastModified: DOCS_PUBLISHED_AT,
+        });
+        for (const slug of getAllDocSlugs()) {
+          addEntry({
+            path: `/docs/${slug}`,
+            availableLocales: [baseLocale],
+            lastModified: findDocLeaf(slug)?.updatedAt ?? DOCS_PUBLISHED_AT,
           });
         }
 

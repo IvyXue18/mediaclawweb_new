@@ -7,6 +7,7 @@ import {
   Home,
   LayoutDashboard,
   LifeBuoy,
+  Megaphone,
   Settings,
   Shield,
 } from 'lucide-react';
@@ -43,6 +44,12 @@ function AdminLayout() {
       href: '/admin/analytics',
       label: m['admin.nav.analytics'](),
       icon: ChartNoAxesCombined,
+      group,
+    },
+    {
+      href: '/admin/notifications',
+      label: m['admin.nav.notifications'](),
+      icon: Megaphone,
       group,
     },
     {

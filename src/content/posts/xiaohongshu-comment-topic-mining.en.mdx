@@ -1,23 +1,24 @@
 export const meta = {
-  title: 'How to Export Xiaohongshu Comments for AI Topic Mining',
+  platform: 'both',
+  title: 'How to Export Xiaohongshu & Douyin Comments for AI Topic Mining',
   description:
-    'The best viral topics are hidden in the comment section. This guide shows you how to export Xiaohongshu (RedNote) comments and use AI to uncover user needs, so your content strategy becomes completely data-driven.',
+    'The best viral topics are hidden in the comment section. This guide shows you how to export Xiaohongshu (RedNote) and Douyin comments and use AI to uncover user needs, so your content strategy becomes completely data-driven.',
   created_at: '2026-05-16',
   author_name: 'MediaClaw Team',
   author_image: '/logo.png',
   image:
     'https://media.mediaclaw.app/blog-covers/1c77f656e4968474411f49ee37b920f5.webp',
   tags: [
-    'Xiaohongshu operations',
-    'Xiaohongshu comment export',
-    'Xiaohongshu comment scraper',
+    'Xiaohongshu',
+    'Douyin',
+    'comment export',
+    'comment scraper',
     'viral topics',
-    'content strategy',
     'AI analysis',
   ],
 };
 
-> The most reliable source for your next topic isn't guessing what users want to read—it's looking at what they are already asking. In this post, we'll break down a complete workflow: from scraping comments in bulk, to automatically analyzing user needs with AI, and finally generating a data-driven list of content topics.
+> The most reliable source for your next topic isn't guessing what users want to read—it's looking at what they are already asking. In this post, we'll break down a complete workflow: from scraping comments in bulk, to automatically analyzing user needs with AI, and finally generating a data-driven list of content topics. The method is identical on Xiaohongshu and Douyin—this post uses Xiaohongshu as the example, and Douyin comment scraping and analysis work the same way.
 
 ## Why Teams Keep Guessing Content Topics
 
@@ -96,7 +97,7 @@ Manually scrolling through the comment section has three major flaws: it's slow,
   alt="Scraping Xiaohongshu comments"
 />
 
-Using MediaClaw's [Comment Scraper](/xiaohongshu/comments) will automatically gather a specified number of comments and export them.
+Using MediaClaw's comment scraper ([Xiaohongshu](/xiaohongshu/comments), [Douyin](/douyin/comments)) will automatically gather a specified number of comments and export them.
 
 Core data fields include:
 
@@ -165,8 +166,14 @@ A sustainable minimum viable loop:
 
 If you want to further optimize your titles and body text using search keywords, you can refer to the keyword expansion section in [How to Build a Xiaohongshu Topic Library](/blog/xiaohongshu-topic-library-build).
 
+## FAQ
+
+### Can I do this with Douyin comments too?
+
+Yes. Douyin comment scraping, export, and AI need-clustering follow the same flow as Xiaohongshu — use [MediaClaw's Douyin comment scraper](/douyin/comments) to collect per post, then sync to Feishu. Comment questions on video content skew more toward "where do I get this," "is there a tutorial," and "drop the link," which convert into topics just as directly.
+
 ## Try It Out Now
 
-Pick a post with the highest number of comments, use MediaClaw's [Comment Scraper](/xiaohongshu/comments) to export them, sync them to your Feishu Base, and run the AI analysis once. You'll likely discover that your content topics for next week are already waiting for you in those comments.
+Pick a post with the highest number of comments, use MediaClaw's comment scraper ([Xiaohongshu](/xiaohongshu/comments), [Douyin](/douyin/comments)) to export them, sync them to your Feishu Base, and run the AI analysis once. You'll likely discover that your content topics for next week are already waiting for you in those comments.
 
 The comment scraping and lead filtering features are completely free and unlimited to use, making this the most lightweight starting point for building your data-driven topic workflow.

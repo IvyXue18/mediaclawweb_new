@@ -1,8 +1,9 @@
 export const meta = {
+  platform: 'both',
   title:
-    'Reviewing Influencer Campaign Feedback: Bulk Export Xiaohongshu (RedNote) Comments Across Posts',
+    'Reviewing Influencer Campaign Feedback: Bulk Export Xiaohongshu & Douyin Comments Across Posts',
   description:
-    'Ran a multi-post Xiaohongshu seeding campaign but unsure what users really thought? Bulk export your comment data for free, consolidate it into one Feishu (Lark) Base, and run cross-post analysis to surface the issues your campaign has in common.',
+    'Ran a multi-post Xiaohongshu (RedNote) or Douyin seeding campaign but unsure what users really thought? Bulk export your comment data for free, consolidate it into one Feishu (Lark) Base, and run cross-post analysis to surface the issues your campaign has in common.',
   created_at: '2026-06-12',
   author_name: 'MediaClaw Team',
   author_image: '/logo.png',
@@ -10,9 +11,9 @@ export const meta = {
     'https://media.mediaclaw.app/blog-covers/c3b96151fe61b047405de1f9ccc34859.webp',
   tags: [
     'Xiaohongshu',
+    'Douyin',
     'comment scraper',
     'campaign review',
-    'content operations',
     'influencer seeding',
   ],
 };
@@ -21,7 +22,7 @@ Once a round of Xiaohongshu (RedNote) seeding posts wraps up, how do you bulk ex
 
 One post can pull 200 comments; ten posts gives you two thousand. Reading them one post at a time by hand is hopeless, and the bigger problem is this—after one post you think "users seem to care about efficacy," after the next you think "price is the issue," and on a third someone is asking about a competitor. From a single-post view, it's almost impossible to tell which signal is a shared, recurring problem and which is just a one-off reaction.
 
-The right move is to merge the comments from all your posts into one place _first_, then analyze.
+The right move is to merge the comments from all your posts into one place _first_, then analyze. The bulk comment export and review method is the same on Xiaohongshu and Douyin — this post uses Xiaohongshu as the example, and one workflow covers both platforms when a campaign runs on each.
 
 ## Why Looking at One Comment Section Leads to the Wrong Conclusion
 
@@ -40,7 +41,7 @@ Only when you pull the scattered comments from across all your posts into one vi
 
 Each post usually finishes scraping in under a minute, so ten posts is only a dozen or so minutes. The results can be exported straight to CSV, or synced to a Feishu (Lark) Base—the two paths lead to different downstream analysis methods, which I'll cover separately below.
 
-Douyin supports the same bulk comment scraping, so if your campaign ran on Douyin too, you can handle both platforms with one workflow.
+[Douyin comment scraping](/douyin/comments) supports the same bulk method, so if your campaign ran on Douyin too, you can handle both platforms with one workflow; [Xiaohongshu comment scraping](/xiaohongshu/comments) works identically.
 
 ## Step 2: Get Every Post's Comments Into One Sheet
 
@@ -78,14 +79,14 @@ Once the comments are consolidated, you're really answering three questions:
 
 **Which type of content draws higher-quality comments?** Comment likes show which user feedback resonated most. If ingredient-focused comments consistently get high like counts, that audience has a stronger appetite to discuss the topic, and this batch of content deserves more weight in your campaign strategy.
 
-**Which comments hint at purchase intent?** Use the lead-keyword filter to define your own terms—"how to buy," "where to get it," "how much," "any discounts"—and the system automatically pulls out comments containing your target words, generating a separate leads file with the comment content and the user's profile link. This data usually goes straight to the DM conversion team for follow-up.
+**Which comments hint at purchase intent?** Use the lead-keyword filter ([Xiaohongshu](/xiaohongshu/leads), [Douyin](/douyin/leads)) to define your own terms—"how to buy," "where to get it," "how much," "any discounts"—and the system automatically pulls out comments containing your target words, generating a separate leads file with the comment content and the user's profile link. This data usually goes straight to the DM conversion team for follow-up.
 
 <img
   src="https://media.mediaclaw.app/blog-covers/c1c2896e8fe250b31ec46d7b450c4f8a.png"
   alt="Lead filtering"
 />
 
-For a more detailed look at sentiment analysis within a single post's comments, see [Scraping and Analyzing the Xiaohongshu Comment Section: From User Sentiment and Needs to Lead Generation](/posts/xiaohongshu-comment-analysis), which lays out a more granular, layered analysis method. And if your goal is to mine your next round of content topics from the comments, [How to Export Xiaohongshu Comments for AI Topic Mining](/posts/xiaohongshu-comment-topic-mining) walks through the full topic-discovery workflow.
+For a more detailed look at lead filtering within a single post's comments, see [Filtering Xiaohongshu Comment Leads: Using Keywords and IP Location to Find Local Prospects](/blog/xiaohongshu-comment-analysis). And if your goal is to mine your next round of content topics from the comments, [How to Export Xiaohongshu & Douyin Comments for AI Topic Mining](/blog/xiaohongshu-comment-topic-mining) walks through the full topic-discovery workflow. For the Douyin-side path from comments to leads, see [How to Bulk Export Douyin Comments and Filter Out Sales Leads](/blog/douyin-comment-export).
 
 ## What to Change After the Review
 
@@ -119,6 +120,10 @@ A total of 250 comments still exceeds the practical threshold for reading every 
 **Is there a tool that can bulk export comment data from multiple Xiaohongshu posts?**
 
 MediaClaw scrapes and exports posts one at a time to CSV. The fields include the full comment text (up to 280 characters), commenter nickname, commenter profile link, and comment likes. It's a Chrome extension—install it and you're ready to go, and comment scraping is completely free and unlimited.
+
+**Can I review comments across multiple Douyin seeding videos the same way?**
+
+Yes. [Douyin comment scraping](/douyin/comments) matches Xiaohongshu on bulk method, export fields, and Feishu sync. When a campaign runs on both platforms, load both sets of comments into one sheet, use "platform" and "source post" fields to separate them, then cluster the shared problems by theme.
 
 **After running multiple Xiaohongshu seeding posts, how do I consolidate all the comments for analysis?**
 

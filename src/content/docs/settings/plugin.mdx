@@ -1,0 +1,206 @@
+export const meta = {
+  title: '插件配置',
+  description:
+    '按系统配置页完成产品授权、飞书数据同步、采集与获客、账号监控和本机 Agent 接入。',
+};
+
+## 产品授权
+
+在顶部 **产品授权** 卡片中输入激活码，点击 **验证并绑定**。验证后可以查看当前授权状态、环境绑定数量、剩余积分和到期时间；点击 **查看流水** 可查看积分记录。
+
+<DocImage
+  src="/imgs/docs/settings/plugin/01-产品授权.webp"
+  frame={false}
+  caption="产品授权卡片：输入激活码并验证后，可查看授权状态、环境绑定数量、剩余积分和到期时间"
+  captionEn="Product authorization card: after entering and verifying an activation code, it shows authorization status, bound environments, remaining credits, and the expiry date"
+  width={732}
+  height={478}
+/>
+
+## 数据同步
+
+### 飞书表格连接
+
+进入 **数据同步 → 飞书数据同步**，在 **表格连接** 中填写 **飞书多维表格文档 URL**，再核对 **表内数据表设置**。
+
+| 配置项               | 填写内容                                        |
+| -------------------- | ----------------------------------------------- |
+| 飞书多维表格文档 URL | 你自己的飞书多维表格链接，链接中应包含 `/base/` |
+| 单笔记表名           | 用于接收单篇作品的数据表名称                    |
+| 关键词笔记表名       | 用于接收关键词搜索采集结果的数据表名称          |
+| 博主信息表名         | 用于接收账号资料的数据表名称                    |
+| 博主笔记表名         | 用于接收账号主页作品的数据表名称                |
+| 评论筛选表           | 用于接收评论筛选结果的数据表名称                |
+| 监控表名             | 用于接收监控内容的数据表名称                    |
+
+这些名称必须与飞书模板中的实际表名一致。填写或修改后，点击表格连接卡片右上角的 **保存配置** 对勾按钮，看到保存成功提示后再开始同步。模板复制、链接权限和首次同步的完整步骤见[飞书模板配置](/docs/settings/feishu-template)。
+
+<DocImage
+  src="/imgs/docs/settings/plugin/02-飞书表格备注和链接.webp"
+  caption="表格连接：填写飞书多维表格文档 URL 与表内各数据表名称，改完点右上角的保存配置对勾"
+  captionEn="Table connection: fill in the Feishu Base document URL and each data-table name, then click the save-config checkmark in the top-right"
+  width={696}
+  height={1182}
+/>
+
+### 团队表格槽位
+
+拥有相应权益时，页面会显示 **团队表格槽位**。可以为不同项目配置多个表格，用 **表格备注** 区分，例如“品牌 A 内容库”。
+
+- 新增表格后，填写备注、链接和表名，再点击保存。
+- 修改已有表格时，先点 **修改当前表格**，编辑后再保存。
+- 点击槽位可切换当前同步目标；这个选择自动保存在本机，其他成员可以在自己的设备上选择目标。
+
+槽位数量和新增能力以页面显示的授权额度为准。
+
+<DocImage
+  src="/imgs/docs/settings/plugin/03-团队多表格同步管理.webp"
+  caption="团队表格槽位：为不同项目配置多个表格，用表格备注区分，点击槽位切换当前同步目标"
+  captionEn="Team table slots: configure multiple tables for different projects, tell them apart with the table note, and click a slot to switch the active sync target"
+  width={742}
+  height={1014}
+/>
+
+## 采集与获客
+
+这一分区先显示两个模块入口：**采集策略** 和 **评论获客**。点击进入对应模块，使用 **全部模块** 返回。评论筛选规则和自动私信参数都在 **评论获客** 中。
+
+### 采集策略
+
+这里集中设置同步范围、补采范围、等待节奏和任务超时。修改选项或输入数值后，点击输入框外触发保存。
+
+| 配置项                     | 初始默认值                     | 作用                                                               |
+| -------------------------- | ------------------------------ | ------------------------------------------------------------------ |
+| 同步范围                   | 仅同步当前页面缓存区未同步数据 | 也可选择同步当前页面缓存区全部数据，用于重新同步已有记录           |
+| 补采范围                   | 仅补采未补采详情               | 也可选择补采缓存区全部笔记详情；重新补采会增加访问次数和耗时       |
+| 随机等待时间（秒）         | 1～3 秒                        | 连续页面操作之间的随机等待区间                                     |
+| 批量任务冷却（秒）         | 1～2 秒                        | 批量关键词、批量博主等任务之间的等待；Agent 调用也遵循插件本地配置 |
+| 无新增超时（秒）           | 3 秒                           | 连续没有新内容时，结束当前加载阶段                                 |
+| 专项扫描单轮最大时长（秒） | 300 秒                         | 用于找对标、舆情扫描、选题分析等固定样本任务                       |
+| 页面打开超时（秒）         | 60 秒                          | 从点击跳转开始计时，超时后判定本次补采失败                         |
+| 详情页打开后缓冲（秒）     | 2 秒                           | 页面打开成功后，额外等待正文和评论区渲染稳定                       |
+| 博主页打开后缓冲（秒）     | 2 秒                           | 页面打开成功后，额外等待粉丝数与赞藏数刷新                         |
+
+<Callout type="note">
+  上表是初始值。可以根据自己的网速，账号权重情况进行调整，一般随机哦间隔时间越久，账号越安全。在采集速度和账号安全之间需要找平衡点。
+</Callout>
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/settings/plugin/04-采集策略入口.webp',
+      caption: '采集与获客分区：点击「采集策略」卡片进入',
+      captionEn:
+        'Collect & outreach section: click the “Collection strategy” card to open it',
+      width: 742,
+      height: 1386,
+    },
+    {
+      src: '/imgs/docs/settings/plugin/04-采集策略配置默认配置项.webp',
+      caption: '采集策略配置项：同步范围、补采范围、等待节奏与各项任务超时',
+      captionEn:
+        'Collection-strategy settings: sync scope, re-fetch scope, wait pacing, and the various task timeouts',
+      width: 726,
+      height: 1772,
+    },
+  ]}
+/>
+
+### 评论获客
+
+进入 **采集与获客 → 评论获客**，先配置目标评论的筛选规则：
+
+- **筛选关键词（逗号分隔）**：例如“想买,怎么买,求链接,多少米”。评论命中任意一个关键词即可通过关键词条件。
+- **IP 地区（逗号分隔）**：例如“广东,北京”。需要限定地区时填写，命中任意一个地区即可通过地区条件。
+
+同时填写关键词和 IP 地区时，两类条件是 **且** 的关系。例如配置“求链接”和“广东,北京”，会保留包含“求链接”、且 IP 地区为广东或北京的评论。
+
+### 自动私信触达
+
+**评论获客** 模块下方是自动评论私信设置：
+
+- **开启自动评论私信**：总开关，关闭后缓存区作品卡不再出现「准备触达」入口。
+- **默认触达话术**：最多 500 字，新建触达任务时自动带入。任务弹窗里的临时修改只影响当前任务，勾选「同时保存为默认话术」才会写回默认设置。
+- **24 小时自动触达预算**：默认 100 人。<u>**这是防止账号风控的一个指标，不是一个固定值。和采集数量一样，视账号权重而定，所以开始可以设置小一些，没问题再逐步增加**</u>
+
+- **随机发送间隔**：默认 45～90 秒，分别填写最短和最长等待时间；任意两位用户之间都遵循这个区间，跨执行组继续保持。
+
+开启开关后，仍需从作品卡进入 **准备触达**，检查接收人和话术并确认任务，才会开始发送。遇到账号变化、平台风控、页面异常或发送结果无法确认时，任务会停止全部剩余用户。完整流程见[自动私信触达](/docs/brand/handoff)。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/settings/plugin/05-评论获客入口.webp',
+      caption: '采集与获客分区：点击「评论获客」卡片进入',
+      captionEn:
+        'Collect & outreach section: click the “Comment outreach” card to open it',
+      width: 736,
+      height: 1244,
+    },
+    {
+      src: '/imgs/docs/settings/plugin/05-评论获客配置项.webp',
+      caption:
+        '评论获客配置：筛选关键词、IP 地区、自动评论私信开关与默认触达参数',
+      captionEn:
+        'Comment-outreach settings: filter keywords, IP regions, the auto-DM toggle, and default outreach parameters',
+      width: 716,
+      height: 1788,
+    },
+  ]}
+/>
+
+## 监控任务
+
+### 账号监控规则
+
+| 配置项               | 如何设置                                                                                  |
+| -------------------- | ----------------------------------------------------------------------------------------- |
+| 执行时点             | 默认每天 10:00，可选择 00:00～23:00 的整点；按北京时间执行，实际开始最多可能延迟约 1 小时 |
+| 按发布时间找最新作品 | 固定查找监控账号前一天发布的作品，并纳入观察                                              |
+| 观察期（小时）       | 默认 48 小时，可选 24、48 或 72 小时；从作品发布时间开始计算，超过后不再观测后续数据      |
+| 点赞筛选             | 默认 0；观察期内点赞数超过设定值的作品会被视为潜在爆款并汇报                              |
+
+修改后点击输入框外，确认出现 **监控规则已保存** 提示。保存后的规则会作用于已纳入监控的账号。添加账号、查看执行记录和监控结果见[监控对标账号](/docs/benchmark/monitoring)。
+
+### 监控通知
+
+在同一分区下方的 **监控通知 → 飞书机器人通知** 中，填写可选的 **通知 Webhook**。点击 **如何获取** 可以查看机器人配置方法。
+
+扫描发现潜在爆款、分析完成或余额不足时，系统会通过飞书机器人发送通知。Webhook 修改后会自动保存，等待状态变为 **已保存** 即可。这个地址用于接收消息，与“数据同步”中的飞书多维表格文档 URL 分别配置。
+
+<DocImage
+  src="/imgs/docs/settings/plugin/06-监控规则入口和配置.webp"
+  caption="监控任务：执行时点、观察期、点赞筛选与飞书机器人通知 Webhook"
+  captionEn="Monitoring tasks: run time, observation window, like threshold, and the Feishu bot webhook"
+  width={884}
+  height={1308}
+/>
+
+## Agent 接管
+
+Agent 接管用于连接本机 Agent 客户端与当前浏览器扩展。接入后，Agent 可以按你的目标调用插件采集、读取数据池与 AI 工作台资产，并继续完成研究和创作。
+
+### 本机调用与连接状态
+
+1. 确认 **产品授权** 已验证，且当前授权支持 Agent 接管。
+2. 开启 **允许本机 Agent 调用社媒虾**。
+3. 展开 **连接 Agent**，选择 **Codex、WorkBuddy 或豆包工作**，点击对应的 **复制安装提示词**。
+4. 将提示词原样发送给对应 Agent，按引导完成接入包安装。
+5. 回到设置页，核对新发现的 Agent 名称、宿主和 **设备指纹**，点击 **批准配对**。
+6. 回到刚才的 Agent 对话继续连接，直到设置页显示对应 Agent **已连接**。
+
+完整步骤见[安装、配对与升级 Agent](/docs/agent/setup)。
+
+如果显示 **尚未发现可连接的 Agent**，先检查对应宿主中的安装任务；已经批准配对但尚未连接时，回到原来的 Agent 对话继续。页面出现 **重试连接** 按钮时，可以用它重新尝试连接。
+
+### 已授权 Agent
+
+完成配对的设备会列在 **已授权 Agent** 中。每个 Agent 需要单独批准，也可以单独 **撤销**；撤销一个不会影响其他 Agent。继续添加其他宿主时，展开 **连接其他 Agent** 即可。
+
+<DocImage
+  src="/imgs/docs/settings/plugin/07-agent接管入口和配置.webp"
+  caption="Agent 接管：开启本机调用、查看连接状态，并在「已授权 Agent」中管理已配对设备"
+  captionEn="Agent handoff: enable local calls, check connection status, and manage paired devices under “Authorized agents”"
+  width={882}
+  height={1218}
+/>

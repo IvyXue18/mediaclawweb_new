@@ -1,0 +1,138 @@
+export const meta = {
+  title: '在 AI 工作台创作',
+  description:
+    '从拆解拿到选题、在选题库发起创作、在生成弹窗确认简报与业务信息，产出可继续修改的图文或视频稿。',
+};
+
+<Callout type="tip">
+  装完插件就能用，流程固定，不需要写提示词。整条链路都在插件侧边栏和**AI
+  工作台**里完成，从研究到成稿一条龙完成，不用导出文件，也不用切换到别的工具。
+</Callout>
+
+## 完整路径
+
+### 1. 先拿到选题
+
+工作台的创作入口全部挂在选题上，所以第一步不是"写"，是"有题可写"。目前有两种途径可以在插件里直接得到选题：
+
+- [拆解单篇爆款得到选题](/docs/viral-research/single-post-breakdown)：拆完一篇爆款后，报告底部会按"把原题讲深、换个场景写、换个方向写"给出延伸选题。
+- [拆解对标账号得到选题](/docs/benchmark/account-research)：账号研究报告里的可扩散选题，附来源样本和预期成稿形式。
+
+在选题卡上点 **收藏到选题库**，选题就进入了工作台的 **选题库** 标签页。原始分析结果仍然留在对应的研究档案里，选题库只保留你主动收藏的。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/create/plugin-workbench/01-collect-to-topic-library.webp',
+      caption: '单篇拆解报告底部的延伸选题卡，点击收藏到选题库',
+      captionEn:
+        'An extended-topic card at the bottom of a single-post breakdown report — click Save to topic library',
+      width: 1600,
+      height: 1713,
+    },
+    {
+      src: '/imgs/docs/create/plugin-workbench/03-topic-library.webp',
+      caption:
+        '收藏后进入工作台的选题库标签页，选题卡上有待写 / 已生成状态与开始创作按钮',
+      captionEn:
+        "Once saved, it appears in the workbench's Topic library tab — each card shows a To write / Generated status and a Start creating button",
+      width: 1600,
+      height: 1126,
+    },
+  ]}
+/>
+
+### 2. 在选题库点「开始创作」
+
+打开 AI 工作台的 **选题库**，每张选题卡上有 **待写 / 已生成** 状态。在准备执行的那张卡上点 **开始创作**。
+
+也可以跳过收藏这一步：在单篇拆解报告或账号研究的选题卡上直接点 **直接创作**，效果一样。
+
+<DocImage
+  src="/imgs/docs/create/plugin-workbench/02-create-directly.webp"
+  caption="在同一张选题卡上直接点直接创作，跳过收藏到选题库这一步"
+  captionEn="Click Create directly on the same topic card, skipping the Save to topic library step"
+/>
+
+### 3. 在弹窗里一次确认完
+
+点击后会弹出 **写成哪种内容？**。这一步是整条路的核心——确认、选形式、带业务信息都在这一个弹窗里完成，不分先后步骤：
+
+1. **核对本次创作简报**：主标题、核心判断和内容大纲。大纲每行是一个内容步骤，可以直接改写，把自己的案例、经历和数字补进去。
+2. **选图文笔记或视频笔记**。
+3. **按需展开[植入我的业务](#怎么结合自己的业务)**，填过一次会保存下来，之后勾选「本次使用」即可。
+4. **按需选一个账号风格**。如果设过「我的 IP」，这里会是默认选项；不选则只使用本次研究和创作简报。
+5. 点 **生成**
+
+<DocImage
+  src="/imgs/docs/create/plugin-workbench/04-output-format-dialog.webp"
+  caption="「写成哪种内容？」弹窗：创作简报、植入我的业务折叠面板、账号风格下拉与生成按钮"
+  captionEn="The 'Write it as what?' dialog: the creative brief, the collapsible Add my business panel, the account-style dropdown, and the Generate button"
+/>
+
+### 4. 在「内容创作」列表里继续改
+
+提交后任务转到工作台的 **内容创作** 标签页，按 **生成中 / 已完成** 两个状态筛选。生成中包含失败待重试的任务；已完成的可以复制结果或重新生成。从账号研究、单篇拆解和选题库发起的稿件都汇总在这里。
+
+<DocImage
+  src="/imgs/docs/create/plugin-workbench/05-generating.webp"
+  caption="内容创作列表按生成中筛选，可以看到当前任务处在原文诊断、参考框架等哪个阶段"
+  captionEn="The content-creation list filtered to Generating — shows which stage a task is at (draft diagnosis, reference framing, etc.)"
+/>
+
+<DocImage
+  src="/imgs/docs/create/plugin-workbench/06-generation-complete.webp"
+  caption="内容创作列表，按生成中 / 已完成筛选，已完成的稿件可复制结果"
+  captionEn="The content-creation list filtered by Generating / Completed — a completed draft can be copied or regenerated"
+/>
+
+## 输出是什么、怎么读
+
+| 类型     | 主要输出                                       | 重点检查                                             |
+| -------- | ---------------------------------------------- | ---------------------------------------------------- |
+| 图文笔记 | 标题、正文、逐页配图方案、封面方案、关键词标签 | 页数与信息节奏、图文如何分工、配图方案是否真的可执行 |
+| 视频笔记 | 标题、发布正文、可直接口播的逐字稿             | 开头钩子、口语节奏、停顿与转折、画面和口播是否一致   |
+
+结果里除了正文，还会给出**创作角度**（这一版从哪个视角切入）、**不要照搬**（原作里不能直接复用的句子、案例和数据）和**优先验证**（需要你人工核实的部分）。这三块比正文更值得先读——它们决定了这一稿能不能直接用。
+
+图文的封面方案会带上参考封面、构图和标题分工。如果选题来自一篇图文拆解，生成会尽量沿用原笔记有效的页数、逐页职责和图文分工，只替换成新选题的内容——所以更要检查是否与原作过度相似。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/create/plugin-workbench/07-draft-output-1.webp',
+      caption:
+        '生成结果的创作角度、标题候选与封面方案（含构图、适配原因、不要照搬）',
+      captionEn:
+        "The generated result's creative angle, title candidates, and cover-design options (with layout, rationale, and what not to copy)",
+      width: 1600,
+      height: 1383,
+    },
+    {
+      src: '/imgs/docs/create/plugin-workbench/08-draft-output-2.webp',
+      caption: '生成结果的正文与口播逐字稿',
+      captionEn: "The generated result's body copy and voiceover script",
+      width: 1600,
+      height: 1377,
+    },
+  ]}
+/>
+
+## 怎么结合自己的业务
+
+这条路上有两个工具，分工不能混：
+
+- **创作档案回答"为谁、写什么业务、希望产生什么行动"**：产品/服务、目标人群、核心价值或卖点、转化目标，以及必须提到和不能说的内容。填完保存后可长期复用，结果里会说明这次把业务信息放在了哪个位置、怎么承接。
+- **账号风格回答"怎么写"**：定位、常见结构、表达节奏、视觉规律。它来自[账号研究](/docs/benchmark/account-research)——研究自己的账号并设为「我的 IP」，之后每次生成都会默认带上；研究对标账号则得到一份可借用的写法。
+
+<DocImage
+  src="/imgs/docs/create/plugin-workbench/09-business-profile.webp"
+  caption="展开的「植入我的业务」创作档案表单：产品/服务、目标人群、核心价值、转化目标、必须提到/不能说"
+  captionEn="The expanded Add my business profile form: product/service, target audience, core value, conversion goal, must-mention / must-avoid content"
+/>
+
+<Callout type="warning">
+  不要用账号风格替代业务事实。风格只管表达方式，对标账号的具体案例、数据和第一人称经历不能写成自己的。
+</Callout>
+
+如果下拉里还没有可用的账号风格，弹窗会提示去研究对标账号——先完成一次账号研究即可。

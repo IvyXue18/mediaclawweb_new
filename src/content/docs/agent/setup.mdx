@@ -1,0 +1,119 @@
+export const meta = {
+  title: '安装、配对与升级 Agent',
+  description:
+    '在插件里复制安装提示词交给 Agent 完成安装，回插件批准配对，以及升级后必须重开宿主才能生效。',
+};
+
+## 支持哪些 Agent
+
+| 宿主Agent | 状态 | 安装时你要做什么                                                                                                                              |
+| --------- | ---- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Codex     | 可用 | 不用动手。把安装提示词发给它，它自己一路装到底                                                                                                |
+| WorkBuddy | 可用 | 不用动手。把安装提示词发给它，它自己一路装到底                                                                                                |
+| 豆包工作  | 可用 | 豆包没有自动安装入口，需要你手动在「技能 · 连接器 · 伙伴 → 本地电脑 → STDIO」里新建一个连接。Agent 会把要填的内容整理好给你，照着粘贴保存即可 |
+
+## 第一步：复制安装提示词
+
+1. 打开社媒虾扩展 → **右上角系统配置 → Agent 接管**。
+2. 打开 **允许本机 Agent 调用社媒虾**。
+3. 展开下方的 **连接 Agent**，找到你要用的宿主，点 **复制安装提示词**。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/agent/setup/01-系统配置.webp',
+      width: 806,
+      height: 1160,
+      caption: '扩展右上角菜单 → 系统配置',
+      captionEn: 'Top-right menu of the extension → System settings',
+    },
+    {
+      src: '/imgs/docs/agent/setup/01-复制提示词.webp',
+      width: 786,
+      height: 1128,
+      caption:
+        'Agent 接管页：打开「允许本机 Agent 调用社媒虾」，再点对应宿主的「复制安装提示词」',
+      captionEn:
+        'Agent access tab: turn on “Allow local Agents to call MediaClaw”, then hit “Copy install prompt” for your host',
+    },
+  ]}
+/>
+
+这段提示词里已经写好了官方来源、当前宿主的安装命令、修复步骤和连接续接任务。你不需要看懂它，也不需要修改。
+
+## 第二步：发给 Agent，让它自己装
+
+在对应的宿主Agent里新建一个对话，把刚才复制的内容原样发送。接下来这些都由 Agent 完成：
+
+- 识别当前宿主，注册官方 marketplace 并安装接入包。
+- 识别你的系统和芯片（Windows／macOS／Linux，x64／ARM64），获取并校验对应的官方运行时。
+- 装完后如果当前对话加载不到新工具，它会自己开一个续接对话，把任务带过去。
+
+## 第三步：回插件批准配对
+
+Agent 检测到扩展后，插件的 Agent 接管页会出现待批准的设备。
+
+1. 核对设备名称和 **设备指纹**。
+2. 点 **批准配对**。
+3. 回到 Agent 对话，它会自动复查连接，不需要你回复"已批准"。
+
+<DocImage
+  src="/imgs/docs/agent/setup/03-配对批准.webp"
+  width={480}
+  height={406}
+  caption="Agent 接管页出现待批准设备，核对设备指纹后点击批准配对"
+  captionEn="A pending device appears on the Agent access tab — check the device fingerprint, then click Approve pairing"
+/>
+
+看到"连接与配对已完成"以及对话中出现首次欢迎，才算真正接上。已批准的设备会出现在 **已授权 Agent** 列表里，随时可以 **撤销**；每个 Agent 单独批准，撤销一个不影响其他。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/agent/setup/05-已连接状态.webp',
+      width: 772,
+      height: 1170,
+      caption: '接上后，设备出现在「已授权 Agent」列表，可随时单独撤销',
+      captionEn:
+        'Once connected, the device shows under “Authorized Agents” and can be revoked individually anytime',
+    },
+    {
+      src: '/imgs/docs/agent/setup/02-豆包工作接入.webp',
+      width: 1600,
+      height: 1286,
+      caption: '豆包工作：手动建好 STDIO 连接后，发提示词让它续完配对',
+      captionEn:
+        'Doubao for Work: after you create the STDIO connection by hand, send the prompt to finish pairing',
+    },
+  ]}
+/>
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/agent/setup/02-codex接入.webp',
+      width: 1600,
+      height: 1707,
+      caption: 'Codex：把提示词发过去，它自动跑完安装、配对到首次欢迎',
+      captionEn:
+        'Codex: send it the prompt and it runs install → pairing → first welcome on its own',
+    },
+    {
+      src: '/imgs/docs/agent/setup/02-workbuddy接入.webp',
+      width: 1600,
+      height: 1484,
+      caption: 'WorkBuddy：同样把提示词原样发送即可',
+      captionEn: 'WorkBuddy: send the same prompt as-is',
+    },
+  ]}
+/>
+
+## 升级
+
+Agent 的能力也随着插件版本迭代，发布新版本之后，你需要：
+
+1. 在已有的 MediaClaw 对话里直接说 **升级 MediaClaw Agent**。这句话本身就是授权。
+2. 它会刷新官方来源、安装、核验版本，进行安装覆盖。
+3. **完全退出Agent并重启应用**。
+4. 回到原来的对话说一句 **继续**。
+5. 它会重新检查状态；只有确认新版本**已激活**，才会宣布升级完成，并自动接着做你之前没做完的事。

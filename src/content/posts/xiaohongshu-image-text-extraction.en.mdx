@@ -1,26 +1,27 @@
 export const meta = {
+  platform: 'both',
   title:
-    'Xiaohongshu (RedNote) Image Text Extraction: Pull the Tips Out of Image Cards as Text',
+    'Xiaohongshu & Douyin Image Text Extraction: Pull the Tips Out of Image Cards as Text',
   description:
-    "Steps, book lists, prices, and specs on Xiaohongshu are baked into image cards—you can't copy them from the body text. Use OCR on the cover and every image, write the text back into the collected record, then export to CSV/Markdown.",
+    "Steps, book lists, prices, and specs on Xiaohongshu and Douyin are baked into image cards—you can't copy them from the body text. Use OCR on the cover and every image, write the text back into the collected record, then export to CSV/Markdown.",
   created_at: '2026-06-23',
   author_name: 'MediaClaw Team',
   author_image: '/logo.png',
   image:
     'https://media.mediaclaw.app/blog-covers/da8d325540cf457864b841ed8de9136c.webp',
   tags: [
-    'Xiaohongshu image text extraction',
-    'extract text from images',
+    'Xiaohongshu',
+    'Douyin',
+    'image text extraction',
     'image card OCR',
     'image to text',
     'cover text recognition',
-    'RedNote operations',
   ],
 };
 
 If you scroll Xiaohongshu (RedNote), you've probably felt this: a note is packed with useful tips—steps, checklists, book lists, all spelled out clearly—but when you try to save it and copy the body text, all you get is one line: "see images for detailed steps."
 
-Text-and-image notes on Xiaohongshu increasingly bake the core information into image cards—step-by-step tutorials, good-stuff lists sorted by price, a full-page book list, product spec comparisons, all images. The body text shrinks to a line or two that just nudges you to keep scrolling. For readers, the layout looks nice and the info is concentrated. But for anyone breaking content down, repurposing it, or archiving it, the trouble shows up: you can see the words, but you can't copy them.
+Text-and-image notes on Xiaohongshu increasingly bake the core information into image cards—step-by-step tutorials, good-stuff lists sorted by price, a full-page book list, product spec comparisons, all images. Douyin's image collections and product cards do the same. The body text shrinks to a line or two that just nudges you to keep scrolling. For readers, the layout looks nice and the info is concentrated. But for anyone breaking content down, repurposing it, or archiving it, the trouble shows up: you can see the words, but you can't copy them. Image caption extraction (OCR) works the same on Xiaohongshu and Douyin—this post uses Xiaohongshu as the example.
 
 {/* IMG_SLOT: a typical Xiaohongshu text-and-image note that bakes the tips into image cards, with very short body text that's just one or two lines of guidance */}
 
@@ -55,7 +56,7 @@ The operation is simple, three steps:
 2. Run image caption extraction on that record; the extension OCRs the cover and each image one by one
 3. The recognition results write back into the record, after which you view, copy, export to CSV/Markdown, or sync to Feishu as usual
 
-Douyin works the same way—raw data for both text-and-image and video posts can be filled out like this. If you're working both platforms, one approach covers them, no tool switching. To get the collection step running smoothly first, start with [Xiaohongshu note collection](/xiaohongshu/scraper)—collect a few before worrying about recognition.
+Douyin works the same way—[Douyin image text extraction](/douyin/image-text) recognizes collection images and product cards one by one, and raw data for both text-and-image and video posts can be filled out like this. If you're working both platforms, one approach covers them, no tool switching. To get the collection step running smoothly first, start with [Xiaohongshu note collection](/xiaohongshu/scraper) or [Douyin video collection](/douyin/scraper)—collect a few before worrying about recognition.
 
 ## Once you've extracted it, what can the text do?
 

@@ -1,0 +1,138 @@
+export const meta = {
+  title: '拆解对标账号',
+  description: '基于账号主页采集结果，人工研究定位、选题结构和表达规律。',
+};
+
+账号拆解的目标不是给账号贴一个简单标签，而是从这个账号多篇公开作品判断：长期服务谁、反复解决什么问题、靠什么表达方式获得反馈。
+你可以如何复用这个账号的选题方式，起标题方式，甚至是文案风格。
+
+## 使用步骤
+
+1. 打开目标账号主页，先采集该博主至少 50 条作品。<u>这一步可以不用开采集增强</u>
+2. 点击账号拆解，系统会自动筛选不同层级的笔记补全详情、逐字稿等信息。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/benchmark/account-research/01-采集账号数据并拆解.webp',
+      caption: '在博主页点击账号拆解图标，基于已采集数据启动分析',
+      captionEn:
+        'Click the account breakdown icon on a creator page to start analysis using already-collected data',
+      width: 990,
+      height: 1004,
+    },
+    {
+      src: '/imgs/docs/benchmark/account-research/02-数据分层筛选笔记可以手动调整.webp',
+      caption: '确认参与分析的样本作品，可手动调整勾选',
+      captionEn:
+        'Confirm the sample posts included in the analysis; the selection can be adjusted manually',
+      width: 916,
+      height: 1272,
+    },
+  ]}
+/>
+
+3. 首次分析会比较久，大概 10-20 分钟。可以在账号页看见进度面板，到哪个步骤在做什么事。
+
+<DocImage
+  src="/imgs/docs/benchmark/account-research/03-拆解中级拆解后报告.webp"
+  caption="分析进行中可在进度面板查看当前步骤（提取逐字稿、聚类选题等）"
+  captionEn="While analysis is running, the progress panel shows the current step (transcript extraction, topic clustering, etc.)"
+  width={440}
+  height={541}
+/>
+
+4. 分析完成后会，报告在 AI 工作台
+
+<DocImage
+  src="/imgs/docs/benchmark/account-research/04-拆解完的账号列表.webp"
+  caption="分析完成后，报告会出现在 AI 工作台的账号研究列表中"
+  captionEn="Once analysis finishes, the report appears in the account research list on the AI workbench"
+  width={1600}
+  height={1452}
+/>
+
+## 拆解五个维度
+
+### 1. 定位与人群
+
+记录账号自我介绍、主要受众、典型场景和提供的核心价值。不要只抄简介，要看作品是否持续兑现这一定位。
+
+<DocImage
+  src="/imgs/docs/benchmark/account-research/05-拆解报告-选题归类.webp"
+  caption="报告开头给出账号定位与核心受众的一句话总结"
+  captionEn="The report opens with a one-line summary of the account's positioning and core audience"
+  width={1600}
+  height={1187}
+/>
+
+### 2. 选题结构
+
+把代表作品按问题、场景、人群或栏目分组，观察哪些方向反复出现、哪些方向只有偶然一次高互动。
+
+<DocImage
+  src="/imgs/docs/benchmark/account-research/05-拆解报告-选题归类2.webp"
+  caption="选题地图模块，按方向对代表作品分组并标注表现层级"
+  captionEn="The topic map groups representative posts by direction and tags each with a performance level"
+  width={1600}
+  height={1212}
+/>
+
+### 3. 标题与开头
+
+统计常见标题句式、利益点、冲突点、数字和人群限定；
+
+<DocImage
+  src="/imgs/docs/benchmark/account-research/07-标题规律.webp"
+  caption="标题系统模块，总结常见标题句式并给出可复用的新标题示例"
+  captionEn="The title system section summarizes common headline patterns and reusable new title examples"
+  width={1600}
+  height={1220}
+/>
+
+### 4. 内容与视觉
+
+对比图文页数、视频时长、信息密度、口播方式、封面文字和画面结构，判断哪些方法对制作资源要求较高。
+
+<DocImage
+  src="/imgs/docs/benchmark/account-research/06-账号封面视觉分析.webp"
+  caption="视觉系统模块，拆解封面构图、文字层级与配色规律"
+  captionEn="The visual system section breaks down cover composition, text hierarchy, and color patterns"
+  width={1600}
+  height={1218}
+/>
+
+### 5. 可参考扩散的选题
+
+根据账号的选题类型和标题风格，进行选题扩展。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/benchmark/account-research/08-语言规律.webp',
+      caption: '语言风格模块，总结账号常用的语气、句式与互动话术',
+      captionEn:
+        "The voice system section summarizes the account's tone, sentence patterns, and interactive phrasing",
+      width: 1600,
+      height: 1338,
+    },
+    {
+      src: '/imgs/docs/benchmark/account-research/09-可复用直接可写的选题.webp',
+      caption: '可直接使用的选题列表，附来源样本与预期成稿形式',
+      captionEn:
+        'A list of ready-to-write topics with source samples and the expected output format',
+      width: 1600,
+      height: 1205,
+    },
+  ]}
+/>
+
+如果对本轮选题不满意，还可以换一轮。
+
+<DocImage
+  src="/imgs/docs/benchmark/account-research/09-换一批选题.webp"
+  caption="点击换一批选题，可重新生成一组新的可写选题"
+  captionEn="Click 'Refresh topics' to regenerate a new batch of writable topics"
+  width={1600}
+  height={445}
+/>

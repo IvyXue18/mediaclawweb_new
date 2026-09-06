@@ -43,6 +43,14 @@ export const BLOG_POST_SLUGS = [
   'xiaohongshu-topic-library-build',
 ] as const;
 
+/**
+ * Which platform(s) a post covers. Drives platform-aware category nav and the
+ * "topic × platform" coverage matrix. See docs/blog-platform-taxonomy.md.
+ * `both` = one bilingual-platform article; `xiaohongshu`/`douyin` = deliberately
+ * single-platform (platform mechanic or scenario-bound).
+ */
+export type BlogPlatform = 'xiaohongshu' | 'douyin' | 'both';
+
 export type BlogPostMeta = {
   title: string;
   description: string;
@@ -52,6 +60,7 @@ export type BlogPostMeta = {
   image?: string;
   categories?: string[] | string | null;
   tags?: string[] | string | null;
+  platform?: BlogPlatform;
 };
 
 type PostModule = {
@@ -71,6 +80,7 @@ export type BlogPost = {
   authorImage?: string;
   categories?: string[];
   tags?: string[];
+  platform?: BlogPlatform;
   source: 'local' | 'db';
 };
 
@@ -120,6 +130,9 @@ function resolvePostMeta(path: string, meta?: BlogPostMeta): BlogPostMeta {
     image: meta?.image ?? frontmatterString(frontmatter, 'image'),
     categories: meta?.categories ?? categories,
     tags: meta?.tags ?? tags,
+    platform:
+      meta?.platform ??
+      (frontmatterString(frontmatter, 'platform') as BlogPlatform | undefined),
   };
 }
 
@@ -205,6 +218,7 @@ function localPostToItem(slug: string, meta: BlogPostMeta): BlogPost {
     authorImage: meta.author_image,
     categories,
     tags: tags ?? categories,
+    platform: meta.platform,
     source: 'local',
   };
 }

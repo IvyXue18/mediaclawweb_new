@@ -1,0 +1,297 @@
+export const meta = {
+  title: '常见问题',
+  description:
+    '按数据问题、插件使用、飞书模板使用和账号风险，排查 MediaClaw 的常见问题。',
+};
+
+# 1. 数据问题
+
+## 1.1 点击同步，显示没有未同步数据
+
+这是防止同步重复数据到飞书而做的限制，你可以在右上角【系统配置】——【采集与获客】——【采集策略】——【同步范围】选择 **同步当前页面缓存区全部数据**，这样就能全部同步到飞书，不再局限于未同步状态的数据。
+
+这个最好是应急的时候改一下，平时还是用仅同步未同步的数据，不然容易在飞书堆积很多重复数据。
+
+<DocImageGrid
+  images={[
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/01.webp',
+      caption: '点击同步后显示没有未同步数据',
+      captionEn: 'Sync reports there is no unsynced data on the current page',
+      width: 896,
+      height: 1780,
+    },
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/02.webp',
+      caption: '在同步范围中选择同步当前页面缓存区全部数据',
+      captionEn:
+        'In Sync Range, choose to sync all cached data on the current page',
+      width: 862,
+      height: 1444,
+    },
+  ]}
+/>
+
+## 1.2 同步飞书，但表格里没有数据
+
+首先，请确保你用上的是 **最新版的插件和飞书模板**：模板是 [「Mediaclaw配套AI内容库」](https://my.feishu.cn/base/H9fAb5QYtagaLDsjgdPcaliGnyf?from=from_copylink)，新插件配旧模板，是写不进去数据的。
+
+怎么检查版本呢？
+
+- 插件在这里查看：对比当前版本号是否是最新的。
+
+<DocImageGrid
+  images={[
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/03.webp',
+      caption: '在插件菜单中点击检查更新',
+      captionEn: 'Click Check for Updates in the extension menu',
+      width: 824,
+      height: 912,
+    },
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/04.webp',
+      caption: '对比当前版本号是否为最新版',
+      captionEn: 'Check whether your current version number is the latest',
+      width: 832,
+      height: 1840,
+    },
+  ]}
+/>
+
+版本没问题之后，我们再看：没有数据同步到飞书表格的原因，可能有以下几个：
+
+### 1.2.1 权限设置有误
+
+检查你飞书多维表格模板的文档权限，要看仔细啊！！
+
+互联网获得链接的人可阅读 ❌
+
+❌ 组织内获得链接的人可编辑
+
+✅ 互联网获得链接的人可编辑
+
+<DocImage
+  src="https://media.mediaclaw.app/docs/settings/faq/05.webp"
+  caption="权限应设置为互联网获得链接的人可编辑"
+  captionEn="Set the permission to: anyone on the internet with the link can edit"
+  width={560}
+  height={480}
+/>
+
+### 1.2.2 链接填写有误
+
+**错误类型 1：** 如果你复制了多个模板，请注意检查，在插件配置的链接和你在看的文档链接是一致的。有的用户配置的是文档 A，查看的是文档 B 🤣，就找不到数据。
+
+<DocImage
+  src="https://media.mediaclaw.app/docs/settings/faq/06.webp"
+  caption="确认插件配置的链接和当前查看的文档一致"
+  captionEn="Make sure the link in the extension config matches the document you are viewing"
+  width={520}
+  height={441}
+/>
+
+**错误类型 2：** 注意检查，飞书多维表格模板的 **链接中间必须要是 base（不能是 wiki）**。
+
+<DocImage
+  src="https://media.mediaclaw.app/docs/settings/faq/07.webp"
+  caption="多维表格链接中间必须是 base"
+  captionEn="The Base link must contain base in the path, not wiki"
+  width={1600}
+  height={237}
+/>
+
+如果是 wiki，说明你文档放在知识库或者文档库中了，没在云盘 🙂。可以挪动一下表格的位置。
+
+<DocImage
+  src="https://media.mediaclaw.app/docs/settings/faq/08.webp"
+  caption="确认表格位于可用的云盘位置"
+  captionEn="Make sure the Base is stored in an accessible Drive location"
+  width={420}
+  height={536}
+/>
+
+### 1.2.3 字段名称/类型被修改
+
+模板表格中，**模板自带的所有字段名称和类型不可修改**，改了之后，数据就写不进去。
+
+不过，可以加新的字段，不影响数据写入。
+
+### 1.2.4 数据表名被修改
+
+飞书表格的数据表名，必须和插件配置这边的表名一致。如果你修改了飞书多维表格数据表的名字，一定要同步修改插件配置中的对应表名。
+
+<DocImage
+  src="https://media.mediaclaw.app/docs/settings/faq/09.webp"
+  caption="插件配置中的数据表名要和飞书表格一致"
+  captionEn="Data table names in the extension config must match those in the Feishu Base"
+  width={1600}
+  height={1204}
+/>
+
+如果以上 4 种情况你都排查了，确认配置都没有问题，那么看第 5 种👇。
+
+### 1.2.5 飞书表格平台没有切换
+
+默认在小红书 tab，同步抖音数据没找到的，切换到抖音 tab。
+
+<DocImage
+  src="https://media.mediaclaw.app/docs/settings/faq/10.webp"
+  caption="同步抖音数据时切换到抖音 tab"
+  captionEn="Switch to the Douyin tab when syncing Douyin data"
+  width={1600}
+  height={914}
+/>
+
+### 1.2.6 复制调试链接给客服
+
+在右上角执行明细中，找到你有问题的那条同步记录，点击右边复制按钮，将调试链接发给客服，协助排查问题。如果是报错，没有调试链接，也把报错详情截图或者复制给客服即可。
+
+<DocImageGrid
+  images={[
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/11.webp',
+      caption: '从右上角菜单打开执行明细',
+      captionEn: 'Open Execution Details from the top-right menu',
+      width: 892,
+      height: 1020,
+    },
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/12.webp',
+      caption: '找到有问题的同步记录并复制调试链接',
+      captionEn: 'Find the problem sync record and copy its debug link',
+      width: 896,
+      height: 1032,
+    },
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/13.webp',
+      caption: '将调试链接或报错详情提供给客服',
+      captionEn: 'Send the debug link or error details to support',
+      width: 938,
+      height: 1280,
+    },
+  ]}
+/>
+
+## 1.3 同步到飞书的数据字段有缺失
+
+### 1.3.1 缺笔记详情字段
+
+如果你发现笔记收藏、评论、正文、视频链接等啥都没有。
+
+这种一般出现在博主笔记或者关键词批量获取数据，只获取到了最外层的粗选数据，比如标题、点赞、账号，不包括具体的互动数据、附件（视频、图片、音频）等，需要进一步补采笔记详情，**打开采集增强**即可。
+
+<DocImageGrid
+  images={[
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/14.webp',
+      caption: '列表采集只得到粗选数据',
+      captionEn: 'List collection only returns coarse preview data',
+      width: 1600,
+      height: 1098,
+    },
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/15.webp',
+      caption: '打开采集增强补采笔记详情',
+      captionEn: 'Turn on Collection Enhancement to fetch full post details',
+      width: 868,
+      height: 1298,
+    },
+  ]}
+/>
+
+### 1.3.2 博主相关字段缺失
+
+如果缺失的是博主粉丝数、赞藏数和账号属性。
+
+需要在采集或者附件采集博主信息（会增加采集耗时）的时候打开这个开关，才会自动去博主页面获取，否则默认不获取。
+
+<DocImageGrid
+  images={[
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/16.webp',
+      caption: '数据表中的博主信息字段',
+      captionEn: 'Creator info fields in the data table',
+      width: 1600,
+      height: 919,
+    },
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/17.webp',
+      caption: '打开附件博主粉丝数和赞藏数',
+      captionEn:
+        'Enable the creator follower and likes/saves counts in attachments',
+      width: 876,
+      height: 1290,
+    },
+  ]}
+/>
+
+如果你不需要这几个字段，就可以不附加采集，在表格中隐藏掉即可。
+
+<DocImage
+  src="https://media.mediaclaw.app/docs/settings/faq/18.webp"
+  caption="不需要的博主字段可以选择隐藏字段"
+  captionEn="Hide the creator fields you don't need"
+  width={1228}
+  height={546}
+/>
+
+# 2. 插件使用
+
+## 2.1 页面匹配不对
+
+明明定位到搜索页或者博主页，但是提示不在该页面。
+
+这种是页面或者插件没刷新导致的。
+
+<DocImage
+  src="https://media.mediaclaw.app/docs/settings/faq/19.webp"
+  caption="页面匹配不对时先确认当前平台页面"
+  captionEn="When the page doesn't match, first confirm which platform page you're on"
+  width={1600}
+  height={766}
+/>
+
+- 刷新当前页面
+- 关掉插件重新进入
+
+# 3. 飞书模板使用
+
+## 3.1 视频脚本提取不出来
+
+本字段使用人数较多，有并发限制，所以同时提取的时候会出错。如果出现报错，点到具体单元格右边重试按钮，换时段重试几个，一般刷新或者换个时间就可以。
+
+<DocImageGrid
+  images={[
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/20.webp',
+      caption: '出现并发错误时查看具体单元格',
+      captionEn: 'Check the specific cell when a concurrency error appears',
+      width: 1486,
+      height: 400,
+    },
+    {
+      src: 'https://media.mediaclaw.app/docs/settings/faq/21.webp',
+      caption: '点击单元格右侧的重试按钮',
+      captionEn: 'Click the retry button on the right of the cell',
+      width: 1256,
+      height: 396,
+    },
+  ]}
+/>
+
+# 4. 账号风险
+
+## 4.1 能开多窗口同时操作吗？
+
+技术上可以，但**不建议**，原因如下：
+
+<strong>平台可能认为你行为异常：</strong>
+正常人只有一双手，不会同时在多个窗口高速操作。平台的风控系统会注意到这种“不像人”的行为，可能触发验证码、限流，严重时封号。
+
+- **同一账号多窗口操作风险最高**
+  如果多个窗口操作的是**同一个账号**，被识别为异常的概率大幅上升。
+- **不同账号多窗口相对好一点**
+  但同一台设备、同一时间跑多个账号，平台仍可能关联判断。
+
+**总之，本产品会模拟的是一个人在操作，开多窗口就变成了几个人同时用一台电脑，平台会起疑心。**

@@ -1,0 +1,108 @@
+export const meta = {
+  title: '品牌与竞品舆情',
+  description:
+    '基于当前关键词搜索样本，分析观点倾向、用户需求、品牌信号和潜在风险。',
+};
+
+关键词舆情扫描适合研究品牌名、产品名、竞品名或某个争议问题。它会从当前 PC 搜索结果多轮获取样本、去重并补充代表作品详情，再生成舆情判断。
+
+## 前置条件
+
+- 在抖音或小红书 PC 端搜索目标关键词。
+- 当前搜索词与要研究的品牌、产品或问题一致。
+- 激活码已验证，并有足够积分。
+- 搜索结果中存在足够的有效作品和可访问详情。
+
+## 操作步骤
+
+1. 搜索品牌、产品、竞品或问题关键词。
+
+<DocImage
+  src="/imgs/docs/brand/sentiment/01-搜索品牌词搜索并点击洞察.webp"
+  caption="搜索目标关键词后，点击「洞察」打开关键词策略面板"
+  captionEn="After searching the target keyword, click Insight to open the keyword strategy panel"
+  width={1600}
+  height={665}
+/>
+2. 打开 MediaClaw 的关键词策略区域，切换到 **舆情扫描**，点击
+**开始舆情扫描**。等待插件多轮刷新搜索结果、去重，并打开代表作品采集详情。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/brand/sentiment/02-点击舆情扫描.webp',
+      caption: '切换到「舆情扫描」，点击「开始舆情扫描」',
+      captionEn: 'Switch to Sentiment Scan and click Start Sentiment Scan',
+      width: 802,
+      height: 1028,
+    },
+    {
+      src: '/imgs/docs/brand/sentiment/02-舆情扫描分析中.webp',
+      caption: '扫描进行中：多轮刷新搜索页并去重',
+      captionEn:
+        'Scan in progress: refreshing the search page across rounds and deduplicating',
+      width: 778,
+      height: 1000,
+    },
+  ]}
+/>
+
+3. 查看舆情概览、主题聚类、情绪与风险、用户需求、品牌信号和行动建议。
+
+- **样本统计**：说明本次结论来自多少搜索结果和代表详情。
+- **主题聚类**：展示讨论集中在哪些问题，而不是简单词频。
+- **情绪与风险**：帮助发现负面集中点、争议和需要继续确认的信号。
+- **用户需求**：整理用户期待、顾虑和未满足问题。
+- **品牌信号**：观察品牌、竞品、产品特性或服务环节被如何讨论。
+- **行动建议**：用于安排进一步核验、内容回应或产品反馈，不应直接当作事实结论。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/brand/sentiment/03-分析结果1.webp',
+      caption: '样本统计与主题聚类',
+      captionEn: 'Sample stats and theme clustering',
+      width: 838,
+      height: 1926,
+    },
+    {
+      src: '/imgs/docs/brand/sentiment/03-分析结果2.webp',
+      caption: '主题聚类（续）与情绪风险',
+      captionEn: 'Theme clustering (continued) and sentiment risk',
+      width: 840,
+      height: 1932,
+    },
+    {
+      src: '/imgs/docs/brand/sentiment/03-分析结果3.webp',
+      caption: '情绪风险（续）与用户需求',
+      captionEn: 'Sentiment risk (continued) and user needs',
+      width: 862,
+      height: 1928,
+    },
+  ]}
+/>
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/brand/sentiment/03-分析结果4.webp',
+      caption: '品牌信号与行动建议',
+      captionEn: 'Brand signals and action recommendations',
+      width: 854,
+      height: 1926,
+    },
+    {
+      src: '/imgs/docs/brand/sentiment/03-分析结果5.webp',
+      caption: '采集原数据：可展开的原始笔记样本，支持同步与导出',
+      captionEn:
+        'Raw collected data: expandable original post samples, with sync and export',
+      width: 840,
+      height: 1900,
+    },
+  ]}
+/>
+
+<Callout type="danger">
+  搜索样本不是全平台舆情数据库，AI
+  结果也可能误判。涉及危机、公关、法律或经营决策时，必须回看原始证据并结合更多渠道核验。
+</Callout>

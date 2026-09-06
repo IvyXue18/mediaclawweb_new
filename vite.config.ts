@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 import viteReact from '@vitejs/plugin-react';
 import { nitro } from 'nitro/vite';
 import remarkGfm from 'remark-gfm';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 
 import { loadEnvFiles } from './src/lib/env';
 
@@ -27,6 +27,10 @@ const isCloudflareBuild = (process.env.NITRO_PRESET || '').includes(
 );
 const driverStub = new URL('./src/core/db/driver-stub.ts', import.meta.url)
   .pathname;
+const referralSettlementTask = new URL(
+  './tasks/referral/settle.ts',
+  import.meta.url
+).pathname;
 
 // Prefer wrangler.jsonc over the build-time env, which can be polluted by
 // .env.local (e.g. DATABASE_PROVIDER=sqlite for local dev).
@@ -48,6 +52,28 @@ const workersDb = isCloudflareBuild ? workersDbProvider() : '';
 const keepPostgres = workersDb === 'postgresql' || workersDb === 'postgres';
 const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
 
+const mdxPlugin = mdx({
+  providerImportSource: '@mdx-js/react',
+  remarkPlugins: [remarkGfm],
+});
+const mdxTransform = mdxPlugin.transform;
+
+if (typeof mdxTransform !== 'function') {
+  throw new TypeError('Expected the MDX plugin to expose a transform hook');
+}
+
+const mdxPluginWithRawSupport: Plugin = {
+  ...mdxPlugin,
+  enforce: 'pre',
+  transform(code, id, options) {
+    // Let Vite's raw loader return the original Markdown string. The MDX
+    // compiler otherwise sees the path after stripping the query and turns
+    // `?raw` imports into React components.
+    if (id.includes('?raw')) return null;
+    return mdxTransform.call(this, code, id, options);
+  },
+};
+
 export default defineConfig({
   server: {
     port: 3000,
@@ -66,13 +92,7 @@ export default defineConfig({
   },
   plugins: [
     // MDX must run before the react plugin so JSX in compiled MDX gets transformed.
-    {
-      enforce: 'pre',
-      ...mdx({
-        providerImportSource: '@mdx-js/react',
-        remarkPlugins: [remarkGfm],
-      }),
-    },
+    mdxPluginWithRawSupport,
     tailwindcss(),
     paraglideVitePlugin({
       project: './project.inlang',
@@ -117,6 +137,21 @@ export default defineConfig({
     }),
     viteReact(),
     nitro({
+      experimental: {
+        tasks: true,
+      },
+      tasks: {
+        'referral:settle': {
+          handler: referralSettlementTask,
+          description:
+            'Settle referral commissions whose lock period has expired',
+        },
+      },
+      scheduledTasks: {
+        // Cloudflare cron expressions use UTC. Sunday 18:15 UTC is
+        // Monday 02:15 in Asia/Shanghai.
+        '15 18 * * 0': ['referral:settle'],
+      },
       publicAssets: [
         {
           baseURL: '/imgs',

@@ -65,7 +65,7 @@
             "description": "在抖音搜索行业词、产品词或具体问题，结合发布时间和最多点赞缩小范围，再设置最低点赞门槛采集候选视频。",
             "icon": "Search",
             "image": {
-              "src": "/imgs/docs/viral-research/recent-hits/02-抖音搜索筛选-douyin.webp",
+              "src": "/imgs/docs/viral-research/keyword-hits/01-抖音搜索筛选-douyin.webp",
               "alt": "抖音搜索结果按半年内和最多点赞筛选，MediaClaw 设置采集门槛寻找近期爆款",
               "width": 1600,
               "height": 748
