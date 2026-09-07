@@ -8,6 +8,7 @@ import { nitro } from 'nitro/vite';
 import remarkGfm from 'remark-gfm';
 import { defineConfig, type Plugin } from 'vite';
 
+import { staticImageVersionsPlugin } from './scripts/lib/static-images.mjs';
 import { loadEnvFiles } from './src/lib/env';
 
 // Populate process.env from .env.local / .env.{NODE_ENV} / .env for the
@@ -50,7 +51,6 @@ function workersDbProvider(): string {
 
 const workersDb = isCloudflareBuild ? workersDbProvider() : '';
 const keepPostgres = workersDb === 'postgresql' || workersDb === 'postgres';
-const ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365;
 
 const mdxPlugin = mdx({
   providerImportSource: '@mdx-js/react',
@@ -91,6 +91,7 @@ export default defineConfig({
       : {},
   },
   plugins: [
+    staticImageVersionsPlugin(),
     // MDX must run before the react plugin so JSX in compiled MDX gets transformed.
     mdxPluginWithRawSupport,
     tailwindcss(),
@@ -157,9 +158,16 @@ export default defineConfig({
         {
           baseURL: '/imgs',
           dir: 'public/imgs',
-          maxAge: ONE_YEAR_IN_SECONDS,
+          maxAge: 0,
         },
       ],
+      routeRules: {
+        // Nitro also emits this rule into Cloudflare's _headers, where it
+        // applies to 404s too. Never mark a whole mutable directory immutable:
+        // a missing image used to remain broken in browsers for a full year.
+        // Keep ETag-based reuse, but require revalidation, including failures.
+        '/imgs/**': { headers: { 'cache-control': 'public, no-cache' } },
+      },
     }),
   ],
 });

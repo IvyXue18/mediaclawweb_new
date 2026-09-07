@@ -33,8 +33,14 @@ function sourceFor(path: string): string {
   return rawModules[path] ?? rawModules[`${path}?raw`] ?? '';
 }
 
-function readQuotedProperty(source: string, property: string): string {
-  const propertyMatch = new RegExp(`\\b${property}\\s*:`).exec(source);
+function readQuotedProperty(
+  source: string,
+  property: string,
+  separator: ':' | '=' = ':'
+): string {
+  const propertyMatch = new RegExp(`\\b${property}\\s*${separator}`).exec(
+    source
+  );
   if (!propertyMatch) return '';
 
   let index = propertyMatch.index + propertyMatch[0].length;
@@ -102,7 +108,8 @@ function stripMetaExport(source: string): string {
 }
 
 function prop(block: string, name: string): string {
-  return readQuotedProperty(block.replaceAll('=', ':'), name);
+  // Read JSX attributes without rewriting '=' inside URLs or captions.
+  return readQuotedProperty(block, name, '=');
 }
 
 function absoluteUrl(value: string, appUrl: string): string {

@@ -27,4 +27,24 @@ describe('documentation discovery resources', () => {
       );
     }
   });
+
+  it('preserves image versions and query strings when exporting JSX media to Markdown', () => {
+    const source = [
+      '<DocImage src="/imgs/example.webp?v=abc&width=800#preview" caption="x=1" />',
+      '<PlatformExampleTabs xiaohongshuSrc="/imgs/xhs.webp?v=def" douyinSrc="/imgs/dy.webp?v=ghi" />',
+      '<DocVideo src="https://example.com/demo.mp4?quality=high#t=4,8" />',
+    ].join('\n');
+    const markdown = renderDocMarkdown(
+      { slug: 'test', title: 'Test', description: 'Test', source },
+      appUrl
+    );
+    expect(markdown).toContain(
+      `![x=1](${appUrl}/imgs/example.webp?v=abc&width=800#preview)`
+    );
+    expect(markdown).toContain(`${appUrl}/imgs/xhs.webp?v=def`);
+    expect(markdown).toContain(`${appUrl}/imgs/dy.webp?v=ghi`);
+    expect(markdown).toContain(
+      'https://example.com/demo.mp4?quality=high#t=4,8'
+    );
+  });
 });

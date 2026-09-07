@@ -3,24 +3,19 @@ type VideoPosterMap = {
   posters: Record<number, string>;
 };
 
-const demoVideoPosterBase = '/imgs/video-posters/mediaclaw-demo-20260424';
-
-function demoPoster(tag: string): string {
-  return `${demoVideoPosterBase}-${tag}.webp`;
-}
-
+// Keep complete URLs visible to the build's image validation/versioning pass.
 const demoVideoPosters: Record<number, string> = {
-  0: demoPoster('t000'),
-  4: demoPoster('t004'),
-  8: demoPoster('t008'),
-  39: demoPoster('t039'),
-  45: demoPoster('t045'),
-  134: demoPoster('t134'),
-  137: demoPoster('t137'),
-  180: demoPoster('t180'),
-  222: demoPoster('t222'),
-  232: demoPoster('t232'),
-  291: demoPoster('t291'),
+  0: '/imgs/video-posters/mediaclaw-demo-20260424-t000.webp',
+  4: '/imgs/video-posters/mediaclaw-demo-20260424-t004.webp',
+  8: '/imgs/video-posters/mediaclaw-demo-20260424-t008.webp',
+  39: '/imgs/video-posters/mediaclaw-demo-20260424-t039.webp',
+  45: '/imgs/video-posters/mediaclaw-demo-20260424-t045.webp',
+  134: '/imgs/video-posters/mediaclaw-demo-20260424-t134.webp',
+  137: '/imgs/video-posters/mediaclaw-demo-20260424-t137.webp',
+  180: '/imgs/video-posters/mediaclaw-demo-20260424-t180.webp',
+  222: '/imgs/video-posters/mediaclaw-demo-20260424-t222.webp',
+  232: '/imgs/video-posters/mediaclaw-demo-20260424-t232.webp',
+  291: '/imgs/video-posters/mediaclaw-demo-20260424-t291.webp',
 };
 
 const staticVideoPosters: VideoPosterMap[] = [

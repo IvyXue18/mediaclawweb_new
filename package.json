@@ -27,6 +27,7 @@
     "rbac:assign": "tsx scripts/with-env.ts tsx scripts/assign-role.ts",
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
+    "check:images": "node scripts/check-static-images.mjs",
     "test:contract": "vitest run tests/contract tests/p1",
     "test:p0": "vitest run tests/unit tests/contract tests/benefit-welfare-milestone.test.ts",
     "test:p1": "vitest run tests/p1",
