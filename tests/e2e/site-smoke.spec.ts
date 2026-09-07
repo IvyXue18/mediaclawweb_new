@@ -212,11 +212,15 @@ for (const item of pages) {
     }
     if ('heroImage' in item) {
       await expect(page.locator('#hero img')).toBeVisible();
-      await expect(page.locator('#hero img')).toHaveAttribute(
-        'src',
+      const imagePath =
         'heroImageSrc' in item
           ? item.heroImageSrc
-          : '/imgs/features/content-analysis-workflow-v20260719.png'
+          : '/imgs/features/content-analysis-workflow-v20260719.png';
+      await expect(page.locator('#hero img')).toHaveAttribute(
+        'src',
+        new RegExp(
+          `^${imagePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\?v=[a-f0-9]{16}$`
+        )
       );
     }
     if ('semanticHeadingHierarchy' in item) {

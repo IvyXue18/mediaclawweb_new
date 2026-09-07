@@ -36,7 +36,7 @@ for (const item of accountAnalysisPages) {
     await expect(page.locator('#hero img')).toBeVisible();
     await expect(page.locator('#hero img')).toHaveAttribute(
       'src',
-      '/imgs/features/content-analysis-workflow-v20260719.png'
+      /^\/imgs\/features\/content-analysis-workflow-v20260719\.png\?v=[a-f0-9]{16}$/
     );
     await expect(page.locator('#value')).toHaveCount(0);
     await expect(page.locator('#core h2')).toHaveCount(1);
