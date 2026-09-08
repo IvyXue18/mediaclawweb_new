@@ -1,8 +1,10 @@
 import {
   isValidElement,
+  useEffect,
   useRef,
   useState,
   type AnchorHTMLAttributes,
+  type CSSProperties,
   type HTMLAttributes,
   type ReactNode,
   type TableHTMLAttributes,
@@ -13,6 +15,7 @@ import {
 import {
   AlertTriangle,
   Check,
+  ChevronDown,
   Copy,
   Film,
   ImageIcon,
@@ -21,6 +24,8 @@ import {
   Link as LinkIcon,
   MessageSquareWarning,
   OctagonAlert,
+  X,
+  ZoomIn,
 } from 'lucide-react';
 import type { MDXComponents } from 'mdx/types';
 
@@ -217,8 +222,157 @@ function MdxLink({
   );
 }
 
+// Screenshots of full app or browser windows are captured 2-3x wider than the
+// article column, so at rest their UI text renders only a few pixels tall —
+// enough to follow the layout, not enough to read a button label. That is the
+// single most common reason a reader has to ask "which button?", so every doc
+// image opens at viewport size on click instead of forcing a browser zoom.
+function ZoomableImage({
+  src,
+  alt,
+  width,
+  height,
+  className,
+  style,
+  zoom = true,
+}: {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  className?: string;
+  style?: CSSProperties;
+  zoom?: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    // The overlay covers the page; let it own scrolling while it is up.
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
+  const image = (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      width={width}
+      height={height}
+      className={className}
+      style={style}
+    />
+  );
+
+  if (!zoom) return image;
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label={alt ? `放大查看：${alt}` : '放大查看'}
+        className="group/zoom relative mx-auto block w-full cursor-zoom-in appearance-none border-0 bg-transparent p-0 text-left"
+        style={style?.maxWidth ? { maxWidth: style.maxWidth } : undefined}
+      >
+        {image}
+        <span className="bg-background/85 text-muted-foreground border-border pointer-events-none absolute right-2 bottom-2 inline-flex items-center gap-1 rounded-md border px-1.5 py-1 text-[11px] opacity-0 backdrop-blur transition-opacity group-hover/zoom:opacity-100 group-focus-visible/zoom:opacity-100">
+          <ZoomIn className="size-3.5" />
+          点击放大
+        </span>
+      </button>
+      {open ? (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={alt || '放大查看图片'}
+          onClick={() => setOpen(false)}
+          className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center overflow-auto bg-black/85 p-4 sm:p-8"
+        >
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            aria-label="关闭"
+            className="absolute top-4 right-4 inline-flex size-9 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20"
+          >
+            <X className="size-5" />
+          </button>
+          <img
+            src={src}
+            alt={alt}
+            className="max-h-[92vh] w-auto max-w-full rounded-lg object-contain shadow-2xl"
+          />
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+// Fixed display widths so a page reads as one system instead of a ragged stack
+// of whatever each screenshot happened to be captured at. `full` is the default
+// for window-sized captures; the smaller steps are for panel and dialog crops.
+const DOC_IMAGE_MAX_WIDTH = {
+  sm: 380,
+  md: 560,
+  lg: 720,
+  full: undefined,
+} as const;
+
+export type DocImageSize = keyof typeof DOC_IMAGE_MAX_WIDTH;
+
+// Optional deep-dives (provider sign-up flows, verification walkthroughs) that
+// most readers already know how to do. Collapsed they cost one line instead of
+// half a screen of screenshots, and the content is still in the DOM for search.
+function Details({
+  summary,
+  children,
+}: {
+  summary: string;
+  children?: ReactNode;
+}) {
+  return (
+    // Tinted with the brand accent rather than the neutral surface: collapsed,
+    // this is the only thing on the page a reader has to click to reveal
+    // content, so it must not read as another paragraph of body text.
+    <details className="group/details border-primary/30 bg-primary/[0.05] dark:bg-primary/12 my-5 rounded-xl border">
+      <summary className="text-primary hover:bg-primary/10 flex cursor-pointer list-none items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium transition-colors select-none marker:content-none [&::-webkit-details-marker]:hidden">
+        <ImageIcon className="size-4 shrink-0" />
+        {summary}
+        <ChevronDown className="ml-auto size-4 shrink-0 transition-transform [[open]_&]:rotate-180" />
+      </summary>
+      <div className="border-primary/20 border-t px-4 pt-1 pb-4">
+        {children}
+      </div>
+    </details>
+  );
+}
+
+// Numbered how-to sequence. Plain `### 标题` headings stay inside — the number
+// badge and rail come from CSS counters (.doc-steps in globals.css), so a step
+// can be inserted or reordered without renumbering prose or breaking the
+// heading ids that deep links and the TOC rely on. `data-steps` is the hook
+// DocToc reads to number the matching entries in the sidebar.
+function Steps({ children }: { children?: ReactNode }) {
+  return (
+    <div data-steps className="doc-steps">
+      {children}
+    </div>
+  );
+}
+
 export const mdxComponents: MDXComponents = {
   Callout,
+  Details,
+  Steps,
   PlatformExampleTabs,
   h1: ({
     className,
@@ -477,47 +631,54 @@ export const mdxComponents: MDXComponents = {
     captionEn,
     width,
     height,
+    size,
     frame = true,
+    zoom = true,
   }: {
     src: string;
     alt?: string;
     caption?: string;
     captionEn?: string;
-    // Optional explicit cap (`sips -g pixelWidth -g pixelHeight <file>`) to
-    // shrink a screenshot *below* its own native resolution — most images
-    // don't need this, see the sizing rule below.
+    // Intrinsic pixel size of the file (`sips -g pixelWidth -g pixelHeight
+    // <file>`) — reserves the right box before the image downloads. When
+    // `size` is omitted these also act as the display cap, which is the
+    // legacy behaviour the rest of the docs still rely on.
     width?: number;
     height?: number;
+    // Preferred over a hand-picked `width` cap: snaps the image to the shared
+    // size scale so a page has three image widths instead of a dozen.
+    size?: DocImageSize;
     // Some screenshots (floating panels/dialogs) already have their own
     // rounded corners + shadow baked into the image, with a transparent
     // surrounding background. Adding our own border+rounded box around
     // those doubles up the corner radius, so frame={false} skips it and
     // just centers the image at its natural shape.
     frame?: boolean;
+    // Turn off click-to-enlarge for images that are already legible at rest
+    // (a single button, a one-line warning) where the overlay adds nothing.
+    zoom?: boolean;
   }) => {
     const text = getLocale() === 'en' ? (captionEn ?? caption) : caption;
+    const maxWidth = size ? DOC_IMAGE_MAX_WIDTH[size] : undefined;
     return (
       <figure className="my-6">
-        <img
+        <ZoomableImage
           src={src}
           alt={alt || text || ''}
-          loading="lazy"
           width={width}
           height={height}
-          // No `w-full`, and no inline `maxWidth` style either — an inline
-          // style would beat `max-w-full` (same CSS property, higher
-          // specificity) and let the image render at its full native
-          // resolution regardless of the article column's width. The
-          // `width`/`height` attributes alone are a low-specificity
-          // presentational hint the `max-w-full` class still overrides, so
-          // images render at their own native resolution and only shrink
-          // (never upscale) to fit the article column. A small focused
-          // screenshot stays small; a full-width app screenshot already
-          // exceeds the column and gets capped down to it either way.
+          zoom={zoom}
+          // With `size`, the image fills its (capped) box, so every image on
+          // the page lands on one of a few widths. Without it, the legacy
+          // path: no `w-full` and no inline maxWidth, so the width/height
+          // attributes act as a low-specificity cap that `max-w-full` still
+          // overrides down to the column — a small screenshot stays small, a
+          // window-sized one is capped to the column.
           className={cn(
-            'mx-auto max-w-full',
+            size ? 'h-auto w-full' : 'mx-auto max-w-full',
             frame && 'border-border rounded-xl border'
           )}
+          style={maxWidth ? { maxWidth } : undefined}
         />
         {text ? (
           <figcaption className="text-muted-foreground mt-2 text-center text-xs">
@@ -576,10 +737,9 @@ export const mdxComponents: MDXComponents = {
             className="flex min-w-32 flex-col"
             style={{ flexGrow: ratio, flexBasis: 0 }}
           >
-            <img
+            <ZoomableImage
               src={image.src}
               alt={image.alt || text || ''}
-              loading="lazy"
               width={image.width}
               height={image.height}
               className={cn(

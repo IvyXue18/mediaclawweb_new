@@ -200,4 +200,72 @@
   .doc-scroll:focus-within::-webkit-scrollbar-thumb {
     background-color: var(--border);
   }
+
+  /* Numbered step rail for how-to sections (the <Steps> MDX wrapper).
+     The number comes from a CSS counter rather than a hand-typed "1." in the
+     heading text, so steps can be reordered or inserted without renumbering
+     prose — and, more importantly, the heading id stays content-derived
+     (`#检查表名`, not `#5-检查表名`) so deep links survive a renumber.
+     DocToc reads the same order off the DOM to number its entries. */
+  .doc-steps {
+    counter-reset: doc-step;
+    position: relative;
+    margin-top: 1.5rem;
+    padding-left: 2.75rem;
+  }
+  /* The vertical rail. Inset from the first/last badge centre so it reads as
+     a connector between steps instead of a full-height page border. */
+  .doc-steps::before {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    bottom: 0.5rem;
+    left: 0.9375rem;
+    width: 1px;
+    background: var(--border);
+  }
+  .doc-steps > h3 {
+    counter-increment: doc-step;
+    position: relative;
+    margin-left: -2.75rem;
+    padding-left: 2.75rem;
+  }
+  .doc-steps > h3:first-child {
+    margin-top: 0;
+  }
+  .doc-steps > h3::before {
+    content: counter(doc-step);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 9999px;
+    background: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  @media (max-width: 640px) {
+    .doc-steps {
+      padding-left: 2.25rem;
+    }
+    .doc-steps::before {
+      left: 0.8125rem;
+    }
+    .doc-steps > h3 {
+      margin-left: -2.25rem;
+      padding-left: 2.25rem;
+    }
+    .doc-steps > h3::before {
+      width: 1.625rem;
+      height: 1.625rem;
+    }
+  }
 }

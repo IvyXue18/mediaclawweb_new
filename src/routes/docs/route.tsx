@@ -5,6 +5,7 @@ import { usePathname } from '@/core/i18n/navigation';
 import { cn } from '@/lib/utils';
 import { DocsHeader } from '@/components/docs/doc-header';
 import { DocMobileNav } from '@/components/docs/doc-mobile-nav';
+import { DocReadingPosition } from '@/components/docs/doc-reading-position';
 import { DocSidebar } from '@/components/docs/doc-sidebar';
 import { DocToc } from '@/components/docs/doc-toc';
 import { mdxComponents } from '@/components/mdx-components';
@@ -54,6 +55,7 @@ function DocsLayout() {
             {isDocsHome ? null : <DocToc className="hidden xl:block" />}
           </div>
         </main>
+        {isDocsHome ? null : <DocReadingPosition />}
       </div>
     </div>
   );
