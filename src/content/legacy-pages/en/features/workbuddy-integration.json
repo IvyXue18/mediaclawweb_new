@@ -1,0 +1,414 @@
+{
+  "metadata": {
+    "title": "RedNote & Douyin MCP Server for WorkBuddy - Data + Skill",
+    "description": "Give WorkBuddy a RedNote (Xiaohongshu) and Douyin MCP server plus a research skill: 40+ tools collect posts, videos and comments; 12 methods turn them into drafts.",
+    "keywords": "RedNote MCP, Xiaohongshu MCP, Douyin MCP, MCP server, WorkBuddy MCP, WorkBuddy skill, CodeBuddy plugin, social data in WorkBuddy, RedNote scraper, MediaClaw"
+  },
+  "page": {
+    "title": "WorkBuddy Integration",
+    "description": "Bring RedNote and Douyin data into WorkBuddy with one MCP server and one content research skill.",
+    "show_sections": [
+      "hero",
+      "tasks",
+      "setup",
+      "stack",
+      "confirm",
+      "hosts",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "WorkBuddy Integration",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Integrations"
+          },
+          {
+            "title": "WorkBuddy Integration"
+          }
+        ],
+        "title": "Bring RedNote & Douyin data into WorkBuddy: one MCP, one research skill",
+        "description": "MediaClaw gives WorkBuddy two things: a RedNote (Xiaohongshu) and Douyin MCP server whose 40+ tools collect posts, videos, comments and account data and dedupe them into structured results, and a content research skill whose 12 written methods handle teardowns, topic picks and drafting. Once it is connected you do not decide what to collect or memorise any command — say what you are working on and where you are stuck.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Read the setup guide",
+            "url": "/docs/agent/setup",
+            "icon": "BookOpen",
+            "variant": "outline"
+          }
+        ],
+        "tip": "You need the MediaClaw browser extension installed and an active membership first. The agent can only use capabilities you approved in the extension, and every page visit still happens in your own browser."
+      },
+      "tasks": {
+        "id": "tasks",
+        "block": "features-scroll",
+        "title": "What one sentence gets you once WorkBuddy is connected",
+        "description": "These are real MediaClaw Agent runs and the prompts are copy-ready. Every host runs the same MCP tools and the same methods, so the output is identical; the chat window in these screenshots may not match yours, but what comes back does.",
+        "items": [
+          {
+            "title": "Turn one post's comment section into a topic list",
+            "description": "A comment section looks full of demand until you try to read it one row at a time. Hand over the link: 322 comments dedupe to 280 distinct texts, 99 of them explicit needs (35.4%), grouped into tool cost / text version of videos / zero-to-one tutorials / can't-ship problems, then delivered as a prioritized topic list and a multi-sheet workbook.",
+            "icon": "MessageSquareText",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/01-采集评论分析选题.webp",
+              "alt": "A RedNote comment section turned into a prioritized topic list and a multi-sheet workbook"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "See one topic across RedNote and Douyin at once",
+            "description": "Scrolling both apps yourself, it is easy to mistake one creator's demo for an official new feature. Hand it over: it first pins down which product the keyword means, reuses the existing RedNote sample, back-fills only Douyin, then groups recent patterns into 7 categories with examples and changelog links.",
+            "icon": "Globe",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/03-内容桌面调研-2.webp",
+              "alt": "Cross-platform topic research across RedNote and Douyin, grouped into seven patterns with sources"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Chasing a trend — today's posts only",
+            "description": "“Show me RedNote posts about <keyword> published today.” 80 posts from that day scanned as of 23:48, grouped by content direction with the current top performers listed. Put that one line on a daily schedule and it becomes lightweight monitoring.",
+            "icon": "Timer",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/04-最新主题内容获取.webp",
+              "alt": "Pulling only the current day's RedNote posts and grouping them by direction"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Findings land in your documents, not in a chat log",
+            "description": "The one thing the extension cannot do alone. “File these comments into <knowledge base path> and put the conclusion at the top.” 1,000 comments land in the document with likes, region and timestamps, opening with core conclusions, theme signals, disagreements and unmet needs — and a reviewable diff before anything is written. Three months later you can still query that library.",
+            "icon": "FolderKanban",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/06-评论分析写入本地知识库-2.webp",
+              "alt": "Comment analysis written into a local knowledge base document, conclusions first"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "setup": {
+        "id": "setup",
+        "block": "features-scroll",
+        "title": "Getting connected: three steps, no terminal, no config file",
+        "description": "WorkBuddy supports fully automatic installation, same as Codex. You do two things: copy a prompt, and approve once.",
+        "items": [
+          {
+            "title": "Step 1: Copy the install prompt from the extension",
+            "description": "Open System settings → Agent access in the extension, turn on “Allow local agents to call MediaClaw”, expand “Connect Agent”, and hit Copy on the WorkBuddy row. The prompt already carries the official source, WorkBuddy's plugin-manager commands and the repair steps — you do not need to read or edit it.",
+            "icon": "Chrome",
+            "image": {
+              "src": "/imgs/features/agent-setup-1-v20260911.webp",
+              "alt": "MediaClaw's Agent access panel: enabling local agent calls and copying the WorkBuddy install prompt"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Step 2: Send it to WorkBuddy and let it install itself",
+            "description": "Paste it into a new WorkBuddy conversation as-is. It registers the official marketplace through its own plugin manager, installs the package, detects Windows/macOS/Linux and x64/ARM64, and fetches and verifies the matching runtime. If an older installer left a conflicting mediaclaw MCP entry, it explains and removes it rather than leaving two.",
+            "icon": "Bot",
+            "image": {
+              "src": "/imgs/features/agent-setup-wb-2-v20260911.webp",
+              "alt": "Sending the MediaClaw install prompt to WorkBuddy and letting it run the installation"
+            },
+            "button": {
+              "title": "Read the setup guide",
+              "url": "/docs/agent/setup"
+            }
+          },
+          {
+            "title": "Step 3: Approve in the extension, it re-checks itself",
+            "description": "A pending device appears in the Agent access tab. Check the name and fingerprint, hit Approve. This run finished in 2m49s with “MediaClaw Agent (WorkBuddy)” authorized; it re-checked the connection on its own and walked through what you can hand it — no need to reply “approved”.",
+            "icon": "ShieldCheck",
+            "image": {
+              "src": "/imgs/features/agent-setup-wb-3-v20260911.webp",
+              "alt": "WorkBuddy paired successfully: the device is authorized and the first-run welcome is shown"
+            },
+            "button": {
+              "title": "Read the setup guide",
+              "url": "/docs/agent/setup"
+            }
+          }
+        ]
+      },
+      "stack": {
+        "id": "stack",
+        "block": "features",
+        "title": "What actually gets installed into WorkBuddy",
+        "description": "One install brings two pieces. They answer “where does the data come from” and “what order do I work in once it arrives” — your own files complete the set.",
+        "items": [
+          {
+            "title": "MCP server: where the data comes from",
+            "description": "40+ tools sit in WorkBuddy's tool list over standard STDIO. Which ones it calls, and how often, follows from the task — you never specify them.",
+            "icon": "Boxes",
+            "features": [
+              "Content: posts, videos, profile feeds, search results, comments",
+              "Enrichment: detail back-fill, image text recognition, video transcripts",
+              "Research: keyword scans and long-tail expansion, account scans, benchmark discovery",
+              "Reuse: read collections, analyses and style profiles already saved in the extension"
+            ]
+          },
+          {
+            "title": "Research skill: what order to work in",
+            "description": "12 fixed methods, covering everything from “is this niche worth entering” to “is this draft shippable”. It follows them rather than improvising once data lands.",
+            "icon": "Brain",
+            "features": [
+              "Judge first: keyword trends, long-tail demand, benchmark accounts, account strategy, recent hits",
+              "Then take apart: a single post's angle, structure, phrasing and engagement signals",
+              "Then produce: topics, content briefs, outlines, drafts, adapted to your style",
+              "Self-check before delivery: is every claim backed, is a guess written as fact, is it too close to the source"
+            ]
+          },
+          {
+            "title": "Your files: why this could only be yours",
+            "description": "A local Markdown folder is enough; Obsidian, Notion or Lark work too. MediaClaw knows what is happening on the platforms — only your library knows who you are.",
+            "icon": "FileSearch",
+            "features": [
+              "The overlap is the topic list: wanted on the platform ∩ never written by you",
+              "When nothing in your files backs a point, it says what is missing instead of padding",
+              "Each study lands back in your docs, so next time you query the library instead of re-collecting"
+            ]
+          }
+        ]
+      },
+      "confirm": {
+        "id": "confirm",
+        "block": "data-table",
+        "title": "Five things it must ask you first",
+        "description": "Approving the pairing lets WorkBuddy connect to MediaClaw. It does not approve every collection that follows.",
+        "columns": [
+          {
+            "key": "action",
+            "title": "Action"
+          },
+          {
+            "key": "before",
+            "title": "What it shows you first"
+          },
+          {
+            "key": "after",
+            "title": "After you confirm"
+          }
+        ],
+        "rows": [
+          {
+            "action": "Collect an account",
+            "before": "A collection plan: target, fields, scope, batch count, risk level",
+            "after": "It runs — and only the batches written into that plan"
+          },
+          {
+            "action": "Video transcript",
+            "before": "A quote: credits per item, total, your balance, expiry",
+            "after": "Extraction starts; items already extracted are not charged twice"
+          },
+          {
+            "action": "Bulk detail back-fill",
+            "before": "Exactly what this round will back-fill",
+            "after": "It opens the detail pages"
+          },
+          {
+            "action": "Clear data",
+            "before": "Blast radius: how many records, comments and transcripts, and the space freed",
+            "after": "The deletion runs"
+          },
+          {
+            "action": "Comment outreach",
+            "before": "A recipient list and the message copy",
+            "after": "You still confirm the send inside the extension"
+          }
+        ]
+      },
+      "hosts": {
+        "id": "hosts",
+        "block": "data-table",
+        "title": "Codex, WorkBuddy or Doubao for Work",
+        "description": "All three hosts run the same package, the same MCP tools and the same skill. Only the install path and auto-update differ.",
+        "columns": [
+          {
+            "key": "host",
+            "title": "Host"
+          },
+          {
+            "key": "install",
+            "title": "Install"
+          },
+          {
+            "key": "update",
+            "title": "Auto-update"
+          },
+          {
+            "key": "note",
+            "title": "Notes"
+          }
+        ],
+        "rows": [
+          {
+            "host": "Codex",
+            "install": "Send the prompt, it installs itself",
+            "update": "✓",
+            "note": "Same flow as WorkBuddy"
+          },
+          {
+            "host": "WorkBuddy",
+            "install": "Send the prompt, it installs itself",
+            "update": "✓",
+            "note": "Fully quit and reopen WorkBuddy for a new version to activate"
+          },
+          {
+            "host": "Doubao for Work",
+            "install": "Create a STDIO connector by hand; the agent prepares every field for you",
+            "update": "—",
+            "note": "No automatic install entry yet, so upgrades are redone manually"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "Why must I fully reopen WorkBuddy after installing?",
+            "answer": "A host will not hot-load a new skill or MCP into a running conversation. If the install record changed but the old process is still running, it is not installed yet — and a new conversation inside that same process does not count either. Quit fully and reopen; the agent re-checks the running version, only announces success when it matches the target, and then picks your unfinished request back up."
+          },
+          {
+            "question": "Can my model quota handle driving it from WorkBuddy?",
+            "answer": "Far cheaper than letting an agent click through a browser page by page. Collection, pagination and rate-limit cooldowns all run inside the extension and use no host model quota; the extension hands back only structured results. Quota goes to three things: understanding your request, issuing calls and reading results, and the analysis and writing. It also reuses existing data before collecting anything new, and previews large payloads before paging into detail."
+          },
+          {
+            "question": "Is this an MCP? Do I configure it by hand in WorkBuddy's plugin manager?",
+            "answer": "It is a standard MCP integration over STDIO, but you never configure it by hand. Send it the install prompt copied from the extension and it registers the official marketplace through WorkBuddy's own plugin manager, installs the package, then detects your OS and chip and fetches and verifies the matching runtime."
+          },
+          {
+            "question": "I configured mediaclaw manually before — will it conflict?",
+            "answer": "You will not end up with two. If it finds a user-level mediaclaw MCP entry left by an older installer, it explains and removes the conflict so the official plugin is what runs. Downloading the repo, writing config, or completing one temporary MCP handshake does not count as installed — it goes by what the plugin manager actually lists."
+          },
+          {
+            "question": "Do I still need the browser extension running?",
+            "answer": "Yes. The agent package cannot run alone and does not replace the extension. Every page visit goes through the extension in your own browser using sessions you are already signed into, and the agent can only touch capabilities you approved there."
+          },
+          {
+            "question": "How do I stay in control of scope and credits?",
+            "answer": "Approving the pairing only allows the connection. Before any new collection it states the source, time range, volume, what it will read and the cost boundary, and waits. Billable capabilities such as transcripts quote estimated credits and your balance separately. “Sure”, “ok”, “go ahead” all confirm — no fixed phrase — and several searches can be approved once and run back to back. Silence is not consent, and anything beyond the approved scope is asked again."
+          },
+          {
+            "question": "Are my sessions and data safe?",
+            "answer": "Collection runs in your own browser and the session is never handed to the agent. Never paste cookies, tokens, activation codes or device keys into a conversation, issue or log — the agent will not ask. Revoking one agent's authorization leaves your other approved agents alone."
+          },
+          {
+            "question": "Is it free?",
+            "answer": "The browser extension itself is free. Agent access requires an active membership, and billable capabilities such as video transcripts need credits plus a confirmation before they run. Analysis, generation and reporting on the agent side cost no MediaClaw credits."
+          },
+          {
+            "question": "How is this different from Codex or Doubao for Work?",
+            "answer": "The capabilities are identical — same package, same MCP tools, same skill. WorkBuddy and Codex can both hand install and upgrades to the agent end to end. Doubao for Work has no automatic install entry yet, so you save a STDIO connector by hand under Skills · Connectors, and it does not auto-update."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 You might also like",
+        "description": "From connecting the agent to actually using the data.",
+        "links": [
+          {
+            "title": "What the agent is and who does what",
+            "description": "The three-way split, its fixed working order, and where the model quota actually goes.",
+            "url": "/docs/agent/overview",
+            "icon": "BookOpen"
+          },
+          {
+            "title": "Install, pair and upgrade",
+            "description": "Setup steps for each host, plus the order to check when it will not connect.",
+            "url": "/docs/agent/setup",
+            "icon": "Workflow"
+          },
+          {
+            "title": "Agent task examples",
+            "description": "Six tasks with full prompts, the sampling trail and the final deliverable.",
+            "url": "/docs/agent/prompt-examples",
+            "icon": "Sparkles"
+          },
+          {
+            "title": "Connect your knowledge base",
+            "description": "How Obsidian, Notion, Lark and ima each connect — and a three-file library to start from.",
+            "url": "/docs/agent/knowledge-base",
+            "icon": "FolderKanban"
+          },
+          {
+            "title": "Codex integration",
+            "description": "The same MCP and skill, with Codex's install path and examples instead.",
+            "url": "/features/codex-integration",
+            "icon": "Bot"
+          },
+          {
+            "title": "Lark Base integration",
+            "description": "A different kind of integration: collected results and monitoring hits written into Lark Base.",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          },
+          {
+            "title": "RedNote scraper",
+            "description": "Bulk collection and export straight from the extension, no agent involved.",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "RedNote keyword insights",
+            "description": "Niche judgement, benchmark account discovery and long-tail demand.",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Give WorkBuddy real RedNote and Douyin data today",
+        "description": "Install the free extension, send the prompt to WorkBuddy, and reopen it once when the install finishes.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "icon": "Download",
+            "url": "/download",
+            "variant": "default"
+          },
+          {
+            "title": "Read the setup guide",
+            "icon": "BookOpen",
+            "url": "/docs/agent/setup",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

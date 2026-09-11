@@ -1,0 +1,105 @@
+export const meta = {
+  platform: 'both',
+  title:
+    'Collecting Campaign Data on Xiaohongshu & Douyin: Wrapping Up Hundreds of Seeded Posts',
+  description:
+    'A campaign data collection workflow for Xiaohongshu (RedNote) and Douyin: lock your fields and measurement cut-off first, then bulk-enrich every collaboration link with post body, public engagement, and comments — and know when comment detail is actually worth pulling.',
+  created_at: '2026-08-27',
+  author_name: 'MediaClaw Team',
+  author_image: '/logo.png',
+  image: '/imgs/features/16-v20260424.webp',
+  tags: [
+    'Xiaohongshu',
+    'Douyin',
+    'campaign data',
+    'campaign wrap-up',
+    'influencer campaign review',
+  ],
+};
+
+While collaboration posts trickle in one at a time, the tracking sheet still feels manageable. By the time you're writing the wrap-up, a few hundred links are scattered across group chats and Excel files, and collecting the campaign data has become the most labor-intensive part of the whole project. One person filled in likes and bookmarks, another forgot to record when they checked, and the final review deck ends up with numbers that don't even measure the same thing.
+
+## The four-step campaign data collection workflow
+
+Bulk collection of collaboration posts works best in a fixed order:
+
+1. **Consolidate the links.** One post per row. Drop blank rows and obvious duplicates, and keep the fields you already have, like creator name and publish date.
+2. **Run a small test batch.** Take 10 links first and verify link formats, target fields, the measurement cut-off, how failures are handled, and the export structure.
+3. **Bulk-enrich.** Paste in the full set of post links and process them one by one, adding the body text, public engagement, comments, or account metrics you need.
+4. **Review by hand.** Check the successes and failures, reconcile the odd links and any mismatched definitions, then export to CSV or Markdown, or sync to a Lark (Feishu) Base.
+
+This is the most common scenario for an MCN or brand team: you have the post and video links the creators already published, and you need the results consolidated without opening each one by hand. At the bulk-enrichment step, put the links in a single column (one per line) and paste them into the bulk post scraping entry point in [MediaClaw](/download), which opens and collects each one automatically.
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/single-post/01-小红书采集一批笔记.webp',
+      alt: 'Bulk scrape icon on the Xiaohongshu post detail page',
+      caption: 'The bulk scrape icon on the post detail page',
+      width: 800,
+      height: 554,
+    },
+    {
+      src: '/imgs/docs/collect/single-post/01-输入框.webp',
+      alt: 'Bulk scrape dialog with a pasted list of post links',
+      caption: 'The bulk scrape dialog — paste your link list, one per line',
+      width: 694,
+      height: 836,
+    },
+  ]}
+/>
+
+## What the finished sheet looks like
+
+Once the data is in, export to CSV or Markdown, or sync to a Lark Base and keep the sync history. One row per collaboration post, with the cover image, title, body, hashtags, like / bookmark / comment counts, and the original link all on the same row, and the individual comments attached to their parent record. That's the shape you can actually run a wrap-up analysis on.
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/19-链接转图片.webp"
+  alt="Campaign wrap-up table synced to a Lark Base, one row per collaboration post"
+  caption="The wrap-up table after syncing to Lark: one row per post, with cover, body, hashtags, public engagement, and the original link all on the same row"
+  width={2838}
+  height={788}
+  size="full"
+/>
+
+Within a batch job you can switch on the enrichment you need: creator follower and like-collection counts (this opens the profile page one extra time, so it's slower), or comments (scroll-loaded up to a limit you set — note that **only the comments visible on the page are collected; collapsed nested replies are not expanded automatically**). Jobs support waiting, cooldown, and cancellation. Don't try to finish everything in one run — split large volumes into batches, and keep the failed records so you can review them afterwards.
+
+For a single post, you can also pull the body and public engagement through the [Xiaohongshu scraping feature](/xiaohongshu/scraper) or the [Douyin scraping feature](/douyin/scraper).
+
+## When a campaign review actually needs comment detail
+
+If the wrap-up only has to answer whether the posts went live and how the public engagement looked, engagement totals on the main sheet are enough. You need comment detail when you have to explain _why_ a particular post drove discussion, what users were asking, or what reservations they raised — a second layer of evidence for the review.
+
+Comments don't require a separate run. During bulk enrichment, turn on "collect comments" inside scrape enhancement in the same bulk dialog, set a comment load limit, and the comments come back alongside the body and engagement data for every collaboration link. Again, **only the first- and second-level comments visible on the page are collected; collapsed nested replies aren't expanded**.
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/comments/01-采集单篇作品评论.webp',
+      alt: 'Collecting the comments on a single post',
+      caption: 'Collecting comments on a single post',
+      width: 798,
+      height: 786,
+    },
+    {
+      src: '/imgs/docs/collect/comments/01-采集增强批量采集多篇评论.webp',
+      alt: 'Scrape enhancement settings for collecting comments across many posts',
+      caption:
+        'Scrape enhancement — collecting comments across many posts at once',
+      width: 794,
+      height: 1440,
+    },
+  ]}
+/>
+
+When the job finishes, the comments are merged onto the record for the post they belong to — open the record and you see every comment saved for that collaboration post.
+
+<DocImage
+  src="/imgs/docs/brand/handoff/01-采集评论后查看.webp"
+  alt="Collected comments merged under the matching post record"
+  caption="Collected comments are merged under the matching post record and can be read directly"
+  width={802}
+  height={384}
+/>
+
+If you want to take the comment data further — clustering sentiment or mining the next round of topics — see [how to export comments and mine viral topics with AI](/blog/xiaohongshu-comment-topic-mining) and [reviewing influencer campaign feedback across posts](/blog/xiaohongshu-comment-batch-export-campaign-review).

@@ -78,3 +78,7 @@ package-lock.json
 
 # Runtime image uploads (no-storage local fallback)
 /public/uploads/
+
+# Python bytecode from skill scripts (.claude/skills/**/scripts/*.py)
+__pycache__/
+*.pyc

@@ -17,8 +17,11 @@ import {
  * local posts via the pure helpers below.
  */
 export const BLOG_POST_SLUGS = [
+  'batch-collection',
+  'campaign-data-collection',
   'douyin-comment-export',
   'douyin-data-collection',
+  'influencer-screening',
   'xiaohongshu-ai-benchmark-to-draft',
   'how-to-copy-viral-short-videos',
   'local-business-xiaohongshu-marketing',

@@ -123,6 +123,20 @@
 - **H1**: 抖音视频口播逐字稿，一键提取
 - **H2**: 两条提取路径，按你的量和场景选 ｜ 拿到逐字稿之后，能做什么 ｜ 常见问题 ｜ 🤔 猜你感兴趣 ｜ 挑一条对标，先提一次逐字稿
 
+### /features/codex-integration
+
+- **T** (34): 小红书/抖音 MCP\_把社媒数据接入 Codex 的采集 Skill
+- **D** (92): 为 Codex 提供小红书、抖音的 MCP Server 和一套内容研究 Skill：40+ 工具负责采集笔记、视频、评论和账号数据，12 套方法负责拆解、选题和成稿，不用写配置文件。
+- **H1**: 把小红书、抖音数据接进 Codex：一个 MCP，一套内容研究 Skill
+- **H2**: 接进 Codex 之后，一句话能跑完什么 ｜ 怎么接：三步装好，全程不开终端、不写配置文件 ｜ 装进 Codex 的是什么 ｜ 这五件事，它必须先问你 ｜ Codex、WorkBuddy、豆包工作怎么选 ｜ 常见问题 ｜ 🤔 猜你感兴趣 ｜ 今天就让 Codex 拿到真实的小红书、抖音数据
+
+### /features/workbuddy-integration
+
+- **T** (38): 小红书/抖音 MCP\_把社媒数据接入 WorkBuddy 的采集 Skill
+- **D** (96): 为 WorkBuddy 提供小红书、抖音的 MCP Server 和一套内容研究 Skill：40+ 工具负责采集笔记、视频、评论和账号数据，12 套方法负责拆解、选题和成稿，不用写配置文件。
+- **H1**: 把小红书、抖音数据接进 WorkBuddy：一个 MCP，一套内容研究 Skill
+- **H2**: 接进 WorkBuddy 之后，一句话能跑完什么 ｜ 怎么接：三步装好，全程不开终端、不写配置文件 ｜ 装进 WorkBuddy 的是什么 ｜ 这五件事，它必须先问你 ｜ Codex、WorkBuddy、豆包工作怎么选 ｜ 常见问题 ｜ 🤔 猜你感兴趣 ｜ 今天就让 WorkBuddy 拿到真实的小红书、抖音数据
+
 ### /features/feishu-integration
 
 - **T** (31): 飞书多维表格集成 - 社媒数据自动同步 | MediaClaw
@@ -257,3 +271,17 @@
 - **D** (140): Automatically sync Xiaohongshu and Douyin scraped data, comment leads, and monitoring reports to Lark Base. No code — free Chrome extension.
 - **H1**: MediaClaw × Lark Base
 - **H2**: Lark Base Capabilities at a Glance ｜ Who Uses Lark Base Integration? ｜ Frequently Asked Questions ｜ Explore Related Tools ｜ Turn Scraped Data into Team Intelligence
+
+### /en/features/codex-integration
+
+- **T** (52): RedNote & Douyin MCP Server for Codex - Data + Skill
+- **D** (159): Give Codex a RedNote (Xiaohongshu) and Douyin MCP server plus a research skill: 40+ tools collect posts, videos and comments; 12 methods turn them into drafts.
+- **H1**: Bring RedNote & Douyin data into Codex: one MCP, one research skill
+- **H2**: What one sentence gets you once Codex is connected ｜ Getting connected: three steps, no terminal, no config file ｜ What actually gets installed ｜ Five things it must ask you first ｜ Codex, WorkBuddy or Doubao for Work ｜ Frequently Asked Questions ｜ 🤔 You might also like ｜ Give Codex real RedNote and Douyin data today
+
+### /en/features/workbuddy-integration
+
+- **T** (56): RedNote & Douyin MCP Server for WorkBuddy - Data + Skill
+- **D** (163): Give WorkBuddy a RedNote (Xiaohongshu) and Douyin MCP server plus a research skill: 40+ tools collect posts, videos and comments; 12 methods turn them into drafts.
+- **H1**: Bring RedNote & Douyin data into WorkBuddy: one MCP, one research skill
+- **H2**: What one sentence gets you once WorkBuddy is connected ｜ Getting connected: three steps, no terminal, no config file ｜ What actually gets installed into WorkBuddy ｜ Five things it must ask you first ｜ Codex, WorkBuddy or Doubao for Work ｜ Frequently Asked Questions ｜ 🤔 You might also like ｜ Give WorkBuddy real RedNote and Douyin data today

@@ -1,6 +1,7 @@
 export type HubIconName =
   | 'audio'
   | 'bot'
+  | 'codex'
   | 'database'
   | 'download'
   | 'imageText'
@@ -10,8 +11,10 @@ export type HubIconName =
   | 'monitoring'
   | 'reports'
   | 'sparkles'
+  | 'feishu'
   | 'table'
   | 'trending'
+  | 'workbuddy'
   | 'users'
   | 'workflow';
 

@@ -57,22 +57,19 @@ Expect large wins — a typical 2.5–3 MB retina PNG screenshot lands around 15
 
 Video must never stay committed under `public/` — it's large and this project hosts tutorial/demo video on Cloudflare R2 instead (see the existing `https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4` referenced across `src/content/posts/*.mdx`).
 
-**Do not ask the user for R2 access keys.** The admin-panel `/admin/settings` → Storage → R2 fields are a dead end for this — the local DB has no `r2_*` rows configured. The real mechanism: `wrangler` in this repo is already OAuth-authenticated to the Cloudflare account that owns an R2 bucket named **`mediaclaw-media`** (confirmed 2026-07-30 — this is what `media.mediaclaw.app` points at). Upload directly:
+**Do not ask the user for R2 access keys.** The admin-panel `/admin/settings` → Storage → R2 fields are a dead end for this — the local DB has no `r2_*` rows configured. The real mechanism: `wrangler` in this repo is already OAuth-authenticated to the Cloudflare account that owns an R2 bucket named **`mediaclaw-media`** (confirmed 2026-07-30 — this is what `media.mediaclaw.app` points at).
+
+**Use the `publish-r2-media` skill for the upload** — it wraps the existence check, headers, and verification, and avoids the cached-404 trap described there:
 
 ```bash
-npx wrangler r2 object put "mediaclaw-media/videos/docs/<slug>/<NN>-<ascii-slug>.mp4" \
-  --file="public/imgs/docs/<slug>/<NN-original-filename>.mp4" \
-  --content-type="video/mp4" \
-  --remote
+python3 .claude/skills/publish-r2-media/scripts/publish_r2_media.py \
+  --file "public/imgs/docs/<slug>/<NN-original-filename>.mp4" \
+  --key "videos/docs/<slug>/<NN>-<ascii-slug>.mp4"
 ```
 
-Use a short ASCII slug for the key (translate the description) rather than reusing the Chinese local filename — the key becomes a public URL segment. Verify before wiring it in:
+Use a short ASCII slug for the key (translate the description) rather than reusing the Chinese local filename — the key becomes a public URL segment.
 
-```bash
-curl -sI "https://media.mediaclaw.app/videos/docs/<slug>/<NN>-<ascii-slug>.mp4"
-```
-
-Expect `HTTP/2 200` and a `content-length` matching the local file size. Then wire that full URL into the slot's `src` and delete the local mp4.
+Two rules if you upload by hand with `npx wrangler r2 object put` instead: **never `curl` the key beforehand** to see if it's free (that caches a 404 on the URL you're about to publish — check with `wrangler r2 object get ... --file /dev/null --remote`), and **never verify with `curl -sI`** — HEAD returns a misleading `200` against a poisoned URL. Verify with a real GET and compare bytes against the local file. Then wire that full URL into the slot's `src` and delete the local mp4.
 
 ## Step 6 — Bilingual captions
 

@@ -428,6 +428,8 @@ it when the task matches:
 | `new-static-page`             | Static MDX page (legal, about, etc.)                                                                                                |
 | `generate-image`              | AI-generate a decorative image for a page/block                                                                                     |
 | `create-mediaclaw-blog-cover` | Create or revise a review-first blog cover, then publish the approved WebP only through the authenticated image API to R2           |
+| `publish-r2-media`            | Put an asset on `media.mediaclaw.app` — key conventions, headers, byte-verified publish, cached-404 trap                            |
+| `docs-media`                  | Process one finalized `/docs` page's screenshots/recordings — WebP, R2 video, bilingual captions                                    |
 | `security-scan`               | **Before every git commit** — secrets, vulns, ignore gaps                                                                           |
 | `launch-audit`                | Whole-project sweep on one axis — responsive, light/dark theme, SEO, performance (Lighthouse), or security; run `all` before deploy |
 | `sync-upstream`               | Pull latest template updates; local changes win on conflict                                                                         |

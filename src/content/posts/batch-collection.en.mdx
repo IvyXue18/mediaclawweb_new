@@ -1,0 +1,166 @@
+export const meta = {
+  platform: 'both',
+  title:
+    'Bulk Scraping on Xiaohongshu & Douyin: Creators, Links, or Keywords — Which Entry Point to Use',
+  description:
+    'Not sure which bulk scraping entry point to pick on Xiaohongshu (RedNote) and Douyin? Match what you already have — a list of creator profiles, a list of post links, or a set of keywords — to the right batch job, and see exactly what each one returns.',
+  created_at: '2026-08-27',
+  author_name: 'MediaClaw Team',
+  author_image: '/logo.png',
+  image: '/imgs/features/2-v20260309.webp',
+  tags: [
+    'Xiaohongshu',
+    'Douyin',
+    'bulk scraping',
+    'creator scraping',
+    'keyword scraping',
+  ],
+};
+
+Bulk scraping works the same way on Xiaohongshu (RedNote) and Douyin. This post uses Xiaohongshu as the example; the Douyin steps are identical, and the few differences are called out where they matter. Choosing an entry point is straightforward: look at what you already have in hand. A list of creators means you're working with **people**. A list of post links means you're working with **content that's already decided**. A set of keywords means you're working with a **market you haven't mapped yet**.
+
+## The 3 bulk scraping entry points, and how to choose
+
+What separates the three is the input you start from and where the job ends. When you already have a list, you're collecting. When you don't, you're discovering.
+
+| What you have         | Entry point         | What you mainly get                                                 | Typical use                                      |
+| --------------------- | ------------------- | ------------------------------------------------------------------- | ------------------------------------------------ |
+| A batch of profiles   | Bulk creator scrape | Public profile info and post lists, with optional detail enrichment | First-pass creator screening, benchmark accounts |
+| A batch of post links | Bulk post scrape    | Each post, plus optional comments and creator metrics               | Campaign wrap-ups, archiving specific content    |
+| A set of keywords     | Bulk keyword scrape | Search result listings, with optional detail enrichment             | Market scans, topic sampling                     |
+
+Douyin adds a fourth entry point on top of these three: **collections** (合集), which fits serialized courses, ongoing series, and episodic short drama. A collection can only be opened from the "Collections" tab on the account's profile page — that's the only path the extension can reliably identify. Opening a single episode inside a collection won't register as one. This post covers the three methods both platforms share: creators, links, and keywords.
+
+<DocImage
+  src="/imgs/docs/collect/douyin-collection/01-抖音账号主页找到合集.webp"
+  alt="Finding the Collections tab on a Douyin account profile page"
+  caption="Find the Collections entry on the Douyin account profile — a collection has to be opened from here, not from an individual episode inside it"
+  width={1600}
+  height={764}
+/>
+
+## You have a creator list: bulk creator scraping
+
+Open one creator profile first and look at what a single account lets you configure. A batch job is really just the same set of conditions applied across many profiles:
+
+1. **Post load limit** — this isn't the final number you'll collect; it's how many posts get scanned up front. Everything below filters that scanned set further.
+2. **Like threshold** — out of the posts that loaded, keep only the ones above the number you set.
+3. **Topic keyword filter** — match keywords against the title, body, and tags; only matches are kept. This is what you want when a creator has hundreds of posts and you only need the ones on a specific subject (say, only the posts about rice wine). Without scrape enhancement enabled, the match runs against titles only.
+4. **Scrape enhancement** — a basic scrape only takes what's visible on the listing page. With enhancement on, each post is opened individually to pull the full body, engagement figures, and image/video links. You can also add the creator's follower and like-collection counts (this opens the profile page one extra time, so it's slower), or add comments — which you can then filter down to [high-intent leads in the comment section](/xiaohongshu/leads).
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/account-posts/03-topic-filter-setting.webp',
+      alt: 'Entering a topic keyword to filter a creator’s posts',
+      caption:
+        'Enter the keyword "rice wine" to keep only the posts on that topic',
+      width: 834,
+      height: 1892,
+    },
+    {
+      src: '/imgs/docs/collect/account-posts/03-topic-filter-matched-notes.webp',
+      alt: 'Posts on the creator profile matching the topic keyword',
+      caption: 'The posts on the profile that matched the "rice wine" keyword',
+      width: 848,
+      height: 1924,
+    },
+  ]}
+/>
+
+Native platform filters and extension filters stack rather than compete. A Douyin profile can be filtered by publish month; Xiaohongshu profiles have no native filter at all — that's what decides which batch of posts the profile loads in the first place. The extension's load limit, like threshold, and topic filter then run a second pass on top of whatever loaded.
+
+To run this across many profiles, you don't open them one by one. Collect the profile URLs into a list (one per line), paste it into the bulk scrape dialog, and MediaClaw opens and scrapes each one in turn.
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/account-posts/02-batch-collect-icon.webp',
+      alt: 'Bulk scrape icon on the post detail page',
+      caption: 'The bulk scrape icon on the post detail page',
+      width: 828,
+      height: 1210,
+    },
+    {
+      src: '/imgs/docs/collect/account-posts/02-batch-collect-dialog.webp',
+      alt: 'Bulk scrape dialog with a pasted list of profile links',
+      caption: 'The bulk scrape dialog — paste your link list, one per line',
+      width: 782,
+      height: 1066,
+    },
+  ]}
+/>
+
+<Callout type="danger">
+  A single profile already means scraping many posts at once; multiple profiles
+  means a much larger, longer-running job. That carries real account risk — use
+  it deliberately.
+</Callout>
+
+This is where the bulk creator entry point in [MediaClaw](/download) comes in; the underlying capabilities are described on the [Xiaohongshu scraper page](/xiaohongshu/scraper) and the [Douyin scraper page](/douyin/scraper).
+
+## You have post links: bulk scraping posts or videos
+
+Scraping by link suits jobs where the list is already fixed — an MCN or brand team that has the published post and video links from the creators they worked with, and needs the results consolidated without opening every one by hand:
+
+1. Put the original post links in a single column, keeping the source and ownership fields you already have.
+2. Open the bulk scrape entry point and paste the link list, one per line.
+3. Turn on the enrichment you need: creator follower and like-collection counts (this opens the profile page), or comments — note that **only the comments visible on the page are collected; collapsed nested replies are not expanded automatically**.
+4. Review the successes and failures, check the anomalies, then export to CSV or Markdown, or sync to a Lark (Feishu) Base.
+
+<DocImage
+  src="/imgs/docs/collect/single-post/01-输入框.webp"
+  alt="Bulk scrape dialog with a list of post links pasted in"
+  caption="The bulk scrape dialog — paste your link list, one per line"
+  width={694}
+  height={836}
+/>
+
+## You only have keywords: bulk keyword scraping
+
+Keyword batches start from a set of search terms, which fits the stage where you haven't pinned down specific accounts or posts yet. Once the search results page is open, filtering happens in two independent layers:
+
+- **Native platform filters** decide which sample the extension can see at all. Xiaohongshu lets you sort by newest / most liked / most commented / most bookmarked, and filter by post type, publish date, and location distance (very useful for local businesses). Douyin lets you sort by newest / most liked, and filter by publish date, video length, and content format.
+- **Extension filters** run a second pass on that sample: keyword post load limit (the initial scan size), like threshold (keep only what's above your number), and scrape enhancement (follower and like-collection counts, comments).
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/collect/search-results/01-douyin-native-filter.webp',
+      alt: 'Native filter panel on the Douyin search results page',
+      caption: 'Douyin’s native filter panel on the search results page',
+      width: 1600,
+      height: 885,
+    },
+    {
+      src: '/imgs/docs/collect/search-results/01-xiaohongshu-native-filter.webp',
+      alt: 'Native filter panel on the Xiaohongshu search results page',
+      caption: 'Xiaohongshu’s native filter panel on the search results page',
+      width: 1600,
+      height: 880,
+    },
+  ]}
+/>
+
+There's one detail worth knowing when the two layers stack: the extension's threshold follows the platform's sort metric. Sort by bookmarks and the threshold filters on bookmark count; sort by comments and it filters on comment count. So if you want to find outliers on a particular metric, switch the platform's sort to that metric first. Turn on follower-count enrichment as well, and the like threshold becomes a way to surface **low-follower breakouts** — accounts without much of an audience whose individual posts perform unusually well, which says far more about the content itself than raw like counts do.
+
+For many keywords at once — bulk keyword research, for instance — you don't search them one at a time. Put the keywords in a list (one per line), paste it into the bulk dialog, and MediaClaw runs each search and scrapes the results.
+
+<Callout type="danger">
+  A single search term already means scraping many posts; multiple terms means a
+  much larger, longer-running job with higher account risk. Use it deliberately.
+</Callout>
+
+<DocImage
+  src="/imgs/docs/collect/search-results/02-batch-keyword-dialog.webp"
+  alt="Bulk keyword dialog with one keyword per line"
+  caption="The bulk keyword dialog — one keyword per line"
+  width={842}
+  height={1098}
+/>
+
+## Wrapping up
+
+Three entry points, three starting points: a creator list goes to bulk creator scraping, a set of post links goes to bulk post scraping, and a direction with nothing concrete yet starts from keywords. Each one has the same two filtering layers — native platform filters and extension filters — stacked on top of each other. And whichever entry point you use, batch jobs across many posts or accounts carry more account risk than scraping one post at a time, so run a small batch first before scaling up.
+
+If you already have a short list of profiles, links, or keywords, [download MediaClaw](/download) and try a small run.

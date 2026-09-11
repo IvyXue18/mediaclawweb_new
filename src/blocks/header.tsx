@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ComponentType } from 'react';
 import {
   ArrowUpRight,
   AudioLines,
@@ -38,7 +38,13 @@ import {
 } from '@/lib/client-analytics';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
-import { DouyinIcon, XiaohongshuIcon } from '@/components/brand-icons';
+import {
+  CodexIcon,
+  DouyinIcon,
+  FeishuIcon,
+  WorkBuddyIcon,
+  XiaohongshuIcon,
+} from '@/components/brand-icons';
 import { LocaleSelector } from '@/components/locale-selector';
 import { SiteUserMenu } from '@/components/site-user-menu';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -225,10 +231,22 @@ function getNavItems(): NavItem[] {
         title: m['site.header.integrations_collaboration'](),
         children: [
           {
+            title: m['site.header.codex_integration'](),
+            description: m['site.header.codex_integration_desc'](),
+            url: '/features/codex-integration',
+            icon: 'Codex',
+          },
+          {
+            title: m['site.header.workbuddy_integration'](),
+            description: m['site.header.workbuddy_integration_desc'](),
+            url: '/features/workbuddy-integration',
+            icon: 'WorkBuddy',
+          },
+          {
             title: m['site.header.feishu_integration'](),
             description: m['site.header.feishu_integration_desc'](),
             url: '/features/feishu-integration',
-            icon: 'Table2',
+            icon: 'Feishu',
           },
         ],
       },
@@ -278,7 +296,10 @@ function getNavItems(): NavItem[] {
   ];
 }
 
-const navIconMap: Record<string, LucideIcon> = {
+const navIconMap: Record<
+  string,
+  LucideIcon | ComponentType<{ className?: string }>
+> = {
   AudioLines,
   BookOpen,
   BookText,
@@ -301,6 +322,9 @@ const navIconMap: Record<string, LucideIcon> = {
   TrendingUp,
   UserCheck,
   UserSearch,
+  Codex: CodexIcon,
+  Feishu: FeishuIcon,
+  WorkBuddy: WorkBuddyIcon,
 };
 
 function SmartIcon({ name, className }: { name?: string; className?: string }) {

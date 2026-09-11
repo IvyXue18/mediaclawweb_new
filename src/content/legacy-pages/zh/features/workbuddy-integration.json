@@ -1,0 +1,413 @@
+{
+  "metadata": {
+    "title": "小红书/抖音 MCP_把社媒数据接入 WorkBuddy 的采集 Skill",
+    "description": "为 WorkBuddy 提供小红书、抖音的 MCP Server 和一套内容研究 Skill：40+ 工具负责采集笔记、视频、评论和账号数据，12 套方法负责拆解、选题和成稿，不用写配置文件。",
+    "keywords": "小红书 MCP, 抖音 MCP, MCP Server, WorkBuddy MCP, WorkBuddy Skill, CodeBuddy 插件, 小红书数据接入 WorkBuddy, WorkBuddy 采集小红书, 小红书数据采集, 社媒虾"
+  },
+  "page": {
+    "title": "WorkBuddy 接入",
+    "description": "把小红书、抖音数据接进 WorkBuddy，用一个 MCP Server 和一套内容研究 Skill 完成采集、拆解与成稿。",
+    "show_sections": [
+      "hero",
+      "tasks",
+      "setup",
+      "stack",
+      "confirm",
+      "hosts",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "WorkBuddy 接入",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "集成能力"
+          },
+          {
+            "title": "WorkBuddy 接入"
+          }
+        ],
+        "title": "把小红书、抖音数据接进 WorkBuddy：一个 MCP，一套内容研究 Skill",
+        "description": "社媒虾给 WorkBuddy 提供两样东西：一个小红书/抖音 MCP Server，40+ 工具负责采集笔记、视频、评论和账号数据并做去重统计；一套内容研究 Skill，12 套写好的方法负责拆解、选题和成稿。接好之后你不用研究该采什么数据，也不用记任何命令，说清楚你在做什么、卡在哪里就行。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "查看接入文档",
+            "url": "/docs/agent/setup",
+            "icon": "BookOpen",
+            "variant": "outline"
+          }
+        ]
+      },
+      "tasks": {
+        "id": "tasks",
+        "block": "features-scroll",
+        "title": "接进 WorkBuddy 之后，一句话能跑完什么",
+        "description": "下面都是社媒虾 Agent 的真实运行记录，指令可以直接复制。三个宿主用的是同一套 MCP 工具和方法，产出一致——截图里的对话界面可能和你的不一样，交回来的东西是一样的。",
+        "items": [
+          {
+            "title": "一条爆款的评论区，直接变成选题清单",
+            "description": "评论区一眼看过去全是需求，但一条条翻没头绪。把链接丢给它：322 条评论去重成 280 条独立文本，其中 99 条属明确需求（35.4%），按「工具费用 / 视频文字版 / 从零教程 / 落地难」归类，最后给带优先级的选题和一份多页表格。",
+            "icon": "MessageSquareText",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/01-采集评论分析选题.webp",
+              "alt": "把小红书评论区采集结果整理成带优先级的选题清单与多页表格"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "同一个话题，小红书和抖音一起看",
+            "description": "自己一条条刷，很容易把某个博主的个别演示当成官方新功能。交给它：先确认关键词到底指哪个产品，复用小红书已有样本、只补采抖音，最后把最近玩法归成 7 类，每类给代表内容和官方更新日志链接。",
+            "icon": "Globe",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/03-内容桌面调研-2.webp",
+              "alt": "跨小红书与抖音完成主题调研，把近期玩法归成七类并给出出处"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "追热点时，只要今天刚发的",
+            "description": "「看下今天发布的 <关键词> 相关的小红书内容。」截至 23:48 扫到 80 条当日内容，按内容方向归类，列出当前表现靠前的作品。把这句话挂成每天跑的定时任务，就是一个轻量监控。",
+            "icon": "Timer",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/04-最新主题内容获取.webp",
+              "alt": "只抓取当天最新的小红书内容并按方向归类"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "研究结论不留在对话框里，落进你的文档",
+            "description": "这是插件单独做不到的一件事。「把这些评论整理到 <知识库文件路径>，再把结论写到文档开头。」1000 条评论明细连点赞、地区、时间一起进文档，开头写核心结论、主题信号、分歧和未满足需求——动笔前先给你一份可审核的改动。三个月后你还能直接问这份库。",
+            "icon": "FolderKanban",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/06-评论分析写入本地知识库-2.webp",
+              "alt": "把评论分析结论写进本地知识库文档，开头是核心结论与新选题"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "setup": {
+        "id": "setup",
+        "block": "features-scroll",
+        "title": "怎么接：三步装好，全程不开终端、不写配置文件",
+        "description": "WorkBuddy 和 Codex 一样支持全自动安装。你只做两件事：复制一段提示词，回插件点一次批准。",
+        "items": [
+          {
+            "title": "第一步：在插件里复制安装提示词",
+            "description": "插件右上角「系统配置 → Agent 接管」，先打开「允许本机 Agent 调用社媒虾」，再展开「连接 Agent」，点 WorkBuddy 那行的「复制安装提示词」。提示词里已经写好官方来源、WorkBuddy 的插件管理器命令和修复步骤，你不需要看懂，也不需要改。",
+            "icon": "Chrome",
+            "image": {
+              "src": "/imgs/features/agent-setup-1-v20260911.webp",
+              "alt": "社媒虾插件的 Agent 接管页：打开本机调用开关并复制 WorkBuddy 安装提示词"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "第二步：发给 WorkBuddy，它自己装",
+            "description": "在 WorkBuddy 新建对话原样发送。它会通过自己的插件管理器注册官方 marketplace、安装接入包，识别 Windows／macOS／Linux 和 x64／ARM64，获取并校验对应运行时；遇到旧安装器遗留的同名 MCP 配置会先说明再移除，不会留下两份。",
+            "icon": "Bot",
+            "image": {
+              "src": "/imgs/features/agent-setup-wb-2-v20260911.webp",
+              "alt": "把社媒虾安装提示词原样发给 WorkBuddy，由它自己完成安装"
+            },
+            "button": {
+              "title": "查看接入文档",
+              "url": "/docs/agent/setup"
+            }
+          },
+          {
+            "title": "第三步：回插件批准，它自己复查",
+            "description": "插件的 Agent 接管页会出现待批准设备，核对名称和设备指纹后点「批准配对」。这次跑完 2 分 49 秒，设备「MediaClaw Agent (WorkBuddy)」已授权，它自己复查连接并把能直接交给它的任务讲了一遍——你不需要回复「已批准」。",
+            "icon": "ShieldCheck",
+            "image": {
+              "src": "/imgs/features/agent-setup-wb-3-v20260911.webp",
+              "alt": "WorkBuddy 配对成功：设备已授权并展示首次欢迎与可直接交办的任务"
+            },
+            "button": {
+              "title": "查看接入文档",
+              "url": "/docs/agent/setup"
+            }
+          }
+        ]
+      },
+      "stack": {
+        "id": "stack",
+        "block": "features",
+        "title": "装进 WorkBuddy 的是什么",
+        "description": "一次安装带进来两样东西。它们分别回答「数据从哪来」和「拿到之后按什么步骤做」，再加上你自己的资料，才凑得齐。",
+        "items": [
+          {
+            "title": "MCP Server：数据从哪来",
+            "description": "40+ 个工具挂在 WorkBuddy 的工具列表里，走标准 STDIO 传输。它调哪个、调几次由任务决定，你不用指定。",
+            "icon": "Boxes",
+            "features": [
+              "内容侧：笔记、视频、主页作品、搜索结果、评论",
+              "增强侧：补详情、图片文字识别、视频逐字稿",
+              "研究侧：关键词扫描与长尾扩展、账号扫描、对标账号发现",
+              "复用侧：直接读插件里已存的采集记录、分析结果和风格档案"
+            ]
+          },
+          {
+            "title": "内容研究 Skill：拿到之后按什么步骤做",
+            "description": "12 套写死的方法，覆盖从「这个赛道值不值得做」到「这篇稿能不能发」。它按方法走，不会拿到数据就开始自由发挥。",
+            "icon": "Brain",
+            "features": [
+              "先判断：关键词趋势、长尾需求、对标账号、账号策略、近期爆款",
+              "再拆解：单篇内容的选题、结构、表达和互动信号",
+              "后产出：选题、内容任务书、大纲、成稿、按你的风格适配",
+              "交付前自查：结论有没有证据、有没有把猜测写成事实、像不像得过头"
+            ]
+          },
+          {
+            "title": "你的资料：凭什么是你写的",
+            "description": "一个本地 Markdown 文件夹就够，Obsidian、Notion、飞书也行。平台上正在发生什么由社媒虾提供，你是谁只有你的库知道。",
+            "icon": "FileSearch",
+            "features": [
+              "交集才是选题：平台有人要 ∩ 你还没写过",
+              "素材对不上就直说缺什么，不拿通用例子顶",
+              "每次研究落回文档，下次直接问库而不是重跑采集"
+            ]
+          }
+        ]
+      },
+      "confirm": {
+        "id": "confirm",
+        "block": "data-table",
+        "title": "这五件事，它必须先问你",
+        "description": "批准配对只是允许 WorkBuddy 连接社媒虾，不等于批准后续所有采集。",
+        "columns": [
+          {
+            "key": "action",
+            "title": "动作"
+          },
+          {
+            "key": "before",
+            "title": "它会先给你什么"
+          },
+          {
+            "key": "after",
+            "title": "你确认之后"
+          }
+        ],
+        "rows": [
+          {
+            "action": "采集账号",
+            "before": "一份采集方案：目标、字段、范围、分几批、风险等级",
+            "after": "才开始执行，且只执行方案里写明的批次"
+          },
+          {
+            "action": "视频逐字稿",
+            "before": "一份报价：每条预计多少积分、总额、余额、有效期",
+            "after": "才开始提取，已经提过的项目不重复扣分"
+          },
+          {
+            "action": "批量补详情",
+            "before": "这次要补的范围",
+            "after": "才进详情页补采"
+          },
+          {
+            "action": "清理数据",
+            "before": "影响范围：多少条记录、评论、逐字稿，预计腾出多少空间",
+            "after": "才执行删除"
+          },
+          {
+            "action": "评论私信",
+            "before": "一份收件人名单和话术",
+            "after": "还要回插件的「采集与获客 → 评论获客」做最终确认"
+          }
+        ]
+      },
+      "hosts": {
+        "id": "hosts",
+        "block": "data-table",
+        "title": "Codex、WorkBuddy、豆包工作怎么选",
+        "description": "三个宿主用的是同一个接入包、同一套 MCP 工具和同一套 Skill，区别只在怎么装、能不能自动升级。",
+        "columns": [
+          {
+            "key": "host",
+            "title": "宿主"
+          },
+          {
+            "key": "install",
+            "title": "安装方式"
+          },
+          {
+            "key": "update",
+            "title": "自动升级"
+          },
+          {
+            "key": "note",
+            "title": "说明"
+          }
+        ],
+        "rows": [
+          {
+            "host": "Codex",
+            "install": "发提示词，自动装到底",
+            "update": "✓",
+            "note": "流程与 WorkBuddy 相同"
+          },
+          {
+            "host": "WorkBuddy",
+            "install": "发提示词，自动装到底",
+            "update": "✓",
+            "note": "装完完全退出并重新打开 WorkBuddy 才算激活"
+          },
+          {
+            "host": "豆包工作",
+            "install": "手动新建 STDIO 连接器，Agent 会把要填的内容整理好给你",
+            "update": "—",
+            "note": "目前没有自动安装入口，升级需要手动重做一次"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "装完为什么一定要重开 WorkBuddy？",
+            "answer": "宿主不会给正在运行的对话热加载新的 Skill 和 MCP。安装记录变了、但旧进程还在跑，不算装好——在同一个进程里新建对话也不算。完全退出再打开，Agent 会自己复查当前运行版本，确认等于目标版本才宣布升级完成，并接着做你原来没做完的事。"
+          },
+          {
+            "question": "用 WorkBuddy 指挥它，模型额度扛得住吗？",
+            "answer": "比让 Agent 自己开浏览器一页页点要省得多。采集、翻页、等平台限频冷却全在插件里跑，不占宿主的模型额度，插件只把整理好的结构化结果交回去。额度花在三件事上：读懂你的要求、发起调用并读回结果、做分析和写稿。另外它会先复用已有数据再决定要不要新采，大的返回先给摘要和预览，要细节才分页读。"
+          },
+          {
+            "question": "这是 MCP 吗？要去 WorkBuddy 的插件管理器里手动配吗？",
+            "answer": "是标准 MCP 接入（STDIO 传输），但你不需要手动配。把插件里复制的安装提示词发给它，它会通过 WorkBuddy 自己的插件管理器注册官方 marketplace、安装接入包，再识别系统和芯片、获取并校验对应运行时。"
+          },
+          {
+            "question": "我以前手动配过 mediaclaw，会不会冲突？",
+            "answer": "不会留下两份。如果检测到旧安装器遗留的用户级同名 mediaclaw MCP 配置，它会先说明再移除冲突项，确保用的是正式插件。仅仅下载了仓库、写了配置或跑通一次临时 MCP 握手，都不算安装成功——它以插件管理器里真实列出工具为准。"
+          },
+          {
+            "question": "接进 WorkBuddy 之后，浏览器插件还要开着吗？",
+            "answer": "要。接入包不能单独使用，也替代不了插件。所有页面访问都通过你自己浏览器里的插件完成，用的是你已经登录的账号会话；Agent 只能动你在插件里批准过的那些能力。"
+          },
+          {
+            "question": "采集范围和积分怎么控制？",
+            "answer": "批准配对只是允许连接。真要新采时它会先讲清来源、时间范围、总量、要读哪些内容和费用边界，等你点头；逐字稿这类计费能力还会单独报一次预计积分和余额。回「可以」「好」「开始吧」都算确认，不需要固定口令；多组搜索可以一次同意后连着跑。沉默不算同意，超出已授权范围的变化会重新问。"
+          },
+          {
+            "question": "我的登录态和数据安全吗？",
+            "answer": "采集在你自己的浏览器里进行，登录态不会交给 Agent。不要在对话、Issue 或日志里贴 Cookie、Token、激活码和设备私钥，Agent 也不会向你要这些。撤销某个 Agent 的授权不影响其他已批准的 Agent。"
+          },
+          {
+            "question": "免费能用吗？",
+            "answer": "浏览器插件本身免费。Agent 接管需要有效会员；视频逐字稿这类计费能力还需要足够积分并在执行前确认。Agent 侧的分析、生成和报告输出本身不消耗社媒虾积分。"
+          },
+          {
+            "question": "和 Codex、豆包工作有什么区别？",
+            "answer": "能力完全一样，都是同一个接入包、同一套 MCP 工具和 Skill。WorkBuddy 和 Codex 都能把安装和升级全程交给 Agent；豆包工作目前没有自动安装入口，需要你在「技能 · 连接器 · 伙伴」里手动保存一个 STDIO 连接器，也不支持自动升级。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "从接入到把数据用起来，完整路径都在这里。",
+        "links": [
+          {
+            "title": "Agent 是什么、接入后谁负责什么",
+            "description": "三方分工、它干活的固定顺序，以及模型额度都花在哪。",
+            "url": "/docs/agent/overview",
+            "icon": "BookOpen"
+          },
+          {
+            "title": "安装、配对与升级",
+            "description": "三个宿主各自的安装步骤，以及连不上时的排查顺序。",
+            "url": "/docs/agent/setup",
+            "icon": "Workflow"
+          },
+          {
+            "title": "Agent 任务案例",
+            "description": "六个任务的完整指令、采样过程和最终交付物。",
+            "url": "/docs/agent/prompt-examples",
+            "icon": "Sparkles"
+          },
+          {
+            "title": "连接你的知识库",
+            "description": "Obsidian、Notion、飞书、ima 各自怎么接，以及三个文件就能起步的最小库。",
+            "url": "/docs/agent/knowledge-base",
+            "icon": "FolderKanban"
+          },
+          {
+            "title": "Codex 接入",
+            "description": "同一套 MCP 和 Skill，换成 Codex 的安装方式和示例。",
+            "url": "/features/codex-integration",
+            "icon": "Bot"
+          },
+          {
+            "title": "飞书多维表格集成",
+            "description": "另一类集成：把采集结果和监控命中写进多维表格。",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          },
+          {
+            "title": "小红书数据采集",
+            "description": "不接 Agent，直接在插件里批量采集和导出。",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "小红书关键词洞察",
+            "description": "赛道机会判断、对标账号发现与长尾需求挖掘。",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "今天就让 WorkBuddy 拿到真实的小红书、抖音数据",
+        "description": "免费装好插件，把提示词发给 WorkBuddy，装完重开一次就能用。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "variant": "default"
+          },
+          {
+            "title": "查看接入文档",
+            "icon": "BookOpen",
+            "url": "/docs/agent/setup",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

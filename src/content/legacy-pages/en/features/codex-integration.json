@@ -1,0 +1,444 @@
+{
+  "metadata": {
+    "title": "RedNote & Douyin MCP Server for Codex - Data + Skill",
+    "description": "Give Codex a RedNote (Xiaohongshu) and Douyin MCP server plus a research skill: 40+ tools collect posts, videos and comments; 12 methods turn them into drafts.",
+    "keywords": "RedNote MCP, Xiaohongshu MCP, Douyin MCP, MCP server, Codex MCP, Codex skill, agent skill, social data in Codex, RedNote scraper, MediaClaw"
+  },
+  "page": {
+    "title": "Codex Integration",
+    "description": "Bring RedNote and Douyin data into Codex with one MCP server and one content research skill.",
+    "show_sections": [
+      "hero",
+      "tasks",
+      "setup",
+      "stack",
+      "confirm",
+      "hosts",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Codex Integration",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Integrations"
+          },
+          {
+            "title": "Codex Integration"
+          }
+        ],
+        "title": "Bring RedNote & Douyin data into Codex: one MCP, one research skill",
+        "description": "MediaClaw gives Codex two things: a RedNote (Xiaohongshu) and Douyin MCP server whose 40+ tools collect posts, videos, comments and account data and dedupe them into structured results, and a content research skill whose 12 written methods handle teardowns, topic picks and drafting. Describe the goal in plain language; it follows the method, and it can read your local knowledge base at the same time. Before any new collection it states the source, volume and credit cost and waits for your go-ahead.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Read the setup guide",
+            "url": "/docs/agent/setup",
+            "icon": "BookOpen",
+            "variant": "outline"
+          }
+        ],
+        "tip": "You need the MediaClaw browser extension installed and an active membership first. The agent can only use capabilities you approved in the extension, and every page visit still happens in your own browser."
+      },
+      "tasks": {
+        "id": "tasks",
+        "block": "features-scroll",
+        "title": "What one sentence gets you once Codex is connected",
+        "description": "All six are real MediaClaw Agent runs. The prompts are copy-ready — swap what's in angle brackets for your own. Every host runs the same MCP tools and the same methods, so the output is identical; the chat window in these screenshots may not match yours, but what comes back does.",
+        "items": [
+          {
+            "title": "Mine a comment section for topics you can write",
+            "description": "“Pull at least 300 comments from this post, analyse what readers want, and tell me which topics I can take.” 322 comments deduped to 280, 35.4% of them explicit needs, delivered as a prioritized topic list and a multi-sheet workbook.",
+            "icon": "MessageSquareText",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/01-采集评论分析选题.webp",
+              "alt": "Collecting RedNote comments and turning them into ranked topic ideas from Codex"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Find low-follower, high-like accounts",
+            "description": "“I just started an account and don't want to study 300k-follower creators. Find low-follower, high-like posts in this niche and tell me why they worked.” Four small accounts pulled from an 80-post sample, each with followers, top-post performance and what to learn.",
+            "icon": "UserSearch",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/02-找对标账号.webp",
+              "alt": "Codex surfacing low-follower high-like RedNote accounts with what to learn from each"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "See what a topic looks like across both platforms",
+            "description": "“Check what new techniques people are posting about <keyword> on RedNote and Douyin lately.” It pins down which product the keyword means, reuses the existing RedNote sample, back-fills only Douyin, and groups recent patterns into 7 categories with examples.",
+            "icon": "Globe",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/03-内容桌面调研-2.webp",
+              "alt": "Codex running cross-platform topic research and grouping recent patterns into seven categories"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Today's posts only — no last month's hits",
+            "description": "“Show me RedNote posts about <keyword> published today.” 80 latest posts scanned as of 23:48, grouped by content direction with the current top performers listed. Put it on a daily schedule and it becomes lightweight monitoring.",
+            "icon": "Timer",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/04-最新主题内容获取.webp",
+              "alt": "Codex pulling the day's newest RedNote posts and grouping them by direction"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Tear down a video, then get a script you can shoot",
+            "description": "“Why does this video keep people watching? How does the opening land and how does it build? Also turn it into a script I can shoot.” A precise teardown needs the transcript, so it quotes first (16 credits / 40 balance / an expiry), extracts only after you confirm, then returns the structure plus a 90-second script.",
+            "icon": "Video",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/05-视频拆解-2.webp",
+              "alt": "Codex extracting a video's structure and handing back a shoot-ready 90-second script"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Write the findings back into your own knowledge base",
+            "description": "The one thing the extension cannot do alone. “File these comments into <knowledge base path> and put the conclusion at the top.” 1,000 comments land in the document, with core conclusions, theme signals, disagreements and unmet needs up front — and a reviewable diff before anything is written.",
+            "icon": "FolderKanban",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/06-评论分析写入本地知识库-2.webp",
+              "alt": "Codex writing comment analysis into a local knowledge base document, conclusions first"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "setup": {
+        "id": "setup",
+        "block": "features-scroll",
+        "title": "Getting connected: three steps, no terminal, no config file",
+        "description": "OS detection, chip detection, runtime download and checksum verification are all handled by Codex. You do two things: copy a prompt, and approve once.",
+        "items": [
+          {
+            "title": "Step 1: Copy the install prompt from the extension",
+            "description": "Open System settings → Agent access in the extension, turn on “Allow local agents to call MediaClaw”, expand “Connect Agent”, and hit Copy on the Codex row. The prompt already carries the official source, the host's install commands and the repair steps — you do not need to read or edit it.",
+            "icon": "Chrome",
+            "image": {
+              "src": "/imgs/features/agent-setup-1-v20260911.webp",
+              "alt": "MediaClaw's Agent access panel: enabling local agent calls and copying the Codex install prompt"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Step 2: Send it to Codex and let it install itself",
+            "description": "Paste it into a new conversation as-is. It registers the official marketplace, installs the package, detects Windows/macOS/Linux and x64/ARM64, then fetches and verifies the matching runtime. No Node install, no terminal, no picking a .exe — and it lists everything it did when it finishes.",
+            "icon": "Bot",
+            "image": {
+              "src": "/imgs/features/agent-setup-2-v20260911.webp",
+              "alt": "Codex installing and pairing on its own, listing every step it completed"
+            },
+            "button": {
+              "title": "Read the setup guide",
+              "url": "/docs/agent/setup"
+            }
+          },
+          {
+            "title": "Step 3: Approve the pairing back in the extension",
+            "description": "A pending device appears in the Agent access tab. Check the device name and fingerprint, hit Approve, and Codex re-checks the connection by itself — no need to reply “approved”. Each agent is approved separately, and revoking one leaves the others alone.",
+            "icon": "ShieldCheck",
+            "image": {
+              "src": "/imgs/features/agent-setup-3-v20260911.webp",
+              "alt": "Verifying the device fingerprint and approving the Codex pairing in MediaClaw"
+            },
+            "button": {
+              "title": "Read the setup guide",
+              "url": "/docs/agent/setup"
+            }
+          }
+        ]
+      },
+      "stack": {
+        "id": "stack",
+        "block": "features",
+        "title": "What actually gets installed",
+        "description": "One install brings two pieces. Add your own files and the set is complete.",
+        "items": [
+          {
+            "title": "MCP server: gets the data",
+            "description": "A standard MCP (STDIO) integration Codex calls directly — 40+ tools, no hand-written JSON config.",
+            "icon": "Boxes",
+            "features": [
+              "Collect RedNote and Douyin posts, videos, profile feeds and search results",
+              "Back-fill details, pull comments, extract image text and transcripts",
+              "Keyword scans, long-tail expansion, account scans, benchmark discovery",
+              "Read collections, analyses and style profiles already saved in the extension"
+            ]
+          },
+          {
+            "title": "Research skill: knows what to do with it",
+            "description": "Listed in Codex as “MediaClaw content research and generation”, carrying 12 written methods it follows instead of improvising.",
+            "icon": "Brain",
+            "features": [
+              "Research: keyword trends, long-tail demand, benchmark accounts, account strategy, recent hits, single-post teardown",
+              "Creation: topic ideation, content briefs, drafting, style adaptation, evidence-to-content framing",
+              "A quality gate before delivery: is every claim backed, is any guess written as fact",
+              "Skill-side analysis and drafting cost no credits"
+            ]
+          },
+          {
+            "title": "Your local knowledge base: says who you are",
+            "description": "Obsidian, Notion, Lark, or plainly a Markdown folder. Platform evidence and your own business facts meet inside one task.",
+            "icon": "FileSearch",
+            "features": [
+              "Read your published posts first, then surface topics readers want that you have not covered",
+              "If no real material backs a point, it says what is missing instead of padding with generics",
+              "Each study is written back as Markdown, so you can query it three months later"
+            ]
+          }
+        ]
+      },
+      "confirm": {
+        "id": "confirm",
+        "block": "data-table",
+        "title": "Five things it must ask you first",
+        "description": "Approving the pairing lets Codex connect to MediaClaw. It does not approve every collection that follows.",
+        "columns": [
+          {
+            "key": "action",
+            "title": "Action"
+          },
+          {
+            "key": "before",
+            "title": "What it shows you first"
+          },
+          {
+            "key": "after",
+            "title": "After you confirm"
+          }
+        ],
+        "rows": [
+          {
+            "action": "Collect an account",
+            "before": "A collection plan: target, fields, scope, batch count, risk level",
+            "after": "It runs — and only the batches written into that plan"
+          },
+          {
+            "action": "Video transcript",
+            "before": "A quote: credits per item, total, your balance, expiry",
+            "after": "Extraction starts; items already extracted are not charged twice"
+          },
+          {
+            "action": "Bulk detail back-fill",
+            "before": "Exactly what this round will back-fill",
+            "after": "It opens the detail pages"
+          },
+          {
+            "action": "Clear data",
+            "before": "Blast radius: how many records, comments and transcripts, and the space freed",
+            "after": "The deletion runs"
+          },
+          {
+            "action": "Comment outreach",
+            "before": "A recipient list and the message copy",
+            "after": "You still confirm the send inside the extension"
+          }
+        ]
+      },
+      "hosts": {
+        "id": "hosts",
+        "block": "data-table",
+        "title": "Codex, WorkBuddy or Doubao for Work",
+        "description": "All three hosts run the same package, the same MCP tools and the same skill. Only the install path and auto-update differ.",
+        "columns": [
+          {
+            "key": "host",
+            "title": "Host"
+          },
+          {
+            "key": "install",
+            "title": "Install"
+          },
+          {
+            "key": "update",
+            "title": "Auto-update"
+          },
+          {
+            "key": "note",
+            "title": "Notes"
+          }
+        ],
+        "rows": [
+          {
+            "host": "Codex",
+            "install": "Send the prompt, it installs itself",
+            "update": "✓",
+            "note": "Fully quit and reopen Codex for a new version to activate"
+          },
+          {
+            "host": "WorkBuddy",
+            "install": "Send the prompt, it installs itself",
+            "update": "✓",
+            "note": "Same flow as Codex"
+          },
+          {
+            "host": "Doubao for Work",
+            "install": "Create a STDIO connector by hand; the agent prepares every field for you",
+            "update": "—",
+            "note": "No automatic install entry yet, so upgrades are redone manually"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "Does driving it from Codex burn a lot of tokens?",
+            "answer": "Less than you would expect. Collection, pagination and rate-limit cooldowns all run inside the extension and consume no host model quota — the extension hands back only structured results. Tokens go to three things: understanding the request, issuing calls and reading results, and the analysis and writing. It also reuses existing data before collecting anything new, and previews large payloads before paging into detail. A task that takes fifteen minutes is not fifteen minutes of token burn."
+          },
+          {
+            "question": "Is this an MCP? Do I have to write a config file?",
+            "answer": "It is a standard MCP integration over STDIO, but on Codex you never write config. Send it the install prompt copied from the extension and it registers the official source, installs the package, detects your OS and chip, and verifies the runtime."
+          },
+          {
+            "question": "What is the difference between the skill and the MCP — do I install both?",
+            "answer": "One install brings both. The MCP server exposes 40+ tools that fetch data from the platforms; the content research skill supplies 12 written methods that tell Codex how to analyse and write once the data is back. Tools without methods give you data with no conclusion."
+          },
+          {
+            "question": "Do I still need the browser extension after connecting Codex?",
+            "answer": "Yes. The agent package cannot run on its own and does not replace the extension. Every page visit happens through the extension in your own browser, and the agent can only use capabilities you approved there."
+          },
+          {
+            "question": "Does my data pass through your servers?",
+            "answer": "Collection runs in your own browser using the sessions you are already logged into; the session is never handed to the agent. Never paste cookies, tokens, activation codes or device keys into a conversation, issue or log — the agent will not ask for them."
+          },
+          {
+            "question": "Could it collect things or spend credits on its own?",
+            "answer": "No. Before any new collection it states the source, time range, volume, what it will read and the cost boundary, and waits for your agreement. Billable capabilities such as transcripts show an estimated credit cost and balance for a second confirmation. Silence is never treated as consent, and anything beyond the approved scope is asked again."
+          },
+          {
+            "question": "How do upgrades work?",
+            "answer": "In an existing MediaClaw conversation just say “upgrade MediaClaw Agent” — that sentence is the authorization. It refreshes the official source, installs, verifies the version and keeps your unfinished request. After install you must fully quit and reopen Codex: a running conversation cannot hot-load a new skill or MCP, and a new conversation in the same process does not count."
+          },
+          {
+            "question": "Will the skill collect data no matter what I ask?",
+            "answer": "It reuses existing data first — analyses already in the extension, then the cloud workbench, then local collection records — and only considers new collection when none of those cover it. Say “don't use MediaClaw”, “don't call tools” or “only use the material I gave you” and it drops the tool chain. Requests unrelated to content research and creation never trigger it."
+          },
+          {
+            "question": "Is it free?",
+            "answer": "The browser extension itself is free to use. Agent access requires an active membership, and billable capabilities such as video transcripts need credits plus a confirmation before they run. Analysis, generation and reporting on the agent side cost no MediaClaw credits."
+          },
+          {
+            "question": "How is this different from WorkBuddy or Doubao for Work?",
+            "answer": "The capabilities are identical — same package, same MCP tools, same skill. Codex and WorkBuddy let the agent handle install and upgrades end to end. Doubao for Work has no automatic install entry yet, so you save a STDIO connector by hand under Skills · Connectors, and it does not auto-update."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 You might also like",
+        "description": "From connecting the agent to actually using the data.",
+        "links": [
+          {
+            "title": "What the agent is and who does what",
+            "description": "The three-way split, its fixed working order, and how tokens are spent.",
+            "url": "/docs/agent/overview",
+            "icon": "BookOpen"
+          },
+          {
+            "title": "Install, pair and upgrade",
+            "description": "Full setup steps for all three hosts, plus a troubleshooting order.",
+            "url": "/docs/agent/setup",
+            "icon": "Workflow"
+          },
+          {
+            "title": "Agent task examples",
+            "description": "Six real tasks with full prompts, sampling and delivered results.",
+            "url": "/docs/agent/prompt-examples",
+            "icon": "Sparkles"
+          },
+          {
+            "title": "Connect your knowledge base",
+            "description": "Three routes for Obsidian, Notion, Lark and ima.",
+            "url": "/docs/agent/knowledge-base",
+            "icon": "FolderKanban"
+          },
+          {
+            "title": "WorkBuddy integration",
+            "description": "The same MCP and skill, with the WorkBuddy-side setup and examples.",
+            "url": "/features/workbuddy-integration",
+            "icon": "Bot"
+          },
+          {
+            "title": "Lark Base integration",
+            "description": "Sync collected data and monitoring results into Lark Base for the team.",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          },
+          {
+            "title": "RedNote scraper",
+            "description": "Bulk collection and export inside the extension, no agent required.",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "RedNote keyword insights",
+            "description": "Judge a niche, find benchmark accounts, mine long-tail demand.",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Give Codex real RedNote and Douyin data today",
+        "description": "Install the free extension, send the install prompt to Codex, and let it handle the rest.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "icon": "Download",
+            "url": "/download",
+            "variant": "default"
+          },
+          {
+            "title": "Read the setup guide",
+            "icon": "BookOpen",
+            "url": "/docs/agent/setup",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

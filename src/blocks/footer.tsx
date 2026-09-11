@@ -99,6 +99,14 @@ export function Footer() {
       title: m['site.header.integrations'](),
       links: [
         {
+          label: m['site.header.codex_integration'](),
+          href: '/features/codex-integration',
+        },
+        {
+          label: m['site.header.workbuddy_integration'](),
+          href: '/features/workbuddy-integration',
+        },
+        {
           label: m['site.header.feishu_integration'](),
           href: '/features/feishu-integration',
         },

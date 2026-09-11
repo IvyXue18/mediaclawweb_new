@@ -142,6 +142,20 @@ export const testimonialAssets = [
     description: 'Agent 可以独立完成任务',
   },
   {
+    src: 'https://media.mediaclaw.app/testimonials/2026/28-lifelike-rewrite.webp',
+    width: 860,
+    height: 1312,
+    category: 'experience',
+    description: '改写后更有生活感和活人感',
+  },
+  {
+    src: 'https://media.mediaclaw.app/testimonials/2026/29-solo-built-consulting.webp',
+    width: 910,
+    height: 390,
+    category: 'experience',
+    description: '认可独立开发的平台，并咨询企业 AI 落地服务',
+  },
+  {
     src: 'https://media.mediaclaw.app/testimonials/2026/11-marketing-stable.webp',
     width: 832,
     height: 966,

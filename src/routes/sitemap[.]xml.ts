@@ -25,6 +25,8 @@ const STATIC_PATHS = [
   '/referral',
   '/privacy-policy',
   '/terms-of-service',
+  '/features/codex-integration',
+  '/features/workbuddy-integration',
   '/features/feishu-integration',
   '/xiaohongshu',
   '/xiaohongshu/account-analysis',

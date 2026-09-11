@@ -23,8 +23,6 @@ If you scroll Xiaohongshu (RedNote), you've probably felt this: a note is packed
 
 Text-and-image notes on Xiaohongshu increasingly bake the core information into image cards—step-by-step tutorials, good-stuff lists sorted by price, a full-page book list, product spec comparisons, all images. Douyin's image collections and product cards do the same. The body text shrinks to a line or two that just nudges you to keep scrolling. For readers, the layout looks nice and the info is concentrated. But for anyone breaking content down, repurposing it, or archiving it, the trouble shows up: you can see the words, but you can't copy them. Image caption extraction (OCR) works the same on Xiaohongshu and Douyin—this post uses Xiaohongshu as the example.
 
-{/* IMG_SLOT: a typical Xiaohongshu text-and-image note that bakes the tips into image cards, with very short body text that's just one or two lines of guidance */}
-
 ## How do you actually pull the text out of the images?
 
 Turning text on an image into copyable text is, at bottom, an OCR (optical character recognition) problem: give it an image, recognize the text, output plain text. The hard part isn't the recognition itself—it's that a single Xiaohongshu text-and-image note often has 10-plus images counting the cover, so you have to recognize every one, gather the results together, and line them up with the note's title and body.

@@ -1,0 +1,443 @@
+{
+  "metadata": {
+    "title": "小红书/抖音 MCP_把社媒数据接入 Codex 的采集 Skill",
+    "description": "为 Codex 提供小红书、抖音的 MCP Server 和一套内容研究 Skill：40+ 工具负责采集笔记、视频、评论和账号数据，12 套方法负责拆解、选题和成稿，不用写配置文件。",
+    "keywords": "小红书 MCP, 抖音 MCP, MCP Server, Codex MCP, Codex Skill, Agent Skill, 小红书数据接入 Codex, Codex 采集小红书, 小红书数据采集, 社媒虾"
+  },
+  "page": {
+    "title": "Codex 接入",
+    "description": "把小红书、抖音数据接进 Codex，用一个 MCP Server 和一套内容研究 Skill 完成采集、拆解与成稿。",
+    "show_sections": [
+      "hero",
+      "tasks",
+      "setup",
+      "stack",
+      "confirm",
+      "hosts",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Codex 接入",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "集成能力"
+          },
+          {
+            "title": "Codex 接入"
+          }
+        ],
+        "title": "把小红书、抖音数据接进 Codex：一个 MCP，一套内容研究 Skill",
+        "description": "社媒虾给 Codex 提供两样东西：一个小红书/抖音 MCP Server，40+ 工具负责采集笔记、视频、评论和账号数据并做去重统计；一套内容研究 Skill，12 套写好的方法负责拆解、选题和成稿。你在 Codex 里用大白话说要做什么，它照着方法走，还能同时读你本地的知识库。采集前会说明来源、数量和积分，等你同意才动手。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "查看接入文档",
+            "url": "/docs/agent/setup",
+            "icon": "BookOpen",
+            "variant": "outline"
+          }
+        ]
+      },
+      "tasks": {
+        "id": "tasks",
+        "block": "features-scroll",
+        "title": "接进 Codex 之后，一句话能跑完什么",
+        "description": "下面六条都是社媒虾 Agent 的真实运行记录，指令可以直接复制，把尖括号里的内容换成你自己的。三个宿主用的是同一套 MCP 工具和方法，产出一致——截图里的对话界面可能和你的不一样，交回来的东西是一样的。",
+        "items": [
+          {
+            "title": "从评论区挖出能写的选题",
+            "description": "「帮我抓取这条笔记至少 300 条评论，分析用户想法和需求，再告诉我有哪些可以切入的选题。」322 条评论去重到 280 条，其中 35.4% 属明确需求，最后给出带优先级的选题清单和多页表格。",
+            "icon": "MessageSquareText",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/01-采集评论分析选题.webp",
+              "alt": "在 Codex 里一句话完成小红书评论采集、需求分析与选题输出"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "找低粉高赞的对标账号",
+            "description": "「我刚起号，不想只研究几十万粉的大博主，帮我找这个赛道的低粉高赞内容，分析它们靠什么跑出来。」从 80 条样本里挑出 4 个小号，列出粉丝量、代表作表现和最值得学的点。",
+            "icon": "UserSearch",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/02-找对标账号.webp",
+              "alt": "Codex 调用社媒虾找出低粉高赞的小红书对标账号并给出可学的点"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "跨平台看某个话题最近在讲什么",
+            "description": "「帮我查下小红书和抖音上最近 <关键词> 的最新教程有啥新玩法。」它先确认关键词指向哪个产品，复用小红书已有样本、只补采抖音，最后把近期玩法归成 7 类，每类给代表内容。",
+            "icon": "Globe",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/03-内容桌面调研-2.webp",
+              "alt": "Codex 跨小红书与抖音完成主题调研，把近期玩法归成七类"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "只要今天刚发的，不要上个月的爆款",
+            "description": "「看下今天发布的 <关键词> 相关的小红书内容。」截至 23:48 扫到 80 条最新内容，按内容方向归类并列出当前表现靠前的作品。设成定时任务每天跑，就相当于一个轻量监控。",
+            "icon": "Timer",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/04-最新主题内容获取.webp",
+              "alt": "Codex 抓取当天最新的小红书内容并按方向归类"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "拆解视频，再要一版自己能拍的脚本",
+            "description": "「这条视频为什么能让人一直看下去？开头怎么说、后面怎么推进的，也帮我改成我能拍的脚本。」需要逐字稿时先给报价（16 积分／余额 40／有效期），确认后才提取，最后交回结构拆解和一版 90 秒脚本。",
+            "icon": "Video",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/05-视频拆解-2.webp",
+              "alt": "Codex 拆出视频的结构并给出一版可直接拍摄的 90 秒脚本"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "把结论写回你自己的知识库",
+            "description": "这是插件单独做不到的一件事。「把这些评论整理到 <知识库文件路径>，再把结论写到文档开头。」1000 条评论明细进文档，开头是核心结论、主题信号、分歧和未满足需求——写文件前还会给你一份可审核的改动。",
+            "icon": "FolderKanban",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/06-评论分析写入本地知识库-2.webp",
+              "alt": "Codex 把评论分析结论写进本地知识库文档，开头是核心结论与新选题"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "setup": {
+        "id": "setup",
+        "block": "features-scroll",
+        "title": "怎么接：三步装好，全程不开终端、不写配置文件",
+        "description": "系统识别、芯片识别、运行时下载和校验都由 Codex 自己完成。你只做两件事：复制一段提示词，回插件点一次批准。",
+        "items": [
+          {
+            "title": "第一步：在插件里复制安装提示词",
+            "description": "插件右上角「系统配置 → Agent 接管」，先打开「允许本机 Agent 调用社媒虾」，再展开「连接 Agent」，点 Codex 那行的复制按钮。提示词里已经写好官方来源、当前宿主的安装命令和修复步骤，你不需要看懂，也不需要改。",
+            "icon": "Chrome",
+            "image": {
+              "src": "/imgs/features/agent-setup-1-v20260911.webp",
+              "alt": "社媒虾插件的 Agent 接管页：打开本机调用开关并复制 Codex 安装提示词"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "第二步：发给 Codex，它自己装",
+            "description": "新建对话原样发送，剩下的全由它完成：注册官方 marketplace、安装接入包、识别 Windows／macOS／Linux 和 x64／ARM64、获取并校验对应运行时。你不用装 Node、开终端或者挑 .exe，跑完它会把做过的事列清楚。",
+            "icon": "Bot",
+            "image": {
+              "src": "/imgs/features/agent-setup-2-v20260911.webp",
+              "alt": "Codex 收到提示词后自动完成安装与配对，并列出已连续完成的每一步"
+            },
+            "button": {
+              "title": "查看接入文档",
+              "url": "/docs/agent/setup"
+            }
+          },
+          {
+            "title": "第三步：回插件批准配对",
+            "description": "插件的 Agent 接管页会出现待批准设备。核对设备名称和设备指纹后点「批准配对」，回到 Codex 它会自动复查连接，不需要你回复「已批准」。每个 Agent 单独批准，撤销其中一个不影响其他。",
+            "icon": "ShieldCheck",
+            "image": {
+              "src": "/imgs/features/agent-setup-3-v20260911.webp",
+              "alt": "在社媒虾插件中核对设备指纹并批准 Codex 配对"
+            },
+            "button": {
+              "title": "查看接入文档",
+              "url": "/docs/agent/setup"
+            }
+          }
+        ]
+      },
+      "stack": {
+        "id": "stack",
+        "block": "features",
+        "title": "装进 Codex 的是什么",
+        "description": "一次安装带来两样东西，再加上你自己的资料，才凑齐一个能出活的组合。",
+        "items": [
+          {
+            "title": "MCP Server：负责拿到数据",
+            "description": "标准 MCP（STDIO）接入，Codex 直接调用 40+ 个工具，不用你手写 JSON 配置。",
+            "icon": "Boxes",
+            "features": [
+              "采集小红书 / 抖音的笔记、视频、主页作品和搜索结果",
+              "补详情、采集评论、提取图片文字与视频逐字稿",
+              "关键词扫描、长尾扩展、账号扫描与对标账号发现",
+              "读取插件里已保存的采集记录、分析结果和风格档案"
+            ]
+          },
+          {
+            "title": "内容研究 Skill：负责怎么用数据",
+            "description": "在 Codex 里显示为「社媒虾内容研究与生成」，带 12 套写好的方法，它照着做而不是自由发挥。",
+            "icon": "Brain",
+            "features": [
+              "研究：关键词趋势、长尾需求、对标账号、账号策略、近期爆款、单篇拆解",
+              "创作：选题、内容任务书、成稿、风格适配、证据到内容框架",
+              "交付前过质量闸：结论有没有证据、有没有把猜测写成事实",
+              "Skill 侧的分析和成稿不消耗积分"
+            ]
+          },
+          {
+            "title": "你的本地知识库：负责你是谁",
+            "description": "Obsidian、Notion、飞书或者干脆一个 Markdown 文件夹都行。平台证据和你的业务事实在同一个任务里合流。",
+            "icon": "FileSearch",
+            "features": [
+              "先读你的历史稿，找出平台有人要、你还没写过的选题",
+              "找不到能兑现的素材就直说缺什么，不用通用例子凑",
+              "每次研究按 Markdown 存回去，三个月后还能直接问"
+            ]
+          }
+        ]
+      },
+      "confirm": {
+        "id": "confirm",
+        "block": "data-table",
+        "title": "这五件事，它必须先问你",
+        "description": "批准配对只是允许 Codex 连接社媒虾，不等于批准后续所有采集。",
+        "columns": [
+          {
+            "key": "action",
+            "title": "动作"
+          },
+          {
+            "key": "before",
+            "title": "它会先给你什么"
+          },
+          {
+            "key": "after",
+            "title": "你确认之后"
+          }
+        ],
+        "rows": [
+          {
+            "action": "采集账号",
+            "before": "一份采集方案：目标、字段、范围、分几批、风险等级",
+            "after": "才开始执行，且只执行方案里写明的批次"
+          },
+          {
+            "action": "视频逐字稿",
+            "before": "一份报价：每条预计多少积分、总额、余额、有效期",
+            "after": "才开始提取，已经提过的项目不重复扣分"
+          },
+          {
+            "action": "批量补详情",
+            "before": "这次要补的范围",
+            "after": "才进详情页补采"
+          },
+          {
+            "action": "清理数据",
+            "before": "影响范围：多少条记录、评论、逐字稿，预计腾出多少空间",
+            "after": "才执行删除"
+          },
+          {
+            "action": "评论私信",
+            "before": "一份收件人名单和话术",
+            "after": "还要回插件的「采集与获客 → 评论获客」做最终确认"
+          }
+        ]
+      },
+      "hosts": {
+        "id": "hosts",
+        "block": "data-table",
+        "title": "Codex、WorkBuddy、豆包工作怎么选",
+        "description": "三个宿主用的是同一个接入包、同一套 MCP 工具和同一套 Skill，区别只在怎么装、能不能自动升级。",
+        "columns": [
+          {
+            "key": "host",
+            "title": "宿主"
+          },
+          {
+            "key": "install",
+            "title": "安装方式"
+          },
+          {
+            "key": "update",
+            "title": "自动升级"
+          },
+          {
+            "key": "note",
+            "title": "说明"
+          }
+        ],
+        "rows": [
+          {
+            "host": "Codex",
+            "install": "发提示词，自动装到底",
+            "update": "✓",
+            "note": "装完完全退出并重新打开 Codex 才算激活"
+          },
+          {
+            "host": "WorkBuddy",
+            "install": "发提示词，自动装到底",
+            "update": "✓",
+            "note": "流程与 Codex 相同"
+          },
+          {
+            "host": "豆包工作",
+            "install": "手动新建 STDIO 连接器，Agent 会把要填的内容整理好给你",
+            "update": "—",
+            "note": "目前没有自动安装入口，升级需要手动重做一次"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "用 Codex 指挥它，会很费 Token 吗？",
+            "answer": "相对省。采集、翻页、等平台限频冷却都在插件里跑，本身不消耗宿主的模型额度，插件只把整理好的结构化结果交回来。真正花 Token 的是理解需求、发起调用读回结果、以及分析和写作三件事。它还会先复用已有数据再决定是否新采，较大的返回会先给摘要和预览，需要细节时才分页读取。所以一个任务跑了十几分钟，不等于十几分钟都在烧 Token。"
+          },
+          {
+            "question": "这是一个 MCP 吗？要自己写配置文件吗？",
+            "answer": "是标准 MCP 接入（STDIO 传输），但在 Codex 上你不需要写任何配置文件。把插件里复制的安装提示词发给 Codex，它会自己注册官方来源、安装接入包、识别你的系统和芯片并校验运行时。"
+          },
+          {
+            "question": "Skill 和 MCP 有什么区别，要分别安装吗？",
+            "answer": "不用，一次装完两样都带上。MCP Server 提供 40+ 个工具，负责去平台上拿到数据；内容研究 Skill 提供 12 套写好的研究和创作方法，负责告诉 Codex 拿到数据之后按什么步骤分析和写作。只有工具没有方法，结果就是一堆数据没有结论。"
+          },
+          {
+            "question": "接进 Codex 之后，还需要装浏览器插件吗？",
+            "answer": "需要。Agent 接入包不能单独使用，也不能替代浏览器插件。所有页面访问都通过你自己浏览器里的插件完成，Agent 只能使用你在插件中批准过的能力。"
+          },
+          {
+            "question": "数据会经过你们的服务器吗？",
+            "answer": "采集在你自己的浏览器里进行，使用你已经登录的账号会话，登录态不会交给 Agent。不要在对话、Issue 或日志里提交 Cookie、Token、激活码或设备私钥，Agent 也不会向你索取这些。"
+          },
+          {
+            "question": "它会不会自己乱采、乱花积分？",
+            "answer": "不会。新增采集前它会说明来源、时间、总量、要读取的内容和费用边界，等你同意才动手；逐字稿这类计费能力还会单独展示预计积分和余额再确认一次。沉默不会被当成同意，超出已授权范围的变化会重新询问。"
+          },
+          {
+            "question": "怎么升级？",
+            "answer": "在已有社媒虾的 Codex 对话里直接说「升级 MediaClaw Agent」，这句话本身就是授权，它会自己刷新官方来源、安装、核验版本并保存你没做完的请求。安装完成后必须完全退出并重新打开 Codex——运行中的旧对话不能热加载新的 Skill 和 MCP，同一进程里再建对话也不算。"
+          },
+          {
+            "question": "Skill 会不会不管我说什么都去采集？",
+            "answer": "它默认先复用已有数据：插件本地已有的分析 → 云端工作台 → 本地采集记录，都没有才考虑新采。你说「不要用社媒虾」「不要调用工具」「只根据我提供的材料」时，它会退出这条工具链。与内容研究和创作无关的任务不会触发。"
+          },
+          {
+            "question": "免费能用吗？",
+            "answer": "浏览器插件本身可以免费使用。Agent 接管需要有效会员；视频逐字稿这类计费能力还需要足够积分并在执行前确认。Agent 侧的分析、生成和报告输出本身不消耗社媒虾积分。"
+          },
+          {
+            "question": "和 WorkBuddy、豆包工作有什么区别？",
+            "answer": "能力完全一样，都是同一个接入包、同一套 MCP 工具和 Skill。Codex 和 WorkBuddy 支持把安装和升级全程交给 Agent；豆包工作目前没有自动安装入口，需要你在「技能 · 连接器 · 伙伴」里手动保存一个 STDIO 连接器，也不支持自动升级。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "从接入到把数据用起来，完整路径都在这里。",
+        "links": [
+          {
+            "title": "Agent 是什么、接入后谁负责什么",
+            "description": "三方分工、它干活的固定顺序，以及 Token 消耗说明。",
+            "url": "/docs/agent/overview",
+            "icon": "BookOpen"
+          },
+          {
+            "title": "安装、配对与升级",
+            "description": "三个宿主的完整安装步骤和排障顺序。",
+            "url": "/docs/agent/setup",
+            "icon": "Workflow"
+          },
+          {
+            "title": "Agent 任务案例",
+            "description": "六个真实任务的完整指令、采样过程和交付结果。",
+            "url": "/docs/agent/prompt-examples",
+            "icon": "Sparkles"
+          },
+          {
+            "title": "连接你的知识库",
+            "description": "把 Obsidian、Notion、飞书、ima 接进来的三条通道。",
+            "url": "/docs/agent/knowledge-base",
+            "icon": "FolderKanban"
+          },
+          {
+            "title": "WorkBuddy 接入",
+            "description": "同一套 MCP 和 Skill，WorkBuddy 侧的接入方式与示例。",
+            "url": "/features/workbuddy-integration",
+            "icon": "Bot"
+          },
+          {
+            "title": "飞书多维表格集成",
+            "description": "把采集数据和监控结果同步到飞书，继续团队协作。",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          },
+          {
+            "title": "小红书数据采集",
+            "description": "不用 Agent 也能在插件里完成的批量采集与导出。",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "小红书关键词洞察",
+            "description": "判断赛道机会、找对标账号、挖掘长尾需求。",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "今天就让 Codex 拿到真实的小红书、抖音数据",
+        "description": "免费安装插件，把安装提示词发给 Codex，剩下的它自己完成。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "variant": "default"
+          },
+          {
+            "title": "查看接入文档",
+            "icon": "BookOpen",
+            "url": "/docs/agent/setup",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

@@ -156,14 +156,16 @@ export const zhXiaohongshuHub: PlatformHubContent = {
       title: 'Codex 接入',
       description:
         '从 Codex 发起口头描述任务，调用插件已有的所有能力完成目标。',
-      icon: 'bot',
+      href: '/features/codex-integration',
+      icon: 'codex',
     },
     {
       id: 'workbuddy-agent',
       title: 'WorkBuddy 接入',
       description:
         '从 WorkBuddy 发起采集与分析任务，调用插件已有的所有能力完成目标。',
-      icon: 'bot',
+      href: '/features/workbuddy-integration',
+      icon: 'workbuddy',
     },
     {
       id: 'feishu-integration',
@@ -171,7 +173,7 @@ export const zhXiaohongshuHub: PlatformHubContent = {
       description:
         '把采集数据、分析报告和监控结果同步到飞书多维表格，继续团队协作。',
       href: '/features/feishu-integration',
-      icon: 'table',
+      icon: 'feishu',
     },
   ],
   workflowSection: {
@@ -555,7 +557,8 @@ export const enXiaohongshuHub: PlatformHubContent = {
       title: 'Codex Integration',
       description:
         'Start collection and analysis from Codex, then take control when sign-in checks or cost confirmation require you.',
-      icon: 'bot',
+      href: '/features/codex-integration',
+      icon: 'codex',
       badge: 'Agent access',
     },
     {
@@ -563,7 +566,8 @@ export const enXiaohongshuHub: PlatformHubContent = {
       title: 'WorkBuddy Integration',
       description:
         'Start collection and analysis from WorkBuddy and connect repetitive steps into a controlled content workflow.',
-      icon: 'bot',
+      href: '/features/workbuddy-integration',
+      icon: 'workbuddy',
       badge: 'Agent access',
     },
     {
@@ -572,7 +576,7 @@ export const enXiaohongshuHub: PlatformHubContent = {
       description:
         'Sync collected data, analysis reports and monitoring results to Lark Base for continued team collaboration.',
       href: '/features/feishu-integration',
-      icon: 'table',
+      icon: 'feishu',
     },
   ],
   faqSection: {
