@@ -1,16 +1,18 @@
 export const meta = {
   title: '安装、配对与升级 Agent',
   description:
-    '在插件里复制安装提示词交给 Agent 完成安装，回插件批准配对，以及升级后必须重开宿主才能生效。',
+    '复制安装提示词，完成 Codex、WorkBuddy 的自动安装或豆包工作的连接器配置，再回插件批准配对；升级后需重启宿主才能生效。',
 };
 
 ## 支持哪些 Agent
 
-| 宿主Agent | 状态 | 安装时你要做什么                                                                                                                              |
-| --------- | ---- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Codex     | 可用 | 不用动手。把安装提示词发给它，它自己一路装到底                                                                                                |
-| WorkBuddy | 可用 | 不用动手。把安装提示词发给它，它自己一路装到底                                                                                                |
-| 豆包工作  | 可用 | 豆包没有自动安装入口，需要你手动在「技能 · 连接器 · 伙伴 → 本地电脑 → STDIO」里新建一个连接。Agent 会把要填的内容整理好给你，照着粘贴保存即可 |
+| 宿主Agent | 状态 | 安装时你要做什么                                                              |
+| --------- | ---- | ----------------------------------------------------------------------------- |
+| Codex     | 可用 | 不用动手。把安装提示词发给它，它自己一路装到底                                |
+| WorkBuddy | 可用 | 不用动手。把安装提示词发给它，它自己一路装到底                                |
+| 豆包工作  | 可用 | 先让豆包准备安装文件和配置清单，再手动新建本地 STDIO 连接器，详见下方独立教程 |
+
+**Codex、WorkBuddy** 按下面三步操作。**豆包工作** 先完成第一步、复制豆包工作专用的安装提示词，再跳到[豆包工作：单独配置连接器](#豆包工作单独配置连接器)。
 
 ## 第一步：复制安装提示词
 
@@ -41,52 +43,13 @@ export const meta = {
 
 这段提示词里已经写好了官方来源、当前宿主的安装命令、修复步骤和连接续接任务。你不需要看懂它，也不需要修改。
 
-## 第二步：发给Agent自己装
+## 第二步：发给 Agent 自己装
 
-在对应的宿主Agent里新建一个对话，把刚才复制的内容原样发送。接下来这些都由 Agent 完成：
+在 Codex 或 WorkBuddy 里新建一个对话，把刚才复制的内容原样发送。接下来这些都由 Agent 完成：
 
 - 识别当前宿主，注册官方 marketplace 并安装接入包。
 - 识别你的系统和芯片（Windows／macOS／Linux，x64／ARM64），获取并校验对应的官方运行时。
 - 装完后如果当前对话加载不到新工具，它会自己开一个续接对话，把任务带过去。
-
-## 第三步：回插件批准配对
-
-Agent 检测到扩展后，插件的 Agent 接管页会出现待批准的设备。
-
-1. 核对设备名称和 **设备指纹**。
-2. 点 **批准配对**。
-3. 回到 Agent 对话，它会自动复查连接，不需要你回复"已批准"。
-
-<DocImage
-  src="/imgs/docs/agent/setup/03-配对批准.webp"
-  width={480}
-  height={406}
-  caption="Agent 接管页出现待批准设备，核对设备指纹后点击批准配对"
-  captionEn="A pending device appears on the Agent access tab — check the device fingerprint, then click Approve pairing"
-/>
-
-看到"连接与配对已完成"以及对话中出现首次欢迎，才算真正接上。已批准的设备会出现在 **已授权 Agent** 列表里，随时可以 **撤销**；每个 Agent 单独批准，撤销一个不影响其他。
-
-<DocImageGrid
-  images={[
-    {
-      src: '/imgs/docs/agent/setup/05-已连接状态.webp',
-      width: 772,
-      height: 1170,
-      caption: '接上后，设备出现在「已授权 Agent」列表，可随时单独撤销',
-      captionEn:
-        'Once connected, the device shows under “Authorized Agents” and can be revoked individually anytime',
-    },
-    {
-      src: '/imgs/docs/agent/setup/02-豆包工作接入.webp',
-      width: 1600,
-      height: 1286,
-      caption: '豆包工作：手动建好 STDIO 连接后，发提示词让它续完配对',
-      captionEn:
-        'Doubao for Work: after you create the STDIO connection by hand, send the prompt to finish pairing',
-    },
-  ]}
-/>
 
 <DocImageGrid
   images={[
@@ -106,6 +69,184 @@ Agent 检测到扩展后，插件的 Agent 接管页会出现待批准的设备�
       captionEn: 'WorkBuddy: send the same prompt as-is',
     },
   ]}
+/>
+
+## 第三步：回插件批准配对
+
+Agent 检测到扩展后，插件的 Agent 接管页会出现待批准的设备。
+
+1. 核对设备名称和 **设备指纹**。
+2. 点 **批准配对**。
+3. 回到 Agent 对话，它会自动复查连接，不需要你回复"已批准"。
+
+<DocImage
+  src="/imgs/docs/agent/setup/03-配对批准.webp"
+  width={480}
+  height={406}
+  caption="Agent 接管页出现待批准设备，核对设备指纹后点击批准配对"
+  captionEn="A pending device appears on the Agent access tab — check the device fingerprint, then click Approve pairing"
+/>
+
+看到"连接与配对已完成"以及对话中出现首次欢迎，才算真正接上。已批准的设备会出现在 **已授权 Agent** 列表里，随时可以 **撤销**；每个 Agent 单独批准，撤销一个不影响其他。
+
+<DocImage
+  src="/imgs/docs/agent/setup/05-已连接状态.webp"
+  width={772}
+  height={1170}
+  caption="接上后，设备出现在「已授权 Agent」列表，可随时单独撤销"
+  captionEn="Once connected, the device shows under “Authorized Agents” and can be revoked individually anytime"
+/>
+
+## 豆包工作：单独配置连接器
+
+**为什么豆包工作需要多配一步？** Codex、WorkBuddy 可以由 Agent 完成接入包安装和工具注册；豆包工作目前需要你在界面里手动保存一个自定义连接器。安装提示词会让豆包准备好运行文件、整理出配置清单，而连接器负责告诉豆包：**从哪里启动本机的 MediaClaw 工具、用什么配置连接它**。因此，拿到安装清单后，还需要完成下面的连接器配置，豆包才能调用社媒虾。
+
+这个连接器使用 **本地电脑 / STDIO** 方式运行。请在安装了社媒虾扩展的同一台电脑上操作，并保持浏览器和扩展打开。配置完成后，还要回扩展批准豆包工作的设备配对。
+
+<Steps>
+
+### 获取豆包给出的配置清单
+
+在豆包工作里新建一个任务，把第一步复制的 **豆包工作安装提示词** 原样发送。等它准备好安装文件，并列出服务器名称、传输类型、命令、参数和环境变量。
+
+保留这份清单，接下来逐项复制到连接器设置。然后点击左侧 **技能 · 连接器 · 伙伴**。
+
+<DocImage
+  src="/imgs/docs/agent/setup/06-豆包工作配置清单.webp"
+  width={1600}
+  height={1106}
+  caption="先让豆包生成当前电脑的配置清单，再打开左侧「技能 · 连接器 · 伙伴」"
+  captionEn="Let Doubao generate the configuration for your computer, then open Skills · Connectors · Partners in the sidebar"
+/>
+
+<Callout type="note">
+  截图使用的是本地开发配置，里面的命令路径、Node 路径和 `local`
+  标记只作界面示例。**实际填写时，以豆包为你这次安装生成的清单为准**，不要照抄截图里的电脑路径或开发配置。
+</Callout>
+
+### 新建自定义连接器
+
+在 **技能 · 连接器** 页面点击右上角 **新建 → 新建自定义连接器**。如果你已经创建过 `mediaclaw` 连接器，打开已有连接器编辑即可。
+
+<DocImage
+  src="/imgs/docs/agent/setup/07-豆包工作新建连接器.webp"
+  width={1600}
+  height={796}
+  caption="右上角「新建」菜单 →「新建自定义连接器」"
+  captionEn="Open New in the top-right corner, then choose New custom connector"
+/>
+
+### 按清单填写连接器配置
+
+在弹出的配置窗口中，对照豆包给出的清单填写：
+
+<div className="[&_table]:min-w-0">
+
+| 界面字段       | 怎么填                                                                 |
+| -------------- | ---------------------------------------------------------------------- |
+| **服务器名称** | 填写 `mediaclaw`                                                       |
+| **传输类型**   | 选择 **STDIO**                                                         |
+| **命令**       | 复制清单里的完整命令路径                                               |
+| **参数**       | 按清单填写；如果标注留空，就不要点「添加」，也不要输入「留空」二字     |
+| **环境变量**   | 在「环境变量」区域点击「添加」，把清单里的变量名和值逐行填入，一行一组 |
+
+</div>
+
+环境变量包括豆包宿主标识、设备名称等配置；如果清单中还有 Node 路径，也一并填写。界面没有「工作目录」输入框时，不需要额外添加工作目录。
+
+<DocImage
+  src="/imgs/docs/agent/setup/08-豆包工作填写配置.webp"
+  width={1600}
+  height={1127}
+  caption="将清单内容逐项填入对应字段；环境变量的名称和值分别填在左右两列"
+  captionEn="Copy each item into its matching field, with environment variable names on the left and values on the right"
+/>
+
+### 保存后打开「我的技能」
+
+核对填写内容，点击 **保存**。看到 **连接器已安装** 的提示后，点击右上角 **我的技能**，查看刚创建的连接器。
+
+<DocImage
+  src="/imgs/docs/agent/setup/09-豆包工作连接器已安装.webp"
+  width={1600}
+  height={434}
+  caption="看到「连接器已安装」后，点击右上角「我的技能」"
+  captionEn="After the Connector installed message appears, open My skills in the top-right corner"
+/>
+
+### 确认连接器已启用
+
+在 **我的技能** 中切换到 **连接器**，找到刚创建的连接器，确认右侧开关处于开启状态。
+
+<DocImage
+  src="/imgs/docs/agent/setup/10-豆包工作启用连接器.webp"
+  width={1600}
+  height={456}
+  caption="「我的技能 → 连接器」中，确认 MediaClaw 连接器的开关已打开"
+  captionEn="Under My skills → Connectors, make sure the MediaClaw connector is switched on"
+/>
+
+### 回社媒虾批准配对
+
+回到社媒虾扩展的 **系统配置 → Agent 接管**，确认 **允许本机 Agent 调用社媒虾** 已打开。发现新的本机 Agent 后，核对设备名称是豆包工作，并与豆包提供的设备指纹核对，再点击 **批准配对**。
+
+此时即使页面已经显示绿色的 **Agent 已连接**，只要下方还有待批准设备，就仍需完成配对。如果没有出现待批准设备，回豆包让它检查连接状态，再回来查看。
+
+<DocImage
+  src="/imgs/docs/agent/setup/11-豆包工作批准配对.webp"
+  width={820}
+  height={776}
+  size="sm"
+  caption="确认是豆包工作的设备、核对指纹后，点击「批准配对」"
+  captionEn="Check that the device belongs to Doubao for Work, verify its fingerprint, then click Approve pairing"
+/>
+
+### 回豆包验证连接完成
+
+回到刚才的豆包任务，发送：
+
+```prompt
+已创建连接器，插件已批准配对，请继续检查连接状态。
+```
+
+豆包会调用工具复查实际状态。等它确认 **连接与配对已完成**，并展示首次欢迎说明，就可以直接描述你想采集、研究或创作的内容。
+
+<DocImage
+  src="/imgs/docs/agent/setup/12-豆包工作连接完成.webp"
+  width={1600}
+  height={1064}
+  caption="回豆包继续任务，确认它已验证连接与配对完成，并展示首次欢迎"
+  captionEn="Resume the Doubao task and check that it verifies the connection and pairing, then displays the welcome message"
+/>
+
+</Steps>
+
+### 接入后，试跑一个选题研究任务
+
+连接完成后，就可以在豆包工作里直接提出需求。例如：
+
+```prompt
+帮我看看小红书近半年的「营养测评」热门内容，按点赞数整理代表笔记，再归纳选题方向和可以尝试的选题。
+```
+
+下面是一次任务的输出示例。豆包先整理采集样本，把热门笔记按点赞数做成排行图，方便查看哪些内容获得了较多互动。
+
+<DocImage
+  src="/imgs/docs/agent/setup/13-豆包工作热门笔记排行.webp"
+  width={1600}
+  height={1028}
+  caption="任务结果示例：豆包整理「营养测评」采集样本，展示热门笔记点赞排行"
+  captionEn="Example task output: Doubao organizes the collected nutrition review posts and charts their like counts"
+/>
+
+接着，它把样本归纳成不同的选题方向，列出代表笔记，再给出可尝试的选题。你可以继续让它深入某个方向，或补采代表笔记的正文和评论。图中的排行与结论来自这次采集的样本，实际结果会随关键词、时间范围和采集内容变化。
+
+<DocImage
+  src="/imgs/docs/agent/setup/14-豆包工作选题分析.webp"
+  width={1600}
+  height={1071}
+  caption="任务结果示例：继续归纳选题方向、列出代表笔记，并给出选题启示"
+  captionEn="Example task output: Doubao groups topic directions, lists representative posts, and suggests content ideas"
 />
 
 ## 升级

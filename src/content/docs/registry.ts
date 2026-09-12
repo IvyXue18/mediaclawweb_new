@@ -189,8 +189,14 @@ export const docGroups: DocGroupDef[] = [
     label: 'Agent 工作流',
     items: [
       page('agent/overview', 'Agent 能做什么', 'guide', 'Sparkles'),
-      page('agent/setup', '安装、配对与升级', 'guide', 'LogIn'),
-      page('agent/prompt-examples', '任务案例', 'method', 'MessageCircle'),
+      page('agent/setup', '安装、配对与升级', 'guide', 'LogIn', '2026-09-12'),
+      page(
+        'agent/prompt-examples',
+        '任务案例',
+        'method',
+        'MessageCircle',
+        '2026-09-12'
+      ),
       page('agent/knowledge-base', '连接你的知识库', 'method', 'Archive'),
     ],
   },
