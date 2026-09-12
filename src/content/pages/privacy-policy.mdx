@@ -2,11 +2,12 @@ export const meta = {
   title: 'Privacy Policy',
   description: 'MediaClaw Website and Extension Privacy Policy',
   created_at: '2026-03-07',
+  updated_at: '2026-09-12',
 };
 
 # MediaClaw Privacy Policy
 
-Updated: July 13, 2026
+Updated: September 12, 2026
 Effective: March 7, 2026
 
 Thank you for using the **MediaClaw website and browser extension** (collectively, "MediaClaw"). This policy explains how we collect, use, store, and protect your information when you use MediaClaw.
@@ -37,13 +38,13 @@ When you configure and initiate a Lark Base sync, the following configuration is
 - Lark Base App Token (`feishuAppToken`)
 - Target table name or table ID (`tableId`, `bloggerProfileTableName`, `bloggerNotesTableName`, `keywordNotesTableName`)
 
-This configuration is **used solely to write collected data into the Lark Base table you specify** and will not be stored in MediaClaw's server-side database.
+This configuration is used to write collected data into the Lark Base table you specify. When you save a sync target, the backend stores the target configuration under your membership account or authorization credential for later retrieval and sync.
 
-> **Note**: Configuration is stored in your local browser (`chrome.storage.local`) by default. We do not offer cloud configuration sync; configuration data is not automatically uploaded to our servers.
+> **Note**: The extension also caches configuration in your browser. Use the corresponding settings controls to modify or delete cloud sync targets; clearing local collection data does not delete cloud configuration.
 
 ### 1.3 Collected Data (Browser Local Storage)
 
-When you actively trigger a collection on the Xiaohongshu web app, the Extension stores the results in your local browser (`chrome.storage.local`), which may include:
+When you trigger collection on Xiaohongshu or Douyin, or authorize a paired local Agent to perform a collection task, the Extension stores the results in your local browser (`chrome.storage.local`), which may include:
 
 - **Note information**: Title, link, author nickname, content, hashtags, likes/saves/comments count, publish time, image links, video links, cover image, etc.
 - **Creator information**: Nickname, Xiaohongshu ID, profile link, avatar link, follower count, bio, and other public information
@@ -53,19 +54,19 @@ When you actively trigger a collection on the Xiaohongshu web app, the Extension
 **Important notes:**
 
 - The Extension **does not read the `chrome.cookies` API** and does not actively capture cookies from any platform.
-- Collected data is stored only on your local device before you initiate a sync and **is not automatically uploaded to our servers**.
+- Collected data is local by default. When you request sync, AI analysis, image text extraction, or video transcription, or authorize an Agent to read and use data, that feature processes or transmits the inputs it needs as described below. Collection alone does not automatically upload the entire data pool.
 
 ### 1.4 Sync History and Runtime State (Browser Local Storage)
 
 The Extension stores the following runtime data locally:
 
-- **Sync history**: Historical sync records including sync time, sync type, success/failure status, debug links, etc. (up to approximately 200 entries retained)
+- **Sync history**: Historical sync records including sync time, sync type, success/failure status, debug links, etc. (completed execution history is periodically cleared after 7 days and is also subject to per-history entry limits)
 - **Runtime state**: Current page type, collection progress, recently active tab ID, etc.
-- **Authorization state**: Local verification status of the activation code, most recent verification time (the activation code is not stored in plain text; only the verification result and encrypted digest are stored)
+- **Authorization information**: The authorization credential, local verification state, and last verification time needed to maintain authorization and make subsequent requests. Unbinding in the extension or browser extension-data clearing removes the local credential.
 
 ### 1.5 Download and Export Actions
 
-When you click "Export CSV" or "Download attachments," the Extension generates files locally using the browser's download capability. This action is explicitly triggered by you; files are saved to your local device and do not pass through our servers.
+When you select Excel, CSV, JSON, or Markdown export, or request attachment downloads, the extension generates local files or reads files from their media URLs using browser download capabilities. You explicitly trigger the export, and the files are saved to your device. Locally generated data-export files do not pass through the MediaClaw server.
 
 ### 1.6 Website Analytics and Attribution
 
@@ -80,7 +81,31 @@ When you visit the MediaClaw website or perform key product actions, we collect 
 
 MediaClaw stores first-touch and last-non-direct attribution context in browser local storage and a first-party cookie for up to 90 days. An attribution snapshot may also be stored with an order when checkout begins. This is used to understand product performance and campaign effectiveness, connect acquisition sources with registrations and revenue, prevent abuse, and improve MediaClaw. We do not use third-party advertising cookies for this purpose and do not sell this data to advertisers.
 
-### 1.7 Information We Do Not Collect
+### 1.7 AI Analysis and Content Extraction
+
+When you request account analysis, note breakdown, writing, image text extraction, or video transcription, the MediaClaw backend processes the text, comments, image or audiovisual links, extracted text, and instructions needed for that task. It sends necessary inputs to the applicable AI or content-processing service. Depending on the feature and configuration, these services currently include Coze, Alibaba Cloud, OpenRouter and the model providers it routes to, Moonshot/Kimi, or DeepSeek. The AI workspace retains generated research, topics, drafts, and task state for later use. Clearing browser collection data does not delete these workspace assets.
+
+### 1.8 Local Agent Pairing and Data Use
+
+A local host such as Codex, WorkBuddy, or Doubao Work can call the extension only after you enable Agent access and approve the particular device in the extension. Pairing information, device names, and connection state are stored locally. Authorized interfaces can read the data-pool records, local AI workspace assets, and remote workspace assets accessible to your current membership account that are needed for your task. They can also run public-page collection and content extraction within the scope you authorize. These interfaces do not provide activation codes, platform cookies, access tokens, or similar credentials to the Agent.
+
+Results enter the task context of your chosen host, which may send them to its own model service or retain task records according to that service's settings. An approved Agent communicates with the extension through a loopback address on the same computer; this does not give arbitrary public web pages permission to call the Agent. You can disable Agent access or revoke a particular device in the extension. Revocation stops future calls; it does not delete content already retained by the host, which must be managed in that service.
+
+### 1.9 Comment Filtering and Direct Messages
+
+Comment filtering uses the comment text, public nicknames, profile links, and user identifiers you have collected. After you enable messaging and choose recipients and message text, the extension presents a final send confirmation. It sends through the currently signed-in platform account by operating the page only after you confirm in the extension. An Agent may prepare a messaging plan but cannot replace this final confirmation.
+
+Recipients, message text, sender account identifiers, execution state, and send times are stored locally to show progress, prevent duplicate sends, enforce intervals, and handle recovery. The message is transmitted to Xiaohongshu or Douyin and the intended recipient. Stopping a task or clearing local records does not recall a message already sent.
+
+### 1.10 Notifications and Referral Links
+
+The notification center sends a device identifier, any available authorization credential, extension version, and language to the MediaClaw backend. The backend uses account and membership state, days of use, and aggregate counts of successful operations to select applicable notifications. It sends necessary account context and a hashed account or device identifier to the website notification service. Hashing does not mean that this information can no longer be associated with an account.
+
+The website retains notification IDs, subject identifiers, and timestamps for impressions, reads, dismissals, and action-button clicks to maintain unread state, prevent duplicates, and limit repeated reminders. Store-review invitations record notification interactions; they do not read the rating or review text you submit to the store.
+
+When you request your referral link, the backend verifies that your authorization credential belongs to the website account before requesting that account's invitation code and link. Recipients can see the invitation code when you share the link. Referral relationships, discounts, and commissions are handled by the website referral feature. Notification receipts and website referral records are stored on the server and are not deleted by browser-local cleanup.
+
+### 1.11 Information We Do Not Collect
 
 - **No collection** of bank card numbers, payment passwords, or other financially sensitive information
 - **No collection** of login passwords for any platform
@@ -96,8 +121,11 @@ Information we collect is used only for the following purposes:
 
 - **License verification and device management**: Verifying activation code validity and managing the number of bound devices per activation code
 - **Data sync relay**: Forwarding collected data from syncs you initiate to the Lark Base table you specify
-- **Collection feature support**: Executing collection logic in your currently active Xiaohongshu tab and caching results locally
-- **Export and download**: Responding to your explicit actions to generate CSV files or download attachments locally
+- **Collection feature support**: Executing collection logic on Xiaohongshu or Douyin pages you authorize and caching results locally
+- **Export and download**: Responding to your explicit actions to generate export files or download attachments locally
+- **AI and Agent tasks**: Analyze, extract, and use selected data within the task you initiate or authorize
+- **Comment outreach**: Execute the recipients and message text you confirm in the extension and retain necessary task state
+- **Notifications and referrals**: Deliver applicable notifications, record notification interactions, and verify and generate account referral links
 - **Troubleshooting**: Using local sync history to help you diagnose sync failures
 - **Product analytics and attribution**: Measuring website and product performance and connecting acquisition sources with registrations, orders, and revenue
 
@@ -109,15 +137,17 @@ Information we collect is used only for the following purposes:
 
 The following data is stored in your browser extension's local storage (`chrome.storage.local`):
 
-| Data Type           | Storage Location | How to Clear                             |
-| ------------------- | ---------------- | ---------------------------------------- |
-| Runtime state       | Local            | In-extension cleanup / Uninstall         |
-| Authorization state | Local            | In-extension cleanup / Uninstall         |
-| Lark Base config    | Local            | In-extension cleanup / Uninstall         |
-| Collected data pool | Local            | One-click clear in extension / Uninstall |
-| Sync history        | Local            | One-click clear in extension / Uninstall |
+| Data Type           | Storage Location | How to Clear                                                             |
+| ------------------- | ---------------- | ------------------------------------------------------------------------ |
+| Runtime state       | Local            | In-extension cleanup / Uninstall                                         |
+| Authorization state | Local            | Unbind in extension / Browser extension-data clearing / Uninstall        |
+| Lark Base config    | Local            | Edit or delete in settings / Browser extension-data clearing / Uninstall |
+| Collected data pool | Local            | One-click clear in extension / Uninstall                                 |
+| Sync history        | Local            | One-click clear in extension / Uninstall                                 |
 
-You can delete all local data via the extension's built-in cleanup function, browser extension data clearing, or by directly uninstalling the Extension.
+The "Clear local collection data" action clears the data pool, collection progress, completed execution records, and related caches. Ongoing tasks may need to finish first. It preserves authorization and settings, AI workspace assets, active tasks, and outreach rate-limit and recipient-history records still within their retention windows. Completed execution history is generally retained for 7 days and outreach send events for a 24-hour window; records required by active tasks are preserved. Periodic history cleanup does not automatically delete the collected data pool.
+
+Local cleanup does not delete exported files, Lark content, website server records, or tasks retained by an Agent host. Browser extension-data clearing or uninstalling the extension can remove its browser-local data. Website, cloud-workspace, and Agent-host data must be managed in the respective service or through a request to us.
 
 The website also stores attribution context in browser local storage and a first-party cookie for up to 90 days. You can remove it by clearing site data for the MediaClaw website.
 
@@ -130,13 +160,14 @@ We store the minimum information necessary to operate and improve MediaClaw on o
 - Account profile and login identifier (name and email address or phone-backed internal identifier) plus the password hash required for authentication
 - Limited analytics event records, including anonymous/session identifiers, page and campaign attribution data, event type, and event time
 - Registration, order, and payment attribution snapshots used to calculate conversion and revenue by source
+- AI workspace outputs and task state, notification receipts, and referral relationship and settlement records (see Sections 1.7 and 1.10)
 
-**Sync relay data (Lark Base configuration + collected payload) is handled on a "process and forward" basis and is not retained long-term in our server-side database.**
+Collected data in a sync request is processed by the backend and workflow service and forwarded to your chosen target. Separately saved Lark target configuration and sync execution logs are retained on the server to support later syncs, status queries, and troubleshooting.
 
 ### 3.3 Security Measures
 
-- Activation codes are stored locally as a non-plaintext digest; they are never stored in plain text
-- All API communication in production environments uses HTTPS encryption
+- Authorization information is stored in browser extension local storage. Agent data interfaces do not provide this credential, and unbinding clears the local authorization state.
+- API connections to cloud services use HTTPS. An approved local Agent connects through the loopback address on the same computer.
 - The server employs access control and data minimization principles
 - We have made reasonable efforts to protect data security, but cannot guarantee 100% security in all circumstances. Data breaches resulting from user-side causes (e.g., device infected with malware, weak passwords, account compromise) are outside the scope of this policy
 
@@ -155,7 +186,9 @@ We share necessary information with the following third parties only to the exte
 | **Lark Base Service**                                 | Collected data you choose to sync                            | Write to the table you specify     |
 | **Infrastructure Providers** (e.g., Cloudflare, Neon) | Request logs, database data                                  | Host API and database capabilities |
 
-Information received by these third parties is used solely to fulfill the corresponding function; we require them to handle such data in a manner consistent with this policy.
+Sections 1.7–1.9 also describe data sent to AI services, your chosen Agent host, and the platform and recipient involved in direct messages.
+
+These parties receive data to provide the corresponding function and also process it under their own service terms and privacy policies.
 
 We will not disclose your information to any other party except in the following legally required circumstances:
 
@@ -169,15 +202,18 @@ We will not disclose your information to any other party except in the following
 
 The browser permissions requested by the Extension and their purposes are as follows:
 
-| Permission                              | Purpose                                                                            |
-| --------------------------------------- | ---------------------------------------------------------------------------------- |
-| `activeTab`                             | Inject collection scripts into the current active tab to read Xiaohongshu pages    |
-| `scripting`                             | Execute JavaScript collection logic on Xiaohongshu pages                           |
-| `storage`                               | Store configuration, collected data, authorization state, and sync history locally |
-| `downloads`                             | Invoke browser download capability when you actively click "Download attachments"  |
-| `sidePanel`                             | Display the Extension's operation interface in the browser sidebar                 |
-| `host_permissions` (Xiaohongshu domain) | Content collection and page communication on Xiaohongshu pages                     |
-| `host_permissions` (backend domain)     | License verification and sync communication with the MediaClaw backend API         |
+| Permission                           | Purpose                                                                                                                   |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| `activeTab`                          | Read the Xiaohongshu or Douyin page you actively use                                                                      |
+| `scripting`                          | Run collection and confirmed messaging actions on authorized platform pages                                               |
+| `storage`                            | Store configuration, collected data, authorization state, and execution history locally                                   |
+| `unlimitedStorage`                   | Save larger local data pools and task records without failures caused by the browser's default storage quota              |
+| `alarms`                             | Wake confirmed outreach tasks and periodically remove expired execution history                                           |
+| `offscreen`                          | Handle Blob files needed for batch image exports in an offscreen document                                                 |
+| `downloads`                          | Save exports or attachments when you request a download                                                                   |
+| `sidePanel`                          | Display extension controls in the browser sidebar                                                                         |
+| Platform and media host permissions  | Collect from authorized Xiaohongshu or Douyin pages, perform confirmed outreach, and read image assets needed for exports |
+| Website and backend host permissions | Authorization, sync, AI tasks, notification, and referral requests                                                        |
 
 ---
 
@@ -188,7 +224,7 @@ In accordance with applicable laws and regulations, you have the following right
 - **Right to be informed**: The right to know how we process your information (i.e., this policy)
 - **Right of access**: You may view locally cached collected data, configuration, and sync history in the Extension at any time
 - **Right to rectification and deletion**: You may modify Lark Base configuration or clear collected data and sync history in the Extension at any time
-- **Right to restrict processing**: You may stop the sync function and use collected results locally only; data will not leave your device
+- **Right to restrict processing**: You may stop sync, AI, or content-extraction tasks, disable Agent access, and view or export existing collected data locally
 - **Authorization release request**: If device binding slots are exhausted due to a device change or browser reinstallation, you may contact us to manually release a slot
 - **Right to withdraw consent**: You may uninstall the Extension and clear extension data at any time to withdraw your consent to this policy
 - **Website data controls**: You may clear MediaClaw website data in your browser; you may also contact us to request access to or deletion of server-side data that can reasonably be associated with you, subject to legal retention requirements

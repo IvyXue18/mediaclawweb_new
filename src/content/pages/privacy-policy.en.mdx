@@ -1,7 +1,7 @@
 export const meta = {
   title: 'Privacy Policy',
   description: 'How we collect, use, and protect your personal information.',
-  updated_at: '2026-05-21',
+  updated_at: '2026-09-12',
 };
 
 ## Introduction
@@ -17,6 +17,36 @@ We collect the following types of information to provide and improve our service
 3. **Device Information** — Device type, operating system, and browser type, used to optimize compatibility and performance.
 4. **Cookies** — Small data files stored on your device to remember preferences and improve your experience.
 5. **Payment Information** — Billing details handled by trusted third-party payment processors. We do not store full card numbers on our servers.
+
+## Extension Data and Authorized Features
+
+The extension collects public-page content from Xiaohongshu or Douyin when you trigger collection or authorize a paired local Agent to collect it. This can include titles, text, media links, account profiles, engagement counts, search results, and comments. The data pool is stored in your browser by default. Sync, AI, extraction, and Agent tasks process or transmit only the inputs needed for the feature you request. The extension does not call `chrome.cookies` or provide platform login credentials to an Agent.
+
+The extension stores the authorization credential and verification state locally for subsequent requests; unbinding in the extension or browser extension-data clearing removes the local credential. Saved Lark sync-target configuration and sync execution logs are retained by the backend to support later syncs, status queries, and troubleshooting.
+
+### AI Analysis and Content Extraction
+
+When you request account analysis, note breakdown, writing, image text extraction, or video transcription, the MediaClaw backend processes the text, comments, image or audiovisual links, extracted text, and instructions needed for that task. It sends necessary inputs to the applicable AI or content-processing service. Depending on the feature and configuration, these services currently include Coze, Alibaba Cloud, OpenRouter and the model providers it routes to, Moonshot/Kimi, or DeepSeek. The AI workspace retains generated research, topics, drafts, and task state for later use. Clearing browser collection data does not delete these workspace assets.
+
+### Local Agent Pairing and Data Use
+
+A local host such as Codex, WorkBuddy, or Doubao Work can call the extension only after you enable Agent access and approve the particular device in the extension. Pairing information, device names, and connection state are stored locally. Authorized interfaces can read the data-pool records, local AI workspace assets, and remote workspace assets accessible to your current membership account that are needed for your task. They can also run public-page collection and content extraction within the scope you authorize. These interfaces do not provide activation codes, platform cookies, access tokens, or similar credentials to the Agent.
+
+Results enter the task context of your chosen host, which may send them to its own model service or retain task records according to that service's settings. An approved Agent communicates with the extension through a loopback address on the same computer; this does not give arbitrary public web pages permission to call the Agent. You can disable Agent access or revoke a particular device in the extension. Revocation stops future calls; it does not delete content already retained by the host, which must be managed in that service.
+
+### Comment Filtering and Direct Messages
+
+Comment filtering uses the comment text, public nicknames, profile links, and user identifiers you have collected. After you enable messaging and choose recipients and message text, the extension presents a final send confirmation. It sends through the currently signed-in platform account by operating the page only after you confirm in the extension. An Agent may prepare a messaging plan but cannot replace this final confirmation.
+
+Recipients, message text, sender account identifiers, execution state, and send times are stored locally to show progress, prevent duplicate sends, enforce intervals, and handle recovery. The message is transmitted to Xiaohongshu or Douyin and the intended recipient. Stopping a task or clearing local records does not recall a message already sent.
+
+### Notifications and Referral Links
+
+The notification center sends a device identifier, any available authorization credential, extension version, and language to the MediaClaw backend. The backend uses account and membership state, days of use, and aggregate counts of successful operations to select applicable notifications. It sends necessary account context and a hashed account or device identifier to the website notification service. Hashing does not mean that this information can no longer be associated with an account.
+
+The website retains notification IDs, subject identifiers, and timestamps for impressions, reads, dismissals, and action-button clicks to maintain unread state, prevent duplicates, and limit repeated reminders. Store-review invitations record notification interactions; they do not read the rating or review text you submit to the store.
+
+When you request your referral link, the backend verifies that your authorization credential belongs to the website account before requesting that account's invitation code and link. Recipients can see the invitation code when you share the link. Referral relationships, discounts, and commissions are handled by the website referral feature. Notification receipts and website referral records are stored on the server and are not deleted by browser-local cleanup.
 
 ## How We Use Your Information
 
@@ -36,9 +66,30 @@ We do not sell your personal information. We may share data only in these limite
 - To comply with legal obligations or respond to lawful requests from public authorities.
 - To protect our rights, property, or safety, or that of our users.
 
+## Local Storage, Retention, and Cleanup
+
+The "Clear local collection data" action clears the data pool, collection progress, completed execution records, and related caches. Ongoing tasks may need to finish first. It preserves authorization and settings, AI workspace assets, active tasks, and outreach rate-limit and recipient-history records still within their retention windows. Completed execution history is generally retained for 7 days and outreach send events for a 24-hour window; records required by active tasks are preserved. Periodic history cleanup does not automatically delete the collected data pool.
+
+Local cleanup does not delete exported files, Lark content, website server records, or tasks retained by an Agent host. Browser extension-data clearing or uninstalling the extension can remove its browser-local data. Website, cloud-workspace, and Agent-host data must be managed in the respective service or through a request to us.
+
+## Browser Permissions
+
+| Permission                           | Purpose                                                                                                                   |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| `activeTab`                          | Read the Xiaohongshu or Douyin page you actively use                                                                      |
+| `scripting`                          | Run collection and confirmed messaging actions on authorized platform pages                                               |
+| `storage`                            | Store configuration, collected data, authorization state, and execution history locally                                   |
+| `unlimitedStorage`                   | Save larger local data pools and task records without failures caused by the browser's default storage quota              |
+| `alarms`                             | Wake confirmed outreach tasks and periodically remove expired execution history                                           |
+| `offscreen`                          | Handle Blob files needed for batch image exports in an offscreen document                                                 |
+| `downloads`                          | Save exports or attachments when you request a download                                                                   |
+| `sidePanel`                          | Display extension controls in the browser sidebar                                                                         |
+| Platform and media host permissions  | Collect from authorized Xiaohongshu or Douyin pages, perform confirmed outreach, and read image assets needed for exports |
+| Website and backend host permissions | Authorization, sync, AI tasks, notification, and referral requests                                                        |
+
 ## Data Security
 
-We implement industry-standard security measures including encryption in transit, access controls, and regular reviews. No method of transmission over the Internet is 100% secure, but we work continuously to protect your information.
+Connections to cloud APIs use HTTPS and server access controls. An approved Agent connects through the loopback address on the same computer. Authorization information is stored in browser extension local storage; Agent data interfaces do not provide the credential. No method of transmission over the Internet is 100% secure.
 
 ## Your Rights
 
