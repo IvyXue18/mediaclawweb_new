@@ -141,3 +141,20 @@ export function WorkBuddyIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+/** Doubao for Work mark. The extension only ships this logo as a bitmap (a
+ * gradient swirl), so it renders as an <img> instead of inline SVG. The white
+ * app-icon card was stripped and the mark cropped tight, so it fills its box
+ * like the other brand marks in the nav. */
+export function DoubaoWorkIcon({ className }: { className?: string }) {
+  return (
+    <img
+      src="/imgs/logos/agent-doubao-work.webp"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      decoding="async"
+      className={className}
+    />
+  );
+}

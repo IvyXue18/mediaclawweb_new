@@ -36,7 +36,7 @@
           }
         ],
         "title": "把小红书、抖音数据接进 Codex：一个 MCP，一套内容研究 Skill",
-        "description": "社媒虾给 Codex 提供两样东西：一个小红书/抖音 MCP Server，40+ 工具负责采集笔记、视频、评论和账号数据并做去重统计；一套内容研究 Skill，12 套写好的方法负责拆解、选题和成稿。你在 Codex 里用大白话说要做什么，它照着方法走，还能同时读你本地的知识库。采集前会说明来源、数量和积分，等你同意才动手。",
+        "description": "社媒虾给 Codex 提供两样东西：一个小红书/抖音 MCP Server，40+ 工具负责采集笔记、视频、评论和账号数据并做去重统计；一套内容研究 Skill，12 套写好的方法负责拆解、选题和成稿。你在 Codex 里用大白话说要做什么，还能同时读你本地的知识库。",
         "buttons": [
           {
             "title": "免费安装插件",
@@ -396,6 +396,12 @@
             "title": "WorkBuddy 接入",
             "description": "同一套 MCP 和 Skill，WorkBuddy 侧的接入方式与示例。",
             "url": "/features/workbuddy-integration",
+            "icon": "Bot"
+          },
+          {
+            "title": "豆包工作接入",
+            "description": "同一套 MCP 和 Skill，换成豆包工作的本地连接器配置。",
+            "url": "/features/doubao-integration",
             "icon": "Bot"
           },
           {

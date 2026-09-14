@@ -1549,6 +1549,8 @@
   "site.header.codex_integration_desc": "把小红书、抖音数据接进 Codex，一句话完成采集、拆解与成稿",
   "site.header.workbuddy_integration": "WorkBuddy 接入",
   "site.header.workbuddy_integration_desc": "把小红书、抖音数据接进 WorkBuddy，一句话完成采集、拆解与成稿",
+  "site.header.doubao_integration": "豆包工作接入",
+  "site.header.doubao_integration_desc": "把小红书、抖音数据接进豆包工作，一句话完成采集、拆解与成稿",
   "site.header.feishu_integration": "飞书集成",
   "site.header.feishu_integration_desc": "采集数据、评论数据和监控结果自动同步飞书多维表格",
   "site.header.reviews": "口碑",

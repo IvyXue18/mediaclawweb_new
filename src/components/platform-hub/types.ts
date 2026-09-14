@@ -2,6 +2,7 @@ export type HubIconName =
   | 'audio'
   | 'bot'
   | 'codex'
+  | 'doubao'
   | 'database'
   | 'download'
   | 'imageText'

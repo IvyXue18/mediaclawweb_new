@@ -82,6 +82,11 @@ const featureImages: Record<
     width: 1280,
     height: 1032,
   },
+  'doubao-agent': {
+    src: '/imgs/docs/agent/setup/13-豆包工作热门笔记排行.webp',
+    width: 1600,
+    height: 1028,
+  },
 };
 
 function FeatureThumb({

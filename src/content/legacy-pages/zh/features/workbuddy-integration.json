@@ -162,7 +162,7 @@
         "id": "stack",
         "block": "features",
         "title": "装进 WorkBuddy 的是什么",
-        "description": "一次安装带进来两样东西。它们分别回答「数据从哪来」和「拿到之后按什么步骤做」，再加上你自己的资料，才凑得齐。",
+        "description": "一次安装带进来两样东西。它们分别回答「数据从哪来」和「拿到后按什么步骤做」，再加上你自己的资料，才凑得齐。",
         "items": [
           {
             "title": "MCP Server：数据从哪来",
@@ -176,7 +176,7 @@
             ]
           },
           {
-            "title": "内容研究 Skill：拿到之后按什么步骤做",
+            "title": "内容研究 Skill：拿到后按什么步骤做",
             "description": "12 套写死的方法，覆盖从「这个赛道值不值得做」到「这篇稿能不能发」。它按方法走，不会拿到数据就开始自由发挥。",
             "icon": "Brain",
             "features": [
@@ -366,6 +366,12 @@
             "title": "Codex 接入",
             "description": "同一套 MCP 和 Skill，换成 Codex 的安装方式和示例。",
             "url": "/features/codex-integration",
+            "icon": "Bot"
+          },
+          {
+            "title": "豆包工作接入",
+            "description": "同一套 MCP 和 Skill，换成豆包工作的本地连接器配置。",
+            "url": "/features/doubao-integration",
             "icon": "Bot"
           },
           {

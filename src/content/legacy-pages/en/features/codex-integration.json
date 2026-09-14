@@ -400,6 +400,12 @@
             "icon": "Bot"
           },
           {
+            "title": "Doubao for Work integration",
+            "description": "The same MCP and skill, set up as a local STDIO connector.",
+            "url": "/features/doubao-integration",
+            "icon": "Bot"
+          },
+          {
             "title": "Lark Base integration",
             "description": "Sync collected data and monitoring results into Lark Base for the team.",
             "url": "/features/feishu-integration",

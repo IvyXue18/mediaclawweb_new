@@ -1,0 +1,457 @@
+{
+  "metadata": {
+    "title": "RedNote & Douyin MCP Server for Doubao for Work - Connector + Skill",
+    "description": "Give Doubao for Work a RedNote (Xiaohongshu) and Douyin MCP server plus a research skill: save one local STDIO connector, then 40+ tools collect posts, videos and comments and 12 methods turn them into drafts.",
+    "keywords": "RedNote MCP, Xiaohongshu MCP, Douyin MCP, MCP server, Doubao MCP, Doubao for Work connector, STDIO connector, social data in Doubao, RedNote scraper, MediaClaw"
+  },
+  "page": {
+    "title": "Doubao for Work Integration",
+    "description": "Bring RedNote and Douyin data into Doubao for Work with one local STDIO connector and one content research skill.",
+    "show_sections": [
+      "hero",
+      "tasks",
+      "setup",
+      "stack",
+      "confirm",
+      "hosts",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Doubao for Work Integration",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Integrations"
+          },
+          {
+            "title": "Doubao for Work Integration"
+          }
+        ],
+        "title": "Bring RedNote & Douyin data into Doubao for Work: one connector, one research skill",
+        "description": "MediaClaw gives Doubao for Work two things: a RedNote (Xiaohongshu) and Douyin MCP server whose 40+ tools collect posts, videos, comments and account data and dedupe them into structured results, and a content research skill whose 12 written methods handle teardowns, topic picks and drafting. The only difference from Codex and WorkBuddy is the install: Doubao for Work needs you to save a local STDIO connector by hand under Skills · Connectors · Partners, and the agent itself prepares every field you have to fill in. After that, describe the goal in plain language.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Read the setup guide",
+            "url": "/docs/agent/setup",
+            "icon": "BookOpen",
+            "variant": "outline"
+          }
+        ],
+        "tip": "You need the MediaClaw browser extension installed and an active membership first. Set the connector up on the same computer that runs the extension. The agent can only use capabilities you approved in the extension, and every page visit still happens in your own browser."
+      },
+      "tasks": {
+        "id": "tasks",
+        "block": "features-scroll",
+        "title": "What one sentence gets you once Doubao for Work is connected",
+        "description": "All six are real MediaClaw Agent runs. The prompts are copy-ready — swap what's in angle brackets for your own. Every host runs the same MCP tools and the same methods, so the output is identical; the chat window in these screenshots may not match yours, but what comes back does.",
+        "items": [
+          {
+            "title": "See who is winning: top posts ranked by likes",
+            "description": "“Show me the top RedNote posts on <keyword> from the last six months and rank the representative ones by likes.” It organizes the sample it just collected and charts like counts, so which content actually earned engagement is visible at a glance.",
+            "icon": "TrendingUp",
+            "image": {
+              "src": "/imgs/docs/agent/setup/13-豆包工作热门笔记排行.webp",
+              "alt": "Doubao for Work charting the like counts of collected RedNote posts on a keyword"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Then pick a direction: turn the sample into topics you can write",
+            "description": "Ask it to group the same sample by content direction, list representative posts for each, and suggest topics worth trying. Want to go deeper on one? Have it back-fill the body text and comments of those posts. The ranking and conclusions come from that sample, so they shift with the keyword and time range.",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/docs/agent/setup/14-豆包工作选题分析.webp",
+              "alt": "Doubao for Work grouping collected posts into topic directions with suggested ideas"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Mine a comment section for topics you can write",
+            "description": "“Pull at least 300 comments from this post, analyse what readers want, and tell me which topics I can take.” 322 comments deduped to 280, 35.4% of them explicit needs, delivered as a prioritized topic list and a multi-sheet workbook.",
+            "icon": "MessageSquareText",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/01-采集评论分析选题.webp",
+              "alt": "Turning collected RedNote comments into a ranked topic list and a multi-sheet workbook"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "See what a topic looks like across both platforms",
+            "description": "“Check what new techniques people are posting about <keyword> on RedNote and Douyin lately.” It pins down which product the keyword means, reuses the existing RedNote sample, back-fills only Douyin, and groups recent patterns into 7 categories with examples.",
+            "icon": "Globe",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/03-内容桌面调研-2.webp",
+              "alt": "Cross-platform topic research grouping recent patterns into seven categories"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Today's posts only — no last month's hits",
+            "description": "“Show me RedNote posts about <keyword> published today.” 80 latest posts scanned as of 23:48, grouped by content direction with the current top performers listed. Run it daily and it becomes lightweight monitoring.",
+            "icon": "Timer",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/04-最新主题内容获取.webp",
+              "alt": "Pulling the day's newest RedNote posts and grouping them by direction"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Tear down a video, then get a script you can shoot",
+            "description": "“Why does this video keep people watching? How does the opening land and how does it build? Also turn it into a script I can shoot.” A precise teardown needs the transcript, so it quotes first (16 credits / 40 balance / an expiry), extracts only after you confirm, then returns the structure plus a 90-second script.",
+            "icon": "Video",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/05-视频拆解-2.webp",
+              "alt": "Extracting a video's structure and handing back a shoot-ready 90-second script"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "setup": {
+        "id": "setup",
+        "block": "features-scroll",
+        "title": "Getting connected: four steps to one local connector",
+        "description": "Doubao for Work has no automatic install entry yet, so you save the connector by hand. You do not have to work out what goes in it: the agent prepares the runtime files first, then hands you a list with the server name, transport, command, arguments and environment variables. Do this on the same computer that runs the MediaClaw extension, with the browser and extension open.",
+        "items": [
+          {
+            "title": "Step 1: Copy the Doubao install prompt from the extension",
+            "description": "Open System settings → Agent access in the extension, turn on “Allow local agents to call MediaClaw”, expand “Connect Agent”, and hit Copy on the Doubao for Work row. Make sure you take that row — its prompt differs from the Codex and WorkBuddy ones.",
+            "icon": "Chrome",
+            "image": {
+              "src": "/imgs/features/agent-setup-1-v20260911.webp",
+              "alt": "MediaClaw's Agent access panel: enabling local agent calls and copying the install prompt"
+            },
+            "button": {
+              "title": "Install free extension",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "Step 2: Send it to Doubao and let it produce the configuration list",
+            "description": "Start a task in Doubao for Work and paste the prompt as-is. It prepares the runtime files, then lists the server name, transport, command, arguments and environment variables. That list is generated for your machine — keep it for the next step, and never copy paths out of a screenshot.",
+            "icon": "Bot",
+            "image": {
+              "src": "/imgs/docs/agent/setup/06-豆包工作配置清单.webp",
+              "alt": "Doubao for Work generating the MediaClaw connector configuration for the current computer"
+            },
+            "button": {
+              "title": "Read the setup guide",
+              "url": "/docs/agent/setup"
+            }
+          },
+          {
+            "title": "Step 3: Create the custom connector, fill it in and switch it on",
+            "description": "Open Skills · Connectors · Partners in the sidebar, then New → New custom connector. Name the server mediaclaw, pick STDIO as the transport, copy the command and arguments from the list, and add the environment variables one row per pair. Save, wait for “Connector installed”, then check under My skills → Connectors that its toggle is on.",
+            "icon": "Workflow",
+            "image": {
+              "src": "/imgs/docs/agent/setup/08-豆包工作填写配置.webp",
+              "alt": "Filling the Doubao for Work custom connector with the command, arguments and environment variables"
+            },
+            "button": {
+              "title": "Read the setup guide",
+              "url": "/docs/agent/setup"
+            }
+          },
+          {
+            "title": "Step 4: Approve the pairing, then verify back in Doubao",
+            "description": "A pending device appears in the extension's Agent access tab. Check that it is Doubao for Work and that the fingerprint matches the one Doubao showed you, then hit Approve — a green “Agent connected” banner does not count while a device is still pending. Back in Doubao, say “the connector is created and the extension approved the pairing, please re-check the connection”; it verifies with a real tool call and shows the welcome message.",
+            "icon": "ShieldCheck",
+            "image": {
+              "src": "/imgs/docs/agent/setup/11-豆包工作批准配对.webp",
+              "alt": "Verifying the Doubao for Work device fingerprint and approving the pairing in MediaClaw"
+            },
+            "button": {
+              "title": "Read the setup guide",
+              "url": "/docs/agent/setup"
+            }
+          }
+        ]
+      },
+      "stack": {
+        "id": "stack",
+        "block": "features",
+        "title": "What the connector actually brings in",
+        "description": "One connector brings two pieces. Add your own files and the set is complete.",
+        "items": [
+          {
+            "title": "MCP server: gets the data",
+            "description": "A standard MCP integration over STDIO that Doubao calls through the connector — 40+ tools, and the task decides which ones run.",
+            "icon": "Boxes",
+            "features": [
+              "Collect RedNote and Douyin posts, videos, profile feeds and search results",
+              "Back-fill details, pull comments, extract image text and transcripts",
+              "Keyword scans, long-tail expansion, account scans, benchmark discovery",
+              "Read collections, analyses and style profiles already saved in the extension"
+            ]
+          },
+          {
+            "title": "Research skill: knows what to do with it",
+            "description": "12 written methods it follows instead of improvising, covering everything from “is this niche worth entering” to “is this draft ready to publish”.",
+            "icon": "Brain",
+            "features": [
+              "Research: keyword trends, long-tail demand, benchmark accounts, account strategy, recent hits, single-post teardown",
+              "Creation: topic ideation, content briefs, drafting, style adaptation, evidence-to-content framing",
+              "A quality gate before delivery: is every claim backed, is any guess written as fact",
+              "Skill-side analysis and drafting cost no credits"
+            ]
+          },
+          {
+            "title": "Your own material: says who you are",
+            "description": "MediaClaw supplies what is happening on the platforms; only your own notes and business facts say who you are. Give it both and the topics land inside what you can actually write.",
+            "icon": "FileSearch",
+            "features": [
+              "A topic is an intersection: readers want it ∩ you have not covered it",
+              "If no real material backs a point, it says what is missing instead of padding with generics",
+              "Each study is written back as a document, so you can query it three months later"
+            ]
+          }
+        ]
+      },
+      "confirm": {
+        "id": "confirm",
+        "block": "data-table",
+        "title": "Five things it must ask you first",
+        "description": "Approving the pairing lets Doubao for Work connect to MediaClaw. It does not approve every collection that follows.",
+        "columns": [
+          {
+            "key": "action",
+            "title": "Action"
+          },
+          {
+            "key": "before",
+            "title": "What it shows you first"
+          },
+          {
+            "key": "after",
+            "title": "After you confirm"
+          }
+        ],
+        "rows": [
+          {
+            "action": "Collect an account",
+            "before": "A collection plan: target, fields, scope, batch count, risk level",
+            "after": "It runs — and only the batches written into that plan"
+          },
+          {
+            "action": "Video transcript",
+            "before": "A quote: credits per item, total, your balance, expiry",
+            "after": "Extraction starts; items already extracted are not charged twice"
+          },
+          {
+            "action": "Bulk detail back-fill",
+            "before": "Exactly what this round will back-fill",
+            "after": "It opens the detail pages"
+          },
+          {
+            "action": "Clear data",
+            "before": "Blast radius: how many records, comments and transcripts, and the space freed",
+            "after": "The deletion runs"
+          },
+          {
+            "action": "Comment outreach",
+            "before": "A recipient list and the message copy",
+            "after": "You still confirm the send inside the extension"
+          }
+        ]
+      },
+      "hosts": {
+        "id": "hosts",
+        "block": "data-table",
+        "title": "Doubao for Work, Codex or WorkBuddy",
+        "description": "All three hosts run the same package, the same MCP tools and the same skill. Only the install path and auto-update differ.",
+        "columns": [
+          {
+            "key": "host",
+            "title": "Host"
+          },
+          {
+            "key": "install",
+            "title": "Install"
+          },
+          {
+            "key": "update",
+            "title": "Auto-update"
+          },
+          {
+            "key": "note",
+            "title": "Notes"
+          }
+        ],
+        "rows": [
+          {
+            "host": "Doubao for Work",
+            "install": "Create a STDIO connector by hand; the agent prepares every field for you",
+            "update": "—",
+            "note": "No automatic install entry yet, so upgrades are redone manually"
+          },
+          {
+            "host": "Codex",
+            "install": "Send the prompt, it installs itself",
+            "update": "✓",
+            "note": "Fully quit and reopen the host for a new version to activate"
+          },
+          {
+            "host": "WorkBuddy",
+            "install": "Send the prompt, it installs itself",
+            "update": "✓",
+            "note": "Same flow as Codex"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "Why does Doubao for Work need an extra connector step?",
+            "answer": "Codex and WorkBuddy have their own plugin managers, so the agent can install the package and register the tools end to end. Doubao for Work currently needs you to save a custom connector in its UI, which tells it where to launch the local MediaClaw tools from and how to connect to them. The install prompt makes Doubao prepare the runtime files and turn the required fields into a list — you just copy it across once."
+          },
+          {
+            "question": "Do I have to write the command and paths myself?",
+            "answer": "No. The list is generated for your machine; copy it item by item. Two things to watch: if an argument is marked as blank, do not click Add and do not literally type “blank”; and the documentation screenshots use a local development setup, so their command paths, Node path and local markers are UI examples only — never copy them."
+          },
+          {
+            "question": "I saved it, but Doubao still cannot call the tools.",
+            "answer": "Check three things in order. One: under My skills → Connectors, is the MediaClaw toggle on? Two: does the extension's Agent access tab still show a pending device — a green “Agent connected” banner does not count while one is waiting. Three: are the browser and extension running on the same computer as the connector? If all three are fine, ask Doubao to re-check the connection and it will verify with a real tool call."
+          },
+          {
+            "question": "Can Doubao for Work auto-update?",
+            "answer": "No. On Codex and WorkBuddy you can say “upgrade MediaClaw Agent” in an existing conversation and the agent handles it. Doubao for Work has no automatic install entry, so after a new extension release you redo the install and connector configuration by hand. Either way you must fully quit and reopen the host — a running process will not hot-load a new version."
+          },
+          {
+            "question": "Does driving it from Doubao burn a lot of tokens?",
+            "answer": "Less than you would expect. Collection, pagination and rate-limit cooldowns all run inside the extension and consume no host model quota — the extension hands back only structured results. Tokens go to three things: understanding the request, issuing calls and reading results, and the analysis and writing. It also reuses existing data before collecting anything new, and previews large payloads before paging into detail."
+          },
+          {
+            "question": "What is the difference between the skill and the MCP — do I set up both?",
+            "answer": "One connector brings both. The MCP server exposes 40+ tools that fetch data from the platforms; the content research skill supplies 12 written methods that tell Doubao how to analyse and write once the data is back. Tools without methods give you data with no conclusion."
+          },
+          {
+            "question": "Do I still need the browser extension after connecting Doubao?",
+            "answer": "Yes. The agent package cannot run on its own and does not replace the extension. Every page visit happens through the extension in your own browser, and the agent can only use capabilities you approved there."
+          },
+          {
+            "question": "Does my data pass through your servers?",
+            "answer": "Collection runs in your own browser using the sessions you are already logged into; the session is never handed to the agent. Never paste cookies, tokens, activation codes or device keys into a conversation, issue or log — the agent will not ask for them. Revoking one agent's authorization leaves the others alone."
+          },
+          {
+            "question": "Could it collect things or spend credits on its own?",
+            "answer": "No. Before any new collection it states the source, time range, volume, what it will read and the cost boundary, and waits for your agreement. Billable capabilities such as transcripts show an estimated credit cost and balance for a second confirmation. Silence is never treated as consent, and anything beyond the approved scope is asked again."
+          },
+          {
+            "question": "Is it free?",
+            "answer": "The browser extension itself is free to use. Agent access requires an active membership, and billable capabilities such as video transcripts need credits plus a confirmation before they run. Analysis, generation and reporting on the agent side cost no MediaClaw credits."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 You might also like",
+        "description": "From connecting the agent to actually using the data.",
+        "links": [
+          {
+            "title": "What the agent is and who does what",
+            "description": "The three-way split, its fixed working order, and how tokens are spent.",
+            "url": "/docs/agent/overview",
+            "icon": "BookOpen"
+          },
+          {
+            "title": "Doubao for Work: the full connector walkthrough",
+            "description": "Every screenshot from the configuration list to approving the pairing, plus a troubleshooting order.",
+            "url": "/docs/agent/setup",
+            "icon": "Workflow"
+          },
+          {
+            "title": "Agent task examples",
+            "description": "Seven real tasks with full prompts, sampling and delivered results.",
+            "url": "/docs/agent/prompt-examples",
+            "icon": "Sparkles"
+          },
+          {
+            "title": "Connect your knowledge base",
+            "description": "Three routes for Obsidian, Notion, Lark and ima.",
+            "url": "/docs/agent/knowledge-base",
+            "icon": "FolderKanban"
+          },
+          {
+            "title": "Codex integration",
+            "description": "The same MCP and skill, with Codex's fully automatic install.",
+            "url": "/features/codex-integration",
+            "icon": "Bot"
+          },
+          {
+            "title": "WorkBuddy integration",
+            "description": "The same MCP and skill, with WorkBuddy's fully automatic install.",
+            "url": "/features/workbuddy-integration",
+            "icon": "Bot"
+          },
+          {
+            "title": "Lark Base integration",
+            "description": "Sync collected data and monitoring results into Lark Base for the team.",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          },
+          {
+            "title": "RedNote keyword insights",
+            "description": "Judge a niche, find benchmark accounts, mine long-tail demand.",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Give Doubao for Work real RedNote and Douyin data today",
+        "description": "Install the free extension, send the prompt to Doubao, and save the connector it writes out for you.",
+        "buttons": [
+          {
+            "title": "Install free extension",
+            "icon": "Download",
+            "url": "/download",
+            "variant": "default"
+          },
+          {
+            "title": "Read the setup guide",
+            "icon": "BookOpen",
+            "url": "/docs/agent/setup",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

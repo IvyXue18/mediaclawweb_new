@@ -40,6 +40,7 @@ import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
 import {
   CodexIcon,
+  DoubaoWorkIcon,
   DouyinIcon,
   FeishuIcon,
   WorkBuddyIcon,
@@ -243,6 +244,12 @@ function getNavItems(): NavItem[] {
             icon: 'WorkBuddy',
           },
           {
+            title: m['site.header.doubao_integration'](),
+            description: m['site.header.doubao_integration_desc'](),
+            url: '/features/doubao-integration',
+            icon: 'Doubao',
+          },
+          {
             title: m['site.header.feishu_integration'](),
             description: m['site.header.feishu_integration_desc'](),
             url: '/features/feishu-integration',
@@ -323,6 +330,7 @@ const navIconMap: Record<
   UserCheck,
   UserSearch,
   Codex: CodexIcon,
+  Doubao: DoubaoWorkIcon,
   Feishu: FeishuIcon,
   WorkBuddy: WorkBuddyIcon,
 };

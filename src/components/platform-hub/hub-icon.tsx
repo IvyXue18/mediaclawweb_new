@@ -19,7 +19,12 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 
-import { CodexIcon, FeishuIcon, WorkBuddyIcon } from '@/components/brand-icons';
+import {
+  CodexIcon,
+  DoubaoWorkIcon,
+  FeishuIcon,
+  WorkBuddyIcon,
+} from '@/components/brand-icons';
 
 import type { HubIconName } from './types';
 
@@ -30,6 +35,7 @@ const icons: Record<
   audio: AudioLines,
   bot: Bot,
   codex: CodexIcon,
+  doubao: DoubaoWorkIcon,
   database: Database,
   download: Download,
   imageText: ScanText,

@@ -107,6 +107,10 @@ export function Footer() {
           href: '/features/workbuddy-integration',
         },
         {
+          label: m['site.header.doubao_integration'](),
+          href: '/features/doubao-integration',
+        },
+        {
           label: m['site.header.feishu_integration'](),
           href: '/features/feishu-integration',
         },

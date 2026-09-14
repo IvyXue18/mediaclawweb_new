@@ -1,0 +1,456 @@
+{
+  "metadata": {
+    "title": "小红书/抖音 MCP_把社媒数据接入豆包工作的连接器与 Skill",
+    "description": "为豆包工作提供小红书、抖音的 MCP Server 和一套内容研究 Skill：手动保存一个本地 STDIO 连接器，40+ 工具负责采集笔记、视频、评论和账号数据，12 套方法负责拆解、选题和成稿。",
+    "keywords": "小红书 MCP, 抖音 MCP, MCP Server, 豆包 MCP, 豆包工作连接器, 豆包工作 STDIO, 豆包采集小红书, 小红书数据接入豆包, 小红书数据采集, 社媒虾"
+  },
+  "page": {
+    "title": "豆包工作接入",
+    "description": "把小红书、抖音数据接进豆包工作：手动保存一个 STDIO 连接器，之后用一句话完成采集、拆解与成稿。",
+    "show_sections": [
+      "hero",
+      "tasks",
+      "setup",
+      "stack",
+      "confirm",
+      "hosts",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "豆包工作接入",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "集成能力"
+          },
+          {
+            "title": "豆包工作接入"
+          }
+        ],
+        "title": "把小红书、抖音数据接进豆包工作：一个连接器，一套内容研究 Skill",
+        "description": "社媒虾给豆包工作提供两样东西：一个小红书/抖音 MCP Server，40+ 工具负责采集笔记、视频、评论和账号数据并做去重统计；一套内容研究 Skill，12 套写好的方法负责拆解、选题和成稿。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "查看接入文档",
+            "url": "/docs/agent/setup",
+            "icon": "BookOpen",
+            "variant": "outline"
+          }
+        ]
+      },
+      "tasks": {
+        "id": "tasks",
+        "block": "features-scroll",
+        "title": "接进豆包工作之后，一句话能跑完什么",
+        "description": "下面都是社媒虾 Agent 的真实运行记录，指令可以直接复制。三个宿主用的是同一套 MCP 工具和方法，产出一致——截图里的对话界面可能和你的不一样，交回来的东西是一样的。",
+        "items": [
+          {
+            "title": "先看谁在赢：热门笔记按点赞排行",
+            "description": "「帮我看看小红书近半年的『营养测评』热门内容，按点赞数整理代表笔记。」豆包先整理这次采集的样本，把热门笔记做成点赞排行图，哪些内容真的拿到互动一眼能看出来。",
+            "icon": "TrendingUp",
+            "image": {
+              "src": "/imgs/docs/agent/setup/13-豆包工作热门笔记排行.webp",
+              "alt": "豆包工作整理小红书「营养测评」采集样本，展示热门笔记点赞排行"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "再定方向：把样本归成可以动手的选题",
+            "description": "接着让它把样本按内容方向归类，每类列出代表笔记，再给可尝试的选题。想深入某一类，就让它继续补采代表笔记的正文和评论。排行和结论都来自这次采集的样本，会随关键词和时间范围变化。",
+            "icon": "Sparkles",
+            "image": {
+              "src": "/imgs/docs/agent/setup/14-豆包工作选题分析.webp",
+              "alt": "豆包工作把采集样本归纳成选题方向并给出选题启示"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "一条爆款的评论区，直接变成选题清单",
+            "description": "「把这条笔记的评论采够 300 条，分析读者到底在要什么，告诉我哪些选题我能接。」322 条评论去重成 280 条独立文本，其中 35.4% 属明确需求，最后交回带优先级的选题清单和一份多页表格。",
+            "icon": "MessageSquareText",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/01-采集评论分析选题.webp",
+              "alt": "把小红书评论区采集结果整理成带优先级的选题清单与多页表格"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "同一个话题，小红书和抖音一起看",
+            "description": "「看看最近大家在小红书和抖音上都在讲 <关键词> 的什么新玩法。」它先确认关键词到底指哪个产品，复用小红书已有样本、只补采抖音，最后把近期玩法归成 7 类，每类给代表内容。",
+            "icon": "Globe",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/03-内容桌面调研-2.webp",
+              "alt": "跨小红书与抖音完成主题调研，把近期玩法归成七类并给出出处"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "追热点时，只要今天刚发的",
+            "description": "「看下今天发布的 <关键词> 相关的小红书内容。」截至 23:48 扫到 80 条当日内容，按内容方向归类，列出当前表现靠前的作品。每天跑一次，就是一个轻量监控。",
+            "icon": "Timer",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/04-最新主题内容获取.webp",
+              "alt": "只抓取当天最新的小红书内容并按方向归类"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "拆完一条视频，直接给能拍的脚本",
+            "description": "「这条视频为什么留得住人？开头怎么起、中间怎么推？顺便改成我能拍的脚本。」精准拆解需要逐字稿，它会先报价（16 积分 / 余额 40 / 有效期），你点头才提取，再交回结构拆解和一份 90 秒脚本。",
+            "icon": "Video",
+            "image": {
+              "src": "/imgs/docs/agent/prompt-examples/05-视频拆解-2.webp",
+              "alt": "拆解视频结构并交回一份可直接拍摄的 90 秒脚本"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          }
+        ]
+      },
+      "setup": {
+        "id": "setup",
+        "block": "features-scroll",
+        "title": "怎么接：四步配好一个本地连接器",
+        "description": "豆包工作目前没有自动安装入口，需要你手动保存一个连接器。但要填什么不用你研究——豆包会先把安装文件准备好，再把服务器名称、传输类型、命令、参数和环境变量整理成一份清单给你，你照着填。请在装了社媒虾插件的同一台电脑上操作，并保持浏览器和插件打开。",
+        "items": [
+          {
+            "title": "第一步：在插件里复制豆包工作的安装提示词",
+            "description": "插件右上角「系统配置 → Agent 接管」，先打开「允许本机 Agent 调用社媒虾」，再展开「连接 Agent」，点豆包工作那行的「复制安装提示词」。注意选豆包工作专用的那条，它和 Codex、WorkBuddy 的不一样。",
+            "icon": "Chrome",
+            "image": {
+              "src": "/imgs/features/agent-setup-1-v20260911.webp",
+              "alt": "社媒虾插件的 Agent 接管页：打开本机调用开关并复制安装提示词"
+            },
+            "button": {
+              "title": "免费下载使用",
+              "url": "/download"
+            }
+          },
+          {
+            "title": "第二步：发给豆包，让它准备文件并给出配置清单",
+            "description": "在豆包工作里新建一个任务，把提示词原样发送。它会准备好运行文件，再列出服务器名称、传输类型、命令、参数和环境变量。这份清单是按你这台电脑生成的，留着下一步逐项复制——别照抄任何截图里的路径。",
+            "icon": "Bot",
+            "image": {
+              "src": "/imgs/docs/agent/setup/06-豆包工作配置清单.webp",
+              "alt": "豆包工作生成当前电脑的 MediaClaw 连接器配置清单"
+            },
+            "button": {
+              "title": "查看接入文档",
+              "url": "/docs/agent/setup"
+            }
+          },
+          {
+            "title": "第三步：新建自定义连接器，按清单填好并启用",
+            "description": "左侧「技能 · 连接器 · 伙伴」→ 右上角「新建 → 新建自定义连接器」。服务器名称填 mediaclaw，传输类型选 STDIO，命令和参数按清单复制，环境变量一行一组填进去。保存后看到「连接器已安装」，再到「我的技能 → 连接器」确认开关是打开的。",
+            "icon": "Workflow",
+            "image": {
+              "src": "/imgs/docs/agent/setup/08-豆包工作填写配置.webp",
+              "alt": "在豆包工作的自定义连接器窗口里按清单填写命令、参数和环境变量"
+            },
+            "button": {
+              "title": "查看接入文档",
+              "url": "/docs/agent/setup"
+            }
+          },
+          {
+            "title": "第四步：回插件批准配对，再回豆包验证一次",
+            "description": "插件的 Agent 接管页会出现待批准设备，确认设备名称是豆包工作、指纹和豆包给的一致，再点「批准配对」——页面已经显示绿色「Agent 已连接」也不算数，下方还有待批准设备就得配对。然后回豆包说一句「已创建连接器，插件已批准配对，请继续检查连接状态」，它会调用工具复查并展示首次欢迎。",
+            "icon": "ShieldCheck",
+            "image": {
+              "src": "/imgs/docs/agent/setup/11-豆包工作批准配对.webp",
+              "alt": "在社媒虾插件里核对豆包工作的设备指纹并批准配对"
+            },
+            "button": {
+              "title": "查看接入文档",
+              "url": "/docs/agent/setup"
+            }
+          }
+        ]
+      },
+      "stack": {
+        "id": "stack",
+        "block": "features",
+        "title": "接进豆包工作的是什么",
+        "description": "一个连接器带进来两样东西。它们分别回答「数据从哪来」和「拿到后按什么步骤做」，再加上你自己的资料，才凑得齐。",
+        "items": [
+          {
+            "title": "MCP Server：数据从哪来",
+            "description": "40+ 个工具挂在豆包工作的连接器里，走标准 STDIO 传输。它调哪个、调几次由任务决定，你不用指定。",
+            "icon": "Boxes",
+            "features": [
+              "内容侧：笔记、视频、主页作品、搜索结果、评论",
+              "增强侧：补详情、图片文字识别、视频逐字稿",
+              "研究侧：关键词扫描与长尾扩展、账号扫描、对标账号发现",
+              "复用侧：直接读插件里已存的采集记录、分析结果和风格档案"
+            ]
+          },
+          {
+            "title": "内容研究 Skill：拿到后按什么步骤做",
+            "description": "12 套写死的方法，覆盖从「这个赛道值不值得做」到「这篇稿能不能发」。它按方法走，不会拿到数据就开始自由发挥。",
+            "icon": "Brain",
+            "features": [
+              "先判断：关键词趋势、长尾需求、对标账号、账号策略、近期爆款",
+              "再拆解：单篇内容的选题、结构、表达和互动信号",
+              "后产出：选题、内容任务书、大纲、成稿、按你的风格适配",
+              "交付前自查：结论有没有证据、有没有把猜测写成事实"
+            ]
+          },
+          {
+            "title": "你的资料：凭什么是你写的",
+            "description": "平台上正在发生什么由社媒虾提供，你是谁只有你自己的资料知道。把已发内容和业务事实交给它，选题才落在你能写的范围里。",
+            "icon": "FileSearch",
+            "features": [
+              "交集才是选题：平台有人要 ∩ 你还没写过",
+              "素材对不上就直说缺什么，不拿通用例子顶",
+              "每次研究的结论落成文档，下次直接问而不是重跑采集"
+            ]
+          }
+        ]
+      },
+      "confirm": {
+        "id": "confirm",
+        "block": "data-table",
+        "title": "这五件事，它必须先问你",
+        "description": "批准配对只是允许豆包工作连接社媒虾，不等于批准后续所有采集。",
+        "columns": [
+          {
+            "key": "action",
+            "title": "动作"
+          },
+          {
+            "key": "before",
+            "title": "它会先给你什么"
+          },
+          {
+            "key": "after",
+            "title": "你确认之后"
+          }
+        ],
+        "rows": [
+          {
+            "action": "采集账号",
+            "before": "一份采集方案：目标、字段、范围、分几批、风险等级",
+            "after": "才开始执行，且只执行方案里写明的批次"
+          },
+          {
+            "action": "视频逐字稿",
+            "before": "一份报价：每条预计多少积分、总额、余额、有效期",
+            "after": "才开始提取，已经提过的项目不重复扣分"
+          },
+          {
+            "action": "批量补详情",
+            "before": "这次要补的范围",
+            "after": "才进详情页补采"
+          },
+          {
+            "action": "清理数据",
+            "before": "影响范围：多少条记录、评论、逐字稿，预计腾出多少空间",
+            "after": "才执行删除"
+          },
+          {
+            "action": "评论私信",
+            "before": "一份收件人名单和话术",
+            "after": "还要回插件的「采集与获客 → 评论获客」做最终确认"
+          }
+        ]
+      },
+      "hosts": {
+        "id": "hosts",
+        "block": "data-table",
+        "title": "Codex、WorkBuddy、豆包工作怎么选",
+        "description": "三个宿主用的是同一个接入包、同一套 MCP 工具和同一套 Skill，区别只在怎么装、能不能自动升级。",
+        "columns": [
+          {
+            "key": "host",
+            "title": "宿主"
+          },
+          {
+            "key": "install",
+            "title": "安装方式"
+          },
+          {
+            "key": "update",
+            "title": "自动升级"
+          },
+          {
+            "key": "note",
+            "title": "说明"
+          }
+        ],
+        "rows": [
+          {
+            "host": "豆包工作",
+            "install": "手动新建 STDIO 连接器，豆包会把要填的内容整理好给你",
+            "update": "—",
+            "note": "目前没有自动安装入口，升级需要手动重做一次"
+          },
+          {
+            "host": "Codex",
+            "install": "发提示词，自动装到底",
+            "update": "✓",
+            "note": "装完完全退出并重新打开才算激活"
+          },
+          {
+            "host": "WorkBuddy",
+            "install": "发提示词，自动装到底",
+            "update": "✓",
+            "note": "流程与 Codex 相同"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "为什么豆包工作要多配一步连接器？",
+            "answer": "Codex 和 WorkBuddy 有自己的插件管理器，Agent 可以直接完成接入包安装和工具注册；豆包工作目前需要你在界面里手动保存一个自定义连接器，告诉它「从哪里启动本机的 MediaClaw 工具、用什么配置连接」。安装提示词会让豆包先把运行文件准备好、把要填的内容整理成清单，你只负责照着填一遍。"
+          },
+          {
+            "question": "连接器里的命令和路径要自己写吗？",
+            "answer": "不用。清单是豆包按你这台电脑生成的，逐项复制过去就行。特别注意两点：参数如果标注留空，就不要点「添加」，也不要真的输入「留空」二字；文档截图用的是本地开发配置，命令路径、Node 路径和 local 标记只作界面示例，不要照抄。"
+          },
+          {
+            "question": "填完保存了，为什么豆包还是调不到工具？",
+            "answer": "按顺序查三件事：一是「我的技能 → 连接器」里 MediaClaw 的开关有没有打开；二是插件的 Agent 接管页有没有待批准设备——即使页面已经显示绿色「Agent 已连接」，只要下方还有待批准设备就仍需配对；三是浏览器和插件有没有开着，连接器必须和插件在同一台电脑上。都没问题就回豆包让它检查连接状态，它会调用工具复查实际情况。"
+          },
+          {
+            "question": "豆包工作能自动升级吗？",
+            "answer": "不能。Codex 和 WorkBuddy 可以在对话里说一句「升级 MediaClaw Agent」由 Agent 全程完成；豆包工作目前没有自动安装入口，插件发布新版本后需要手动重做一次安装与连接器配置。配置完成后同样要完全退出并重新打开豆包工作，运行中的进程不会热加载新版本。"
+          },
+          {
+            "question": "用豆包工作指挥它，模型额度扛得住吗？",
+            "answer": "比让 Agent 自己开浏览器一页页点要省得多。采集、翻页、等平台限频冷却全在插件里跑，不占宿主的模型额度，插件只把整理好的结构化结果交回去。额度花在三件事上：读懂你的要求、发起调用并读回结果、做分析和写稿。它还会先复用已有数据再决定要不要新采，大的返回先给摘要，要细节才分页读。"
+          },
+          {
+            "question": "Skill 和 MCP 有什么区别，两个都要装吗？",
+            "answer": "一次配置就都有了。MCP Server 提供 40+ 个工具，负责从平台把数据取回来；内容研究 Skill 提供 12 套写好的方法，负责告诉豆包拿到数据之后按什么步骤分析和写。只有工具没有方法，你会拿到一堆数据但没有结论。"
+          },
+          {
+            "question": "接进豆包之后，浏览器插件还要开着吗？",
+            "answer": "要。接入包不能单独使用，也替代不了插件。所有页面访问都通过你自己浏览器里的插件完成，用的是你已经登录的账号会话；Agent 只能动你在插件里批准过的那些能力。"
+          },
+          {
+            "question": "我的登录态和数据安全吗？",
+            "answer": "采集在你自己的浏览器里进行，登录态不会交给 Agent。不要在对话、Issue 或日志里贴 Cookie、Token、激活码和设备私钥，Agent 也不会向你要这些。撤销某个 Agent 的授权不影响其他已批准的 Agent。"
+          },
+          {
+            "question": "它会不会自己采集、自己花积分？",
+            "answer": "不会。真要新采时它会先讲清来源、时间范围、总量、要读哪些内容和费用边界，等你点头；逐字稿这类计费能力还会单独报一次预计积分和余额。回「可以」「好」「开始吧」都算确认，沉默不算同意，超出已授权范围的变化会重新问。"
+          },
+          {
+            "question": "免费能用吗？",
+            "answer": "浏览器插件本身免费。Agent 接管需要有效会员；视频逐字稿这类计费能力还需要足够积分并在执行前确认。Agent 侧的分析、生成和报告输出本身不消耗社媒虾积分。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "从接入到把数据用起来，完整路径都在这里。",
+        "links": [
+          {
+            "title": "Agent 是什么、接入后谁负责什么",
+            "description": "三方分工、它干活的固定顺序，以及模型额度都花在哪。",
+            "url": "/docs/agent/overview",
+            "icon": "BookOpen"
+          },
+          {
+            "title": "豆包工作：连接器配置全流程",
+            "description": "从配置清单到批准配对的完整截图步骤，以及连不上时的排查顺序。",
+            "url": "/docs/agent/setup",
+            "icon": "Workflow"
+          },
+          {
+            "title": "Agent 任务案例",
+            "description": "七个任务的完整指令、采样过程和最终交付物。",
+            "url": "/docs/agent/prompt-examples",
+            "icon": "Sparkles"
+          },
+          {
+            "title": "连接你的知识库",
+            "description": "Obsidian、Notion、飞书、ima 各自怎么接，以及三个文件就能起步的最小库。",
+            "url": "/docs/agent/knowledge-base",
+            "icon": "FolderKanban"
+          },
+          {
+            "title": "Codex 接入",
+            "description": "同一套 MCP 和 Skill，换成 Codex 的自动安装方式。",
+            "url": "/features/codex-integration",
+            "icon": "Bot"
+          },
+          {
+            "title": "WorkBuddy 接入",
+            "description": "同一套 MCP 和 Skill，换成 WorkBuddy 的自动安装方式。",
+            "url": "/features/workbuddy-integration",
+            "icon": "Bot"
+          },
+          {
+            "title": "飞书多维表格集成",
+            "description": "另一类集成：把采集结果和监控命中写进多维表格。",
+            "url": "/features/feishu-integration",
+            "icon": "Table2"
+          },
+          {
+            "title": "小红书关键词洞察",
+            "description": "赛道机会判断、对标账号发现与长尾需求挖掘。",
+            "url": "/xiaohongshu/keywords",
+            "icon": "Search"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "今天就让豆包工作拿到真实的小红书、抖音数据",
+        "description": "免费装好插件，把提示词发给豆包，照它给的清单保存一个连接器就能用。",
+        "buttons": [
+          {
+            "title": "免费安装插件",
+            "icon": "Download",
+            "url": "/download",
+            "variant": "default"
+          },
+          {
+            "title": "查看接入文档",
+            "icon": "BookOpen",
+            "url": "/docs/agent/setup",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

@@ -1549,6 +1549,8 @@
   "site.header.codex_integration_desc": "Bring RedNote and Douyin data into Codex over MCP",
   "site.header.workbuddy_integration": "WorkBuddy Integration",
   "site.header.workbuddy_integration_desc": "Bring RedNote and Douyin data into WorkBuddy over MCP",
+  "site.header.doubao_integration": "Doubao for Work Integration",
+  "site.header.doubao_integration_desc": "Bring RedNote and Douyin data into Doubao for Work over MCP",
   "site.header.feishu_integration": "Feishu Integration",
   "site.header.feishu_integration_desc": "Sync scraped data, comments, and monitoring results to Feishu Base",
   "site.header.reviews": "Reviews",

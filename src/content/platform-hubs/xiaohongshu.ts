@@ -168,6 +168,14 @@ export const zhXiaohongshuHub: PlatformHubContent = {
       icon: 'workbuddy',
     },
     {
+      id: 'doubao-agent',
+      title: '豆包工作接入',
+      description:
+        '在豆包工作里保存一个本地连接器，之后直接口头描述采集与研究任务。',
+      href: '/features/doubao-integration',
+      icon: 'doubao',
+    },
+    {
       id: 'feishu-integration',
       title: '飞书集成',
       description:
@@ -568,6 +576,15 @@ export const enXiaohongshuHub: PlatformHubContent = {
         'Start collection and analysis from WorkBuddy and connect repetitive steps into a controlled content workflow.',
       href: '/features/workbuddy-integration',
       icon: 'workbuddy',
+      badge: 'Agent access',
+    },
+    {
+      id: 'doubao-agent',
+      title: 'Doubao for Work Integration',
+      description:
+        'Save one local connector in Doubao for Work, then describe collection and research tasks in plain language.',
+      href: '/features/doubao-integration',
+      icon: 'doubao',
       badge: 'Agent access',
     },
     {
