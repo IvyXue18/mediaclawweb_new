@@ -58,9 +58,9 @@ export const zhXiaohongshuHub: PlatformHubContent = {
       eyebrow: 'Agent 接入',
       title: '把重复步骤交给你常用的 Agent',
       description:
-        '从 Codex 或 WorkBuddy 直接发起采集、分析与交付接力，把重复步骤交给你常用的 Agent 处理。',
+        '从 Codex、WorkBuddy 或豆包工作直接发起采集、分析与交付接力，把重复步骤交给你常用的 Agent 处理。',
       icon: 'bot',
-      featureIds: ['codex-agent', 'workbuddy-agent'],
+      featureIds: ['codex-agent', 'workbuddy-agent', 'doubao-agent'],
     },
     {
       id: 'monitor',
@@ -372,9 +372,9 @@ export const enXiaohongshuHub: PlatformHubContent = {
       eyebrow: 'Agent access',
       title: 'Hand repetitive steps to the agent you already use',
       description:
-        'Start a controlled collection, analysis and delivery flow straight from Codex or WorkBuddy, and hand repetitive steps to the agent you already use.',
+        'Start a controlled collection, analysis and delivery flow straight from Codex, WorkBuddy or Doubao for Work, and hand repetitive steps to the agent you already use.',
       icon: 'bot',
-      featureIds: ['codex-agent', 'workbuddy-agent'],
+      featureIds: ['codex-agent', 'workbuddy-agent', 'doubao-agent'],
     },
     {
       id: 'monitor',
