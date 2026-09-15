@@ -7,7 +7,6 @@ import {
   findDocLeaf,
   getAllDocSlugs,
 } from '@/content/docs/registry';
-import { getLocalLogs } from '@/content/logs';
 import {
   getLocalPostLocales,
   getLocalPosts,
@@ -127,13 +126,11 @@ export const Route = createFileRoute('/sitemap.xml')({
           });
         }
 
-        for (const log of getLocalLogs(baseLocale)) {
-          addEntry({
-            path: `/updates/${log.slug}`,
-            availableLocales: locales,
-            lastModified: new Date(log.date).toISOString(),
-          });
-        }
+        // Individual changelog entries (/updates/v0.1.2 etc.) are deliberately
+        // NOT submitted. Nobody searches for a version number: all 36 of them
+        // drew zero impressions in the 2026-09-14 report while making up 18% of
+        // the sitemap. They stay crawlable and indexable through the /updates
+        // index — this only stops spending crawl budget on them.
 
         // Blog posts: db posts merged with local MDX posts.
         try {

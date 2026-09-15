@@ -5,13 +5,20 @@ import { z } from 'zod';
 
 import { authClient, signIn, useSession } from '@/core/auth/client';
 import { Link, useRouter } from '@/core/i18n/navigation';
+import { envConfigs } from '@/config';
 import { resolveLoginIdentifier } from '@/lib/auth-identifier';
 import {
   DEFAULT_AUTH_REDIRECT_PATH,
   getSafeAuthCallbackPath,
 } from '@/lib/auth-redirect';
 import { m } from '@/paraglide/messages.js';
-import { localizeHref } from '@/paraglide/runtime.js';
+import {
+  baseLocale,
+  getLocale,
+  locales,
+  localizeHref,
+  localizeUrl,
+} from '@/paraglide/runtime.js';
 import { usePublicConfig } from '@/hooks/use-public-config';
 import { TextField } from '@/components/form-field';
 import { Button } from '@/components/ui/button';
@@ -303,6 +310,34 @@ function SignInPage() {
   );
 }
 
+const signInUrlFor = (locale: (typeof locales)[number]) =>
+  localizeUrl(`${envConfigs.app_url}/sign-in`, { locale }).href;
+
 export const Route = createFileRoute('/(auth)/sign-in')({
+  loader: () => ({ locale: getLocale() }),
+  // Kept indexable on purpose: the page ranks for branded "<app> login" queries
+  // and those searchers want exactly this page. It only lacked a canonical,
+  // which left the zh/en variants with no declared relationship.
+  head: ({ loaderData }) => {
+    const locale = (loaderData?.locale ??
+      baseLocale) as (typeof locales)[number];
+    const canonicalUrl = signInUrlFor(locale);
+
+    return {
+      links: [
+        { rel: 'canonical', href: canonicalUrl },
+        ...locales.map((loc) => ({
+          rel: 'alternate',
+          hrefLang: loc,
+          href: signInUrlFor(loc),
+        })),
+        {
+          rel: 'alternate',
+          hrefLang: 'x-default',
+          href: signInUrlFor(baseLocale),
+        },
+      ],
+    };
+  },
   component: SignInPage,
 });
