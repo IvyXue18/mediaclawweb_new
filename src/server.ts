@@ -40,6 +40,22 @@ function isLocalHost(host: string) {
   return normalized === 'localhost' || normalized === '127.0.0.1';
 }
 
+// Legacy URLs that Google still has indexed from the pre-TanStack site. Keep
+// the 301 so external backlinks and old shares keep their equity instead of
+// dying on a 404. Locale-prefix aware: bare paths are zh, /en/* is English.
+const LEGACY_REDIRECTS: Record<string, string> = {
+  '/showcases': '/customers',
+};
+
+function legacyRedirectFor(url: URL): string | null {
+  const path = url.pathname.replace(/\/+$/, '') || '/';
+  const isEn = path === '/en' || path.startsWith('/en/');
+  const bare = isEn ? path.slice(3) || '/' : path;
+  const target = LEGACY_REDIRECTS[bare];
+  if (!target) return null;
+  return `${isEn ? '/en' : ''}${target}${url.search}`;
+}
+
 function rewriteRequestCookie(cookie: string | null) {
   if (!cookie) return cookie;
   return cookie.replace(/(^|;\s*)better-auth\./g, '$1__Secure-better-auth.');
@@ -139,6 +155,12 @@ export default {
     await ensureCloudflareEnv();
     return withDbRequestScope(async () => {
       const url = new URL(req.url);
+
+      const legacyTarget = legacyRedirectFor(url);
+      if (legacyTarget) {
+        return Response.redirect(new URL(legacyTarget, url).toString(), 301);
+      }
+
       const isApiRequest = url.pathname.startsWith('/api/');
       const host = req.headers.get('host') || '';
       const proxyOrigin = envConfigs.local_api_proxy_origin;

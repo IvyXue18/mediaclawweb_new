@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Free Rednote（Xiaohongshu） Comment scraper Chrome Extension | MediaClaw",
-    "description": "Free Xiaohongshu (RedNote) comment extractor. Batch-capture comment text, likes, timestamps, usernames, and profile links, then export to Excel/CSV for research.",
+    "title": "Free Xiaohongshu Comment Scraper Chrome Extension",
+    "description": "Free Xiaohongshu (RedNote) comment extractor. Batch-capture comment text, likes, timestamps, usernames and profile links, then export to Excel/CSV.",
     "keywords": "Xiaohongshu comment scraper, RedNote comment export, export Xiaohongshu comments, Xiaohongshu comment analysis, high-intent lead filtering, free Xiaohongshu tool"
   },
   "page": {

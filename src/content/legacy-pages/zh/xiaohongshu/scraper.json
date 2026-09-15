@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "小红书采集插件：账号、笔记内容与互动数据一键提取 | MediaClaw社媒虾",
-    "description": "免费小红书数据采集插件，一键提取笔记内容、互动评论、账号数据、无水印素材等，并继续提取评论、图片文字和视频逐字稿，支持一键导出 Excel/CSV/Markdown。",
+    "title": "小红书采集插件｜笔记内容与互动数据一键提取 | MediaClaw",
+    "description": "免费小红书数据采集插件，一键提取笔记内容、账号数据与无水印素材，并支持评论、图片文字和视频逐字稿提取，导出 Excel/CSV/Markdown。",
     "keywords": "小红书数据采集, 小红书采集工具, 小红书笔记数据采集, 小红书主页数据采集, 小红书搜索结果采集, 小红书采集插件, 导出Excel, Markdown导出, 配图文案, 视频逐字稿, 小红书笔记采集"
   },
   "page": {
@@ -212,7 +212,7 @@
           },
           {
             "question": "采集的数据能接入 AI 或 MCP 工作流吗？",
-            "answer": "可以。Markdown 导出天然适配 AI 工作流，可直接投喂 Obsidian、飞书智能伙伴或任意大模型做内容总结与选题挖掘；MCP（Model Context Protocol）支持已在规划中，届时 AI Agent 可以直接查询你的采集数据。"
+            "answer": "可以。Markdown 导出天然适配 AI 工作流，可直接投喂 Obsidian、飞书智能伙伴或任意大模型做内容总结与选题挖掘；MediaClaw 也已提供原生 MCP（Model Context Protocol）服务，Codex、豆包工作版、WorkBuddy 里的 AI Agent 可以直接查询你的采集数据。"
           }
         ]
       },

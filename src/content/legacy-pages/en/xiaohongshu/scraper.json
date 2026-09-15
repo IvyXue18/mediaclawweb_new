@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Free RedNote（Xiaohongshu） Scraper Chrome Extension | MediaClaw",
-    "description": "RedNote scraper Chrome extension: scrape Xiaohongshu posts, data and creator profiles. Export to CSV/Markdown, or sync to Lark Base.",
+    "title": "Free Xiaohongshu Scraper Chrome Extension | MediaClaw",
+    "description": "Xiaohongshu (RedNote) scraper Chrome extension: scrape posts, data and creator profiles. Export to CSV/Markdown, or sync to Lark Base.",
     "keywords": "RedNote scraper, red note scraper, Xiaohongshu scraper, RedNote scraper Chrome extension, export Xiaohongshu to Excel, no-code scraper, RedNote data export, best free rednote scraper"
   },
   "page": {
@@ -261,7 +261,7 @@
           },
           {
             "question": "Can I extract video transcripts and spoken scripts?",
-            "answer": "Video post metadata (title, hashtags, engagement) is extracted directly. For spoken-word script extraction, sync the data to Lark Base where AI templates can process the video content and output transcripts automatically."
+            "answer": "Yes. The extension extracts video transcripts directly — no Lark or third-party setup required. You get a timestamped, sentence-level script, and for image posts it can also OCR the text inside the images. Results are backfilled into the scraped record and travel with your CSV/Markdown export or Lark Base sync."
           },
           {
             "question": "What is the best free Rednote scraper?",
@@ -281,7 +281,7 @@
           },
           {
             "question": "Can I use scraped RedNote data in AI or MCP workflows?",
-            "answer": "Yes. Markdown export is designed for AI workflows — drop it into Obsidian, Notion AI, or any LLM for summarization and topic mining. Native MCP (Model Context Protocol) support is on our roadmap, so AI agents will be able to query your scraped data directly."
+            "answer": "Yes. Markdown export is designed for AI workflows — drop it into Obsidian, Notion AI, or any LLM for summarization and topic mining. MediaClaw also ships a native MCP (Model Context Protocol) server, so AI agents in Codex, Doubao for Work, and WorkBuddy can query your scraped data directly."
           }
         ]
       },
@@ -296,6 +296,12 @@
             "description": "Compare creator positioning, content patterns, and public engagement evidence.",
             "url": "/xiaohongshu/account-analysis",
             "icon": "UserSearch"
+          },
+          {
+            "title": "Video Transcript Extractor",
+            "description": "Pull a timestamped, sentence-level transcript from any video post.",
+            "url": "/xiaohongshu/transcript",
+            "icon": "FileText"
           },
           {
             "title": "Comment Scraper",
