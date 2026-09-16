@@ -16,6 +16,14 @@ export type TestimonialAsset = {
 
 export const testimonialAssets = [
   {
+    src: 'https://media.mediaclaw.app/testimonials/2026/30-deepseek-browser-collection.webp',
+    width: 696,
+    height: 768,
+    category: 'experience',
+    description:
+      '通过 DeepSeek 推荐找到插件，认可直接打开视频或账号网页即可采集评论和数据的便利性',
+  },
+  {
     src: 'https://media.mediaclaw.app/testimonials/2026/10-great-software.webp',
     width: 834,
     height: 374,
