@@ -1,0 +1,120 @@
+export const meta = {
+  title: '更新插件',
+  description:
+    '分别查看 Chrome 商店版、Edge 商店版和离线安装版的更新步骤，检查版本并让更新生效。',
+};
+
+插件已有新版本但不知道怎么更新？先检查当前版本，再按原来的安装方式更新。
+
+<Callout type="danger">
+  **非必要情况，不要先卸载旧插件。因为卸载后重装你需要重新配置参数：激活码，飞书表格等**
+</Callout>
+
+| 你当时怎么安装的                           | 使用哪种更新方式                       |
+| ------------------------------------------ | -------------------------------------- |
+| 在 Chrome 浏览器中，从 Chrome 应用商店安装 | 按「Chrome 商店版」步骤更新            |
+| 从 Microsoft Edge 加载项商店安装           | 按「Edge 商店版」步骤更新              |
+| 从官网下载 CRX 文件，拖入浏览器安装        | 按「离线安装版」步骤，用新版安装包覆盖 |
+
+## 检查当前版本
+
+打开插件的 **帮助与支持**，点击 **检查更新**，查看当前版本和最新版本信息。**看到更新提示，不代表已经完成更新**，还需要按下面对应的步骤操作。
+
+<DocImageGrid
+  images={[
+    {
+      src: '/imgs/docs/getting-started/update/01-检查更新入口.webp',
+      caption: '在「帮助与支持」中点击「检查更新」',
+      captionEn: 'Click “Check for Updates” in “Help & Support”',
+      width: 792,
+      height: 888,
+    },
+    {
+      src: '/imgs/docs/getting-started/update/01-查看版本信息.webp',
+      caption: '查看当前版本和新版本信息；实际版本以页面显示为准',
+      captionEn:
+        'Check the installed and available versions; use the versions shown in your own extension',
+      width: 864,
+      height: 1912,
+    },
+  ]}
+/>
+
+## Chrome 商店版怎么更新
+
+**适用于：在 Chrome 浏览器中，通过 Chrome 应用商店安装的用户。**
+
+Chrome 会自动检查扩展更新。如果插件仍是旧版，可以手动检查：
+
+1. 等当前任务完成，关闭插件侧边栏和设置页面。
+2. 在 **Chrome 浏览器地址栏**输入 `chrome://extensions/`，按回车，进入扩展管理页。
+3. 打开右上角的 **开发者模式**。
+4. 找到 MediaClaw，查看版本号；点击 **详情** 进入这个插件的页面。
+5. 点击页面左上方出现的 **更新** 按钮，等待浏览器检查已安装扩展的更新。
+6. 刷新已经打开的小红书或抖音网页，再重新打开插件。
+
+<DocImage
+  src="/imgs/docs/getting-started/update/02-chrome更新插件.webp"
+  caption="Chrome 扩展管理页：开启开发者模式，点击「更新」，再在 MediaClaw 详情中核对版本号"
+  captionEn="Chrome extensions page: enable Developer mode, click “Update”, then check the version in MediaClaw’s details"
+  width={1600}
+  height={938}
+/>
+
+## Edge 商店版怎么更新
+
+**适用于：通过 Microsoft Edge 加载项商店安装的用户。**
+
+Edge 会自动检查扩展更新。如果插件仍是旧版，可以手动检查：
+
+1. 等当前任务完成，关闭插件侧边栏和设置页面。
+2. 在 **Edge 浏览器地址栏**输入 `edge://extensions/`，按回车，进入扩展管理页。
+3. 找到并打开 **开发者模式**。
+4. 找到 MediaClaw，查看版本号；如果卡片上没有显示，点击 **详情** 查看。
+5. 点击页面中的 **更新** 按钮，等待浏览器检查已安装扩展的更新。或者先关闭再打开插件启动按钮，让他重新检查版本。
+6. 刷新已经打开的小红书或抖音网页，再重新打开插件。
+
+## 离线安装版怎么更新
+
+**适用于：从官网下载 CRX 安装包，拖入浏览器安装的用户。**
+
+离线安装版按以下步骤手动更新，使用新版 CRX 安装包覆盖原来的离线版。更首次安装一样的顺序。
+
+1. 前往[下载页](/download)，选择 **离线安装（安装包）**，下载最新版 `.crx` 文件。
+2. 打开原来安装 MediaClaw 的浏览器，使用原来的浏览器个人资料，进入扩展管理页：Chrome 输入 `chrome://extensions/`，Edge 输入 `edge://extensions/`。
+3. 打开 **开发者模式**，确认页面上已有 MediaClaw。
+4. 把刚下载的新版 `.crx` 文件拖入扩展管理页面，按出现的提示完成覆盖更新。
+5. 查看 MediaClaw 的版本号，确认已变为下载的新版本。
+6. 刷新已经打开的小红书或抖音网页，再重新打开插件。
+
+<DocImage
+  src="/imgs/docs/getting-started/install/01-下载离线安装包.webp"
+  caption="在下载页获取最新版 CRX 安装包，再拖入原浏览器的扩展管理页覆盖更新"
+  captionEn="Download the latest CRX package, then drag it into the original browser’s extensions page to update the existing installation"
+/>
+
+<DocVideo
+  src="https://media.mediaclaw.app/videos/docs/getting-started/install/01-offline-install-demo.mp4"
+  caption="离线安装录屏演示"
+  captionEn="Offline install screen recording"
+/>
+
+## 更新后如何确认成功
+
+重新打开插件，进入 **检查更新**，核对当前版本号是否已变为目标版本。截图中的版本号仅作示例，以你实际安装的版本为准。
+
+## 更新遇到问题
+
+### 提示有新版，点击更新后却还是旧版
+
+先核对原安装来源的商店是否已经上架目标版本：[Chrome 商店](https://chromewebstore.google.com/detail/mediaclaw/ihclbgfnkclacfkbedkdnbpmkcdaccje)、[Edge 商店](https://microsoftedge.microsoft.com/addons/detail/mediaclaw-%E7%A4%BE%E5%AA%92%E8%99%BE%EF%BD%9C%E5%B0%8F%E7%BA%A2%E4%B9%A6%E6%8A%96%E9%9F%B3ai%E8%BF%90%E8%90%A5%E5%B7%A5/moalagonhjmhmoiaehciejkkingpajpl)。不同渠道的上架时间可能不同，尚未上架的版本无法通过该商店更新。
+
+如果对应商店已上架，确认网络能正常访问该商店，关闭插件侧边栏和设置页，再重新启动浏览器后检查。离线版则确认下载的是新版 CRX，并已完成覆盖安装。
+
+### 版本已更新，但界面或功能没有变化
+
+先刷新正在使用的小红书或抖音网页，关闭插件后重新打开。如果仍无变化，重新启动浏览器，并确认你打开的是刚才更新插件的浏览器个人资料。
+
+### 拖入离线包时报错，或出现两个 MediaClaw
+
+先不要删除原插件。确认使用的是官网下载的新 CRX，以及原来安装插件的浏览器个人资料。如果出现重复插件或安装报错，记录原插件版本、浏览器名称和报错内容，截图提供给客服排查。

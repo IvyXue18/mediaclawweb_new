@@ -283,6 +283,7 @@ type LegacySection = {
   steps?: LegacyItem[];
   faq_title?: string;
   download_faq?: Array<{ question: string; answer: string }>;
+  update_guide?: LegacyButton;
   video_button?: LegacyButton;
   video_title?: string;
   video_poster?: string;
@@ -3355,6 +3356,16 @@ function DownloadInstallOptions({ section }: { section: LegacySection }) {
           </span>
         </TabsTrigger>
       </TabsList>
+      {section.update_guide?.url ? (
+        <p className="mb-5 text-sm leading-relaxed">
+          <Link
+            href={section.update_guide.url}
+            className="text-primary underline underline-offset-4"
+          >
+            {section.update_guide.title}
+          </Link>
+        </p>
+      ) : null}
       <TabsContent value="market" className="mt-0">
         <div className="grid gap-5 md:grid-cols-2" data-download-market-grid>
           {section.market_items?.map((item, index) => (

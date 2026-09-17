@@ -69,6 +69,13 @@ export const docGroups: DocGroupDef[] = [
     items: [
       link('总览', '/docs', 'House'),
       page('getting-started/install', '安装与登录', 'guide', 'LogIn'),
+      page(
+        'getting-started/update',
+        '更新插件',
+        'guide',
+        'RefreshCw',
+        '2026-09-17'
+      ),
       page('getting-started/core-interface', '熟悉核心界面', 'guide', 'Table2'),
       page('getting-started/first-draft', '10 分钟从采集到初稿', 'path', 'Zap'),
     ],
