@@ -3,6 +3,7 @@ import { MDXProvider } from '@mdx-js/react';
 
 import { usePathname } from '@/core/i18n/navigation';
 import { cn } from '@/lib/utils';
+import { DocsAgentHelpAction } from '@/blocks/docs-agent-help';
 import { DocsHeader } from '@/components/docs/doc-header';
 import { DocMobileNav } from '@/components/docs/doc-mobile-nav';
 import { DocReadingPosition } from '@/components/docs/doc-reading-position';
@@ -29,7 +30,7 @@ function DocsLayout() {
 
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col">
-      <DocsHeader />
+      <DocsHeader agentHelp={<DocsAgentHelpAction />} />
       <div className="flex flex-1 items-stretch">
         <DocSidebar activeSlug={activeSlug} className="hidden lg:block" />
         <main

@@ -12,6 +12,7 @@ import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import { cn } from '@/lib/utils';
 import { baseLocale, getLocale, localizeUrl } from '@/paraglide/runtime.js';
+import { DocsAgentHelp } from '@/blocks/docs-agent-help';
 import { DotPattern } from '@/components/ui/dot-pattern';
 import {
   DOCS_PUBLISHED_AT,
@@ -167,7 +168,7 @@ const goalShortcuts = [
 
 function DocsHomePage() {
   return (
-    <div className="xl:grid xl:min-h-[calc(100dvh-5.5rem)] xl:grid-rows-[minmax(270px,1.45fr)_minmax(180px,0.75fr)_minmax(150px,0.8fr)] xl:gap-3">
+    <div className="xl:grid xl:min-h-[calc(100dvh-5.5rem)] xl:grid-rows-[minmax(270px,1.45fr)_auto_minmax(180px,0.75fr)_minmax(150px,0.8fr)] xl:gap-3">
       {/* L1 — the cover. The rest of /docs is a quiet reading surface, so this
           is the one place that gets the marketing site's display voice
           (font-serif + wide-tracked masthead + DotPattern, same recipe as
@@ -240,6 +241,8 @@ function DocsHomePage() {
           ))}
         </ol>
       </section>
+
+      <DocsAgentHelp />
 
       {/* L2 — the three tasks people most often arrive already trying to do. */}
       <section className="border-border bg-muted/25 mt-4 rounded-2xl border p-3 xl:mt-0 xl:flex xl:min-h-0 xl:flex-col">

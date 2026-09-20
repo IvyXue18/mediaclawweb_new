@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { Download } from 'lucide-react';
 
 import { Link } from '@/core/i18n/navigation';
@@ -11,10 +12,10 @@ import { buttonVariants } from '@/components/ui/button';
 // Deliberately not the marketing site's floating pill Header — a plain
 // sticky bar so it reserves its own layout space (no compensating top
 // padding needed downstream) and stays visually pinned while scrolling.
-export function DocsHeader() {
+export function DocsHeader({ agentHelp }: { agentHelp?: ReactNode }) {
   return (
     <header className="border-border/60 bg-background/95 sticky top-0 z-40 w-full border-b backdrop-blur-lg">
-      <div className="flex h-14 items-center justify-between gap-4 px-4 sm:px-6 lg:h-16 lg:px-8">
+      <div className="flex min-h-14 flex-wrap items-center justify-between gap-2 px-4 py-2 sm:flex-nowrap sm:gap-4 sm:px-6 lg:min-h-16 lg:px-8">
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
           {envConfigs.app_logo ? (
             <img
@@ -35,6 +36,7 @@ export function DocsHeader() {
         </Link>
 
         <div className="flex items-center gap-1.5 sm:gap-2 lg:gap-3">
+          {agentHelp}
           <Link
             href="/download"
             data-docs-download-link
