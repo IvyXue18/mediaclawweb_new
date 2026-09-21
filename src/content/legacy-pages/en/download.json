@@ -91,11 +91,7 @@
           "url": "/docs"
         },
         "security_title": "Security Promise",
-        "security_description": "All installation packages are security-scanned and free of malicious code. We recommend installing via the official Chrome Web Store or Microsoft Edge Add-ons for automatic updates.",
-        "update_guide": {
-          "title": "Already installed? Update your extension without uninstalling first",
-          "url": "/docs/getting-started/update"
-        }
+        "security_description": "All installation packages are security-scanned and free of malicious code. We recommend installing via the official Chrome Web Store or Microsoft Edge Add-ons for automatic updates."
       }
     }
   }
