@@ -220,9 +220,15 @@
               "alt": "MediaClaw 采集小红书与抖音评论并筛选高意向客资和内容需求"
             },
             "button": {
-              "title": "了解评论客资",
-              "url": "/xiaohongshu/leads"
-            }
+              "title": "小红书评论采集",
+              "url": "/xiaohongshu/comments"
+            },
+            "links": [
+              {
+                "title": "了解评论客资",
+                "url": "/xiaohongshu/leads"
+              }
+            ]
           },
           {
             "title": "AI 选题与初稿创作",
