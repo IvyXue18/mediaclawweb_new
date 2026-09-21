@@ -42,13 +42,6 @@
             "title": "Get Started Free",
             "url": "/download",
             "icon": "Download"
-          },
-          {
-            "title": "Download Douyin Sample Data",
-            "icon": "FileSpreadsheet",
-            "url": "/downloads/samples/douyin-sample-data.csv",
-            "target": "_blank",
-            "variant": "outline"
           }
         ],
         "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=222,258"

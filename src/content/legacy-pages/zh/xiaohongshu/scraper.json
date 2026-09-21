@@ -43,27 +43,6 @@
             "title": "免费安装插件",
             "url": "/download",
             "icon": "Download"
-          },
-          {
-            "title": "查看数据示例",
-            "icon": "Table2",
-            "action": "open_sample_modal",
-            "variant": "outline",
-            "sample_url": "/downloads/samples/xiaohongshu-sample-data.csv",
-            "sample_button_title": "下载完整 CSV",
-            "sample_limit": 6,
-            "sample_columns": [
-              "博主",
-              "标题",
-              "正文",
-              "笔记类型",
-              "点赞数",
-              "收藏数",
-              "评论数",
-              "视频逐字稿提取",
-              "配图文案",
-              "评论内容"
-            ]
           }
         ],
         "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=222,258"

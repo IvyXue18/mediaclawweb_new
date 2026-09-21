@@ -6,6 +6,7 @@ import {
   type AnchorHTMLAttributes,
   type ReactNode,
 } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import {
   Activity,
   ArrowRight,
@@ -241,6 +242,8 @@ type LegacySection = {
   messages?: Record<string, string>;
   className?: string;
   highlight_text?: string;
+  show_avatars?: boolean;
+  avatars_tip?: string;
   announcement?: {
     badge?: string;
     title?: string;
@@ -1402,6 +1405,57 @@ function InlineArrowLink({ button }: { button: LegacyButton }) {
   );
 }
 
+function formatUserCount(total: number) {
+  if (total < 100) return String(total);
+  return `${Math.floor(total / 100) * 100}+`;
+}
+
+function HeroUserAvatars({ tip }: { tip?: string }) {
+  const [failed, setFailed] = useState<Set<string>>(() => new Set());
+  const { data, isError } = useQuery({
+    queryKey: ['user-social-proof'],
+    queryFn: () =>
+      apiGet<{ total: number; avatars: string[] }>('/api/stats/users'),
+    staleTime: 10 * 60 * 1000,
+  });
+
+  const avatars = (data?.avatars || []).filter((src) => !failed.has(src));
+  const count = data ? formatUserCount(data.total) : '';
+  const label = tip ? tip.replace('{count}', count) : count;
+
+  if (isError || (data && data.total <= 0)) return null;
+
+  return (
+    <div className="mt-8 flex min-h-10 items-center justify-center">
+      {data && data.total > 0 ? (
+        <div className="animate-in fade-in flex flex-wrap items-center justify-center gap-3 duration-500">
+          {avatars.length ? (
+            <div className="flex -space-x-2.5" aria-hidden="true">
+              {avatars.map((src) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt=""
+                  width={36}
+                  height={36}
+                  loading="lazy"
+                  decoding="async"
+                  referrerPolicy="no-referrer"
+                  onError={() => setFailed((prev) => new Set(prev).add(src))}
+                  className="ring-background bg-muted size-9 rounded-full object-cover ring-2"
+                />
+              ))}
+            </div>
+          ) : null}
+          <span className="text-muted-foreground text-sm font-medium">
+            {label}
+          </span>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 function PageHero({
   section,
   onVideo,
@@ -1495,11 +1549,17 @@ function PageHero({
           <RichText className="text-muted-foreground mx-auto max-w-2xl text-lg leading-8 md:text-xl">
             {section.description}
           </RichText>
+          {section.show_avatars ? (
+            <HeroUserAvatars tip={section.avatars_tip} />
+          ) : null}
           <HeroActions
             section={section}
             onVideo={onVideo}
             onSample={onSample}
-            rowClassName="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:gap-3"
+            rowClassName={cn(
+              section.show_avatars ? 'mt-6' : 'mt-10',
+              'flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:gap-3'
+            )}
             actionClassName="min-w-[150px]"
           />
         </div>
