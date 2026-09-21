@@ -91,11 +91,7 @@
           "url": "/docs"
         },
         "security_title": "安全承诺",
-        "security_description": "所有安装包均经过安全扫描，不含任何恶意代码。推荐通过 Chrome 或 Edge 官方商店安装以获得自动更新功能。",
-        "update_guide": {
-          "title": "已经安装过？无需先卸载，查看插件更新教程",
-          "url": "/docs/getting-started/update"
-        }
+        "security_description": "所有安装包均经过安全扫描，不含任何恶意代码。推荐通过 Chrome 或 Edge 官方商店安装以获得自动更新功能。"
       }
     }
   }
