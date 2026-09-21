@@ -42,13 +42,6 @@
             "title": "Install free extension",
             "url": "/download",
             "icon": "Download"
-          },
-          {
-            "title": "Download Douyin Sample Data",
-            "icon": "FileSpreadsheet",
-            "url": "/downloads/samples/douyin-sample-data.csv",
-            "target": "_blank",
-            "variant": "outline"
           }
         ],
         "video_url": "https://media.mediaclaw.app/videos/demo/douyin-transcript-b847d1a5cd6c.mp4",

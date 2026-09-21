@@ -41,13 +41,6 @@
             "title": "Install free extension",
             "url": "/download",
             "icon": "Download"
-          },
-          {
-            "title": "Download RedNote Sample Data",
-            "icon": "FileSpreadsheet",
-            "url": "/downloads/samples/xiaohongshu-sample-data.csv",
-            "target": "_blank",
-            "variant": "outline"
           }
         ],
         "video_url": "https://media.mediaclaw.app/videos/demo/xiaohongshu-transcript-26ec58d2c880.mp4",

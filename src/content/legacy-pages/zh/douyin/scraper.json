@@ -43,13 +43,6 @@
             "title": "免费安装插件",
             "url": "/download",
             "icon": "Download"
-          },
-          {
-            "title": "下载抖音样例数据",
-            "icon": "FileSpreadsheet",
-            "url": "/downloads/samples/douyin-sample-data.csv",
-            "target": "_blank",
-            "variant": "outline"
           }
         ],
         "video_url": "https://media.mediaclaw.app/videos/mediaclaw-demo-20260424.mp4#t=222,258"
