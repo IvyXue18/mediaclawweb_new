@@ -20,6 +20,7 @@
     ],
     "sections": {
       "hero": {
+        "show_avatars": true,
         "id": "hero",
         "block": "page-hero",
         "label": "豆包工作接入",

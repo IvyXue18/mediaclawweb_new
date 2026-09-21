@@ -20,6 +20,7 @@
     ],
     "sections": {
       "hero": {
+        "show_avatars": true,
         "id": "hero",
         "block": "page-hero",
         "label": "小红书数据采集工具",

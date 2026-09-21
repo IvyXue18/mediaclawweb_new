@@ -19,6 +19,7 @@
     ],
     "sections": {
       "hero": {
+        "show_avatars": true,
         "id": "hero",
         "block": "page-hero",
         "label": "抖音对标账号监控与内容预警工具",

@@ -1410,7 +1410,12 @@ function formatUserCount(total: number) {
   return `${Math.floor(total / 100) * 100}+`;
 }
 
-function HeroUserAvatars({ tip }: { tip?: string }) {
+function HeroUserAvatars({ section }: { section: LegacySection }) {
+  const tip =
+    section.avatars_tip ||
+    (sectionUsesEnglish(section)
+      ? '{count} creators already use MediaClaw'
+      : '{count} 人在使用');
   const [failed, setFailed] = useState<Set<string>>(() => new Set());
   const { data, isError } = useQuery({
     queryKey: ['user-social-proof'],
@@ -1421,7 +1426,7 @@ function HeroUserAvatars({ tip }: { tip?: string }) {
 
   const avatars = (data?.avatars || []).filter((src) => !failed.has(src));
   const count = data ? formatUserCount(data.total) : '';
-  const label = tip ? tip.replace('{count}', count) : count;
+  const label = tip.replace('{count}', count);
 
   if (isError || (data && data.total <= 0)) return null;
 
@@ -1549,9 +1554,7 @@ function PageHero({
           <RichText className="text-muted-foreground mx-auto max-w-2xl text-lg leading-8 md:text-xl">
             {section.description}
           </RichText>
-          {section.show_avatars ? (
-            <HeroUserAvatars tip={section.avatars_tip} />
-          ) : null}
+          {section.show_avatars ? <HeroUserAvatars section={section} /> : null}
           <HeroActions
             section={section}
             onVideo={onVideo}
@@ -1671,11 +1674,16 @@ function CompactPageHero({
             </RichText>
           ) : null}
 
+          {section.show_avatars ? <HeroUserAvatars section={section} /> : null}
+
           <HeroActions
             section={section}
             onVideo={onVideo}
             onSample={onSample}
-            rowClassName="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap sm:items-start"
+            rowClassName={cn(
+              section.show_avatars ? 'mt-6' : 'mt-10',
+              'flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap sm:items-start'
+            )}
             actionClassName="min-w-[150px] rounded-xl px-6 py-3 text-sm"
           />
 

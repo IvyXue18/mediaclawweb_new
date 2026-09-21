@@ -20,6 +20,7 @@
     ],
     "sections": {
       "hero": {
+        "show_avatars": true,
         "id": "hero",
         "block": "page-hero",
         "label": "Free Rednote Scraper Chrome Extension",

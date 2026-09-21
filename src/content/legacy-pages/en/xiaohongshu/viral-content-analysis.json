@@ -20,6 +20,7 @@
     ],
     "sections": {
       "hero": {
+        "show_avatars": true,
         "id": "hero",
         "block": "hero",
         "label": "Xiaohongshu Viral Post Analysis",
