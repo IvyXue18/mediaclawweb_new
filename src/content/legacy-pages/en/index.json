@@ -40,25 +40,8 @@
             "variant": "outline"
           }
         ],
-        "sample_url": "/downloads/samples/homepage-sample-data.csv",
-        "sample_trigger_title": "View sample data",
-        "sample_button_title": "Download Full CSV",
-        "sample_limit": 7,
-        "sample_columns": [
-          "采集平台",
-          "博主",
-          "标题",
-          "正文",
-          "笔记类型",
-          "点赞数",
-          "收藏数",
-          "评论数",
-          "视频逐字稿提取",
-          "配图文案",
-          "评论内容"
-        ],
-        "show_avatars": false,
-        "avatars_tip": "",
+        "show_avatars": true,
+        "avatars_tip": "{count} creators already use MediaClaw",
         "show_award": false,
         "image": {
           "src": "/imgs/features/1-v20260424.webp",
