@@ -1954,7 +1954,21 @@ function FeaturesScroll({ section }: { section: LegacySection }) {
                 <p className="text-muted-foreground text-xl leading-relaxed">
                   {item.description}
                 </p>
-                {item.button ? <InlineArrowLink button={item.button} /> : null}
+                {item.links?.length ? (
+                  <div className="flex flex-wrap gap-x-6 gap-y-2">
+                    {item.button ? (
+                      <InlineArrowLink button={item.button} />
+                    ) : null}
+                    {item.links.map((link) => (
+                      <InlineArrowLink
+                        key={link.url || link.title}
+                        button={link}
+                      />
+                    ))}
+                  </div>
+                ) : item.button ? (
+                  <InlineArrowLink button={item.button} />
+                ) : null}
               </div>
               <div
                 className="group relative w-full flex-1"
