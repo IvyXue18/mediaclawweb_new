@@ -2,6 +2,7 @@ import { ArrowDown, ArrowRight, CheckCircle2, Chrome } from 'lucide-react';
 
 import { Link } from '@/core/i18n/navigation';
 import { recordAnalyticsEventSafe } from '@/lib/client-analytics';
+import { UserAvatarStack } from '@/components/user-avatar-stack';
 
 import type { PlatformHubContent } from './types';
 
@@ -97,6 +98,13 @@ export function HubHero({
             <CheckCircle2 className="text-primary size-4 shrink-0" />
             {content.microcopy}
           </p>
+          {content.avatarsTip ? (
+            <UserAvatarStack
+              tip={content.avatarsTip}
+              align="start"
+              className="mt-6"
+            />
+          ) : null}
         </div>
 
         <div className="relative mx-auto w-full max-w-xl lg:max-w-none">

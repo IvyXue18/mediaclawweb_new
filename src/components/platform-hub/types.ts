@@ -95,6 +95,8 @@ export type PlatformHubContent = {
     secondaryAction: string;
     secondaryHref: string;
     microcopy: string;
+    /** Label for the user avatar row under the hero; must contain `{count}`. */
+    avatarsTip?: string;
     /** Overrides the default (Xiaohongshu) foreground extension-panel screenshot for platforms with their own capture. */
     image?: Pick<PlatformHubImage, 'src' | 'width' | 'height'>;
   };

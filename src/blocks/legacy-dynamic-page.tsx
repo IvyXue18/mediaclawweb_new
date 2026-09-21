@@ -6,7 +6,6 @@ import {
   type AnchorHTMLAttributes,
   type ReactNode,
 } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import {
   Activity,
   ArrowRight,
@@ -121,6 +120,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { UserAvatarStack } from '@/components/user-avatar-stack';
 
 export type LegacyPageData = {
   metadata?: {
@@ -1405,60 +1405,13 @@ function InlineArrowLink({ button }: { button: LegacyButton }) {
   );
 }
 
-function formatUserCount(total: number) {
-  if (total < 100) return String(total);
-  return `${Math.floor(total / 100) * 100}+`;
-}
-
 function HeroUserAvatars({ section }: { section: LegacySection }) {
   const tip =
     section.avatars_tip ||
     (sectionUsesEnglish(section)
       ? '{count} creators already use MediaClaw'
       : '{count} 人在使用');
-  const [failed, setFailed] = useState<Set<string>>(() => new Set());
-  const { data, isError } = useQuery({
-    queryKey: ['user-social-proof'],
-    queryFn: () =>
-      apiGet<{ total: number; avatars: string[] }>('/api/stats/users'),
-    staleTime: 10 * 60 * 1000,
-  });
-
-  const avatars = (data?.avatars || []).filter((src) => !failed.has(src));
-  const count = data ? formatUserCount(data.total) : '';
-  const label = tip.replace('{count}', count);
-
-  if (isError || (data && data.total <= 0)) return null;
-
-  return (
-    <div className="mt-8 flex min-h-10 items-center justify-center">
-      {data && data.total > 0 ? (
-        <div className="animate-in fade-in flex flex-wrap items-center justify-center gap-3 duration-500">
-          {avatars.length ? (
-            <div className="flex -space-x-2.5" aria-hidden="true">
-              {avatars.map((src) => (
-                <img
-                  key={src}
-                  src={src}
-                  alt=""
-                  width={36}
-                  height={36}
-                  loading="lazy"
-                  decoding="async"
-                  referrerPolicy="no-referrer"
-                  onError={() => setFailed((prev) => new Set(prev).add(src))}
-                  className="ring-background bg-muted size-9 rounded-full object-cover ring-2"
-                />
-              ))}
-            </div>
-          ) : null}
-          <span className="text-muted-foreground text-sm font-medium">
-            {label}
-          </span>
-        </div>
-      ) : null}
-    </div>
-  );
+  return <UserAvatarStack tip={tip} className="mt-8" />;
 }
 
 function PageHero({
