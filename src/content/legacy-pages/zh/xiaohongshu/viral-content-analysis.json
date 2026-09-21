@@ -20,6 +20,7 @@
     ],
     "sections": {
       "hero": {
+        "show_avatars": true,
         "id": "hero",
         "block": "hero",
         "label": "小红书爆款分析工具",

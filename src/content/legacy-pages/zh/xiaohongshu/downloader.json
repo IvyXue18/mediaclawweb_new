@@ -20,6 +20,7 @@
     ],
     "sections": {
       "hero": {
+        "show_avatars": true,
         "id": "hero",
         "block": "page-hero",
         "label": "免费小红书图片视频批量下载工具",

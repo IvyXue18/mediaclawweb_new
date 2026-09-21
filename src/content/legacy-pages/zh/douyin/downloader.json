@@ -18,6 +18,7 @@
     ],
     "sections": {
       "hero": {
+        "show_avatars": true,
         "id": "hero",
         "block": "page-hero",
         "label": "免费抖音无水印视频批量下载工具",

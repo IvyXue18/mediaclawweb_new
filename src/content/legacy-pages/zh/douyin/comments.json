@@ -19,6 +19,7 @@
     ],
     "sections": {
       "hero": {
+        "show_avatars": true,
         "id": "hero",
         "block": "page-hero",
         "label": "抖音评论采集与评论挖掘工具",

@@ -9,6 +9,7 @@
     "show_sections": ["hero", "modes", "why", "uses", "faq", "related", "cta"],
     "sections": {
       "hero": {
+        "show_avatars": true,
         "id": "hero",
         "block": "page-hero",
         "label": "Xiaohongshu image text OCR tool",
