@@ -24,6 +24,7 @@ export const zhDouyinHub: PlatformHubContent = {
     secondaryAction: '浏览全部功能',
     secondaryHref: '#all-features',
     microcopy: 'Chrome 插件 · 无需代码 · 支持本地导出与飞书同步',
+    avatarsTip: '{count} 人在使用',
     image: {
       src: '/imgs/auth-story/extension-panel-douyin.webp',
       width: 387,
@@ -355,6 +356,7 @@ export const enDouyinHub: PlatformHubContent = {
     secondaryAction: 'Browse all features',
     secondaryHref: '#all-features',
     microcopy: 'Chrome extension · No code · Local export and Lark sync',
+    avatarsTip: '{count} creators already use MediaClaw',
     image: {
       src: '/imgs/auth-story/extension-panel-douyin.webp',
       width: 387,

@@ -24,6 +24,7 @@ export const zhXiaohongshuHub: PlatformHubContent = {
     secondaryAction: '浏览全部功能',
     secondaryHref: '#all-features',
     microcopy: 'Chrome 插件 · 无需代码 · 支持本地导出与飞书同步',
+    avatarsTip: '{count} 人在使用',
   },
   scenes: [
     {
@@ -338,6 +339,7 @@ export const enXiaohongshuHub: PlatformHubContent = {
     secondaryAction: 'Browse all features',
     secondaryHref: '#all-features',
     microcopy: 'Chrome extension · No code · Local export and Lark sync',
+    avatarsTip: '{count} creators already use MediaClaw',
   },
   scenes: [
     {
