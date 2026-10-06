@@ -132,7 +132,8 @@ export const Route = createRootRoute({
         { name: 'description', content: envConfigs.app_description },
       ],
       links: [
-        { rel: 'icon', href: '/favicon.ico' },
+        { rel: 'icon', href: '/favicon.ico', sizes: '128x128' },
+        { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
         { rel: 'apple-touch-icon', href: '/logo.png' },
       ],
     };
