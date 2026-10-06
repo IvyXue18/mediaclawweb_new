@@ -1545,6 +1545,8 @@
   "site.header.category_data": "数据与素材",
   "site.header.category_extract": "提取与转化",
   "site.header.category_track": "跟踪与协作",
+  "site.header.mcp_integration": "小红书 / 抖音 MCP",
+  "site.header.mcp_integration_desc": "一个 MCP Server，接入 Codex、WorkBuddy、豆包工作",
   "site.header.codex_integration": "Codex 接入",
   "site.header.codex_integration_desc": "把小红书、抖音数据接进 Codex，一句话完成采集、拆解与成稿",
   "site.header.workbuddy_integration": "WorkBuddy 接入",

@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "小红书/抖音 MCP_把社媒数据接入 Codex 的采集 Skill",
+    "title": "Codex 接入小红书、抖音｜MCP + 内容研究 Skill | MediaClaw",
     "description": "为 Codex 提供小红书、抖音的 MCP Server 和一套内容研究 Skill：40+ 工具负责采集笔记、视频、评论和账号数据，12 套方法负责拆解、选题和成稿，不用写配置文件。",
-    "keywords": "小红书 MCP, 抖音 MCP, MCP Server, Codex MCP, Codex Skill, Agent Skill, 小红书数据接入 Codex, Codex 采集小红书, 小红书数据采集, 社媒虾"
+    "keywords": "Codex 小红书, Codex 抖音, Codex MCP, 小红书接入 Codex, Codex 采集小红书, Codex Skill, Agent Skill, 小红书数据采集, 社媒虾"
   },
   "page": {
     "title": "Codex 接入",
@@ -37,7 +37,7 @@
           }
         ],
         "title": "把小红书、抖音数据接进 Codex：一个 MCP，一套内容研究 Skill",
-        "description": "社媒虾给 Codex 提供两样东西：一个小红书/抖音 MCP Server，40+ 工具负责采集笔记、视频、评论和账号数据并做去重统计；一套内容研究 Skill，12 套写好的方法负责拆解、选题和成稿。你在 Codex 里用大白话说要做什么，还能同时读你本地的知识库。",
+        "description": "社媒虾给 Codex 提供两样东西：一个<a href=\"/features/mcp\">小红书/抖音 MCP Server</a>，40+ 工具负责采集笔记、视频、评论和账号数据并做去重统计；一套内容研究 Skill，12 套写好的方法负责拆解、选题和成稿。你在 Codex 里用大白话说要做什么，还能同时读你本地的知识库。",
         "buttons": [
           {
             "title": "免费安装插件",
@@ -369,6 +369,12 @@
         "title": "🤔 猜你感兴趣",
         "description": "从接入到把数据用起来，完整路径都在这里。",
         "links": [
+          {
+            "title": "小红书 / 抖音 MCP 是什么",
+            "description": "三个宿主共用的 MCP Server：有哪些工具，和开源方案、爬虫有什么区别。",
+            "url": "/features/mcp",
+            "icon": "Layers"
+          },
           {
             "title": "Agent 是什么、接入后谁负责什么",
             "description": "三方分工、它干活的固定顺序，以及 Token 消耗说明。",

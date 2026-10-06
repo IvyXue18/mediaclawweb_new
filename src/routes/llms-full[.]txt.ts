@@ -21,6 +21,18 @@ const STATIC_PAGES: { path: string; title: string; description: string }[] = [
       'Platform hub: every Douyin capability for research, scraping, transcripts, and monitoring in one workflow',
   },
   {
+    path: '/features/mcp',
+    title: 'RedNote & Douyin MCP Server',
+    description:
+      'MCP server for Codex, WorkBuddy and Doubao for Work that collects RedNote and Douyin posts, comments, profiles and transcripts through your own browser',
+  },
+  {
+    path: '/compare/xiaohongshu-scraper-tools',
+    title: 'RedNote Scraper Tools Compared',
+    description:
+      'Python scrapers, open-source RedNote MCP, data platforms and browser extensions: how each collects Xiaohongshu data and who it fits',
+  },
+  {
     path: '/xiaohongshu/account-analysis',
     title: 'Xiaohongshu Account Analyzer',
     description:

@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "RedNote & Douyin MCP Server for WorkBuddy - Data + Skill",
+    "title": "WorkBuddy for RedNote & Douyin: MCP + Research Skill | MediaClaw",
     "description": "Give WorkBuddy a RedNote (Xiaohongshu) and Douyin MCP server plus a research skill: 40+ tools collect posts, videos and comments; 12 methods turn them into drafts.",
-    "keywords": "RedNote MCP, Xiaohongshu MCP, Douyin MCP, MCP server, WorkBuddy MCP, WorkBuddy skill, CodeBuddy plugin, social data in WorkBuddy, RedNote scraper, MediaClaw"
+    "keywords": "WorkBuddy RedNote, WorkBuddy Xiaohongshu, WorkBuddy Douyin, WorkBuddy MCP, WorkBuddy skill, CodeBuddy plugin, social data in WorkBuddy, MediaClaw"
   },
   "page": {
     "title": "WorkBuddy Integration",
@@ -37,7 +37,7 @@
           }
         ],
         "title": "Bring RedNote & Douyin data into WorkBuddy: one MCP, one research skill",
-        "description": "MediaClaw gives WorkBuddy two things: a RedNote (Xiaohongshu) and Douyin MCP server whose 40+ tools collect posts, videos, comments and account data and dedupe them into structured results, and a content research skill whose 12 written methods handle teardowns, topic picks and drafting. Once it is connected you do not decide what to collect or memorise any command — say what you are working on and where you are stuck.",
+        "description": "MediaClaw gives WorkBuddy two things: a <a href=\"/en/features/mcp\">RedNote (Xiaohongshu) and Douyin MCP server</a> whose 40+ tools collect posts, videos, comments and account data and dedupe them into structured results, and a content research skill whose 12 written methods handle teardowns, topic picks and drafting. Once it is connected you do not decide what to collect or memorise any command — say what you are working on and where you are stuck.",
         "buttons": [
           {
             "title": "Install free extension",
@@ -340,6 +340,12 @@
         "title": "🤔 You might also like",
         "description": "From connecting the agent to actually using the data.",
         "links": [
+          {
+            "title": "What the RedNote & Douyin MCP is",
+            "description": "The MCP server all three hosts share: its tools, and how it compares with open-source options and scrapers.",
+            "url": "/features/mcp",
+            "icon": "Layers"
+          },
           {
             "title": "What the agent is and who does what",
             "description": "The three-way split, its fixed working order, and where the model quota actually goes.",

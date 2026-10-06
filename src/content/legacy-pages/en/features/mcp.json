@@ -1,0 +1,370 @@
+{
+  "metadata": {
+    "title": "RedNote & Douyin MCP Server for AI Agents | MediaClaw",
+    "description": "MCP server for Codex, WorkBuddy and Doubao for Work: collect RedNote (Xiaohongshu) and Douyin posts, comments and profiles through your own logged-in browser.",
+    "keywords": "RedNote MCP, Xiaohongshu MCP, Douyin MCP, social media MCP server, MCP server, Codex RedNote, WorkBuddy, AI agent social data, MediaClaw"
+  },
+  "page": {
+    "title": "RedNote & Douyin MCP",
+    "description": "One MCP server that gives your AI agent public RedNote and Douyin content data.",
+    "show_sections": [
+      "hero",
+      "tools",
+      "hosts",
+      "compare",
+      "confirm",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "show_avatars": true,
+        "id": "hero",
+        "block": "page-hero",
+        "label": "RedNote & Douyin MCP",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Integrations"
+          },
+          {
+            "title": "RedNote & Douyin MCP"
+          }
+        ],
+        "title": "RedNote and Douyin MCP: let your AI agent collect social data through your own browser",
+        "description": "The MediaClaw MCP server is a standard MCP (STDIO) server with 40+ tools. It collects RedNote (Xiaohongshu) and Douyin posts, videos, comments, profiles and search results, then extracts video transcripts and image text. Every page visit goes through the MediaClaw extension in your own browser, using the account you are already logged into, so the agent never sees your cookies. Codex, WorkBuddy and Doubao for Work are supported today.",
+        "buttons": [
+          {
+            "title": "Install the free extension",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "Read the setup guide",
+            "url": "/docs/agent/setup",
+            "icon": "BookOpen",
+            "variant": "outline"
+          }
+        ]
+      },
+      "tools": {
+        "id": "tools",
+        "block": "features",
+        "title": "What tools the MCP server provides",
+        "description": "40+ tools in five groups. The agent reuses data you have already collected before it starts anything new.",
+        "items": [
+          {
+            "title": "Collect",
+            "description": "Start from a link, keyword, profile or search and get the raw data.",
+            "icon": "Database",
+            "features": [
+              "Post and video details, batch link collection",
+              "Comments and replies",
+              "Creator profiles and their posts",
+              "Keyword search results and account scans"
+            ]
+          },
+          {
+            "title": "Extract",
+            "description": "Turn videos and images into text the agent can read.",
+            "icon": "FileText",
+            "features": [
+              "Timestamped video transcripts (paid, quoted before running)",
+              "Text extracted from post images",
+              "Post body and engagement metrics"
+            ]
+          },
+          {
+            "title": "Research",
+            "description": "Ready-made research actions instead of prompts written from scratch.",
+            "icon": "Search",
+            "features": [
+              "Keyword topics and long-tail expansion",
+              "Benchmark account discovery and hit analysis",
+              "Single-post breakdowns"
+            ]
+          },
+          {
+            "title": "Read saved data",
+            "description": "Anything already stored in the extension is queryable.",
+            "icon": "FolderKanban",
+            "features": [
+              "Local collection records and data pool queries",
+              "Saved analyses and style profiles",
+              "Task progress and connection status"
+            ]
+          },
+          {
+            "title": "Comment outreach",
+            "description": "Message users picked from collected comments, only after you confirm the final send.",
+            "icon": "MessageSquareText",
+            "features": [
+              "Prepare recipients and message copy",
+              "Set send intervals and a daily cap",
+              "Stop remaining sends at any time"
+            ]
+          }
+        ]
+      },
+      "hosts": {
+        "id": "hosts",
+        "block": "data-table",
+        "variant": "comparison",
+        "title": "Which agents are supported",
+        "description": "All three hosts use the same package, the same MCP tools and the same content research skill. Only installation and updates differ.",
+        "columns": [
+          {
+            "key": "host",
+            "title": "Host"
+          },
+          {
+            "key": "install",
+            "title": "Install"
+          },
+          {
+            "key": "update",
+            "title": "Auto-update"
+          },
+          {
+            "key": "guide",
+            "title": "Guide"
+          }
+        ],
+        "rows": [
+          {
+            "host": "Codex",
+            "install": "Paste the install prompt from the extension; Codex installs everything",
+            "update": "✓",
+            "guide": "See the Codex integration page"
+          },
+          {
+            "host": "WorkBuddy",
+            "install": "Same as Codex, prompt-driven install",
+            "update": "✓",
+            "guide": "See the WorkBuddy integration page"
+          },
+          {
+            "host": "Doubao for Work",
+            "install": "Create a STDIO connector by hand; the agent prepares the values",
+            "update": "—",
+            "guide": "See the Doubao for Work integration page"
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "variant": "comparison",
+        "title": "MediaClaw MCP vs. open-source RedNote MCP vs. writing your own scraper",
+        "description": "Each approach fits a different job. This table only covers getting the data, based on each project's public documentation.",
+        "columns": [
+          {
+            "key": "item",
+            "title": ""
+          },
+          {
+            "key": "mediaclaw",
+            "title": "MediaClaw MCP"
+          },
+          {
+            "key": "opensource",
+            "title": "Open-source xiaohongshu-mcp"
+          },
+          {
+            "key": "crawler",
+            "title": "Own scraper / MediaCrawler etc."
+          }
+        ],
+        "rows": [
+          {
+            "item": "Platforms",
+            "mediaclaw": "RedNote, Douyin",
+            "opensource": "RedNote",
+            "crawler": "Depends; MediaCrawler covers RedNote, Douyin, Kuaishou, Bilibili and more"
+          },
+          {
+            "item": "Login",
+            "mediaclaw": "Your everyday Chrome session; the agent never gets cookies",
+            "opensource": "Scan a QR code in its own headless browser; cookies saved locally",
+            "crawler": "QR code, cookie or phone login saved by the script"
+          },
+          {
+            "item": "Setup",
+            "mediaclaw": "Browser extension plus one prompt to your agent",
+            "opensource": "Download a binary or run Docker, then configure the MCP client",
+            "crawler": "Python environment, Playwright and other dependencies; coding required"
+          },
+          {
+            "item": "Publish posts / like",
+            "mediaclaw": "No, collection, extraction and analysis only",
+            "opensource": "Yes, publishes image and video posts, comments and likes",
+            "crawler": "Usually no"
+          },
+          {
+            "item": "Transcripts and analysis methods",
+            "mediaclaw": "Built-in video transcripts, image text extraction and 12 research methods",
+            "opensource": "Not included",
+            "crawler": "Not included; wire up your own"
+          },
+          {
+            "item": "Cost",
+            "mediaclaw": "Free extension; agent mode needs a membership, transcripts use credits",
+            "opensource": "Free and open source (Apache-2.0)",
+            "crawler": "MediaCrawler states learning and research use only; a paid Pro edition exists"
+          }
+        ]
+      },
+      "confirm": {
+        "id": "confirm",
+        "block": "data-table",
+        "variant": "comparison",
+        "title": "Five things the agent must ask you first",
+        "description": "Approving the pairing only lets the agent connect. It does not approve every future collection.",
+        "columns": [
+          {
+            "key": "action",
+            "title": "Action"
+          },
+          {
+            "key": "before",
+            "title": "What you see first"
+          },
+          {
+            "key": "after",
+            "title": "After you confirm"
+          }
+        ],
+        "rows": [
+          {
+            "action": "Collect an account",
+            "before": "A plan: target, fields, scope, batches and risk level",
+            "after": "Runs only the batches in the plan"
+          },
+          {
+            "action": "Video transcripts",
+            "before": "A quote: estimated credits, balance and expiry",
+            "after": "Extracts; items already done are not charged again"
+          },
+          {
+            "action": "Batch detail fill",
+            "before": "The scope to fill",
+            "after": "Opens detail pages to collect"
+          },
+          {
+            "action": "Delete data",
+            "before": "Impact: how many records, comments and transcripts",
+            "after": "Deletes"
+          },
+          {
+            "action": "Comment outreach",
+            "before": "Full recipient list, sending account and message",
+            "after": "Sends one by one"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "FAQ",
+        "items": [
+          {
+            "question": "Is there a RedNote (Xiaohongshu) MCP server that works with Codex?",
+            "answer": "Yes. The MediaClaw MCP server covers RedNote and Douyin and works with Codex, WorkBuddy and Doubao for Work. On Codex there is no config file to write: copy the install prompt from the extension (System settings → Agent access), send it to Codex, and approve the pairing once in the extension."
+          },
+          {
+            "question": "How is an agent using MediaClaw different from a scraper?",
+            "answer": "A scraper logs in and pages through results on its own, so you maintain its login state and runtime and get raw data back. With MediaClaw the agent views pages through the extension in your own browser and account, then can go on to transcripts, comment analysis and topic ideas. Before any new collection it shows you a plan and waits for your approval."
+          },
+          {
+            "question": "Can I use it in Claude, Cursor or other MCP clients?",
+            "answer": "Codex, WorkBuddy and Doubao for Work are the officially supported hosts; installation and pairing are verified only for these three. Other clients are not supported yet. New hosts will be announced here and in the changelog."
+          },
+          {
+            "question": "Do I still need the browser extension?",
+            "answer": "Yes. The MCP server cannot run on its own. Every page visit happens in the MediaClaw extension in your browser, and the agent can only use capabilities you approved there."
+          },
+          {
+            "question": "Can it get my account banned?",
+            "answer": "Collection uses normal page visits in your own browser, and the extension paces them. Before large jobs the agent states the batches and risk level and waits for you. No tool can guarantee zero risk, so follow platform rules and avoid long bursts of continuous collection."
+          },
+          {
+            "question": "Can it publish RedNote posts for me?",
+            "answer": "No. The MediaClaw MCP server only collects, extracts and analyzes. It does not publish posts, like or auto-comment. For automated publishing, look at open-source projects such as xiaohongshu-mcp."
+          },
+          {
+            "question": "Is it free?",
+            "answer": "The browser extension is free. Agent access needs an active membership, and paid features such as video transcripts use credits with a quote before running. Analysis and writing on the agent side do not use MediaClaw credits."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 You may also like",
+        "description": "Pick your host and follow its guide.",
+        "links": [
+          {
+            "title": "Codex integration",
+            "description": "One prompt and Codex installs the MCP server and research skill.",
+            "url": "/features/codex-integration",
+            "icon": "Bot"
+          },
+          {
+            "title": "WorkBuddy integration",
+            "description": "The same MCP and skill, set up in WorkBuddy.",
+            "url": "/features/workbuddy-integration",
+            "icon": "Bot"
+          },
+          {
+            "title": "Doubao for Work integration",
+            "description": "Add MediaClaw to Doubao for Work with a STDIO connector.",
+            "url": "/features/doubao-integration",
+            "icon": "Bot"
+          },
+          {
+            "title": "How to choose a RedNote scraper",
+            "description": "Python libraries, open-source MCP, data platforms and browser extensions compared.",
+            "url": "/compare/xiaohongshu-scraper-tools",
+            "icon": "Layers"
+          },
+          {
+            "title": "Install, pair and update",
+            "description": "Full setup steps and troubleshooting for all three hosts.",
+            "url": "/docs/agent/setup",
+            "icon": "Workflow"
+          },
+          {
+            "title": "Agent task examples",
+            "description": "Six real tasks with prompts, sampling and results.",
+            "url": "/docs/agent/prompt-examples",
+            "icon": "Sparkles"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Give your agent real RedNote and Douyin data",
+        "description": "Install the free extension, send the install prompt to your agent, and it does the rest.",
+        "buttons": [
+          {
+            "title": "Install the free extension",
+            "icon": "Download",
+            "url": "/download",
+            "variant": "default"
+          },
+          {
+            "title": "Read the setup guide",
+            "icon": "BookOpen",
+            "url": "/docs/agent/setup",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

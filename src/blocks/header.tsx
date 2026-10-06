@@ -18,6 +18,7 @@ import {
   Menu,
   MessageCircle,
   MessageSquareQuote,
+  Plug,
   Radar,
   ScanText,
   Search,
@@ -232,6 +233,12 @@ function getNavItems(): NavItem[] {
         title: m['site.header.integrations_collaboration'](),
         children: [
           {
+            title: m['site.header.mcp_integration'](),
+            description: m['site.header.mcp_integration_desc'](),
+            url: '/features/mcp',
+            icon: 'Plug',
+          },
+          {
             title: m['site.header.codex_integration'](),
             description: m['site.header.codex_integration_desc'](),
             url: '/features/codex-integration',
@@ -322,6 +329,7 @@ const navIconMap: Record<
   Library,
   MessageCircle,
   MessageSquareQuote,
+  Plug,
   Radar,
   ScanText,
   Search,

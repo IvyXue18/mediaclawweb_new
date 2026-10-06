@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "RedNote & Douyin MCP Server for Codex - Data + Skill",
+    "title": "Codex for RedNote & Douyin: MCP + Research Skill | MediaClaw",
     "description": "Give Codex a RedNote (Xiaohongshu) and Douyin MCP server plus a research skill: 40+ tools collect posts, videos and comments; 12 methods turn them into drafts.",
-    "keywords": "RedNote MCP, Xiaohongshu MCP, Douyin MCP, MCP server, Codex MCP, Codex skill, agent skill, social data in Codex, RedNote scraper, MediaClaw"
+    "keywords": "Codex RedNote, Codex Xiaohongshu, Codex Douyin, Codex MCP, Codex skill, agent skill, social data in Codex, MediaClaw"
   },
   "page": {
     "title": "Codex Integration",
@@ -37,7 +37,7 @@
           }
         ],
         "title": "Bring RedNote & Douyin data into Codex: one MCP, one research skill",
-        "description": "MediaClaw gives Codex two things: a RedNote (Xiaohongshu) and Douyin MCP server whose 40+ tools collect posts, videos, comments and account data and dedupe them into structured results, and a content research skill whose 12 written methods handle teardowns, topic picks and drafting. Describe the goal in plain language; it follows the method, and it can read your local knowledge base at the same time. Before any new collection it states the source, volume and credit cost and waits for your go-ahead.",
+        "description": "MediaClaw gives Codex two things: a <a href=\"/en/features/mcp\">RedNote (Xiaohongshu) and Douyin MCP server</a> whose 40+ tools collect posts, videos, comments and account data and dedupe them into structured results, and a content research skill whose 12 written methods handle teardowns, topic picks and drafting. Describe the goal in plain language; it follows the method, and it can read your local knowledge base at the same time. Before any new collection it states the source, volume and credit cost and waits for your go-ahead.",
         "buttons": [
           {
             "title": "Install free extension",
@@ -370,6 +370,12 @@
         "title": "🤔 You might also like",
         "description": "From connecting the agent to actually using the data.",
         "links": [
+          {
+            "title": "What the RedNote & Douyin MCP is",
+            "description": "The MCP server all three hosts share: its tools, and how it compares with open-source options and scrapers.",
+            "url": "/features/mcp",
+            "icon": "Layers"
+          },
           {
             "title": "What the agent is and who does what",
             "description": "The three-way split, its fixed working order, and how tokens are spent.",

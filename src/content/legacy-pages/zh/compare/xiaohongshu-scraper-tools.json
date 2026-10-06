@@ -1,0 +1,304 @@
+{
+  "metadata": {
+    "title": "小红书数据采集工具怎么选？爬虫、MCP、数据平台、插件对比 | MediaClaw",
+    "description": "Python 爬虫（MediaCrawler 等）、开源小红书 MCP、千瓜/新红/灰豚这类数据平台、浏览器插件，四类小红书数据采集工具各自适合什么人、拿数据的方式和门槛对比。",
+    "keywords": "小红书数据采集工具, 小红书爬虫, 小红书采集工具推荐, 小红书 Python 爬虫, MediaCrawler, 小红书 MCP, 千瓜替代, 灰豚替代, 小红书数据分析工具, 社媒虾"
+  },
+  "page": {
+    "title": "小红书数据采集工具对比",
+    "description": "四类小红书数据采集工具的拿数方式、门槛和适合场景。",
+    "show_sections": [
+      "hero",
+      "compare",
+      "choose",
+      "limits",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "工具对比",
+        "breadcrumbs": [
+          {
+            "title": "首页",
+            "url": "/"
+          },
+          {
+            "title": "工具对比"
+          },
+          {
+            "title": "小红书数据采集工具"
+          }
+        ],
+        "title": "小红书数据采集工具怎么选：Python 爬虫、开源 MCP、数据平台和浏览器插件",
+        "description": "先说结论：要全平台的历史达人库和投放数据，选千瓜、新红、灰豚这类数据平台；会写代码、要在服务器上大规模定时抓取，选 MediaCrawler 等开源爬虫；要让 AI 自动发笔记，选开源 xiaohongshu-mcp；要采集自己看得到的笔记、评论和视频逐字稿，并直接在 Excel、飞书或 AI Agent 里分析，选浏览器插件，比如社媒虾。社媒虾是本站的产品，下面的对比尽量只写各家公开文档里能核实的事实。",
+        "buttons": [
+          {
+            "title": "免费安装社媒虾",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "看小红书采集功能",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database",
+            "variant": "outline"
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "variant": "comparison",
+        "title": "四类工具对比",
+        "description": "信息来自各项目官网或代码仓库的公开说明，整理于 2026 年 10 月。价格和功能会变，以对方官网为准。",
+        "columns": [
+          {
+            "key": "item",
+            "title": ""
+          },
+          {
+            "key": "crawler",
+            "title": "Python 开源爬虫"
+          },
+          {
+            "key": "mcp",
+            "title": "开源小红书 MCP"
+          },
+          {
+            "key": "platform",
+            "title": "第三方数据平台"
+          },
+          {
+            "key": "plugin",
+            "title": "浏览器插件（社媒虾）"
+          }
+        ],
+        "rows": [
+          {
+            "item": "代表",
+            "crawler": "MediaCrawler 等",
+            "mcp": "xiaohongshu-mcp",
+            "platform": "千瓜、新红、灰豚等",
+            "plugin": "社媒虾 MediaClaw"
+          },
+          {
+            "item": "数据从哪来",
+            "crawler": "脚本模拟浏览器访问页面",
+            "mcp": "自带的无头浏览器访问页面",
+            "platform": "平台方预先收录的数据库",
+            "plugin": "你自己 Chrome 里正在看的页面"
+          },
+          {
+            "item": "怎么登录",
+            "crawler": "扫码、Cookie 或手机号，由脚本保存",
+            "mcp": "在它的浏览器里扫码，Cookie 存本地",
+            "platform": "不需要你的小红书账号",
+            "plugin": "用你日常已登录的账号，不交出 Cookie"
+          },
+          {
+            "item": "上手门槛",
+            "crawler": "要装 Python、Playwright 等，会写代码",
+            "mcp": "下载二进制或 Docker，再配置 MCP 客户端",
+            "platform": "注册账号即可，网页查询",
+            "plugin": "装插件即可，不写代码"
+          },
+          {
+            "item": "能拿到什么",
+            "crawler": "笔记、评论、账号等原始数据，可多平台",
+            "mcp": "搜索、笔记详情、评论，另能发布笔记、点赞",
+            "platform": "达人库、历史趋势、品牌与投放分析",
+            "plugin": "笔记、评论、账号、搜索结果，加视频逐字稿与配图文字"
+          },
+          {
+            "item": "导出与后续",
+            "crawler": "CSV、JSON、Excel、数据库",
+            "mcp": "交给 MCP 客户端里的 AI 处理",
+            "platform": "在平台内查看报表和榜单",
+            "plugin": "Excel、CSV、Markdown、飞书，或交给 Codex 等 Agent"
+          },
+          {
+            "item": "费用",
+            "crawler": "开源免费；MediaCrawler 声明仅限学习研究，另有付费 Pro 版",
+            "mcp": "免费开源（Apache-2.0）",
+            "platform": "按订阅收费，具体以官网为准",
+            "plugin": "插件免费；逐字稿等按积分，Agent 接管需会员"
+          }
+        ]
+      },
+      "choose": {
+        "id": "choose",
+        "block": "features",
+        "title": "按你要做的事来选",
+        "description": "大多数人卡住，是因为拿一类工具去做另一类工具擅长的事。",
+        "items": [
+          {
+            "title": "要找达人、看投放和品牌数据",
+            "description": "你需要的是一个已经收录好的大库，而不是自己去采。选千瓜、新红、灰豚这类数据平台。",
+            "icon": "Users",
+            "features": [
+              "按粉丝量、类目筛达人",
+              "看历史趋势和竞品投放",
+              "不需要自己的账号去访问页面"
+            ]
+          },
+          {
+            "title": "要大规模、定时、多平台抓取",
+            "description": "你有开发能力，要在服务器上长期跑任务。选 MediaCrawler 等开源爬虫，注意它们的使用声明。",
+            "icon": "FileCode",
+            "features": [
+              "自己控制并发、代理和存储",
+              "可以覆盖抖音、B 站、微博等更多平台",
+              "需要自己维护登录态和反爬变化"
+            ]
+          },
+          {
+            "title": "要让 AI 自动发笔记、互动",
+            "description": "你的目标是自动化运营账号。选开源 xiaohongshu-mcp，它支持发布图文和视频、评论、点赞。",
+            "icon": "Bot",
+            "features": [
+              "在 Claude Code、Cursor 等 MCP 客户端里调用",
+              "同一账号不能同时在多个网页端登录",
+              "只覆盖小红书"
+            ]
+          },
+          {
+            "title": "要研究具体内容，再拿去写和改",
+            "description": "你想采集自己看得到的笔记、评论和视频逐字稿，马上导出或交给 AI 分析。选浏览器插件，比如社媒虾。",
+            "icon": "Search",
+            "features": [
+              "在笔记页、主页、搜索页一键采集",
+              "视频逐字稿带时间戳，配图文字可提取",
+              "可接 Codex、WorkBuddy、豆包工作"
+            ]
+          }
+        ]
+      },
+      "limits": {
+        "id": "limits",
+        "block": "data-table",
+        "variant": "comparison",
+        "title": "社媒虾不适合的情况",
+        "description": "选错工具比没有工具更浪费时间。下面这些需求，社媒虾不是好的选择。",
+        "columns": [
+          {
+            "key": "need",
+            "title": "你的需求"
+          },
+          {
+            "key": "why",
+            "title": "为什么不适合"
+          },
+          {
+            "key": "instead",
+            "title": "更适合"
+          }
+        ],
+        "rows": [
+          {
+            "need": "查全平台的达人库、历史投放",
+            "why": "社媒虾只采集你访问到的页面，没有预先收录的全平台数据库",
+            "instead": "千瓜、新红、灰豚等数据平台"
+          },
+          {
+            "need": "服务器上 24 小时无人值守抓取",
+            "why": "采集在你自己的浏览器里进行，需要浏览器开着",
+            "instead": "MediaCrawler 等开源爬虫"
+          },
+          {
+            "need": "自动发布笔记、自动点赞评论",
+            "why": "社媒虾只做采集、提取和分析，不发布内容",
+            "instead": "开源 xiaohongshu-mcp"
+          },
+          {
+            "need": "快手、B 站、微博等平台",
+            "why": "目前只支持小红书和抖音",
+            "instead": "MediaCrawler 等多平台爬虫"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "常见问题",
+        "items": [
+          {
+            "question": "有没有好用的小红书 Python 爬虫库？",
+            "answer": "开源项目里 MediaCrawler 覆盖平台最多，支持小红书、抖音、快手、B 站等，需要 Python 环境和 Playwright，数据可存 CSV、JSON、Excel 或数据库。它的仓库声明仅限学习和研究用途，商业使用前要先看清楚。不会写代码的话，用浏览器插件更省事。"
+          },
+          {
+            "question": "有没有千瓜、灰豚更有性价比的选择？",
+            "answer": "先看你用千瓜、灰豚做什么。如果是查达人库和投放数据，这类数据平台之间比较更合适，社媒虾没有全平台数据库。如果你其实是在看具体笔记、评论和对标账号的内容，那用插件直接采你要的那部分，往往更便宜也更灵活。"
+          },
+          {
+            "question": "用采集工具会被封号吗？",
+            "answer": "任何工具都没法保证零风险。降低风险的通用做法是：控制频率，不要短时间大量连续请求；用正常登录的账号；遵守平台规则，不采集或公开他人隐私信息。社媒虾在大批量采集前会先给出分批方案和风险等级。"
+          },
+          {
+            "question": "小红书 MCP 和小红书爬虫有什么区别？",
+            "answer": "MCP 是让 AI Agent 调用工具的接口标准，背后拿数据的方式可以是爬虫，也可以是浏览器插件。开源 xiaohongshu-mcp 用自带浏览器访问并能发布内容；社媒虾的 MCP 通过你自己浏览器里的插件采集，专注采集和分析。"
+          },
+          {
+            "question": "社媒虾能采集哪些小红书数据？",
+            "answer": "笔记正文与互动数据、评论与回复、账号主页作品、搜索结果，还可以提取视频逐字稿和配图文字，导出 Excel、CSV、Markdown 或同步飞书。只能采集你登录后在页面上看得到的内容。"
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 猜你感兴趣",
+        "description": "选好方向，直接看对应功能。",
+        "links": [
+          {
+            "title": "小红书数据采集",
+            "description": "笔记、账号、搜索结果批量采集并导出。",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "小红书评论采集",
+            "description": "评论与回复一键采集，导出 Excel 或同步飞书。",
+            "url": "/xiaohongshu/comments",
+            "icon": "MessageSquareText"
+          },
+          {
+            "title": "小红书 / 抖音 MCP",
+            "description": "让 Codex、WorkBuddy、豆包工作直接拿社媒数据。",
+            "url": "/features/mcp",
+            "icon": "Bot"
+          },
+          {
+            "title": "小红书视频逐字稿",
+            "description": "视频转文字，带时间戳。",
+            "url": "/xiaohongshu/transcript",
+            "icon": "FileText"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "先采一批你要研究的笔记看看",
+        "description": "插件免费安装，不用写代码，采完直接导出或交给 AI 分析。",
+        "buttons": [
+          {
+            "title": "免费安装社媒虾",
+            "icon": "Download",
+            "url": "/download",
+            "variant": "default"
+          },
+          {
+            "title": "看小红书工具总览",
+            "icon": "Layers",
+            "url": "/xiaohongshu",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}

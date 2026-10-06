@@ -232,6 +232,8 @@ export type LegacyPageData = {
 };
 
 type LegacySection = {
+  /** data-table: 'comparison' wraps sentence-length cells. */
+  variant?: string;
   id?: string;
   block?: string;
   label?: string;
@@ -1052,7 +1054,13 @@ function RichText({
   if (!children) return null;
 
   return (
-    <p className={className} dangerouslySetInnerHTML={{ __html: children }} />
+    <p
+      className={cn(
+        '[&_a]:text-foreground [&_a]:decoration-primary/40 hover:[&_a]:decoration-primary [&_a]:underline [&_a]:underline-offset-4',
+        className
+      )}
+      dangerouslySetInnerHTML={{ __html: children }}
+    />
   );
 }
 
@@ -2058,6 +2066,10 @@ function DataTableBlock({ section }: { section: LegacySection }) {
   const columns = normalizeTableColumns(section);
   const rows = section.rows || [];
   const hasPlanComparisonLayout = isPlanComparisonTable(columns);
+  // Opt-in layout for tables whose cells hold sentences rather than short
+  // values: fixed first column, wrapping left-aligned text, card headings on
+  // mobile.
+  const isTextComparison = section.variant === 'comparison';
 
   return (
     <section
@@ -2078,10 +2090,19 @@ function DataTableBlock({ section }: { section: LegacySection }) {
             <table
               className={cn(
                 'min-w-full border-collapse text-sm',
-                hasPlanComparisonLayout && 'table-fixed'
+                (hasPlanComparisonLayout || isTextComparison) && 'table-fixed'
               )}
             >
-              {hasPlanComparisonLayout ? (
+              {isTextComparison ? (
+                <colgroup>
+                  {columns.map((column, index) => (
+                    <col
+                      key={column.key}
+                      style={index === 0 ? { width: '9rem' } : undefined}
+                    />
+                  ))}
+                </colgroup>
+              ) : hasPlanComparisonLayout ? (
                 <colgroup>
                   {columns.map((column) => (
                     <col
@@ -2097,8 +2118,11 @@ function DataTableBlock({ section }: { section: LegacySection }) {
                     <th
                       key={column.key}
                       className={cn(
-                        'text-muted-foreground px-4 py-4 align-middle text-sm font-medium whitespace-nowrap',
-                        column.align === 'center' ? 'text-center' : 'text-left',
+                        'text-muted-foreground px-4 py-4 align-middle text-sm font-medium',
+                        isTextComparison ? 'align-bottom' : 'whitespace-nowrap',
+                        column.align === 'center' && !isTextComparison
+                          ? 'text-center'
+                          : 'text-left',
                         column.highlight && 'bg-primary/5 text-foreground'
                       )}
                     >
@@ -2156,13 +2180,15 @@ function DataTableBlock({ section }: { section: LegacySection }) {
                           key={column.key}
                           className={cn(
                             'px-4 py-5',
-                            columnIndex === 0 || column.key === 'note'
-                              ? 'text-balance'
-                              : 'whitespace-nowrap',
+                            isTextComparison
+                              ? 'align-top leading-relaxed'
+                              : columnIndex === 0 || column.key === 'note'
+                                ? 'text-balance'
+                                : 'whitespace-nowrap',
                             columnIndex === 0
                               ? 'text-foreground font-medium'
                               : 'text-muted-foreground',
-                            column.align === 'center'
+                            column.align === 'center' && !isTextComparison
                               ? 'text-center'
                               : 'text-left',
                             column.highlight && 'bg-primary/5 text-foreground'
@@ -2220,23 +2246,35 @@ function DataTableBlock({ section }: { section: LegacySection }) {
                   className="space-y-3 px-1 py-5"
                   data-mobile-data-row
                 >
-                  {columns.map((column, columnIndex) => (
-                    <div
-                      key={`${rowIndex}-${column.key}`}
-                      className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 text-sm"
-                    >
-                      <span className="text-muted-foreground">
-                        {column.title}
-                      </span>
-                      <span className="text-foreground font-medium">
-                        {columnIndex === 0 ? (
-                          row[column.key] || '-'
-                        ) : (
-                          <DataTableCellValue value={row[column.key]} />
-                        )}
-                      </span>
-                    </div>
-                  ))}
+                  {isTextComparison && columns[0] ? (
+                    <p className="text-foreground text-sm font-semibold">
+                      {row[columns[0].key] || '-'}
+                    </p>
+                  ) : null}
+                  {(isTextComparison ? columns.slice(1) : columns).map(
+                    (column, mappedIndex) => {
+                      const columnIndex = isTextComparison
+                        ? mappedIndex + 1
+                        : mappedIndex;
+                      return (
+                        <div
+                          key={`${rowIndex}-${column.key}`}
+                          className="grid grid-cols-[7rem_minmax(0,1fr)] gap-3 text-sm"
+                        >
+                          <span className="text-muted-foreground">
+                            {column.title}
+                          </span>
+                          <span className="text-foreground font-medium">
+                            {columnIndex === 0 ? (
+                              row[column.key] || '-'
+                            ) : (
+                              <DataTableCellValue value={row[column.key]} />
+                            )}
+                          </span>
+                        </div>
+                      );
+                    }
+                  )}
                 </article>
               )
             )}

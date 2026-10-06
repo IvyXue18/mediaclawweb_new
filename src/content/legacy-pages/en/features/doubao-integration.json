@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "title": "RedNote & Douyin MCP Server for Doubao for Work - Connector + Skill",
+    "title": "Doubao for Work + RedNote & Douyin: Connector & Skill | MediaClaw",
     "description": "Give Doubao for Work a RedNote (Xiaohongshu) and Douyin MCP server plus a research skill: save one local STDIO connector, then 40+ tools collect posts, videos and comments and 12 methods turn them into drafts.",
-    "keywords": "RedNote MCP, Xiaohongshu MCP, Douyin MCP, MCP server, Doubao MCP, Doubao for Work connector, STDIO connector, social data in Doubao, RedNote scraper, MediaClaw"
+    "keywords": "Doubao for Work RedNote, Doubao Xiaohongshu, Doubao MCP, Doubao for Work connector, STDIO connector, social data in Doubao, MediaClaw"
   },
   "page": {
     "title": "Doubao for Work Integration",
@@ -37,7 +37,7 @@
           }
         ],
         "title": "Bring RedNote & Douyin data into Doubao for Work: one connector, one research skill",
-        "description": "MediaClaw gives Doubao for Work two things: a RedNote (Xiaohongshu) and Douyin MCP server whose 40+ tools collect posts, videos, comments and account data and dedupe them into structured results, and a content research skill whose 12 written methods handle teardowns, topic picks and drafting. The only difference from Codex and WorkBuddy is the install: Doubao for Work needs you to save a local STDIO connector by hand under Skills · Connectors · Partners, and the agent itself prepares every field you have to fill in. After that, describe the goal in plain language.",
+        "description": "MediaClaw gives Doubao for Work two things: a <a href=\"/en/features/mcp\">RedNote (Xiaohongshu) and Douyin MCP server</a> whose 40+ tools collect posts, videos, comments and account data and dedupe them into structured results, and a content research skill whose 12 written methods handle teardowns, topic picks and drafting. The only difference from Codex and WorkBuddy is the install: Doubao for Work needs you to save a local STDIO connector by hand under Skills · Connectors · Partners, and the agent itself prepares every field you have to fill in. After that, describe the goal in plain language.",
         "buttons": [
           {
             "title": "Install free extension",
@@ -383,6 +383,12 @@
         "title": "🤔 You might also like",
         "description": "From connecting the agent to actually using the data.",
         "links": [
+          {
+            "title": "What the RedNote & Douyin MCP is",
+            "description": "The MCP server all three hosts share: its tools, and how it compares with open-source options and scrapers.",
+            "url": "/features/mcp",
+            "icon": "Layers"
+          },
           {
             "title": "What the agent is and who does what",
             "description": "The three-way split, its fixed working order, and how tokens are spent.",

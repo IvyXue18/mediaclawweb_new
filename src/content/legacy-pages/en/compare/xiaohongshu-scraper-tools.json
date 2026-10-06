@@ -1,0 +1,304 @@
+{
+  "metadata": {
+    "title": "Best RedNote (Xiaohongshu) Scraper Tools Compared | MediaClaw",
+    "description": "Python scrapers like MediaCrawler, open-source RedNote MCP, data platforms like Qiangua, and browser extensions: how each gets Xiaohongshu data and who it fits.",
+    "keywords": "RedNote scraper, Xiaohongshu scraper, best Python library scrape Xiaohongshu, MediaCrawler, Xiaohongshu MCP, RedNote data tools, Qiangua alternative, MediaClaw"
+  },
+  "page": {
+    "title": "RedNote Scraper Tools Compared",
+    "description": "How four kinds of RedNote (Xiaohongshu) data tools collect data, what they require, and who they fit.",
+    "show_sections": [
+      "hero",
+      "compare",
+      "choose",
+      "limits",
+      "faq",
+      "related",
+      "cta"
+    ],
+    "sections": {
+      "hero": {
+        "id": "hero",
+        "block": "page-hero",
+        "label": "Comparison",
+        "breadcrumbs": [
+          {
+            "title": "Home",
+            "url": "/"
+          },
+          {
+            "title": "Comparisons"
+          },
+          {
+            "title": "RedNote scraper tools"
+          }
+        ],
+        "title": "Choosing a RedNote (Xiaohongshu) scraper: Python libraries, open-source MCP, data platforms or a browser extension",
+        "description": "The short answer: for a platform-wide creator database and campaign history, use a data platform such as Qiangua, Xinhong or Huitun. If you code and need large scheduled crawls on a server, use an open-source scraper such as MediaCrawler. To have AI publish posts for you, use the open-source xiaohongshu-mcp. To collect the posts, comments and video transcripts you can see, then analyze them in Excel, Lark or an AI agent, use a browser extension such as MediaClaw. MediaClaw is our product, so this comparison sticks to facts each project documents publicly.",
+        "buttons": [
+          {
+            "title": "Install MediaClaw free",
+            "url": "/download",
+            "icon": "Download"
+          },
+          {
+            "title": "See the RedNote scraper",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database",
+            "variant": "outline"
+          }
+        ]
+      },
+      "compare": {
+        "id": "compare",
+        "block": "data-table",
+        "variant": "comparison",
+        "title": "Four kinds of tools compared",
+        "description": "Based on each project's website or repository, compiled October 2026. Prices and features change; check each official site.",
+        "columns": [
+          {
+            "key": "item",
+            "title": ""
+          },
+          {
+            "key": "crawler",
+            "title": "Open-source Python scraper"
+          },
+          {
+            "key": "mcp",
+            "title": "Open-source RedNote MCP"
+          },
+          {
+            "key": "platform",
+            "title": "Third-party data platform"
+          },
+          {
+            "key": "plugin",
+            "title": "Browser extension (MediaClaw)"
+          }
+        ],
+        "rows": [
+          {
+            "item": "Examples",
+            "crawler": "MediaCrawler and similar",
+            "mcp": "xiaohongshu-mcp",
+            "platform": "Qiangua, Xinhong, Huitun",
+            "plugin": "MediaClaw"
+          },
+          {
+            "item": "Where data comes from",
+            "crawler": "A script drives a browser through pages",
+            "mcp": "Its own headless browser visits pages",
+            "platform": "A database the vendor has already indexed",
+            "plugin": "The pages open in your own Chrome"
+          },
+          {
+            "item": "Login",
+            "crawler": "QR code, cookie or phone, saved by the script",
+            "mcp": "Scan a QR code in its browser; cookies stored locally",
+            "platform": "No RedNote account needed",
+            "plugin": "Your everyday logged-in account; cookies never handed over"
+          },
+          {
+            "item": "Setup",
+            "crawler": "Python, Playwright and other dependencies; coding required",
+            "mcp": "Binary or Docker, then configure an MCP client",
+            "platform": "Sign up and query on the web",
+            "plugin": "Install the extension; no code"
+          },
+          {
+            "item": "What you get",
+            "crawler": "Raw posts, comments and profiles, across platforms",
+            "mcp": "Search, post details and comments, plus publishing and likes",
+            "platform": "Creator databases, historical trends, brand and campaign analysis",
+            "plugin": "Posts, comments, profiles and search results, plus video transcripts and image text"
+          },
+          {
+            "item": "Output",
+            "crawler": "CSV, JSON, Excel, databases",
+            "mcp": "Handed to the AI in your MCP client",
+            "platform": "Reports and rankings inside the platform",
+            "plugin": "Excel, CSV, Markdown, Lark, or an agent such as Codex"
+          },
+          {
+            "item": "Cost",
+            "crawler": "Free; MediaCrawler states learning and research use only, with a paid Pro edition",
+            "mcp": "Free and open source (Apache-2.0)",
+            "platform": "Subscription; see each official site",
+            "plugin": "Free extension; transcripts use credits, agent access needs a membership"
+          }
+        ]
+      },
+      "choose": {
+        "id": "choose",
+        "block": "features",
+        "title": "Choose by the job you need done",
+        "description": "Most people get stuck using one kind of tool for a job another kind does better.",
+        "items": [
+          {
+            "title": "Find creators, check campaigns and brand data",
+            "description": "You need a database someone already built, not your own collection. Use a data platform such as Qiangua, Xinhong or Huitun.",
+            "icon": "Users",
+            "features": [
+              "Filter creators by followers and category",
+              "See historical trends and competitor campaigns",
+              "No account of your own visiting pages"
+            ]
+          },
+          {
+            "title": "Large, scheduled, multi-platform crawls",
+            "description": "You can code and want jobs running on a server. Use an open-source scraper such as MediaCrawler, and read its usage terms.",
+            "icon": "FileCode",
+            "features": [
+              "Control concurrency, proxies and storage yourself",
+              "Covers Douyin, Bilibili, Weibo and more",
+              "You maintain login state and anti-bot changes"
+            ]
+          },
+          {
+            "title": "Let AI publish and interact",
+            "description": "Your goal is automated account operations. Use the open-source xiaohongshu-mcp, which publishes image and video posts, comments and likes.",
+            "icon": "Bot",
+            "features": [
+              "Runs from MCP clients such as Claude Code and Cursor",
+              "One account cannot stay logged in on multiple web sessions",
+              "RedNote only"
+            ]
+          },
+          {
+            "title": "Research specific content, then write from it",
+            "description": "You want the posts, comments and video transcripts you can see, exported or analyzed by AI right away. Use a browser extension such as MediaClaw.",
+            "icon": "Search",
+            "features": [
+              "One click on post, profile and search pages",
+              "Timestamped video transcripts and image text",
+              "Works with Codex, WorkBuddy and Doubao for Work"
+            ]
+          }
+        ]
+      },
+      "limits": {
+        "id": "limits",
+        "block": "data-table",
+        "variant": "comparison",
+        "title": "When MediaClaw is the wrong choice",
+        "description": "Picking the wrong tool wastes more time than having none. MediaClaw is not a good fit for these needs.",
+        "columns": [
+          {
+            "key": "need",
+            "title": "Your need"
+          },
+          {
+            "key": "why",
+            "title": "Why it doesn't fit"
+          },
+          {
+            "key": "instead",
+            "title": "Better fit"
+          }
+        ],
+        "rows": [
+          {
+            "need": "Platform-wide creator database and campaign history",
+            "why": "MediaClaw only collects pages you visit; there is no pre-indexed database",
+            "instead": "Qiangua, Xinhong, Huitun and similar"
+          },
+          {
+            "need": "Unattended 24/7 crawling on a server",
+            "why": "Collection runs in your own browser, which has to stay open",
+            "instead": "MediaCrawler and other open-source scrapers"
+          },
+          {
+            "need": "Auto-publishing posts, likes and comments",
+            "why": "MediaClaw collects, extracts and analyzes; it does not publish",
+            "instead": "Open-source xiaohongshu-mcp"
+          },
+          {
+            "need": "Kuaishou, Bilibili, Weibo and other platforms",
+            "why": "Only RedNote and Douyin are supported today",
+            "instead": "Multi-platform scrapers such as MediaCrawler"
+          }
+        ]
+      },
+      "faq": {
+        "id": "faq",
+        "block": "faq",
+        "title": "FAQ",
+        "items": [
+          {
+            "question": "What is the best Python library to scrape Xiaohongshu?",
+            "answer": "Among open-source projects, MediaCrawler covers the most platforms, including RedNote, Douyin, Kuaishou and Bilibili. It needs Python and Playwright and saves to CSV, JSON, Excel or a database. Its repository states learning and research use only, so check the terms before commercial use. If you don't code, a browser extension is simpler."
+          },
+          {
+            "question": "Is there a cheaper alternative to Qiangua or Huitun?",
+            "answer": "It depends on what you use them for. For creator databases and campaign data, compare data platforms with each other; MediaClaw has no platform-wide database. If you mostly read specific posts, comments and benchmark accounts, collecting just that with an extension is often cheaper and more flexible."
+          },
+          {
+            "question": "Will a scraper get my account banned?",
+            "answer": "No tool can guarantee zero risk. The usual precautions: keep request rates low, avoid long bursts, use a normally logged-in account, follow platform rules, and don't collect or publish personal information. MediaClaw shows a batch plan and risk level before large jobs."
+          },
+          {
+            "question": "What is the difference between a RedNote MCP and a RedNote scraper?",
+            "answer": "MCP is a standard that lets AI agents call tools; the data behind it can come from a scraper or a browser extension. The open-source xiaohongshu-mcp visits pages with its own browser and can publish. The MediaClaw MCP server collects through the extension in your own browser and focuses on collection and analysis."
+          },
+          {
+            "question": "What RedNote data can MediaClaw collect?",
+            "answer": "Post text and engagement metrics, comments and replies, profile posts and search results, plus video transcripts and image text. Export to Excel, CSV or Markdown, or sync to Lark. It only collects what you can see on the page while logged in."
+          }
+        ]
+      },
+      "related": {
+        "id": "related",
+        "block": "related-links",
+        "title": "🤔 You may also like",
+        "description": "Pick a direction and jump to the feature.",
+        "links": [
+          {
+            "title": "RedNote scraper",
+            "description": "Batch-collect posts, profiles and search results and export them.",
+            "url": "/xiaohongshu/scraper",
+            "icon": "Database"
+          },
+          {
+            "title": "RedNote comment scraper",
+            "description": "Collect comments and replies, export to Excel or Lark.",
+            "url": "/xiaohongshu/comments",
+            "icon": "MessageSquareText"
+          },
+          {
+            "title": "RedNote & Douyin MCP",
+            "description": "Give Codex, WorkBuddy and Doubao for Work social data.",
+            "url": "/features/mcp",
+            "icon": "Bot"
+          },
+          {
+            "title": "RedNote video transcript",
+            "description": "Video to text with timestamps.",
+            "url": "/xiaohongshu/transcript",
+            "icon": "FileText"
+          }
+        ]
+      },
+      "cta": {
+        "id": "cta",
+        "title": "Collect a batch of the posts you want to study",
+        "description": "Free extension, no code. Export right away or hand it to AI.",
+        "buttons": [
+          {
+            "title": "Install MediaClaw free",
+            "icon": "Download",
+            "url": "/download",
+            "variant": "default"
+          },
+          {
+            "title": "See all RedNote tools",
+            "icon": "Layers",
+            "url": "/xiaohongshu",
+            "variant": "outline"
+          }
+        ],
+        "className": "bg-secondary/20"
+      }
+    }
+  }
+}
