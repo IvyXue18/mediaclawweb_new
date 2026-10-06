@@ -14,7 +14,7 @@ export const meta = {
 | **输出形式** | 完整逐字稿 + 带时间戳的分句节奏稿          | 一整段平铺文字，没有时间戳                                     |
 | **批量**     | 数据池工具栏一键批量，一次 2～20 条        | 链接进表格后整列逐条自动转                                     |
 | **计费**     | 按视频时长扣插件积分                       | 用自己的 key，不消耗插件积分（服务商目前每月赠送 10 小时额度） |
-| **稳定性**   | 在插件内排队执行                           | 第三方字段有并发限制，高峰期容易报错，需要换时段重试           |
+| **稳定性**   | 在插件内排队执行                           | 依赖链接能被百炼访问和自己的百炼额度，个别失败需手动重试       |
 | **前置条件** | 采集到作品详情即可                         | 需先配好飞书模板、同步数据，并填自己的 key                     |
 
 <Callout type="tip">
@@ -91,16 +91,16 @@ export const meta = {
 
 逐字稿来自语音识别，遇到人名、品牌名、方言、背景音乐或多人重叠说话时，仍建议结合原视频人工校对。
 
-## 方法二：用飞书模板的「视频文案提取」字段
+## 方法二：用飞书模板的「视频逐字稿提取」字段
 
-这条路适合一次要处理一大批视频、并且能不嫌麻烦，自己配置key的用户。语音识别不在插件里跑，而是由飞书多维表格的第三方字段捷径对接阿里云百炼完成：把视频的原始文件链接同步进表格后，字段会对整列逐条转写。
+这条路适合一次要处理一大批视频、并且能不嫌麻烦，自己配置key的用户。语音识别不在插件里跑，而是由飞书多维表格的第三方字段捷径「音频视频转文案｜影子」对接阿里云百炼完成：把视频的原始文件链接同步进表格后，字段会对整列逐条转写。
 
 <DocImage
-  src="https://media.mediaclaw.app/blog-covers/23959730eb58ef0d6a1ee53bd0271338.png"
-  caption="模板里的「视频转文字」用的是飞书字段捷径『音频视频转文字』，识别由阿里云百炼完成，该模型目前每月赠送 10 小时免费额度"
-  captionEn="The template's video-to-text field is a Feishu field shortcut backed by Alibaba Cloud Bailian, with a free monthly quota from the provider"
-  width={1447}
-  height={960}
+  src="/imgs/docs/settings/feishu-template/20-影子音频视频转文案字段捷径.webp"
+  caption="模板里的「视频逐字稿提取」用的是飞书字段捷径『音频视频转文案｜影子』，识别由阿里云百炼 Paraformer 完成，用自己的百炼 Key，该模型目前每月赠送 10 小时免费额度"
+  captionEn="The template's transcript field uses the Feishu field shortcut “Audio/video to transcript | Yingzi”, backed by Alibaba Cloud Bailian Paraformer with your own key and a free monthly quota from the provider"
+  width={2000}
+  height={1274}
 />
 
 ### 操作步骤
@@ -120,14 +120,20 @@ export const meta = {
 
 ### 转不出来时怎么办
 
-这个字段捷径使用人数较多、有并发限制，多条同时提取时容易出错。遇到报错，点单元格右侧的重试按钮，或者换个时段再跑，一般刷新一下就能出来。
+先按字段捷径的注意事项排查：
+
+- **链接要能被阿里云百炼访问**：字段读的是视频的原始文件链接，不是平台分享页；链接过期或打不开就会失败。
+- **检查百炼账号额度**：调用费用由你自己的百炼账号承担，免费额度用完或欠费也会报错。
+- **长视频要多等一会儿**：时长越长，转写耗时越长，不是卡住了。
+
+个别单元格报错时，点单元格右侧的重试按钮，或者换个时段再跑。
 
 <DocImageGrid
   images={[
     {
       src: 'https://media.mediaclaw.app/docs/settings/faq/20.webp',
-      caption: '出现并发错误时查看具体单元格',
-      captionEn: 'Check the specific cell when a concurrency error appears',
+      caption: '出现报错时查看具体单元格',
+      captionEn: 'Check the specific cell when an error appears',
       width: 1486,
       height: 400,
     },

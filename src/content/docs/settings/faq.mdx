@@ -261,14 +261,21 @@ export const meta = {
 
 ## 3.1 视频脚本提取不出来
 
-本字段使用人数较多，有并发限制，所以同时提取的时候会出错。如果出现报错，点到具体单元格右边重试按钮，换时段重试几个，一般刷新或者换个时间就可以。
+模板的「视频逐字稿提取」用的是字段捷径「音频视频转文案｜影子」，先按这几项排查：
+
+- 视频链接需要能被阿里云百炼正常访问（原始文件链接，不是分享页，且未过期）；
+- 字段里关联的阿里百炼 API Key 正确，账号额度没用完、没有欠费；
+- 字段只支持文本或超链接字段里的链接，不支持飞书附件；
+- 视频越长转写越慢，稍等一会儿再看。
+
+个别单元格报错时，点到具体单元格右边的重试按钮，或换个时段重试。配置方法见[飞书模板：视频转文字](/docs/settings/feishu-template#视频转文字)。
 
 <DocImageGrid
   images={[
     {
       src: 'https://media.mediaclaw.app/docs/settings/faq/20.webp',
-      caption: '出现并发错误时查看具体单元格',
-      captionEn: 'Check the specific cell when a concurrency error appears',
+      caption: '出现报错时查看具体单元格',
+      captionEn: 'Check the specific cell when an error appears',
       width: 1486,
       height: 400,
     },

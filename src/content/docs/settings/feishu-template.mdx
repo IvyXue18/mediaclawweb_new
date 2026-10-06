@@ -203,7 +203,7 @@ export const meta = {
 | 字段能力   | 用来做什么                   | 谁提供的能力                                                     | 免费额度                                | 参数从哪拿                       |
 | ---------- | ---------------------------- | ---------------------------------------------------------------- | --------------------------------------- | -------------------------------- |
 | 链接转附件 | 把图片链接转成附件，方便查看 | 第三方字段捷径（[Field Shortcut](https://fieldshortcut.com/zh)） | （一次性） 500 次免费额度               | 字段捷径服务商官网充值后获取 key |
-| 视频转文字 | 提取视频口播内容             | 阿里云百炼（Paraformer 语音识别）                                | （每月） 10 小时免费额度，每月 1 日发放 | 阿里云百炼控制台 API Key         |
+| 视频转文字 | 提取视频口播内容             | 字段捷径「音频视频转文案｜影子」+ 阿里云百炼（Paraformer）       | （每月） 10 小时免费额度，每月 1 日发放 | 阿里云百炼控制台 API Key         |
 | 文本生成   | 脚本分析、评论分析、二创改写 | 火山引擎豆包（Doubao-Seed-2.0-pro）                              | （一次性）每个模型赠送 50 万 Token      | 火山方舟 API_KEY + 接入点 ID     |
 
 <DocVideo
@@ -260,7 +260,16 @@ export const meta = {
   size="lg"
 />
 
-模板里的「视频文案提取 / 视频逐字稿提取」用的是飞书字段捷径 **音频视频转文字**，识别由 **阿里云百炼** 的 Paraformer 完成，目前该模型识别每月赠送 10 小时免费额度。
+模板里的「视频逐字稿提取」用的是飞书字段捷径 **音频视频转文案｜影子**，识别由 **阿里云百炼** 的 Paraformer 完成。字段关联的是你自己的百炼 API Key，消耗的也是你自己账号的额度，目前该模型每月赠送 10 小时免费额度。
+
+<DocImage
+  src="/imgs/docs/settings/feishu-template/20-影子音频视频转文案字段捷径.webp"
+  caption="字段捷径「音频视频转文案｜影子」：支持文本、超链接字段里的音视频链接，不支持飞书附件"
+  captionEn="The “Audio/video to transcript | Yingzi” field shortcut: reads audio/video links from text or hyperlink fields; Feishu attachments are not supported"
+  width={2000}
+  height={1274}
+  size="full"
+/>
 
 <DocImage
   src="/imgs/docs/settings/feishu-template/20-阿里云百炼语音识别免费额度.webp"
@@ -319,9 +328,10 @@ export const meta = {
 
 **第 2 步 · 把 Key 填进模板字段**
 
-1. 在飞书模板里右键「视频文案提取」列 → **修改字段/列**。
-2. 字段类型确认是 **音频视频转文字**，音视频链接选 **视频链接** 字段。
-3. 打开 **关联账号**，点 **+ 关联账号**，填入刚复制的阿里云百炼 API Key。
+1. 在飞书模板里右键「视频逐字稿提取」列 → **修改字段/列**。
+2. 字段类型确认是 **字段捷径 → 音频视频转文案｜影子**；如果你的模板还是旧字段，在字段捷径里搜「影子」换成这个。
+3. **音视频链接** 选 **视频链接** 字段（只能选文本或超链接字段，不支持附件）。
+4. 打开 **关联账号**，点 **+ 关联账号**，填入刚复制的阿里云百炼 API Key，保存字段配置后等待逐字稿生成。
 
 <DocImage
   src="/imgs/docs/settings/feishu-template/22-视频逐字稿字段修改字段列.webp"
@@ -335,20 +345,22 @@ export const meta = {
 <DocImageGrid
   images={[
     {
-      src: '/imgs/docs/settings/feishu-template/22-字段类型音视频转文字关联账号.webp',
-      caption: '音视频链接选「视频链接」，点「+ 关联账号」',
+      src: '/imgs/docs/settings/feishu-template/22-字段捷径影子音频视频转文案配置.webp',
+      caption:
+        '字段类型选「音频视频转文案｜影子」，音视频链接选「视频链接」，打开「关联账号」',
       captionEn:
-        'Field type “Audio/video to text”, source set to the Video link field, then “+ Link account”',
-      width: 882,
-      height: 970,
+        'Field type “Audio/video to transcript | Yingzi”, source set to the Video link field, then turn on “Link account”',
+      width: 860,
+      height: 788,
     },
     {
-      src: '/imgs/docs/settings/feishu-template/21-填写阿里百炼APIkey.webp',
-      caption: '填入第一步获取的阿里云百炼 API Key，',
+      src: '/imgs/docs/settings/feishu-template/22-影子字段关联百炼APIkey.webp',
+      caption:
+        '在「通过 API key 关联账号」弹窗里填入第一步获取的阿里云百炼 API Key',
       captionEn:
-        'In the “Link account via API key” dialog, paste the Alibaba Bailian API Key and click “Link account”',
-      width: 1174,
-      height: 800,
+        'In the “Link account via API key” dialog, paste the Alibaba Bailian API Key from step 1 and click “Link account”',
+      width: 1164,
+      height: 710,
     },
   ]}
 />

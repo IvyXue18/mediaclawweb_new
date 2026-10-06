@@ -95,7 +95,7 @@
             "description": "To process a batch instead of one at a time, sync the records to a Feishu base and use the audio/video-to-text field shortcut with Alibaba Bailian. Drop the raw links into the table and it extracts row by row, with 10 free hours a month, about 300 clips at two minutes each.",
             "icon": "Table2",
             "image": {
-              "src": "https://media.mediaclaw.app/blog-covers/23959730eb58ef0d6a1ee53bd0271338.png",
+              "src": "/imgs/docs/settings/feishu-template/20-影子音频视频转文案字段捷径.webp",
               "alt": "Feishu base audio/video-to-text field shortcut batch-extracting Xiaohongshu video transcripts"
             },
             "button": {
